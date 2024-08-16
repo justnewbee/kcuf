@@ -1,0 +1,279 @@
+@import "_mixin";
+
+// button and inputs are all form controls, they share same sizing system, thus they're defined in one file
+@fs_xl: floor((@G_font_size_component * 1.467));// ~22px
+@fs_l: ceil((@G_font_size_component * 1.133));// ~17px
+@fs: @G_font_size_component;// 15px
+@fs_s: floor((@G_font_size_component * 0.867));// ~13px
+@fs_xs: ceil((@G_font_size_component * 0.8));// ~12px
+
+// using number as line-height is preferred cause length and percentage line-heights have poor inheritance behavior
+// https://developer.mozilla.org/en-US/docs/Web/CSS/line-height
+@lh_xl: 1.227;// ~22px * 1.227 =  ~27px
+@lh_l: 1.471;// ~17px * 1.471 = ~25px
+@lh: 1.4;// 15px * 1.4 = ~21px
+@lh_s: 1.385;// ~13px * 1.385 = ~18px
+@lh_xs: 1.083;// ~13px
+
+@pdv_xl: 13px;
+@pdv_l: 10px;
+@pdv: 10px;
+@pdv_s: 9px;
+@pdv_xs: 6px;
+
+@pdh_xl: 20px;
+@pdh_l: 19px;
+@pdh: 15px;
+@pdh_s: 13px;
+@pdh_xs: 9px;
+
+@br_xl: @G_border_radius_l;
+@br_l: @G_border_radius_l;
+@br: @G_border_radius;
+@br_s: @G_border_radius_s;
+@br_xs: @G_border_radius_s;
+
+.form-ctrl-size(@fs; @lh; @pd_v; @pd_h; @br) {
+	font-size: @fs;
+	line-height: @lh;
+	padding: @pd_v @pd_h;
+	.border-radius(@br);
+}
+
+.nb-btn {
+	// utils for button
+	.button-colors(@bgc; @c: #FFF) {
+		@bgc-h: mix(@bgc, #FFF, 80%);
+		@bgc-a: mix(@bgc, #000, 90%);
+		
+		color: @c;
+		background-color: @bgc;
+		
+		&:hover, &.status-hover,
+		&:focus, &.status-focus,
+		&:active, &.status-active {
+			color: @c;
+			background-color: @bgc-h;
+			border-color: @bgc-h;
+		}
+		&:active, &.status-active {
+			background: @bgc-a;
+			border-color: @bgc-a;
+		}
+	}
+	.button-size(@fs; @lh; @pd_v; @pd_h; @br) {
+		.form-ctrl-size(@fs; @lh; @pd_v; @pd_h; @br);
+		min-width: @fs * 6;
+	}
+	
+	// common
+	border: none;
+	font-weight: @G_font_weight_normal;
+	line-height: @lh;
+	-webkit-font-smoothing: subpixel-antialiased;
+	transition: border .25s linear, color .25s linear, background-color .25s linear;
+	cursor: pointer;
+	outline: none;// we have focus style, sot remove it is ok
+	box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+	display: inline-block;
+	
+	&.status-active,
+	&:active {
+		box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.15);
+	}
+	
+	// types and statuses
+	.button-colors(@G_color_gray_light);
+	&.type-primary {
+		.button-colors(@G_color_primary);
+	}
+	&.type-secondary {
+		.button-colors(@G_color_secondary; #666);
+	}
+	&.type-info {
+		.button-colors(@G_color_info);
+	}
+	&.type-warning {
+		.button-colors(@G_color_warning);
+	}
+	&.type-danger {
+		.button-colors(@G_color_danger);
+	}
+	&.type-success {
+		.button-colors(@G_color_success);
+	}
+	&.type-inverse {
+		.button-colors(@G_color_inverse);
+	}
+	
+	&[disabled],
+	&.status-disabled {
+		&,
+		&:hover, &.status-hover,
+		&:focus, &.status-focus,
+		&:active, &.status-active {
+			background-color: #EEE;
+			border-color: #EEE;
+			color: #AAA;
+			cursor: not-allowed;
+			box-shadow: none;
+			.opacity(.7);
+		}
+	}
+	
+	// sizes
+	.button-size(@fs, @lh, @pdv, @pdh, @br);
+	&.size-xl {
+		.button-size(@fs_xl, @lh_xl, @pdv_xl, @pdh_xl, @br_xl);
+	}
+	&.size-l {
+		.button-size(@fs_l, @lh_l, @pdv_l, @pdh_l, @br_l);
+	}
+	&.size-s {
+		.button-size(@fs_s, @lh_s, @pdv_s, @pdh_s, @br);
+	}
+	&.size-xs {
+		.button-size(@fs_xs, @lh_xs, @pdv_xs, @pdh_xs, @br_xs);
+	}
+	
+	// other alternatives
+	&.alt-flat {
+		box-shadow: none;
+		
+		&:active,
+		&.status-active {
+			box-shadow: none;
+		}
+	}
+	&.alt-link {// not well defined
+		&:hover, &.status-hover,
+		&:focus, &.status-focus {
+			color: @G_color_link_h;
+			text-decoration: underline;
+			background-color: transparent;
+			box-shadow: none;
+		}
+		&[disabled], &.status-disabled,
+		fieldset[disabled] &, fieldset.status-disabled & {
+			&:hover,
+			&:focus {
+				color: @G_color_gray_light;
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+// Common form controls
+//
+// Shared size and type resets for form controls. Apply `.nb-form-ctrl` to any of the following form controls:
+//
+// select
+// textarea
+// input[type="text"]
+// input[type="password"]
+// input[type="datetime"]
+// input[type="datetime-local"]
+// input[type="date"]
+// input[type="month"]
+// input[type="time"]
+// input[type="week"]
+// input[type="number"]
+// input[type="email"]
+// input[type="url"]
+// input[type="search"]
+// input[type="tel"]
+// input[type="color"]
+// div[contenteditable]
+.nb-form-ctrl {
+	@bg: #FFF;
+	@bg-disabled: mix(@G_color_gray, white, 10%);
+	@br: @G_border_radius_l;
+	
+	.input-size(@fs; @lh; @pd_v; @pd_h; @br) {
+		@h-min: @pd_v * 2 + @fs * @lh + 4px;// padding top/bottom + absolute line-height + 2x border width
+		
+		.form-ctrl-size(@fs; @lh; @pd_v; @pd_h; @br);
+		min-height: @h-min;
+		
+		select& {
+			height: @h-min;
+			line-height: @h-min;
+			vertical-align: baseline;
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+		
+		textarea&,
+		select[multiple] & {
+			height: auto;
+			min-height: @h-min;
+		}
+	}
+	
+	.input-colors(@c: @G_color_primary; @bdc: @G_color_gray_light) {
+		color: @c;
+		border-color: mix(@bdc, #FFF, 50%);
+		box-shadow: none;
+		
+		&:focus {
+			border-color: @bdc;
+			box-shadow: none;
+		}
+	}
+	
+	border: 2px solid @G_color_gray_light;
+	box-shadow: none;
+	.box-sizing();
+	.input-colors();
+	transition: border .15s linear, color .15s linear, background-color .15s linear;
+	&:focus {
+		border-color: @G_color_secondary;// override .input-colors mixin
+		outline: 0;
+		box-shadow: none;
+	}
+	
+	// statuses
+	&.status-warning {
+		.input-colors(@G_color_warning; @G_color_warning);
+	}
+	&.status-success {
+		.input-colors(@G_color_success; @G_color_success);
+	}
+	&.status-error {
+		.input-colors(@G_color_danger; @G_color_danger);
+	}
+	// Disabled and read-only inputs
+	// Note: HTML5 says that controls under a fieldset > legend:first-child won't
+	// be disabled if the fieldset is disabled. Due to implementation difficulty,
+	// we don't honor that edge case; we style them as disabled anyway.
+	&[disabled], &.status-disabled, 
+	&[readonly], &.status-readonly,
+	fieldset[disabled] &, fieldset.status-disabled & {
+		background-color: @bg-disabled;
+		border-color: mix(@G_color_gray, #FFF, 40%);
+		color: mix(@G_color_gray, #FFF, 75%);
+		cursor: default;
+		.opacity(.7);
+	}
+	
+	// sizes
+	.input-size(@fs, @lh, @pdv - 1px, @pdh - 1px, @br);
+	&.size-xl {
+		.input-size(@fs_xl, @lh_xl, @pdv_xl - 1px, @pdh_xl - 1px, @br_xl);
+	}
+	&.size-l {
+		.input-size(@fs_l, @lh_l, @pdv_l - 1px, @pdh_l - 1px, @br_l);
+	}
+	&.size-s {
+		.input-size(@fs_s, @lh_s, @pdv_s - 1px, @pdh_s - 1px, @br);
+	}
+	&.size-xs {
+		.input-size(@fs_xs, @lh_xs, @pdv_xs - 1px, @pdh_xs - 1px, @br_xs);
+	}
+	
+	// Flat (without border)
+	&.alt-flat {
+		border-color: transparent;
+	}
+}

@@ -1,0 +1,229 @@
+@import "_mixin";
+
+//
+// Typography
+// --------------------------------------------------
+
+// Headings
+// -------------------------
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+	font-weight: @G_font_weight_semibold;
+	line-height: 1.1;
+	
+	small {
+		color: mix(@G_color_primary, #FFF, 12%);
+	}
+}
+
+h1, h2, h3 {
+	margin-top: @G_font_lineheight_computed;
+	margin-bottom: (@G_font_lineheight_computed / 2);
+}
+
+h4, h5, h6 {
+	margin-top: (@G_font_lineheight_computed / 2);
+	margin-bottom: (@G_font_lineheight_computed / 2);
+}
+
+h6 {
+	font-weight: normal;
+}
+
+h1, .h1 {
+	font-size: @G_font_size_h1;
+}
+
+h2, .h2 {
+	font-size: @G_font_size_h2;
+}
+
+h3, .h3 {
+	font-size: @G_font_size_h3;
+}
+
+h4, .h4 {
+	font-size: @G_font_size_h4;
+}
+
+h5, .h5 {
+	font-size: @G_font_size_h5;
+}
+
+h6, .h6 {
+	font-size: @G_font_size_h6;
+}
+
+// Body text
+// -------------------------
+
+p {
+	font-size: @G_font_size_base;
+	line-height: 1.5;
+	margin: 0 0 (@G_font_lineheight_computed / 2);
+}
+
+// Emphasis & misc
+// -------------------------
+
+// Ex: 18px base font * 83% = about 15px
+small {
+	font-size: 83%; // ~15px
+	line-height: 2.067; // ~31px
+}
+
+//// Contextual emphasis
+//.text-muted {
+//	color: @G-text-muted;
+//}
+//
+//.text-inverse {
+//	color: @G-inverse;
+//}
+//
+//.text-primary {
+//	.text-emphasis-variant(@G-brand-secondary);
+//}
+//
+//.text-warning {
+//	.text-emphasis-variant(@G-state-warning-text);
+//}
+//
+//.text-danger {
+//	.text-emphasis-variant(@G-state-danger-text);
+//}
+//
+//.text-success {
+//	.text-emphasis-variant(@G-state-success-text);
+//}
+//
+//.text-info {
+//	.text-emphasis-variant(@G-state-info-text);
+//}
+//
+//// Contextual backgrounds
+//.bg-primary {
+//	// Given the contrast here, this is the only class to have its color inverted
+//	// automatically.
+//	color: @G-inverse;
+//	.bg-variant(@G-brand-primary);
+//}
+//
+//.bg-success {
+//	.bg-variant(@G-state-success-bg);
+//}
+//
+//.bg-info {
+//	.bg-variant(@G-state-info-bg);
+//}
+//
+//.bg-warning {
+//	.bg-variant(@G-state-warning-bg);
+//}
+//
+//.bg-danger {
+//	.bg-variant(@G-state-danger-bg);
+//}
+//
+//// Page header
+//// -------------------------
+//
+//.page-header {
+//	padding-bottom: ((@G_font_lineheight_computed / 2) - 1);
+//	margin: (@G_font_lineheight_computed * 2) 0 @G_font_lineheight_computed;
+//	border-bottom: 2px solid @G-page-header-border-color;
+//}
+//
+//// Lists
+//// --------------------------------------------------
+//
+//// Unordered and Ordered lists
+//ul,
+//ol {
+//	margin-bottom: (@G_font_lineheight_computed / 2);
+//}
+//
+//// Description Lists
+//dl {
+//	margin-bottom: @G_font_lineheight_computed;
+//}
+//
+//dt,
+//dd {
+//	line-height: @G_font_lineheight_base;
+//}
+//
+//// Horizontal description lists
+////
+//// Defaults to being stacked without any of the below styles applied, until the
+//// grid breakpoint is reached (default of ~768px).
+//
+//@G-media (min-width: @G-grid-float-breakpoint) {
+//	.dl-horizontal {
+//		dt {
+//			width: (@G-dl-horizontal-offset - 20);
+//		}
+//		dd {
+//			margin-left: @G-dl-horizontal-offset;
+//		}
+//	}
+//}
+//
+//// MISC
+//// ----
+//
+//// Abbreviations and acronyms
+//abbr[title],
+//abbr[data-original-title] {
+//	border-bottom: 1px dotted @G-abbr-border-color;
+//}
+//
+//// Blockquotes
+//blockquote {
+//	border-left: 3px solid @G-blockquote-border-color;
+//	padding: 0 0 0 16px;
+//	margin: 0 0 @G_font_lineheight_computed;
+//	
+//	p {
+//		font-size: ceil((@G_font_size_base * 1.111)); // ~20px
+//		line-height: 1.55; // ~31px
+//		font-weight: normal;
+//		margin-bottom: .4em;
+//	}
+//	small,
+//	.small {
+//		font-size: @G_font_size_base;
+//		line-height: @G_font_lineheight_base;
+//		font-style: italic;
+//		color: @G-blockquote-small-color;
+//		
+//		&:before {
+//			content: "";
+//		}
+//	}
+//	
+//	// Float right with text-align: right
+//	&.pull-right {
+//		padding-right: 16px;
+//		padding-left: 0;
+//		border-right: 3px solid @G-blockquote-border-color;
+//		border-left: 0;
+//		
+//		small:after {
+//			content: "";
+//		}
+//	}
+//}
+//
+//// Addresses
+//address {
+//	margin-bottom: @G_font_lineheight_computed;
+//	line-height: @G_font_lineheight_base;
+//}
+//
+//// Sup and Sub
+//sub,
+//sup {
+//	font-size: 70%;
+//}

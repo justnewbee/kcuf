@@ -1,0 +1,183 @@
+@import "_mixin";
+
+@font-face {
+	font-family: "OpenSans";
+	font-style: normal;
+	font-weight: 300;
+	src: url(../fonts/opensans-300.eot?#iefix) format("embedded-opentype"),
+		url(../fonts/opensans-300.woff) format("woff"),
+		url(../fonts/opensans-300.ttf) format("truetype"),
+		url(../fonts/opensans-300.svg#open_sansregular) format("svg");
+}
+
+@font-face {
+	font-family: "OpenSans";
+	font-style: normal;
+	font-weight: 400;
+	src: url(../fonts/opensans-400.eot?#iefix) format("embedded-opentype"),
+		url(../fonts/opensans-400.woff) format("woff"),
+		url(../fonts/opensans-400.ttf) format("truetype"),
+		url(../fonts/opensans-400.svg#open_sanslight) format("svg");
+}
+
+@font-face {
+	font-family: "OpenSans";
+	font-style: normal;
+	font-weight: 600;
+	src: url(../fonts/opensans-600.eot?#iefix) format("embedded-opentype"),
+		url(../fonts/opensans-600.woff) format("woff"),
+		url(../fonts/opensans-600.ttf) format("truetype"),
+		url(../fonts/opensans-600.svg#open_sanssemibold) format("svg");
+}
+
+@font-face {
+	font-family: "OpenSans";
+	font-style: normal;
+	font-weight: 700;
+	src: url(../fonts/opensans-700.eot?#iefix) format("embedded-opentype"),
+		url(../fonts/opensans-700.woff) format("woff"),
+		url(../fonts/opensans-700.ttf) format("truetype"),
+		url(../fonts/opensans-700.svg#open_sanssemibold) format("svg");
+}
+
+html, body {
+	font: 400 16px/1.5 @G_font_family;
+	color: @G_color_base;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Helvetica Neue", sans-serif;
+	font-weight: 600;
+}
+
+pre, code, kbd, samp {
+  font-family: Menlo, Consolas, "Courier New", Courier, Mono, monospace;
+}
+
+a {
+	color: @G_color_link;
+	text-decoration: none;
+	transition: color 0.2s ease-in-out 0s;
+	
+	&:hover,
+	&:focus {
+		color: @G_color_link_h;
+	}
+}
+
+::-moz-placeholder {// Firefox
+	.placeholder-style();
+	opacity: 1;
+}
+:-ms-input-placeholder {// Internet Explorer 10+ See https://github.com/twbs/bootstrap/pull/11526
+	.placeholder-style();
+}
+::-webkit-input-placeholder {// Safari and Chrome
+	.placeholder-style();
+}
+
+@-webkit-keyframes ani-nb-loading {
+	0% {
+		background: #E74C3C;
+		-webkit-transform: rotate(0deg);
+		border-radius: 10px;
+	}
+	50% {
+		background: #EBEDEE;
+		-webkit-transform: rotate(180deg);
+		border-radius: 0;
+	}
+	100% {
+		background: #E74C3C;
+		-webkit-transform: rotate(360deg);
+		border-radius: 10px;
+	}
+}
+@-moz-keyframes ani-nb-loading {
+	0% {
+		background: #E74C3C;
+		-moz-transform: rotate(0deg);
+		border-radius: 10px;
+	}
+	50% {
+		background: #EBEDEE;
+		-moz-transform: rotate(180deg);
+		border-radius: 0;
+	}
+	100% {
+		background: #E74C3C;
+		-moz-transform: rotate(360deg);
+		border-radius: 10px;
+	}
+}
+@-ms-keyframes ani-nb-loading {
+	0% {
+		background: #E74C3C;
+		-ms-transform: rotate(0deg);
+		border-radius: 10px;
+	}
+	50% {
+		background: #EBEDEE;
+		-ms-transform: rotate(180deg);
+		border-radius: 0;
+	}
+	100% {
+		background: #E74C3C;
+		-ms-transform: rotate(360deg);
+		border-radius: 10px;
+	}
+}
+@-o-keyframes ani-nb-loading {
+	0% {
+		background: #E74C3C;
+		-o-transform: rotate(0deg);
+		border-radius: 10px;
+	}
+	50% {
+		background: #EBEDEE;
+		-o-transform: rotate(180deg);
+		border-radius: 0;
+	}
+	100% {
+		background: #E74C3C;
+		-o-transform: rotate(360deg);
+		border-radius: 10px;
+	}
+}
+@keyframes ani-nb-loading {
+	0% {
+		background: #E74C3C;
+		transform: rotate(0deg);
+		border-radius: 10px;
+	}
+	50% {
+		background: #EBEDEE;
+		transform: rotate(180deg);
+		border-radius: 0;
+	}
+	100% {
+		background: #E74C3C;
+		transform: rotate(360deg);
+		border-radius: 10px;
+	}
+}
+
+.nb-loading {
+	@size: 16px;
+	
+	border-radius: 10px;
+	height: @size;
+	width: @size;
+	background: #EBEDEE;
+	display: inline-block;
+		-webkit-animation: ani-nb-loading 1.5s ease infinite;
+		-moz-animation: ani-nb-loading 1.5s ease infinite;
+		-ms-animation: ani-nb-loading 1.5s ease infinite;
+		-o-animation: ani-nb-loading 1.5s ease infinite;
+	animation: ani-nb-loading 1.5s ease infinite;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -(@size / 2);
+	margin-top: -(@size / 2);
+}

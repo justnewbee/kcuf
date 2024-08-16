@@ -1,0 +1,29 @@
+@import "_vars";
+
+// util
+.opacity(@opacity) {
+	opacity: @opacity;
+	// IE8 filter
+	@opacity-ie: (@opacity * 100);
+	filter: ~"alpha(opacity=@{opacity-ie})";
+}
+
+.placeholder-style(@color: @G_color_gray) {
+	font-weight: @G_font_weight_light;
+	font-style: italic;
+	font-family: @G_font_family;
+	color: @color;
+}
+
+.border-radius(@radius: @G_border_radius) {
+		-moz-border-radius: @radius;
+		-webkit-border-radius: @radius;
+		-ms-border-radius: @radius;
+	border-radius: @radius;
+}
+
+.box-sizing(@type: border-box) {
+		-webkit-box-sizing: @type;
+		-moz-box-sizing: @type;
+	box-sizing: @type;
+}

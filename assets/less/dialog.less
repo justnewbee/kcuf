@@ -1,0 +1,88 @@
+#kcuF-dialog-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #FFF;
+	filter: alpha(opacity=60);
+	opacity: 0.6;
+	z-index: 999;
+	/* IE6 fixed position Hack */
+	_position: absolute;
+	_top: ~"expression(documentElement.scrollTop + documentElement.clientHeight - this.offsetHeight)";
+}
+.kcuF-dialog-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	overflow: hidden;
+}
+.kcuF-dialog {
+	position: absolute;
+	outline: none;
+	top: -9999px;
+	width: 500px;
+	min-width: 100px;
+	background-color: #FFF;
+	box-shadow: 1px 1px 5px #999;
+		-moz-box-shadow: 1px 1px 5px #999;
+		-webkit-box-shadow: 1px 1px 5px #999;
+	
+	.dlg-header {
+		position: relative;
+		background: #EEE;
+		
+		h4.dlg-title {
+			font-size: 16px;
+			height: 32px;
+			line-height: 32px;
+			margin: 0 24px 0 8px;
+			cursor: default;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+				-o-text-overflow: ellipsis;
+		}
+		.dlg-close {
+			position: absolute;
+			top: 8px;
+			right: 8px;
+			width: 12px;
+			height: 12px;
+			text-align: center;
+			vertical-align: middle;
+		}
+	}
+	.dlg-body {
+		padding: 10px;
+	}
+	
+	.dlg-footer {
+		padding-top: 10px;
+		
+		&:after {// clearfix
+			content: ".";
+			display: block;
+			height: 0;
+			clear: both;
+			visibility: hidden;
+		}
+		
+		* html & {// IE6 clearfix
+			height: 1%;
+		}
+		*+html & {// IE7 clearfix
+			min-height: 1px;
+		}
+		
+		.nb-btn {
+			float: right;
+			margin: 0 0 0 4px;
+			
+			&.left {
+				float: left;
+				margin: 0 4px 0 0;
+			}
+		}
+	}
+}
