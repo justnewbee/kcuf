@@ -3,9 +3,7 @@
 ## Install & Setup
 
 ```bash
-npm i -D npm-package-json-lint @kcuf/npm-package-json-lint-config
 pnpm add -D npm-package-json-lint @kcuf/npm-package-json-lint-config
-yarn add -D npm-package-json-lint @kcuf/npm-package-json-lint-config
 ```
 
 In your `.npmpackagejsonlintrc.json`:

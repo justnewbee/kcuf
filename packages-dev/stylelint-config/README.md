@@ -11,9 +11,7 @@ With plugins `stylelint-order`, more plugins can be found at [awesome-stylelint#
 ## Install & Setup
 
 ```bash
-npm i -D stylelint @kcuf/stylelint-config
 pnpm add -D stylelint @kcuf/stylelint-config
-yarn add -D stylelint @kcuf/stylelint-config
 ```
 
 In your `.stylelintrc`:

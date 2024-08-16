@@ -5,7 +5,7 @@ Shareable tsconfig for package development.
 ## Install
 
 ```bash
-yarn add -D @kcuf/ts-config
+pnpm add -D @kcuf/ts-config
 ```
 
 ## Usage

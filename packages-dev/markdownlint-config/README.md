@@ -10,8 +10,6 @@ A shareable markdown lint config, which can be used with `markdownlint-cli` or `
 
 ```bash
 pnpm add -D markdownlint-cli2 @kcuf/markdownlint-config
-npm i -D markdownlint-cli2 @kcuf/markdownlint-config
-yarn add -D markdownlint-cli2 @kcuf/markdownlint-config
 ```
 
 In your `.markdownlint.yaml`:
