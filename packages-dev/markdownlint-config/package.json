@@ -1,9 +1,10 @@
 {
   "name": "@kcuf/markdownlint-config",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Shareable markdownlint config.",
   "keywords": [
-    "config", "markdownlint"
+    "config",
+    "markdownlint"
   ],
   "license": "MIT",
   "main": "index.yaml",

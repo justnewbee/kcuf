@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@alicloud/eslint-config": "^1.13.3",
+    "@changesets/cli": "^2.27.7",
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@kcuf/markdownlint-config": "workspace:^",
@@ -53,6 +54,7 @@
     "ncu:packages": "pnpm -r exec ncu",
     "depcheck": "depcheck",
     "depcheck:packages": "pnpm -r --no-bail exec depcheck",
+    "changeset": "changeset",
     "lerna:publish": "lerna publish",
     "lerna:publish:patch": "lerna publish patch",
     "lerna:publish:minor": "lerna publish minor",
