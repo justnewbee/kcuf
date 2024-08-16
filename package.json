@@ -53,6 +53,9 @@
     "ncu:packages": "pnpm -r exec ncu",
     "depcheck": "depcheck",
     "depcheck:packages": "pnpm -r --no-bail exec depcheck",
-    "pub:canary": "lerna publish --exact --npm-tag=canary --canary=canary"
+    "lerna:publish": "lerna publish",
+    "lerna:publish:patch": "lerna publish patch",
+    "lerna:publish:minor": "lerna publish minor",
+    "lerna:publish:canary": "lerna publish --npm-tag=canary --canary=canary"
   }
 }
