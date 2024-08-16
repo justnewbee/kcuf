@@ -1,0 +1,35 @@
+{
+  "name": "@kcuf/stylelint-config",
+  "version": "0.1.0",
+  "description": "Shareable stylelint config.",
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnewbee/kcuf.git"
+  },
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-dev/stylelint-config",
+  "bugs": "https://github.com/justnewbee/kcuf/issues",
+  "author": {
+    "name": "Jianchun Wang",
+    "email": "justnewbee@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "stylelint": "^16.8.1"
+  },
+  "peerDependencies": {
+    "stylelint": ">=15"
+  },
+  "dependencies": {
+    "postcss-less": "^6.0.0",
+    "postcss-sass": "^0.5.0",
+    "postcss-scss": "^4.0.9",
+    "postcss-styled-syntax": "^0.6.4",
+    "stylelint-config-standard": "^36.0.1",
+    "stylelint-order": "^6.0.4"
+  }
+}

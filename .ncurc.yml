@@ -1,0 +1,7 @@
+upgrade: true
+dep: dev,prod
+format: group
+timeout: 120000
+reject:
+  - 'eslint' # 9 还不行
+  - 'unfetch' # 5.0 输出的是 .mjs 对构建有要求...

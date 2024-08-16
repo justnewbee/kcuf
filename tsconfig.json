@@ -1,0 +1,10 @@
+{
+  "extends": "@kcuf/ts-config/index.json",
+  "include": [
+    "packages-*/**/src",
+    "packages-*/**/stories",
+    "packages-*/**/test",
+    "packages-*/**/*.config.ts",
+    "script"
+  ]
+}

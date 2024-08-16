@@ -1,0 +1,24 @@
+{
+  "name": "@kcuf/ts-config",
+  "version": "0.1.0",
+  "description": "Shareable tsconfig.",
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.json",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnewbee/kcuf.git"
+  },
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-dev/ts-config",
+  "bugs": "https://github.com/justnewbee/kcuf/issues",
+  "author": {
+    "name": "Jianchun Wang",
+    "email": "justnewbee@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.*"
+  }
+}
