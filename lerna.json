@@ -4,5 +4,11 @@
   "npmClient": "pnpm",
   "allowBranch": [
     "lerna/pub"
-  ]
+  ],
+  "message": "chore: 🧊 lerna version",
+  "command": {
+    "publish": {
+      "npmClient": "npm"
+    }
+  }
 }
