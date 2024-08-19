@@ -31,5 +31,6 @@
     "postcss-styled-syntax": "^0.6.4",
     "stylelint-config-standard": "^36.0.1",
     "stylelint-order": "^6.0.4"
-  }
+  },
+  "gitHead": "4260da192db9f44221e3dfa40f520fb3e3cc950a"
 }
