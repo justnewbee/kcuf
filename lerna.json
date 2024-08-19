@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "independent",
+  "npmClient": "pnpm",
+  "allowBranch": [
+    "lerna/pub"
+  ],
+  "message": "chore: 🧊 lerna version",
+  "command": {
+    "publish": {
+      "npmClient": "npm"
+    }
+  }
+}

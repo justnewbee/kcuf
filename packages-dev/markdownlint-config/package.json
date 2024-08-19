@@ -1,0 +1,31 @@
+{
+  "name": "@kcuf/markdownlint-config",
+  "version": "0.0.1",
+  "description": "Shareable markdownlint config.",
+  "keywords": [
+    "config",
+    "markdownlint"
+  ],
+  "license": "MIT",
+  "main": "index.yaml",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnewbee/kcuf.git"
+  },
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-dev/markdownlint-config",
+  "bugs": "https://github.com/justnewbee/kcuf/issues",
+  "author": {
+    "name": "Jianchun Wang",
+    "email": "justnewbee@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "^0.13.0"
+  },
+  "peerDependencies": {
+    "markdownlint-cli2": ">=0"
+  },
+  "gitHead": "4260da192db9f44221e3dfa40f520fb3e3cc950a"
+}

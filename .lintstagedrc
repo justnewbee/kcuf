@@ -1,0 +1,5 @@
+{
+  "package.json": "npmPkgJsonLint",
+  "*.md": "markdownlint-cli2",
+  "*.{jsx?,tsx?}": "eslint"
+}

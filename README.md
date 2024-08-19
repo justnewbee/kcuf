@@ -1,24 +1,45 @@
-kcuF
-===
+# kcuF
 
-a tool for testing ui components, which fucks things up and give detail of the fucked-up stuff
+## About
 
-# what is kcuF
+**kcuF** `k-kuf`，是著名的 F-word 反着写。
 
-"kcuF" (pronounced k-kuf), is the reverse of the word "Fuck".
-the reason i used "kcuF" is because i like using "fuck" when testing code in the browser, but i don't want to make it too obvious for a project name.
+我写代码的时候，经常在命名上花很多时间，有的时候，在没有想好合适的名字，我便会用 `f**k`；另外，写一些临时的测试代码，或者打临时的 `console` 日志，
+我也会用它。
 
-the main concept is to make each testing of a ui component atomic, you need to test that something, you test only that thing.
+很久很久以前，我还用 jQuery 写了一个叫作 `kcuF` 的 UI 测试小工具，就是这个仓库的前身，相关的代码被我打到 `archive` 这个 Tag 里了。
 
-## about this version
+最近我想把我之前工作中写的一些非业务相关的开源代码，整理出来，一来是因为那部分代码估计别人也不会太上心继续维护得很好，二来也可以跳脱出原有的思维圈子，
+以三方使用者的角度重新审视和改写之前我写的那部分代码。
 
-this version was written a long time (about 2 years+) ago, it was originally for testing ui components written based on jQuery.
-the functionality is very simple and basic, there're bugs, defects and unimplemented features, but it is the first usable version.
-i will change the way it works, and i will change the code structure, so i decide to push it into github.
+## What
 
-in the new version, i'm using LESS as the css preprocessor for ease of theming, and will change the style to a modern flat view, will add in iconfont from icomoon.
+这是一个基于 pnpm + lerna 的 Monorepo，内容会很「杂」，当然，我期望，以后某些东西会独立出去。
 
-see u later...
+## How
 
-找个字体
-色调
+对 `package.json` 的 `scripts` 做一些说明：
+
+| 命令 | 说明 |
+| --- | --- |
+| `boot` | 安装依赖，`git clone` 后做的第一件事情，也可以随便什么时候执行，一般 `ncu` 或 `pnpm ncu:packages` 后，需要用它 |
+| `boot:packages` | 构建所有的 `packages`，`git clone` 后做的第二件事情（后续可以只需要 `boot`） |
+| `clean` | 删除所有的 `node_modules` 目录 |
+| `docs:build` | |
+| `ncu` | 检查并更新 `packages.json` 依赖项，若有更新，最好运行 `boot` |
+| `ncu:packages` | 检查并更新所有 package 的 `packages.json` 依赖项，若有更新，最好运行 `boot` |
+| `depcheck` | 检查 `packages.json` 依赖项是否有遗漏或者多余 |
+| `depcheck:packages` | 检查所有 package 的 `packages.json` 依赖项是否有遗漏或者多余 |
+| `pub:canary` | 执行 lerna 发布金丝雀版本 |
+
+## TODO
+
+### lerna
+
+暂时只能提交 Lock 文件，见 <https://github.com/lerna/lerna/issues/4066>。
+
+期望：
+
+* Npm Script：`"boot": "pnpm clean && pnpm i"` → `"boot": "pnpm clean && pnpm i --no-lockfile"`
+* `.gitignore`：+ `*-lock.yaml`
+* `lerna.json`：+ `"npmClientArgs": ["--no-lockfile"]`

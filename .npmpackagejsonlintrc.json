@@ -1,0 +1,3 @@
+{
+  "extends": "@kcuf/npm-package-json-lint-config"
+}

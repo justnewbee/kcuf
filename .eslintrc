@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "@alicloud/eslint-config/tsx",
+    "plugin:react/jsx-runtime"
+  ],
+  "rules": {
+    "import/order": ["error", {
+      "groups": [
+        "builtin",
+        "external",
+        "internal",
+        "parent",
+        "sibling",
+        "index"
+      ],
+      "pathGroups": [{
+        "pattern": "@*/**",
+        "group": "external",
+        "position": "after"
+      }],
+      "pathGroupsExcludedImportTypes": [],
+      "newlines-between": "always"
+    }]
+  }
+}

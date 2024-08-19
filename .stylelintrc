@@ -1,0 +1,3 @@
+{
+  "extends": "@kcuf/stylelint-config"
+}

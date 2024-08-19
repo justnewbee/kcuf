@@ -1,0 +1,31 @@
+{
+  "name": "@kcuf/npm-package-json-lint-config",
+  "version": "0.0.1",
+  "description": "Shareable package.json lint config.",
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnewbee/kcuf.git"
+  },
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-dev/npm-package-json-lint-config",
+  "bugs": "https://github.com/justnewbee/kcuf/issues",
+  "author": {
+    "name": "Jianchun Wang",
+    "email": "justnewbee@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "npm-package-json-lint": "^8.0.0"
+  },
+  "peerDependencies": {
+    "npm-package-json-lint": ">=7"
+  },
+  "dependencies": {
+    "npm-package-json-lint-config-default": "^7.0.1"
+  },
+  "gitHead": "4260da192db9f44221e3dfa40f520fb3e3cc950a"
+}

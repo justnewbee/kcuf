@@ -1,8 +1,61 @@
 {
-	"name": "kcuF",
-	"version": "0.1.0",
-	"devDependencies": {
-		"grunt": "~0.4.2",
-		"grunt-contrib-less": "~0.8.2"
-	}
+  "name": "kcuf",
+  "version": "0.1.0",
+  "description": "A mono-repo for common purpose packages.",
+  "keywords": [
+    "react",
+    "lerna",
+    "babel",
+    "storybook"
+  ],
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnewbee/kcuf.git"
+  },
+  "homepage": "https://github.com/justnewbee/kcuf",
+  "bugs": "https://github.com/justnewbee/kcuf/issues",
+  "author": {
+    "name": "Jianchun Wang",
+    "email": "justnewbee@gmail.com"
+  },
+  "devDependencies": {
+    "@alicloud/eslint-config": "^1.13.3",
+    "@commitlint/cli": "^19.4.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@kcuf/markdownlint-config": "workspace:^",
+    "@kcuf/npm-package-json-lint-config": "workspace:^",
+    "@kcuf/stylelint-config": "workspace:^",
+    "@kcuf/ts-config": "workspace:^",
+    "@tsconfig/node22": "^22.0.0",
+    "@types/node": "^22.4.0",
+    "commander": "^12.1.0",
+    "depcheck": "^1.4.7",
+    "eslint": "^8.57.0",
+    "husky": "^9.1.4",
+    "lerna": "^8.1.8",
+    "lint-staged": "^15.2.9",
+    "markdownlint-cli2": "^0.13.0",
+    "npm-check-updates": "^17.0.6",
+    "npm-package-json-lint": "^8.0.0",
+    "rimraf": "^6.0.1",
+    "stylelint": "^16.8.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "boot": "pnpm clean && pnpm i --no-lockfile",
+    "boot:packages": "pnpm -r prepublishOnly",
+    "clean": "rm -rf node_modules packages/*/node_modules",
+    "ncu": "ncu",
+    "ncu:packages": "pnpm -r exec ncu",
+    "depcheck": "depcheck",
+    "depcheck:packages": "pnpm -r --no-bail exec depcheck",
+    "lerna:publish": "lerna publish",
+    "lerna:publish:patch": "lerna publish patch",
+    "lerna:publish:minor": "lerna publish minor",
+    "lerna:publish:canary": "lerna publish --npm-tag=canary --canary=canary"
+  }
 }
