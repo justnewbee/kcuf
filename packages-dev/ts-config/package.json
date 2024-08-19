@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/ts-config",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Shareable tsconfig.",
   "keywords": [],
   "license": "MIT",

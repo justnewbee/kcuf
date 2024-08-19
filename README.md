@@ -31,3 +31,15 @@
 | `depcheck` | 检查 `packages.json` 依赖项是否有遗漏或者多余 |
 | `depcheck:packages` | 检查所有 package 的 `packages.json` 依赖项是否有遗漏或者多余 |
 | `pub:canary` | 执行 lerna 发布金丝雀版本 |
+
+## TODO
+
+### lerna
+
+暂时只能提交 Lock 文件，见 <https://github.com/lerna/lerna/issues/4066>。
+
+期望：
+
+* Npm Script：`"boot": "pnpm clean && pnpm i"` → `"boot": "pnpm clean && pnpm i --no-lockfile"`
+* `.gitignore`：+ `*-lock.yaml`
+* `lerna.json`：+ `"npmClientArgs": ["--no-lockfile"]`

@@ -15,7 +15,6 @@
 # lock
 
 *.lock
-*-lock.yaml
 *-lock.json
 **/*.lock
 **/*-lock.json
