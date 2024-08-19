@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/markdownlint-config",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "Shareable markdownlint config.",
   "keywords": [
     "config",
