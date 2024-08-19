@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Sort Animations</title>
+<style>
+canvas {
+	margin-right: 4px;
+}
+</style>
+</head>
+<body>
+<article>
+	<header><h1>Sort Algorithm Animations</h1></header>
+	<section>
+		<header><h2>Insertion</h2></header>
+		<div id="insertion"></div>
+	</section>
+	<section>
+		<header><h2>Bubble</h2></header>
+		<div id="bubble"></div>
+	</section>
+	<section>
+		<header><h2>Selection</h2></header>
+		<div id="selection"></div>
+	</section>
+	<section>
+		<header><h2>Quick</h2></header>
+		<div id="quick"></div>
+	</section>
+</article>
+<script src="animations.js"></script>
+<script>
+var sampleOpts = [{
+		container: document.getElementById("insertion"),
+		algorithm: SortAnimation.ALGORITHM_INSERTION
+	}, {
+		container: document.getElementById("bubble"),
+		algorithm: SortAnimation.ALGORITHM_BUBBLE
+	}, {
+		container: document.getElementById("selection"),
+		algorithm: SortAnimation.ALGORITHM_SELECTION
+	}, {
+		container: document.getElementById("quick"),
+		algorithm: SortAnimation.ALGORITHM_QUICK
+	}],
+	sampleArrs = [
+		[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],// sorted
+		[2,3,1,4,5,6,8,9,10,7,14,11,13,15,12,16,19,18,17,20],// nearly sorted
+		[20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1],// reversed
+		[2,11,4,15,7,16,9,5,8,12,20,14,13,1,6,18,3,10,17,19],// random
+		[20,5,15,10,20,20,10,5,20,10,15,20,20,15,5,10,20,20,10,20]// few unique
+	],
+	i, j;
+	
+	for (i = 0; i < sampleOpts.length; i++) {
+	for (j = 0; j < sampleArrs.length; j++) {
+		new SortAnimation(sampleArrs[j], sampleOpts[i]);
+	}
+}
+</script>
+</body>
+</html>
