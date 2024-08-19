@@ -70,7 +70,6 @@
     "@codemirror/theme-one-dark": "^6.1.2",
     "@codemirror/view": "^6.32.0",
     "@kcuf/rc-headless-form": "workspace:^",
-    "@kcuf/rc-headless-input-text": "workspace:^",
     "@kcuf/react-hook-controllable": "workspace:^",
     "@uiw/codemirror-theme-material": "^4.23.0",
     "json5": "^2.2.3",
