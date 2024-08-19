@@ -1,6 +1,6 @@
 # Marking
 
-基于 canvas 的多边形标注，参考 <https://github.com/wanglin2/markjs>
+基于 `<canvas>` 的图片标注，参考 <https://github.com/wanglin2/markjs>
 
 ## Terminology
 
