@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/geometry-basic",
-  "version": "0.0.0",
-  "description": "Stringify JSON with order.",
+  "version": "0.0.1",
+  "description": "Some basic geometry utility functions.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
