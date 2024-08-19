@@ -3,6 +3,9 @@ export { default as canvasCheckPointInStroke } from './canvas-check-point-in-str
 export { default as roundFloat } from './round-float';
 export { default as roundSize } from './round-size';
 
+export { default as bindDocumentEvent } from './bind-document-event';
+export { default as loadImage } from './load-image';
+
 export { default as fadeStyleBorder } from './fade-style-border';
 export { default as fadeStylePoint } from './fade-style-point';
 export { default as fadeStyleFill } from './fade-style-fill';
@@ -25,5 +28,3 @@ export { default as canvasDrawArea } from './canvas-draw-area';
 export { default as markingDrawBorder } from './marking-draw-border';
 export { default as markingDrawPoint } from './marking-draw-point';
 export { default as markingDrawInsertionPoint } from './marking-draw-insertion-point';
-
-export { default as loadImage } from './load-image';

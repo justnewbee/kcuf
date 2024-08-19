@@ -39,12 +39,13 @@ import {
   DEFAULT_MARKING_OPTIONS
 } from '../const';
 import {
+  roundFloat,
+  roundSize,
+  bindDocumentEvent,
+  loadImage,
   createMarkingCanvas,
   createMarkingImageBg,
-  createMarkingStage,
-  loadImage,
-  roundFloat,
-  roundSize
+  createMarkingStage
 } from '../util';
 import {
   pluginCursor,
@@ -248,19 +249,10 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     canvas.addEventListener('mousemove', (): void => this.handleMouseMoveCanvas());
     canvas.addEventListener('mousedown', (): void => this.handleMouseDownCanvas(), true);
     
-    const handleMouseUpWindow = (): void => this.handleMouseUpWindow();
-    const handleKeyDownWindow = (e: KeyboardEvent): void => this.handleKeyDownWindow(e);
-    
-    window.addEventListener('mouseup', handleMouseUpWindow, true);
-    window.addEventListener('keydown', handleKeyDownWindow, true);
-    
     // 添加消除副作用的清理方法
-    this.cleanups.push(() => {
-      window.removeEventListener('mouseup', handleMouseUpWindow, true);
-      window.removeEventListener('keydown', handleKeyDownWindow, true);
-      
-      resizeObserver.disconnect();
-    });
+    this.cleanups.push(bindDocumentEvent('mouseup', (): void => this.handleMouseUpWindow(), true));
+    this.cleanups.push(bindDocumentEvent('keydown', (e: KeyboardEvent): void => this.handleKeyDownWindow(e), true));
+    this.cleanups.push(() => resizeObserver.disconnect());
     this.cleanups.push(pixelRatioListen(pixelRatio => this.updatePixelRatio(pixelRatio)));
   }
   
@@ -1223,14 +1215,14 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   
   moveReady(): void {
     const {
+      moving,
       itemCreating,
       itemHovering,
       itemHighlighting,
       itemEditing
     } = this;
     
-    // 正在新建或拖拽编辑中，不触发
-    if (itemCreating || itemEditing?.stats.dragging) {
+    if (moving || itemCreating || itemEditing?.stats.dragging) { // 不重复触发，且正在新建或拖拽编辑时不触发
       return;
     }
     

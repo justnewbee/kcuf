@@ -3,6 +3,9 @@ import {
   IMarkingStageStats,
   IMarkingPlugin
 } from '../../types';
+import {
+  bindDocumentEvent
+} from '../../util';
 
 /**
  * 为 zoom 添加快捷键
@@ -55,8 +58,8 @@ export default function pluginZoom<T>(markingStage: IMarkingStageClass<T>): IMar
     }
   }
   
-  document.addEventListener('keydown', handleKeydown, true);
-  document.addEventListener('wheel', handleWheel, {
+  const unbindDocKeydown = bindDocumentEvent('keydown', handleKeydown, true);
+  const unbindDocWheel = bindDocumentEvent('wheel', handleWheel, {
     capture: true,
     passive: false // 否则 Chrome 会 console.error 出一堆恶心的提示「[Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive.」
   });
@@ -66,8 +69,8 @@ export default function pluginZoom<T>(markingStage: IMarkingStageClass<T>): IMar
       willZoom = !!stats.mouseInStage;
     },
     cleanup() {
-      document.removeEventListener('keydown', handleKeydown, true);
-      document.removeEventListener('wheel', handleWheel, true);
+      unbindDocKeydown();
+      unbindDocWheel();
     }
   };
 }
