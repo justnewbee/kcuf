@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/theme-helper-code-gen",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "Used for code generation, shall be installed as dev dependency only.",
   "keywords": [],
   "license": "MIT",

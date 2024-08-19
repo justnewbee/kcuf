@@ -1,6 +1,6 @@
 {
   "name": "kcuf",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "A mono-repo for common purpose packages.",
   "keywords": [
     "react",
@@ -46,7 +46,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "boot": "pnpm clean && pnpm i --no-lockfile",
+    "boot": "pnpm clean && pnpm i --no-lockfile --registry https://registry.npmmirror.com",
     "boot:packages": "pnpm -r prepublishOnly",
     "clean": "rm -rf node_modules packages/*/node_modules",
     "ncu": "ncu",
