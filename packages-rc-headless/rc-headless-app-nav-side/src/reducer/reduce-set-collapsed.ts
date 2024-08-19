@@ -1,13 +1,13 @@
-import update from 'immutability-helper';
+import {
+  produce
+} from 'immer';
 
 import {
   IModelState
 } from '../types';
 
 export default function reduceSetCollapsed(state: IModelState, payload: boolean): IModelState {
-  return update(state, {
-    collapsed: {
-      $set: payload
-    }
+  return produce(state, draft => {
+    draft.collapsed = payload;
   });
 }

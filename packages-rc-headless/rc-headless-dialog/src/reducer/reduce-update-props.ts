@@ -1,7 +1,9 @@
 import {
   forEach as _forEach
 } from 'lodash-es';
-import update from 'immutability-helper';
+import {
+  produce
+} from 'immer';
 
 import {
   IDialogPropsMutable,
@@ -24,9 +26,7 @@ export default function reduceUpdateProps(state: IModelState, payload: IDialogPr
     }
   });
   
-  return update(state, {
-    propsUpdate: {
-      $set: newUpdate
-    }
+  return produce(state, draft => {
+    draft.propsUpdate = newUpdate;
   });
 }

@@ -1,4 +1,6 @@
-import update from 'immutability-helper';
+import {
+  produce
+} from 'immer';
 
 import {
   IModelState
@@ -8,9 +10,7 @@ import {
  * 用于触发 CSS 动画 TODO 用 transition-group
  */
 export default function reduceSetActive(state: IModelState, payload: boolean): IModelState {
-  return update(state, {
-    active: {
-      $set: payload
-    }
+  return produce(state, draft => {
+    draft.active = payload;
   });
 }

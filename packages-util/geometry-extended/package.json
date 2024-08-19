@@ -27,7 +27,7 @@
     "@babel/plugin-transform-runtime": "^7.24.7",
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-typescript": "^7.24.7",
-    "@kcuf/ts-config": "workspace:^0.1.0",
+    "@kcuf/ts-config": "workspace:^",
     "rimraf": "^6.0.1",
     "typescript": "^5.5.4"
   },
@@ -35,7 +35,7 @@
     "@babel/runtime": "^7.24.8"
   },
   "dependencies": {
-    "@kcuf/geometry-basic": "workspace:^0.1.0",
+    "@kcuf/geometry-basic": "workspace:^",
     "@turf/helpers": "^7.1.0",
     "@turf/intersect": "^7.1.0"
   },

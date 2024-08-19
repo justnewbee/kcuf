@@ -1,13 +1,13 @@
-import update from 'immutability-helper';
+import {
+  produce
+} from 'immer';
 
 import {
   IModelState
 } from '../types';
 
 export default function reduceUpdateWindowHeight(state: IModelState): IModelState {
-  return update(state, {
-    windowHeight: {
-      $set: window.innerHeight
-    }
+  return produce(state, draft => {
+    draft.windowHeight = window.innerHeight;
   });
 }

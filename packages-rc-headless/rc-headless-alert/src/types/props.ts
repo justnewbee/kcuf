@@ -22,9 +22,9 @@ export interface IPropsCustom {
   visible?: boolean;
   closable?: boolean;
   /**
-   * 在 visible 之后自动开始倒计时关闭，单位秒，如果是 true 则用默认的 5s
+   * 在 visible 之后自动开始倒计时关闭，单位 ms
    */
-  autoClose?: boolean | number;
+  autoClose?: number;
   onVisibleChange?(visible: boolean): void;
 }
 

@@ -4,21 +4,22 @@ import {
 } from '@turf/helpers';
 import intersect from '@turf/intersect';
 import {
+  Point,
   Path,
   roundCoords
 } from '@kcuf/geometry-basic';
 
-type TTurfPath = [Path]; // Turf 定义的 Path 极端诡异
-
-interface IIntersectResult {
-  geometry: {
-    type: 'Polygon';
-    coordinates: TTurfPath;
-  } | {
-    type: 'MultiPolygon';
-    coordinates: TTurfPath[];
-  };
-}
+// type TTurfPath = [Path]; // Turf 定义的 Path 极端诡异
+//
+// interface IIntersectResult {
+//   geometry: {
+//     type: 'Polygon';
+//     coordinates: TTurfPath;
+//   } | {
+//     type: 'MultiPolygon';
+//     coordinates: TTurfPath[];
+//   };
+// }
 
 function toTurfPolygonPath(path: Path): Path {
   const [p] = path;
@@ -31,10 +32,10 @@ function toTurfPolygonPath(path: Path): Path {
 }
 
 // Turf 的 path 用的是「实体闭合」，最末一个和第一个相等
-function fromTurfPolygonPath(path: Path | undefined): Path {
+function fromTurfPolygonPath(path: number[][] | undefined): Path {
   return path?.reduce((result: Path, v, i) => {
     if (i < path.length - 1) { // 忽略最末一个
-      result.push(roundCoords(v, 2));
+      result.push(roundCoords(v as Point, 2));
     }
     
     return result;
@@ -58,7 +59,7 @@ export default function getPolygonIntersectionPathList(polygon1: Path, polygon2:
   
   const poly1 = polygon([toTurfPolygonPath(polygon1)]);
   const poly2 = polygon([toTurfPolygonPath(polygon2)]);
-  const intersection: IIntersectResult | null = intersect(featureCollection([poly1, poly2]));
+  const intersection = intersect(featureCollection([poly1, poly2]));
   
   if (!intersection) {
     return [];

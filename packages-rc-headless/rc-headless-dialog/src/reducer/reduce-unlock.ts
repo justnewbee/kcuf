@@ -1,4 +1,6 @@
-import update from 'immutability-helper';
+import {
+  produce
+} from 'immer';
 
 import {
   EDialogLockState
@@ -11,9 +13,7 @@ import {
  * 解除锁定
  */
 export default function reduceUnlock(state: IModelState): IModelState {
-  return update(state, {
-    locked: {
-      $set: EDialogLockState.NO
-    }
+  return produce(state, draft => {
+    draft.locked = EDialogLockState.NO;
   });
 }

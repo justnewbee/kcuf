@@ -1,13 +1,14 @@
-import update from 'immutability-helper';
+import {
+  produce
+} from 'immer';
 
 import {
   IModelState
 } from '../types';
 
 export default function reduceSetDomDialogContent(state: IModelState, payload: HTMLDivElement | null): IModelState {
-  return update(state, {
-    domDialogContent: {
-      $set: payload
-    }
+  return produce(state, draft => {
+    // @ts-ignore
+    draft.domDialogContent = payload; // TODO 奇怪...
   });
 }

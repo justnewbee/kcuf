@@ -24,7 +24,6 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
   
   return useMemo((): [IPropsCustom, IPropsDom] => {
     const {
-      children,
       component,
       label,
       title,
@@ -40,7 +39,6 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
       noShadow,
       block,
       active,
-      spm,
       classNameForIconLeft,
       classNameForIconRight,
       ...rest
@@ -48,7 +46,7 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
     
     const propsCustom: IPropsCustom = {
       component,
-      label: label || children as IPropsCustom['label'],
+      label,
       title,
       loading,
       iconSpacing,
@@ -77,8 +75,6 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
       delete propsDom.onClick;
       delete propsDom.href;
       delete propsDom.target;
-    } else if (spm) {
-      propsDom['data-spm-click'] = `gostr=/aliyun;locaid=d${spm}`;
     }
     
     if (propsDom.href) { // 保证有 href 且非 disabled 状态下一定是 a，以及外链默认 target blank

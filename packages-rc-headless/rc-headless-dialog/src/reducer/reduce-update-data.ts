@@ -1,4 +1,6 @@
-import update from 'immutability-helper';
+import {
+  produce
+} from 'immer';
 
 import {
   IModelState
@@ -8,9 +10,7 @@ import {
  * 更新 data
  */
 export default function reduceUpdateData(state: IModelState, payload: Record<string, unknown>): IModelState {
-  return update(state, {
-    data: {
-      $merge: payload
-    }
+  return produce(state, draft => {
+    draft.data = payload;
   });
 }

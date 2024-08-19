@@ -8,7 +8,7 @@ import useVisible from './use-visible';
 
 export default function useEffectAutoClose(): void {
   const {
-    autoClose
+    autoClose = 0
   } = useModelProps();
   const visible = useVisible();
   const handleClose = useHandleClose();
@@ -18,7 +18,7 @@ export default function useEffectAutoClose(): void {
       return;
     }
     
-    const timer = window.setTimeout(handleClose, autoClose * 1000);
+    const timer = window.setTimeout(handleClose, autoClose);
     
     return () => window.clearTimeout(timer);
   }, [autoClose, visible, handleClose]);

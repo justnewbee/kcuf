@@ -29,7 +29,7 @@
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
-    "@kcuf/ts-config": "workspace:^0.1.0",
+    "@kcuf/ts-config": "workspace:^",
     "@types/react": "^18.3.3",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
@@ -40,9 +40,9 @@
     "react": "^18.x"
   },
   "dependencies": {
-    "@kcuf/mere-dom": "workspace:^0.1.0",
-    "@kcuf/react-hook-is-unmounted": "workspace:^0.1.0",
-    "@kcuf/sandbox-escape": "workspace:^0.1.0",
+    "@kcuf/mere-dom": "workspace:^",
+    "@kcuf/react-hook-is-unmounted": "workspace:^",
+    "@kcuf/sandbox-escape": "workspace:^",
     "immer": "^10.1.1"
   },
   "scripts": {

@@ -1,4 +1,6 @@
-import update from 'immutability-helper';
+import {
+  produce
+} from 'immer';
 
 import {
   EDialogLockState
@@ -11,9 +13,7 @@ import {
  * 锁定 Dialog，使无法关闭
  */
 export default function reduceLock(state: IModelState, payload?: boolean): IModelState {
-  return update(state, {
-    locked: {
-      $set: payload ? EDialogLockState.LOADING : EDialogLockState.YES
-    }
+  return produce(state, draft => {
+    draft.locked = payload ? EDialogLockState.LOADING : EDialogLockState.YES;
   });
 }

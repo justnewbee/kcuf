@@ -1,4 +1,6 @@
-import update from 'immutability-helper';
+import {
+  produce
+} from 'immer';
 
 import {
   IModelState
@@ -8,9 +10,7 @@ import {
  * 强制更新以重新 render
  */
 export default function reduceForceUpdate(state: IModelState): IModelState {
-  return update(state, {
-    countForcedUpdate: {
-      $set: state.countForcedUpdate + 1
-    }
+  return produce(state, draft => {
+    draft.countForcedUpdate = state.countForcedUpdate + 1;
   });
 }
