@@ -1,0 +1,13 @@
+# hidden
+
+.*
+
+# src / test / demo
+
+src/
+test/
+stories/
+
+# config
+
+tsconfig*.json
