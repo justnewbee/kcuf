@@ -613,7 +613,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
           break;
         case 'Backspace':
         case 'Delete':
-          this.processDelete();
+          this.deleteActiveItem();
           
           break;
         default:
@@ -840,28 +840,6 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     if (markingItem) {
       this.itemHighlighting?.toggleHighlighting(false);
     }
-  }
-  
-  private processDelete(): boolean {
-    const {
-      options,
-      itemEditing
-    } = this;
-    
-    if (!itemEditing) {
-      return false;
-    }
-    
-    const index = this.markingItems.findIndex(v => v === itemEditing);
-    
-    if (index < 0) {
-      return false;
-    }
-    
-    this.markingItems.splice(index, 1);
-    options.onMarkingDelete?.(itemEditing.stats, this.getItemStatsList());
-    
-    return true;
   }
   
   /**
@@ -1215,13 +1193,26 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   }
   
   deleteActiveItem(): boolean {
-    const deleted = this.processDelete();
+    const {
+      options,
+      itemEditing
+    } = this;
     
-    if (deleted) {
-      this.updateAndDraw(EMarkingStatsChangeCause.DELETE);
+    if (!itemEditing) {
+      return false;
     }
     
-    return deleted;
+    const index = this.markingItems.findIndex(v => v === itemEditing);
+    
+    if (index < 0) {
+      return false;
+    }
+    
+    this.markingItems.splice(index, 1);
+    this.updateAndDraw(EMarkingStatsChangeCause.DELETE);
+    options.onMarkingDelete?.(itemEditing.stats, this.getItemStatsList());
+    
+    return true;
   }
   
   deleteAllItems(): void {
