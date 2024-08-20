@@ -2,6 +2,7 @@ export { default as roundCoords } from './round-coords';
 
 // 点与点
 export { default as isPointEqual } from './is-point-equal';
+export { default as getSnappingPoint } from './get-snapping-point';
 
 // 点与线
 export { default as isPointInSegmentProjection } from './is-point-in-segment-projection';

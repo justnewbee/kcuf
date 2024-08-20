@@ -7,6 +7,7 @@ import {
   Point,
   Path,
   roundCoords,
+  getSnappingPoint,
   getMagnetPointAlongPath,
   getMagnetPointAlongPaths
 } from '@kcuf/geometry-basic';
@@ -51,6 +52,7 @@ import {
   pluginCursor,
   pluginTooltip,
   pluginMagnet,
+  pluginSnapping,
   pluginZoom,
   pluginMove,
   pluginStats,
@@ -81,8 +83,20 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   private imageLoader: HTMLImageElement | null = null;
   
   private disabled = false;
-  private magnet = true;
   private pixelRatio = pixelRatioGet();
+  
+  /**
+   * 磁吸效果
+   *
+   * 对新建和编辑有效，将鼠标磁吸到点或边，按住 Alt 键临时取消
+   */
+  private magnet = true;
+  /**
+   * Snap 效果
+   *
+   * 对新建有效（若已磁吸，将不生效），需按住 Shift 键启用
+   */
+  private snapping = false;
   
   private plugins: IMarkingPlugin<T>[] = [];
   
@@ -276,6 +290,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     }
     
     plugins.push(pluginMagnet(this));
+    plugins.push(pluginSnapping(this));
     
     if (options.pluginMove) {
       plugins.push(pluginMove(this));
@@ -416,7 +431,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       ...extraOptions,
       pointInsertionMinDistance: options.pointInsertionMinDistance,
       noPointInsertion: options.noPointInsertion,
-      noCrossDetection: options.noCrossDetection,
+      noCrossingDetection: options.noCrossingDetection,
       noDragWhole: options.noDragWhole
     });
   }
@@ -525,15 +540,11 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   }
   
   private handleKeyDownWindow(e: KeyboardEvent): void {
-    if (!this.mouseInStage || this.moving) {
+    if (!this.mouseInStage || this.moving || e.repeat) {
       return;
     }
     
-    // 之所以 setTimeout 0 是为了给 zoom 的 keydown 让路，因为空格有可能触发 finishEditing，会对后续有影响
-    setTimeout(() => {
-      this.actOnKeyDown(e);
-      this.updateAndDraw(EMarkingStatsChangeCause.KEY_DOWN_WINDOW);
-    }, 0);
+    this.actOnKeyDown(e);
   }
   
   private actOnMouseMove(): void {
@@ -560,6 +571,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       switch (e.key) {
         case ' ': // 空格：添加节点
           this.creatingPushPoint();
+          this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_PUSH_POINT);
           
           break;
         case 'Enter': // 回车：添加节点并完成新建
@@ -576,7 +588,9 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
           break;
         case 'Backspace': // BACKSPACE/DELETE：删除最末点
         case 'Delete':
-          itemCreating.removePoint();
+          if (itemCreating.removePoint()) {
+            this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_REMOVE_POINT);
+          }
           
           break;
         default:
@@ -721,18 +735,38 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   private getMouseInCanvasFromMouseEvent(e: MouseEvent): Point {
     const rectCanvas = this.canvas.getBoundingClientRect();
     
+    return this.roundClampCoordsInCanvas([e.clientX - rectCanvas.left, e.clientY - rectCanvas.top]);
+  }
+  
+  private roundClampCoordsInCanvas([x, y]: Point): Point {
+    const rectCanvas = this.canvas.getBoundingClientRect();
+    
     return roundCoords([
-      _clamp(e.clientX - rectCanvas.left, 0, rectCanvas.width),
-      _clamp(e.clientY - rectCanvas.top, 0, rectCanvas.height)
+      _clamp(x, 0, rectCanvas.width),
+      _clamp(y, 0, rectCanvas.height)
     ]);
   }
   
+  private roundClampCoordsInImage([x, y]: Point): Point {
+    const {
+      imageSize
+    } = this;
+    
+    return roundCoords([
+      _clamp(x, 0, imageSize[0]),
+      _clamp(y, 0, imageSize[1])
+    ]);
+  }
+  
+  /**
+   * 刷新 canvas 鼠标信息
+   */
   private refreshMouseCoordsInCanvas(): void {
     const rectStage = this.stage.getBoundingClientRect();
     const rectCanvas = this.canvas.getBoundingClientRect();
-    const mouseInCanvas = this.mouseInStage ? roundCoords([
-      _clamp(this.mouseInStage[0] - (rectCanvas.left - rectStage.left), 0, rectCanvas.width),
-      _clamp(this.mouseInStage[1] - (rectCanvas.top - rectStage.top), 0, rectCanvas.height)
+    const mouseInCanvas = this.mouseInStage ? this.roundClampCoordsInCanvas([
+      this.mouseInStage[0] - (rectCanvas.left - rectStage.left),
+      this.mouseInStage[1] - (rectCanvas.top - rectStage.top)
     ]) : null;
     
     this.mouseInCanvas = mouseInCanvas;
@@ -752,12 +786,14 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     }
   }
   
+  /**
+   * 根据图片大小、缩放、是否磁吸，换算出鼠标所指像素位置相对于图片的 100% 坐标
+   */
   private updateImageMouse(mouseInCanvas: Point | null): void {
     const {
       options: {
         magnetRadius: magnetRadius0 = DEFAULT_MAGNET_RADIUS
       },
-      imageSize,
       imageScale,
       itemCreating,
       itemEditing
@@ -767,12 +803,9 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       return;
     }
     
-    // 根据图片的大小和缩放换算出鼠标所指像素位置相对于图片的真实坐标
-    const coords: Point = [
-      _clamp(0, mouseInCanvas[0] / imageScale, imageSize[0]),
-      _clamp(0, mouseInCanvas[1] / imageScale, imageSize[1])
-    ];
+    const coords: Point = this.roundClampCoordsInImage([mouseInCanvas[0] / imageScale, mouseInCanvas[1] / imageScale]);
     
+    const creatingPath = itemCreating?.stats.path;
     const magnetRadius = magnetRadius0 / imageScale; // 将屏幕像素转化成 canvas 内的像素，以保证磁吸距离和肉眼看到的一致
     let magnetResult: Point | null = null;
     
@@ -782,8 +815,8 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       magnetResult = getMagnetPointAlongPaths(coords, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
       
       // 没有找到，从正在新建的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
-      if (!magnetResult && itemCreating) {
-        magnetResult = getMagnetPointAlongPath(coords, itemCreating.stats.path, magnetRadius);
+      if (!magnetResult && creatingPath) {
+        magnetResult = getMagnetPointAlongPath(coords, creatingPath, magnetRadius);
       }
       
       // 没有找到，从正在编辑的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
@@ -792,7 +825,11 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       }
     }
     
-    this.imageMouse = roundCoords(magnetResult || coords);
+    if (this.snapping && !magnetResult && creatingPath?.length) {
+      magnetResult = getSnappingPoint(creatingPath[creatingPath.length - 1]!, coords); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    }
+    
+    this.imageMouse = this.roundClampCoordsInImage(magnetResult || coords);
   }
   
   private hoverMarkingItem(markingItem: IMarkingItemClass<T> | null): void {
@@ -1110,11 +1147,25 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       this.finishEditing();
     }
     
-    this.updateAndDraw(EMarkingStatsChangeCause.TOGGLE_DISABLED);
+    this.updateAndDraw(disabled ? EMarkingStatsChangeCause.TOGGLE_DISABLED_TRUE : EMarkingStatsChangeCause.TOGGLE_DISABLED_FALSE);
   }
   
   toggleMagnet(magnet = true): void {
+    if (this.magnet === magnet) {
+      return;
+    }
+    
     this.magnet = magnet;
+    this.updateAndDraw(magnet ? EMarkingStatsChangeCause.TOGGLE_MAGNET_TRUE : EMarkingStatsChangeCause.TOGGLE_MAGNET_FALSE);
+  }
+  
+  toggleSnapping(snapping = true): void {
+    if (this.snapping === snapping) {
+      return;
+    }
+    
+    this.snapping = snapping;
+    this.updateAndDraw(snapping ? EMarkingStatsChangeCause.TOGGLE_SNAPPING_TRUE : EMarkingStatsChangeCause.TOGGLE_SNAPPING_FALSE);
   }
   
   startCreating(extraOptions?: IMarkingItemConfig): void {

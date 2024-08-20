@@ -19,10 +19,16 @@ export enum EMarkingStatsChangeCause {
   MOUSE_UP_WINDOW = 'mouse:up@window',
   MOUSE_CLICK_CANVAS = 'mouse:click@canvas',
   MOUSE_DOUBLE_CLICK_CANVAS = 'mouse:double_click@canvas',
-  KEY_DOWN_WINDOW = 'key:down@window',
+  KEYBOARD_PUSH_POINT = 'keyboard:push_point',
+  KEYBOARD_REMOVE_POINT = 'keyboard:remove_point',
   // 调用 API 触发
   SET_DATA = 'set_data',
-  TOGGLE_DISABLED = 'toggle_disabled',
+  TOGGLE_DISABLED_TRUE = 'toggle_disabled:true',
+  TOGGLE_DISABLED_FALSE = 'toggle_disabled:false',
+  TOGGLE_MAGNET_TRUE = 'toggle_magnet:true',
+  TOGGLE_MAGNET_FALSE = 'toggle_magnet:false',
+  TOGGLE_SNAPPING_TRUE = 'toggle_snapping:true',
+  TOGGLE_SNAPPING_FALSE = 'toggle_snapping:false',
   LOADING_IMAGE = 'loading_image', // 由 SET_DATA 间接触发
   START_CREATING = 'start_creating',
   FINISH_CREATING = 'finish_creating',

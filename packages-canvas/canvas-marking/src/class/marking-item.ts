@@ -550,7 +550,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
    * 检查 path 中是否有任何两条不相邻线存在交叉，以及是否有点在别的线上
    */
   private detectCrossingAndOverlap(): boolean {
-    if (this.options.noCrossDetection) {
+    if (this.options.noCrossingDetection) {
       return false;
     }
     

@@ -57,6 +57,8 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
   
   toggleMagnet(magnet?: boolean): void;
   
+  toggleSnapping(snapping?: boolean): void;
+  
   startCreating(extraOptions?: IMarkingConfigItem<T>): void;
   
   cancelCreating(): void;
@@ -87,8 +89,6 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
   
   /**
    * 开启移动（当鼠标在 stage 内时按下空格，并保持按住状态）
-   *
-   * this.moving false → true
    */
   moveReady(): void;
   moveStart(): void;

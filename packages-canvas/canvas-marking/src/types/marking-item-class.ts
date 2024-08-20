@@ -85,7 +85,7 @@ export interface IMarkingItemConfig {
    * - false：默认，若交叉，将不允许完成新建和编辑
    * - true：允许交叉
    */
-  noCrossDetection?: boolean;
+  noCrossingDetection?: boolean;
   /**
    * 是否禁用（默认不禁）拖动整体
    *

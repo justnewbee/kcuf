@@ -11,7 +11,7 @@ import {
 } from './util';
 
 /**
- * 在 stage 左上角展示 FTP，仅用于开发时 
+ * 在 stage 左上角展示 FTP，仅用于开发时
  */
 export default function pluginFps<T>(markingStage: IMarkingStageClass<T>): IMarkingPlugin<T> {
   const {
@@ -54,7 +54,7 @@ export default function pluginFps<T>(markingStage: IMarkingStageClass<T>): IMark
   requestAnimationFrame(updateFps);
   
   return {
-    cleanup(): void {
+    cleanup() {
       stage.removeChild(divFps);
       
       if (rafHandle) {

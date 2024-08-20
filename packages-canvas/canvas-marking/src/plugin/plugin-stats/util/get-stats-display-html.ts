@@ -31,8 +31,8 @@ function displayCoords(coords: Point | null): string {
 
 export default function getStatsDisplayHtml<T>(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): string {
   return `<ul>${[
-    // 变更原因
     ['Cause', cause],
+    ['TimeStamp', Date.now()],
     // 禁用
     ['Disabled', displayBool(stats.disabled)],
     // 大小
