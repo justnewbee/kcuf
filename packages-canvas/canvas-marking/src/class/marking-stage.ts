@@ -602,6 +602,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       switch (e.key) {
         case 'Enter':
           itemEditing.finishEditing();
+          this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_FINISH_EDITING);
           
           break;
         case 'Escape':
@@ -609,6 +610,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
           e.stopPropagation();
           
           itemEditing.finishEditing(true);
+          this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_CANCEL_EDITING);
           
           break;
         case 'Backspace':

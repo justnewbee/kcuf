@@ -268,6 +268,20 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     });
   }
   
+  private clearDragging(): void {
+    this.draggingStartCoords = null;
+    this.draggingPoint = -1;
+    this.draggingInsertionPoint = -1;
+    this.pathSnapshotDragging = [];
+    this.draggingMoved = false;
+  }
+  
+  private clearEditing(): void {
+    this.clearDragging();
+    this.pathSnapshotEditing = [];
+    this.editing = false;
+  }
+  
   /**
    * 根据状态返回对应的样式
    */
@@ -620,26 +634,24 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
   }
   
   finishEditing(restore?: boolean): void {
-    if (!this.editing) {
+    const {
+      markingStage,
+      editing,
+      pathSnapshotEditing
+    } = this;
+    
+    if (!editing) {
       return;
     }
     
-    this.editing = false;
-    
-    const {
-      markingStage
-    } = this;
-    
     // 取消编辑，或者有交叉，则还原
     if (restore || this.stats.crossing) {
-      this.path = this.pathSnapshotEditing;
-      
-      markingStage.options.onMarkingEditCancel?.(this.refreshStats(), markingStage.getItemStatsList());
-    } else {
-      markingStage.options.onMarkingEditComplete?.(this.refreshStats(), markingStage.getItemStatsList());
+      this.path = pathSnapshotEditing;
     }
     
-    this.pathSnapshotEditing = [];
+    this.clearEditing();
+    
+    (restore ? markingStage.options.onMarkingEditCancel : markingStage.options.onMarkingEditComplete)?.(this.refreshStats(), markingStage.getItemStatsList());
   }
   
   pushPoint(): void {
@@ -815,16 +827,13 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     }
     
     const {
-      markingStage
+      markingStage,
+      draggingMoved
     } = this;
     
-    this.draggingStartCoords = null;
-    this.draggingPoint = -1;
-    this.draggingInsertionPoint = -1;
-    this.pathSnapshotDragging = [];
+    this.clearDragging();
     
-    if (this.draggingMoved) {
-      this.draggingMoved = false;
+    if (draggingMoved) {
       markingStage.options.onMarkingDragEnd?.(this.refreshStats(), markingStage.getItemStatsList());
     }
   }

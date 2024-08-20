@@ -17,10 +17,12 @@ export enum EMarkingStatsChangeCause {
   MOUSE_MOVE_CANVAS = 'mouse:move@canvas',
   MOUSE_DOWN_CANVAS = 'mouse:down@canvas',
   MOUSE_UP_WINDOW = 'mouse:up@window',
-  MOUSE_CLICK_CANVAS = 'mouse:click@canvas',
-  MOUSE_DOUBLE_CLICK_CANVAS = 'mouse:double_click@canvas',
+  MOUSE_CLICK_CANVAS = 'mouse:click@canvas', // TODO 消化掉
+  MOUSE_DOUBLE_CLICK_CANVAS = 'mouse:double_click@canvas', // TODO 消化掉
   KEYBOARD_PUSH_POINT = 'keyboard:push_point',
   KEYBOARD_REMOVE_POINT = 'keyboard:remove_point',
+  KEYBOARD_FINISH_EDITING = 'keyboard:finish_editing',
+  KEYBOARD_CANCEL_EDITING = 'keyboard:cancel_editing',
   // 调用 API 触发
   SET_DATA = 'set_data',
   TOGGLE_DISABLED_TRUE = 'toggle_disabled:true',
