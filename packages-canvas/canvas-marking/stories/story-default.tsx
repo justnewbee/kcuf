@@ -150,6 +150,9 @@ export default function StoryDefault(): ReactElement {
   
   const handleStartCreatingLine = useCallback((): void => {
     stateMarkingInstance?.startCreating({
+      pointStyle: {
+        type: 'square'
+      },
       pointCountMin: 2,
       pointCountMax: 2
     });
