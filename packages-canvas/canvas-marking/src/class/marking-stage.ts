@@ -181,7 +181,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.setupEvents();
     this.setupPlugins();
     this.setupScaleSizing();
-    this.setupImageAndItems(safeOptions.image, safeOptions.items).then(() => this.updateAndDraw(EMarkingStatsChangeCause.INIT));
+    this.setupImageAndItems(safeOptions.image, safeOptions.items, EMarkingStatsChangeCause.INIT);
   }
   
   private get imageFitScale(): number {
@@ -305,6 +305,18 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     }
   }
   
+  private setupImageAndItems(imageUrl = '', items: IMarkingConfigItem<T>[] = [], cause: EMarkingStatsChangeCause = EMarkingStatsChangeCause.SET_DATA): void {
+    this.markingItems.length = 0;
+    
+    items.forEach(v => {
+      if (v.path?.length) {
+        this.markingItems.push(this.createMarkingItem(v));
+      }
+    });
+    
+    this.setupImage(imageUrl).then(() => this.updateAndDraw(cause)); // 保证图片加载完成再渲染 MarkingItem
+  }
+  
   private async setupImage(imageUrl: string): Promise<void> {
     if (imageUrl === this.imageUrl) { // 避免相同的图片重复加载渲染造成的闪现
       return;
@@ -340,18 +352,6 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       this.setupScaleSizing();
       this.imageLoading = false;
     }
-  }
-  
-  private async setupImageAndItems(imageUrl = '', items: IMarkingConfigItem<T>[] = []): Promise<void> {
-    this.markingItems.length = 0;
-    
-    await this.setupImage(imageUrl); // 保证图片加载完成再渲染 MarkingItem
-    
-    items.forEach(v => {
-      if (v.path?.length) {
-        this.markingItems.push(this.createMarkingItem(v));
-      }
-    });
   }
   
   /**
@@ -865,8 +865,13 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       },
       canvasContext,
       pixelRatio,
-      imageScale
+      imageScale,
+      statsSnapshot
     } = this;
+    
+    if (statsSnapshot.imageStatus === 'loading') {
+      return;
+    }
     
     canvasContext.clearRect(0, 0, width, height);
     canvasContext.scale(imageScale * pixelRatio, imageScale * pixelRatio);
@@ -1103,7 +1108,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   }
   
   setData(imageUrl?: string, markings: IMarkingConfigItem<T>[] = []): void {
-    this.setupImageAndItems(imageUrl, markings).then(() => this.updateAndDraw(EMarkingStatsChangeCause.SET_DATA));
+    this.setupImageAndItems(imageUrl, markings);
   }
   
   toggleDisabled(disabled = !this.disabled): void {
