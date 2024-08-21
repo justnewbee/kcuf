@@ -69,7 +69,6 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig {
    * 双击间隔时间，默认 200ms（这里没用用原生的 dblclick 事件，而是由单击模拟的）
    */
   doubleClickInterval?: number;
-  selectClickMode?: 'single' | 'double';
   // --- 可选插件 --- //
   pluginTooltip?: boolean | IMarkingPluginTooltipOptions<T>;
   pluginZoom?: boolean | IMarkingPluginZoomOptions;
@@ -77,17 +76,17 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig {
   pluginFps?: boolean;
   pluginStats?: boolean;
   // --- 事件 --- //
-  onMarkingCreateStart?(): void;
-  onMarkingCreateCancel?(): void;
-  onMarkingCreateComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onMarkingSelect?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onMarkingDoubleClick?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onMarkingPointRemove?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
-  onMarkingPointInsert?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
-  onMarkingDragEnd?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onMarkingEditCancel?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onMarkingEditComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onMarkingDelete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  onCreateStart?(): void;
+  onCreateCancel?(): void;
+  onCreateComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  onClick?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  onSelectionChange?(stats: IMarkingItemStats<T> | null, statsList: IMarkingItemStats<T>[]): void;
+  onPointRemove?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
+  onPointInsert?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
+  onDragEnd?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  onEditCancel?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  onEditComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  onDelete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onStatsChange?(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void;
   // onChange?({ data, path }[]): void; // TODO
 }

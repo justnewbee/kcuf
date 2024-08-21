@@ -50,7 +50,7 @@ export default function getTooltipMessageBasic<T>(stats: IMarkingStageStats<T>, 
   }
   
   if (stats.hovering) {
-    return `<strong>${options.selectClickMode === 'single' ? '单击' : '双击'}：</strong>激活（进入编辑）`;
+    return '<strong>单击：</strong>激活（进入编辑）';
   }
   
   if (stats.editing) {

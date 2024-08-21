@@ -531,9 +531,9 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.mouseClickTime = doubleClicking ? 0 : Date.now();
     
     if (doubleClicking) {
-      this.actOnMouseDoubleClick();
+      this.actOnMouseClickDouble();
     } else {
-      this.actOnMouseSingleClick();
+      this.actOnMouseClick();
     }
     
     this.updateAndDraw(doubleClicking ? EMarkingStatsChangeCause.MOUSE_DOUBLE_CLICK_CANVAS : EMarkingStatsChangeCause.MOUSE_CLICK_CANVAS);
@@ -624,7 +624,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     }
   }
   
-  private actOnMouseSingleClick(): void {
+  private actOnMouseClick(): void {
     const {
       options,
       itemCreating,
@@ -635,30 +635,24 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     itemHighlighting?.toggleHighlighting(false);
     
     if (itemUnderMouse) {
-      options.onMarkingSelect?.(itemUnderMouse.stats, this.getItemStatsList());
+      options.onClick?.(itemUnderMouse.stats, this.getItemStatsList());
     }
     
-    if (!itemCreating && itemUnderMouse && options.selectClickMode === 'single') {
+    if (!itemCreating) {
       this.select(itemUnderMouse);
     }
   }
   
-  private actOnMouseDoubleClick(): void {
+  private actOnMouseClickDouble(): void {
     const {
-      options,
       itemCreating,
-      itemEditing,
-      itemUnderMouse
+      itemEditing
     } = this;
     
     if (itemCreating) { // 新建中，结束新建（可能取消或完成）
       this.finishCreating();
       
       return;
-    }
-    
-    if (itemUnderMouse) {
-      options.onMarkingDoubleClick?.(itemUnderMouse.stats, this.getItemStatsList());
     }
     
     if (itemEditing) {
@@ -670,19 +664,14 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
         case EMarkingMouseStatus.IN_POINT:
           itemEditing.removePoint();
           
-          return;
+          break;
         case EMarkingMouseStatus.IN_POINT_INSERTION: // 点中点不做任何事情
           return;
         default:
           this.select(null);
           
-          return;
+          break;
       }
-    }
-    
-    // 双击激活标注对象（一定不是之前的那个）
-    if (options.selectClickMode !== 'single') {
-      this.select(itemUnderMouse);
     }
   }
   
@@ -1043,18 +1032,20 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     return markingItems.find(v => v.stats.data && finder(v.stats.data));
   }
   
-  private select(markingItem: IMarkingItemClass<T> | null): void {
+  private select(item: IMarkingItemClass<T> | null): void {
     const {
+      options,
       disabled,
       itemEditing
     } = this;
     
-    if (disabled || markingItem === itemEditing) {
+    if (disabled || item === itemEditing) {
       return;
     }
     
     itemEditing?.finishEditing();
-    markingItem?.select();
+    item?.select();
+    options.onSelectionChange?.(item ? item.stats : null, this.getItemStatsList());
   }
   
   private zoom(inOut: boolean, wheel?: boolean): void {
@@ -1168,14 +1159,14 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
         this.markingItems.push(markingItem);
         this.itemCreating = null;
         this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
-        this.options.onMarkingCreateComplete?.(stats, this.getItemStatsList());
+        this.options.onCreateComplete?.(stats, this.getItemStatsList());
       }
     });
     
     this.itemCreating = markingItem;
     this.updateAndDraw(EMarkingStatsChangeCause.START_CREATING);
     
-    this.options.onMarkingCreateStart?.();
+    this.options.onCreateStart?.();
   }
   
   finishCreating(): void {
@@ -1186,7 +1177,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     if (this.itemCreating) {
       this.itemCreating = null;
       this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
-      this.options.onMarkingCreateCancel?.();
+      this.options.onCreateCancel?.();
     }
   }
   
@@ -1212,7 +1203,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     
     this.markingItems.splice(index, 1);
     this.updateAndDraw(EMarkingStatsChangeCause.DELETE);
-    options.onMarkingDelete?.(itemEditing.stats, this.getItemStatsList());
+    options.onDelete?.(itemEditing.stats, this.getItemStatsList());
     
     return true;
   }

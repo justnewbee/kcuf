@@ -76,17 +76,16 @@ export default function StoryDefault(): ReactElement {
           pluginTooltip: {
             getHoveringInfo
           },
-          onMarkingCreateStart: generateCallback('onMarkingCreateStart'),
-          onMarkingCreateCancel: generateCallback('onMarkingCreateCancel'),
-          onMarkingCreateComplete: generateCallback('onMarkingCreateComplete'),
-          onMarkingSelect: generateCallback('onMarkingSelect'),
-          onMarkingDoubleClick: generateCallback('onMarkingDoubleClick'),
-          onMarkingPointRemove: generateCallback('onMarkingPointRemove'),
-          onMarkingPointInsert: generateCallback('onMarkingPointInsert'),
-          onMarkingDragEnd: generateCallback('onMarkingDragEnd'),
-          onMarkingDelete: generateCallback('onMarkingDelete'),
-          onMarkingEditCancel: generateCallback('onMarkingEditCancel'),
-          onMarkingEditComplete: generateCallback('onMarkingEditComplete'),
+          onCreateStart: generateCallback('onCreateStart'),
+          onCreateCancel: generateCallback('onCreateCancel'),
+          onCreateComplete: generateCallback('onCreateComplete'),
+          onClick: generateCallback('onClick'),
+          onSelectionChange: generateCallback('onSelectionChange'),
+          onPointInsert: generateCallback('onPointInsert'),
+          onDragEnd: generateCallback('onDragEnd'),
+          onEditCancel: generateCallback('onEditCancel'),
+          onEditComplete: generateCallback('onEditComplete'),
+          onDelete: generateCallback('onDelete'),
           onStatsChange: setStateMarkingStageStats
         });
       });

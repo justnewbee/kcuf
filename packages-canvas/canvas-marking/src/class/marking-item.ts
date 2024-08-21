@@ -637,7 +637,8 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const {
       markingStage,
       editing,
-      pathSnapshotEditing
+      pathSnapshotEditing,
+      stats
     } = this;
     
     if (!editing) {
@@ -645,13 +646,19 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     }
     
     // 取消编辑，或者有交叉，则还原
-    if (restore || this.stats.crossing) {
+    if (restore || stats.crossing) {
       this.path = pathSnapshotEditing;
     }
     
     this.clearEditing();
     
-    (restore ? markingStage.options.onMarkingEditCancel : markingStage.options.onMarkingEditComplete)?.(this.refreshStats(), markingStage.getItemStatsList());
+    const newStats = this.refreshStats();
+    
+    if (restore) {
+      markingStage.options.onEditCancel?.(newStats, markingStage.getItemStatsList());
+    } else if (stats.dirty) {
+      markingStage.options.onEditComplete?.(newStats, markingStage.getItemStatsList());
+    }
   }
   
   pushPoint(): void {
@@ -743,7 +750,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     path.splice(hoveringPointIndex, 1);
     
-    markingStage.options.onMarkingPointRemove?.(this.refreshStats(), hoveringPointIndex, markingStage.getItemStatsList());
+    markingStage.options.onPointRemove?.(this.refreshStats(), hoveringPointIndex, markingStage.getItemStatsList());
     
     return true;
   }
@@ -808,7 +815,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       this.draggingPoint = draggingInsertionPoint + 1;
       this.draggingInsertionPoint = -1; // 消除
       
-      markingStage.options.onMarkingPointInsert?.(this.refreshStats(), draggingInsertionPoint, markingStage.getItemStatsList());
+      markingStage.options.onPointInsert?.(this.refreshStats(), draggingInsertionPoint, markingStage.getItemStatsList());
       
       return;
     }
@@ -834,7 +841,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     this.clearDragging();
     
     if (draggingMoved) {
-      markingStage.options.onMarkingDragEnd?.(this.refreshStats(), markingStage.getItemStatsList());
+      markingStage.options.onDragEnd?.(this.refreshStats(), markingStage.getItemStatsList());
     }
   }
   
