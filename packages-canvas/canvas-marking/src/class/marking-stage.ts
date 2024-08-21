@@ -437,7 +437,9 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   }
   
   private creatingPushPoint(): void {
-    this.itemCreating?.pushPoint();
+    if (this.mouseInCanvas) {
+      this.itemCreating?.pushPoint();
+    }
   }
   
   private handleResize(): void {
@@ -988,11 +990,11 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       options: {
         inactiveFaded = true
       },
+      mouseInCanvas,
       itemCreating,
       itemHovering,
       itemHighlighting,
-      itemEditing,
-      mouseInStage
+      itemEditing
     } = this;
     
     function isFaded(o: IMarkingItemClass<T>): boolean {
@@ -1005,7 +1007,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     
     this.getMarkingItemsOrdered().forEach(v => v.draw(isFaded(v)));
     
-    if (itemCreating && (mouseInStage || itemCreating.stats.path.length)) {
+    if (itemCreating && (mouseInCanvas || itemCreating.stats.path.length)) {
       itemCreating.draw();
     }
   }
