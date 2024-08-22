@@ -14,8 +14,8 @@ export const DEFAULT_MAGNET_RADIUS = 10;
  */
 export const DEFAULT_BORDER_STYLE: Required<IMarkingBorderStyle> = {
   lineJoin: 'round',
-  width: 2,
-  color: 'hsl(208 100% 50%)',
+  width: 1.5,
+  color: 'hsl(217 100% 50%)',
   outerWidth: 0,
   outerColor: 'hsl(0 0% 100%)',
   crossingColor: 'hsl(0 100% 50%)',
@@ -36,7 +36,7 @@ export const DEFAULT_FILL_STYLE: Required<IMarkingFillStyle> = {
 export const DEFAULT_AUXILIARY_STYLE: Required<IMarkingAuxiliaryLine> = {
   distance: 10,
   width: 0.5,
-  color: 'hsl(185 100% 50%)', // 重合时的样式
+  color: 'hsl(177 100% 50%)', // 重合时的样式
   colorNear: 'hsl(60 99% 53%)',
   dash: [7, 7]
 };
