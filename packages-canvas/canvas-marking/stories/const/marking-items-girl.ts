@@ -46,7 +46,7 @@ export default [{
     lineColor: 'hsl(48 100% 50%)'
   },
   borderStyle: {
-    color: 'hsl(0 100% 50%)'
+    color: 'hsl(333 100% 64%)'
   },
   fillStyle: {
     color: 'hsl(320 95% 59% / 30%)'

@@ -37,7 +37,7 @@ export const DEFAULT_AUXILIARY_STYLE: Required<IMarkingAuxiliaryLine> = {
   distance: 10,
   width: 0.5,
   color: 'hsl(177 100% 50%)', // 重合时的样式
-  colorNear: 'hsl(60 99% 53%)',
+  colorNear: 'hsl(0 0% 100%)',
   dash: [7, 7]
 };
 
