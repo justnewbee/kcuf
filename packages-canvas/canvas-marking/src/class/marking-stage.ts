@@ -6,9 +6,7 @@ import {
 import {
   Point,
   Path,
-  EdgeAndCenterPoints,
   roundCoords,
-  getPathEdgeAndCenterPoints,
   getSnappingPoint,
   getMagnetPointAlongPath,
   getMagnetPointAlongPaths,
@@ -894,27 +892,14 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       itemCreating,
       itemEditing,
       imageScale,
-      // imageSize,
       imageMouse
     } = this;
-    let activeEdgeAndCenterPoints: EdgeAndCenterPoints | null | undefined;
     let activePath: Path | undefined;
     
     if (itemCreating) {
-      activeEdgeAndCenterPoints = {
-        t: imageMouse,
-        r: imageMouse,
-        b: imageMouse,
-        l: imageMouse,
-        c: imageMouse
-      };
+      activePath = [imageMouse];
     } else if (itemEditing) {
       activePath = itemEditing.stats.path;
-      activeEdgeAndCenterPoints = getPathEdgeAndCenterPoints(itemEditing.stats.path);
-    }
-    
-    if (!activeEdgeAndCenterPoints) {
-      return;
     }
     
     if (!activePath) {
