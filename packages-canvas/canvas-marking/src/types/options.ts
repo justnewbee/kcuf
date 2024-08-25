@@ -20,25 +20,13 @@ import {
  */
 export interface IMarkingAuxiliaryLine {
   /**
-   * 距离多远（屏幕像素）之内，可以出辅助线，当距离小于 1 可认为重叠，重叠与未重叠需区分开
-   */
-  distance?: number;
-  /**
    * 辅助线宽度
    */
   width?: number;
   /**
-   * 辅助线颜色（重叠时）
+   * 辅助线颜色
    */
   color?: string;
-  /**
-   * 辅助线颜色（未重叠时）
-   */
-  colorNear?: string;
-  /**
-   * 辅助线虚线设置
-   */
-  dash?: number[];
 }
 
 export interface IMarkingStageOptions<T> extends IMarkingItemConfig {

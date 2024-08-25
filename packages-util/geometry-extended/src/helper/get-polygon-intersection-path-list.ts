@@ -35,7 +35,7 @@ function toTurfPolygonPath(path: Path): Path {
 function fromTurfPolygonPath(path: number[][] | undefined): Path {
   return path?.reduce((result: Path, v, i) => {
     if (i < path.length - 1) { // 忽略最末一个
-      result.push(roundCoords(v as Point, 2));
+      result.push(roundCoords(v as Point));
     }
     
     return result;

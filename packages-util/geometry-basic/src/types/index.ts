@@ -14,3 +14,11 @@ export type TSegment = [TPoint, TPoint];
 export type TPath = TPoint[];
 
 export type TMagnetPointResult = [TPoint, number] | null;
+
+export interface IEdgeAndCenterPoints {
+  t: TPoint;
+  r: TPoint;
+  b: TPoint;
+  l: TPoint;
+  c: TPoint;
+}

@@ -6,10 +6,13 @@ import {
 import {
   Point,
   Path,
+  EdgeAndCenterPoints,
   roundCoords,
+  getPathEdgeAndCenterPoints,
   getSnappingPoint,
   getMagnetPointAlongPath,
-  getMagnetPointAlongPaths
+  getMagnetPointAlongPaths,
+  getAuxiliarySegmentList
 } from '@kcuf/geometry-basic';
 import {
   pixelRatioGet,
@@ -878,8 +881,8 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     canvasContext.clearRect(0, 0, width, height);
     canvasContext.scale(imageScale * pixelRatio, imageScale * pixelRatio);
     
-    this.drawAuxiliaryLines();
     this.drawItems();
+    this.drawAuxiliaryLines();
     
     canvasContext.setTransform(1, 0, 0, 1, 0, 0); // 清除，必须清除，否则 scale 效果会叠加
   }
@@ -891,96 +894,55 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       itemCreating,
       itemEditing,
       imageScale,
-      imageSize,
+      // imageSize,
       imageMouse
     } = this;
+    let activeEdgeAndCenterPoints: EdgeAndCenterPoints | null | undefined;
     let activePath: Path | undefined;
     
     if (itemCreating) {
-      activePath = [...itemCreating.stats.path, imageMouse];
+      activeEdgeAndCenterPoints = {
+        t: imageMouse,
+        r: imageMouse,
+        b: imageMouse,
+        l: imageMouse,
+        c: imageMouse
+      };
     } else if (itemEditing) {
       activePath = itemEditing.stats.path;
+      activeEdgeAndCenterPoints = getPathEdgeAndCenterPoints(itemEditing.stats.path);
+    }
+    
+    if (!activeEdgeAndCenterPoints) {
+      return;
     }
     
     if (!activePath) {
       return;
     }
     
-    const paths = this.markingItems.filter(v => v !== itemEditing).map(v => v.stats.path);
-    const auxiliaryLine = {
+    const auxiliarySegmentList = getAuxiliarySegmentList(this.markingItems.filter(v => v !== itemEditing).map(v => v.stats.path), activePath);
+    
+    if (!auxiliarySegmentList.length) {
+      return;
+    }
+    
+    const auxiliaryLineOptions = {
       ...DEFAULT_AUXILIARY_STYLE,
       ...options.auxiliaryLine
     };
     
-    const xList = new Set<number>();
-    const yList = new Set<number>();
-    const xListOverlap = new Set<number>();
-    const yListOverlap = new Set<number>();
-    const xListNear = new Set<number>();
-    const yListNear = new Set<number>();
-    
-    paths.forEach(path => {
-      path.forEach(([x, y]) => {
-        xList.add(x);
-        yList.add(y);
-      });
-    });
-    
-    activePath.forEach(([x, y]) => {
-      xList.forEach(v => {
-        const distance = Math.abs(v - x) / imageScale;
-        
-        if (distance < 1) {
-          xListOverlap.add(v);
-        }
-        
-        if (distance <= auxiliaryLine.distance && !xListOverlap.has(v)) {
-          xListNear.add(v);
-        }
-      });
-      
-      yList.forEach(v => {
-        const distance = Math.abs(v - y) / imageScale;
-        
-        if (distance < 1) {
-          yListOverlap.add(v);
-        }
-        
-        if (distance <= auxiliaryLine.distance && !yListOverlap.has(v)) {
-          yListNear.add(v);
-        }
-      });
-    });
-    
     canvasContext.save();
-    canvasContext.strokeStyle = auxiliaryLine.color;
-    canvasContext.lineWidth = auxiliaryLine.width / imageScale;
-    canvasContext.setLineDash(auxiliaryLine.dash.map(v => v / imageScale));
+    canvasContext.strokeStyle = auxiliaryLineOptions.color;
+    canvasContext.lineWidth = auxiliaryLineOptions.width / imageScale;
     
-    function drawLines(values: Set<number>, alongX: boolean): void {
-      values.forEach(v => {
-        canvasContext.beginPath();
-        
-        if (alongX) {
-          canvasContext.moveTo(v, 0);
-          canvasContext.lineTo(v, imageSize[1]);
-        } else {
-          canvasContext.moveTo(0, v);
-          canvasContext.lineTo(imageSize[0], v);
-        }
-        
-        canvasContext.closePath();
-        canvasContext.stroke();
-      });
-    }
-    
-    drawLines(xListOverlap, true);
-    drawLines(yListOverlap, false);
-    
-    canvasContext.strokeStyle = auxiliaryLine.colorNear;
-    
-    drawLines(xListNear, true);
-    drawLines(yListNear, false);
+    auxiliarySegmentList.forEach(v => {
+      canvasContext.beginPath();
+      canvasContext.moveTo(v[0][0], v[0][1]);
+      canvasContext.lineTo(v[1][0], v[1][1]);
+      canvasContext.closePath();
+      canvasContext.stroke();
+    });
     
     canvasContext.restore();
   }

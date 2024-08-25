@@ -34,11 +34,8 @@ export const DEFAULT_FILL_STYLE: Required<IMarkingFillStyle> = {
  * 默认引导线样式
  */
 export const DEFAULT_AUXILIARY_STYLE: Required<IMarkingAuxiliaryLine> = {
-  distance: 10,
   width: 0.5,
-  color: 'hsl(177 100% 50%)', // 重合时的样式
-  colorNear: 'hsl(0 0% 100%)',
-  dash: [7, 7]
+  color: 'hsl(177 100% 50%)'
 };
 
 export const DEFAULT_MARKING_OPTIONS: IMarkingStageOptions<never> = {
