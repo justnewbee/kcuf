@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-fetch",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The fetch transporter for fetcher.",
   "keywords": [],
   "license": "MIT",
