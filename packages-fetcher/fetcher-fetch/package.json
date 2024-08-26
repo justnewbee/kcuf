@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/fetcher-fetch",
-  "version": "0.0.0",
-  "description": "Template for react component using babel.",
+  "version": "0.0.1",
+  "description": "The fetch transporter for fetcher.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
