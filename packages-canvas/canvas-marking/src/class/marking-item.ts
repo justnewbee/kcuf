@@ -12,7 +12,7 @@ import {
   checkInPathPointDuplicate,
   checkInPathSegmentCrossing,
   checkInPathPointOverlappingSegment,
-  isPointInsidePolygon,
+  isPointInPath,
   getPathLength,
   getPathArea,
   getPathBoundaryRect,
@@ -75,8 +75,8 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
    */
   private draggingStartCoords: Point | null = null;
   private draggingMoved = false; // 但只有鼠标落下后真正移动了，才是否真正拖动过
-  private draggingPoint = -1; // 被拖拽顶点的 index
-  private draggingInsertionPoint = -1; // 拖拽虚拟点的 index，虚点在拖拽的开始（第一次动）的时候，会转正
+  private draggingPointIndex = -1; // 被拖拽顶点的 index
+  private draggingInsertionPointIndex = -1; // 拖拽虚拟点的 index，虚点在拖拽的开始（第一次动）的时候，会转正
   
   private statsSnapshot: IMarkingItemStats<T>;
   
@@ -270,8 +270,8 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
   
   private clearDragging(): void {
     this.draggingStartCoords = null;
-    this.draggingPoint = -1;
-    this.draggingInsertionPoint = -1;
+    this.draggingPointIndex = -1;
+    this.draggingInsertionPointIndex = -1;
     this.pathSnapshotDragging = [];
     this.draggingMoved = false;
   }
@@ -467,8 +467,8 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       crossing: this.detectCrossingAndOverlap(),
       dragging: !!this.draggingStartCoords,
       draggingMoved: this.draggingMoved,
-      draggingPoint: this.draggingPoint,
-      draggingInsertionPoint: this.draggingInsertionPoint
+      draggingPointIndex: this.draggingPointIndex,
+      draggingInsertionPointIndex: this.draggingInsertionPointIndex
     };
   }
   
@@ -602,7 +602,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       return EMarkingMouseStatus.IN_BORDER;
     }
     
-    if (isPointInsidePolygon(imageMouse, path)) {
+    if (isPointInPath(imageMouse, path)) {
       return EMarkingMouseStatus.IN;
     }
     
@@ -773,8 +773,8 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     }
     
     // 缓存住
-    this.draggingPoint = hoveringPointIndex;
-    this.draggingInsertionPoint = hoveringInsertionPointIndex;
+    this.draggingPointIndex = hoveringPointIndex;
+    this.draggingInsertionPointIndex = hoveringInsertionPointIndex;
     this.draggingStartCoords = imageMouse;
     this.pathSnapshotDragging = _cloneDeep(this.path);
     
@@ -792,15 +792,15 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
         imageSize,
         imageMouse
       },
-      draggingPoint,
-      draggingInsertionPoint,
+      draggingPointIndex,
+      draggingInsertionPointIndex,
       draggingStartCoords
     } = this;
     
     this.draggingMoved = true;
     
-    if (draggingPoint >= 0) { // 拖动单个顶点，直接改
-      const p = this.path[draggingPoint];
+    if (draggingPointIndex >= 0) { // 拖动单个顶点，直接改
+      const p = this.path[draggingPointIndex];
       
       if (p) { // 理论不会有空的情况
         p[0] = imageMouse[0];
@@ -810,12 +810,12 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       return;
     }
     
-    if (draggingInsertionPoint >= 0) { // 拖动的是虚拟点，转正
-      this.path.splice(draggingInsertionPoint + 1, 0, imageMouse);
-      this.draggingPoint = draggingInsertionPoint + 1;
-      this.draggingInsertionPoint = -1; // 消除
+    if (draggingInsertionPointIndex >= 0) { // 拖动的是虚拟点，转正
+      this.path.splice(draggingInsertionPointIndex + 1, 0, imageMouse);
+      this.draggingPointIndex = draggingInsertionPointIndex + 1;
+      this.draggingInsertionPointIndex = -1; // 消除
       
-      markingStage.options.onPointInsert?.(this.refreshStats(), draggingInsertionPoint, markingStage.getItemStatsList());
+      markingStage.options.onPointInsert?.(this.refreshStats(), draggingInsertionPointIndex, markingStage.getItemStatsList());
       
       return;
     }

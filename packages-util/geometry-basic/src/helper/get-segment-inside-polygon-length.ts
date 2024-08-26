@@ -7,17 +7,18 @@ import {
 import getSegmentList from './get-segment-list';
 import getSegmentLength from './get-segment-length';
 import getSegmentIntersectionPoint from './get-segment-intersection-point';
-import isPointInsidePolygon from './is-point-inside-polygon';
+import isPointInPath from './is-point-in-path';
+import isPointOnPath from './is-point-on-path';
 
 /**
  * 获取线段在多边形中的长度，包括以下场景：
- * 
+ *
  * 1. 线段在多边形之内
  * 2. 线段的其中一点在多边形之内
  * 3. 线段穿过多边形，且可能多次进出多边形
  */
-export default function getSegmentInsidePolygonLength(segment: TSegment, polygon: TPath): number {
-  const intersectionPointList = getSegmentList(polygon).reduce((result: TPoint[], v) => {
+export default function getSegmentInsidePolygonLength(segment: TSegment, path: TPath): number {
+  const intersectionPointList = getSegmentList(path).reduce((result: TPoint[], v) => {
     const intersectionPoint = getSegmentIntersectionPoint(segment, v);
     
     if (intersectionPoint) {
@@ -28,11 +29,11 @@ export default function getSegmentInsidePolygonLength(segment: TSegment, polygon
   }, []);
   const [segmentStart, segmentEnd] = segment;
   
-  if (isPointInsidePolygon(segmentStart, polygon)) {
+  if (isPointInPath(segmentStart, path) || isPointOnPath(segmentStart, path)) {
     intersectionPointList.unshift(segmentStart);
   }
   
-  if (isPointInsidePolygon(segmentEnd, polygon)) {
+  if (isPointInPath(segmentEnd, path) || isPointOnPath(segmentEnd, path)) {
     intersectionPointList.push(segmentEnd);
   }
   

@@ -15,11 +15,12 @@ export { default as getMagnetPointAlongPath } from './get-magnet-point-along-pat
 export { default as getMagnetPointAlongPaths } from './get-magnet-point-along-paths';
 
 // 点与面
-export { default as isPointInsidePolygon } from './is-point-inside-polygon';
-export { default as isPointOnPolygonBorder } from './is-point-on-polygon-border';
+export { default as isPointInPath } from './is-point-in-path';
+export { default as isPointOnPath } from './is-point-on-path';
 
 // 线
 export { default as isSegmentEqual } from './is-segment-equal';
+export { default as getSegmentMiddlePoint } from './get-segment-middle-point';
 export { default as getSegmentProjectionX } from './get-segment-projection-x';
 export { default as getSegmentProjectionY } from './get-segment-projection-y';
 export { default as getSegmentVector } from './get-segment-vector';
@@ -43,6 +44,7 @@ export { default as checkInPathPointOverlappingSegment } from './check-in-path-p
 export { default as checkInPathSegmentCrossing } from './check-in-path-segment-crossing';
 
 // 线与线
+export { default as getSegmentIntersectionPoint } from './get-segment-intersection-point';
 export { default as getSegmentInsidePolygonLength } from './get-segment-inside-polygon-length';
 export { default as isSegmentProjectionOverlap } from './is-segment-projection-overlap';
 export { default as isSegmentCrossing } from './is-segment-crossing';

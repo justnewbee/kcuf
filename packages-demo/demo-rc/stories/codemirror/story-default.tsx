@@ -12,6 +12,10 @@ import {
 
 const ScTwoPane = styled.div`
   display: flex;
+  
+  > * {
+    flex: 1;
+  }
 `;
 
 const CODE = `import {
@@ -61,6 +65,7 @@ export default function StoryDefault(): ReactElement {
     <ScTwoPane>
       <Codemirror {...{
         readOnly: stateReadOnly,
+        language: 'tsx',
         value: stateCode,
         onChange: setStateCode
       }} />

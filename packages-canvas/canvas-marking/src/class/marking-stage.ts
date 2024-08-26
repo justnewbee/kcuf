@@ -804,7 +804,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     let magnetResult: Point | null = null;
     
     // 磁吸
-    if (this.magnet && magnetRadius > 0 && (itemCreating || (itemEditing && itemEditing.stats.draggingPoint >= 0))) {
+    if (this.magnet && magnetRadius > 0 && (itemCreating || (itemEditing && itemEditing.stats.draggingPointIndex >= 0))) {
       // 先从非编辑图形中找磁吸点
       magnetResult = getMagnetPointAlongPaths(coords, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
       
@@ -815,7 +815,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       
       // 没有找到，从正在编辑的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
       if (!magnetResult && itemEditing) {
-        magnetResult = getMagnetPointAlongPath(coords, itemEditing.stats.path.filter((_v, i) => i !== itemEditing.stats.draggingPoint), magnetRadius);
+        magnetResult = getMagnetPointAlongPath(coords, itemEditing.stats.path.filter((_v, i) => i !== itemEditing.stats.draggingPointIndex), magnetRadius);
       }
     }
     
@@ -1351,20 +1351,20 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       creatingStarted: itemStatsCreating ? itemStatsCreating.path.length > 0 : false,
       creatingCrossing: !!itemStatsCreating?.crossing,
       hovering: !!itemStatsHovering,
-      hoveringPoint: itemStatsHovering ? itemStatsHovering.hoveringPointIndex : -1,
-      hoveringInsertionPoint: itemStatsHovering ? itemStatsHovering.hoveringInsertionPointIndex : -1,
-      hoveringBorder: itemStatsHovering ? itemStatsHovering.hoveringBorderIndex : -1,
-      highlighting: !!itemHighlighting,
+      hoveringPointIndex: itemStatsHovering ? itemStatsHovering.hoveringPointIndex : -1,
+      hoveringInsertionPointIndex: itemStatsHovering ? itemStatsHovering.hoveringInsertionPointIndex : -1,
+      hoveringBorderIndex: itemStatsHovering ? itemStatsHovering.hoveringBorderIndex : -1,
+      highlighting: !!itemStatsHighlighting,
       editing: !!itemStatsEditing,
       editingDirty: itemStatsEditing ? itemStatsEditing.dirty : false,
       editingCrossing: itemStatsEditing ? itemStatsEditing.crossing : false,
       editingHovering: itemStatsEditing ? itemStatsEditing.hovering : false,
-      editingHoveringPoint: itemStatsEditing ? itemStatsEditing.draggingPoint >= 0 ? itemStatsEditing.draggingPoint : itemStatsEditing.hoveringPointIndex : -1, // eslint-disable-line no-nested-ternary
-      editingHoveringInsertionPoint: itemStatsEditing ? itemStatsEditing.hoveringInsertionPointIndex : -1,
-      editingHoveringBorder: itemStatsEditing ? itemStatsEditing.hoveringBorderIndex : -1, // TODO check -1
+      editingHoveringPointIndex: itemStatsEditing ? itemStatsEditing.draggingPointIndex >= 0 ? itemStatsEditing.draggingPointIndex : itemStatsEditing.hoveringPointIndex : -1, // eslint-disable-line no-nested-ternary
+      editingHoveringInsertionPointIndex: itemStatsEditing ? itemStatsEditing.hoveringInsertionPointIndex : -1,
+      editingHoveringBorderIndex: itemStatsEditing ? itemStatsEditing.hoveringBorderIndex : -1, // TODO check -1
       editingDragging: itemStatsEditing ? itemStatsEditing.dragging : false,
-      editingDraggingPoint: itemStatsEditing ? itemStatsEditing.draggingPoint : -1,
-      editingDraggingInsertionPoint: itemStatsEditing ? itemStatsEditing.draggingInsertionPoint : -1
+      editingDraggingPointIndex: itemStatsEditing ? itemStatsEditing.draggingPointIndex : -1,
+      editingDraggingInsertionPointIndex: itemStatsEditing ? itemStatsEditing.draggingInsertionPointIndex : -1
     };
   }
   

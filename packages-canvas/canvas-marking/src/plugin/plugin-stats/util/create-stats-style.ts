@@ -26,7 +26,7 @@ export default function createStatsStyle(stage: HTMLDivElement): string {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  line-height: 20px;
+  line-height: 19px;
   padding: 0 6px;
   border-bottom: 1px solid hsl(0 0% 100% / 17%);
 }

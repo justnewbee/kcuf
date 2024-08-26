@@ -29,8 +29,8 @@ export interface IMarkingItemStats<T = void> {
   crossing: boolean;
   dragging: boolean;
   draggingMoved: boolean;
-  draggingPoint: number;
-  draggingInsertionPoint: number;
+  draggingPointIndex: number;
+  draggingInsertionPointIndex: number;
 }
 
 /**
@@ -66,17 +66,17 @@ export interface IMarkingStageStats<T = void> {
   creatingCrossing: boolean;
   highlighting: boolean;
   hovering: boolean;
-  hoveringPoint: number;
-  hoveringInsertionPoint: number;
-  hoveringBorder: number;
+  hoveringPointIndex: number;
+  hoveringInsertionPointIndex: number;
+  hoveringBorderIndex: number;
   editing: boolean;
   editingDirty: boolean;
   editingCrossing: boolean;
   editingHovering: boolean;
-  editingHoveringPoint: number;
-  editingHoveringInsertionPoint: number;
-  editingHoveringBorder: number;
+  editingHoveringPointIndex: number;
+  editingHoveringInsertionPointIndex: number;
+  editingHoveringBorderIndex: number;
   editingDragging: boolean;
-  editingDraggingPoint: number;
-  editingDraggingInsertionPoint: number;
+  editingDraggingPointIndex: number;
+  editingDraggingInsertionPointIndex: number;
 }

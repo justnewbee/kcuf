@@ -30,14 +30,14 @@ export default function getTooltipMessageBasic<T>(stats: IMarkingStageStats<T>, 
 <strong>Esc：</strong>取消新建`;
   }
   
-  if (stats.editingHoveringPoint >= 0) {
+  if (stats.editingHoveringPointIndex >= 0) {
     return `<strong>拖拽：</strong>移动节点
 <strong>双击：</strong>删除节点
 <strong>回车：</strong>完成编辑
 <strong>Esc：</strong>取消编辑（恢复为编辑前）`;
   }
   
-  if (stats.editingHoveringInsertionPoint >= 0) {
+  if (stats.editingHoveringInsertionPointIndex >= 0) {
     return `<strong>拖拽：</strong>新增节点
 <strong>回车：</strong>完成编辑
 <strong>Esc：</strong>取消编辑（恢复为编辑前）`;
