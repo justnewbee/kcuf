@@ -54,7 +54,6 @@
     "@kcuf/fetcher-fetch": "workspace:^",
     "@kcuf/fetcher-jsonp": "workspace:^",
     "@kcuf/json-stringify-ordered": "workspace:^",
-    "@kcuf/ts-missing-helpers": "workspace:^",
     "lodash-es": "^4.17.21",
     "qs": "^6.13.0"
   },

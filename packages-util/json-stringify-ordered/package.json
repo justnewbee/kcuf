@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/json-stringify-ordered",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Stringify JSON with order.",
   "keywords": [],
   "license": "MIT",
