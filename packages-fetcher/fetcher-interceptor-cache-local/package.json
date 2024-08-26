@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/fetcher-interceptor-cache-local",
   "version": "0.0.1",
-  "description": "Template for react component using babel.",
+  "description": "Fetcher interceptor cache local in memory.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,

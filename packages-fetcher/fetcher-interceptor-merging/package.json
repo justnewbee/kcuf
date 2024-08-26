@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/fetcher-interceptor-merging",
-  "version": "0.0.0",
-  "description": "Template for react component using babel.",
+  "version": "0.0.1",
+  "description": "Fetcher interceptor merging to prevent multiple same requests at the same time.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
