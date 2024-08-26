@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/fetcher",
-  "version": "0.0.0",
-  "description": "Template for react component using babel.",
+  "version": "0.0.1",
+  "description": "Fetcher with more reasonable interceptors.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
