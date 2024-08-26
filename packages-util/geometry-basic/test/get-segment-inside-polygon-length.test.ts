@@ -44,7 +44,18 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         [1472.3, 2126.3],
         [2139, 2130],
         [2142.9, 1887.8]
-      ])).toBeLessThan(10);
+      ])).toEqual(0);
+      
+      expect(getSegmentInsidePolygonLength([
+        [613.4, 1659.2],
+        [1442.4, 635.6]
+      ], [
+        [197.3, 1659.2],
+        [201.8, 627.8],
+        [3744.4, 650.2],
+        [3748.9, 937.2],
+        [2618.8, 1659.2]
+      ])).toBeGreaterThan(10);
     });
   });
 });
