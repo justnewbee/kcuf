@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/fetcher-interceptor-biz",
-  "version": "0.0.0",
-  "description": "Template for react component using babel.",
+  "version": "0.0.1",
+  "description": "Fetcher interceptor to extract biz data and throw error.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
