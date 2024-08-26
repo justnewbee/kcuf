@@ -3,6 +3,7 @@ import {
   TSegment
 } from '../types';
 
+import roundCoords from './round-coords';
 import getSegmentEquationFactors from './get-segment-equation-factors';
 import isPointInSegmentProjection from './is-point-in-segment-projection';
 
@@ -18,7 +19,7 @@ export default function getSegmentIntersectionPoint(segment1: TSegment, segment2
   }
   
   // 这是直线相交点，并不表示线段相交
-  const intersectionPoint: TPoint = [(B1 * C2 - B2 * C1) / (B2 * A1 - B1 * A2), (A1 * C2 - C1 * A2) / (B1 * A2 - A1 * B2)];
+  const intersectionPoint: TPoint = roundCoords([(B1 * C2 - B2 * C1) / (B2 * A1 - B1 * A2), (A1 * C2 - C1 * A2) / (B1 * A2 - A1 * B2)]);
   
   // 线段相交需判断，需判断此相交点是否在两根线段的投影之内
   return isPointInSegmentProjection(intersectionPoint, segment1) && isPointInSegmentProjection(intersectionPoint, segment2) ? intersectionPoint : null;

@@ -2,6 +2,7 @@ export { default as roundCoords } from './round-coords';
 
 // 点与点
 export { default as isPointEqual } from './is-point-equal';
+export { default as getPointDistance } from './get-point-distance';
 export { default as getSnappingPoint } from './get-snapping-point';
 
 // 点与线
@@ -45,9 +46,11 @@ export { default as checkInPathSegmentCrossing } from './check-in-path-segment-c
 
 // 线与线
 export { default as getSegmentIntersectionPoint } from './get-segment-intersection-point';
-export { default as getSegmentInsidePolygonLength } from './get-segment-inside-polygon-length';
 export { default as isSegmentProjectionOverlap } from './is-segment-projection-overlap';
 export { default as isSegmentCrossing } from './is-segment-crossing';
+
+// 线与路径
+export { default as getSegmentInnerSliceTotalLengthByPath } from './get-segment-inner-slice-total-length-by-path';
 
 // 路径与路径
 export { default as getAuxiliarySegmentList } from './get-auxiliary-segment-list';
