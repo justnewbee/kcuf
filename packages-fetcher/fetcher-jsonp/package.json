@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-jsonp",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "The jsonp transporter for fetcher.",
   "keywords": [],
   "license": "MIT",
@@ -28,6 +28,7 @@
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-typescript": "^7.24.7",
     "@chromatic-com/storybook": "^1.7.0",
+    "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-essentials": "^8.2.9",
     "@storybook/addon-interactions": "^8.2.9",
@@ -46,9 +47,6 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.24.8"
-  },
-  "dependencies": {
-    "@kcuf/demo-rc": "workspace:^"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
