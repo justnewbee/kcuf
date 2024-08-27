@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-jsonp",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "The jsonp transporter for fetcher.",
   "keywords": [],
   "license": "MIT",
