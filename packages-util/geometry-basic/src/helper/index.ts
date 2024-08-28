@@ -45,6 +45,7 @@ export { default as checkInPathPointOverlappingSegment } from './check-in-path-p
 export { default as checkInPathSegmentCrossing } from './check-in-path-segment-crossing';
 
 // 线与线
+export { default as getSegmentIncludedAngle } from './get-segment-included-angle';
 export { default as getSegmentIntersectionPoint } from './get-segment-intersection-point';
 export { default as isSegmentProjectionOverlap } from './is-segment-projection-overlap';
 export { default as isSegmentCrossing } from './is-segment-crossing';
