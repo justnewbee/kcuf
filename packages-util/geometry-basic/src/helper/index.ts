@@ -45,7 +45,6 @@ export { default as checkInPathPointOverlappingSegment } from './check-in-path-p
 export { default as checkInPathSegmentCrossing } from './check-in-path-segment-crossing';
 
 // 线与线
-export { default as getSegmentIncludedAngle } from './get-segment-included-angle';
 export { default as getSegmentIntersectionPoint } from './get-segment-intersection-point';
 export { default as isSegmentProjectionOverlap } from './is-segment-projection-overlap';
 export { default as isSegmentCrossing } from './is-segment-crossing';
@@ -55,3 +54,10 @@ export { default as getSegmentInnerSliceTotalLengthByPath } from './get-segment-
 
 // 路径与路径
 export { default as getAuxiliarySegmentList } from './get-auxiliary-segment-list';
+
+// 角 - 返回弧度，角的正负按数学规范
+export { default as getAngleBetweenSegments } from './get-angle-between-segments';
+export { default as getAngleBetweenSegmentAndAxisX } from './get-angle-between-segment-and-axis-x';
+export { default as getAngleBetweenSegmentAndAxisY } from './get-angle-between-segment-and-axis-y';
+export { default as convertAngleFromDegreesToRadians } from './convert-angle-from-degrees-to-radians';
+export { default as convertAngleFromRadiansToDegrees } from './convert-angle-from-radians-to-degrees';
