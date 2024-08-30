@@ -1103,6 +1103,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     }
     
     this.snapping = snapping;
+    this.updateImageMouse(this.mouseInCanvas);
     this.updateAndDraw(snapping ? EMarkingStatsChangeCause.TOGGLE_SNAPPING_TRUE : EMarkingStatsChangeCause.TOGGLE_SNAPPING_FALSE);
   }
   
