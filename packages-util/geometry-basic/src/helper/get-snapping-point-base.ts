@@ -13,7 +13,7 @@ import getPointDistance from './get-point-distance';
  *
  * 返回点和移动距离元组
  */
-export default function getSnappingPointBase(fixedPoint: TPoint, point: TPoint, steps = 8): [TPoint, number] {
+export default function getSnappingPointBase(point: TPoint, fixedPoint: TPoint, steps = 8): [TPoint, number] {
   const radius = getPointDistance(fixedPoint, point);
   
   if (radius <= 0) {

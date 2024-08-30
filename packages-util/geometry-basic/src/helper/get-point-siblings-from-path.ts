@@ -8,7 +8,7 @@ export default function getPointSiblingsFromPath(path: TPath, index: number): []
   const last = path[path.length - 1];
   
   // index 超出路径范围，或路径长度小于等于 1，返回空
-  if (path.length <= index || !(first && last) || first === last) {
+  if (index < 0 || path.length <= index || !(first && last) || first === last) {
     return [];
   }
   

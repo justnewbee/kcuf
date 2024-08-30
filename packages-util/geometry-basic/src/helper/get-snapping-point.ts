@@ -4,6 +4,6 @@ import {
 
 import getSnappingPointBase from './get-snapping-point-base';
 
-export default function getSnappingPoint(fixedPoint: TPoint, point: TPoint, steps = 8): TPoint {
-  return getSnappingPointBase(fixedPoint, point, steps)[0];
+export default function getSnappingPoint(point: TPoint, fixedPoint: TPoint, steps = 8): TPoint {
+  return getSnappingPointBase(point, fixedPoint, steps)[0];
 }
