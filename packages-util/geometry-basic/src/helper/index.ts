@@ -4,6 +4,7 @@ export { default as roundCoords } from './round-coords';
 export { default as isPointEqual } from './is-point-equal';
 export { default as getPointDistance } from './get-point-distance';
 export { default as getSnappingPoint } from './get-snapping-point';
+export { default as getSnappingPointBetween } from './get-snapping-point-between';
 
 // 点与线
 export { default as isPointInSegmentProjection } from './is-point-in-segment-projection';
@@ -14,6 +15,7 @@ export { default as getVerticalIntersectionPoint } from './get-vertical-intersec
 // 点与路径
 export { default as getMagnetPointAlongPath } from './get-magnet-point-along-path';
 export { default as getMagnetPointAlongPaths } from './get-magnet-point-along-paths';
+export { default as getPointSiblingsFromPath } from './get-point-siblings-from-path';
 
 // 点与面
 export { default as isPointInPath } from './is-point-in-path';

@@ -819,8 +819,11 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       }
     }
     
-    if (this.snapping && !magnetResult && creatingPath?.length) {
-      magnetResult = getSnappingPoint(creatingPath[creatingPath.length - 1]!, coords); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    // Snap 前提是未磁吸
+    if (this.snapping && !magnetResult) {
+      if (creatingPath?.length) {
+        magnetResult = getSnappingPoint(creatingPath[creatingPath.length - 1]!, coords); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      }
     }
     
     this.imageMouse = this.roundClampCoordsInImage(magnetResult || coords);
