@@ -29,7 +29,7 @@
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@kcuf/ts-config": "workspace:^",
-    "@types/react": "^18.3.4",
+    "@types/react": "^18.3.5",
     "@vitest/coverage-v8": "^2.0.5",
     "jsdom": "^25.0.0",
     "react": "^18.3.1",

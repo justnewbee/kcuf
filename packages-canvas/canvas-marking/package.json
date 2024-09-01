@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/canvas-marking",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "A canvas marking library.",
   "keywords": [],
   "license": "MIT",
@@ -41,7 +41,7 @@
     "@storybook/react-vite": "^8.2.9",
     "@storybook/test": "^8.2.9",
     "@types/lodash-es": "^4.17.12",
-    "@types/react": "^18.3.4",
+    "@types/react": "^18.3.5",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
     "storybook": "^8.2.9",

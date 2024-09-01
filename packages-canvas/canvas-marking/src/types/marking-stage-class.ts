@@ -38,6 +38,9 @@ export interface IMarkingStageClassProtected<T = void> {
    */
   imageMouse: Point;
   
+  /**
+   * 获取所有 item 的 stats 列表
+   */
   getItemStatsList(exclude?: IMarkingItemClass<T>): IMarkingItemStats<T>[];
 }
 
@@ -53,22 +56,44 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
    */
   setData(url: string, markings?: IMarkingConfigItem<T>[]): void;
   
+  /**
+   * 切换 disabled 状态，处于 disabled 状态时，不可编辑
+   */
   toggleDisabled(disabled?: boolean): void;
   
+  /**
+   * 切换是否磁吸
+   */
   toggleMagnet(magnet?: boolean): void;
   
+  /**
+   * 切换是否 snap
+   */
   toggleSnapping(snapping?: boolean): void;
   
+  /**
+   * 开始新建
+   */
   startCreating(extraOptions?: IMarkingConfigItem<T>): void;
   
+  /**
+   * 取消新建
+   */
   cancelCreating(): void;
   
+  /**
+   * 完成新建（但不一定能完成）
+   */
   finishCreating(): void;
   
-  // private startEditing(o): void;
-  
+  /**
+   * 完成编辑（不一定能完成）
+   */
   finishEditing(): void;
   
+  /**
+   * 高亮某标记
+   */
   highlightItem(finder: TMarkingItemFinder<T> | null, borderIndex?: number | null): void;
   
   /**

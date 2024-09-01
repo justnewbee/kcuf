@@ -76,5 +76,4 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig {
   onEditComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onDelete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onStatsChange?(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void;
-  // onChange?({ data, path }[]): void; // TODO
 }

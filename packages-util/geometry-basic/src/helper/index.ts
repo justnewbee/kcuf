@@ -37,6 +37,7 @@ export { default as getRectPathBySegmentAndPoint } from './get-rect-path-by-segm
 export { default as getRectPathByTwoPoints } from './get-rect-path-by-two-points';
 export { default as getPathBoundaryRect } from './get-path-boundary-rect';
 export { default as getPathEdgeAndCenterPoints } from './get-path-edge-and-center-points';
+export { default as getPathCentroid } from './get-path-centroid';
 
 // 面
 export { default as getPathArea } from './get-path-area';
