@@ -54,6 +54,7 @@ const ScSwitchButton = styled.button<IScProps>`
   cursor: pointer;
   
   ${getStyledSwitchBg}
+  
   &::after {
     content: '';
     position: absolute;
@@ -69,7 +70,7 @@ const ScSwitchButton = styled.button<IScProps>`
 `;
 
 const ScSwitchLabel = styled.label`
-  margin-left: 8px;
+  margin-left: 4px;
 `;
 
 function InputSwitch({

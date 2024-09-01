@@ -1,7 +1,7 @@
 import {
   MarkingConfigItem,
   MarkingBorderStyleDiff
-} from '../../src';
+} from '../../../src';
 
 const DIFF_HOVER: MarkingBorderStyleDiff = {
   outerColor: 'hsl(177 100% 50%)',

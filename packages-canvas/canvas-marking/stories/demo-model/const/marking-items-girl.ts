@@ -1,6 +1,6 @@
 import {
   MarkingConfigItem
-} from '../../src';
+} from '../../../src';
 
 export default [{
   path: [
