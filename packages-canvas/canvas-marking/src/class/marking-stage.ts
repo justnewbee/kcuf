@@ -312,9 +312,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.markingItems.length = 0;
     
     items.forEach(v => {
-      if (v.path?.length) {
-        this.markingItems.push(this.createMarkingItem(v));
-      }
+      this.markingItems.push(this.createMarkingItem(v));
     });
     
     this.setupImage(imageUrl).then(() => this.updateAndDraw(cause)); // 保证图片加载完成再渲染 MarkingItem

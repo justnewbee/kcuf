@@ -450,7 +450,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     return {
       data: options.data,
-      path: [...path], // 得到一个干净的，从而避免引用干扰
+      path: _cloneDeep(path), // 得到一个干净的，从而避免引用干扰（尤其是 immer 这种会锁对象的）
       disabled: this.options.disabled || false,
       length: getPathLength(pathForDraw),
       area,
