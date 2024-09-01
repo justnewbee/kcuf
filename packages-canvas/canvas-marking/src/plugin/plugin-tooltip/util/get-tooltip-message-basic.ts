@@ -4,10 +4,6 @@ import {
 } from '../../../types';
 
 export default function getTooltipMessageBasic<T>(stats: IMarkingStageStats<T>, options: IMarkingStageOptions<T>): string {
-  if (!stats.mouseInCanvas) {
-    return '';
-  }
-  
   if (stats.moving) {
     return `<strong>拖拽：</strong>移动画布
 <strong>空格：</strong>取消移动`;

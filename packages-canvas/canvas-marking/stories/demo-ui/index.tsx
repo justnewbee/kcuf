@@ -12,12 +12,13 @@ import {
 } from '../demo-model';
 
 import Ops from './ops';
+import Floating from './floating';
 
-interface IScStoryDefaultProps {
+interface IScContainerProps {
   $fullscreen?: boolean;
 }
 
-const ScStoryDefault = styled.div<IScStoryDefaultProps>`
+const ScContainer = styled.div<IScContainerProps>`
   display: flex;
   flex-direction: column;
   height: 960px;
@@ -41,8 +42,9 @@ export default function StoryDefault(): ReactElement {
   const refDomMarkingStage = useRefDomMarkingStage();
   const fullscreen = useFullscreen();
   
-  return <ScStoryDefault ref={refDomContainer} $fullscreen={fullscreen}>
+  return <ScContainer ref={refDomContainer} $fullscreen={fullscreen}>
     <ScMarking ref={refDomMarkingStage} />
+    <Floating />
     <Ops />
-  </ScStoryDefault>;
+  </ScContainer>;
 }

@@ -11,11 +11,13 @@ import {
 import {
   useMarkingStage,
   useFullscreen,
+  useFloatingVisible,
   useHandleInit,
   useHandleDestroy,
   useHandleToggleFullscreen,
-  useHandleDebugStats,
+  useHandleToggleFloatingVisible,
   useHandleToggleDisabled,
+  useHandleDebugStats,
   useMarkingStageStats,
   useHandleSetDataAerial,
   useHandleSetDataSexy,
@@ -37,7 +39,7 @@ import {
   useHandleHighlightPrevBorder,
   useHandleZoomIn,
   useHandleZoomOut,
-  useHandleZoomReset,
+  useHandleZoomReset
 } from '../../demo-model';
 
 const ScActions = styled.div`
@@ -48,7 +50,9 @@ export default function Ops(): ReactElement {
   const markingStage = useMarkingStage();
   const markingStageStats = useMarkingStageStats();
   const fullscreen = useFullscreen();
+  const floatingVisible = useFloatingVisible();
   const handleToggleFullscreen = useHandleToggleFullscreen();
+  const handleToggleFloatingVisible = useHandleToggleFloatingVisible();
   const handleToggleDisabled = useHandleToggleDisabled();
   const handleInit = useHandleInit();
   const handleDestroy = useHandleDestroy();
@@ -90,9 +94,9 @@ export default function Ops(): ReactElement {
         onClick: handleToggleDisabled
       }}>{markingStageStats?.disabled ? 'enable' : 'disable'}</Button>
       <InputSwitch {...{
-        label: '浮动按钮'
-        // value: stateFloatingTool,
-        // onChange: setStateFloatingTool
+        label: '浮动按钮',
+        value: floatingVisible,
+        onChange: handleToggleFloatingVisible
       }} />
       <br />
       <Button {...{

@@ -8,10 +8,11 @@ import {
 
 import useModelDispatch from './_use-model-dispatch';
 
-export default function useDispatchToggleFloatingVisible(): () => void {
+export default function useDispatchToggleFloatingVisible(): (payload?: boolean) => void {
   const dispatch = useModelDispatch();
   
-  return useCallback(() => dispatch({
-    type: EAction.TOGGLE_FLOATING_VISIBLE
+  return useCallback((payload?: boolean) => dispatch({
+    type: EAction.TOGGLE_FLOATING_VISIBLE,
+    payload
   }), [dispatch]);
 }

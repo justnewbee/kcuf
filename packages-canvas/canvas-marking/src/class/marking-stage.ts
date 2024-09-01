@@ -481,6 +481,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   
   private handleMouseLeaveCanvas(e: MouseEvent): void {
     this.mouseInCanvas = null;
+    this.hoverMarkingItem(null);
     this.updateImageMouse(this.getMouseInCanvasFromMouseEvent(e)); // 避免出现空隙
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE_CANVAS);
   }
@@ -1119,7 +1120,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     
     this.moveEnd(); // 副作用 1
     this.itemEditing?.finishEditing(); // 副作用 2
-    this.hoverMarkingItem(null);
+    this.hoverMarkingItem(null); // 副作用 3
     
     const markingItem = this.createMarkingItem({
       ...extraOptions,
