@@ -30,11 +30,7 @@ export default function getAngleBetweenSegments(segment1: TSegment, segment2: TS
       return 0;
     }
     
-    if (radians > Math.PI / 2) {
-      return radians - Math.PI / 2;
-    }
-    
-    return radians;
+    return Math.min(radians, Math.PI - radians);
   }
   
   return radians;
