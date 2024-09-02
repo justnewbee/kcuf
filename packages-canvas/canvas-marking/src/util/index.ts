@@ -20,6 +20,7 @@ export { default as initDrawStylePoint } from './init-draw-style-point';
 export { default as initDrawStyleFill } from './init-draw-style-fill';
 export { default as mergeBorderStyleWithDiff } from './merge-border-style-with-diff';
 
+export { default as getPathCreatingFree } from './get-path-creating-free';
 export { default as getPathCreatingRect } from './get-path-creating-rect';
 export { default as getPathCreatingRect2 } from './get-path-creating-rect2';
 

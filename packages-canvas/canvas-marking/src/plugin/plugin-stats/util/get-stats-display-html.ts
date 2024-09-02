@@ -61,6 +61,7 @@ export default function getStatsDisplayHtml<T>(stats: IMarkingStageStats<T>, cau
     ['Creating', displayBool(stats.creating)],
     ['CreatingStarted', displayBool(stats.creatingStarted)],
     ['CreatingCrossing', displayBool(stats.creatingCrossing)],
+    ['creatingWillFinish', stats.creatingWillFinish],
     ['Highlighting', displayBool(stats.highlighting)],
     ['Hovering', displayBool(stats.hovering)],
     ['HoveringPoint', displayIndexAndPoint(stats.hoveringPointIndex, stats.itemStatsHovering?.path[stats.hoveringPointIndex] || null)],

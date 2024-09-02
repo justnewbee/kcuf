@@ -14,7 +14,7 @@ export default function getTooltipMessageBasic<T>(stats: IMarkingStageStats<T>, 
   }
   
   if (stats.creating && stats.itemStatsCreating) {
-    if (stats.itemStatsCreating.willFinishCreating) {
+    if (stats.itemStatsCreating.creatingWillFinish) {
       return `<strong>单击 / 空格 / 回车：</strong>完成绘制
 <strong>Delete / Backspace：</strong>删除前一个节点
 <strong>Esc：</strong>取消新建`;

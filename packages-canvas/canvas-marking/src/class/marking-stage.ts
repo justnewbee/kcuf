@@ -1363,6 +1363,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       creating: !!itemCreating,
       creatingStarted: itemStatsCreating ? itemStatsCreating.path.length > 0 : false,
       creatingCrossing: !!itemStatsCreating?.crossing,
+      creatingWillFinish: itemStatsCreating ? itemStatsCreating.creatingWillFinish : false,
       hovering: !!itemStatsHovering,
       hoveringPointIndex: itemStatsHovering ? itemStatsHovering.hoveringPointIndex : -1,
       hoveringInsertionPointIndex: itemStatsHovering ? itemStatsHovering.hoveringInsertionPointIndex : -1,

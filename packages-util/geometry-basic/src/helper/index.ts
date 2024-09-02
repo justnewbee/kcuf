@@ -53,6 +53,7 @@ export { default as isSegmentProjectionOverlap } from './is-segment-projection-o
 export { default as isSegmentCrossing } from './is-segment-crossing';
 
 // 线与路径
+export { default as getSegmentInnerSliceListByPath } from './get-segment-inner-slice-list-by-path';
 export { default as getSegmentInnerSliceTotalLengthByPath } from './get-segment-inner-slice-total-length-by-path';
 
 // 路径与路径

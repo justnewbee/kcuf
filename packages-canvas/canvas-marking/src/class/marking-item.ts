@@ -31,7 +31,8 @@ import {
   IMarkingItemClass,
   IMarkingItemOptions,
   IMarkingConfigItemBorderDiff,
-  IMarkingItemStats
+  IMarkingItemStats,
+  TCreatingWillFinish
 } from '../types';
 import {
   DEFAULT_FILL_ALPHA_EDITING,
@@ -46,6 +47,7 @@ import {
   fadeStylePoint,
   fadeStyleFill,
   mergeBorderStyleWithDiff,
+  getPathCreatingFree,
   getPathCreatingRect,
   getPathCreatingRect2,
   canvasDrawArea,
@@ -410,7 +412,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       case 'rect2':
         return getPathCreatingRect2(path, imageMouse, [[0, 0], imageSize]);
       default:
-        return [...path, imageMouse];
+        return getPathCreatingFree(path, imageMouse);
     }
   }
   
@@ -425,23 +427,26 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       hovering,
       hoveringPointIndex,
       hoveringInsertionPointIndex,
-      pointCountRange: [, max]
+      pointCountRange: [min, max]
     } = this;
     const pathForDraw = this.getPathForDraw();
+    const crossing = this.detectCrossingAndOverlap();
     const area = roundFloat(getPathArea(pathForDraw), 2);
-    let willFinishCreating = false;
+    let creatingWillFinish: TCreatingWillFinish = false;
     
     // 针对新建，是否下一个点击将自动完成新建
-    if (this.creating) {
+    if (this.creating && !crossing) {
       switch (options.type) {
         case 'rect':
         case 'rect2':
-          willFinishCreating = pathForDraw.length >= 4; // 自由矩形只需要三个点
+          creatingWillFinish = pathForDraw.length >= 4; // 自由矩形只需要三个点
           
           break;
         default:
-          if (max > 0) {
-            willFinishCreating = pathForDraw.length >= max;
+          if (hoveringPointIndex === 0 && pathForDraw.length >= min) { // 手动闭合：在第一个点上，且已有点数 >= minPoint
+            creatingWillFinish = 'close';
+          } else if (max > 0 && pathForDraw.length >= max) {
+            creatingWillFinish = true;
           }
           
           break;
@@ -455,7 +460,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       length: getPathLength(pathForDraw),
       area,
       areaPercentage: roundFloat(area * 100 / (imageSize[0] * imageSize[1]), 2),
-      willFinishCreating,
+      creatingWillFinish,
       hovering,
       hoveringPointIndex,
       hoveringInsertionPointIndex,
@@ -464,7 +469,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       highlightingBorderIndex: this.highlightingBorderIndex,
       editing: this.editing,
       dirty: pathSnapshotEditing.length > 0 && !_isEqual(pathSnapshotEditing, pathForDraw),
-      crossing: this.detectCrossingAndOverlap(),
+      crossing,
       dragging: !!this.draggingStartCoords,
       draggingMoved: this.draggingMoved,
       draggingPointIndex: this.draggingPointIndex,
@@ -546,7 +551,8 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       markingStage: {
         canvasContext,
         imageScale
-      }
+      },
+      statsSnapshot
     } = this;
     const pointStyle = this.getDrawStylePoint();
     
@@ -557,7 +563,10 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       }
     });
     
-    this.getPathForDraw().forEach(v => markingDrawPoint(canvasContext, v, pointStyle, imageScale));
+    this.getPathForDraw().forEach((v, i) => markingDrawPoint(canvasContext, v, i === 0 && statsSnapshot.creatingWillFinish === 'close' ? {
+      ...pointStyle,
+      radius: pointStyle.radius * 2
+    } : pointStyle, imageScale));
   }
   
   /**
@@ -669,11 +678,12 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const {
       path,
       hoveringPointIndex,
-      pointCountRange: [min, max]
+      pointCountRange: [, max],
+      statsSnapshot
     } = this;
     
     if (hoveringPointIndex >= 0) { // 在已有的点上
-      if (hoveringPointIndex === 0 && path.length >= min) { // 手动闭合：在第一个点上，且已有点数 >= minPoint
+      if (statsSnapshot.creatingWillFinish === 'close') {
         this.finishCreating();
       }
       
@@ -691,6 +701,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const pathForDraw = this.getPathForDraw();
     let last: boolean;
     
+    // TODO 这里逻辑有冗余
     switch (options.type) {
       case 'rect': // 利用对角线两个点，生成矩形的 4 个点
       case 'rect2': // 先画一条边的两个点，再利用第三个点确定另一条平行边所在的位置，从而确定一个矩形

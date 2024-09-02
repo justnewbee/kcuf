@@ -4,7 +4,8 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  TSize
+  TSize,
+  TCreatingWillFinish
 } from './common';
 
 /**
@@ -17,7 +18,14 @@ export interface IMarkingItemStats<T = void> {
   length: number; // 所有边总长 px
   area: number; // 面积，px²
   areaPercentage: number; // 面积占比，取值范围 [0, 100]，可直接拼 % 展示
-  willFinishCreating: boolean; // 再增加一个节点，可自动完成创建
+  /**
+   * 是否即将完成绘制
+   *
+   * - false 不是
+   * - true 下一个点最末一个点
+   * - close 路径闭合
+   */
+  creatingWillFinish: TCreatingWillFinish;
   hovering: boolean;
   hoveringPointIndex: number;
   hoveringInsertionPointIndex: number;
@@ -64,6 +72,7 @@ export interface IMarkingStageStats<T = void> {
   creating: boolean;
   creatingStarted: boolean;
   creatingCrossing: boolean;
+  creatingWillFinish: TCreatingWillFinish;
   highlighting: boolean;
   hovering: boolean;
   hoveringPointIndex: number;
