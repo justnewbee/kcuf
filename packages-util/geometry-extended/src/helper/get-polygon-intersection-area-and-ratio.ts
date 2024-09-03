@@ -1,6 +1,6 @@
 import {
   Path,
-  getPathArea
+  pathArea
 } from '@kcuf/geometry-basic';
 
 import getPolygonIntersectionArea from './get-polygon-intersection-area';
@@ -13,7 +13,7 @@ export default function getPolygonIntersectionAreaAndRatio(polygon1: Path, polyg
   
   return [
     intersectionArea,
-    intersectionArea > 0 ? intersectionArea / getPathArea(polygon1) : 0,
-    intersectionArea > 0 ? intersectionArea / getPathArea(polygon2) : 0
+    intersectionArea > 0 ? intersectionArea / pathArea(polygon1) : 0,
+    intersectionArea > 0 ? intersectionArea / pathArea(polygon2) : 0
   ];
 }

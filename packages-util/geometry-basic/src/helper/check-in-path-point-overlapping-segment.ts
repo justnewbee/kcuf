@@ -2,8 +2,8 @@ import {
   TPath
 } from '../types';
 
-import getSegmentList from './get-segment-list';
-import isPointOnSegment from './is-point-on-segment';
+import pathSegmentList from './path-segment-list';
+import pointIsAlongSegment from './point-is-along-segment';
 
 /**
  * 检查闭合路径内，是否存在某个点恰好压在它不属于的线段上
@@ -13,7 +13,7 @@ export default function checkInPathPointOverlappingSegment(path: TPath): boolean
     return false;
   }
   
-  const segmentList = getSegmentList(path); // 个数与 path 的点数相同
+  const segmentList = pathSegmentList(path); // 个数与 path 的点数相同
   
   return path.some((point, pointIndex) => {
     const ignoredLineIndexLeft = pointIndex === 0 ? segmentList.length - 1 : pointIndex;
@@ -24,7 +24,7 @@ export default function checkInPathPointOverlappingSegment(path: TPath): boolean
         return false;
       }
       
-      return isPointOnSegment(point, v);
+      return pointIsAlongSegment(point, v);
     });
   });
 }

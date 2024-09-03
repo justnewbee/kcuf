@@ -1,6 +1,6 @@
 import {
   Path,
-  getPathArea
+  pathArea
 } from '@kcuf/geometry-basic';
 
 import getPolygonIntersectionPathList from './get-polygon-intersection-path-list';
@@ -11,5 +11,5 @@ import getPolygonIntersectionPathList from './get-polygon-intersection-path-list
 export default function getPolygonIntersectionArea(polygon1: Path, polygon2: Path): number {
   const intersectionPathList = getPolygonIntersectionPathList(polygon1, polygon2);
   
-  return intersectionPathList.reduce((result, v) => result + getPathArea(v), 0);
+  return intersectionPathList.reduce((result, v) => result + pathArea(v), 0);
 }

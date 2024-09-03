@@ -4,10 +4,10 @@ import {
 } from '../types';
 
 import getPathEdgeAndCenterPoints from './get-path-edge-and-center-points';
-import isSegmentEqual from './is-segment-equal';
+import segmentIsEqual from './segment-is-equal';
 
 function pushUniqSegments(segments: TSegment[], segment: TSegment): void {
-  if (!segments.some(v => isSegmentEqual(v, segment))) {
+  if (!segments.some(v => segmentIsEqual(v, segment))) {
     segments.push(segment);
   }
 }

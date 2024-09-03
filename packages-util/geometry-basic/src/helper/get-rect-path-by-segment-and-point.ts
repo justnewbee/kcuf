@@ -8,7 +8,7 @@ import {
 } from '../types';
 
 import roundCoords from './round-coords';
-import getPointDistancesToSegment from './get-point-distances-to-segment';
+import pointToSegmentDistances from './point-to-segment-distances';
 
 /**
  * 以给定线段为矩形的一条边，其平行边经过给定点，求矩形四个点坐标
@@ -17,7 +17,7 @@ import getPointDistancesToSegment from './get-point-distances-to-segment';
  * - 给定范围（左上顶点和右下顶点围成的正矩形）的情况下，需保证矩形不会超出
  */
 export default function getRectPathBySegmentAndPoint(segment: TSegment, point: TPoint, limit?: [TPoint, TPoint]): [TPoint, TPoint, TPoint, TPoint] | null {
-  const [, dx0, dy0] = getPointDistancesToSegment(point, segment);
+  const [, dx0, dy0] = pointToSegmentDistances(point, segment);
   
   if (Math.abs(dx0) < Number.EPSILON) { // dy0 认为也是 0
     return null;

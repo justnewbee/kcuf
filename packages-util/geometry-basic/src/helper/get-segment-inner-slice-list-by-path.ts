@@ -4,11 +4,11 @@ import {
   TSegment
 } from '../types';
 
-import getPointDistance from './get-point-distance';
-import getSegmentList from './get-segment-list';
-import getSegmentIntersectionPoint from './get-segment-intersection-point';
-import isPointInPath from './is-point-in-path';
-import isPointOnPath from './is-point-on-path';
+import pointToPointDistance from './point-to-point-distance';
+import pathSegmentList from './path-segment-list';
+import segmentIntersectionPoint from './segment-intersection-point';
+import is from './point-is-within-path';
+import pointIsAlongPath from './point-is-along-path';
 
 /**
  * 获取线段被 path 切割并在 path 内部的所有线段
@@ -19,8 +19,8 @@ import isPointOnPath from './is-point-on-path';
  */
 export default function getSegmentInnerSliceListByPath(segment: TSegment, path: TPath): TSegment[] {
   // 线段与 path 上所有线段的相交点
-  const intersectionPointList = getSegmentList(path).reduce((result: TPoint[], v) => {
-    const intersectionPoint = getSegmentIntersectionPoint(segment, v);
+  const intersectionPointList = pathSegmentList(path).reduce((result: TPoint[], v) => {
+    const intersectionPoint = segmentIntersectionPoint(segment, v);
     
     if (intersectionPoint) {
       result.push(intersectionPoint);
@@ -31,7 +31,7 @@ export default function getSegmentInnerSliceListByPath(segment: TSegment, path: 
   
   // 当端点在路径内部（或路径上），且不在上面算出的点内，加进去，加的时候，需判断跟头尾哪个点近
   function addEndingPoint(p: TPoint): void {
-    if (!isPointInPath(p, path) && !isPointOnPath(p, path)) {
+    if (!is(p, path) && !pointIsAlongPath(p, path)) {
       return;
     }
     
@@ -44,8 +44,8 @@ export default function getSegmentInnerSliceListByPath(segment: TSegment, path: 
       return;
     }
     
-    const d1 = getPointDistance(p, intersectionPointFirst);
-    const d2 = getPointDistance(p, intersectionPointLast);
+    const d1 = pointToPointDistance(p, intersectionPointFirst);
+    const d2 = pointToPointDistance(p, intersectionPointLast);
     
     if (d1 < 1 || d2 < 1) { // 认为可能是首尾点
       return;

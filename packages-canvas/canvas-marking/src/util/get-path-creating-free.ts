@@ -1,7 +1,7 @@
 import {
   Path,
   Point,
-  isPointEqual
+  pointIsEqual
 } from '@kcuf/geometry-basic';
 
 export default function getPathCreatingFree(path: Path, mouseCoords: Point): Path {
@@ -12,5 +12,5 @@ export default function getPathCreatingFree(path: Path, mouseCoords: Point): Pat
     return [mouseCoords];
   }
   
-  return isPointEqual(pFirst, mouseCoords) || isPointEqual(pLast, mouseCoords) ? path : [...path, mouseCoords];
+  return pointIsEqual(pFirst, mouseCoords) || pointIsEqual(pLast, mouseCoords) ? path : [...path, mouseCoords];
 }

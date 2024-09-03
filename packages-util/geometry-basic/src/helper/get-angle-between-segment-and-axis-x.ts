@@ -2,7 +2,7 @@ import {
   TSegment
 } from '../types';
 
-import getSegmentSlope from './get-segment-slope';
+import segmentSlope from './segment-slope';
 
 /**
  * 获取线段与 X 轴夹角，返回弧度，范围 (-π/2, π/2]
@@ -12,5 +12,5 @@ export default function getAngleBetweenSegmentAndAxisX(segment: TSegment): numbe
     return Math.PI / 2;
   }
   
-  return Math.atan(getSegmentSlope(segment)); // 范围 (-π/2, π/2)
+  return Math.atan(segmentSlope(segment)); // 范围 (-π/2, π/2)
 }

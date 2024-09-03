@@ -12,12 +12,12 @@ import {
   checkInPathPointDuplicate,
   checkInPathSegmentCrossing,
   checkInPathPointOverlappingSegment,
-  isPointInPath,
-  getPathLength,
-  getPathArea,
-  getPathBoundaryRect,
-  getPathMiddlePointList,
-  getSegmentList
+  pointIsWithinPath,
+  pathTotalLength,
+  pathArea,
+  pathBbox,
+  pathMidpointList,
+  pathSegmentList
 } from '@kcuf/geometry-basic';
 
 import {
@@ -193,7 +193,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       return [];
     }
     
-    return getPathMiddlePointList(path, pointInsertionMinDistance / imageScale, _reduce(borderDiff, (result: number[], v, k) => {
+    return pathMidpointList(path, pointInsertionMinDistance / imageScale, _reduce(borderDiff, (result: number[], v, k) => {
       const index = Number(k);
       
       if (!isNaN(index) && v?.noInsertion) {
@@ -265,7 +265,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const borderStyle = mergeBorderStyleWithDiff(this.borderStyleHovering, borderDiff?.hover, this.faded);
     const lineWidth = (borderStyle.width + borderStyle.outerWidth * 2) / imageScale; // 考虑边的外框
     
-    return getSegmentList(this.path).findIndex(v => {
+    return pathSegmentList(this.path).findIndex(v => {
       return canvasCheckPointInStroke(canvasContext, imageMouse, v, lineWidth);
     });
   }
@@ -431,7 +431,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     } = this;
     const pathForDraw = this.getPathForDraw();
     const crossing = this.detectCrossingAndOverlap();
-    const area = roundFloat(getPathArea(pathForDraw), 2);
+    const area = roundFloat(pathArea(pathForDraw), 2);
     let creatingWillFinish: TCreatingWillFinish = false;
     
     // 针对新建，是否下一个点击将自动完成新建
@@ -457,7 +457,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       data: options.data,
       path: _cloneDeep(path), // 得到一个干净的，从而避免引用干扰（尤其是 immer 这种会锁对象的）
       disabled: this.options.disabled || false,
-      length: getPathLength(pathForDraw),
+      length: pathTotalLength(pathForDraw),
       area,
       areaPercentage: roundFloat(area * 100 / (imageSize[0] * imageSize[1]), 2),
       creatingWillFinish,
@@ -508,7 +508,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     markingDrawBorder(canvasContext, pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll, faded), imageScale, close);
     
-    const segmentList = getSegmentList(pathForDraw);
+    const segmentList = pathSegmentList(pathForDraw);
     
     _forEach(borderDiff, (diff, k) => {
       const segment = segmentList[Number(k)];
@@ -611,7 +611,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       return EMarkingMouseStatus.IN_BORDER;
     }
     
-    if (isPointInPath(imageMouse, path)) {
+    if (pointIsWithinPath(imageMouse, path)) {
       return EMarkingMouseStatus.IN;
     }
     
@@ -822,7 +822,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     }
     
     if (draggingInsertionPointIndex >= 0) { // 拖动的是虚拟点，转正
-      this.path.splice(draggingInsertionPointIndex + 1, 0, imageMouse);
+      this.path.splice(draggingInsertionPointIndex + 1, 0, [imageMouse[0], imageMouse[1]]); // 新一个 Point，避免类似 immer 的锁对象行为造成问题
       this.draggingPointIndex = draggingInsertionPointIndex + 1;
       this.draggingInsertionPointIndex = -1; // 消除
       
@@ -832,7 +832,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     }
     
     // 拖动整体图形
-    const [[xMin, yMin], [xMax, yMax]] = getPathBoundaryRect(this.pathSnapshotDragging);
+    const [[xMin, yMin], [xMax, yMax]] = pathBbox(this.pathSnapshotDragging);
     const dx = _clamp(imageMouse[0] - draggingStartCoords[0], -xMin, imageSize[0] - xMax);
     const dy = _clamp(imageMouse[1] - draggingStartCoords[1], -yMin, imageSize[1] - yMax);
     
