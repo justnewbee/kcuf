@@ -5,13 +5,13 @@ import {
 
 import segmentToLine from './segment-to-line';
 import pointIsInSegmentProjection from './point-is-in-segment-projection';
-import lineIntersectionPoint from './line-intersection-point';
+import lineIntersection from './line-intersection';
 
 /**
- * 两线段相交点
+ * 线段相交点
  */
 export default function segmentIntersection(segment1: TSegment, segment2: TSegment): TPoint | null {
-  const intersectionPoint = lineIntersectionPoint(segmentToLine(segment1), segmentToLine(segment2)); // 这是直线相交点，并不表示线段相交
+  const intersectionPoint = lineIntersection(segmentToLine(segment1), segmentToLine(segment2)); // 这是直线相交点，并不表示线段相交
   
   if (!intersectionPoint) {
     return null;

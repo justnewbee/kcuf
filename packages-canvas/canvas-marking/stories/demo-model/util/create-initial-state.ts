@@ -8,6 +8,7 @@ export default function createInitialState(): IModelState {
     domMarking: null,
     markingStageStats: null,
     markingStage: null,
+    logEvents: true,
     fullscreen: false,
     floatingVisible: false
   };

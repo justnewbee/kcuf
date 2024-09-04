@@ -20,7 +20,7 @@ export type TModelAction = {
   type: EAction.SET_MARKING_STAGE_STATS;
   payload: MarkingStageStats | null;
 } | {
-  type: EAction.TOGGLE_FULLSCREEN | EAction.TOGGLE_FLOATING_VISIBLE;
+  type: EAction.TOGGLE_LOG_EVENTS | EAction.TOGGLE_FULLSCREEN | EAction.TOGGLE_FLOATING_VISIBLE;
   payload?: boolean;
 };
 

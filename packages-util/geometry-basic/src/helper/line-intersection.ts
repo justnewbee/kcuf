@@ -10,7 +10,7 @@ import standardizeLineCoefficients from './standardize-line-coefficients';
 /**
  * 两条直线相交点
  */
-export default function lineIntersectionPoint(line1: TLine, line2: TLine): TPoint | null {
+export default function lineIntersection(line1: TLine, line2: TLine): TPoint | null {
   const [A1, B1, C1] = standardizeLineCoefficients(line1);
   const [A2, B2, C2] = standardizeLineCoefficients(line2);
   

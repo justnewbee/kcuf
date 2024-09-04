@@ -8,6 +8,7 @@ export interface IModelState {
   domMarking: HTMLDivElement | null;
   markingStage: MarkingStageClassType | null;
   markingStageStats: MarkingStageStats | null;
+  logEvents: boolean;
   fullscreen: boolean; // TODO use useFullscreen hook
   floatingVisible: boolean;
 }

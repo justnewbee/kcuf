@@ -5,7 +5,7 @@ import {
 
 import pointIsWithinPath from './point-is-within-path';
 import segmentIntersectionWithPath from './segment-intersection-with-path';
-import pathHasPoint from './path-has-point';
+import pointIsIncluded from './point-is-included';
 
 /**
  * 获取线段被 path 切割并在 path 内部的所有线段
@@ -15,25 +15,25 @@ import pathHasPoint from './path-has-point';
  * 3. 线段穿过多边形，且可能多次进出多边形
  */
 export default function segmentInnerSliceListByPath(segment: TSegment, path: TPath): TSegment[] {
-  const intersectionPointList = segmentIntersectionWithPath(segment, path);
+  const points = segmentIntersectionWithPath(segment, path);
   
-  if (!pathHasPoint(intersectionPointList, segment[0]) && pointIsWithinPath(segment[0], path)) {
-    intersectionPointList.unshift(segment[0]);
+  if (!pointIsIncluded(segment[0], points) && pointIsWithinPath(segment[0], path)) {
+    points.unshift(segment[0]);
   }
   
-  if (!pathHasPoint(intersectionPointList, segment[1]) && pointIsWithinPath(segment[1], path)) {
-    intersectionPointList.push(segment[1]);
+  if (!pointIsIncluded(segment[1], points) && pointIsWithinPath(segment[1], path)) {
+    points.push(segment[1]);
   }
   
-  if (intersectionPointList.length < 2) {
+  if (points.length < 2) {
     return [];
   }
   
   const segments: TSegment[] = [];
   
-  for (let i = 0; i < intersectionPointList.length - 1; i += 2) {
-    const p1 = intersectionPointList[i];
-    const p2 = intersectionPointList[i + 1];
+  for (let i = 0; i < points.length - 1; i += 2) {
+    const p1 = points[i];
+    const p2 = points[i + 1];
     
     if (p1 && p2) {
       segments.push([p1, p2]);

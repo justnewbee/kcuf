@@ -7,7 +7,7 @@ import {
 import pkgInfo from '../package.json';
 import {
   Path,
-  pathHasPoint
+  pointIsIncluded
 } from '../src';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
@@ -19,14 +19,14 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     [0, 2]
   ];
   
-  describe('pathHasPoint(path: Path, p: Point): boolean', () => {
+  describe('pointIsIncluded(path: Path, p: Point): boolean', () => {
     test('path has not the point', () => {
-      expect(pathHasPoint(PATH, [2, 4])).toBeFalsy();
+      expect(pointIsIncluded([2, 4], PATH)).toBeFalsy();
     });
     
     test('path has the point', () => {
       for (const p of PATH) {
-        expect(pathHasPoint(PATH, p)).toBeTruthy();
+        expect(pointIsIncluded(p, PATH)).toBeTruthy();
       }
     });
   });

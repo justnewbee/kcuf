@@ -10,8 +10,7 @@ import {
   Point,
   Path,
   checkInPathPointDuplicate,
-  checkInPathSegmentCrossing,
-  checkInPathPointOverlappingSegment,
+  pathPasSegmentCrossing,
   pointIsWithinPath,
   pathTotalLength,
   pathArea,
@@ -579,7 +578,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     const pathForDraw = this.getPathForDraw();
     
-    return (!this.creating && checkInPathPointDuplicate(pathForDraw)) || checkInPathSegmentCrossing(pathForDraw) || checkInPathPointOverlappingSegment(pathForDraw);
+    return (!this.creating && checkInPathPointDuplicate(pathForDraw)) || pathPasSegmentCrossing(pathForDraw);
   }
   
   toggleHovering(value = true): void {

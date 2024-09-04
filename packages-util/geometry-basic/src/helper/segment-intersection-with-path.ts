@@ -7,7 +7,7 @@ import {
 import pointDistance from './point-distance';
 import segmentIntersection from './segment-intersection';
 import pathSegmentList from './path-segment-list';
-import pathHasPoint from './path-has-point';
+import pointIsIncluded from './point-is-included';
 
 /**
  * 线段与 path 上所有线段的相交点，保证其顺序与给定线段方向一致
@@ -16,7 +16,7 @@ export default function segmentIntersectionWithPath(segment: TSegment, path: TPa
   const points = pathSegmentList(path).reduce((result: TPoint[], v) => {
     const p = segmentIntersection(segment, v);
     
-    if (p && !pathHasPoint(result, p)) {
+    if (p && !pointIsIncluded(p, result)) {
       result.push(p);
     }
     

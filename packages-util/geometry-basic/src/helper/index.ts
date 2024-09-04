@@ -6,6 +6,7 @@ export { default as fromRadiansToDegrees } from './from-radians-to-degrees';
 
 // 点
 export { default as pointIsEqual } from './point-is-equal';
+export { default as pointIsIncluded } from './point-is-included';
 export { default as pointIsWithinPath } from './point-is-within-path';
 export { default as pointIsAlongPath } from './point-is-along-path';
 export { default as pointDistance } from './point-distance';
@@ -26,11 +27,12 @@ export { default as getMagnetPointAlongPaths } from './get-magnet-point-along-pa
 export { default as getPointSiblingsFromPath } from './get-point-siblings-from-path';
 
 // 直线
-export { default as lineIntersectionPoint } from './line-intersection-point';
+export { default as lineIntersection } from './line-intersection';
 
 // 线段
 export { default as segmentIsEqual } from './segment-is-equal';
 export { default as segmentIsEqualSlope } from './segment-is-equal-slope';
+export { default as segmentIsCrossing } from './segment-is-crossing';
 export { default as segmentVector } from './segment-vector';
 export { default as segmentLength } from './segment-length';
 export { default as segmentMidpoint } from './segment-midpoint';
@@ -44,7 +46,7 @@ export { default as segmentInnerSliceListByPath } from './segment-inner-slice-li
 export { default as segmentInnerSliceTotalLengthByPath } from './segment-inner-slice-total-length-by-path';
 
 // 路径
-export { default as pathHasPoint } from './path-has-point';
+export { default as pathPasSegmentCrossing } from './path-pas-segment-crossing';
 export { default as pathTotalLength } from './path-total-length';
 export { default as pathCentroid } from './path-centroid';
 export { default as pathArea } from './path-area';
@@ -58,12 +60,9 @@ export { default as getPathEdgeAndCenterPoints } from './get-path-edge-and-cente
 
 // 面
 export { default as checkInPathPointDuplicate } from './check-in-path-point-duplicate';
-export { default as checkInPathPointOverlappingSegment } from './check-in-path-point-overlapping-segment';
-export { default as checkInPathSegmentCrossing } from './check-in-path-segment-crossing';
 
 // 线与线
 export { default as isSegmentProjectionOverlap } from './is-segment-projection-overlap';
-export { default as isSegmentCrossing } from './segment-is-crossing';
 
 // 路径与路径
 export { default as getAuxiliarySegmentList } from './get-auxiliary-segment-list';

@@ -10,6 +10,7 @@ import {
 
 import {
   useMarkingStage,
+  useLogEvents,
   useFullscreen,
   useFloatingVisible,
   useHandleInit,
@@ -39,7 +40,8 @@ import {
   useHandleHighlightPrevBorder,
   useHandleZoomIn,
   useHandleZoomOut,
-  useHandleZoomReset
+  useHandleZoomReset,
+  useHandleToggleLogEvents
 } from '../../demo-model';
 
 const ScActions = styled.div`
@@ -50,8 +52,10 @@ export default function Ops(): ReactElement {
   const markingStage = useMarkingStage();
   const markingStageStats = useMarkingStageStats();
   const fullscreen = useFullscreen();
+  const logEvents = useLogEvents();
   const floatingVisible = useFloatingVisible();
   const handleToggleFullscreen = useHandleToggleFullscreen();
+  const handleToggleLogEvents = useHandleToggleLogEvents();
   const handleToggleFloatingVisible = useHandleToggleFloatingVisible();
   const handleToggleDisabled = useHandleToggleDisabled();
   const handleInit = useHandleInit();
@@ -97,6 +101,11 @@ export default function Ops(): ReactElement {
         label: '浮动按钮',
         value: floatingVisible,
         onChange: handleToggleFloatingVisible
+      }} />
+      <InputSwitch {...{
+        label: '打印事件（TODO）',
+        value: logEvents,
+        onChange: handleToggleLogEvents
       }} />
       <br />
       <Button {...{

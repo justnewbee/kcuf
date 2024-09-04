@@ -13,8 +13,8 @@ import {
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   /*
    * 5 ‖
-   * 4 ‖      ★
-   * 3 ‖  ↙       ↖
+   * 4 ‖     ↙★
+   * 3 ‖          ↖
    * 2 ★           ★
    * 1 ↓            ↑
    * 0 ★→-+--+--+--★--+
