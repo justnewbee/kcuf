@@ -2,11 +2,15 @@ import {
   TSegment
 } from '../types';
 
-import segmentSlope from './segment-slope';
+import isNearlyEqual from './is-nearly-equal';
+import segmentToLine from './segment-to-line';
 
 /**
- * 判断两根线段斜率相等（平行或重叠）
+ * 线段斜率相等（平行或重叠）
  */
 export default function segmentIsEqualSlope(segment1: TSegment, segment2: TSegment): boolean {
-  return Math.abs(segmentSlope(segment1) - segmentSlope(segment2)) < Number.EPSILON;
+  const [A1, B1] = segmentToLine(segment1);
+  const [A2, B2] = segmentToLine(segment2);
+  
+  return isNearlyEqual(A1, A2) && isNearlyEqual(B1, B2);
 }

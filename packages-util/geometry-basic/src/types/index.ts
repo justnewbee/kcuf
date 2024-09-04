@@ -8,7 +8,9 @@ export type TVector = [number, number];
 export type TSegment = [TPoint, TPoint];
 
 // 直线方程系数 `A*x + B*y + C = 0`
-export type TLineCoefficients = [number, number, number];
+export type TLine = [number, number, number];
+
+export type TLineStandard = [1, 0, number] | [number, -1, number];
 
 /**
  * 路径，一组有序坐标，也可以表示多边形（Polygon），当表示多边形的时候，

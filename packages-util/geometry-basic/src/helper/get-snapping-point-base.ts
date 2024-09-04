@@ -2,7 +2,7 @@ import {
   TPoint
 } from '../types';
 
-import pointToPointDistance from './point-to-point-distance';
+import pointDistance from './point-distance';
 
 /**
  * 找到一个点 point' 满足以下条件：
@@ -14,7 +14,7 @@ import pointToPointDistance from './point-to-point-distance';
  * 返回点和移动距离元组
  */
 export default function getSnappingPointBase(point: TPoint, fixedPoint: TPoint, steps = 8): [TPoint, number] {
-  const radius = pointToPointDistance(fixedPoint, point);
+  const radius = pointDistance(fixedPoint, point);
   
   if (radius <= 0) {
     return [point, 0];
@@ -29,7 +29,7 @@ export default function getSnappingPointBase(point: TPoint, fixedPoint: TPoint, 
       fixedPoint[0] + radius * Math.cos(i * radian),
       fixedPoint[1] + radius * Math.sin(i * radian)
     ];
-    const d = pointToPointDistance(p, point);
+    const d = pointDistance(p, point);
     
     if (d < dMin) {
       dMin = d;

@@ -4,7 +4,8 @@ export type {
   TPoint as Point,
   TSegment as Segment,
   TPath as Path,
-  TLineCoefficients as LineCoefficients,
+  TLine as Line,
+  TLineStandard as LineStandard,
   TVector as Vector,
   TMagnetPointResult as MagnetPointResult,
   IEdgeAndCenterPoints as EdgeAndCenterPoints

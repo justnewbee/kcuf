@@ -8,6 +8,7 @@ import {
 
 import segmentVector from './segment-vector';
 import segmentLength from './segment-length';
+import isNearlyEqual from './is-nearly-equal';
 
 /**
  * 获取两个线段的夹角，返回弧度，返回值范围：
@@ -26,7 +27,7 @@ export default function getAngleBetweenSegments(segment1: TSegment, segment2: TS
   const radians = Math.acos(cosTheta); // 0-π
   
   if (orientationRegardless) { // 不论向量朝向，只返回锐角
-    if (Math.abs(radians - Math.PI) < Number.EPSILON) {
+    if (isNearlyEqual(radians, Math.PI)) {
       return 0;
     }
     

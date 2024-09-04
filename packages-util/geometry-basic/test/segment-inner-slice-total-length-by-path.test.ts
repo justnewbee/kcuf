@@ -6,13 +6,13 @@ import {
 
 import pkgInfo from '../package.json';
 import {
-  getSegmentInnerSliceTotalLengthByPath
+  segmentInnerSliceTotalLengthByPath
 } from '../src';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
-  describe('getSegmentInnerSliceTotalLengthByPath(segment: Segment, path: Path): number', () => {
+  describe('segmentInnerSliceTotalLengthByPath(segment: Segment, path: Path): number', () => {
     test('Outside', () => {
-      expect(getSegmentInnerSliceTotalLengthByPath([
+      expect(segmentInnerSliceTotalLengthByPath([
         [1, 2],
         [2, 5]
       ], [
@@ -24,7 +24,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     });
     
     test('Inside', () => {
-      expect(getSegmentInnerSliceTotalLengthByPath([
+      expect(segmentInnerSliceTotalLengthByPath([
         [2, 2],
         [2, 4]
       ], [
@@ -34,7 +34,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         [0, 7]
       ])).toEqual(2);
 
-      expect(getSegmentInnerSliceTotalLengthByPath([
+      expect(segmentInnerSliceTotalLengthByPath([
         [613.4, 1659.2],
         [1442.4, 635.6]
       ], [
@@ -46,7 +46,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         [2142.9, 1887.8]
       ])).toEqual(0);
       
-      expect(getSegmentInnerSliceTotalLengthByPath([
+      expect(segmentInnerSliceTotalLengthByPath([
         [1126.4, 1659.2],
         [2026, 639.3]
       ], [
@@ -56,7 +56,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         [2618.8, 1659.2]
       ])).toBeGreaterThan(10);
       
-      expect(getSegmentInnerSliceTotalLengthByPath([
+      expect(segmentInnerSliceTotalLengthByPath([
         [613.4, 1659.2],
         [1442.4, 635.6]
       ], [

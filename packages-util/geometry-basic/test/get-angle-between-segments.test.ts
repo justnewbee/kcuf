@@ -6,6 +6,7 @@ import {
 
 import pkgInfo from '../package.json';
 import {
+  isNearlyEqual,
   getAngleBetweenSegments
 } from '../src';
 
@@ -32,15 +33,15 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     });
 
     test('45°', () => {
-      expect(Math.abs(getAngleBetweenSegments([[5, 0], [15, 0]], [[1, 1], [7, 7]]) - Math.PI / 4)).toBeLessThan(Number.EPSILON);
+      expect(isNearlyEqual(getAngleBetweenSegments([[5, 0], [15, 0]], [[1, 1], [7, 7]]), Math.PI / 4)).toBeTruthy();
     });
 
     test('90°', () => {
-      expect(Math.abs(getAngleBetweenSegments([[1, 1], [15, 15]], [[0, 100], [100, 0]]) - Math.PI / 2)).toBeLessThan(Number.EPSILON);
+      expect(isNearlyEqual(getAngleBetweenSegments([[1, 1], [15, 15]], [[0, 100], [100, 0]]), Math.PI / 2)).toBeTruthy();
     });
 
     test('135°→45°', () => {
-      expect(Math.abs(getAngleBetweenSegments([[5, 0], [15, 0]], [[10, 10], [7, 7]]) - Math.PI / 4)).toBeLessThan(Number.EPSILON);
+      expect(isNearlyEqual(getAngleBetweenSegments([[5, 0], [15, 0]], [[10, 10], [7, 7]]), Math.PI / 4)).toBeTruthy();
     });
   });
 
@@ -66,15 +67,15 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     });
 
     test('45°', () => {
-      expect(getAngleBetweenSegments([[5, 0], [15, 0]], [[1, 1], [7, 7]], false) - Math.PI / 4).toBeLessThan(Number.EPSILON);
+      expect(isNearlyEqual(getAngleBetweenSegments([[5, 0], [15, 0]], [[1, 1], [7, 7]], false), Math.PI / 4)).toBeTruthy();
     });
 
     test('90°', () => {
-      expect(getAngleBetweenSegments([[1, 1], [15, 15]], [[0, 100], [100, 0]], false) - Math.PI / 2).toBeLessThan(Number.EPSILON);
+      expect(isNearlyEqual(getAngleBetweenSegments([[1, 1], [15, 15]], [[0, 100], [100, 0]], false), Math.PI / 2)).toBeTruthy();
     });
 
     test('135°', () => {
-      expect(getAngleBetweenSegments([[5, 0], [15, 0]], [[10, 10], [7, 7]], false) - Math.PI * 3 / 4).toBeLessThan(Number.EPSILON);
+      expect(isNearlyEqual(getAngleBetweenSegments([[5, 0], [15, 0]], [[10, 10], [7, 7]], false), Math.PI * 3 / 4)).toBeTruthy();
     });
   });
 });
