@@ -3,9 +3,9 @@ import {
   TSegment
 } from '../types';
 
-import segmentToLine from './segment-to-line';
 import pointIsInSegmentProjection from './point-is-in-segment-projection';
 import lineIntersection from './line-intersection';
+import segmentToLine from './segment-to-line';
 
 /**
  * 线段相交点
