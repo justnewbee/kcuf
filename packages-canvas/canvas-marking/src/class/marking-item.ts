@@ -10,12 +10,13 @@ import {
   Point,
   Path,
   checkInPathPointDuplicate,
+  segmentLength,
+  segmentMidpoint,
   pathPasSegmentCrossing,
   pointIsWithinPath,
   pathPerimeter,
   pathArea,
   pathBbox,
-  pathMidpointList,
   pathSegmentList
 } from '@kcuf/geometry-basic';
 
@@ -192,7 +193,8 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       return [];
     }
     
-    return pathMidpointList(path, pointInsertionMinDistance / imageScale, _reduce(borderDiff, (result: number[], v, k) => {
+    const minDistance = pointInsertionMinDistance / imageScale;
+    const ignoredIndexes = _reduce(borderDiff, (result: number[], v, k) => {
       const index = Number(k);
       
       if (!isNaN(index) && v?.noInsertion) {
@@ -200,7 +202,15 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       }
       
       return result;
-    }, []));
+    }, []);
+    
+    return pathSegmentList(path).map((v, i) => {
+      if (ignoredIndexes?.includes(i)) {
+        return null;
+      }
+      
+      return minDistance > 0 && segmentLength(v) > minDistance ? segmentMidpoint(v) : null;
+    });
   }
   
   /**

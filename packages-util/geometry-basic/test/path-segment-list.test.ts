@@ -17,7 +17,8 @@ import {
   PATH_INFO_SQUARE,
   PATH_INFO_RECTANGLE,
   PATH_INFO_CONVEX,
-  PATH_INFO_CONCAVE
+  PATH_INFO_CONCAVE,
+  PATH_INFO_CROSSING
 } from './const';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
@@ -37,6 +38,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       expect(pathSegmentList(PATH_INFO_RECTANGLE.path)).toEqual(PATH_INFO_RECTANGLE.segments);
       expect(pathSegmentList(PATH_INFO_CONVEX.path)).toEqual(PATH_INFO_CONVEX.segments);
       expect(pathSegmentList(PATH_INFO_CONCAVE.path)).toEqual(PATH_INFO_CONCAVE.segments);
+      expect(pathSegmentList(PATH_INFO_CROSSING.path)).toEqual(PATH_INFO_CROSSING.segments);
     });
   });
 });

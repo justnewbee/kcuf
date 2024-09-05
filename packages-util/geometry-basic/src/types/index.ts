@@ -18,6 +18,8 @@ export type TLineStandard = [1, 0, number] | [number, -1, number];
  */
 export type TPath = TPoint[];
 
+export type TBbox = [TPoint, TPoint];
+
 export type TMagnetPointResult = [TPoint, number] | null;
 
 export interface IEdgeAndCenterPoints {

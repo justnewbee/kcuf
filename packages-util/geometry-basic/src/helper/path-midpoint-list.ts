@@ -3,16 +3,9 @@ import {
   TPoint
 } from '../types';
 
-import segmentLength from './segment-length';
-import pathSegmentList from './path-segment-list';
 import segmentMidpoint from './segment-midpoint';
+import pathSegmentList from './path-segment-list';
 
-export default function pathMidpointList(path: TPath, minDistance: number, ignoreIndexes?: number[]): (TPoint | null)[] {
-  return pathSegmentList(path).map((v, i) => {
-    if (ignoreIndexes?.includes(i)) {
-      return null;
-    }
-    
-    return minDistance > 0 && segmentLength(v) > minDistance ? segmentMidpoint(v) : null;
-  });
+export default function pathMidpointList(path: TPath): TPoint[] {
+  return pathSegmentList(path).map(segmentMidpoint);
 }

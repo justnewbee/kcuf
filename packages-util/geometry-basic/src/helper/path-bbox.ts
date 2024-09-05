@@ -1,12 +1,12 @@
 import {
-  TPoint,
-  TPath
+  TPath,
+  TBbox
 } from '../types';
 
 /**
  * 获取路径围成的多边形的外接正向矩形，作为最小边界（移动整体的时候可用来作边界碰撞检测）
  */
-export default function pathBbox(path: TPath): [TPoint, TPoint] {
+export default function pathBbox(path: TPath): TBbox {
   if (path.length <= 0) {
     return [
       [0, 0],
