@@ -3,7 +3,7 @@ import {
   TPoint
 } from '../types';
 
-export default function getPointSiblingsFromPath(path: TPath, index: number): [] | [TPoint] | [TPoint, TPoint] {
+export default function pointSiblingsFromPath(path: TPath, index: number): [] | [TPoint] | [TPoint, TPoint] {
   const first = path[0];
   const last = path[path.length - 1];
   

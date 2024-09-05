@@ -56,7 +56,7 @@ export const PATH_INFO_2: IPathInfo = {
  * 0 ◉→ +--+--+--◉--+
  *   0  1  2  3  4  5
  */
-export const PATH_INFO_REGULAR_TRIANGLE: IPathInfo = {
+export const PATH_INFO_3_REGULAR: IPathInfo = {
   path: [[0, 0], [4, 0], [2, 2 * Math.sqrt(3)]],
   perimeter: 12,
   area: 4 * Math.sqrt(3),
@@ -77,7 +77,7 @@ export const PATH_INFO_REGULAR_TRIANGLE: IPathInfo = {
  * 0 ◉→ +--+--+--◉--+
  *   0  1  2  3  4  5
  */
-export const PATH_INFO_ISOSCELES_RIGHT_TRIANGLE: IPathInfo = {
+export const PATH_INFO_3_ISOSCELES_RIGHT: IPathInfo = {
   path: [[0, 0], [4, 0], [0, 4]],
   perimeter: 8 + Math.hypot(4, 4),
   area: 8,

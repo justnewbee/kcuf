@@ -7,7 +7,7 @@ import {
   Point,
   Path,
   roundCoords,
-  getPointSiblingsFromPath,
+  pointSiblingsFromPath,
   getSnappingPoint,
   getSnappingPointBetween,
   getMagnetPointAlongPath,
@@ -825,7 +825,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       if (creatingPath?.length) {
         magnetResult = getSnappingPoint(coords, creatingPath[creatingPath.length - 1]!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
       } else if (itemEditing?.stats) {
-        const siblings = getPointSiblingsFromPath(itemEditing.stats.path, itemEditing.stats.draggingPointIndex);
+        const siblings = pointSiblingsFromPath(itemEditing.stats.path, itemEditing.stats.draggingPointIndex);
         
         if (siblings.length === 1) {
           magnetResult = getSnappingPoint(coords, siblings[0]);

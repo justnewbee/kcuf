@@ -13,7 +13,7 @@ import {
   PATH_INFO_0,
   PATH_INFO_1,
   PATH_INFO_2,
-  PATH_INFO_ISOSCELES_RIGHT_TRIANGLE,
+  PATH_INFO_3_ISOSCELES_RIGHT,
   PATH_INFO_SQUARE,
   PATH_INFO_RECTANGLE,
   PATH_INFO_CONVEX,
@@ -33,7 +33,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     });
     
     test('Path with 3+ points', () => {
-      expect(pathSegmentList(PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toEqual(PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.segments);
+      expect(pathSegmentList(PATH_INFO_3_ISOSCELES_RIGHT.path)).toEqual(PATH_INFO_3_ISOSCELES_RIGHT.segments);
       expect(pathSegmentList(PATH_INFO_SQUARE.path)).toEqual(PATH_INFO_SQUARE.segments);
       expect(pathSegmentList(PATH_INFO_RECTANGLE.path)).toEqual(PATH_INFO_RECTANGLE.segments);
       expect(pathSegmentList(PATH_INFO_CONVEX.path)).toEqual(PATH_INFO_CONVEX.segments);

@@ -13,7 +13,7 @@ import {
   PATH_INFO_0,
   PATH_INFO_1,
   PATH_INFO_2,
-  PATH_INFO_ISOSCELES_RIGHT_TRIANGLE,
+  PATH_INFO_3_ISOSCELES_RIGHT,
   PATH_INFO_SQUARE,
   PATH_INFO_RECTANGLE,
   PATH_INFO_CONVEX,
@@ -26,7 +26,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(pathMidpointList(PATH_INFO_0.path)).toEqual(PATH_INFO_0.midpoints);
     expect(pathMidpointList(PATH_INFO_1.path)).toEqual(PATH_INFO_1.midpoints);
     expect(pathMidpointList(PATH_INFO_2.path)).toEqual(PATH_INFO_2.midpoints);
-    expect(pathMidpointList(PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toEqual(PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.midpoints);
+    expect(pathMidpointList(PATH_INFO_3_ISOSCELES_RIGHT.path)).toEqual(PATH_INFO_3_ISOSCELES_RIGHT.midpoints);
     expect(pathMidpointList(PATH_INFO_SQUARE.path)).toEqual(PATH_INFO_SQUARE.midpoints);
     expect(pathMidpointList(PATH_INFO_RECTANGLE.path)).toEqual(PATH_INFO_RECTANGLE.midpoints);
     expect(pathMidpointList(PATH_INFO_CONVEX.path)).toEqual(PATH_INFO_CONVEX.midpoints);

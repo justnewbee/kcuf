@@ -10,7 +10,7 @@ import {
 } from '../src';
 
 import {
-  PATH_INFO_ISOSCELES_RIGHT_TRIANGLE,
+  PATH_INFO_3_ISOSCELES_RIGHT,
   PATH_INFO_SQUARE
 } from './const';
 
@@ -23,10 +23,10 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     });
     
     test('path has NOT the point', () => {
-      expect(pointIsIncluded([0, 1], PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(false);
-      expect(pointIsIncluded([1, 0], PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(false);
-      expect(pointIsIncluded([1, 1], PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(false);
-      expect(pointIsIncluded([2, 2], PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(false);
+      expect(pointIsIncluded([0, 1], PATH_INFO_3_ISOSCELES_RIGHT.path)).toBe(false);
+      expect(pointIsIncluded([1, 0], PATH_INFO_3_ISOSCELES_RIGHT.path)).toBe(false);
+      expect(pointIsIncluded([1, 1], PATH_INFO_3_ISOSCELES_RIGHT.path)).toBe(false);
+      expect(pointIsIncluded([2, 2], PATH_INFO_3_ISOSCELES_RIGHT.path)).toBe(false);
     });
   });
 });

@@ -8,7 +8,7 @@ import pathSegmentList from './path-segment-list';
 /**
  * 路径中存在任意不相邻线段相交
  */
-export default function pathPasSegmentCrossing(path: TPath): boolean {
+export default function pathHasSegmentCrossing(path: TPath): boolean {
   const segments = pathSegmentList(path);
   
   if (segments.length <= 3) {

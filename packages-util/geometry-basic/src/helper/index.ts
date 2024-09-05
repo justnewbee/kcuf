@@ -1,70 +1,81 @@
-// 通用
+/* ========================== *
+ * 通用
+ * ========================== */
 export { default as isNearlyEqual } from './is-nearly-equal';
 export { default as roundCoords } from './round-coords';
 export { default as fromDegreesToRadians } from './from-degrees-to-radians';
 export { default as fromRadiansToDegrees } from './from-radians-to-degrees';
 
-// 点
+/* ========================== *
+ * 点
+ * ========================== */
+// 点 vs 点（或点们）
 export { default as pointIsEqual } from './point-is-equal';
 export { default as pointIsIncluded } from './point-is-included';
-export { default as pointIsWithinPath } from './point-is-within-path';
-export { default as pointIsAlongPath } from './point-is-along-path';
 export { default as pointDistance } from './point-distance';
+// 点 vs 线段
+export { default as pointIsAlongSegment } from './point-is-along-segment';
+export { default as pointIsInSegmentProjection } from './point-is-in-segment-projection';
 export { default as pointDistanceToSegment } from './point-distance-to-segment';
 export { default as pointDistanceToSegmentDetailed } from './point-distance-to-segment-detailed';
-
+// 点 vs 路径
+export { default as pointIsWithinPath } from './point-is-within-path';
+export { default as pointIsAlongPath } from './point-is-along-path';
+export { default as pointSiblingsFromPath } from './point-siblings-from-path';
+// 待分类
 export { default as getSnappingPoint } from './get-snapping-point';
 export { default as getSnappingPointBetween } from './get-snapping-point-between';
-
-// 点与线
-export { default as pointIsInSegmentProjection } from './point-is-in-segment-projection';
-export { default as pointIsAlongSegment } from './point-is-along-segment';
 export { default as getVerticalIntersectionPoint } from './get-vertical-intersection-point';
-
-// 点与路径
 export { default as getMagnetPointAlongPath } from './get-magnet-point-along-path';
 export { default as getMagnetPointAlongPaths } from './get-magnet-point-along-paths';
-export { default as getPointSiblingsFromPath } from './get-point-siblings-from-path';
 
-// 直线
+/* ========================== *
+ * 直线
+ * ========================== */
 export { default as lineIntersection } from './line-intersection';
 
-// 线段
-export { default as segmentIsEqual } from './segment-is-equal';
-export { default as segmentIsEqualSlope } from './segment-is-equal-slope';
-export { default as segmentIsCrossing } from './segment-is-crossing';
+/* ========================== *
+ * 线段
+ * ========================== */
+// 线段自身
 export { default as segmentVector } from './segment-vector';
 export { default as segmentLength } from './segment-length';
 export { default as segmentMidpoint } from './segment-midpoint';
 export { default as segmentSlope } from './segment-slope';
-export { default as segmentToLine } from './segment-to-line';
 export { default as segmentProjectionX } from './segment-projection-x';
 export { default as segmentProjectionY } from './segment-projection-y';
-export { default as segmentIntersection } from './segment-intersection';
+// 线段 vs 直线
+export { default as segmentToLine } from './segment-to-line';
 export { default as segmentIntersectionWithLine } from './segment-intersection-with-line';
+// 线段 vs 线段
+export { default as segmentIntersection } from './segment-intersection';
+export { default as segmentIsEqual } from './segment-is-equal';
+export { default as segmentIsEqualSlope } from './segment-is-equal-slope';
+export { default as segmentIsCrossing } from './segment-is-crossing';
+// 线段 vs 路径
 export { default as segmentIntersectionWithPath } from './segment-intersection-with-path';
 export { default as segmentIntersectionWithPathExtended } from './segment-intersection-with-path-extended';
 export { default as segmentInnerSliceListByPath } from './segment-inner-slice-list-by-path';
 export { default as segmentInnerSliceTotalLengthByPath } from './segment-inner-slice-total-length-by-path';
+// TODO
+export { default as isSegmentProjectionOverlap } from './is-segment-projection-overlap';
 
-// 路径
-export { default as pathPasSegmentCrossing } from './path-pas-segment-crossing';
+/* ========================== *
+ * 路径
+ * ========================== */
+// 路径自身
 export { default as pathPerimeter } from './path-perimeter';
 export { default as pathCentroid } from './path-centroid';
 export { default as pathArea } from './path-area';
+export { default as pathBbox } from './path-bbox';
+export { default as pathHasSegmentCrossing } from './path-has-segment-crossing';
 export { default as pathSegmentList } from './path-segment-list';
 export { default as pathMidpointList } from './path-midpoint-list';
-export { default as pathBbox } from './path-bbox';
 
 export { default as getRectPathBySegmentAndPoint } from './get-rect-path-by-segment-and-point';
 export { default as getRectPathByTwoPoints } from './get-rect-path-by-two-points';
 export { default as getPathEdgeAndCenterPoints } from './get-path-edge-and-center-points';
-
-// 面
 export { default as checkInPathPointDuplicate } from './check-in-path-point-duplicate';
-
-// 线与线
-export { default as isSegmentProjectionOverlap } from './is-segment-projection-overlap';
 
 // 路径与路径
 export { default as getAuxiliarySegmentList } from './get-auxiliary-segment-list';
