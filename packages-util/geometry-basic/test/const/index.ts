@@ -46,6 +46,27 @@ export const PATH_INFO_2: IPathInfo = {
 };
 
 /**
+ * 正三角形
+ *
+ * 5 |
+ * 4 |
+ * 3 |     ◉ (2, 2√3)
+ * 2 |   ↙   \
+ * 1 | /        ↖
+ * 0 ◉→ +--+--+--◉--+
+ *   0  1  2  3  4  5
+ */
+export const PATH_INFO_REGULAR_TRIANGLE: IPathInfo = {
+  path: [[0, 0], [4, 0], [2, 2 * Math.sqrt(3)]],
+  perimeter: 12,
+  area: 4 * Math.sqrt(3),
+  midpoints: [[2, 0], [3, Math.sqrt(3)], [1, Math.sqrt(3)]],
+  segments: [[[0, 0], [4, 0]], [[4, 0], [2, 2 * Math.sqrt(3)]], [[2, 2 * Math.sqrt(3)], [0, 0]]],
+  centroid: [2, 1],
+  bbox: [[0, 0], [4, 2 * Math.sqrt(3)]]
+};
+
+/**
  * 等腰直角三角形
  *
  * 5 |
@@ -56,7 +77,7 @@ export const PATH_INFO_2: IPathInfo = {
  * 0 ◉→ +--+--+--◉--+
  *   0  1  2  3  4  5
  */
-export const PATH_INFO_TRIANGLE: IPathInfo = {
+export const PATH_INFO_ISOSCELES_RIGHT_TRIANGLE: IPathInfo = {
   path: [[0, 0], [4, 0], [0, 4]],
   perimeter: 8 + Math.hypot(4, 4),
   area: 8,

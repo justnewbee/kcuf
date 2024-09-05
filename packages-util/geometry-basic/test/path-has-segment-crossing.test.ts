@@ -13,7 +13,7 @@ import {
   PATH_INFO_0,
   PATH_INFO_1,
   PATH_INFO_2,
-  PATH_INFO_TRIANGLE,
+  PATH_INFO_ISOSCELES_RIGHT_TRIANGLE,
   PATH_INFO_RECTANGLE,
   PATH_INFO_SQUARE,
   PATH_INFO_CONVEX,
@@ -27,7 +27,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       expect(pathPasSegmentCrossing(PATH_INFO_0.path)).toBe(false);
       expect(pathPasSegmentCrossing(PATH_INFO_1.path)).toBe(false);
       expect(pathPasSegmentCrossing(PATH_INFO_2.path)).toBe(false);
-      expect(pathPasSegmentCrossing(PATH_INFO_TRIANGLE.path)).toBe(false);
+      expect(pathPasSegmentCrossing(PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(false);
     });
 
     test('no crossing', () => {

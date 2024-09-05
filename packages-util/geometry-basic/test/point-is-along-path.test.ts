@@ -10,7 +10,7 @@ import {
 } from '../src';
 
 import {
-  PATH_INFO_TRIANGLE,
+  PATH_INFO_ISOSCELES_RIGHT_TRIANGLE,
   PATH_INFO_RECTANGLE,
   PATH_INFO_SQUARE
 } from './const';
@@ -18,8 +18,8 @@ import {
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   describe('pointIsAlongPath(point: Point, path: Path): boolean', () => {
     test('vertex', () => {
-      PATH_INFO_TRIANGLE.path.forEach(v => {
-        expect(pointIsAlongPath(v, PATH_INFO_TRIANGLE.path)).toBe(true);
+      PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path.forEach(v => {
+        expect(pointIsAlongPath(v, PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(true);
       });
       
       PATH_INFO_RECTANGLE.path.forEach(v => {
