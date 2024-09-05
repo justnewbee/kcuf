@@ -49,7 +49,7 @@ export { default as segmentInnerSliceTotalLengthByPath } from './segment-inner-s
 
 // 路径
 export { default as pathPasSegmentCrossing } from './path-pas-segment-crossing';
-export { default as pathTotalLength } from './path-total-length';
+export { default as pathPerimeter } from './path-perimeter';
 export { default as pathCentroid } from './path-centroid';
 export { default as pathArea } from './path-area';
 export { default as pathSegmentList } from './path-segment-list';

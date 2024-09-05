@@ -12,8 +12,8 @@ import segmentLength from './segment-length';
 /**
  * 获取路径围成的多边形边长
  */
-export default function pathTotalLength(path: TPath): number {
+export default function pathPerimeter(path: TPath): number {
   return _round(pathSegmentList(path).reduce((result, v) => {
     return result + segmentLength(v);
-  }, 0), 1);
+  }, 0), 2);
 }

@@ -6,28 +6,27 @@ import {
 
 import pkgInfo from '../package.json';
 import {
-  Path,
   pointIsIncluded
 } from '../src';
 
+import {
+  PATH_INFO_SQUARE,
+  PATH_INFO_ISOSCELES_RIGHT_TRIANGLE
+} from './const';
+
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
-  const PATH: Path = [
-    [0, 1],
-    [2, 3],
-    [4, 7],
-    [3, 4],
-    [0, 2]
-  ];
-  
   describe('pointIsIncluded(path: Path, p: Point): boolean', () => {
-    test('path has not the point', () => {
-      expect(pointIsIncluded([2, 4], PATH)).toBeFalsy();
+    test('path has the point', () => {
+      PATH_INFO_SQUARE.path.forEach(v => {
+        expect(pointIsIncluded(v, PATH_INFO_SQUARE.path)).toBe(true);
+      });
     });
     
-    test('path has the point', () => {
-      for (const p of PATH) {
-        expect(pointIsIncluded(p, PATH)).toBeTruthy();
-      }
+    test('path has NOT the point', () => {
+      expect(pointIsIncluded([0, 1], PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(false);
+      expect(pointIsIncluded([1, 0], PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(false);
+      expect(pointIsIncluded([1, 1], PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(false);
+      expect(pointIsIncluded([2, 2], PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toBe(false);
     });
   });
 });

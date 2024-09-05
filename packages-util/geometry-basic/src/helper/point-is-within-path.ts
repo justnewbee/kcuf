@@ -3,6 +3,7 @@ import {
   TPath
 } from '../types';
 
+import pointIsAlongPath from './point-is-along-path';
 import pathSegmentList from './path-segment-list';
 
 /**
@@ -20,7 +21,7 @@ import pathSegmentList from './path-segment-list';
  *    - 对 canvas context 产生依赖
  */
 export default function pointIsWithinPath(point: TPoint, path: TPath): boolean {
-  return path.length <= 2 ? false : pathSegmentList(path).reduce((result, v) => {
+  return path.length <= 2 || pointIsAlongPath(point, path) ? false : pathSegmentList(path).reduce((result, v) => {
     const [[xi, yi], [xj, yj]] = v;
     const intersect = ((yi > point[1]) !== (yj > point[1])) && (point[0] < (xj - xi) * (point[1] - yi) / (yj - yi) + xi);
     

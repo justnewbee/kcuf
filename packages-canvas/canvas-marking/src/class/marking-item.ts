@@ -12,7 +12,7 @@ import {
   checkInPathPointDuplicate,
   pathPasSegmentCrossing,
   pointIsWithinPath,
-  pathTotalLength,
+  pathPerimeter,
   pathArea,
   pathBbox,
   pathMidpointList,
@@ -456,7 +456,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       data: options.data,
       path: _cloneDeep(path), // 得到一个干净的，从而避免引用干扰（尤其是 immer 这种会锁对象的）
       disabled: this.options.disabled || false,
-      length: pathTotalLength(pathForDraw),
+      length: pathPerimeter(pathForDraw),
       area,
       areaPercentage: roundFloat(area * 100 / (imageSize[0] * imageSize[1]), 2),
       creatingWillFinish,

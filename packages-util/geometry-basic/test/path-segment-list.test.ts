@@ -6,30 +6,37 @@ import {
 
 import pkgInfo from '../package.json';
 import {
-  Path,
   pathSegmentList
 } from '../src';
 
+import {
+  PATH_INFO_0,
+  PATH_INFO_1,
+  PATH_INFO_2,
+  PATH_INFO_ISOSCELES_RIGHT_TRIANGLE,
+  PATH_INFO_SQUARE,
+  PATH_INFO_RECTANGLE,
+  PATH_INFO_CONVEX_POLYGON,
+  PATH_INFO_CONCAVE_POLYGON
+} from './const';
+
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
-  const PATH_0: Path = [];
-  const PATH_1: Path = [[1, 2]];
-  const PATH_2: Path = [[1, 2], [2, 5]];
-  const PATH_3: Path = [[1, 2], [2, 5], [3, 10]];
-  const PATH_4: Path = [[1, 2], [2, 5], [3, 10], [4, 17]];
-  
   describe('pathSegmentList(path: Path): Segment[]', () => {
-    test('Path with 0-1 points has segment list of size 0', () => {
-      expect(pathSegmentList(PATH_0)).toEqual([]);
-      expect(pathSegmentList(PATH_1)).toEqual([]);
+    test('Path with 0-1', () => {
+      expect(pathSegmentList(PATH_INFO_0.path).length).toEqual(0);
+      expect(pathSegmentList(PATH_INFO_1.path).length).toEqual(0);
     });
     
-    test('Path with 2 points has segment list of size 1', () => {
-      expect(pathSegmentList(PATH_2)).toEqual([[[1, 2], [2, 5]]]);
+    test('Path with 2 points', () => {
+      expect(pathSegmentList(PATH_INFO_2.path)).toEqual(PATH_INFO_2.segments);
     });
     
-    test('Path with n (3+) points has segment list of size n', () => {
-      expect(pathSegmentList(PATH_3)).toEqual([[[1, 2], [2, 5]], [[2, 5], [3, 10]], [[3, 10], [1, 2]]]);
-      expect(pathSegmentList(PATH_4)).toEqual([[[1, 2], [2, 5]], [[2, 5], [3, 10]], [[3, 10], [4, 17]], [[4, 17], [1, 2]]]);
+    test('Path with 3+ points', () => {
+      expect(pathSegmentList(PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toEqual(PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.segments);
+      expect(pathSegmentList(PATH_INFO_SQUARE.path)).toEqual(PATH_INFO_SQUARE.segments);
+      expect(pathSegmentList(PATH_INFO_RECTANGLE.path)).toEqual(PATH_INFO_RECTANGLE.segments);
+      expect(pathSegmentList(PATH_INFO_CONVEX_POLYGON.path)).toEqual(PATH_INFO_CONVEX_POLYGON.segments);
+      expect(pathSegmentList(PATH_INFO_CONCAVE_POLYGON.path)).toEqual(PATH_INFO_CONCAVE_POLYGON.segments);
     });
   });
 });
