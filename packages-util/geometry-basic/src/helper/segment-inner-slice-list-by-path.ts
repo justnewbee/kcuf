@@ -13,6 +13,8 @@ import pointIsIncluded from './point-is-included';
  * 1. 线段在多边形之内
  * 2. 线段的其中一点在多边形之内
  * 3. 线段穿过多边形，且可能多次进出多边形
+ *
+ * FIXME 凹多边形，需判断相邻两点中点是否在多边形内
  */
 export default function segmentInnerSliceListByPath(segment: TSegment, path: TPath): TSegment[] {
   const points = segmentIntersectionWithPath(segment, path);
