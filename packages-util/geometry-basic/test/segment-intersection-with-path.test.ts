@@ -69,6 +69,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     describe('one point along path', () => {
       test('the other inside', () => {
         expect(segmentIntersectionWithPath([[0, 1], [2, 2]], PATH)).toEqual([[0, 1]]);
+        expect(segmentIntersectionWithPath([[0, 1], [3, 2]], PATH)).toEqual([[0, 1]]);
       });
       
       test('the other outside no crossing', () => {
@@ -77,10 +78,6 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       
       test('the other outside crossing', () => {
         expect(segmentIntersectionWithPath([[2, 0], [5, 3]], PATH)).toEqual([[2, 0], [4, 2]]);
-      });
-      
-      test('the other inside', () => {
-        expect(segmentIntersectionWithPath([[0, 1], [3, 2]], PATH)).toEqual([[0, 1]]);
       });
     });
   });

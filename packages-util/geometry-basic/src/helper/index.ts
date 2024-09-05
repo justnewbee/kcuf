@@ -41,7 +41,9 @@ export { default as segmentToLine } from './segment-to-line';
 export { default as segmentProjectionX } from './segment-projection-x';
 export { default as segmentProjectionY } from './segment-projection-y';
 export { default as segmentIntersection } from './segment-intersection';
+export { default as segmentIntersectionWithLine } from './segment-intersection-with-line';
 export { default as segmentIntersectionWithPath } from './segment-intersection-with-path';
+export { default as segmentIntersectionWithPathExtended } from './segment-intersection-with-path-extended';
 export { default as segmentInnerSliceListByPath } from './segment-inner-slice-list-by-path';
 export { default as segmentInnerSliceTotalLengthByPath } from './segment-inner-slice-total-length-by-path';
 
