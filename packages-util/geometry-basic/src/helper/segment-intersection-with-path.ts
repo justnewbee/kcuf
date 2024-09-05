@@ -5,6 +5,7 @@ import {
 } from '../types';
 
 import pointIsIncluded from './point-is-included';
+import pointDistance from './point-distance';
 import segmentIntersection from './segment-intersection';
 import pathSegmentList from './path-segment-list';
 
@@ -20,8 +21,17 @@ export function sortPoints(points: TPoint[], segment: TSegment): TPoint[] {
   const firstPoint = points[0];
   const lastPoint = points[points.length - 1];
   
+  if (!firstPoint || !lastPoint || firstPoint === lastPoint) {
+    return points;
+  }
+  
+  // 首先，由于之前是按 path 进行的遍历，得到的点序列并非有序的，需要排列一下
+  points.sort((v1, v2) => {
+    return pointDistance(v1, firstPoint) - pointDistance(v2, firstPoint);
+  });
+  
   // 向量若相反，则表示需要翻转数组
-  if (firstPoint && lastPoint && firstPoint !== lastPoint && !isSameDirection([firstPoint, lastPoint], segment)) {
+  if (!isSameDirection([firstPoint, lastPoint], segment)) {
     points.reverse();
   }
   

@@ -13,11 +13,11 @@ import {
   PATH_INFO_0,
   PATH_INFO_1,
   PATH_INFO_2,
-  PATH_INFO_ISOSCELES_RIGHT_TRIANGLE,
+  PATH_INFO_TRIANGLE,
   PATH_INFO_SQUARE,
   PATH_INFO_RECTANGLE,
-  PATH_INFO_CONVEX_POLYGON,
-  PATH_INFO_CONCAVE_POLYGON
+  PATH_INFO_CONVEX,
+  PATH_INFO_CONCAVE
 } from './const';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
@@ -29,11 +29,11 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     
     test('Path with 2+ points has segment list of size n', () => {
       expect(pathPerimeter(PATH_INFO_2.path)).toEqual(PATH_INFO_2.perimeter);
-      expect(pathPerimeter(PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.path)).toEqual(PATH_INFO_ISOSCELES_RIGHT_TRIANGLE.perimeter);
+      expect(pathPerimeter(PATH_INFO_TRIANGLE.path)).toEqual(PATH_INFO_TRIANGLE.perimeter);
       expect(pathPerimeter(PATH_INFO_SQUARE.path)).toEqual(PATH_INFO_SQUARE.perimeter);
       expect(pathPerimeter(PATH_INFO_RECTANGLE.path)).toEqual(PATH_INFO_RECTANGLE.perimeter);
-      expect(pathPerimeter(PATH_INFO_CONVEX_POLYGON.path)).toEqual(PATH_INFO_CONVEX_POLYGON.perimeter);
-      expect(pathPerimeter(PATH_INFO_CONCAVE_POLYGON.path)).toEqual(PATH_INFO_CONCAVE_POLYGON.perimeter);
+      expect(pathPerimeter(PATH_INFO_CONVEX.path)).toEqual(PATH_INFO_CONVEX.perimeter);
+      expect(pathPerimeter(PATH_INFO_CONCAVE.path)).toEqual(PATH_INFO_CONCAVE.perimeter);
     });
   });
 });

@@ -1,11 +1,42 @@
 import {
   TPath,
+  TPoint,
   TSegment
 } from '../types';
 
-import pointIsWithinPath from './point-is-within-path';
-import segmentIntersectionWithPath from './segment-intersection-with-path';
+import pointIsEqual from './point-is-equal';
 import pointIsIncluded from './point-is-included';
+import pointIsWithinPath from './point-is-within-path';
+import segmentMidpoint from './segment-midpoint';
+import segmentIntersectionWithPath from './segment-intersection-with-path';
+
+function buildSegments(points: TPoint[], path: TPath): TSegment[] {
+  const segments: TSegment[] = [];
+  let lastSegment: TSegment | undefined;
+  
+  points.forEach((v, i) => {
+    const lastPoint = points[i -1];
+    
+    if (!lastPoint) { // 去掉第一个
+      return;
+    }
+    
+    const segment: TSegment = [lastPoint, v];
+    
+    if (pointIsWithinPath(segmentMidpoint(segment), path)) {
+      // 凹多边形的场景，有可能会出现多个线段相连的情况，需要把这些线段连起来
+      if (lastSegment && pointIsEqual(lastSegment[1], segment[0])) { // 相连了，不新增
+        lastSegment[1] = segment[1];
+      } else {
+        lastSegment = segment;
+        
+        segments.push(segment);
+      }
+    }
+  });
+  
+  return segments;
+}
 
 /**
  * 获取线段被 path 切割并在 path 内部的所有线段
@@ -13,8 +44,6 @@ import pointIsIncluded from './point-is-included';
  * 1. 线段在多边形之内
  * 2. 线段的其中一点在多边形之内
  * 3. 线段穿过多边形，且可能多次进出多边形
- *
- * FIXME 凹多边形，需判断相邻两点中点是否在多边形内
  */
 export default function segmentInnerSliceListByPath(segment: TSegment, path: TPath): TSegment[] {
   const points = segmentIntersectionWithPath(segment, path);
@@ -31,16 +60,7 @@ export default function segmentInnerSliceListByPath(segment: TSegment, path: TPa
     return [];
   }
   
-  const segments: TSegment[] = [];
+  // console.info(segment, '>', points)
   
-  for (let i = 0; i < points.length - 1; i += 2) {
-    const p1 = points[i];
-    const p2 = points[i + 1];
-    
-    if (p1 && p2) {
-      segments.push([p1, p2]);
-    }
-  }
-  
-  return segments;
+  return buildSegments(points, path);
 }

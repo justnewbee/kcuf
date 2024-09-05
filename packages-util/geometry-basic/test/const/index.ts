@@ -1,8 +1,4 @@
 import {
-  round as _round
-} from 'lodash-es';
-
-import {
   Path,
   Segment
 } from '../../src';
@@ -28,7 +24,7 @@ export const PATH_INFO_1: IPathInfo = {
 export const PATH_INFO_2: IPathInfo = {
   path: [[1, 2], [2, 5]],
   segments: [[[1, 2], [2, 5]]],
-  perimeter: _round(Math.hypot(1, 3), 2)
+  perimeter: Math.hypot(1, 3)
 };
 
 /**
@@ -42,10 +38,10 @@ export const PATH_INFO_2: IPathInfo = {
  * 0 ◉→ +--+--+--◉--+
  *   0  1  2  3  4  5
  */
-export const PATH_INFO_ISOSCELES_RIGHT_TRIANGLE: IPathInfo = {
+export const PATH_INFO_TRIANGLE: IPathInfo = {
   path: [[0, 0], [4, 0], [0, 4]],
   segments: [[[0, 0], [4, 0]], [[4, 0], [0, 4]], [[0, 4], [0, 0]]],
-  perimeter: _round(8 + Math.hypot(4, 4), 2)
+  perimeter: 8 + Math.hypot(4, 4)
 };
 
 /**
@@ -91,10 +87,10 @@ export const PATH_INFO_RECTANGLE: IPathInfo = {
  * 0 ◉→ +--+--+--◉--+-
  *   0  1  2  3  4  5
  */
-export const PATH_INFO_CONVEX_POLYGON: IPathInfo = {
+export const PATH_INFO_CONVEX: IPathInfo = {
   path: [[0, 0], [4, 0], [4, 2], [2, 4], [0, 2]],
   segments: [[[0, 0], [4, 0]], [[4, 0], [4, 2]], [[4, 2], [2, 4]], [[2, 4], [0, 2]], [[0, 2], [0, 0]]],
-  perimeter: _round(8 + 2 * Math.hypot(2, 2), 2)
+  perimeter: 8 + 2 * Math.hypot(2, 2)
 };
 
 /**
@@ -108,7 +104,7 @@ export const PATH_INFO_CONVEX_POLYGON: IPathInfo = {
  * 0 ◉→ +--+--+--◉--+-
  *   0  1  2  3  4  5
  */
-export const PATH_INFO_CONCAVE_POLYGON: IPathInfo = {
+export const PATH_INFO_CONCAVE: IPathInfo = {
   path: [[0, 0], [4, 0], [4, 4], [2, 4], [2, 2], [0, 2]],
   segments: [[[0, 0], [4, 0]], [[4, 0], [4, 4]], [[4, 4], [2, 4]], [[2, 4], [2, 2]], [[2, 2], [0, 2]], [[0, 2], [0, 0]]],
   perimeter: 16
