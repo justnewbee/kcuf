@@ -10,27 +10,27 @@ import {
 } from '../src';
 
 import {
-  PATH_INFO_0,
-  PATH_INFO_1,
-  PATH_INFO_2,
-  PATH_INFO_3_ISOSCELES_RIGHT,
-  PATH_INFO_4_SQUARE,
-  PATH_INFO_4_RECTANGLE,
-  PATH_INFO_5_CONVEX,
-  PATH_INFO_6_CONCAVE,
-  PATH_INFO_4_CROSSING
+  TEST_PATH_0,
+  TEST_PATH_1,
+  TEST_PATH_2,
+  TEST_PATH_3_ISOSCELES_RIGHT,
+  TEST_PATH_4_SQUARE,
+  TEST_PATH_4_RECTANGLE,
+  TEST_PATH_5_CONVEX,
+  TEST_PATH_6_CONCAVE,
+  TEST_PATH_4_CROSSING
 } from './const';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   test('pathMidpointList(path: Path): Segment[]', () => {
-    expect(pathMidpointList(PATH_INFO_0.path)).toEqual(PATH_INFO_0.midpoints);
-    expect(pathMidpointList(PATH_INFO_1.path)).toEqual(PATH_INFO_1.midpoints);
-    expect(pathMidpointList(PATH_INFO_2.path)).toEqual(PATH_INFO_2.midpoints);
-    expect(pathMidpointList(PATH_INFO_3_ISOSCELES_RIGHT.path)).toEqual(PATH_INFO_3_ISOSCELES_RIGHT.midpoints);
-    expect(pathMidpointList(PATH_INFO_4_SQUARE.path)).toEqual(PATH_INFO_4_SQUARE.midpoints);
-    expect(pathMidpointList(PATH_INFO_4_RECTANGLE.path)).toEqual(PATH_INFO_4_RECTANGLE.midpoints);
-    expect(pathMidpointList(PATH_INFO_5_CONVEX.path)).toEqual(PATH_INFO_5_CONVEX.midpoints);
-    expect(pathMidpointList(PATH_INFO_6_CONCAVE.path)).toEqual(PATH_INFO_6_CONCAVE.midpoints);
-    expect(pathMidpointList(PATH_INFO_4_CROSSING.path)).toEqual(PATH_INFO_4_CROSSING.midpoints);
+    expect(pathMidpointList(TEST_PATH_0.path)).toEqual(TEST_PATH_0.midpoints);
+    expect(pathMidpointList(TEST_PATH_1.path)).toEqual(TEST_PATH_1.midpoints);
+    expect(pathMidpointList(TEST_PATH_2.path)).toEqual(TEST_PATH_2.midpoints);
+    expect(pathMidpointList(TEST_PATH_3_ISOSCELES_RIGHT.path)).toEqual(TEST_PATH_3_ISOSCELES_RIGHT.midpoints);
+    expect(pathMidpointList(TEST_PATH_4_SQUARE.path)).toEqual(TEST_PATH_4_SQUARE.midpoints);
+    expect(pathMidpointList(TEST_PATH_4_RECTANGLE.path)).toEqual(TEST_PATH_4_RECTANGLE.midpoints);
+    expect(pathMidpointList(TEST_PATH_5_CONVEX.path)).toEqual(TEST_PATH_5_CONVEX.midpoints);
+    expect(pathMidpointList(TEST_PATH_6_CONCAVE.path)).toEqual(TEST_PATH_6_CONCAVE.midpoints);
+    expect(pathMidpointList(TEST_PATH_4_CROSSING.path)).toEqual(TEST_PATH_4_CROSSING.midpoints);
   });
 });

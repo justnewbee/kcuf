@@ -20,7 +20,7 @@ export { default as pointDistanceToSegmentDetailed } from './point-distance-to-s
 export { default as pointIsWithinPath } from './point-is-within-path';
 export { default as pointIsAlongPath } from './point-is-along-path';
 export { default as pointSiblingsFromPath } from './point-siblings-from-path';
-// 待分类
+// TODO
 export { default as getSnappingPoint } from './get-snapping-point';
 export { default as getSnappingPointBetween } from './get-snapping-point-between';
 export { default as getVerticalIntersectionPoint } from './get-vertical-intersection-point';
@@ -57,7 +57,7 @@ export { default as segmentInnerSliceTotalLengthByPath } from './segment-inner-s
 export { default as isSegmentProjectionOverlap } from './is-segment-projection-overlap';
 
 /* ========================== *
- * 路径
+ * 路径（多边形）
  * ========================== */
 // 路径自身
 export { default as pathPerimeter } from './path-perimeter';
@@ -70,12 +70,12 @@ export { default as pathSegmentList } from './path-segment-list';
 export { default as pathMidpointList } from './path-midpoint-list';
 // 路径 vs 线段
 export { default as pathIntersectionWithSegment } from './path-intersection-with-segment';
-
+// 路径 vs 直线
+export { default as pathSliceListByLines } from './path-slice-list-by-lines';
+// TODO
 export { default as getRectPathBySegmentAndPoint } from './get-rect-path-by-segment-and-point';
 export { default as getRectPathByTwoPoints } from './get-rect-path-by-two-points';
 export { default as checkInPathPointDuplicate } from './check-in-path-point-duplicate';
-
-// 路径与路径
 export { default as getAuxiliarySegmentList } from './get-auxiliary-segment-list';
 
 // 角 - 返回弧度，角的正负按数学规范

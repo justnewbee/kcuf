@@ -10,31 +10,31 @@ import {
 } from '../src';
 
 import {
-  PATH_INFO_0,
-  PATH_INFO_1,
-  PATH_INFO_2,
-  PATH_INFO_3_REGULAR,
-  PATH_INFO_3_ISOSCELES_RIGHT,
-  PATH_INFO_4_SQUARE,
-  PATH_INFO_4_RECTANGLE,
-  PATH_INFO_4_DIAMOND,
-  PATH_INFO_4_CROSSING,
-  PATH_INFO_5_CONVEX,
-  PATH_INFO_6_CONCAVE
+  TEST_PATH_0,
+  TEST_PATH_1,
+  TEST_PATH_2,
+  TEST_PATH_3_REGULAR,
+  TEST_PATH_3_ISOSCELES_RIGHT,
+  TEST_PATH_4_SQUARE,
+  TEST_PATH_4_RECTANGLE,
+  TEST_PATH_4_DIAMOND,
+  TEST_PATH_4_CROSSING,
+  TEST_PATH_5_CONVEX,
+  TEST_PATH_6_CONCAVE
 } from './const';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   test('pathBbox(path: Path): [Point, Point]', () => {
-    expect(pathBbox(PATH_INFO_0.path)).toEqual(PATH_INFO_0.bbox);
-    expect(pathBbox(PATH_INFO_1.path)).toEqual(PATH_INFO_1.bbox);
-    expect(pathBbox(PATH_INFO_2.path)).toEqual(PATH_INFO_2.bbox);
-    expect(pathBbox(PATH_INFO_3_REGULAR.path)).toEqual(PATH_INFO_3_REGULAR.bbox);
-    expect(pathBbox(PATH_INFO_3_ISOSCELES_RIGHT.path)).toEqual(PATH_INFO_3_ISOSCELES_RIGHT.bbox);
-    expect(pathBbox(PATH_INFO_4_SQUARE.path)).toEqual(PATH_INFO_4_SQUARE.bbox);
-    expect(pathBbox(PATH_INFO_4_RECTANGLE.path)).toEqual(PATH_INFO_4_RECTANGLE.bbox);
-    expect(pathBbox(PATH_INFO_4_DIAMOND.path)).toEqual(PATH_INFO_4_DIAMOND.bbox);
-    expect(pathBbox(PATH_INFO_4_CROSSING.path)).toEqual(PATH_INFO_4_CROSSING.bbox);
-    expect(pathBbox(PATH_INFO_5_CONVEX.path)).toEqual(PATH_INFO_5_CONVEX.bbox);
-    expect(pathBbox(PATH_INFO_6_CONCAVE.path)).toEqual(PATH_INFO_6_CONCAVE.bbox);
+    expect(pathBbox(TEST_PATH_0.path)).toEqual(TEST_PATH_0.bbox);
+    expect(pathBbox(TEST_PATH_1.path)).toEqual(TEST_PATH_1.bbox);
+    expect(pathBbox(TEST_PATH_2.path)).toEqual(TEST_PATH_2.bbox);
+    expect(pathBbox(TEST_PATH_3_REGULAR.path)).toEqual(TEST_PATH_3_REGULAR.bbox);
+    expect(pathBbox(TEST_PATH_3_ISOSCELES_RIGHT.path)).toEqual(TEST_PATH_3_ISOSCELES_RIGHT.bbox);
+    expect(pathBbox(TEST_PATH_4_SQUARE.path)).toEqual(TEST_PATH_4_SQUARE.bbox);
+    expect(pathBbox(TEST_PATH_4_RECTANGLE.path)).toEqual(TEST_PATH_4_RECTANGLE.bbox);
+    expect(pathBbox(TEST_PATH_4_DIAMOND.path)).toEqual(TEST_PATH_4_DIAMOND.bbox);
+    expect(pathBbox(TEST_PATH_4_CROSSING.path)).toEqual(TEST_PATH_4_CROSSING.bbox);
+    expect(pathBbox(TEST_PATH_5_CONVEX.path)).toEqual(TEST_PATH_5_CONVEX.bbox);
+    expect(pathBbox(TEST_PATH_6_CONCAVE.path)).toEqual(TEST_PATH_6_CONCAVE.bbox);
   });
 });
