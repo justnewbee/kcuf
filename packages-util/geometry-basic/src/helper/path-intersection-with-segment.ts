@@ -8,6 +8,8 @@ import pointIsIncluded from './point-is-included';
 import pointDistance from './point-distance';
 import segmentIntersection from './segment-intersection';
 import pathSegmentList from './path-segment-list';
+import segmentToLine from './segment-to-line';
+import segmentIntersectionWithLine from './segment-intersection-with-line';
 
 function isSameDirection(segment1: TSegment, segment2: TSegment) {
   const [[x1, y1], [x2, y2]] = segment1;
@@ -17,7 +19,7 @@ function isSameDirection(segment1: TSegment, segment2: TSegment) {
 }
 
 // 超过两个点的情况下，保证获取到的点方向和给定线段的方向一致
-export function sortPoints(points: TPoint[], segment: TSegment): TPoint[] {
+function sortPoints(points: TPoint[], segment: TSegment): TPoint[] {
   const firstPoint = points[0];
   const lastPoint = points[points.length - 1];
   
@@ -39,11 +41,16 @@ export function sortPoints(points: TPoint[], segment: TSegment): TPoint[] {
 }
 
 /**
- * 线段与 path 上所有线段的相交点，保证其顺序与给定线段方向一致
+ * path 与线段相交的点集合，所有的点在同一条直线上，且顺序与给定线段方向一致，根据 `extended` 对线段进行延伸
+ *
+ * - `false` 不对线段进行延伸（默认）
+ * - `true` 对线段进行延伸，至最远的相交点
+ * - `min` 对线段进行延伸，至最近的相交点 TODO 还未实现
  */
-export default function segmentIntersectionWithPath(segment: TSegment, path: TPath): TPoint[] {
+export default function pathIntersectionWithSegment(path: TPath, segment: TSegment, extended?: boolean): TPoint[] {
+  const line = segmentToLine(segment);
   const points = pathSegmentList(path).reduce((result: TPoint[], v) => {
-    const p = segmentIntersection(v, segment);
+    const p = extended ? segmentIntersectionWithLine(v, line) : segmentIntersection(v, segment);
     
     if (p && !pointIsIncluded(p, result)) {
       result.push(p);

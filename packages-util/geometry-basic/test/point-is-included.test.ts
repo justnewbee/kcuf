@@ -11,14 +11,14 @@ import {
 
 import {
   PATH_INFO_3_ISOSCELES_RIGHT,
-  PATH_INFO_SQUARE
+  PATH_INFO_4_SQUARE
 } from './const';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   describe('pointIsIncluded(path: Path, p: Point): boolean', () => {
     test('path has the point', () => {
-      PATH_INFO_SQUARE.path.forEach(v => {
-        expect(pointIsIncluded(v, PATH_INFO_SQUARE.path)).toBe(true);
+      PATH_INFO_4_SQUARE.path.forEach(v => {
+        expect(pointIsIncluded(v, PATH_INFO_4_SQUARE.path)).toBe(true);
       });
     });
     

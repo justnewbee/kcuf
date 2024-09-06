@@ -1,15 +1,16 @@
 import {
   TPath,
   TPoint,
-  IEdgeAndCenterPoints
+  IPathEdgeCenterPoints
 } from '../types';
-
-import roundCoords from './round-coords';
+import {
+  roundCoords
+} from '../util';
 
 /**
  * 获取路径顶点的最顶端、最底端、最左边、最右边以及中心点
  */
-export default function getPathEdgeAndCenterPoints(path: TPath): IEdgeAndCenterPoints | null {
+export default function pathEdgeCenterPoints(path: TPath): IPathEdgeCenterPoints | null {
   const p0 = path[0];
   
   if (!p0) {

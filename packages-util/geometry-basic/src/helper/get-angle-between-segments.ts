@@ -5,10 +5,12 @@ import {
 import {
   TSegment
 } from '../types';
+import {
+  isNearlyEqual
+} from '../util';
 
 import segmentVector from './segment-vector';
 import segmentLength from './segment-length';
-import isNearlyEqual from './is-nearly-equal';
 
 /**
  * 获取两个线段的夹角，返回弧度，返回值范围：

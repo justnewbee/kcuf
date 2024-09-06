@@ -1,3 +1,8 @@
+export {
+  isNearlyEqual,
+  roundCoords
+} from './util';
+
 export * from './helper';
 
 export type {
@@ -9,5 +14,5 @@ export type {
   TBbox as Bbox,
   TVector as Vector,
   TMagnetPointResult as MagnetPointResult,
-  IEdgeAndCenterPoints as EdgeAndCenterPoints
+  IPathEdgeCenterPoints as PathEdgeCenterPoints
 } from './types';

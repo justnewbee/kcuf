@@ -1,8 +1,10 @@
 import {
   TSegment
 } from '../types';
+import {
+  isNearlyEqual
+} from '../util';
 
-import isNearlyEqual from './is-nearly-equal';
 import segmentToLine from './segment-to-line';
 
 /**

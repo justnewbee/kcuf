@@ -8,7 +8,7 @@ import pointIsEqual from './point-is-equal';
 import pointIsIncluded from './point-is-included';
 import pointIsWithinPath from './point-is-within-path';
 import segmentMidpoint from './segment-midpoint';
-import segmentIntersectionWithPath from './segment-intersection-with-path';
+import pathIntersectionWithSegment from './path-intersection-with-segment';
 
 function buildSegments(points: TPoint[], path: TPath): TSegment[] {
   const segments: TSegment[] = [];
@@ -46,7 +46,7 @@ function buildSegments(points: TPoint[], path: TPath): TSegment[] {
  * 3. 线段穿过多边形，且可能多次进出多边形
  */
 export default function segmentInnerSliceListByPath(segment: TSegment, path: TPath): TSegment[] {
-  const points = segmentIntersectionWithPath(segment, path);
+  const points = pathIntersectionWithSegment(path, segment);
   
   if (!pointIsIncluded(segment[0], points) && pointIsWithinPath(segment[0], path)) {
     points.unshift(segment[0]);

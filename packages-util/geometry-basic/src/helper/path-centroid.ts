@@ -3,9 +3,11 @@ import {
   TPoint,
   TSegment
 } from '../types';
+import {
+  roundCoords
+} from '../util';
 
 import segmentMidpoint from './segment-midpoint';
-import roundCoords from './round-coords';
 
 /**
  * 路径质心

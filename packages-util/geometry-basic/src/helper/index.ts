@@ -1,8 +1,6 @@
 /* ========================== *
  * 通用
  * ========================== */
-export { default as isNearlyEqual } from './is-nearly-equal';
-export { default as roundCoords } from './round-coords';
 export { default as fromDegreesToRadians } from './from-degrees-to-radians';
 export { default as fromRadiansToDegrees } from './from-radians-to-degrees';
 
@@ -53,8 +51,6 @@ export { default as segmentIsEqual } from './segment-is-equal';
 export { default as segmentIsEqualSlope } from './segment-is-equal-slope';
 export { default as segmentIsCrossing } from './segment-is-crossing';
 // 线段 vs 路径
-export { default as segmentIntersectionWithPath } from './segment-intersection-with-path';
-export { default as segmentIntersectionWithPathExtended } from './segment-intersection-with-path-extended';
 export { default as segmentInnerSliceListByPath } from './segment-inner-slice-list-by-path';
 export { default as segmentInnerSliceTotalLengthByPath } from './segment-inner-slice-total-length-by-path';
 // TODO
@@ -68,13 +64,15 @@ export { default as pathPerimeter } from './path-perimeter';
 export { default as pathCentroid } from './path-centroid';
 export { default as pathArea } from './path-area';
 export { default as pathBbox } from './path-bbox';
+export { default as pathEdgeCenterPoints } from './path-edge-center-points';
 export { default as pathHasSegmentCrossing } from './path-has-segment-crossing';
 export { default as pathSegmentList } from './path-segment-list';
 export { default as pathMidpointList } from './path-midpoint-list';
+// 路径 vs 线段
+export { default as pathIntersectionWithSegment } from './path-intersection-with-segment';
 
 export { default as getRectPathBySegmentAndPoint } from './get-rect-path-by-segment-and-point';
 export { default as getRectPathByTwoPoints } from './get-rect-path-by-two-points';
-export { default as getPathEdgeAndCenterPoints } from './get-path-edge-and-center-points';
 export { default as checkInPathPointDuplicate } from './check-in-path-point-duplicate';
 
 // 路径与路径

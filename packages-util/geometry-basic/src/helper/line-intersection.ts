@@ -2,9 +2,11 @@ import {
   TLine,
   TPoint
 } from '../types';
+import {
+  roundCoords,
+  noNegativeZero
+} from '../util';
 
-import noNegativeZero from './no-negative-zero';
-import roundCoords from './round-coords';
 import standardizeLineCoefficients from './standardize-line-coefficients';
 
 /**

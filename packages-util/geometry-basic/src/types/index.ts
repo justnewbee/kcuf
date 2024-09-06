@@ -22,7 +22,7 @@ export type TBbox = [TPoint, TPoint];
 
 export type TMagnetPointResult = [TPoint, number] | null;
 
-export interface IEdgeAndCenterPoints {
+export interface IPathEdgeCenterPoints {
   t: TPoint;
   r: TPoint;
   b: TPoint;

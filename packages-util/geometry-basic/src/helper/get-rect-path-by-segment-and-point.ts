@@ -6,8 +6,10 @@ import {
   TPoint,
   TSegment
 } from '../types';
+import {
+  roundCoords
+} from '../util';
 
-import roundCoords from './round-coords';
 import pointDistanceToSegmentDetailed from './point-distance-to-segment-detailed';
 
 /**
