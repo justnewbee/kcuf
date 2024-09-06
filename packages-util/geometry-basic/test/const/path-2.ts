@@ -13,7 +13,7 @@ import {
  * 4 |   ↗
  * 5 |  ⦿ (1, 5)
  */
-export const TEST_PATH_2: ITestPath = {
+export default {
   path: [[1, 5], [2, 3]],
   perimeter: Math.hypot(1, 2),
   area: 0,
@@ -27,7 +27,5 @@ export const TEST_PATH_2: ITestPath = {
     b: [1, 5],
     l: [1, 5],
     c: [1.5, 4]
-  },
-  intersection: [],
-  slice: []
-};
+  }
+} satisfies ITestPath;

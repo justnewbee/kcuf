@@ -17,7 +17,7 @@ import {
  * 4 |     ◉ (2, 4)
  * 5 |
  */
-export const TEST_PATH_5_CONVEX: ITestPath = {
+export default {
   path: [[0, 0], [4, 0], [4, 2], [2, 4], [0, 2]],
   perimeter: 8 + 4 * SQRT2,
   area: 12,
@@ -32,7 +32,7 @@ export const TEST_PATH_5_CONVEX: ITestPath = {
     l: [0, 0],
     c: [2, 2]
   },
-  intersection: [{
+  intersectionWithSegment: [{
     input: [[2, 2], [3, 1]], // both points inside
     output: [],
     outputExtended: [[1, 3], [4, 0]]
@@ -92,6 +92,5 @@ export const TEST_PATH_5_CONVEX: ITestPath = {
     input: [[2, 0], [5, 3]], // one along border, one through
     output: [[2, 0], [4, 2]],
     outputExtended: [[2, 0], [4, 2]]
-  }],
-  slice: []
-};
+  }]
+} satisfies ITestPath;

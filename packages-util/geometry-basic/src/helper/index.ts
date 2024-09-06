@@ -71,7 +71,9 @@ export { default as pathMidpointList } from './path-midpoint-list';
 // 路径 vs 线段
 export { default as pathIntersectionWithSegment } from './path-intersection-with-segment';
 // 路径 vs 直线
-export { default as pathSliceListByLines } from './path-slice-list-by-lines';
+export { default as pathIntersectionWithLine } from './path-intersection-with-line';
+export { default as pathSplitByLine } from './path-split-by-line';
+export { default as pathSplitByLines } from './path-split-by-lines';
 // TODO
 export { default as getRectPathBySegmentAndPoint } from './get-rect-path-by-segment-and-point';
 export { default as getRectPathByTwoPoints } from './get-rect-path-by-two-points';

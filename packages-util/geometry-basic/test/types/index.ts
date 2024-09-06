@@ -16,12 +16,20 @@ export interface ITestPath {
   centroid: Point | null; // pathCentroid
   bbox: Bbox; // pathBbox
   ecp: PathEdgeCenterPoints | null;
-  intersection: Array<{ // pathIntersectionWithSegment
+  intersectionWithLineCases?: Record<string, { // pathIntersectionWithLine key 将作为 test title
+    input: LineStandard;
+    output: Point[];
+  }>;
+  intersectionWithSegment?: Array<{ // pathIntersectionWithSegment TODO 改 map
     input: Segment;
     output: Point[];
     outputExtended: Point[];
   }>;
-  slice: Array<{
+  splitByLineCases?: Record<string, {
+    input: LineStandard;
+    output: [Path, Path];
+  }>;
+  splitByLines?: Array<{
     input: LineStandard[];
     output: Path[];
   }>;

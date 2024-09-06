@@ -11,7 +11,7 @@ import {
  * 2 |  ⦿ (1, 2)
  * 3 |
  */
-export const TEST_PATH_1: ITestPath = {
+export default {
   path: [[1, 2]],
   perimeter: 0,
   area: 0,
@@ -25,7 +25,5 @@ export const TEST_PATH_1: ITestPath = {
     b: [1, 2],
     l: [1, 2],
     c: [1, 2]
-  },
-  intersection: [],
-  slice: []
-};
+  }
+} satisfies ITestPath;

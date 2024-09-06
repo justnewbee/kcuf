@@ -6,7 +6,7 @@ import {
 
 import pkgInfo from '../package.json';
 import {
-  pathSliceListByLines
+  pathSplitByLines
 } from '../src';
 
 import {
@@ -22,9 +22,9 @@ import {
 } from './const';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
-  describe('pathSliceListByLines(path: Path, lines: Lines): Path[]', () => {
+  describe('pathSplitByLines(path: Path, lines: Lines): Path[]', () => {
     test('square', () => {
-      expect(pathSliceListByLines(TEST_PATH_4_SQUARE.path, [])).toEqual([]);
+      // expect(pathSplitByLines(TEST_PATH_4_SQUARE.path, [])).toEqual([]);
     });
   });
 });

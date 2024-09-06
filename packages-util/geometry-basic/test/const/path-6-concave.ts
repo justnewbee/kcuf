@@ -13,7 +13,7 @@ import {
  * 4 |     ◉--- ←◉
  * 5 |
  */
-export const TEST_PATH_6_CONCAVE: ITestPath = {
+export default {
   path: [[0, 0], [4, 0], [4, 4], [2, 4], [2, 2], [0, 2]],
   perimeter: 16,
   area: 12,
@@ -27,7 +27,5 @@ export const TEST_PATH_6_CONCAVE: ITestPath = {
     b: [4, 4],
     l: [0, 0],
     c: [2, 2]
-  },
-  intersection: [],
-  slice: []
-};
+  }
+} satisfies ITestPath;
