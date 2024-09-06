@@ -4,7 +4,6 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   pathSplitByLine
 } from '../src';
@@ -23,13 +22,9 @@ import {
   // TEST_PATH_6_CONCAVE
 } from './const';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
-  const {
-    splitByLine
-  } = TEST_PATH_4_SQUARE;
-  
-  describe('pathSplitByLine(path: Path, line: Line): Point[]', () => {
-    splitByLine.forEach(v => {
+describe('pathSplitByLine(path: Path, line: Line): Point[]', () => {
+  describe('square', () => {
+    TEST_PATH_4_SQUARE.splitByLine.forEach(v => {
       test(v.title, () => {
         expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, v.input)).toEqual(v.output);
       });
