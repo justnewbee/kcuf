@@ -33,63 +33,78 @@ export default {
     c: [2, 2]
   },
   intersectionWithSegment: [{
-    input: [[2, 2], [3, 1]], // both points inside
+    title: 'both points inside',
+    input: [[2, 2], [3, 1]],
     output: [],
     outputExtended: [[1, 3], [4, 0]]
   }, {
-    input: [[1, 1], [2, 2]], // both points inside
+    title: 'both points inside 2',
+    input: [[1, 1], [2, 2]],
     output: [],
     outputExtended: [[0, 0], [3, 3]]
   }, {
-    input: [[5, 0], [6, 1]], // both points outside no crossing
+    title: 'both points outside no crossing',
+    input: [[5, 0], [6, 1]],
     output: [],
     outputExtended: []
   }, {
+    title: 'both points outside no crossing 2',
     input: [[5, 3], [6, 4]],
     output: [],
     outputExtended: [[2, 0], [4, 2]]
   }, {
+    title: 'both points outside no crossing 3',
     input: [[6, 4], [5, 3]],
     output: [],
     outputExtended: [[4, 2], [2, 0]]
   }, {
-    input: [[-1, -1], [4, 4]], // both points outside crossing through
+    title: 'both points outside crossing through',
+    input: [[-1, -1], [4, 4]],
     output: [[0, 0], [3, 3]],
     outputExtended: [[0, 0], [3, 3]]
   }, {
-    input: [[0, 0], [4, 2]], // both points are path points
+    title: 'both points are path points',
+    input: [[0, 0], [4, 2]],
     output: [[0, 0], [4, 2]],
     outputExtended: [[0, 0], [4, 2]]
   }, {
-    input: [[0, 1], [3, 3]], // both points are along edge
+    title: 'both points are along edge',
+    input: [[0, 1], [3, 3]],
     output: [[0, 1], [3, 3]],
     outputExtended: [[0, 1], [3, 3]]
   }, {
-    input: [[0, 0], [2, 2]], // one path point, one inside
+    title: 'one path point, one inside',
+    input: [[0, 0], [2, 2]],
     output: [[0, 0]],
     outputExtended: [[0, 0], [3, 3]]
   }, {
-    input: [[4, 2], [3, 1]], // one path point, one inside
+    title: 'one path point, one inside',
+    input: [[4, 2], [3, 1]],
     output: [[4, 2]],
     outputExtended: [[4, 2], [2, 0]]
   }, {
-    input: [[4, 2], [5, 3]], // one path point, one outward
+    title: 'one path point, one outward',
+    input: [[4, 2], [5, 3]],
     output: [[4, 2]],
     outputExtended: [[2, 0], [4, 2]]
   }, {
-    input: [[0, 0], [4, 4]], // one path point, one through
+    title: 'one path point, one through',
+    input: [[0, 0], [4, 4]],
     output: [[0, 0], [3, 3]],
     outputExtended: [[0, 0], [3, 3]]
   }, {
-    input: [[0, 1], [2, 3]], // one along border, one inside
+    title: 'one along border, one inside',
+    input: [[0, 1], [2, 3]],
     output: [[0, 1]],
     outputExtended: [[0, 1], [2.5, 3.5]]
   }, {
-    input: [[4, 1], [5, 2]], // one along border, one outward
+    title: 'one along border, one outward',
+    input: [[4, 1], [5, 2]],
     output: [[4, 1]],
     outputExtended: [[3, 0], [4, 1]]
   }, {
-    input: [[2, 0], [5, 3]], // one along border, one through
+    title: 'one along border, one through',
+    input: [[2, 0], [5, 3]],
     output: [[2, 0], [4, 2]],
     outputExtended: [[2, 0], [4, 2]]
   }]

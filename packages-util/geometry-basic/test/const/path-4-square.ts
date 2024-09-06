@@ -1,33 +1,29 @@
 import {
-  Path
-} from '../../src';
-
-import {
   ITestPath
 } from '../types';
 
 import {
-  LINE_1X_0Y_N5,
-  LINE_1X_0Y_N4,
-  LINE_1X_0Y_N3,
-  LINE_1X_0Y_N2,
+  // LINE_1X_0Y_N5,
+  // LINE_1X_0Y_N4,
+  // LINE_1X_0Y_N3,
+  // LINE_1X_0Y_N2,
   LINE_1X_0Y_N1,
-  LINE_1X_0Y_0,
+  // LINE_1X_0Y_0,
   LINE_1X_0Y_1,
   LINE_0X_N1Y_N1,
-  LINE_0X_N1Y_0,
+  // LINE_0X_N1Y_0,
   LINE_0X_N1Y_1,
-  LINE_0X_N1Y_2,
+  // LINE_0X_N1Y_2,
   LINE_0X_N1Y_3,
-  LINE_0X_N1Y_4,
-  LINE_0X_N1Y_5,
+  // LINE_0X_N1Y_4,
+  // LINE_0X_N1Y_5,
   LINE_1X_N1Y_N1,
   LINE_1X_N1Y_0,
   LINE_1X_N1Y_1,
-  LINE_1X_N1Y_2,
-  LINE_1X_N1Y_3,
-  LINE_1X_N1Y_4,
-  LINE_1X_N1Y_5,
+  // LINE_1X_N1Y_2,
+  // LINE_1X_N1Y_3,
+  // LINE_1X_N1Y_4,
+  // LINE_1X_N1Y_5,
   LINE_N1X_N1Y_N1,
   LINE_N1X_N1Y_0,
   LINE_N1X_N1Y_1,
@@ -36,8 +32,6 @@ import {
   LINE_N1X_N1Y_4,
   LINE_N1X_N1Y_5
 } from './common';
-
-const PATH_SQUARE: Path = [[0, 0], [4, 0], [4, 4], [0, 4]];
 
 /**
  * 正方形
@@ -51,7 +45,7 @@ const PATH_SQUARE: Path = [[0, 0], [4, 0], [4, 4], [0, 4]];
  * 5 |
  */
 export default {
-  path: PATH_SQUARE,
+  path: [[0, 0], [4, 0], [4, 4], [0, 4]],
   perimeter: 16,
   area: 16,
   midpoints: [[2, 0], [4, 2], [2, 4], [0, 2]],
@@ -65,162 +59,155 @@ export default {
     l: [0, 0],
     c: [2, 2]
   },
-  intersectionWithLineCases: {
-    'x = -1': {
+  intersectionWithLine: [
+    {
+      title: 'x = -1',
       input: LINE_1X_0Y_1,
       output: []
-    },
-    'x = 1': {
+    }, {
+      title: 'x = 1',
       input: LINE_1X_0Y_N1,
       output: [[1, 0], [1, 4]]
-    },
-    'y = -1': {
+    }, {
+      title: 'y = -1',
       input: LINE_0X_N1Y_N1,
       output: []
-    },
-    'y = 1': {
+    }, {
+      title: 'y = 1',
       input: LINE_0X_N1Y_1,
       output: [[0, 1], [4, 1]]
-    },
-    'y = x - 1': {
+    }, {
+      title: 'y = x - 1',
       input: LINE_1X_N1Y_N1,
       output: [[1, 0], [4, 3]]
-    },
-    'y = x': {
+    }, {
+      title: 'y = x',
       input: LINE_1X_N1Y_0,
       output: [[0, 0], [4, 4]]
-    },
-    'y = x + 1': {
+    }, {
+      title: 'y = x + 1',
       input: LINE_1X_N1Y_1,
       output: [[0, 1], [3, 4]]
-    },
-    'y = -x - 1': {
+    }, {
+      title: 'y = -x - 1',
       input: LINE_N1X_N1Y_N1,
       output: []
-    },
-    'y = -x': {
+    }, {
+      title: 'y = -x',
       input: LINE_N1X_N1Y_0,
       output: [[0, 0]]
-    },
-    'y = -x + 1': {
+    }, {
+      title: 'y = -x + 1',
       input: LINE_N1X_N1Y_1,
       output: [[0, 1], [1, 0]]
     }
-  },
-  splitByLineCases: {
-    'x = -1': {
+  ],
+  splitByLine: [
+    {
+      title: 'x = -1',
       input: LINE_1X_0Y_1,
-      output: [
-        PATH_SQUARE,
-        [],
-      ]
-    },
-    'x = 1': {
+      output: null
+    }, {
+      title: 'x = 1',
       input: LINE_1X_0Y_N1,
       output: [
         [[0, 0], [1, 0], [1, 4], [0, 4]],
         [[1, 0], [4, 0], [4, 4], [1, 4]],
       ]
-    },
-    'y = -1': {
+    }, {
+      title: 'y = -1',
       input: LINE_0X_N1Y_N1,
-      output: [
-        PATH_SQUARE,
-        []
-      ]
-    },
-    'y = 1': {
+      output: null
+    }, {
+      title: 'y = 1',
       input: LINE_0X_N1Y_1,
       output: [
         [[0, 0], [4, 0], [4, 1], [0, 1]],
         [[4, 1], [4, 4], [0, 4], [0, 1]]
       ]
-    },
-    'y = 3': {
+    }, {
+      title: 'y = 3',
       input: LINE_0X_N1Y_3,
       output: [
         [[0, 0], [4, 0], [4, 3], [0, 3]],
         [[4, 3], [4, 4], [0, 4], [0, 3]],
       ]
-    },
-    'y = x - 1': {
+    }, {
+      title: 'y = x - 1',
       input: LINE_1X_N1Y_N1,
       output: [
         [[0, 0], [1, 0], [4, 3], [4, 4], [0, 4]],
         [[1, 0], [4, 0], [4, 3]],
       ]
-    },
-    'y = x': {
+    }, {
+      title: 'y = x',
       input: LINE_1X_N1Y_0,
       output: [
         [[0, 0], [4, 0], [4, 4]],
         [[4, 4], [0, 4], [0, 0]]
       ]
-    },
-    'y = x + 1': {
+    }, {
+      title: 'y = x + 1',
       input: LINE_1X_N1Y_1,
       output: [
         [[0, 0], [4, 0], [4, 4], [3, 4], [0, 1]],
         [[3, 4], [0, 4], [0, 1]],
       ]
-    },
-    'y = -x - 1': {
+    }, {
+      title: 'y = -x - 1',
       input: LINE_N1X_N1Y_N1,
-      output: [
-        PATH_SQUARE,
-        [],
-      ]
-    },
-    'y = -x': {
+      output: null
+    }, {
+      title: 'y = -x',
       input: LINE_N1X_N1Y_0,
-      output: [
-        PATH_SQUARE,
-        [],
-      ]
-    },
-    'y = -x + 1': {
+      output: null
+    }, {
+      title: 'y = -x + 1',
       input: LINE_N1X_N1Y_1,
       output: [
         [[0, 0], [1, 0], [0, 1]],
         [[1, 0], [4, 0], [4, 4], [0, 4], [0, 1]],
       ]
-    },
-    'y = -x + 2': {
+    }, {
+      title: 'y = -x + 2',
       input: LINE_N1X_N1Y_2,
       output: [
         [[0, 0], [2, 0], [0, 2]],
         [[2, 0], [4, 0], [4, 4], [0, 4], [0, 2]],
       ]
-    },
-    'y = -x + 3': {
+    }, {
+      title: 'y = -x + 3',
       input: LINE_N1X_N1Y_3,
       output: [
         [[0, 0], [3, 0], [0, 3]],
         [[3, 0], [4, 0], [4, 4], [0, 4], [0, 3]],
       ]
-    },
-    'y = -x + 4': {
+    }, {
+      title: 'y = -x + 4',
       input: LINE_N1X_N1Y_4,
       output: [
         [[0, 0], [4, 0], [0, 4]],
         [[4, 0], [4, 4], [0, 4]],
       ]
-    },
-    'y = -x + 5': {
+    }, {
+      title: 'y = -x + 5',
       input: LINE_N1X_N1Y_5,
       output: [
         [[0, 0], [4, 0], [4, 1], [1, 4], [0, 4]],
         [[4, 1], [4, 4], [1, 4]],
       ]
     }
-  },
-  splitByLines: [{
-    input: [
-      LINE_1X_N1Y_0
-    ],
-    output: [
-      [[0, 0], [4, 0], [4, 4]],
-      [[4, 4], [0, 4], [0, 0]]
-    ]
-  }]
+  ],
+  splitByLines: [
+    {
+      title: 'y = x',
+      input: [
+        LINE_1X_N1Y_0
+      ],
+      output: [
+        [[0, 0], [4, 0], [4, 4]],
+        [[4, 4], [0, 4], [0, 0]]
+      ]
+    }
+  ]
 } satisfies ITestPath;

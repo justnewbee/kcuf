@@ -25,84 +25,14 @@ import {
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   const {
-    splitByLineCases
+    splitByLine
   } = TEST_PATH_4_SQUARE;
   
   describe('pathSplitByLine(path: Path, line: Line): Point[]', () => {
-    test('x = -1', () => {
-      const theCase = splitByLineCases['x = -1'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('x = 1', () => {
-      const theCase = splitByLineCases['x = 1'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = 1', () => {
-      const theCase = splitByLineCases['y = 1'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = -1', () => {
-      const theCase = splitByLineCases['y = -1'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = 3', () => {
-      const theCase = splitByLineCases['y = 3'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = x - 1', () => {
-      const theCase = splitByLineCases['y = x - 1'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = x', () => {
-      const theCase = splitByLineCases['y = x'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = x + 1', () => {
-      const theCase = splitByLineCases['y = x + 1'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = -x - 1', () => {
-      const theCase = splitByLineCases['y = -x - 1'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = -x', () => {
-      const theCase = splitByLineCases['y = -x'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = -x + 1', () => {
-      const theCase = splitByLineCases['y = -x + 1'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = -x + 2', () => {
-      const theCase = splitByLineCases['y = -x + 2'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = -x + 3', () => {
-      const theCase = splitByLineCases['y = -x + 3'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = -x + 4', () => {
-      const theCase = splitByLineCases['y = -x + 4'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
-    });
-    test('y = -x + 5', () => {
-      const theCase = splitByLineCases['y = -x + 5'];
-      
-      expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, theCase.input)).toEqual(theCase.output);
+    splitByLine.forEach(v => {
+      test(v.title, () => {
+        expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, v.input)).toEqual(v.output);
+      });
     });
   });
 });

@@ -4,7 +4,6 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   pathIntersectionWithLine
 } from '../src';
@@ -23,41 +22,12 @@ import {
   // TEST_PATH_6_CONCAVE
 } from './const';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
-  const {
-    intersectionWithLineCases
-  } = TEST_PATH_4_SQUARE;
-  
-  describe('pathIntersectionWithLine(path: Path, line: Line): Point[]', () => {
-    test('x = -1', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['x = -1'].input)).toEqual(intersectionWithLineCases['x = -1'].output);
-    });
-    test('x = 1', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['x = 1'].input)).toEqual(intersectionWithLineCases['x = 1'].output);
-    });
-    test('y = 1', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['y = 1'].input)).toEqual(intersectionWithLineCases['y = 1'].output);
-    });
-    test('y = -1', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['y = -1'].input)).toEqual(intersectionWithLineCases['y = -1'].output);
-    });
-    test('y = x', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['y = x'].input)).toEqual(intersectionWithLineCases['y = x'].output);
-    });
-    test('y = x + 1', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['y = x + 1'].input)).toEqual(intersectionWithLineCases['y = x + 1'].output);
-    });
-    test('y = x - 1', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['y = x - 1'].input)).toEqual(intersectionWithLineCases['y = x - 1'].output);
-    });
-    test('y = -x', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['y = -x'].input)).toEqual(intersectionWithLineCases['y = -x'].output);
-    });
-    test('y = -x + 1', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['y = -x + 1'].input)).toEqual(intersectionWithLineCases['y = -x + 1'].output);
-    });
-    test('y = -x - 1', () => {
-      expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, intersectionWithLineCases['y = -x - 1'].input)).toEqual(intersectionWithLineCases['y = -x - 1'].output);
+describe('pathIntersectionWithLine(path: Path, line: Line): Point[]', () => {
+  describe('square', () => {
+    TEST_PATH_4_SQUARE.intersectionWithLine.forEach(v => {
+      test(v.title, () => {
+        expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, v.input)).toEqual(v.output);
+      });
     });
   });
 });
