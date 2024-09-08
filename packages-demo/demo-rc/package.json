@@ -29,7 +29,7 @@
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
-    "@chromatic-com/storybook": "^1.8.0",
+    "@chromatic-com/storybook": "^1.9.0",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-essentials": "^8.2.9",
     "@storybook/addon-interactions": "^8.2.9",
@@ -55,7 +55,7 @@
   "dependencies": {
     "@codemirror/autocomplete": "^6.18.0",
     "@codemirror/commands": "^6.6.1",
-    "@codemirror/lang-css": "^6.2.1",
+    "@codemirror/lang-css": "^6.3.0",
     "@codemirror/lang-html": "^6.4.9",
     "@codemirror/lang-javascript": "^6.2.2",
     "@codemirror/lang-json": "^6.0.1",

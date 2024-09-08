@@ -60,7 +60,5 @@ export default function segmentInnerSliceListByPath(segment: TSegment, path: TPa
     return [];
   }
   
-  // console.info(segment, '>', points)
-  
   return buildSegments(points, path);
 }

@@ -6,11 +6,13 @@ import {
   pairwise
 } from '../util';
 
-import lineIntersection from './line-intersection';
 import pointIsWithinPath from './point-is-within-path';
+import lineIntersection from './line-intersection';
+import pathSplitByLine from './path-split-by-line';
+import comparePaths from './compare-paths';
 
 /**
- * 路径切片，返回的顺序按直线与 path 内边交叉的先后顺序
+ * 路径切片
  */
 export default function pathSplitByLines(path: TPath, lines: TLine[]): TPath[] {
   // 限制 1：直线在 path 内部不相交
@@ -22,7 +24,23 @@ export default function pathSplitByLines(path: TPath, lines: TLine[]): TPath[] {
     return [];
   }
   
-  return [
-    path
-  ];
+  let subPaths: TPath[] = [path];
+  let subPathsTemp: TPath[];
+  
+  lines.forEach(line => {
+    subPathsTemp = subPaths;
+    subPaths = [];
+    
+    subPathsTemp.forEach(v => {
+      const shit = pathSplitByLine(v, line);
+      
+      if (shit) {
+        subPaths.push(...shit)
+      } else {
+        subPaths.push(v);
+      }
+    });
+  });
+  
+  return subPaths.sort(comparePaths);
 }

@@ -7,14 +7,14 @@ import {
   noNegativeZero
 } from '../util';
 
-import standardizeLineCoefficients from './standardize-line-coefficients';
+import lineStandardize from './line-standardize';
 
 /**
  * 两条直线相交点
  */
 export default function lineIntersection(line1: TLine, line2: TLine): TPoint | null {
-  const [A1, B1, C1] = standardizeLineCoefficients(line1);
-  const [A2, B2, C2] = standardizeLineCoefficients(line2);
+  const [A1, B1, C1] = lineStandardize(line1);
+  const [A2, B2, C2] = lineStandardize(line2);
   
   if (A1 === A2 && B1 === B2) {
     return null;

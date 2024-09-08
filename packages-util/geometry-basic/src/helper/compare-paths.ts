@@ -4,6 +4,7 @@ import {
 
 import pathCentroid from './path-centroid';
 import pathBbox from './path-bbox';
+import comparePoints from './compare-points';
 
 function compareByBox(path1: TPath, path2: TPath): number {
   const [[xMin1, yMin1], [xMax1, yMax1]] = pathBbox(path1);
@@ -29,12 +30,10 @@ export default function comparePaths(path1: TPath, path2: TPath): number {
   const centroid2 = pathCentroid(path2);
   
   if (centroid1 && centroid2) {
-    if (centroid1[0] !== centroid2[0]) {
-      return centroid1[0] - centroid2[0];
-    }
+    const result = comparePoints(centroid1, centroid2);
     
-    if (centroid1[1] !== centroid2[1]) {
-      return centroid1[1] - centroid2[1];
+    if (result !== 0) {
+      return result;
     }
   }
   

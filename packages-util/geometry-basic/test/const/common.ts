@@ -28,7 +28,7 @@ export const LINE_0X_N1Y_1: LineStandard = [0, -1, 1]; // y = 1
 export const LINE_0X_N1Y_2: LineStandard = [0, -1, 2]; // y = 2
 export const LINE_0X_N1Y_3: LineStandard = [0, -1, 3]; // y = 3
 export const LINE_0X_N1Y_4: LineStandard = [0, -1, 4]; // y = 4
-export const LINE_0X_N1Y_5: LineStandard = [0, -1, 4]; // y = 5
+export const LINE_0X_N1Y_5: LineStandard = [0, -1, 5]; // y = 5
 // 正斜 y = +nx
 export const LINE_1X_N1Y_N1: LineStandard = [1, -1, -1]; // y = x - 1
 export const LINE_1X_N1Y_0: LineStandard = [1, -1, 0]; // y = x

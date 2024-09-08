@@ -3,7 +3,7 @@ import {
   TLineStandard
 } from '../types';
 
-import standardizeLineCoefficients from './standardize-line-coefficients';
+import lineStandardize from './line-standardize';
 
 /**
  * 线段所在直线的方程系数，使方程 `A*x + B*y + C = 0` 成立
@@ -19,5 +19,5 @@ export default function segmentToLine(segment: TSegment): TLineStandard {
   const B = x1 - x2;
   const C = x2 * y1 - x1 * y2;
   
-  return standardizeLineCoefficients([A, B, C]);
+  return lineStandardize([A, B, C]);
 }
