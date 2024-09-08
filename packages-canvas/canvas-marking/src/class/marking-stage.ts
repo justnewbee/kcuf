@@ -971,19 +971,25 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     }
   }
   
-  private findItemToHighlight(finder: TMarkingItemFinder<T>): IMarkingItemClass<T> | undefined {
+  private findItem(finder: TMarkingItemFinder<T>, givenItem: IMarkingItemClass<T> | null): IMarkingItemClass<T> | null {
     const {
-      markingItems,
-      itemHighlighting,
-      itemEditing
+      markingItems
     } = this;
     
+    if (finder === null) {
+      return null;
+    }
+    
+    if (finder === 'first') {
+      return markingItems[0] || null;
+    }
+    
+    if (finder === 'last') {
+      return markingItems[markingItems.length - 1] || null;
+    }
+    
     if (typeof finder === 'number') {
-      if (finder === 0) {
-        return markingItems[0];
-      }
-      
-      let nextIndex = markingItems.findIndex(v => v === (itemHighlighting || itemEditing)) + finder;
+      let nextIndex = markingItems.findIndex(v => v === givenItem) + finder;
       
       // 使其循环能够循环，比如用于 Tab 事件
       if (nextIndex > markingItems.length - 1) {
@@ -992,10 +998,10 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
         nextIndex = markingItems.length - 1;
       }
       
-      return markingItems[nextIndex];
+      return markingItems[nextIndex] || null;
     }
     
-    return markingItems.find(v => v.stats.data && finder(v.stats.data));
+    return this.markingItems.find(v => v.stats.data && finder(v.stats.data)) || null;
   }
   
   private select(item: IMarkingItemClass<T> | null): void {
@@ -1108,6 +1114,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   
   startCreating(extraOptions?: IMarkingItemConfig): void {
     const {
+      options,
       disabled,
       itemCreating
     } = this;
@@ -1116,9 +1123,14 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       return;
     }
     
-    this.moveEnd(); // 副作用 1
-    this.itemEditing?.finishEditing(); // 副作用 2
-    this.hoverMarkingItem(null); // 副作用 3
+    this.moveEnd(); // 副作用 1 - 结束移动
+    this.hoverMarkingItem(null); // 副作用 2 - 取消 hover
+    
+    if (this.itemEditing) {
+      this.itemEditing.finishEditing(); // 副作用 3 - 结束编辑
+      
+      options.onSelectionChange?.(null, this.getItemStatsList()); // 副作用 4 - 取消选中
+    }
     
     const markingItem = this.createMarkingItem({
       ...extraOptions,
@@ -1295,8 +1307,19 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.moveTo([this.movingCoords[0] + dx, this.movingCoords[1] + dy]);
   }
   
-  highlightItem(finder: TMarkingItemFinder<T> | null, borderIndex: number | null = null): void {
-    const markingItem = finder === null ? null : this.findItemToHighlight(finder);
+  selectItem(finder: TMarkingItemFinder<T>): void {
+    const markingItem = finder === null ? null : this.findItem(finder, this.itemEditing);
+    
+    if (markingItem === this.itemEditing) {
+      return;
+    }
+    
+    this.select(markingItem || null);
+    this.updateAndDraw(EMarkingStatsChangeCause.SELECT);
+  }
+  
+  highlightItem(finder: TMarkingItemFinder<T>, borderIndex: number | null = null): void {
+    const markingItem = finder === null ? null : this.findItem(finder, this.itemHighlighting || this.itemEditing);
     
     this.markingItems.forEach(v => {
       v.toggleHighlighting(v === markingItem, borderIndex);

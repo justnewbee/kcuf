@@ -10,6 +10,7 @@ export type {
 
 export type {
   IMarkingStageClass as MarkingStageClassType,
+  TMarkingItemFinder as MarkingItemFinder,
   
   IMarkingConfigItemBorderDiff as MarkingConfigItemBorderDiff,
   

@@ -32,11 +32,8 @@ export { default as useHandleCreatingCancel } from './use-handle-creating-cancel
 export { default as useHandleCreatingFinish } from './use-handle-creating-finish';
 export { default as useHandleDeleteActiveItem } from './use-handle-delete-active-item';
 export { default as useHandleDeleteAllItems } from './use-handle-delete-all-items';
-export { default as useHandleHighlightNext } from './use-handle-highlight-next';
-export { default as useHandleHighlightNextBorder } from './use-handle-highlight-next-border';
-export { default as useHandleHighlightNone } from './use-handle-highlight-none';
-export { default as useHandleHighlightPrev } from './use-handle-highlight-prev';
-export { default as useHandleHighlightPrevBorder } from './use-handle-highlight-prev-border';
+export { default as useHandleSelect } from './use-handle-select';
+export { default as useHandleHighlight } from './use-handle-highlight';
 export { default as useHandleZoomIn } from './use-handle-zoom-in';
 export { default as useHandleZoomOut } from './use-handle-zoom-out';
 export { default as useHandleZoomReset } from './use-handle-zoom-reset';

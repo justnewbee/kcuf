@@ -37,6 +37,8 @@ export enum EMarkingStatsChangeCause {
   CANCEL_CREATING = 'cancel_creating',
   DELETE = 'delete',
   CLEAR = 'clear',
+  SELECT = 'select',
+  HIGHLIGHT = 'highlight',
   MOVE_READY = 'move:ready',
   MOVE_START = 'move:start',
   MOVE_END = 'move:end',
@@ -44,6 +46,5 @@ export enum EMarkingStatsChangeCause {
   ZOOM_OUT = 'zoom:out',
   ZOOM_MIN = 'zoom:min',
   ZOOM_MAX = 'zoom:max',
-  ZOOM_RESET = 'zoom:reset',
-  HIGHLIGHT = 'highlight'
+  ZOOM_RESET = 'zoom:reset'
 }

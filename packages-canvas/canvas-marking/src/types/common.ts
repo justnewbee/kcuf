@@ -1,6 +1,10 @@
 export type TSize = [number, number]; // 大小 [width, height]
 
-// 查找 MarkingItem 的方式，数字可以表示上几个下几个（不接受 0），回调方法可以根据 data 找到特定 MarkingItem
-export type TMarkingItemFinder<T> = number | ((data: T) => boolean);
-
 export type TCreatingWillFinish = boolean | 'close';
+
+/**
+ * 对外提供的查找 MarkingItem 的方式，若为数字，可以表示根据给定 MarkingItem 向前或向后几个
+ */
+export type TMarkingItemFinder<T> = null | 'first' | 'last' | number | {
+  (data: T): boolean;
+};

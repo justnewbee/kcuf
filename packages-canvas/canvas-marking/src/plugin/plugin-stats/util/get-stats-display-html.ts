@@ -1,80 +1,58 @@
 import {
-  Point
-} from '@kcuf/geometry-basic';
-
-import {
   EMarkingStatsChangeCause
 } from '../../../enum';
 import {
-  TSize,
   IMarkingStageStats
 } from '../../../types';
 
-function displayBool(value: boolean): string {
-  return value ? '✅' : '❌';
-}
-
-function displayPercentage(n: number): string {
-  const [i, f0] = (n * 100).toFixed(2).split('.') as [string, string];
-  const f = f0.replace(/0+$/, '');
-  
-  return f ? `${i}.${f}%` : `${i}%`;
-}
-
-function displaySize([w, h]: TSize): string {
-  return `${w} 𝗑 ${h}`;
-}
-
-function displayPoint(point: Point | null): string {
-  return point ? `(${point[0]}, ${point[1]})` : 'null';
-}
-
-function displayIndexAndPoint(index: number, point: Point | null): string {
-  return `${index} / ${displayPoint(point)}`;
-}
+import displayBoolean from './display-boolean';
+import displayPercentage from './display-percentage';
+import displaySize from './display-size';
+import displayCoords from './display-coords';
+import displayCoordsAndIndex from './display-coords-and-index';
 
 export default function getStatsDisplayHtml<T>(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): string {
   return `<ul>${[
     ['Cause', cause],
     ['TimeStamp', Date.now()],
     // 禁用
-    ['Disabled', displayBool(stats.disabled)],
+    ['Disabled', displayBoolean(stats.disabled)],
     // 大小
     ['StageSize', displaySize(stats.stageSize)],
     ['CanvasSize', displaySize(stats.canvasSize)],
-    ['CanvasCoords', displayPoint(stats.canvasCoords)],
+    ['CanvasCoords', displayCoords(stats.canvasCoords)],
     ['ImageStatus', stats.imageStatus],
     ['ImageSize', displaySize(stats.imageSize)],
     ['ImageScale', displayPercentage(stats.imageScale)],
-    ['ImageMouse', displayPoint(stats.imageMouse)],
+    ['ImageMouse', displayCoords(stats.imageMouse)],
     ['Zoom', displayPercentage(stats.zoom)],
     // 鼠标状态
-    ['MouseInStage', displayPoint(stats.mouseInStage)],
-    ['MouseInCanvas', displayPoint(stats.mouseInCanvas)],
-    ['MouseDownCanvas', displayBool(stats.mouseDownCanvas)],
-    ['MouseDownMoving', displayBool(stats.mouseDownMoving)],
+    ['MouseInStage', displayCoords(stats.mouseInStage)],
+    ['MouseInCanvas', displayCoords(stats.mouseInCanvas)],
+    ['MouseDownCanvas', displayBoolean(stats.mouseDownCanvas)],
+    ['MouseDownMoving', displayBoolean(stats.mouseDownMoving)],
     // 移动
-    ['Moving', displayBool(stats.moving)],
-    ['MovingCoordsStart', displayPoint(stats.movingCoordsStart)],
-    ['MovingCoords', displayPoint(stats.movingCoords)],
+    ['Moving', displayBoolean(stats.moving)],
+    ['MovingCoordsStart', displayCoords(stats.movingCoordsStart)],
+    ['MovingCoords', displayCoords(stats.movingCoords)],
     // 与 MarkingItem 有关的状态
-    ['Creating', displayBool(stats.creating)],
-    ['CreatingStarted', displayBool(stats.creatingStarted)],
-    ['CreatingCrossing', displayBool(stats.creatingCrossing)],
+    ['Creating', displayBoolean(stats.creating)],
+    ['CreatingStarted', displayBoolean(stats.creatingStarted)],
+    ['CreatingCrossing', displayBoolean(stats.creatingCrossing)],
     ['creatingWillFinish', stats.creatingWillFinish],
-    ['Highlighting', displayBool(stats.highlighting)],
-    ['Hovering', displayBool(stats.hovering)],
-    ['HoveringPoint', displayIndexAndPoint(stats.hoveringPointIndex, stats.itemStatsHovering?.path[stats.hoveringPointIndex] || null)],
+    ['Highlighting', displayBoolean(stats.highlighting)],
+    ['Hovering', displayBoolean(stats.hovering)],
+    ['HoveringPoint', displayCoordsAndIndex(stats.itemStatsHovering?.path[stats.hoveringPointIndex] || null, stats.hoveringPointIndex)],
     ['HoveringInsertionPoint', stats.hoveringInsertionPointIndex],
     ['HoveringBorder', stats.hoveringBorderIndex],
-    ['Editing', displayBool(stats.editing)],
-    ['EditingDirty', displayBool(stats.editingDirty)],
-    ['EditingCrossing', displayBool(stats.editingCrossing)],
-    ['EditingHovering', displayBool(stats.editingHovering)],
+    ['Editing', displayBoolean(stats.editing)],
+    ['EditingDirty', displayBoolean(stats.editingDirty)],
+    ['EditingCrossing', displayBoolean(stats.editingCrossing)],
+    ['EditingHovering', displayBoolean(stats.editingHovering)],
     ['EditingHoveringPoint', stats.editingHoveringPointIndex],
     ['EditingHoveringInsertionPoint', stats.editingHoveringInsertionPointIndex],
     ['EditingHoveringBorder', stats.editingHoveringBorderIndex],
-    ['EditingDragging', displayBool(stats.editingDragging)],
+    ['EditingDragging', displayBoolean(stats.editingDragging)],
     ['EditingDraggingPoint', stats.editingDraggingPointIndex],
     ['EditingDraggingInsertionPoint', stats.editingDraggingInsertionPointIndex],
     // 数据

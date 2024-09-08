@@ -3,8 +3,8 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  TMarkingItemFinder,
-  TSize
+  TSize,
+  TMarkingItemFinder
 } from './common';
 import {
   IMarkingItemStats,
@@ -82,7 +82,7 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
   cancelCreating(): void;
   
   /**
-   * 完成新建（但不一定能完成）
+   * 完成新建（但不一定能完成），可能触发 `onEditCancel` 或 `onEditComplete`
    */
   finishCreating(): void;
   
@@ -92,9 +92,14 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
   finishEditing(): void;
   
   /**
-   * 高亮某标记
+   * 选中或取消选中，会触发 `onSelectionChange`，可能
    */
-  highlightItem(finder: TMarkingItemFinder<T> | null, borderIndex?: number | null): void;
+  selectItem(finder: TMarkingItemFinder<T>): void;
+  
+  /**
+   * 高亮或取消高亮
+   */
+  highlightItem(finder: TMarkingItemFinder<T>, borderIndex?: number | null): void;
   
   /**
    * 删除激活的标记（可用于在新建后删除刚刚新建的那个）
