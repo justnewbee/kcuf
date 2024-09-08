@@ -7,8 +7,8 @@ import {
 } from '../types';
 
 /**
- * 减少误差，坐标尽量仅保留 1 位小数
+ * 避免坐标的小数太多，默认保留 4 位小数
  */
-export default function roundCoords(coords: TPoint, precision = 1): TPoint {
+export default function roundCoords(coords: TPoint, precision = 4): TPoint {
   return [_round(coords[0], precision), _round(coords[1], precision)];
 }
