@@ -18,6 +18,7 @@ import {
  * 5 |
  */
 export default {
+  title: 'Path of points 4 crossing X',
   path: [[0, 0], [4, 0], [0, 4], [4, 4]],
   perimeter: 8 + 8 * SQRT2,
   area: 8,

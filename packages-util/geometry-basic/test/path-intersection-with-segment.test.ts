@@ -23,7 +23,7 @@ import {
 } from './const';
 
 describe('pathIntersectionWithSegment(path: Path, segment: Segment, extended?: boolean): Point[]', () => {
-  describe('5 convex', () => {
+  describe(TEST_PATH_5_CONVEX.title, () => {
     TEST_PATH_5_CONVEX.intersectionWithSegment.forEach(v => {
       test(v.title, () => {
         expect(pathIntersectionWithSegment(TEST_PATH_5_CONVEX.path, v.input)).toEqual(v.output);

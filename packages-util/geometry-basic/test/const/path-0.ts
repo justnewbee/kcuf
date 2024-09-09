@@ -3,6 +3,7 @@ import {
 } from '../types';
 
 export default {
+  title: 'Path of points 0',
   path: [],
   perimeter: 0,
   area: 0,

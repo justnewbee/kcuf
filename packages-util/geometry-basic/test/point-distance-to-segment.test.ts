@@ -4,14 +4,13 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   isNearlyEqual,
   pointDistanceToSegment,
   pointDistanceToSegmentDetailed
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('pointDistanceToSegment', () => {
   test('pointDistanceToSegment(p: Point, segment: Segment): number', () => {
     expect(pointDistanceToSegment([0, 0], [[0, 0], [1, 1]])).toEqual(0);
     expect(pointDistanceToSegment([5, 0], [[0, 1], [0, 1]])).toEqual(5);

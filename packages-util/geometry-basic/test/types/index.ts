@@ -8,6 +8,7 @@ import {
 } from '../../src';
 
 export interface ITestPath {
+  title: string;
   path: Path;
   perimeter: number; // pathPerimeter
   area: number; // pathArea

@@ -31,7 +31,7 @@ import {
   LINE_N1X_N1Y_3,
   LINE_N1X_N1Y_4,
   LINE_N1X_N1Y_5
-} from './common';
+} from './lines';
 
 /**
  * 正方形
@@ -45,6 +45,7 @@ import {
  * 5 |
  */
 export default {
+  title: 'Path of points 4 square ◼',
   path: [[0, 0], [4, 0], [4, 4], [0, 4]],
   perimeter: 16,
   area: 16,

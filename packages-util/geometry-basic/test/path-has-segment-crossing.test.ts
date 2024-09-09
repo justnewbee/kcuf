@@ -4,7 +4,6 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   pathHasSegmentCrossing
 } from '../src';
@@ -16,30 +15,55 @@ import {
   TEST_PATH_3_ISOSCELES_RIGHT,
   TEST_PATH_4_RECTANGLE,
   TEST_PATH_4_SQUARE,
+  TEST_PATH_4_CROSSING,
   TEST_PATH_5_CONVEX,
   TEST_PATH_6_CONCAVE,
-  TEST_PATH_4_CROSSING
+  TEST_PATH_3_REGULAR,
+  TEST_PATH_4_DIAMOND
 } from './const';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
-  describe('pathHasSegmentCrossing(path: Path): Point | null', () => {
-    test('no crossing - 0, 1, 2, 3 points', () => {
-      expect(pathHasSegmentCrossing(TEST_PATH_0.path)).toBe(false);
-      expect(pathHasSegmentCrossing(TEST_PATH_1.path)).toBe(false);
-      expect(pathHasSegmentCrossing(TEST_PATH_2.path)).toBe(false);
-      expect(pathHasSegmentCrossing(TEST_PATH_3_ISOSCELES_RIGHT.path)).toBe(false);
-    });
-
-    test('no crossing', () => {
-      expect(pathHasSegmentCrossing(TEST_PATH_4_RECTANGLE.path)).toBe(false);
-      expect(pathHasSegmentCrossing(TEST_PATH_4_SQUARE.path)).toBe(false);
-      expect(pathHasSegmentCrossing(TEST_PATH_5_CONVEX.path)).toBe(false);
-      expect(pathHasSegmentCrossing(TEST_PATH_6_CONCAVE.path)).toBe(false);
-    });
-    
-    test('crossing', () => {
-      expect(pathHasSegmentCrossing(TEST_PATH_4_CROSSING.path)).toBe(true);
-      // expect(pathHasSegmentCrossing([[1778.2, 2404.7], [2070, 2700.4], [2996.1, 2303.5], [2308.6, 2598.1]])).toBe(true); // FIXME 这个应该是 true
-    });
+describe('pathHasSegmentCrossing(path: Path): Point | null', () => {
+  test(TEST_PATH_0.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_0.path)).toEqual(false);
+  });
+  
+  test(TEST_PATH_1.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_1.path)).toEqual(false);
+  });
+  
+  test(TEST_PATH_2.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_2.path)).toEqual(false);
+  });
+  
+  test(TEST_PATH_3_REGULAR.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_3_REGULAR.path)).toEqual(false);
+  });
+  
+  test(TEST_PATH_3_ISOSCELES_RIGHT.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_3_ISOSCELES_RIGHT.path)).toEqual(false);
+  });
+  
+  test(TEST_PATH_4_RECTANGLE.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_4_RECTANGLE.path)).toEqual(false);
+  });
+  
+  test(TEST_PATH_4_SQUARE.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_4_SQUARE.path)).toEqual(false);
+  });
+  
+  test(TEST_PATH_4_DIAMOND.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_4_DIAMOND.path)).toEqual(false);
+  });
+  
+  test(TEST_PATH_4_CROSSING.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_4_CROSSING.path)).toEqual(true);
+  });
+  
+  test(TEST_PATH_5_CONVEX.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_5_CONVEX.path)).toEqual(false);
+  });
+  
+  test(TEST_PATH_6_CONCAVE.title, () => {
+    expect(pathHasSegmentCrossing(TEST_PATH_6_CONCAVE.path)).toEqual(false);
   });
 });

@@ -1,3 +1,5 @@
+export * from './lines';
+
 export { default as TEST_PATH_0 } from './path-0';
 export { default as TEST_PATH_1 } from './path-1';
 export { default as TEST_PATH_2 } from './path-2';

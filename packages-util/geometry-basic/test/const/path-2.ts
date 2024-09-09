@@ -14,6 +14,7 @@ import {
  * 5 |  ⦿ (1, 5)
  */
 export default {
+  title: 'Path of points 2 \\',
   path: [[1, 5], [2, 3]],
   perimeter: Math.hypot(1, 2),
   area: 0,

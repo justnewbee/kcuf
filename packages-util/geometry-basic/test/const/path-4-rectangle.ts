@@ -12,6 +12,7 @@ import {
  * 3 |
  */
 export default {
+  title: 'Path of points 4 rectangle 🀰',
   path: [[0, 0], [4, 0], [4, 2], [0, 2]],
   perimeter: 12,
   area: 8,

@@ -21,6 +21,7 @@ import {
  * 5 |
  */
 export default {
+  title: 'Path of points 3 ◣',
   path: [[0, 0], [4, 0], [0, 4]],
   perimeter: 8 + 4 * SQRT2,
   area: 8,

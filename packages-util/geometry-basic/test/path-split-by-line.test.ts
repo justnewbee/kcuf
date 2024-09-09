@@ -23,7 +23,7 @@ import {
 } from './const';
 
 describe('pathSplitByLine(path: Path, line: Line): Point[]', () => {
-  describe('square', () => {
+  describe(TEST_PATH_4_SQUARE.title, () => {
     TEST_PATH_4_SQUARE.splitByLine.forEach(v => {
       test(v.title, () => {
         expect(pathSplitByLine(TEST_PATH_4_SQUARE.path, v.input)).toEqual(v.output);

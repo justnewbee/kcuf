@@ -18,10 +18,11 @@ import {
  * 5 |
  */
 export default {
+  title: 'Path of points 4 diamond ⬥',
   path: [[2, 0], [4, 2], [2, 4], [0, 2]],
   perimeter: 8 * SQRT2,
   area: 8,
-  midpoints: [[3, SQRT2], [3, 3 * SQRT2], [2, 3 * SQRT2], [1, SQRT2]],
+  midpoints: [[3, 1], [3, 3], [1, 3], [1, 1]],
   segments: [[[2, 0], [4, 2]], [[4, 2], [2, 4]], [[2, 4], [0, 2]], [[0, 2], [2, 0]]],
   centroid: [2, 2],
   bbox: [[0, 0], [4, 4]],
