@@ -2,7 +2,7 @@ import {
   useCallback
 } from 'react';
 
-import Marking from '../../../src';
+import CanvasMarking from '../../../src';
 import {
   DEMO_MARKINGS_AERIAL,
   IMAGE_AERIAL
@@ -26,7 +26,7 @@ export default function useHandleInit(): () => void {
   
   return useCallback(() => {
     if (domMarking && !markingStage) {
-      dispatchSetMarkingStage(new Marking(domMarking, {
+      dispatchSetMarkingStage(new CanvasMarking(domMarking, {
         image: IMAGE_AERIAL,
         items: DEMO_MARKINGS_AERIAL,
         pluginFps: true,
@@ -44,6 +44,10 @@ export default function useHandleInit(): () => void {
         onEditCancel: generateCallback('onEditCancel'),
         onEditComplete: generateCallback('onEditComplete'),
         onDelete: generateCallback('onDelete'),
+        onZoomChange: generateCallback('onZoomChange'),
+        onMoveStart: generateCallback('onMoveStart'),
+        onMovePause: generateCallback('onMovePause'),
+        onMoveEnd: generateCallback('onMoveEnd'),
         onStatsChange: dispatchSetMarkingStageStats
       }));
     }

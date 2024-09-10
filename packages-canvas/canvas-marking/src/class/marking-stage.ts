@@ -1,6 +1,7 @@
 import {
+  merge as _merge,
   clamp as _clamp,
-  merge as _merge
+  round as _round
 } from 'lodash-es';
 
 import {
@@ -1039,7 +1040,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     const {
       zoomLevel
     } = this;
-    let zoomLevelNext = zoomLevel + delta;
+    let zoomLevelNext = _round(zoomLevel + delta, 4);
     
     if (zoomLevelNext > max) {
       zoomLevelNext = max;
@@ -1064,6 +1065,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.setupScaleSizing(zoomLevelNext);
     this.updateAndDraw(cause);
     this.refreshMouseCoordsInCanvas();
+    this.options.onZoomChange?.(zoomLevelNext, zoomLevel);
     
     // TODO 要做这个事情
     // // 根据缩放前后鼠标在 canvas 上的相对位置变化（后 - 前）
@@ -1222,9 +1224,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   }
   
   zoomReset(): void {
-    this.moveTo([0, 0]);
-    this.setupScaleSizing();
-    this.updateAndDraw(EMarkingStatsChangeCause.ZOOM_RESET);
+    this.zoomTo(1, EMarkingStatsChangeCause.ZOOM_RESET);
   }
   
   moveReady(): void {
@@ -1260,6 +1260,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.movingCoordsStart = this.mouseInStage;
     this.movingCoordsSnapshot = this.movingCoords;
     this.updateAndDraw(EMarkingStatsChangeCause.MOVE_START);
+    this.options.onMoveStart?.();
   }
   
   moveProcess(): void {
@@ -1282,6 +1283,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     }
     
     this.movingCoordsStart = null;
+    this.options.onMovePause?.();
   }
   
   moveEnd(): void {
@@ -1292,6 +1294,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.moving = false;
     this.movingCoordsStart = null;
     this.updateAndDraw(EMarkingStatsChangeCause.MOVE_END);
+    this.options.onMoveEnd?.();
   }
   
   moveTo(coords: Point): void {

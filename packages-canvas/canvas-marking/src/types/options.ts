@@ -75,5 +75,9 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig {
   onEditCancel?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onEditComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onDelete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  onZoomChange?(zoomLevel: number, zoomLevelPrev: number): void;
+  onMoveStart?(): void;
+  onMovePause?(): void;
+  onMoveEnd?(): void;
   onStatsChange?(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void;
 }

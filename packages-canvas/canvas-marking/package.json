@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/canvas-marking",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "A canvas marking library.",
   "keywords": [],
   "license": "MIT",
@@ -48,7 +48,7 @@
     "rimraf": "^6.0.1",
     "storybook": "^8.2.9",
     "styled-components": "^6.1.13",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.2"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.24.8"
