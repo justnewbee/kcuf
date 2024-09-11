@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/subscribable",
-  "version": "0.0.1",
-  "description": "A subscribable class.",
+  "version": "0.1.0",
+  "description": "A subscribable class with generic.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,

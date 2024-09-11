@@ -39,6 +39,7 @@ export default function useHandleInit(): () => void {
         onCreateComplete: generateCallback('onCreateComplete'),
         onClick: generateCallback('onClick'),
         onSelectionChange: generateCallback('onSelectionChange'),
+        onPointRemove: generateCallback('onPointRemove'),
         onPointInsert: generateCallback('onPointInsert'),
         onDragEnd: generateCallback('onDragEnd'),
         onEditCancel: generateCallback('onEditCancel'),

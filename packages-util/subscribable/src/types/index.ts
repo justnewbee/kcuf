@@ -3,8 +3,10 @@ export interface IListenerItem {
   fn(...args: unknown[]): void;
 }
 
-export type TEventMap = {
-  [key: string]: unknown[];
-};
+export interface IFnOff {
+  (): void;
+}
 
-export type TListenerMapping<E extends TEventMap> = Partial<Record<keyof E, IListenerItem[]>>;
+export type TNamedListeners = Record<string, (...args: never[]) => unknown>;
+
+export type TSubscribedListeners<E extends TNamedListeners> = Partial<Record<keyof E, IListenerItem[]>>;

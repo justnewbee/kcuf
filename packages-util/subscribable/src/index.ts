@@ -1,26 +1,28 @@
 import {
-  forEach as _forEach
+  forEach as _forEach,
+  map as _map
 } from 'lodash-es';
 
 import {
-  TEventMap,
-  TListenerMapping
+  IFnOff,
+  TNamedListeners,
+  TSubscribedListeners
 } from './types';
 
 /**
- * 对名称即回调参数都有限定的 Subscribable 类，既可直接 new，亦可 extend
+ * 对名称和回调参数都定类型的 Subscribable 类，既可直接 new，亦可 extend
  *
  * 注意：传入的 E 泛型，不要用 interface 而应用 type，否则会有报错「does not satisfy the constraint」
  */
-export default class Subscribable<E extends TEventMap = TEventMap> {
+export default class Subscribable<O extends TNamedListeners = TNamedListeners> {
   private subscribedInc = 0;
-  private subscribedListeners: TListenerMapping<E> = {}; // 订阅的集合
+  private subscribedListeners: TSubscribedListeners<O> = {}; // 订阅的集合
   
   /**
    * 发事件，将对绑定的时间逐个进行调用
    */
-  emit<K extends keyof E>(key: K, ...args: E[K]): void {
-    const listeners = this.subscribedListeners[key];
+  emit<T extends keyof O>(topic: T, ...args: Parameters<O[T]>): void {
+    const listeners = this.subscribedListeners[topic];
     
     if (!listeners?.length) {
       return;
@@ -31,10 +33,35 @@ export default class Subscribable<E extends TEventMap = TEventMap> {
     }
   }
   
+  on(o: Partial<O>): IFnOff;
+  on<T extends keyof O>(topic: T, fn: O[T]): IFnOff;
+  
   /**
    * 绑定事件，返回解绑用的无参方法
    */
-  on<K extends keyof E>(key: K, fn: (...args: E[K]) => void): () => void {
+  on<T extends keyof O>(...args: [Partial<O>] | [T, O[T]]): IFnOff {
+    if (typeof args[0] === 'string') {
+      const [key, fn] = args;
+      const token = this.add(key, fn!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      
+      return () => this.off(token);
+    }
+    
+    const tokens = _map(args[0] as Partial<O>, (fn, k) => {
+      return this.add(k, fn as never);
+    });
+    
+    return () => tokens.forEach(v => this.off(v));
+  }
+  
+  /**
+   * 清除所有绑定的事件
+   */
+  offAll(): void {
+    this.subscribedListeners = {};
+  }
+  
+  private add<T extends keyof O>(key: T, fn: O[T]): number {
     let listeners = this.subscribedListeners[key];
     
     if (!listeners) {
@@ -50,14 +77,7 @@ export default class Subscribable<E extends TEventMap = TEventMap> {
       token
     });
     
-    return () => this.off(token);
-  }
-  
-  /**
-   * 清除所有绑定的事件
-   */
-  clear(): void {
-    this.subscribedListeners = {};
+    return token;
   }
   
   private off(token: number): void {

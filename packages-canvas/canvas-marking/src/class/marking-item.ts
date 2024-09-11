@@ -631,17 +631,6 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     return this.checkMouse() !== EMarkingMouseStatus.OUT;
   }
   
-  finishCreating(): void {
-    if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
-      return;
-    }
-    
-    this.creating = false;
-    this.options.onCreate?.(this.refreshStats());
-    
-    this.select();
-  }
-  
   select(): void {
     if (this.editing) {
       return;
@@ -651,37 +640,43 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     this.pathSnapshotEditing = _cloneDeep(this.path);
   }
   
-  finishEditing(restore?: boolean): void {
+  finishCreating(): boolean {
+    if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
+      return false;
+    }
+    
+    this.creating = false;
+    this.refreshStats();
+    
+    return true;
+  }
+  
+  finishEditing(cancel?: boolean): boolean {
     const {
-      markingStage,
       editing,
       pathSnapshotEditing,
       stats
     } = this;
     
     if (!editing) {
-      return;
+      return false;
     }
     
     // 取消编辑，或者有交叉，则还原
-    if (restore || stats.crossing) {
+    if (cancel || stats.crossing) {
       this.path = pathSnapshotEditing;
     }
     
     this.clearEditing();
     
-    const newStats = this.refreshStats();
+    this.refreshStats();
     
-    if (restore) {
-      markingStage.options.onEditCancel?.(newStats, markingStage.getItemStatsList());
-    } else if (stats.dirty) {
-      markingStage.options.onEditComplete?.(newStats, markingStage.getItemStatsList());
-    }
+    return cancel || stats.dirty;
   }
   
-  pushPoint(): void {
+  pushPoint(): boolean | 'close' | 'last' {
     if (!this.creating) {
-      return;
+      return false;
     }
     
     const {
@@ -693,10 +688,12 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     if (hoveringPointIndex >= 0) { // 在已有的点上
       if (statsSnapshot.creatingWillFinish === 'close') {
-        this.finishCreating();
+        // this.finishCreating();
+        
+        return 'close';
       }
       
-      return;
+      return false;
     }
     
     const {
@@ -725,7 +722,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
         
         // 即将添加的是最末一个点，需避免 crossing
         if (last && stats.crossing) {
-          return;
+          return false;
         }
         
         path.push(imageMouse);
@@ -733,46 +730,41 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
         break;
     }
     
-    if (last) {
-      this.finishCreating(); // 自动闭合
-    }
+    return last ? 'last' : true;
   }
   
-  removePoint(): boolean {
+  removePoint(): number {
     return this.creating ? this.removePointCreating() : this.removePointEditing();
   }
   
-  removePointCreating(): boolean {
+  private removePointCreating(): number {
     if (this.path.length <= 0) {
-      return false;
+      return -1;
     }
     
-    this.path.splice(this.path.length - 1, 1);
+    const removedIndex = this.path.length - 1;
     
-    return true;
+    this.path.splice(removedIndex, 1);
+    
+    return removedIndex;
   }
   
-  removePointEditing(): boolean {
+  private removePointEditing(): number {
     const {
-      markingStage,
       path,
       hoveringPointIndex,
       pointCountRange: [min]
     } = this;
     
-    if (!this.editing || path.length <= min) {
-      return false;
-    }
-    
-    if (hoveringPointIndex < 0) {
-      return false;
+    if (!this.editing || path.length <= min || hoveringPointIndex < 0) {
+      return -1;
     }
     
     path.splice(hoveringPointIndex, 1);
     
-    markingStage.options.onPointRemove?.(this.refreshStats(), hoveringPointIndex, markingStage.getItemStatsList());
+    this.refreshStats();
     
-    return true;
+    return hoveringPointIndex;
   }
   
   startDragging(): boolean {
@@ -801,13 +793,12 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     return true;
   }
   
-  processDragging(): void {
+  processDragging(): boolean | number {
     if (!this.draggingStartCoords) {
-      return;
+      return false;
     }
     
     const {
-      markingStage,
       markingStage: {
         imageSize,
         imageMouse
@@ -825,9 +816,11 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       if (p) { // 理论不会有空的情况
         p[0] = imageMouse[0];
         p[1] = imageMouse[1];
+        
+        return true;
       }
       
-      return;
+      return false;
     }
     
     if (draggingInsertionPointIndex >= 0) { // 拖动的是虚拟点，转正
@@ -835,9 +828,9 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       this.draggingPointIndex = draggingInsertionPointIndex + 1;
       this.draggingInsertionPointIndex = -1; // 消除
       
-      markingStage.options.onPointInsert?.(this.refreshStats(), draggingInsertionPointIndex, markingStage.getItemStatsList());
+      this.refreshStats();
       
-      return;
+      return draggingInsertionPointIndex;
     }
     
     // 拖动整体图形
@@ -846,23 +839,26 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const dy = _clamp(imageMouse[1] - draggingStartCoords[1], -yMin, imageSize[1] - yMax);
     
     this.path = this.pathSnapshotDragging.map(v => [v[0] + dx, v[1] + dy]);
+    
+    return true;
   }
   
-  finishDragging(): void {
+  finishDragging(): boolean {
     if (!this.draggingStartCoords) {
-      return;
+      return false;
     }
     
     const {
-      markingStage,
       draggingMoved
     } = this;
     
     this.clearDragging();
     
     if (draggingMoved) {
-      markingStage.options.onDragEnd?.(this.refreshStats(), markingStage.getItemStatsList());
+      this.refreshStats();
     }
+    
+    return draggingMoved;
   }
   
   refreshStats(): IMarkingItemStats<T> {

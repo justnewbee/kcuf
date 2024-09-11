@@ -56,7 +56,7 @@ export default function OpsOverall(): ReactElement {
         onChange: handleToggleFloatingVisible
       }} />
       <InputSwitch {...{
-        label: '打印事件（TODO）',
+        label: '打印事件（TODO options.onXx 还没有好）',
         value: logEvents,
         onChange: handleToggleLogEvents
       }} />

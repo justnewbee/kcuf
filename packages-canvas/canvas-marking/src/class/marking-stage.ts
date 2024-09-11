@@ -393,6 +393,10 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     canvas.style.left = `${left}px`;
   }
   
+  private getItemStatsList(exclude?: IMarkingItemClass<T> | null): IMarkingItemStats<T>[] {
+    return (exclude ? this.markingItems.filter(v => v !== exclude) : this.markingItems).map(v => v.stats);
+  }
+  
   private updatePixelRatio(pixelRatio: number): void {
     this.pixelRatio = pixelRatio;
     this.setupScaleSizing();
@@ -443,8 +447,18 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   private creatingPushPoint(): void {
-    if (this.mouseInCanvas) {
-      this.itemCreating?.pushPoint();
+    if (!this.mouseInCanvas || !this.itemCreating) {
+      return;
+    }
+    
+    switch (this.itemCreating.pushPoint()) {
+      case 'close':
+      case 'last':
+        this.finishCreating();
+        
+        break;
+      default:
+        break;
     }
   }
   
@@ -511,23 +525,26 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   
   private handleMouseUpWindow(): void {
     const {
+      itemEditing,
       mouseInStage,
-      mouseInCanvas,
       mouseDownMoving
     } = this;
     
     this.mouseDownCanvas = false;
     this.mouseDownMoving = false;
     
-    if (mouseInCanvas) {
-      this.creatingPushPoint();
-    }
+    this.creatingPushPoint();
     
     if (this.moving) {
       return;
     }
     
-    this.itemEditing?.finishDragging();
+    if (itemEditing?.finishDragging()) {
+      const statsList = this.getItemStatsList();
+      
+      this.options.onDragEnd?.(itemEditing.stats, statsList);
+      this.emit('drag-end', itemEditing.stats, statsList);
+    }
     
     if (!mouseInStage || mouseDownMoving) {
       this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_UP_WINDOW);
@@ -567,7 +584,14 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return;
     }
     
-    itemEditing.processDragging();
+    const draggingResult = itemEditing.processDragging();
+    
+    if (typeof draggingResult === 'number') {
+      const statsList = this.getItemStatsList();
+      
+      this.options.onPointInsert?.(itemEditing.stats, draggingResult, statsList);
+      this.emit('point-insert', itemEditing.stats, draggingResult, statsList);
+    }
   }
   
   private actOnKeyDown(e: KeyboardEvent): void {
@@ -597,7 +621,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
           break;
         case 'Backspace': // BACKSPACE/DELETE：删除最末点
         case 'Delete':
-          if (itemCreating.removePoint()) {
+          if (itemCreating.removePoint() >= 0) {
             this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_REMOVE_POINT);
           }
           
@@ -610,7 +634,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     if (itemEditing) {
       switch (e.key) {
         case 'Enter':
-          itemEditing.finishEditing();
+          this.finishEditing();
           this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_FINISH_EDITING);
           
           break;
@@ -618,7 +642,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
           e.preventDefault();
           e.stopPropagation();
           
-          itemEditing.finishEditing(true);
+          this.finishEditing(true);
           this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_CANCEL_EDITING);
           
           break;
@@ -666,23 +690,33 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return;
     }
     
-    if (itemEditing) {
-      switch (itemEditing.checkMouse()) {
-        case EMarkingMouseStatus.OUT:
-          this.select(null);
+    if (!itemEditing) {
+      return;
+    }
+    
+    switch (itemEditing.checkMouse()) {
+      case EMarkingMouseStatus.OUT:
+        this.select(null);
+        
+        break;
+      case EMarkingMouseStatus.IN_POINT: {
+        const pointRemovedIndex = itemEditing.removePoint();
+        
+        if (pointRemovedIndex >= 0) {
+          const statsList = this.getItemStatsList();
           
-          break; // 点击外部需要继续，不能 return，而是 break
-        case EMarkingMouseStatus.IN_POINT:
-          itemEditing.removePoint();
-          
-          break;
-        case EMarkingMouseStatus.IN_POINT_INSERTION: // 点中点不做任何事情
-          return;
-        default:
-          this.select(null);
-          
-          break;
+          this.options.onPointRemove?.(itemEditing.stats, pointRemovedIndex, statsList);
+          this.emit('point-remove', itemEditing.stats, pointRemovedIndex, statsList);
+        }
+        
+        break;
       }
+      case EMarkingMouseStatus.IN_POINT_INSERTION: // 点中点不做任何事情
+        return;
+      default:
+        this.select(null);
+        
+        break;
     }
   }
   
@@ -1019,7 +1053,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return;
     }
     
-    itemEditing?.finishEditing();
+    this.finishEditing();
     item?.select();
     
     const itemStats = item ? item.stats : null;
@@ -1137,7 +1171,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.hoverMarkingItem(null); // 副作用 2 - 取消 hover
     
     if (this.itemEditing) { // 副作用 3 - 结束编辑
-      this.itemEditing.finishEditing();
+      this.finishEditing();
       
       const statsList = this.getItemStatsList();
       
@@ -1145,21 +1179,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       this.emit('selection-change', null, statsList);
     }
     
-    const markingItem = this.createMarkingItem({
-      ...extraOptions,
-      onCreate: stats => {
-        this.markingItems.push(markingItem);
-        this.itemCreating = null;
-        this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
-        
-        const statsList = this.getItemStatsList();
-        
-        this.options.onCreateComplete?.(stats, statsList);
-        this.emit('create-complete', stats, statsList);
-      }
-    });
-    
-    this.itemCreating = markingItem;
+    this.itemCreating = this.createMarkingItem(extraOptions);
     this.updateAndDraw(EMarkingStatsChangeCause.START_CREATING);
     
     this.options.onCreateStart?.();
@@ -1167,7 +1187,25 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   finishCreating(): void {
-    this.itemCreating?.finishCreating();
+    const {
+      itemCreating
+    } = this;
+    
+    if (!itemCreating?.finishCreating()) {
+      return;
+    }
+    
+    this.itemCreating = null;
+    this.markingItems.push(itemCreating);
+    
+    const statsList = this.getItemStatsList();
+    
+    this.options.onCreateComplete?.(itemCreating.stats, statsList);
+    this.emit('create-complete', itemCreating.stats, statsList);
+    
+    this.select(itemCreating);
+    
+    this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
   }
   
   cancelCreating(): void {
@@ -1179,8 +1217,22 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     }
   }
   
-  finishEditing(): void {
-    this.itemEditing?.finishEditing();
+  finishEditing(cancel?: boolean): void {
+    const {
+      itemEditing
+    } = this;
+    
+    if (itemEditing?.finishEditing(cancel)) {
+      const statsList = this.getItemStatsList();
+      
+      if (cancel) {
+        this.options.onEditCancel?.(itemEditing.stats, statsList);
+        this.emit('edit-cancel', itemEditing.stats, statsList);
+      } else {
+        this.options.onEditComplete?.(itemEditing.stats, statsList);
+        this.emit('edit-complete', itemEditing.stats, statsList);
+      }
+    }
   }
   
   deleteActiveItem(): boolean {
@@ -1265,7 +1317,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     itemHighlighting?.toggleHighlighting(false);
     
     if (itemEditing && !itemEditing.stats.dirty) {
-      itemEditing.finishEditing(true);
+      this.finishEditing(true);
     }
     
     this.moving = true;
@@ -1430,10 +1482,6 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       editingDraggingPointIndex: itemStatsEditing ? itemStatsEditing.draggingPointIndex : -1,
       editingDraggingInsertionPointIndex: itemStatsEditing ? itemStatsEditing.draggingInsertionPointIndex : -1
     };
-  }
-  
-  getItemStatsList(exclude?: IMarkingItemClass<T> | null): IMarkingItemStats<T>[] {
-    return (exclude ? this.markingItems.filter(v => v !== exclude) : this.markingItems).map(v => v.stats);
   }
   
   destroy(): void {

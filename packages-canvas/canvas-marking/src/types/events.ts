@@ -32,20 +32,20 @@ export interface IOptionsEvents<T> {
 }
 
 export type TSubscribableEvents<T> = { // 这个不要用 interface
-  'create-start': [];
-  'create-cancel': [];
-  'create-complete': [stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]];
-  'click': [stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]];
-  'selection-change': [stats: IMarkingItemStats<T> | null, statsList: IMarkingItemStats<T>[]];
-  'point-remove': [stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]];
-  'point-insert': [stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]];
-  'drag-end': [stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]];
-  'edit-cancel': [stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]];
-  'edit-complete': [stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]];
-  'delete': [stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]];
-  'zoom-change': [zoomLevel: number, zoomLevelPrev: number];
-  'move-start': [];
-  'move-pause': [];
-  'move-end': [];
-  'stats-change': [stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause];
+  'create-start': () => void;
+  'create-cancel': () => void;
+  'create-complete': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
+  'click': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
+  'selection-change': (stats: IMarkingItemStats<T> | null, statsList: IMarkingItemStats<T>[]) => void;
+  'point-remove': (stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]) => void;
+  'point-insert': (stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]) => void;
+  'drag-end': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
+  'edit-cancel': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
+  'edit-complete': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
+  'delete': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
+  'zoom-change': (zoomLevel: number, zoomLevelPrev: number) => void;
+  'move-start': () => void;
+  'move-pause': () => void;
+  'move-end': () => void;
+  'stats-change': (stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause) => void;
 };

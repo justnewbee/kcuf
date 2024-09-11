@@ -8,11 +8,9 @@ import {
   TMarkingItemFinder
 } from './common';
 import {
-  IMarkingItemStats,
   IMarkingStageStats
 } from './stats';
 import {
-  IMarkingItemClass,
   IMarkingConfigItem
 } from './marking-item-class';
 import {
@@ -41,11 +39,6 @@ export interface IMarkingStageClassProtected<T = void> {
    * 鼠标相对于图片的坐标，鼠标移出后不会清空
    */
   imageMouse: Point;
-  
-  /**
-   * 获取所有 item 的 stats 列表
-   */
-  getItemStatsList(exclude?: IMarkingItemClass<T>): IMarkingItemStats<T>[];
 }
 
 /**

@@ -112,9 +112,7 @@ export interface IMarkingConfigItem<T = void> extends IMarkingItemConfig {
   borderDiff?: IMarkingConfigItemBorderDiff | ((data: T | undefined) => IMarkingConfigItemBorderDiff | undefined);
 }
 
-export interface IMarkingItemOptions<T> extends IMarkingConfigItem<T> {
-  onCreate?(stats: IMarkingItemStats<T>): void;
-}
+export interface IMarkingItemOptions<T> extends IMarkingConfigItem<T> {}
 
 export interface IMarkingItemClass<T = void> {
   toggleHovering(value?: boolean): void;
@@ -127,31 +125,28 @@ export interface IMarkingItemClass<T = void> {
   checkMouse(): EMarkingMouseStatus;
   
   /**
-   * 是否在鼠标下方（但不能自动触发 hover 状态，因为还有上下层的关系）
-   */
-  isUnderMouse(): boolean;
-  
-  /**
    * 选中，将可编辑、删除
    */
   select(): void;
   
   /**
-   * 取消激活，将不可编辑、删除，如果传入 restore 则表示取消中间的所有编辑动作，还原（可用于 Escape 事件）
+   * 是否在鼠标下方（但不能自动触发 hover 状态，因为还有上下层的关系）
    */
-  finishEditing(restore?: boolean): void;
+  isUnderMouse(): boolean;
   
-  // ---- 新建时需要
   /**
-   * 添加节点，当闭合路径或添加最末一个点时触发 onCreate
+   * 取消激活，将不可编辑、删除，如果传入 cancel 则表示取消中间的所有编辑动作，还原（可用于 Escape 事件）
    */
-  pushPoint(): void;
+  finishEditing(cancel?: boolean): boolean;
   
-  finishCreating(): void;
+  /**
+   * 添加节点
+   */
+  pushPoint(): boolean | 'close' | 'last';
   
-  // ---- 编辑时需要
+  finishCreating(): boolean;
   
-  removePoint(): boolean;
+  removePoint(): number;
   
   /**
    * 开始拖动，根据对应的鼠标位置，执行逻辑有所区别
@@ -163,9 +158,9 @@ export interface IMarkingItemClass<T = void> {
    */
   startDragging(): boolean;
   
-  processDragging(): void;
+  processDragging(): boolean | number;
   
-  finishDragging(): void;
+  finishDragging(): boolean;
   
   refreshStats(): IMarkingItemStats<T>;
   
