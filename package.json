@@ -46,9 +46,9 @@
   },
   "scripts": {
     "prepare": "husky",
-    "boot": "pnpm clean && pnpm i --no-lockfile --registry https://registry.npmmirror.com",
+    "boot": "pnpm clean && pnpm i --force --no-lockfile --registry https://registry.npmmirror.com",
     "boot:packages": "pnpm -r prepublishOnly",
-    "clean": "rm -rf node_modules packages/*/node_modules",
+    "clean": "rm -rf node_modules packages*/*/node_modules",
     "ncu": "ncu --registry https://registry.npmmirror.com",
     "ncu:packages": "pnpm -r exec ncu --registry https://registry.npmmirror.com",
     "depcheck": "depcheck",

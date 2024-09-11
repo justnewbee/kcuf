@@ -29,6 +29,7 @@
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
+    "@babel/runtime": "^7.24.8",
     "@chromatic-com/storybook": "^1.9.0",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/react-hook-is-unmounted": "workspace:^",
@@ -56,6 +57,7 @@
   "dependencies": {
     "@kcuf/canvas-helper": "workspace:^",
     "@kcuf/geometry-basic": "workspace:^",
+    "@kcuf/subscribable": "workspace:^",
     "colord": "^2.9.3",
     "lodash-es": "^4.17.21"
   },

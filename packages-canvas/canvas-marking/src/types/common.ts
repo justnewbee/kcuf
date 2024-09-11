@@ -8,3 +8,17 @@ export type TCreatingWillFinish = boolean | 'close';
 export type TMarkingItemFinder<T> = null | 'first' | 'last' | number | {
   (data: T): boolean;
 };
+
+/**
+ * 辅助线设置
+ */
+export interface IMarkingAuxiliaryLine {
+  /**
+   * 辅助线宽度
+   */
+  width?: number;
+  /**
+   * 辅助线颜色
+   */
+  color?: string;
+}

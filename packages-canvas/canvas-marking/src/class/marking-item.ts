@@ -27,12 +27,12 @@ import {
   TMarkingBorderStyleResolved,
   TMarkingFillStyleResolved,
   TMarkingPointStyleResolved,
+  TCreatingWillFinish,
   IMarkingStageClassProtected,
   IMarkingItemClass,
   IMarkingItemOptions,
   IMarkingConfigItemBorderDiff,
-  IMarkingItemStats,
-  TCreatingWillFinish
+  IMarkingItemStats
 } from '../types';
 import {
   DEFAULT_FILL_ALPHA_EDITING,

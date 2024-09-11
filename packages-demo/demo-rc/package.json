@@ -70,7 +70,7 @@
     "@codemirror/view": "^6.33.0",
     "@kcuf/rc-headless-form": "workspace:^",
     "@kcuf/react-hook-controllable": "workspace:^",
-    "@uiw/codemirror-theme-material": "^4.23.1",
+    "@uiw/codemirror-theme-material": "^4.23.2",
     "json5": "^2.2.3"
   },
   "scripts": {

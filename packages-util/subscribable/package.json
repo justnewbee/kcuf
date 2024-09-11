@@ -1,7 +1,7 @@
 {
-  "name": "@kcuf/template-rc-headless",
-  "version": "0.0.0",
-  "description": "Template for react component using babel.",
+  "name": "@kcuf/subscribable",
+  "version": "0.0.1",
+  "description": "A subscribable class.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-template/template-rc-headless",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-util/subscribable",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -22,26 +22,21 @@
     "access": "public"
   },
   "devDependencies": {
-    "@babel/cli": "^7.24.8",
+    "@babel/cli": "^7.25.6",
     "@babel/core": "^7.25.2",
-    "@babel/plugin-transform-react-jsx": "^7.25.2",
-    "@babel/plugin-transform-runtime": "^7.24.7",
-    "@babel/preset-env": "^7.25.2",
-    "@babel/preset-react": "^7.24.7",
+    "@babel/plugin-transform-runtime": "^7.25.4",
+    "@babel/preset-env": "^7.25.4",
     "@babel/preset-typescript": "^7.24.7",
     "@kcuf/ts-config": "workspace:^",
-    "@types/react": "^18.3.3",
-    "react": "^18.3.1",
+    "@types/lodash-es": "^4.17.12",
     "rimraf": "^6.0.1",
     "typescript": "^5.6.2"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.24.8",
-    "react": "^18.x"
+    "@babel/runtime": "^7.24.8"
   },
   "dependencies": {
-    "@kcuf/react-hook-is-unmounted": "workspace:^",
-    "immer": "^10.1.1"
+    "lodash-es": "^4.17.21"
   },
   "scripts": {
     "build:clean": "rimraf dist",

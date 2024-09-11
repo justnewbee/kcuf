@@ -1,35 +1,19 @@
 import {
-  EMarkingStatsChangeCause
-} from '../enum';
-
-import {
-  IMarkingItemStats,
-  IMarkingStageStats
-} from './stats';
+  IMarkingAuxiliaryLine
+} from './common';
 import {
   IMarkingConfigItem,
   IMarkingItemConfig
 } from './marking-item-class';
 import {
+  IOptionsEvents
+} from './events';
+import {
   IMarkingPluginTooltipOptions,
   IMarkingPluginZoomOptions
 } from './plugin';
 
-/**
- * 辅助线设置
- */
-export interface IMarkingAuxiliaryLine {
-  /**
-   * 辅助线宽度
-   */
-  width?: number;
-  /**
-   * 辅助线颜色
-   */
-  color?: string;
-}
-
-export interface IMarkingStageOptions<T> extends IMarkingItemConfig {
+export interface IMarkingStageOptions<T> extends IMarkingItemConfig, IOptionsEvents<T> {
   auxiliaryLine?: IMarkingAuxiliaryLine;
   // --- 数据 --- //
   image?: string;
@@ -63,21 +47,4 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig {
   pluginMove?: boolean;
   pluginFps?: boolean;
   pluginStats?: boolean;
-  // --- 事件 --- //
-  onCreateStart?(): void;
-  onCreateCancel?(): void;
-  onCreateComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onClick?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onSelectionChange?(stats: IMarkingItemStats<T> | null, statsList: IMarkingItemStats<T>[]): void;
-  onPointRemove?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
-  onPointInsert?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
-  onDragEnd?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onEditCancel?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onEditComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onDelete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
-  onZoomChange?(zoomLevel: number, zoomLevelPrev: number): void;
-  onMoveStart?(): void;
-  onMovePause?(): void;
-  onMoveEnd?(): void;
-  onStatsChange?(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void;
 }

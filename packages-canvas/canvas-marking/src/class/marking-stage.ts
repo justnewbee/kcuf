@@ -19,6 +19,7 @@ import {
   pixelRatioGet,
   pixelRatioListen
 } from '@kcuf/canvas-helper';
+import Subscribable from '@kcuf/subscribable';
 
 import {
   EMarkingMouseStatus,
@@ -27,6 +28,7 @@ import {
 import {
   TSize,
   TMarkingItemFinder,
+  TSubscribableEvents,
   IMarkingConfigItem,
   IMarkingItemClass,
   IMarkingItemConfig,
@@ -65,7 +67,7 @@ import {
 
 import MarkingItem from './marking-item';
 
-export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
+export default class MarkingStage<T = void> extends Subscribable<TSubscribableEvents<T>> implements IMarkingStageClass<T> {
   private readonly container: HTMLElement;
   readonly options: IMarkingStageOptions<T>;
   readonly stage: HTMLDivElement;
@@ -162,6 +164,8 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   private cleanups: (() => void)[] = [];
   
   constructor(container: HTMLElement, options?: IMarkingStageOptions<T>) {
+    super();
+    
     const safeOptions = _merge({}, DEFAULT_MARKING_OPTIONS, options);
     
     const stage = createMarkingStage();
@@ -631,7 +635,6 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   
   private actOnMouseClick(): void {
     const {
-      options,
       itemCreating,
       itemUnderMouse,
       itemHighlighting
@@ -640,7 +643,10 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     itemHighlighting?.toggleHighlighting(false);
     
     if (itemUnderMouse) {
-      options.onClick?.(itemUnderMouse.stats, this.getItemStatsList());
+      const statsList = this.getItemStatsList();
+      
+      this.options.onClick?.(itemUnderMouse.stats, statsList);
+      this.emit('click', itemUnderMouse.stats, statsList);
     }
     
     if (!itemCreating) {
@@ -685,9 +691,6 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
    */
   private updateStats(cause: EMarkingStatsChangeCause): void {
     const {
-      options: {
-        onStatsChange
-      },
       canvas,
       imageLoader
     } = this;
@@ -708,7 +711,8 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     
     this.statsSnapshot = stats;
     this.plugins.forEach(v => v.run?.call(this, stats, cause)); // 每次状态更新都必须运行 plugin
-    onStatsChange?.(this.statsSnapshot, cause);
+    this.options.onStatsChange?.(this.statsSnapshot, cause);
+    this.emit('stats-change', this.statsSnapshot, cause);
   }
   
   /**
@@ -1007,7 +1011,6 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   
   private select(item: IMarkingItemClass<T> | null): void {
     const {
-      options,
       disabled,
       itemEditing
     } = this;
@@ -1018,7 +1021,12 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     
     itemEditing?.finishEditing();
     item?.select();
-    options.onSelectionChange?.(item ? item.stats : null, this.getItemStatsList());
+    
+    const itemStats = item ? item.stats : null;
+    const statsList = this.getItemStatsList();
+    
+    this.options.onSelectionChange?.(itemStats, statsList);
+    this.emit('selection-change', itemStats, statsList);
   }
   
   private zoom(inOut: boolean, wheel?: boolean): void {
@@ -1066,6 +1074,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.updateAndDraw(cause);
     this.refreshMouseCoordsInCanvas();
     this.options.onZoomChange?.(zoomLevelNext, zoomLevel);
+    this.emit('zoom-change', zoomLevelNext, zoomLevel);
     
     // TODO 要做这个事情
     // // 根据缩放前后鼠标在 canvas 上的相对位置变化（后 - 前）
@@ -1116,7 +1125,6 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   
   startCreating(extraOptions?: IMarkingItemConfig): void {
     const {
-      options,
       disabled,
       itemCreating
     } = this;
@@ -1128,10 +1136,13 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.moveEnd(); // 副作用 1 - 结束移动
     this.hoverMarkingItem(null); // 副作用 2 - 取消 hover
     
-    if (this.itemEditing) {
-      this.itemEditing.finishEditing(); // 副作用 3 - 结束编辑
+    if (this.itemEditing) { // 副作用 3 - 结束编辑
+      this.itemEditing.finishEditing();
       
-      options.onSelectionChange?.(null, this.getItemStatsList()); // 副作用 4 - 取消选中
+      const statsList = this.getItemStatsList();
+      
+      this.options.onSelectionChange?.(null, statsList);
+      this.emit('selection-change', null, statsList);
     }
     
     const markingItem = this.createMarkingItem({
@@ -1140,7 +1151,11 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
         this.markingItems.push(markingItem);
         this.itemCreating = null;
         this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
-        this.options.onCreateComplete?.(stats, this.getItemStatsList());
+        
+        const statsList = this.getItemStatsList();
+        
+        this.options.onCreateComplete?.(stats, statsList);
+        this.emit('create-complete', stats, statsList);
       }
     });
     
@@ -1148,6 +1163,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.updateAndDraw(EMarkingStatsChangeCause.START_CREATING);
     
     this.options.onCreateStart?.();
+    this.emit('create-start');
   }
   
   finishCreating(): void {
@@ -1159,6 +1175,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
       this.itemCreating = null;
       this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
       this.options.onCreateCancel?.();
+      this.emit('create-cancel');
     }
   }
   
@@ -1168,7 +1185,6 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
   
   deleteActiveItem(): boolean {
     const {
-      options,
       itemEditing
     } = this;
     
@@ -1184,7 +1200,11 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     
     this.markingItems.splice(index, 1);
     this.updateAndDraw(EMarkingStatsChangeCause.DELETE);
-    options.onDelete?.(itemEditing.stats, this.getItemStatsList());
+    
+    const statsList = this.getItemStatsList();
+    
+    this.options.onDelete?.(itemEditing.stats, statsList);
+    this.emit('delete', itemEditing.stats, statsList);
     
     return true;
   }
@@ -1260,7 +1280,9 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.movingCoordsStart = this.mouseInStage;
     this.movingCoordsSnapshot = this.movingCoords;
     this.updateAndDraw(EMarkingStatsChangeCause.MOVE_START);
+    
     this.options.onMoveStart?.();
+    this.emit('move-start');
   }
   
   moveProcess(): void {
@@ -1284,6 +1306,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     
     this.movingCoordsStart = null;
     this.options.onMovePause?.();
+    this.emit('move-pause');
   }
   
   moveEnd(): void {
@@ -1295,6 +1318,7 @@ export default class MarkingStage<T = void> implements IMarkingStageClass<T> {
     this.movingCoordsStart = null;
     this.updateAndDraw(EMarkingStatsChangeCause.MOVE_END);
     this.options.onMoveEnd?.();
+    this.emit('move-end');
   }
   
   moveTo(coords: Point): void {

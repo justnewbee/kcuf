@@ -1,3 +1,4 @@
+import type Subscribable from '@kcuf/subscribable';
 import {
   Point
 } from '@kcuf/geometry-basic';
@@ -14,6 +15,9 @@ import {
   IMarkingItemClass,
   IMarkingConfigItem
 } from './marking-item-class';
+import {
+  TSubscribableEvents
+} from './events';
 import {
   IMarkingStageOptions
 } from './options';
@@ -47,7 +51,7 @@ export interface IMarkingStageClassProtected<T = void> {
 /**
  * MarkingStage 需实现的接口
  */
-export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtected<T> {
+export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtected<T>, Subscribable<TSubscribableEvents<T>> {
   readonly stage: HTMLDivElement;
   readonly canvas: HTMLCanvasElement;
   
