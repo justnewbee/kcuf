@@ -29,15 +29,6 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig, IOptionsEve
    */
   magnetDisableKey?: string;
   /**
-   * 当存在新建或编辑状态，其他的图形（非 hover 状态）是否需要变浅，变浅的逻辑
-   *
-   * - 纯色：降低饱和度 + 提高亮度
-   * - 透明色：透明度降低
-   *
-   * 💥 注意：不支持颜色名
-   */
-  inactiveFaded?: false;
-  /**
    * 双击间隔时间，默认 200ms（这里没用用原生的 dblclick 事件，而是由单击模拟的）
    */
   doubleClickInterval?: number;

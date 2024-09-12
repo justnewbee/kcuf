@@ -15,9 +15,6 @@ export default function OpsSelect(): ReactElement {
   
   return <div>
     <Button {...{
-      onClick: () => handleSelect(null)
-    }}>select(none)</Button>
-    <Button {...{
       onClick: () => handleSelect('first')
     }}>select(first)</Button>
     <Button {...{
@@ -29,5 +26,8 @@ export default function OpsSelect(): ReactElement {
     <Button {...{
       onClick: () => handleSelect(1)
     }}>select(next)</Button>
+    <Button {...{
+      onClick: () => handleSelect(null)
+    }}>select(none)</Button>
   </div>;
 }

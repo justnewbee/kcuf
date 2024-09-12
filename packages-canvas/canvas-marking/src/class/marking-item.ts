@@ -591,6 +591,36 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     return (!this.creating && checkInPathPointDuplicate(pathForDraw)) || pathHasSegmentCrossing(pathForDraw);
   }
   
+  private removePointCreating(): number {
+    if (this.path.length <= 0) {
+      return -1;
+    }
+    
+    const removedIndex = this.path.length - 1;
+    
+    this.path.splice(removedIndex, 1);
+    
+    return removedIndex;
+  }
+  
+  private removePointEditing(): number {
+    const {
+      path,
+      hoveringPointIndex,
+      pointCountRange: [min]
+    } = this;
+    
+    if (!this.editing || path.length <= min || hoveringPointIndex < 0) {
+      return -1;
+    }
+    
+    path.splice(hoveringPointIndex, 1);
+    
+    this.refreshStats();
+    
+    return hoveringPointIndex;
+  }
+  
   toggleHovering(value = true): void {
     this.hovering = value;
   }
@@ -735,36 +765,6 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
   
   removePoint(): number {
     return this.creating ? this.removePointCreating() : this.removePointEditing();
-  }
-  
-  private removePointCreating(): number {
-    if (this.path.length <= 0) {
-      return -1;
-    }
-    
-    const removedIndex = this.path.length - 1;
-    
-    this.path.splice(removedIndex, 1);
-    
-    return removedIndex;
-  }
-  
-  private removePointEditing(): number {
-    const {
-      path,
-      hoveringPointIndex,
-      pointCountRange: [min]
-    } = this;
-    
-    if (!this.editing || path.length <= min || hoveringPointIndex < 0) {
-      return -1;
-    }
-    
-    path.splice(hoveringPointIndex, 1);
-    
-    this.refreshStats();
-    
-    return hoveringPointIndex;
   }
   
   startDragging(): boolean {

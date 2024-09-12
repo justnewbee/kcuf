@@ -985,25 +985,12 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   
   private drawItems(): void {
     const {
-      options: {
-        inactiveFaded = true
-      },
       mouseInCanvas,
       itemCreating,
-      itemHovering,
-      itemHighlighting,
-      itemEditing
+      itemHighlighting
     } = this;
     
-    function isFaded(o: IMarkingItemClass<T>): boolean {
-      if (!inactiveFaded || o === itemHighlighting || o === itemHovering || o === itemEditing) {
-        return false;
-      }
-      
-      return !!itemHighlighting;
-    }
-    
-    this.getMarkingItemsOrdered().forEach(v => v.draw(isFaded(v)));
+    this.getMarkingItemsOrdered().forEach(v => v.draw(itemHighlighting ? v !== itemHighlighting : false));
     
     if (itemCreating && (mouseInCanvas || itemCreating.stats.path.length)) {
       itemCreating.draw();
@@ -1387,11 +1374,9 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   selectItem(finder: TMarkingItemFinder<T>): void {
-    const markingItem = finder === null ? null : this.findItem(finder, this.itemEditing);
+    this.itemHighlighting?.toggleHighlighting(false);
     
-    if (markingItem === this.itemEditing) {
-      return;
-    }
+    const markingItem = finder === null ? null : this.findItem(finder, this.itemEditing);
     
     this.select(markingItem || null);
     this.updateAndDraw(EMarkingStatsChangeCause.SELECT);
