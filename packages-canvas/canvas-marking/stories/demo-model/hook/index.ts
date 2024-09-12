@@ -12,7 +12,7 @@ export { default as useFullscreen } from './use-fullscreen';
 export { default as useFloatingVisible } from './use-floating-visible';
 
 // handlers - 对 useDispatch、props.onXx 的封装，不要直接 export useDispatchXx
-export { default as useHandleInit } from './use-handle-init';
+export { default as useInit } from './use-init';
 export { default as useHandleDestroy } from './use-handle-destroy';
 export { default as useHandleToggleLogEvents } from './use-handle-toggle-log-events';
 export { default as useHandleToggleFullscreen } from './use-handle-toggle-fullscreen';

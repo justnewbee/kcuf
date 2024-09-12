@@ -2,12 +2,12 @@ import {
   useEffect
 } from 'react';
 
-import useHandleInit from './use-handle-init';
+import useInit from './use-init';
 
 export default function useEffectInit(): void {
-  const handleInit = useHandleInit();
+  const init = useInit();
   
   useEffect(() => {
-    handleInit();
-  }, [handleInit]);
+    init();
+  }, [init]);
 }

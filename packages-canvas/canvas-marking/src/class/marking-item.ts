@@ -32,7 +32,8 @@ import {
   IMarkingItemClass,
   IMarkingItemOptions,
   IMarkingConfigItemBorderDiff,
-  IMarkingItemStats
+  IMarkingItemStats,
+  IBeforeDragEnd
 } from '../types';
 import {
   DEFAULT_FILL_ALPHA_EDITING,
@@ -843,7 +844,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     return true;
   }
   
-  finishDragging(): boolean {
+  finishDragging(beforeDragEnd?: IBeforeDragEnd<T>): boolean {
     if (!this.draggingStartCoords) {
       return false;
     }
@@ -855,7 +856,13 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     this.clearDragging();
     
     if (draggingMoved) {
-      this.refreshStats();
+      const stats = this.refreshStats();
+      const newPath = beforeDragEnd?.(stats);
+      
+      if (newPath) {
+        this.path = newPath;
+        this.refreshStats();
+      }
     }
     
     return draggingMoved;

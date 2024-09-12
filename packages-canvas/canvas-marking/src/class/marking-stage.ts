@@ -539,7 +539,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return;
     }
     
-    if (itemEditing?.finishDragging()) {
+    if (itemEditing?.finishDragging(this.options.beforeDragEnd)) {
       const statsList = this.getItemStatsList();
       
       this.options.onDragEnd?.(itemEditing.stats, statsList);

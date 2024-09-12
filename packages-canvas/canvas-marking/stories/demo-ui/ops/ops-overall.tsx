@@ -12,7 +12,7 @@ import {
   useLogEvents,
   useFullscreen,
   useFloatingVisible,
-  useHandleInit,
+  useInit,
   useHandleDestroy,
   useHandleToggleFullscreen,
   useHandleToggleFloatingVisible,
@@ -23,6 +23,7 @@ import {
 } from '../../demo-model';
 
 export default function OpsOverall(): ReactElement {
+  const init = useInit();
   const markingStage = useMarkingStage();
   const markingStageStats = useMarkingStageStats();
   const fullscreen = useFullscreen();
@@ -32,7 +33,6 @@ export default function OpsOverall(): ReactElement {
   const handleToggleLogEvents = useHandleToggleLogEvents();
   const handleToggleFloatingVisible = useHandleToggleFloatingVisible();
   const handleToggleDisabled = useHandleToggleDisabled();
-  const handleInit = useHandleInit();
   const handleDestroy = useHandleDestroy();
   const handleDebugStats = useHandleDebugStats();
   
@@ -41,7 +41,7 @@ export default function OpsOverall(): ReactElement {
       onClick: handleToggleFullscreen
     }}>{fullscreen ? '退出全屏' : '进入全屏'}</Button>
     <Button {...{
-      onClick: markingStage ? handleDestroy : handleInit
+      onClick: markingStage ? handleDestroy : init
     }}>{markingStage ? 'destroy' : 'init'}</Button>
     {markingStage ? <>
       <Button {...{

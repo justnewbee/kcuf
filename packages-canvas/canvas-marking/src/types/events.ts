@@ -1,4 +1,8 @@
 import {
+  Path
+} from '@kcuf/geometry-basic';
+
+import {
   EMarkingStatsChangeCause
 } from '../enum';
 
@@ -6,6 +10,10 @@ import {
   IMarkingItemStats,
   IMarkingStageStats
 } from './stats';
+
+export interface IBeforeDragEnd<T> {
+  (stats: IMarkingItemStats<T>): Path | void;
+}
 
 /**
  * 所有事件

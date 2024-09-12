@@ -16,7 +16,7 @@ import useModelState from './_use-model-state';
 import useDispatchSetMarkingStage from './use-dispatch-set-marking-stage';
 import useDispatchSetMarkingStageStats from './use-dispatch-set-marking-stage-stats';
 
-export default function useHandleInit(): () => void {
+export default function useInit(): () => void {
   const {
     domMarking,
     markingStage
