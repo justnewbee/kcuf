@@ -15,7 +15,7 @@ import {
 import {
   IMarkingItemStats
 } from './stats';
-import { IBeforeDragEnd } from './events';
+import { IBeforeHook } from './events';
 
 /**
  * 从 Marking 对象透传到 MarkingItem 的选项，可以在 new MarkingItem 的时候有一部分覆盖
@@ -145,7 +145,7 @@ export interface IMarkingItemClass<T = void> {
    */
   pushPoint(): boolean | 'close' | 'last';
   
-  finishCreating(): boolean;
+  finishCreating(beforeHook?: IBeforeHook<T>): boolean;
   
   removePoint(): number;
   
@@ -161,7 +161,7 @@ export interface IMarkingItemClass<T = void> {
   
   processDragging(): boolean | number;
   
-  finishDragging(beforeDragEnd?: IBeforeDragEnd<T>): boolean;
+  finishDragging(beforeHook?: IBeforeHook<T>): boolean;
   
   refreshStats(): IMarkingItemStats<T>;
   

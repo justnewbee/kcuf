@@ -24,16 +24,16 @@ import {
   EMarkingMouseStatus
 } from '../enum';
 import {
+  IBeforeHook,
+  TCreatingWillFinish,
   TMarkingBorderStyleResolved,
   TMarkingFillStyleResolved,
   TMarkingPointStyleResolved,
-  TCreatingWillFinish,
   IMarkingStageClassProtected,
   IMarkingItemClass,
   IMarkingItemOptions,
   IMarkingConfigItemBorderDiff,
-  IMarkingItemStats,
-  IBeforeDragEnd
+  IMarkingItemStats
 } from '../types';
 import {
   DEFAULT_FILL_ALPHA_EDITING,
@@ -671,13 +671,20 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     this.pathSnapshotEditing = _cloneDeep(this.path);
   }
   
-  finishCreating(): boolean {
+  finishCreating(beforeCreateComplete?: IBeforeHook<T>): boolean {
     if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
       return false;
     }
     
     this.creating = false;
-    this.refreshStats();
+    
+    const stats = this.refreshStats();
+    const newPath = beforeCreateComplete?.(stats);
+    
+    if (newPath) {
+      this.path = newPath;
+      this.refreshStats();
+    }
     
     return true;
   }
@@ -844,7 +851,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     return true;
   }
   
-  finishDragging(beforeDragEnd?: IBeforeDragEnd<T>): boolean {
+  finishDragging(beforeEditDragEnd?: IBeforeHook<T>): boolean {
     if (!this.draggingStartCoords) {
       return false;
     }
@@ -857,7 +864,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     if (draggingMoved) {
       const stats = this.refreshStats();
-      const newPath = beforeDragEnd?.(stats);
+      const newPath = beforeEditDragEnd?.(stats);
       
       if (newPath) {
         this.path = newPath;

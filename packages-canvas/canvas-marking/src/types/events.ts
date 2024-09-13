@@ -11,7 +11,7 @@ import {
   IMarkingStageStats
 } from './stats';
 
-export interface IBeforeDragEnd<T> {
+export interface IBeforeHook<T> {
   (stats: IMarkingItemStats<T>): Path | void;
 }
 

@@ -6,7 +6,7 @@ import {
   IMarkingItemConfig
 } from './marking-item-class';
 import {
-  IBeforeDragEnd,
+  IBeforeHook,
   IOptionsEvents
 } from './events';
 import {
@@ -39,9 +39,7 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig, IOptionsEve
   pluginMove?: boolean;
   pluginFps?: boolean;
   pluginStats?: boolean;
-  // --- 其他 --- //
-  /**
-   * 可以在拖拽结束时按需自动调整路径的钩子函数
-   */
-  beforeDragEnd?: IBeforeDragEnd<T>;
+  // --- 一些钩子方法 --- //
+  beforeCreateComplete?: IBeforeHook<T>; // 新建结束前，自动调整路径
+  beforeEditDragEnd?: IBeforeHook<T>; // 编辑拖拽结束前，自动调整路径
 }
