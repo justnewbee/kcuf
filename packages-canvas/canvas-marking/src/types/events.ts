@@ -12,7 +12,7 @@ import {
 } from './stats';
 
 export interface IBeforeHook<T> {
-  (stats: IMarkingItemStats<T>): Path | void;
+  (stats: IMarkingItemStats<T>): Path | null | void;
 }
 
 /**
