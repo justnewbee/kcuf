@@ -8,7 +8,6 @@ import {
   encode,
   decode
 } from '../src';
-
 import pkgInfo from '../package.json';
 
 const HELLO_WORLD = 'hello, world!';

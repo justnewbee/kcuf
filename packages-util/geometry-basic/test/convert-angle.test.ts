@@ -4,12 +4,13 @@ import {
   test
 } from 'vitest';
 
+import pkgInfo from '../package.json';
 import {
   fromRadiansToDegrees,
   fromDegreesToRadians
 } from '../src';
 
-describe(`covert angle`, () => {
+describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   test('fromRadiansToDegrees(radians: number): number', () => {
     expect(fromRadiansToDegrees(0)).toEqual(0);
     expect(fromRadiansToDegrees(Math.PI / 4)).toEqual(45);
