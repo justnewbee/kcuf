@@ -44,10 +44,10 @@ export { default as LongArticle } from './long-article';
 
 export * from './package-info';
 export { default as PackageInfo } from './package-info';
-export * from './pre-json';
-export { default as PreJson } from './pre-json';
-export * from './pre-promise';
-export { default as PrePromise } from './pre-promise';
+export * from './json-viewer';
+export { default as JsonViewer } from './json-viewer';
+export * from './promise-viewer';
+export { default as PromiseViewer } from './promise-viewer';
 export * from './code-viewer';
 export { default as CodeViewer } from './code-viewer';
 export { default as Codemirror } from './codemirror';

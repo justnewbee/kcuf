@@ -19,7 +19,7 @@
   + `List`
   + `CheckboxGroup`
   + `RadioGroup`
-  + `PreJson`
+  + `JsonViewer`
   + `Flex100HBF`
   + `LongArticle`
 

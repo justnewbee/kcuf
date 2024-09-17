@@ -2,8 +2,8 @@ export * from './rc';
 
 // export type {
 //   // IChoiceItem as ChoiceItem,
-//   // IPropsPreJson as PreJsonProps,
-//   // IPropsPrePromise as PrePromiseProps,
+//   // IPropsJsonViewer as JsonViewerProps,
+//   // IPropsPromiseViewer as PromiseViewerProps,
 //   // IPropsList as ListProps,
 //   // TPropsCheckboxGroup as CheckboxGroupProps,
 //   // TPropsRadioGroup as RadioGroupProps,

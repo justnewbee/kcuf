@@ -12,20 +12,21 @@ import clearCallbackFn from './clear-callback-fn';
 
 /**
  * 一个「纯」的 Promise 封装的 JSONP
- * 
+ *
  * 参考 https://github.com/camsong/fetch-jsonp
  */
 export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): Promise<IJsonpResponse<T>> {
   const {
     timeout = 5000,
     charset,
-    jsonpCallback = 'jsonp',
+    jsonpCallback = 'callback', // 多数的实现是 ?callback=fn_name
     jsonpCallbackFunction = generateCallbackName(),
     signal
   } = options;
   const scriptElement = document.createElement('script');
   let timeoutId: number | undefined;
   
+  scriptElement.id = `jsonp-script-${jsonpCallbackFunction}`;
   scriptElement.src = `${url}${url.indexOf('?') < 0 ? '?' : '&'}${jsonpCallback}=${jsonpCallbackFunction}`;
   
   if (charset) {
@@ -70,6 +71,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
       }
       
       returned = true;
+      
       resolve({
         ok: true,
         url,
@@ -84,7 +86,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
         if (returned) {
           return;
         }
-  
+        
         returned = true;
         reject(createError(EJsonpError.TIMEOUT, `JSONP timeout after ${timeout}ms, url = ${url}`));
         cleanupPrematurely();
@@ -98,9 +100,9 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
         if (returned) {
           return;
         }
-  
+        
         returned = true;
-        reject(createError('AbortError', `The JSONP was aborted, url = ${url}`));
+        reject(createError('AbortError', `JSONP aborted, url = ${url}`));
         cleanupPrematurely();
       });
     }

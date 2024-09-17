@@ -1,5 +1,5 @@
 export { default } from './rc';
 
 export type {
-  IPrePromiseProps as PrePromiseProps
+  IJsonViewerProps as JsonViewerProps
 } from './types';

@@ -19,7 +19,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     fetchMock.reset();
   });
   
-  test('fetcherFetch', () => {
+  test('fetcherFetch 200', () => {
     fetchMock.mock('*', 200);
     
     fetcherFetch('/api-1');
@@ -28,6 +28,16 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     fetcherFetch('/api-4');
     
     expect(fetchMock.calls().length).toBe(4);
+  });
+  
+  test('fetcherFetch status not 200 is treated as success here', () => {
+    fetchMock.mock('/api-404', 404);
+    fetchMock.mock('/api-500', 500);
+    
+    expect(fetcherFetch('/api-404'));
+    expect(fetchMock.calls().length).toBe(1);
+    expect(fetcherFetch('/api-500'));
+    expect(fetchMock.calls().length).toBe(2);
   });
   
   test('fetcherFetch error', () => {

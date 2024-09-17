@@ -2,7 +2,7 @@ import {
   ELoading
 } from '../enum';
 
-export interface IPrePromiseProps {
+export interface IPromiseViewerProps {
   promise?: Promise<unknown> | null;
 }
 

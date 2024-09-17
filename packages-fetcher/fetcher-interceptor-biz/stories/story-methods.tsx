@@ -6,7 +6,7 @@ import {
 
 import {
   Button,
-  PrePromise
+  PromiseViewer
 } from '@kcuf/demo-rc';
 import {
   createFetcher
@@ -53,6 +53,6 @@ export default function StoryMethods(): ReactElement {
     <Button onClick={handleDelete}>delete</Button>
     <Button onClick={handlePut}>put</Button>
     <Button onClick={handlePatch}>patch</Button>
-    <PrePromise promise={statePromise} />
+    <PromiseViewer promise={statePromise} />
   </>;
 }

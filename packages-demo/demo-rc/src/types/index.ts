@@ -18,11 +18,11 @@
 //
 // export interface IPropsCodeViewerSimple extends Omit<IPropsCodeViewer, 'type'> {}
 //
-// export interface IPropsPreJson extends Omit<IPropsCodeViewerSimple, 'children'> {
+// export interface IPropsJsonViewer extends Omit<IPropsCodeViewerSimple, 'children'> {
 //   o?: unknown;
 // }
 //
-// export interface IPropsPrePromise extends Omit<IPropsCodeViewerSimple, 'children'> {
+// export interface IPropsPromiseViewer extends Omit<IPropsCodeViewerSimple, 'children'> {
 //   promise?: Promise<unknown> | null;
 // }
 //

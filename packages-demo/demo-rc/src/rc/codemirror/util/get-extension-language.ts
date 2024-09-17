@@ -17,11 +17,14 @@ import {
   html
 } from '@codemirror/lang-html';
 import {
+  markdown
+} from '@codemirror/lang-markdown';
+import {
   json
 } from '@codemirror/lang-json';
 import {
-  markdown
-} from '@codemirror/lang-markdown';
+  json5
+} from 'codemirror-json5';
 
 export default function getExtensionLanguage(language?: string): Extension | null {
   switch (language?.toLowerCase()) {
@@ -34,6 +37,8 @@ export default function getExtensionLanguage(language?: string): Extension | nul
       return tsxLanguage;
     case 'json':
       return json();
+    case 'json5':
+      return json5();
     case 'css':
       return css();
     case 'less':

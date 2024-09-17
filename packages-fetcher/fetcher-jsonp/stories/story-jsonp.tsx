@@ -1,18 +1,27 @@
 import {
   ReactElement,
-  useCallback
+  useCallback,
+  useState
 } from 'react';
 
-import jsonp from '../src';
-
 import {
+  PromiseViewer,
   Button
 } from '@kcuf/demo-rc';
 
+import jsonp from '../src';
+
 export default function StoryJsonp(): ReactElement {
-  const handleJsonp = useCallback(() => {
-    jsonp('https://apifoxmock.com/m1/4847676-4502957-default/jsonp').then(console.info)
-  }, []);
+  const [statePromise, setStatePromise] = useState<Promise<unknown> | null>(null);
   
-  return <Button onClick={handleJsonp}>fuck you </Button>;
+  const handleJsonp = useCallback(() => {
+    setStatePromise(jsonp('https://apifoxmock.com/m1/4847676-4502957-default/jsonp', {
+      jsonpCallback: 'jsonp'
+    }));
+  }, [setStatePromise]);
+  
+  return <>
+    <Button onClick={handleJsonp}>JSONP</Button>
+    <PromiseViewer promise={statePromise} />
+  </>;
 }

@@ -5,12 +5,12 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import PreJson from '../../pre-json';
+import JsonViewer from '../../json-viewer';
 import {
   ELoading
 } from '../enum';
 import {
-  IPrePromiseProps,
+  IPromiseViewerProps,
   IPromiseResult
 } from '../types';
 import {
@@ -20,7 +20,7 @@ import {
   normalizeError
 } from '../util';
 
-const ScPrePromise = styled.div`
+const ScPromiseViewer = styled.div`
   position: relative;
 `;
 
@@ -32,25 +32,26 @@ const ScInfoIdle = styled.div`
   padding: 4px 8px;
   font-family: Arial, sans-serif;
   font-size: 11px;
-  color: hsl(0 0% 80%);
+  color: hsl(0 0% 100%);
+  background-color: hsl(0 0% 40%);
   pointer-events: none;
 `;
 
 const ScInfoLoading = styled(ScInfoIdle)`
-  color: hsl(285 100% 40%);
+  background-color: hsl(285 100% 40%);
 `;
 
 const ScInfoResolved = styled(ScInfoIdle)`
-  color: hsl(120 100% 30%);
+  background-color: hsl(120 100% 30%);
 `;
 
 const ScInfoRejected = styled(ScInfoIdle)`
-  color: hsl(0 100% 40%);
+  background-color: hsl(0 100% 40%);
 `;
 
-export default function PrePromise({
+export default function PromiseViewer({
   promise
-}: IPrePromiseProps): ReactElement {
+}: IPromiseViewerProps): ReactElement {
   const [stateResult, setStateResult] = useState<IPromiseResult>(DEFAULT_RESULT);
   
   useEffect(() => {
@@ -78,7 +79,7 @@ export default function PrePromise({
     }));
   }, [promise]);
   
-  return <ScPrePromise>
+  return <ScPromiseViewer>
     {((): ReactElement => {
       switch (stateResult.loading) {
         case ELoading.LOADING:
@@ -91,6 +92,6 @@ export default function PrePromise({
           return <ScInfoIdle>Idle</ScInfoIdle>;
       }
     })()}
-    <PreJson o={stateResult.loading === ELoading.REJECTED ? normalizeError(stateResult.result as Error) : stateResult.result} />
-  </ScPrePromise>;
+    <JsonViewer o={stateResult.loading === ELoading.REJECTED ? normalizeError(stateResult.result as Error) : stateResult.result} />
+  </ScPromiseViewer>;
 }
