@@ -8,7 +8,7 @@ import {
   IInterceptorRemover
 } from './interceptor';
 
-export interface IFetcherClass {
+export interface IFetcherClassType {
   /**
    * 发送请求：前置请求拦截器 → 网络请求 → 后置响应拦截器
    */

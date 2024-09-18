@@ -26,13 +26,16 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   });
   
   test('fetcherFetch 200', () => {
-    fetchMock.mock('*', () => 'fuck you');
+    fetchMock.mock('*', () => ({
+      code: 200,
+      data: 'hello world'
+    }));
     
     fetcher.get('/api-1');
     fetcher.post('/api-2');
     fetcher.delete('/api-3');
     fetcher.put('/api-4');
     
-    expect(fetchMock.calls().length).toBe(4);
+    expect(fetchMock.calls().length).toBe(4)
   });
 });

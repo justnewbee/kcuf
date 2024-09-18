@@ -1,7 +1,7 @@
 export { default } from './util/jsonp';
 
 export {
-  EJsonpError as JsonpError
+  EJsonpErrorName as JsonpErrorName
 } from './enum';
 
 export type {

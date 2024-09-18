@@ -17,6 +17,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   let dom: JSDOM;
   
   beforeEach(() => {
+    // environment 不能运行脚本，所以需要自制 DOM，两个参数必需
     dom = new JSDOM('<!DOCTYPE html><html lang="en"><head><title>JsDom</title></head><body></body></html>', {
       resources: 'usable',
       runScripts: 'dangerously'
@@ -54,15 +55,12 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   });
   
   test('404 will always timeout', () => {
-    expect(fetcherJsonp('/api-404', {
-      timeout: 200
-    })).rejects.toThrowError('JSONP timeout after 200ms, url = /api-404');
-    expect(fetcherJsonp('/api-404', {
-      timeout: 200
-    })).rejects.toHaveProperty('name', 'JsonpErrorTimeout');
-    expect(fetcherJsonp('/api-404', {
-      timeout: 200
-    })).rejects.toHaveProperty('name', 'JsonpErrorTimeout');
+    expect(fetcherJsonp('/api/404', {
+      timeout: 100
+    })).rejects.toThrowError('fetcherJsonp(/api/404) timeout after 100ms');
+    expect(fetcherJsonp('/api/404', {
+      timeout: 100
+    })).rejects.toHaveProperty('name', 'JsonpError.Timeout');
   });
   
   test('custom callback, lifecycle and charset (success)', async () => {
@@ -101,7 +99,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(global.window[callbackFn]).toBeTruthy();
     expect(global.document.querySelector(scriptQuery)).toBeTruthy();
     
-    expect(await promise.catch(error => error)).toHaveProperty('name', 'JsonpErrorTimeout');
+    expect(await promise.catch(error => error)).toHaveProperty('name', 'JsonpError.Timeout');
     
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -111,11 +109,11 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   
   test('can be aborted', () => {
     const abortController = new AbortController();
-    const promise = fetcherJsonp('/api-abort', {
+    const promise = fetcherJsonp('/api/abort', {
       signal: abortController.signal
     });
     
-    expect(promise).rejects.toThrowError('JSONP aborted, url = /api-abort');
+    expect(promise).rejects.toThrowError('JSONP aborted, url = /api/abort');
     expect(promise).rejects.toHaveProperty('name', 'AbortError');
     
     abortController.abort();

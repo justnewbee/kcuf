@@ -1,8 +1,8 @@
 import {
-  FetchError
+  FetchErrorName
 } from '@kcuf/fetcher-fetch';
 import {
-  JsonpError
+  JsonpErrorName
 } from '@kcuf/fetcher-jsonp';
 
 import {
@@ -28,13 +28,13 @@ export default function convertError(err: Error, config: IFetcherConfig): IFetch
   error.config = config;
   
   switch (error.name) {
-    case FetchError.NETWORK:
-    case JsonpError.NETWORK:
+    case FetchErrorName.NETWORK:
+    case JsonpErrorName.NETWORK:
       error.name = EFetcherErrorName.NETWORK;
       
       break;
-    case FetchError.TIMEOUT:
-    case JsonpError.TIMEOUT:
+    case FetchErrorName.TIMEOUT:
+    case JsonpErrorName.TIMEOUT:
       error.name = EFetcherErrorName.TIMEOUT;
       
       break;

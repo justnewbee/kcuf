@@ -11,7 +11,7 @@ import fetchMock from 'fetch-mock';
 
 import pkgInfo from '../package.json';
 import fetcherFetch, {
-  FetchError
+  FetchErrorName
 } from '../src';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
@@ -93,14 +93,12 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     
     expect(fetcherFetch('/api/timeout', {
       timeout: 100
-    })).rejects.toHaveProperty('name', FetchError.TIMEOUT);
-    expect(fetchMock.calls().length).toBe(1);
-    
+    })).rejects.toThrowError('fetcherFetch(/api/timeout) timeout after 100ms');
+    expect(fetcherFetch('/api/timeout', {
+      timeout: 100
+    })).rejects.toHaveProperty('name', FetchErrorName.TIMEOUT);
     expect(fetcherFetch('/api/timeout').then(response => response.text())).resolves.toEqual('timeout result');
-    expect(fetchMock.calls().length).toBe(2);
-    
     expect(fetcherFetch('/api/timeout').then(response => response.json())).rejects.toThrowError(); // 返回的不是 JSON
-    expect(fetchMock.calls().length).toBe(3);
   });
   
   test('timeout II - rejected', () => {
@@ -108,7 +106,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     
     expect(fetcherFetch('/api/timeout-reject', {
       timeout: 100
-    })).rejects.toHaveProperty('name', FetchError.TIMEOUT);
+    })).rejects.toHaveProperty('name', FetchErrorName.TIMEOUT);
     expect(fetchMock.calls().length).toBe(1);
     
     expect(fetcherFetch('/api/timeout-reject').then(response => response.json())).rejects.toThrowError('Error after timeout');

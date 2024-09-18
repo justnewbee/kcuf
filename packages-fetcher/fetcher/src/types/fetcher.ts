@@ -4,10 +4,10 @@ import {
   IFetcherFnPostAlike
 } from './fn';
 import {
-  IFetcherClass
+  IFetcherClassType
 } from './class';
 
-export interface IFetcher extends Pick<IFetcherClass, 'interceptRequest' | 'interceptResponse' | 'sealInterceptors' | 'request'> {
+export interface IFetcher extends Pick<IFetcherClassType, 'interceptRequest' | 'interceptResponse' | 'sealInterceptors' | 'request'> {
   jsonp: IFetcherFnJsonp;
   get: IFetcherFnGetAlike;
   post: IFetcherFnPostAlike;

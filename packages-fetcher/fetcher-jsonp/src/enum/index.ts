@@ -1,4 +1,4 @@
-export enum EJsonpError {
-  TIMEOUT = 'JsonpErrorTimeout', // 超时
-  NETWORK = 'JsonpErrorNetwork' // 网络错误，script onerror
+export enum EJsonpErrorName {
+  TIMEOUT = 'JsonpError.Timeout', // 超时
+  NETWORK = 'JsonpError.Network' // 网络错误，script onerror
 }

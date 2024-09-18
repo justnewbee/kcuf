@@ -1,7 +1,7 @@
 import {
   TArgsForJsonp,
   TArgsForGet,
-  IFetcherClass,
+  IFetcherClassType,
   IFetcherOptionsForQuickFn,
   TFetcherParams
 } from '../types';
@@ -12,7 +12,7 @@ import {
 /**
  * 用于执行不带 body 的请求，对应点 method 有 'GET' / 'DELETE' / 'HEAD' / 'OPTIONS' / 'JSONP'
  */
-export default function requestWithNoBody<T, P extends TFetcherParams>(fetcher: IFetcherClass, method: string, args: TArgsForJsonp<P> | TArgsForGet<P>): Promise<T> {
+export default function requestWithNoBody<T, P extends TFetcherParams>(fetcher: IFetcherClassType, method: string, args: TArgsForJsonp<P> | TArgsForGet<P>): Promise<T> {
   let options: IFetcherOptionsForQuickFn | undefined;
   let url: string;
   let params: P | undefined;

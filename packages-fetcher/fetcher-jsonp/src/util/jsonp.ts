@@ -1,5 +1,5 @@
 import {
-  EJsonpError
+  EJsonpErrorName
 } from '../enum';
 import {
   IJsonpOptions,
@@ -88,7 +88,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
         }
         
         returned = true;
-        reject(createError(EJsonpError.TIMEOUT, `JSONP timeout after ${timeout}ms, url = ${url}`));
+        reject(createError(EJsonpErrorName.TIMEOUT, `fetcherJsonp(${url}) timeout after ${timeout}ms`));
         cleanupPrematurely();
       }, timeout);
     }
@@ -114,7 +114,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
       }
       
       returned = true;
-      reject(createError(EJsonpError.NETWORK, `JSONP failed, url = ${url}`));
+      reject(createError(EJsonpErrorName.NETWORK, `JSONP failed, url = ${url}`));
       cleanup();
     };
   });

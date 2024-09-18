@@ -5,7 +5,7 @@ import {
 } from '@kcuf/sandbox-escape';
 
 import {
-  EFetchError
+  EFetchErrorName
 } from '../enum';
 import {
   IFetchOptions
@@ -49,18 +49,18 @@ export default function fetcherFetch(url: string, options: IFetchOptions = {}): 
   const promise = fetch(url, fetchOptions as RequestInit).catch(err => {
     // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
     // https://javascript.info/fetch-abort
-    if (err.name === 'AbortError' || err.name === EFetchError.TIMEOUT) {
+    if (err.name === 'AbortError' || err.name === EFetchErrorName.TIMEOUT) {
       throw err;
     }
     
     // URL 不存在或者请求过程被中断（例如刷新页面）会发生此类错误
     // TypeError: NetworkError when attempting to fetch resource.
-    throw createError(EFetchError.NETWORK, err.message);
+    throw createError(EFetchErrorName.NETWORK, err.message);
   });
   
   return timeout > 0 ? new Promise<Response>((resolve, reject) => {
     const theTimer = window.setTimeout(() => {
-      reject(createError(EFetchError.TIMEOUT, `fetch('${url}') timeout after ${timeout}ms`));
+      reject(createError(EFetchErrorName.TIMEOUT, `fetcherFetch(${url}) timeout after ${timeout}ms`));
     }, timeout);
     
     promise.then((response: Response) => {

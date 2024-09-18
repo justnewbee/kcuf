@@ -1,7 +1,7 @@
 export { default } from './util/fetcher-fetch';
 
 export {
-  EFetchError as FetchError
+  EFetchErrorName as FetchErrorName
 } from './enum';
 
 export type {
