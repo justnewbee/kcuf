@@ -6,7 +6,6 @@ import {
   test,
   vi
 } from 'vitest';
-
 import {
   JSDOM
 } from 'jsdom';
@@ -23,15 +22,15 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       runScripts: 'dangerously'
     });
     
-    global.window = dom.window;
-    global.document = dom.window.document;
+    (global as Record<string, unknown>).window = dom.window;
+    (global as Record<string, unknown>).document = dom.window.document;
   });
   
   afterEach(() => {
     dom.window.close();
     
-    delete global.window;
-    delete global.document;
+    delete (global as Record<string, unknown>).window;
+    delete (global as Record<string, unknown>).document;
   });
   
   const JSONP_URL = 'https://jsfiddle.net/echo/jsonp?who=boshit&love=wlp';
@@ -68,12 +67,13 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   
   test('custom callback, lifecycle and charset (success)', async () => {
     const callbackFn = 'jsonp';
-    const scriptQuery = `#jsonp-script-${callbackFn}`
+    const scriptQuery = `#jsonp-script-${callbackFn}`;
     const promise = fetcherJsonp(JSONP_URL, {
       jsonpCallbackFunction: callbackFn,
       charset: 'gb2312'
     }).then(response => response.json());
     
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     expect(global.window[callbackFn]).toBeTruthy();
     expect(global.document.querySelector(scriptQuery)).toBeTruthy();
@@ -82,6 +82,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     
     expect(await promise).toEqual(JSONP_RESULT);
     
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     expect(global.window[callbackFn]).toBeFalsy(); // cleared
     expect(global.document.querySelector(scriptQuery)).toBeFalsy(); // cleared
@@ -89,18 +90,20 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   
   test('custom callback, lifecycle and charset (failure)', async () => {
     const callbackFn = 'jsonp';
-    const scriptQuery = `#jsonp-script-${callbackFn}`
+    const scriptQuery = `#jsonp-script-${callbackFn}`;
     const promise = fetcherJsonp(JSONP_URL, {
       jsonpCallbackFunction: callbackFn,
       timeout: 10
     }).then(response => response.json());
     
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     expect(global.window[callbackFn]).toBeTruthy();
     expect(global.document.querySelector(scriptQuery)).toBeTruthy();
     
     expect(await promise.catch(error => error)).toHaveProperty('name', 'JsonpErrorTimeout');
     
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     expect(global.window[callbackFn]).toBeTruthy(); // by design, NOT cleared yet
     expect(global.document.querySelector(scriptQuery)).toBeFalsy(); // cleared

@@ -33,15 +33,17 @@ import createError from './create-error';
  * - `method` (String) - HTTP request method. GET (Default), POST, PUT, DELETE
  * - `body` (String, body types) - HTTP request body
  * - `headers` (Object, Headers) - Default: {}
- * - `credentials` (String) - Authentication credentials mode. Default: "omit"
- *    + "omit" - don't include authentication credentials (e.g. cookies) in the request
- *    + "same-origin" - include credentials in requests to the same site
- *    + "include" - include credentials in requests to all sites
+ * - `credentials` (String) - Authentication credentials mode. Default: 'omit'
+ *    + 'omit' - Don't include authentication credentials (e.g. cookies) in the request
+ *    + 'same-origin' - Include credentials in requests to the same site
+ *    + 'include' - Include credentials in requests to all sites
  */
-export default function(url: string, {
-  timeout = 0,
-  ...fetchOptions
-}: IFetchOptions = {}): Promise<Response> {
+export default function fetcherFetch(url: string, options: IFetchOptions = {}): Promise<Response> {
+  const {
+    timeout = 0,
+    ...fetchOptions
+  } = options;
+  
   // 使用 iframe about:blank 做 sandbox 的时候会有这种情况，需要用顶层 fetch，否则 referrer 会是空
   const fetch = getWindow().fetch || unfetch as unknown as WindowOrWorkerGlobalScope['fetch']; // eslint-disable-line @typescript-eslint/no-unnecessary-condition
   const promise = fetch(url, fetchOptions as RequestInit).catch(err => {
@@ -52,7 +54,7 @@ export default function(url: string, {
     }
     
     // URL 不存在或者请求过程被中断（例如刷新页面）会发生此类错误
-    // TypeError: "NetworkError when attempting to fetch resource."
+    // TypeError: NetworkError when attempting to fetch resource.
     throw createError(EFetchError.NETWORK, err.message);
   });
   

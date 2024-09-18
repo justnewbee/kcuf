@@ -1,4 +1,4 @@
-export { default } from './util/fetch';
+export { default } from './util/fetcher-fetch';
 
 export {
   EFetchError as FetchError

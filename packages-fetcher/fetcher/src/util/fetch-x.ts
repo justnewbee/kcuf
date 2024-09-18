@@ -1,4 +1,4 @@
-import fetch, {
+import fetcherFetch, {
   FetchOptions
 } from '@kcuf/fetcher-fetch';
 import jsonp from '@kcuf/fetcher-jsonp';
@@ -55,5 +55,5 @@ export default async function fetchX<T = void>(fetcherConfig: IFetcherConfig): P
     fetchOptions.body = serializeBody(fetcherConfig);
   }
   
-  return fetch(fetchUrl, fetchOptions).then(response => convertResponseFromFetch<T>(response, fetcherConfig));
+  return fetcherFetch(fetchUrl, fetchOptions).then(response => convertResponseFromFetch<T>(response, fetcherConfig));
 }
