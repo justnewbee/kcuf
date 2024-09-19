@@ -1,6 +1,4 @@
-import {
-  forEach as _forEach
-} from 'lodash-es';
+import _forEach from 'lodash/forEach';
 
 interface ITraverseCallback {
   (value: unknown, path: string[]): void;

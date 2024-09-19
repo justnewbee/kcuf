@@ -42,7 +42,7 @@
     "@storybook/react": "^8.3.1",
     "@storybook/react-vite": "^8.3.1",
     "@storybook/test": "^8.3.1",
-    "@types/lodash-es": "^4.17.12",
+    "@types/lodash": "^4.1.0",
     "@types/react": "^18.3.7",
     "immer": "^10.1.1",
     "react": "^18.3.1",
@@ -59,7 +59,7 @@
     "@kcuf/geometry-basic": "workspace:^",
     "@kcuf/subscribable": "workspace:^",
     "colord": "^2.9.3",
-    "lodash-es": "^4.17.21"
+    "lodash": "^4.1.1"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

@@ -1,6 +1,4 @@
-import {
-  round as _round
-} from 'lodash-es';
+import _round from 'lodash/round';
 
 import {
   TPoint

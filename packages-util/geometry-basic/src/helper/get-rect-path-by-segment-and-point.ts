@@ -1,6 +1,4 @@
-import {
-  clamp as _clamp
-} from 'lodash-es';
+import _clamp from 'lodash/clamp';
 
 import {
   TPoint,

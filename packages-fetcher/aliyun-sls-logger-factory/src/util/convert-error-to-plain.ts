@@ -1,6 +1,4 @@
-import {
-  forEach as _forEach
-} from 'lodash-es';
+import _forEach from 'lodash/forEach';
 
 /**
  * Error 身上的 name、message、stack 等信息用 _forEach 遍历不到，故需要转成普通对象

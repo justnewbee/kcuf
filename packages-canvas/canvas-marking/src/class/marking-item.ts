@@ -1,10 +1,8 @@
-import {
-  isEqual as _isEqual,
-  forEach as _forEach,
-  reduce as _reduce,
-  clamp as _clamp,
-  cloneDeep as _cloneDeep
-} from 'lodash-es';
+import _isEqual from 'lodash/isEqual';
+import _forEach from 'lodash/forEach';
+import _reduce from 'lodash/reduce';
+import _clamp from 'lodash/clamp';
+import _cloneDeep from 'lodash/cloneDeep';
 
 import {
   Point,
@@ -206,7 +204,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     }, []);
     
     return pathSegmentList(path).map((v, i) => {
-      if (ignoredIndexes?.includes(i)) {
+      if (ignoredIndexes.includes(i)) {
         return null;
       }
       

@@ -1,8 +1,6 @@
-import {
-  merge as _merge,
-  clamp as _clamp,
-  round as _round
-} from 'lodash-es';
+import _merge from 'lodash/merge';
+import _clamp from 'lodash/clamp';
+import _round from 'lodash/round';
 
 import {
   Point,

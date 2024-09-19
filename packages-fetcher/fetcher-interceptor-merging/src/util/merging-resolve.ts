@@ -1,6 +1,4 @@
-import {
-  cloneDeep as _cloneDeep
-} from 'lodash-es';
+import _cloneDeep from 'lodash/cloneDeep';
 
 import mergingGet from './merging-get';
 import mergingRemove from './merging-remove';

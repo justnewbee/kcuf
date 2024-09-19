@@ -1,7 +1,5 @@
-import {
-  forEach as _forEach,
-  map as _map
-} from 'lodash-es';
+import _forEach from 'lodash/forEach';
+import _map from 'lodash/map';
 
 import {
   IFnOff,

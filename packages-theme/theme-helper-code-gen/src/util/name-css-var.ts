@@ -1,6 +1,4 @@
-import {
-  kebabCase as _kebabCase
-} from 'lodash-es';
+import _kebabCase from 'lodash/kebabCase';
 
 import {
   PREFIX_CSS_VAR

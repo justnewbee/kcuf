@@ -1,6 +1,4 @@
-import {
-  noop as _noop
-} from 'lodash-es';
+import _noop from 'lodash/noop';
 
 import fetch from '@kcuf/fetcher-fetch';
 

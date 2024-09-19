@@ -1,9 +1,7 @@
-import {
-  isPlainObject as _isPlainObject,
-  isError as _isError,
-  isEmpty as _isEmpty,
-  forEach as _forEach
-} from 'lodash-es';
+import _isPlainObject from 'lodash/isPlainObject';
+import _isError from 'lodash/isError';
+import _isEmpty from 'lodash/isEmpty';
+import _forEach from 'lodash/forEach';
 
 import type {
   ISlsFlattenOptions

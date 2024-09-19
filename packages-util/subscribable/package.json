@@ -28,7 +28,7 @@
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-typescript": "^7.24.7",
     "@kcuf/ts-config": "workspace:^",
-    "@types/lodash-es": "^4.17.12",
+    "@types/lodash": "^4.1.1",
     "rimraf": "^6.0.1",
     "typescript": "^5.6.2"
   },
@@ -36,7 +36,7 @@
     "@babel/runtime": "^7.24.8"
   },
   "dependencies": {
-    "lodash-es": "^4.17.21"
+    "lodash": "^4.1.0"
   },
   "scripts": {
     "build:clean": "rimraf dist",

@@ -1,6 +1,4 @@
-import {
-  snakeCase as _snakeCase
-} from 'lodash-es';
+import _snakeCase from 'lodash/snakeCase';
 
 /**
  * 生成常量名
