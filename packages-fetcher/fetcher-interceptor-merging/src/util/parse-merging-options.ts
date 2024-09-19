@@ -8,20 +8,11 @@ import {
 
 export default function parseMergingOptions(fetcherConfig: FetcherConfig): IMergingOptionsParsed | null {
   const {
-    _id,
     signal,
     merging = true
   } = fetcherConfig;
   
-  if (!merging || signal) { // 有 AbortSignal 则不可用 merge
-    return null;
-  }
-  
-  const {
-    key = ''
-  } = merging ? {} : merging;
-  
-  return {
-    key: key || _id!
+  return !merging || signal ? null : { // 有 AbortSignal 则不可用 merge
+    key: fetcherConfig._id! // eslint-disable-line @typescript-eslint/no-non-null-assertion
   };
 }
