@@ -1,0 +1,57 @@
+{
+  "name": "@kcuf/sls-logger-web",
+  "version": "0.0.1",
+  "description": "Aliyun SLS logger with fetch, can be used for web.",
+  "keywords": [],
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnewbee/kcuf.git"
+  },
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-fetcher/sls-logger-web",
+  "bugs": "https://github.com/justnewbee/kcuf/issues",
+  "author": {
+    "name": "Jianchun Wang",
+    "email": "justnewbee@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.25.6",
+    "@babel/core": "^7.25.2",
+    "@babel/plugin-transform-runtime": "^7.25.4",
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-typescript": "^7.24.7",
+    "@kcuf/ts-config": "workspace:^",
+    "@types/lodash": "^4.17.7",
+    "@vitest/coverage-v8": "^2.1.1",
+    "fetch-mock": "^11.1.4",
+    "jsdom": "^25.0.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.6.2",
+    "vitest": "^2.1.1"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "^7.24.8"
+  },
+  "dependencies": {
+    "@kcuf/fetcher-fetch": "workspace:^",
+    "@kcuf/sls-logger-base": "workspace:^"
+  },
+  "scripts": {
+    "build:clean": "rimraf dist",
+    "build:esm": "ESM=1 babel src -d dist/esm --extensions .ts,.tsx --source-maps",
+    "build:cjs": "ESM=0 babel src -d dist/cjs --extensions .ts,.tsx",
+    "build:types": "tsc -rootDir src --outDir dist/types --declaration --noEmit false --emitDeclarationOnly --isolatedModules false",
+    "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
+    "watch": "pnpm build:esm -w",
+    "test": "vitest",
+    "test:cov": "vitest --coverage --coverage.include=src",
+    "prepublishOnly": "pnpm build:clean && pnpm build"
+  }
+}

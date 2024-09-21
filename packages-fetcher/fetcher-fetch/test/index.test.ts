@@ -5,7 +5,7 @@ import {
   describe,
   expect,
   test,
-  afterEach
+  beforeEach
 } from 'vitest';
 import fetchMock from 'fetch-mock';
 
@@ -15,25 +15,36 @@ import fetcherFetch, {
 } from '../src';
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
-  afterEach(() => {
+  beforeEach(() => {
     fetchMock.reset();
+    
+    fetchMock.get('/api/any', 200);
+    fetchMock.get('/api/get', 200);
+    fetchMock.post('/api/post', 200);
+    fetchMock.put('/api/put', 200);
+    fetchMock.patch('/api/patch', 200);
+    fetchMock.delete('/api/delete', 200);
+    
+    fetchMock.mock('/api/404', 404);
+    fetchMock.mock('/api/500', 500);
+    fetchMock.mock('/api/error', () => {
+      throw new Error('Network ERROR');
+    });
+    fetchMock.mock('/api/timeout', () => new Promise(resolve => setTimeout(() => resolve('timeout result'), 250)));
+    fetchMock.mock('/api/timeout-reject', () => new Promise((_, reject) => setTimeout(() => reject(new Error('Error after timeout')), 250)));
+    fetchMock.mock('/api/abort', () => new Promise(resolve => setTimeout(() => resolve('abort result'), 20)));
   });
   
   test('response status 200', () => {
-    fetchMock.mock('*', 200);
-    
-    fetcherFetch('/api/1');
-    fetcherFetch('/api/2');
-    fetcherFetch('/api/3');
-    fetcherFetch('/api/4');
+    fetcherFetch('/api/any');
+    fetcherFetch('/api/any');
+    fetcherFetch('/api/any');
+    fetcherFetch('/api/any');
     
     expect(fetchMock.calls().length).toBe(4);
   });
   
   test('response status NOT 200 is treated as success here', () => {
-    fetchMock.mock('/api/404', 404);
-    fetchMock.mock('/api/500', 500);
-    
     fetcherFetch('/api/404');
     expect(fetchMock.calls().length).toBe(1);
     
@@ -42,12 +53,6 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   });
   
   test('methods', () => {
-    fetchMock.get('/api/get', 200);
-    fetchMock.post('/api/post', 200);
-    fetchMock.put('/api/put', 200);
-    fetchMock.patch('/api/patch', 200);
-    fetchMock.delete('/api/delete', 200);
-    
     fetcherFetch('/api/get');
     expect(fetchMock.called('/api/get')).toBe(true);
     
@@ -80,17 +85,11 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   });
   
   test('error', () => {
-    fetchMock.mock('/api/error', () => {
-      throw new Error('Network ERROR');
-    });
-    
     expect(fetcherFetch('/api/error')).rejects.toThrowError('Network ERROR');
     expect(fetchMock.calls().length).toBe(1);
   });
   
   test('timeout', () => {
-    fetchMock.mock('/api/timeout', () => new Promise(resolve => setTimeout(() => resolve('timeout result'), 250)));
-    
     expect(fetcherFetch('/api/timeout', {
       timeout: 100
     })).rejects.toThrowError('fetcherFetch(/api/timeout) timeout after 100ms');
@@ -102,8 +101,6 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   });
   
   test('timeout II - rejected', () => {
-    fetchMock.mock('/api/timeout-reject', () => new Promise((_, reject) => setTimeout(() => reject(new Error('Error after timeout')), 250)));
-    
     expect(fetcherFetch('/api/timeout-reject', {
       timeout: 100
     })).rejects.toHaveProperty('name', FetchErrorName.TIMEOUT);
@@ -114,8 +111,6 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   });
   
   test('abort', () => {
-    fetchMock.mock('/api/abort', () => new Promise(resolve => setTimeout(() => resolve('abort result'), 20)));
-    
     const abortController = new AbortController();
     const promise = fetcherFetch('/api/abort', {
       signal: abortController.signal
