@@ -11,3 +11,4 @@
 * [x] `@kcuf/fetcher-interceptor-cache-local`
 * [x] `@kcuf/fetcher-interceptor-merging`
 * [ ]  `@kcuf/fetcher-interceptor-retry`
+* [x]  `@kcuf/fetcher-interceptor-sls`

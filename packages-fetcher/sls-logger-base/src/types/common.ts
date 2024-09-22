@@ -21,10 +21,10 @@ export interface ILogSender {
  * - 默认忽略所有以 `_` 为前缀的属性
  * - `string` 等于 `key` 则忽略
  * - `string[]` 包含 `key` 则忽略
- * - 方法，可用 `path` 进行判断（注意这里的 `path` 和 `prefix` 没有关系）
+ * - 方法，可用 `path` 进行判断（注意这里的 `path` 和 `scope` 没有关系）
  */
 export type TFlattenIgnore = string | string[] | {
-  (key: string, value: unknown, path: string): boolean;
+  (path: string, key: string, value: unknown): boolean;
 };
 
 export interface ISlsLogPayload {

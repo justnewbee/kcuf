@@ -12,7 +12,7 @@ export default function flattenShouldIgnore(ignore: ISlsFlattenOptions['ignore']
   }
   
   if (typeof ignore === 'function') {
-    return ignore(key, value, path);
+    return ignore(path, key, value);
   }
   
   if (Array.isArray(ignore)) {

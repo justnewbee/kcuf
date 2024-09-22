@@ -408,7 +408,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     
     sls({
       flatten: {
-        prefix: 'what',
+        scope: 'what',
         ignore: ['iWillBeIgnored', 'CCC']
       }
     }, 'topic-flatten-arr', {
@@ -488,7 +488,8 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     
     sls({
       flatten: {
-        ignore: key => key.includes('c')
+        scope: 'xx',
+        ignore: path => ['a.abc', 'bb.bbcc'].includes(path)
       }
     }, 'topic-flatten-ignore-fn', {
       a: {
@@ -508,19 +509,19 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     const body = getLastCallBody();
     
     expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-ignore-fn');
-    expect(body.__logs__[0]?.['a.ab']).toBe('ab');
-    expect(body.__logs__[0]?.['a.abc']).toBeUndefined();
-    expect(body.__logs__[0]?.['bb.bb']).toBe('bbbb');
-    expect(body.__logs__[0]?.['bb.bbcc']).toBeUndefined();
-    expect(body.__logs__[0]?.ccc).toBeUndefined();
+    expect(body.__logs__[0]?.['xx.a.ab']).toBe('ab');
+    expect(body.__logs__[0]?.['xx.a.abc']).toBeUndefined();
+    expect(body.__logs__[0]?.['xx.bb.bb']).toBe('bbbb');
+    expect(body.__logs__[0]?.['xx.bb.bbcc']).toBeUndefined();
+    expect(body.__logs__[0]?.['xx.ccc']).toBe('1234');
   });
   
-  test('createLogger(), options.topicPrefix', async () => {
+  test('createLogger(), options.prefix', async () => {
     await sleep(SILENT_TIME);
     
     const mySls = createLogger(sender, {
       ...LOGGER_OPTIONS,
-      topicPrefix: 'hello/'
+      prefix: 'hello/'
     });
     
     mySls('world');

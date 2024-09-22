@@ -28,7 +28,7 @@ export default async function convertResponseFromFetch<T = void>(response: Respo
       // ignore
     }
     
-    throw createFetcherError(fetcherConfig, EFetcherErrorName.RESPONSE_STATUS, `response status ${response.status}`, {
+    throw createFetcherError(fetcherConfig, EFetcherErrorName.RESPONSE_STATUS, `Response status ${response.status}.`, {
       code: `${response.status}`,
       responseData
     });

@@ -23,10 +23,10 @@ import flattenShouldIgnore from './flatten-should-ignore';
  */
 export default function flattenObject<T extends object>(o: T, options: string | ISlsFlattenOptions): Record<string, unknown> {
   const resolvedOptions = typeof options === 'string' ? {
-    prefix: options
+    scope: options
   } : options;
   const {
-    prefix,
+    scope,
     depth = 5,
     ignore
   } = resolvedOptions;
@@ -41,7 +41,7 @@ export default function flattenObject<T extends object>(o: T, options: string | 
     
     _forEach(currentObj, (v: unknown, k: string) => {
       const key = [...parentPaths, k].join('.');
-      const prefixedKey = prefix ? `${prefix}.${key}` : key;
+      const scopedKey = scope ? `${scope}.${key}` : key;
       
       // 可以忽略不重要的信息
       if (flattenShouldIgnore(ignore, key, k, v)) {
@@ -52,7 +52,7 @@ export default function flattenObject<T extends object>(o: T, options: string | 
       
       // 深度满了，或者不是对象或 Error，或者空对象（或数组），则不继续 loop
       if (depthFull || !_isPlainObject(vAsObject) || _isEmpty(vAsObject)) {
-        result[prefixedKey] = vAsObject;
+        result[scopedKey] = vAsObject;
         
         return;
       }

@@ -47,7 +47,7 @@ export interface ICreateLoggerOptions extends Partial<ISlsPipeOptions> {
   /**
    * 当希望同一个模块的日志使用统一的前缀，又不想每次调用的时候写，可以用这个
    */
-  topicPrefix?: string;
+  prefix?: string;
   /**
    * 生产出的日志方法的整体采样率，可在调用时由方法参数覆盖，范围为 (0, 1]，默认 1
    */
@@ -74,7 +74,7 @@ export interface IGenerateCreateLoggerOptions {
 }
 
 export interface ISlsFlattenOptions {
-  prefix?: string;
+  scope?: string;
   depth?: number;
   ignore?: TFlattenIgnore;
 }
@@ -84,9 +84,9 @@ export interface ISlsFlattenOptions {
  */
 export interface ISlsLogOptions {
   /**
-   * 覆盖 IFactoryOptions 的 topicPrefix 设置，仅针对当前日志
+   * 覆盖 IFactoryOptions 的 prefix 设置，仅针对当前日志
    */
-  topicPrefix?: string;
+  prefix?: string;
   /**
    * 覆盖 IFactoryOptions 的 sampling 设置，仅针对当前日志
    */

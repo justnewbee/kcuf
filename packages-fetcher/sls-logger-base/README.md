@@ -32,7 +32,7 @@ sls(options, topic);
 sls(options, topic, payload);
 ```
 
-以上，`options` 可用于覆盖创建 `sls` 的时候的 `topicPrefix`、`sampling` 等工厂默认的参数，也可以立即发送日志，默认所有的日志会在一定的时间内积压，以避免和业务逻辑竞争。
+以上，`options` 可用于覆盖创建 `sls` 的时候的 `prefix`、`sampling` 等工厂默认的参数，也可以立即发送日志，默认所有的日志会在一定的时间内积压，以避免和业务逻辑竞争。
 
 ## 记录的数据
 
@@ -67,5 +67,5 @@ sls({
 
 ## 参考
 
-* [POST 发送日志参考文档](https://help.aliyun.com/document_detail/2771303.html)
 * [Web Tracking](https://help.aliyun.com/document_detail/31752.html)
+* [POST 发送日志参考文档](https://help.aliyun.com/document_detail/2771303.html)

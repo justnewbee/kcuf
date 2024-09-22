@@ -54,20 +54,20 @@ export default class SlsLogger {
     
     const {
       options: {
-        topicPrefix: factoryTopicPrefix,
+        prefix: factoryPrefix,
         sampling: factorySampling,
         defaultParams
       }
     } = this;
     const {
       group = 'LOG',
-      topicPrefix = factoryTopicPrefix,
+      prefix = factoryPrefix,
       sampling = factorySampling,
       instant,
       once,
       flatten
     } = options;
-    const finalTopic = topicPrefix ? `${topicPrefix}${topic}` : topic;
+    const finalTopic = prefix ? `${prefix}${topic}` : topic;
     const onceKey: string | undefined = getLogOnceKey(finalTopic, once);
     
     if (this.shouldIgnore(sampling, onceKey)) {
