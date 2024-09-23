@@ -6,4 +6,4 @@ export { default as convertErrorToPlain } from './convert-error-to-plain';
 export { default as resolveDefaultParams } from './resolve-default-params';
 export { default as createSlsLogQuick } from './create-sls-log-quick';
 export { default as mergeDefaultParams } from './merge-default-params';
-export { default as mergeShouldIgnore } from './merge-should-ignore';
+export { default as mergeDontSend } from './merge-dont-send';

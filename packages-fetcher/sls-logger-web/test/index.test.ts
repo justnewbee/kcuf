@@ -11,33 +11,20 @@ import fetchMock from 'fetch-mock';
 
 import pkgInfo from '../package.json';
 import createLogger, {
-  CreateLoggerOptions,
-  SlsPostBody,
   generateCreateLogger
 } from '../src';
 
-function sleep(time: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, time));
-}
-
-// 为了不消耗太多测试时间，调整默认值
-const SILENT_TIME = 160;
-const WAIT_TIME = 100;
-const MAX_CHUNK = 10;
-const LOGGER_OPTIONS: CreateLoggerOptions = {
-  endpoint: 'test-endpoint.sls-aliyuncs.com',
-  project: 'test-project',
-  logstore: 'test-logstore',
-  silentTime: SILENT_TIME,
-  waitTime: WAIT_TIME,
-  maxChunk: MAX_CHUNK
-};
+import {
+  SILENT_TIME,
+  WAIT_TIME,
+  LOGGER_OPTIONS
+} from './const';
+import {
+  sleep,
+  getLastCallBody
+} from './util';
 
 const sls = createLogger(LOGGER_OPTIONS);
-
-function getLastCallBody(): SlsPostBody {
-  return JSON.parse(fetchMock.lastCall()?.[1]?.body as string || '');
-}
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   beforeEach(() => {
@@ -88,9 +75,9 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(fetchMock.calls().length).toBe(4);
   });
   
-  test('generateCreateLogger', () => {
+  test('generateCreateLogger with factory dontSend', () => {
     const myCreateLogger = generateCreateLogger({
-      shouldIgnore: () => false
+      dontSend: () => false
     });
     const mySls = myCreateLogger(LOGGER_OPTIONS);
     

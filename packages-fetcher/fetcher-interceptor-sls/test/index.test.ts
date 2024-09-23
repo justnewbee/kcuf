@@ -17,25 +17,17 @@ import {
 } from '@kcuf/sls-logger-web';
 
 import pkgInfo from '../package.json';
-import intercept, {
-  FetcherInterceptorSlsOptions
-} from '../src';
+import intercept from '../src';
+
+import {
+  INTERCEPTOR_OPTIONS,
+  SLS_SILENT_TIME,
+  SLS_WAIT_TIME
+} from './const';
 
 const fetcher = createFetcher();
 
-// 为了不消耗太多测试时间，调整默认值
-const SILENT_TIME = 160;
-const WAIT_TIME = 100;
-
-const OPTIONS = {
-  endpoint: 'test-endpoint.sls-aliyuncs.com',
-  project: 'test-project',
-  logstore: 'test-logstore',
-  silentTime: SILENT_TIME,
-  waitTime: WAIT_TIME
-} satisfies FetcherInterceptorSlsOptions;
-
-intercept(fetcher, OPTIONS);
+intercept(fetcher, INTERCEPTOR_OPTIONS);
 
 function sleep(time: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, time));
@@ -50,16 +42,29 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     fetchMock.reset();
     
     fetchMock.mock('/api/success', () => ({
-      success: true
+      success: true,
+      code: 200,
+      data: {
+        page: 1,
+        pageSize: 2,
+        total: 123,
+        items: [{
+          id: '1',
+          name: 'name1'
+        }, {
+          id: '2',
+          name: 'name2'
+        }]
+      }
     }));
     fetchMock.mock('/api/fail-404', 404);
-    fetchMock.post(`https://${OPTIONS.project}.${OPTIONS.endpoint}/logstores/${OPTIONS.logstore}/track`, 200);
+    fetchMock.post(`https://${INTERCEPTOR_OPTIONS.project}.${INTERCEPTOR_OPTIONS.endpoint}/logstores/${INTERCEPTOR_OPTIONS.logstore}/track`, 200);
   });
   
   test('success', async () => {
-    await sleep(SILENT_TIME);
+    await sleep(SLS_SILENT_TIME);
     await fetcher.get('/api/success');
-    await sleep(WAIT_TIME);
+    await sleep(SLS_WAIT_TIME);
     
     expect(fetchMock.calls().length).toBe(2);
     
@@ -68,16 +73,16 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(body.__topic__).toBe('fetcher_success');
     expect(body.__logs__[0]?._TOPIC).toBe('fetcher_success');
     expect(body.__logs__[0]?._GROUP).toBe('LOG');
-    expect(body.__logs__[0]?.['response.data.success']).toBe('true');
+    expect(body.__logs__[0]?.['response.data']).toBeTypeOf('string');
     expect(Number(body.__logs__[0]?.duration)).toBeGreaterThan(0);
   });
   
   test('fail', async () => {
-    await sleep(SILENT_TIME);
+    await sleep(SLS_SILENT_TIME);
     await fetcher.get('/api/fail-404').catch(() => {
       // do nothing
     });
-    await sleep(WAIT_TIME);
+    await sleep(SLS_WAIT_TIME);
     
     expect(fetchMock.calls().length).toBe(2);
     
@@ -93,12 +98,12 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   });
   
   test('custom topic & default params', async () => {
-    await sleep(SILENT_TIME);
+    await sleep(SLS_SILENT_TIME);
     
     const myFetcher = createFetcher();
     
     intercept(myFetcher, {
-      ...OPTIONS,
+      ...INTERCEPTOR_OPTIONS,
       defaultParams: () => ({
         UA: navigator.userAgent
       }),
@@ -107,7 +112,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     });
     
     await myFetcher.get('/api/success');
-    await sleep(WAIT_TIME);
+    await sleep(SLS_WAIT_TIME);
     expect(fetchMock.calls().length).toBe(2);
     
     let body = getLastCallBody();
@@ -120,7 +125,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await myFetcher.get('/api/fail-404').catch(() => {
       // do nothing
     });
-    await sleep(WAIT_TIME);
+    await sleep(SLS_WAIT_TIME);
     expect(fetchMock.calls().length).toBe(4);
     
     body = getLastCallBody();

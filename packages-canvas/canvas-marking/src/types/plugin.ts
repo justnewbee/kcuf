@@ -21,7 +21,7 @@ export interface IMarkingPluginTooltipOptions<T> {
 }
 
 export interface IMarkingPluginZoomOptions {
-  step?: number; // 键盘或点击要快档
+  step?: number; // 键盘或点击要快点
   stepWheel?: number; // 滚轮可以顺滑一些
   min?: number;
   max?: number;

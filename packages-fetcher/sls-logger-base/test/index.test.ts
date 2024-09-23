@@ -12,44 +12,23 @@ import fetchMock from 'fetch-mock';
 
 import pkgInfo from '../package.json';
 import createLogger, {
-  CreateLoggerOptions,
-  SlsPostBody,
   generateCreateLoggerBase
 } from '../src';
 
-function sender(trackUrl: string, body: string, headers: Record<string, string>): void {
-  fetch(trackUrl, {
-    method: 'POST',
-    credentials: 'omit',
-    headers,
-    body
-  }).catch(() => {
-    // ignore
-  });
-}
-
-function sleep(time: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, time));
-}
-
-// 为了不消耗太多测试时间，调整默认值
-const SILENT_TIME = 160;
-const WAIT_TIME = 100;
-const MAX_CHUNK = 10;
-const LOGGER_OPTIONS: CreateLoggerOptions = {
-  endpoint: 'test-endpoint.sls-aliyuncs.com',
-  project: 'test-project',
-  logstore: 'test-logstore',
-  silentTime: SILENT_TIME,
-  waitTime: WAIT_TIME,
-  maxChunk: MAX_CHUNK
-};
+import {
+  SILENT_TIME,
+  WAIT_TIME,
+  MAX_CHUNK,
+  LOGGER_OPTIONS,
+  PAYLOAD_FOR_FLATTEN
+} from './const';
+import {
+  sleep,
+  sender,
+  getLastCallBody
+} from './util';
 
 const sls = createLogger(sender, LOGGER_OPTIONS);
-
-function getLastCallBody(): SlsPostBody {
-  return JSON.parse(fetchMock.lastCall()?.[1]?.body as string || '');
-}
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   beforeEach(() => {
@@ -329,7 +308,32 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(body.__logs__[0]?.details).toBe('{"info":"some info","reason":"some reason","doc":"some doc"}');
   });
   
-  test('payload is error, flatten', async () => {
+  test('payload flatten true', async () => {
+    await sleep(SILENT_TIME);
+    
+    sls({
+      flatten: true
+    }, 'topic-flatten-true', {
+      error: new Error('Error message'),
+      aa: 1234,
+      right: true,
+      wrong: false
+    });
+    
+    await sleep(WAIT_TIME);
+    expect(fetchMock.calls().length).toBe(1);
+    
+    const body = getLastCallBody();
+    
+    expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-true');
+    expect(body.__logs__[0]?.['error.name']).toBe('Error');
+    expect(body.__logs__[0]?.['error.message']).toBe('Error message');
+    expect(body.__logs__[0]?.aa).toBe('1234');
+    expect(body.__logs__[0]?.right).toBe('true');
+    expect(body.__logs__[0]?.wrong).toBe('false');
+  });
+  
+  test('payload flatten, payload is error', async () => {
     await sleep(SILENT_TIME);
     
     const error = new Error('Error message');
@@ -361,7 +365,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(body.__logs__[0]?.['error.details.doc']).toBe('some doc');
   });
   
-  test('payload has error as a field, and flatten it', async () => {
+  test('payload flatten, prefix', async () => {
     await sleep(SILENT_TIME);
     
     sls({
@@ -378,142 +382,89 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(body.__logs__[0]?.['error.message']).toBe('Error message');
   });
   
-  test('payload flatten true', async () => {
+  test('payload flatten, omit: string', async () => {
     await sleep(SILENT_TIME);
     
     sls({
-      flatten: true
-    }, 'topic-flatten-true', {
-      error: new Error('Error message'),
-      aa: 1234,
-      right: true,
-      wrong: false
-    });
+      flatten: {
+        omit: 'response.data'
+      }
+    }, 'topic-flatten-omit-str', PAYLOAD_FOR_FLATTEN);
     
     await sleep(WAIT_TIME);
     expect(fetchMock.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
-    expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-true');
-    expect(body.__logs__[0]?.['error.name']).toBe('Error');
-    expect(body.__logs__[0]?.['error.message']).toBe('Error message');
-    expect(body.__logs__[0]?.aa).toBe('1234');
-    expect(body.__logs__[0]?.right).toBe('true');
-    expect(body.__logs__[0]?.wrong).toBe('false');
+    expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-omit-str');
+    expect(body.__logs__[0]?._omitByDefault).toBeUndefined();
+    expect(body.__logs__[0]?.['response.data']).toBeUndefined();
   });
   
-  test('payload flatten ignore: array', async () => {
+  test('payload flatten, omit: regexp', async () => {
     await sleep(SILENT_TIME);
     
     sls({
       flatten: {
         scope: 'what',
-        ignore: ['iWillBeIgnored', 'CCC']
+        omit: /iWillBeIgnored/
       }
-    }, 'topic-flatten-arr', {
-      _ignoredByDefault: 1234,
-      a: {
-        b: {
-          c: {
-            d: {
-              e: {
-                f: {
-                  g: 'ABCDEFG'
-                }
-              }
-            }
-          }
-        }
-      },
-      aa: {
-        bb: 'aabb'
-      },
-      aaa: {
-        iWillBeIgnored: 222222,
-        bbb: ['aaabbb', '111222'],
-        CCC: 'ccc'
-      },
-      iWillBeIgnored: 111111
-    });
+    }, 'topic-flatten-omit-regexp', PAYLOAD_FOR_FLATTEN);
     
     await sleep(WAIT_TIME);
     expect(fetchMock.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
-    expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-arr');
-    expect(body.__logs__[0]?.['what._ignoredByDefault']).toBeUndefined();
-    expect(body.__logs__[0]?.['what.a.b.c.d.e']).toBe('{"f":{"g":"ABCDEFG"}}'); // default depth 5
-    expect(body.__logs__[0]?.['what.aa.bb']).toBe('aabb');
-    expect(body.__logs__[0]?.['what.aaa.bbb']).toBe('["aaabbb","111222"]');
-    expect(body.__logs__[0]?.['what.aaa.iWillBeIgnored']).toBeUndefined();
-    expect(body.__logs__[0]?.['what.aaa.CCC']).toBeUndefined();
+    expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-omit-regexp');
+    expect(body.__logs__[0]?.['what._omitByDefault']).toBeUndefined();
+    expect(body.__logs__[0]?.['what.request.iWillBeIgnored']).toBeUndefined();
+    expect(body.__logs__[0]?.['what.request.url']).toBe('url');
     expect(body.__logs__[0]?.['what.iWillBeIgnored']).toBeUndefined();
   });
   
-  test('payload flatten ignore: string', async () => {
-    await sleep(SILENT_TIME);
-    
-    sls({
-      flatten: {
-        ignore: 'b'
-      }
-    }, 'topic-flatten-str', {
-      _ignoredByDefault: 1234,
-      a: {
-        b: 'b',
-        c: 'c'
-      },
-      b: {
-        bb: 'aabb'
-      },
-      c: 'ccc'
-    });
-    
-    await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
-    
-    const body = getLastCallBody();
-    
-    expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-str');
-    expect(body.__logs__[0]?._ignoredByDefault).toBeUndefined();
-    expect(body.__logs__[0]?.['a.b']).toBeUndefined();
-    expect(body.__logs__[0]?.b).toBeUndefined();
-    expect(body.__logs__[0]?.c).toBe('ccc');
-  });
-  
-  test('payload flatten ignore: fn', async () => {
+  test('payload flatten, omit: array mixed', async () => {
     await sleep(SILENT_TIME);
     
     sls({
       flatten: {
         scope: 'xx',
-        ignore: path => ['a.abc', 'bb.bbcc'].includes(path)
+        omit: ['request.url', 'response.status', /ignored/i]
       }
-    }, 'topic-flatten-ignore-fn', {
-      a: {
-        ab: 'ab',
-        abc: 'abc'
-      },
-      bb: {
-        bb: 'bbbb',
-        bbcc: 'bbbbcc'
-      },
-      ccc: 1234
-    });
+    }, 'topic-flatten-omit-array-mixed', PAYLOAD_FOR_FLATTEN);
     
     await sleep(WAIT_TIME);
     expect(fetchMock.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
-    expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-ignore-fn');
-    expect(body.__logs__[0]?.['xx.a.ab']).toBe('ab');
-    expect(body.__logs__[0]?.['xx.a.abc']).toBeUndefined();
-    expect(body.__logs__[0]?.['xx.bb.bb']).toBe('bbbb');
-    expect(body.__logs__[0]?.['xx.bb.bbcc']).toBeUndefined();
-    expect(body.__logs__[0]?.['xx.ccc']).toBe('1234');
+    expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-omit-array-mixed');
+    expect(body.__logs__[0]?.['xx._omitByDefault']).toBeUndefined();
+    expect(body.__logs__[0]?.['xx.request.iWillBeIgnored']).toBeUndefined();
+    expect(body.__logs__[0]?.['xx.request.url']).toBeUndefined();
+    expect(body.__logs__[0]?.['xx.request.status']).toBeUndefined();
+    expect(body.__logs__[0]?.['xx.iWillBeIgnored']).toBeUndefined();
+  });
+  
+  test('payload flatten, depth & pass', async () => {
+    await sleep(SILENT_TIME);
+    
+    sls({
+      flatten: {
+        pass: 'response.data'
+      }
+    }, 'topic-flatten-pass', PAYLOAD_FOR_FLATTEN);
+    
+    await sleep(WAIT_TIME);
+    expect(fetchMock.calls().length).toBe(1);
+    
+    const body = getLastCallBody();
+    
+    expect(body.__logs__[0]?._TOPIC).toBe('topic-flatten-pass');
+    expect(body.__logs__[0]?.['request.url']).toBe('url');
+    expect(body.__logs__[0]?.['response.status']).toBe('200');
+    expect(body.__logs__[0]?.['response.data']).toBeTypeOf('string');
+    expect(body.__logs__[0]?.['a.b.c.d.e']).toBe('{"f":{"g":"ABCDEFG"}}'); // default depth 5
   });
   
   test('createLogger(), options.prefix', async () => {
@@ -578,21 +529,21 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(body.__logs__[0]?.hello).toBe('default params returned by fn');
   });
   
-  test('createLogger(), options.shouldIgnore', async () => {
+  test('createLogger(), options.dontSend', async () => {
     await sleep(SILENT_TIME);
     
     const mySls = createLogger(sender, {
       ...LOGGER_OPTIONS,
-      shouldIgnore: () => true
+      dontSend: () => true
     });
     
-    mySls('topic-should-ignore');
+    mySls('topic-should-omit');
     
     await sleep(WAIT_TIME);
     expect(fetchMock.calls().length).toBe(0);
   });
   
-  test('sampling', async () => {
+  test('createLogger(), options.sampling', async () => {
     await sleep(SILENT_TIME);
     
     const mySls = createLogger(sender, {
@@ -688,12 +639,12 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await sleep(SILENT_TIME);
     
     const myCreateLogger = generateCreateLoggerBase(sender, {
-      shouldIgnore: () => Math.random() < 0.5
+      dontSend: () => Math.random() < 0.5
     });
     const mySls = myCreateLogger(LOGGER_OPTIONS);
     let spyMathRandom = vi.spyOn(Math, 'random').mockReturnValue(0.4);
     
-    mySls('topic-factory-should-ignore');
+    mySls('topic-factory-should-omit');
     
     await sleep(WAIT_TIME);
     expect(fetchMock.calls().length).toBe(0);
@@ -702,7 +653,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     
     spyMathRandom = vi.spyOn(Math, 'random').mockReturnValue(0.7);
     
-    mySls('topic-factory-should-ignore');
+    mySls('topic-factory-should-omit');
     
     await sleep(WAIT_TIME);
     expect(fetchMock.calls().length).toBe(1);
@@ -716,22 +667,22 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     let myIgnore = 1;
     
     const myCreateLogger = generateCreateLoggerBase(sender, {
-      shouldIgnore: () => Math.random() < 0.5
+      dontSend: () => Math.random() < 0.5
     });
     const mySls = myCreateLogger({
       ...LOGGER_OPTIONS,
-      shouldIgnore: () => myIgnore % 2 === 0
+      dontSend: () => myIgnore % 2 === 0
     });
     const spyMathRandom = vi.spyOn(Math, 'random').mockReturnValue(0.7);
     
-    mySls('topic-factory-should-ignore-override');
+    mySls('topic-factory-should-omit-override');
     
     await sleep(WAIT_TIME);
     expect(fetchMock.calls().length).toBe(1);
     
     myIgnore = 4;
     
-    mySls('topic-factory-should-ignore-override2');
+    mySls('topic-factory-should-omit-override2');
     
     await sleep(WAIT_TIME);
     expect(fetchMock.calls().length).toBe(1);

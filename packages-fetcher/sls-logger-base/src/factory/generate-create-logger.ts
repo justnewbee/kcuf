@@ -6,7 +6,7 @@ import {
 } from '../types';
 import {
   mergeDefaultParams,
-  mergeShouldIgnore
+  mergeDontSend
 } from '../util';
 
 import createLogger from './create-logger';
@@ -18,15 +18,15 @@ import createLogger from './create-logger';
  */
 export default function generateCreateLogger(sender: ILogSender, {
   defaultParams: factoryDefaultParams,
-  shouldIgnore: factoryShouldIgnore
+  dontSend: factoryDontSend
 }: IGenerateCreateLoggerOptions): ICreateLogger {
   return ({
     defaultParams,
-    shouldIgnore,
+    dontSend,
     ...options
   }: ICreateLoggerOptions) => createLogger(sender, {
     defaultParams: mergeDefaultParams(factoryDefaultParams, defaultParams),
-    shouldIgnore: mergeShouldIgnore(factoryShouldIgnore, shouldIgnore),
+    dontSend: mergeDontSend(factoryDontSend, dontSend),
     ...options
   });
 }

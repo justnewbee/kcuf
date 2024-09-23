@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-sls",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Fetcher interceptor to do sls log when request success or fail.",
   "keywords": [],
   "license": "MIT",

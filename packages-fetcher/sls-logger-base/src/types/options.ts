@@ -1,7 +1,7 @@
 import {
   TDefaultParams,
-  IShouldIgnore,
-  TFlattenIgnore
+  TFlattenPathTester,
+  IDontSend
 } from './common';
 
 export interface ISlsPipeOptions {
@@ -58,11 +58,11 @@ export interface ICreateLoggerOptions extends Partial<ISlsPipeOptions> {
    */
   defaultParams?: TDefaultParams;
   /**
-   * 上报之前进行判断是否继续，返回 false 以阻止上报
+   * 上报之前进行判断是否继续，返回 true 以阻止上报
    *
-   * 在某些场景下需要禁用日志上报功能，比如国外禁止将日志上报到国内的 logstore
+   * 在某些场景下需要禁用日志上报功能，比如可能禁止日志跨境
    */
-  shouldIgnore?: IShouldIgnore;
+  dontSend?: IDontSend;
 }
 
 /**
@@ -70,13 +70,20 @@ export interface ICreateLoggerOptions extends Partial<ISlsPipeOptions> {
  */
 export interface IGenerateCreateLoggerOptions {
   defaultParams?: TDefaultParams;
-  shouldIgnore?: IShouldIgnore;
+  dontSend?: IDontSend;
 }
 
-export interface ISlsFlattenOptions {
+export interface IFlattenOptions {
   scope?: string;
   depth?: number;
-  ignore?: TFlattenIgnore;
+  /**
+   * 将属性从结果中剔除
+   */
+  omit?: TFlattenPathTester;
+  /**
+   * 将属性直接输出，提前结束该属性深度
+   */
+  pass?: TFlattenPathTester;
 }
 
 /**
@@ -119,7 +126,7 @@ export interface ISlsLogOptions {
   /**
    * 是否对 info 进行 flatten 操作
    */
-  flatten?: boolean | string | ISlsFlattenOptions;
+  flatten?: boolean | string | IFlattenOptions;
   /**
    * 为日志增加默认参数 `_GROUP`，可用于数据分析分组
    */

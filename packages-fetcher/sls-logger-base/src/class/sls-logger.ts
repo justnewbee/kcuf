@@ -70,7 +70,7 @@ export default class SlsLogger {
     const finalTopic = prefix ? `${prefix}${topic}` : topic;
     const onceKey: string | undefined = getLogOnceKey(finalTopic, once);
     
-    if (this.shouldIgnore(sampling, onceKey)) {
+    if (this.dontSend(sampling, onceKey)) {
       return;
     }
     
@@ -101,10 +101,10 @@ export default class SlsLogger {
   /**
    * 检查是否需要忽略
    */
-  private shouldIgnore(sampling?: number, onceKey?: string): boolean {
+  private dontSend(sampling?: number, onceKey?: string): boolean {
     const {
       options: {
-        shouldIgnore
+        dontSend
       }
     } = this;
     
@@ -112,7 +112,7 @@ export default class SlsLogger {
       return true;
     }
     
-    if (shouldIgnore?.() === true) { // shouldIgnore 阻止发送
+    if (dontSend?.() === true) { // dontSend 阻止发送
       return true;
     }
     
