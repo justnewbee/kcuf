@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/sls-logger-base",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Aliyun SLS logger without transport implementation.",
   "keywords": [],
   "license": "MIT",

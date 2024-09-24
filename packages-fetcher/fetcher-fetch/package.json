@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-fetch",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "An improved fetch with timeout, can be used alone.",
   "keywords": [],
   "license": "MIT",

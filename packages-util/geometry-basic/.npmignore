@@ -2,11 +2,12 @@
 
 .*
 
-# src / test / demo
+# non-production
 
 src/
 test/
 stories/
+coverage/
 
 # config
 
