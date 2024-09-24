@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-merging",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Fetcher interceptor merging to prevent multiple same requests at the same time.",
   "keywords": [],
   "license": "MIT",

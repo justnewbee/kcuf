@@ -39,30 +39,30 @@ import {
  * 6. `interceptRequest` 可以不必返回全的 `fetcherConfig`，会自动进行 merge，axios 要求返回全的
  */
 export default class Fetcher implements IFetcherClassType {
-  private readonly _defaultConfig?: IFetcherConfigDefault;
+  private readonly defaultConfig?: IFetcherConfigDefault;
   
-  private _interceptorRequestSealed = false;
+  private interceptorRequestSealed = false;
   
-  private _interceptorResponseSealed = false;
+  private interceptorResponseSealed = false;
   
-  private _interceptorQueueForRequest: IInterceptorQueueItemRequest[] = [];
+  private interceptorQueueForRequest: IInterceptorQueueItemRequest[] = [];
   
-  private _interceptorQueueForResponse: IInterceptorQueueItemResponse[] = [];
+  private interceptorQueueForResponse: IInterceptorQueueItemResponse[] = [];
   
   /**
    * 传递给 interceptor，这样在 interceptor 内部有需要的话可以通过它加上 fetcherConfig 进行重新请求
    */
-  private _handleRequest = <T>(fetcherConfig: IFetcherConfig): Promise<T> => this.request<T>(fetcherConfig);
+  private handleRequest = <T>(fetcherConfig: IFetcherConfig): Promise<T> => this.request<T>(fetcherConfig);
   
   constructor(config?: IFetcherConfigDefault) {
-    this._defaultConfig = config;
+    this.defaultConfig = config;
   }
   
   /**
    * 获取此次调用需要用到的所有请求拦截器，且拦截器的顺序按指定顺序
    */
-  private _getInterceptorRequestQueue(fetcherConfig: IFetcherConfig): IInterceptorQueueItemRequest[] {
-    const unsorted: IInterceptorQueueItemRequest[] = [...this._interceptorQueueForRequest];
+  private getInterceptorRequestQueue(fetcherConfig: IFetcherConfig): IInterceptorQueueItemRequest[] {
+    const unsorted: IInterceptorQueueItemRequest[] = [...this.interceptorQueueForRequest];
     
     if (fetcherConfig.additionalInterceptorsForRequest) {
       fetcherConfig.additionalInterceptorsForRequest.forEach(v => unsorted.push(parseInterceptorQueueItemForRequest(v as TInterceptRequestArgs)));
@@ -77,8 +77,8 @@ export default class Fetcher implements IFetcherClassType {
     }];
   }
   
-  private _getInterceptorResponseQueue(fetcherConfig: IFetcherConfig): IInterceptorQueueItemResponse[] {
-    const unsorted: IInterceptorQueueItemResponse[] = [...this._interceptorQueueForResponse];
+  private getInterceptorResponseQueue(fetcherConfig: IFetcherConfig): IInterceptorQueueItemResponse[] {
+    const unsorted: IInterceptorQueueItemResponse[] = [...this.interceptorQueueForResponse];
     
     if (fetcherConfig.additionalInterceptorsForResponse) {
       fetcherConfig.additionalInterceptorsForResponse.forEach(v => unsorted.push(parseInterceptorQueueItemForResponse(v as TInterceptResponseArgs)));
@@ -93,10 +93,10 @@ export default class Fetcher implements IFetcherClassType {
    * 注意，Request 拦截器是一条不会反转 Reject 的 Promise 链，即只要任一环节进行了 `throw`，即表明接口失败，并且不会进行真正的接口调用，也不会
    * 进入响应拦截流程。
    */
-  private _invokeInterceptorQueueRequest(fetcherConfig: IFetcherConfig): Promise<IFetcherConfig> {
+  private invokeInterceptorQueueRequest(fetcherConfig: IFetcherConfig): Promise<IFetcherConfig> {
     let promise: Promise<IFetcherConfig> = Promise.resolve(fetcherConfig);
     
-    this._getInterceptorRequestQueue(fetcherConfig).forEach(v => {
+    this.getInterceptorRequestQueue(fetcherConfig).forEach(v => {
       promise = promise.then((configLastMerged: IFetcherConfig) => { // 上一次 merge 完的结果
         const {
           onFulfilled
@@ -109,7 +109,7 @@ export default class Fetcher implements IFetcherClassType {
         // 利用前置 `Promise.resolve()`，不管 onFulfilled 返回是否 Promise 都可以在一个运行空间获取到 configLastMerged 和 configToMerge
         // configToMerge 是 onFulfilled 计算后得到的结果，可能为空；也可能是 Promise
         return Promise.resolve()
-            .then(() => onFulfilled(configLastMerged, this._handleRequest))
+            .then(() => onFulfilled(configLastMerged, this.handleRequest))
             .then(configToMerge => mergeConfig(configLastMerged, configToMerge));
       });
     });
@@ -120,7 +120,7 @@ export default class Fetcher implements IFetcherClassType {
   /**
    * 逐个调用响应拦截器，你可以在 `onFulfilled` 里转换数据或者将结果转成错误；也可以在 `onReject` 中将结果反转成成功。
    */
-  private async _invokeInterceptorQueueResponse<T>(fetcherConfig: IFetcherConfig, fetcherResponse?: IFetcherResponse<T>, error?: IFetcherError): Promise<T> {
+  private async invokeInterceptorQueueResponse<T>(fetcherConfig: IFetcherConfig, fetcherResponse?: IFetcherResponse<T>, error?: IFetcherError): Promise<T> {
     let promise: Promise<T>;
     
     if (fetcherResponse) {
@@ -130,29 +130,29 @@ export default class Fetcher implements IFetcherClassType {
     }
     
     // 逐个调用响应拦截器，如果有 success 则其返回将作为结果传递给下一个拦截器
-    this._getInterceptorResponseQueue(fetcherConfig).forEach(v => {
+    this.getInterceptorResponseQueue(fetcherConfig).forEach(v => {
       promise = promise.then((result: T) => {
-        return v.onFulfilled ? v.onFulfilled(result, fetcherConfig, fetcherResponse, this._handleRequest) as T : result;
-      }, (err: IFetcherError) => {
+        return v.onFulfilled ? v.onFulfilled(result, fetcherConfig, fetcherResponse, this.handleRequest) as T : result;
+      }, err => {
+        const error2 = convertError(err, fetcherConfig);
+        
         /**
          * 如果继续 throw 则 promise 继续 reject，如果不 throw 则 promise 将被 resolve
          * 所以这里提供了「纠错」和「调整错误」两个功能
          */
         if (v.onRejected) {
-          return v.onRejected(err, fetcherConfig, fetcherResponse, this._handleRequest) as T;
+          return v.onRejected(error2, fetcherConfig, fetcherResponse, this.handleRequest) as T;
         }
         
-        throw err;
-      }).catch((err2: IFetcherError) => {
-        if (!err2.config) {
-          err2.config = fetcherConfig;
+        throw error2;
+      }).catch(err => {
+        const error2 = convertError(err, fetcherConfig);
+        
+        if (fetcherResponse?.data) {
+          error2.responseData = fetcherResponse.data;
         }
         
-        if (fetcherResponse?.data && !err2.responseData) {
-          err2.responseData = fetcherResponse.data;
-        }
-        
-        throw err2;
+        throw error2;
       });
     });
     
@@ -163,53 +163,49 @@ export default class Fetcher implements IFetcherClassType {
    * 添加「预设」请求拦截器，返回解除拦截的无参方法
    */
   interceptRequest(...args: TInterceptRequestArgs): IInterceptorRemover {
-    if (this._interceptorRequestSealed) {
+    if (this.interceptorRequestSealed) {
       throw new Error('[Fetcher#interceptRequest] Cannot add more interceptors. You need to unseal it first.');
     }
     
-    return queueInterceptor<IInterceptorQueueItemRequest>(this._interceptorQueueForRequest, parseInterceptorQueueItemForRequest(args));
+    return queueInterceptor<IInterceptorQueueItemRequest>(this.interceptorQueueForRequest, parseInterceptorQueueItemForRequest(args));
   }
   
   /**
    * 添加「预设」响应拦截器，返回解除拦截的无参方法
    */
   interceptResponse(...args: TInterceptResponseArgs): IInterceptorRemover {
-    if (this._interceptorResponseSealed) {
+    if (this.interceptorResponseSealed) {
       throw new Error('[Fetcher#interceptResponse] Cannot add more interceptors. You need to unseal it first.');
     }
     
-    return queueInterceptor<IInterceptorQueueItemResponse>(this._interceptorQueueForResponse, parseInterceptorQueueItemForResponse(args));
+    return queueInterceptor<IInterceptorQueueItemResponse>(this.interceptorQueueForResponse, parseInterceptorQueueItemForResponse(args));
   }
   
   /**
    * 对于「开箱即用」的 Fetcher 实例，由于是会被复用的单例，一般不希望它的拦截器被扩展，如果还是坚持要扩展，需要手动解除
    */
   sealInterceptors(requestSealed = true, responseSealed = true): void {
-    this._interceptorRequestSealed = requestSealed;
-    this._interceptorResponseSealed = responseSealed;
+    this.interceptorRequestSealed = requestSealed;
+    this.interceptorResponseSealed = responseSealed;
   }
   
   /**
    * 发送请求：前置请求拦截器 → 网络请求 → 后置响应拦截器
    */
   async request<T = unknown>(fetcherConfig?: IFetcherConfig): Promise<T> {
-    let finalConfig: IFetcherConfig = mergeConfig(this._defaultConfig, fetcherConfig);
+    let finalConfig: IFetcherConfig = mergeConfig(this.defaultConfig, fetcherConfig);
     
     // 1. 前置请求拦截器
     try {
-      finalConfig = await this._invokeInterceptorQueueRequest(finalConfig);
+      finalConfig = await this.invokeInterceptorQueueRequest(finalConfig);
     } catch (err) {
-      if (!err) { // 在 JS 里可以 throw undefined
-        throw err;
-      }
-      
-      const error = err as Error;
+      const error = convertError(err, finalConfig);
       
       if (error.name === EFetcherErrorName.SKIP_NETWORK) { // 绕过请求，直接返回
-        return (err as IFetcherErrorSpecial<T>).result;
+        return (error as IFetcherErrorSpecial<T>).result;
       }
       
-      throw convertError(error, finalConfig); // 继续错下去
+      throw error; // 继续错下去
     }
     
     // 2. 网络请求
@@ -219,10 +215,10 @@ export default class Fetcher implements IFetcherClassType {
     try {
       fetcherResponse = await fetchX<T>(finalConfig);
     } catch (err) {
-      error = convertError(err as Error, finalConfig);
+      error = convertError(err, finalConfig);
     }
     
     // 3. 后置响应拦截器
-    return this._invokeInterceptorQueueResponse<T>(finalConfig, fetcherResponse, error);
+    return this.invokeInterceptorQueueResponse<T>(finalConfig, fetcherResponse, error);
   }
 }

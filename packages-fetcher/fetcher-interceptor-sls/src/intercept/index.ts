@@ -16,7 +16,7 @@ function getDuration(config: FetcherConfig): number {
   return config._timeStarted ? Date.now() - config._timeStarted : -1;
 }
 
-export default function intercept(fetcher: Fetcher, options: IFetcherInterceptorSlsOptions): () => void {
+export default function intercept(fetcher: Fetcher, options: IFetcherInterceptorSlsOptions, priority = 50): () => void {
   const {
     topicSuccess = 'fetcher_success',
     topicError = 'fetcher_error',
@@ -54,5 +54,5 @@ export default function intercept(fetcher: Fetcher, options: IFetcherInterceptor
     throw error;
   }
   
-  return fetcher.interceptResponse(onFulfilled, onRejected);
+  return fetcher.interceptResponse(priority, onFulfilled, onRejected);
 }

@@ -228,9 +228,9 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   
   test('interceptor response onRejected', async () => {
     const myFetcher = createFetcher();
-    const remove = myFetcher.interceptResponse(undefined, () => {
-      return 'response corrected';
-    });
+    const remove = myFetcher.interceptResponse(undefined, () => new Promise(resolve => {
+      setTimeout(() => resolve('response corrected'), 200);
+    }));
     
     expect(await myFetcher.post('/api/404')).toBe('response corrected');
     

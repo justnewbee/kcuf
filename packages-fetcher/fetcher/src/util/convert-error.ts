@@ -1,3 +1,5 @@
+import _isError from 'lodash/isError';
+
 import {
   FetchErrorName
 } from '@kcuf/fetcher-fetch';
@@ -14,7 +16,7 @@ import {
 } from '../enum';
 
 /**
- * 将错误类型转成 IFetcherError，填入 config，并把 fetcher-fetch 和 fetcher-jsonp 的错误 name 转成 fetcher 的
+ * 确保任何错误（包括 undefined 等）都转成 FetcherError，填入 config，并把 fetcher-fetch 和 fetcher-jsonp 的错误 name 转成 fetcher 的
  *
  * 曾经利用过 Error 的继承，但效果不好.. 有兴趣可以看看
  *   如何自定义错误 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
@@ -22,8 +24,8 @@ import {
  * 其中一个问题是没有办法（或者我不知道怎么弄）给自定义的 Error 类添加 toJSON 方法（写在 prototype 里无法继承，只能写在实例上）
  * 所以最终选择了工厂模式
  */
-export default function convertError(err: Error, config: IFetcherConfig): IFetcherError {
-  const error = err as IFetcherError;
+export default function convertError(err: unknown, config: IFetcherConfig): IFetcherError {
+  const error = (_isError(err) ? err : new Error(String(err || ''))) as IFetcherError;
   
   error.config = config;
   

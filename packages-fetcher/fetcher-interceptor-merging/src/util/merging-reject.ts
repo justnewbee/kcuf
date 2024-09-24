@@ -8,7 +8,7 @@ export default function mergingReject(key: string, err: Error): void {
     mergingRemove(key);
     
     // setTimeout 以第 0 个请求最先
-    setTimeout(() => queue?.forEach(({
+    setTimeout(() => queue.forEach(({
       reject: promiseReject
     }) => promiseReject(err)), 0);
   }
