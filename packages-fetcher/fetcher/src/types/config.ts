@@ -1,6 +1,7 @@
 import {
   IStringifyOptions
 } from 'qs';
+
 import {
   FetchOptions
 } from '@kcuf/fetcher-fetch';
@@ -13,9 +14,8 @@ import {
   TFetcherParams
 } from './common';
 import {
-  IFetcherInterceptorRequest,
-  IFetcherInterceptorResponseFulfilled,
-  IFetcherInterceptorResponseRejected
+  TInterceptRequestArgs,
+  TInterceptResponseArgs
 } from './interceptor';
 
 /**
@@ -66,25 +66,10 @@ export interface IFetcherConfigDefault extends Omit<FetchOptions, 'method' | 'he
   bodySerializeOptions?: IStringifyOptions;
 }
 
-export type TInterceptRequestArgs = [IFetcherInterceptorRequest] | [number, IFetcherInterceptorRequest];
-export type TInterceptResponseArgs<T = unknown, D = T> = [
-  IFetcherInterceptorResponseFulfilled<T, D>
-] | [
-  IFetcherInterceptorResponseFulfilled<T, D>, IFetcherInterceptorResponseRejected<T>
-] | [
-  undefined, IFetcherInterceptorResponseRejected<T>
-] | [
-  number, IFetcherInterceptorResponseFulfilled<T, D>
-] | [
-  number, IFetcherInterceptorResponseFulfilled<T, D>, IFetcherInterceptorResponseRejected<T>
-] | [
-  number, undefined, IFetcherInterceptorResponseRejected<T>
-];
-
 /**
  * interceptor 的 config 参数，也是 Fetcher.prototype.request 的参数
  *
- * `_` 打头的是 fetcher 自己填入的，传入也没用
+ * `_` 打头的是 fetcher 自己填入的，不要在调用时传入
  */
 export interface IFetcherConfig extends IFetcherConfigDefault {
   /**
@@ -95,6 +80,10 @@ export interface IFetcherConfig extends IFetcherConfigDefault {
    * 真正开始请求的时间，由最末一个 interceptor 计入，便于需要记录耗时的场景
    */
   _timeStarted?: number;
+  /**
+   * 在 Fetcher 内部由拦截器发起的请求
+   */
+  _byInterceptor?: boolean;
   /**
    * 调用时临时增加的请求拦截器，不至于影响到整个实例
    */

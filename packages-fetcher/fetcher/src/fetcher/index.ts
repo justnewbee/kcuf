@@ -52,7 +52,10 @@ export default class Fetcher implements IFetcherClassType {
   /**
    * 传递给 interceptor，这样在 interceptor 内部有需要的话可以通过它加上 fetcherConfig 进行重新请求
    */
-  private handleRequest = <T>(fetcherConfig: IFetcherConfig): Promise<T> => this.request<T>(fetcherConfig);
+  private requestByInterceptor = <T>(fetcherConfig: IFetcherConfig): Promise<T> => this.request<T>({
+    ...fetcherConfig,
+    _byInterceptor: true
+  });
   
   constructor(config?: IFetcherConfigDefault) {
     this.defaultConfig = config;
@@ -90,7 +93,7 @@ export default class Fetcher implements IFetcherClassType {
   /**
    * 逐个调用请求拦截器，每个拦截器可以返回部分期望修改的 fetcherConfig（也可以不返回任何东西），最终得到的是合并后完整的 fetcherConfig 对象。
    *
-   * 注意，Request 拦截器是一条不会反转 Reject 的 Promise 链，即只要任一环节进行了 `throw`，即表明接口失败，并且不会进行真正的接口调用，也不会
+   * 注意，Request 拦截器是一条不会反转 Reject 的 Promise 链，即只要其中任何一环 `throw`，即表明接口失败，并且不会进行真正的接口调用，也不会
    * 进入响应拦截流程。
    */
   private invokeInterceptorQueueRequest(fetcherConfig: IFetcherConfig): Promise<IFetcherConfig> {
@@ -109,7 +112,7 @@ export default class Fetcher implements IFetcherClassType {
         // 利用前置 `Promise.resolve()`，不管 onFulfilled 返回是否 Promise 都可以在一个运行空间获取到 configLastMerged 和 configToMerge
         // configToMerge 是 onFulfilled 计算后得到的结果，可能为空；也可能是 Promise
         return Promise.resolve()
-            .then(() => onFulfilled(configLastMerged, this.handleRequest))
+            .then(() => onFulfilled(configLastMerged, this.requestByInterceptor))
             .then(configToMerge => mergeConfig(configLastMerged, configToMerge));
       });
     });
@@ -132,7 +135,7 @@ export default class Fetcher implements IFetcherClassType {
     // 逐个调用响应拦截器，如果有 success 则其返回将作为结果传递给下一个拦截器
     this.getInterceptorResponseQueue(fetcherConfig).forEach(v => {
       promise = promise.then((result: T) => {
-        return v.onFulfilled ? v.onFulfilled(result, fetcherConfig, fetcherResponse, this.handleRequest) as T : result;
+        return v.onFulfilled ? v.onFulfilled(result, fetcherConfig, fetcherResponse, this.requestByInterceptor) as T : result;
       }, err => {
         const error2 = convertError(err, fetcherConfig);
         
@@ -141,7 +144,7 @@ export default class Fetcher implements IFetcherClassType {
          * 所以这里提供了「纠错」和「调整错误」两个功能
          */
         if (v.onRejected) {
-          return v.onRejected(error2, fetcherConfig, fetcherResponse, this.handleRequest) as T;
+          return v.onRejected(error2, fetcherConfig, fetcherResponse, this.requestByInterceptor) as T;
         }
         
         throw error2;

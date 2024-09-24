@@ -52,3 +52,18 @@ export interface IInterceptorQueueItemResponse<T = unknown, D = T> extends IInte
   onFulfilled?: IFetcherInterceptorResponseFulfilled<T, D>;
   onRejected?: IFetcherInterceptorResponseRejected<T>;
 }
+
+export type TInterceptRequestArgs = [IFetcherInterceptorRequest] | [number, IFetcherInterceptorRequest];
+export type TInterceptResponseArgs<T = unknown, D = T> = [
+  IFetcherInterceptorResponseFulfilled<T, D>
+] | [
+  IFetcherInterceptorResponseFulfilled<T, D>, IFetcherInterceptorResponseRejected<T>
+] | [
+  undefined, IFetcherInterceptorResponseRejected<T>
+] | [
+  number, IFetcherInterceptorResponseFulfilled<T, D>
+] | [
+  number, IFetcherInterceptorResponseFulfilled<T, D>, IFetcherInterceptorResponseRejected<T>
+] | [
+  number, undefined, IFetcherInterceptorResponseRejected<T>
+];
