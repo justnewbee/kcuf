@@ -24,7 +24,15 @@ export default function storageFactory<T extends object>(wholeDataKey: string, d
     };
   };
   
-  storageWhole.update = <K extends keyof T>(...args: [Partial<T>] | [K, T[K]]): void => {
+  function save(wholeData: T): void {
+    try {
+      storage.setItem(wholeDataKey, JSON.stringify(wholeData));
+    } catch (err) {
+      // ignore
+    }
+  }
+  
+  function update<K extends keyof T>(...args: [Partial<T>] | [K, T[K]]): void {
     const data = storageWhole();
     let dataToSave: T;
     
@@ -40,12 +48,11 @@ export default function storageFactory<T extends object>(wholeDataKey: string, d
       };
     }
     
-    try {
-      storage.setItem(wholeDataKey, JSON.stringify(dataToSave));
-    } catch (err) {
-      // ignore
-    }
-  };
+    save(dataToSave);
+  }
+  
+  storageWhole.save = save;
+  storageWhole.update = update;
   
   return storageWhole;
 }
