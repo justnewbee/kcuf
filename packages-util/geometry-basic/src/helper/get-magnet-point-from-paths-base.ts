@@ -1,32 +1,23 @@
 import {
   TPath,
   TPoint,
-  TMagnetPointResult
+  IMagnetPoint
 } from '../types';
 
-type TGetter = (p: TPoint, paths: TPath, magnetRadius: number) => TMagnetPointResult;
+type TGetter = (p: TPoint, paths: TPath, magnetRadius: number) => IMagnetPoint | null;
 
-/**
- * 从一组路径的所有点找举例 p 最近磁吸点及两者间距
- */
-export default function getMagnetPointFromPathsBase(p: TPoint, paths: TPath[], magnetRadius: number, getter: TGetter): TMagnetPointResult {
-  let magnetPoint: TPoint | undefined;
-  let minMagnetDistance = Infinity;
-  
-  paths.forEach(v => {
-    const result = getter(p, v, magnetRadius);
+export default function getMagnetPointFromPathsBase(p: TPoint, paths: TPath[], magnetRadius: number, getter: TGetter): IMagnetPoint | null {
+  return paths.reduce((result: IMagnetPoint | null, v): IMagnetPoint | null => {
+    const magnetPoint = getter(p, v, magnetRadius);
     
     if (!result) {
-      return;
+      return magnetPoint;
     }
     
-    const [mp, distance] = result;
-    
-    if (distance < minMagnetDistance) {
-      magnetPoint = mp;
-      minMagnetDistance = distance;
+    if (!magnetPoint) {
+      return result;
     }
-  });
-  
-  return magnetPoint ? [magnetPoint, minMagnetDistance] : null;
+    
+    return magnetPoint.distance < result.distance || (magnetPoint.distance === result.distance && magnetPoint.order < result.order) ? magnetPoint : result;
+  }, null);
 }

@@ -6,6 +6,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import {
   Point,
   Path,
+  MagnetPoint,
   roundCoords,
   pointSiblingsFromPath,
   getSnappingPoint,
@@ -854,17 +855,17 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     // 磁吸，先从正在新建或编辑的图形自身找，再找其他
     if (this.magnetEnabled && magnetRadius > 0 && (itemCreating || (itemEditing && itemEditing.stats.draggingPointIndex >= 0))) {
       // 从正在新建的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
-      let magnetP: Point | null = creatingPath ? getMagnetPointAlongPath(coords, creatingPath, magnetRadius) : null;
+      let magnetPoint: MagnetPoint | null = creatingPath ? getMagnetPointAlongPath(coords, creatingPath, magnetRadius) : null;
       
       // 从正在编辑的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
-      magnetP ||= itemEditing ? getMagnetPointAlongPath(coords, itemEditing.stats.path.filter((_v, i) => i !== itemEditing.stats.draggingPointIndex), magnetRadius) : null;
+      magnetPoint ||= itemEditing ? getMagnetPointAlongPath(coords, itemEditing.stats.path.filter((_v, i) => i !== itemEditing.stats.draggingPointIndex), magnetRadius) : null;
       
       // 从非编辑图形中找
-      magnetP ||= getMagnetPointAlongPaths(coords, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
+      magnetPoint ||= getMagnetPointAlongPaths(coords, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
       
-      if (magnetP) {
+      if (magnetPoint) {
         this.inMagnet = true;
-        this.imageMouse = this.roundClampCoordsInImage(magnetP);
+        this.imageMouse = this.roundClampCoordsInImage(magnetPoint.point);
         
         return;
       }

@@ -1,26 +1,30 @@
 import {
   TPath,
   TPoint,
-  TMagnetPointResult
+  IMagnetPoint
 } from '../types';
 
 import segmentLength from './segment-length';
 
 /**
- * 从 path 的所有点中找出距 p 最近的磁吸点，返回磁吸点和间距
+ * 从 path 的所有顶点中找距 p 最近的磁吸点
  */
-export default function getMagnetPointFromPathPoints(p: TPoint, path: TPath, magnetRadius: number): TMagnetPointResult {
-  let magnetPoint: TPoint | undefined;
-  let minMagnetDistance = Infinity;
+export default function getMagnetPointFromPathPoints(p: TPoint, path: TPath, magnetRadius: number): IMagnetPoint | null {
+  let point: TPoint | undefined;
+  let distance = Infinity;
   
   path.forEach(v => {
-    const distance = segmentLength([p, v]);
+    const d = segmentLength([p, v]);
     
-    if (distance <= magnetRadius && distance < minMagnetDistance) {
-      magnetPoint = v;
-      minMagnetDistance = distance;
+    if (d <= magnetRadius && d < distance) {
+      point = v;
+      distance = d;
     }
   });
   
-  return magnetPoint ? [magnetPoint, minMagnetDistance] : null;
+  return point ? {
+    point,
+    distance,
+    order: 1
+  } : null;
 }

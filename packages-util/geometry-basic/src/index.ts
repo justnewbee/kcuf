@@ -13,6 +13,6 @@ export type {
   TLineStandard as LineStandard,
   TBbox as Bbox,
   TVector as Vector,
-  TMagnetPointResult as MagnetPointResult,
+  IMagnetPoint as MagnetPoint,
   IPathEdgeCenterPoints as PathEdgeCenterPoints
 } from './types';
