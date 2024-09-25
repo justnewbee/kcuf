@@ -15,7 +15,9 @@ import {
 import {
   IMarkingItemStats
 } from './stats';
-import { IBeforeHook } from './events';
+import {
+  IBeforeHook
+} from './events';
 
 /**
  * 从 Marking 对象透传到 MarkingItem 的选项，可以在 new MarkingItem 的时候有一部分覆盖

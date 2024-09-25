@@ -18,6 +18,7 @@ export default function getStatsDisplayHtml<T>(stats: IMarkingStageStats<T>, cau
     // 禁用
     ['Disabled', displayBoolean(stats.disabled)],
     // 大小
+    ['Zoom', displayPercentage(stats.zoom)],
     ['StageSize', displaySize(stats.stageSize)],
     ['CanvasSize', displaySize(stats.canvasSize)],
     ['CanvasCoords', displayCoords(stats.canvasCoords)],
@@ -25,7 +26,8 @@ export default function getStatsDisplayHtml<T>(stats: IMarkingStageStats<T>, cau
     ['ImageSize', displaySize(stats.imageSize)],
     ['ImageScale', displayPercentage(stats.imageScale)],
     ['ImageMouse', displayCoords(stats.imageMouse)],
-    ['Zoom', displayPercentage(stats.zoom)],
+    ['ImageMouseInMagnet', displayBoolean(stats.imageMouseInMagnet)],
+    ['ImageMouseInSnap', displayBoolean(stats.imageMouseInSnap)],
     // 鼠标状态
     ['MouseInStage', displayCoords(stats.mouseInStage)],
     ['MouseInCanvas', displayCoords(stats.mouseInCanvas)],

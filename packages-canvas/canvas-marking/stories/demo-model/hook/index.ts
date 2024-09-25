@@ -9,14 +9,12 @@ export { default as useMarkingStage } from './use-marking-stage';
 export { default as useMarkingStageStats } from './use-marking-stage-stats';
 export { default as useLogEvents } from './use-log-events';
 export { default as useFullscreen } from './use-fullscreen';
-export { default as useFloatingVisible } from './use-floating-visible';
 
 // handlers - 对 useDispatch、props.onXx 的封装，不要直接 export useDispatchXx
 export { default as useInit } from './use-init';
 export { default as useHandleDestroy } from './use-handle-destroy';
 export { default as useHandleToggleLogEvents } from './use-handle-toggle-log-events';
 export { default as useHandleToggleFullscreen } from './use-handle-toggle-fullscreen';
-export { default as useHandleToggleFloatingVisible } from './use-handle-toggle-floating-visible';
 export { default as useHandleToggleDisabled } from './use-handle-toggle-disabled';
 export { default as useHandleDebugStats } from './use-handle-debug-stats';
 export { default as useHandleSetDataAerial } from './use-handle-set-data-aerial';

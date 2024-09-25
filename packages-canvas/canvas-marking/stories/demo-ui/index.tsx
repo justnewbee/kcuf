@@ -12,7 +12,6 @@ import {
 } from '../demo-model';
 
 import Ops from './ops';
-import Floating from './floating';
 
 interface IScContainerProps {
   $fullscreen?: boolean;
@@ -44,7 +43,6 @@ export default function StoryDefault(): ReactElement {
   
   return <ScContainer ref={refDomContainer} $fullscreen={fullscreen}>
     <ScMarking ref={refDomMarkingStage} />
-    <Floating />
     <Ops />
   </ScContainer>;
 }

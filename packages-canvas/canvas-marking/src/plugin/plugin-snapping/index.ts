@@ -17,12 +17,12 @@ export default function pluginSnapping<T>(markingStage: IMarkingStageClass<T>): 
   
   const unbindDocKeydown = bindDocumentEvent('keydown', (e: KeyboardEvent): void => {
     if (inCanvas && e.key === KEY) {
-      markingStage.toggleSnapping(true);
+      markingStage.toggleSnap(true);
     }
   }, true);
   const unbindDocKeyup = bindDocumentEvent('keyup', (e: KeyboardEvent): void => {
     if (e.key === KEY) {
-      markingStage.toggleSnapping(false);
+      markingStage.toggleSnap(false);
     }
   }, true);
   

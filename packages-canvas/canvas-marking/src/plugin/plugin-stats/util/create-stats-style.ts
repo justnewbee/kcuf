@@ -26,13 +26,13 @@ export default function createStatsStyle(stage: HTMLDivElement): string {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  line-height: 19px;
+  line-height: 17px;
   padding: 0 6px;
   border-bottom: 1px solid hsl(0 0% 100% / 17%);
 }
 .${className} ul li .label {
   margin-right: 8px;
-  opacity: 0.57;
+  opacity: 0.67;
   font-weight: 200;
 }`;
   

@@ -8,7 +8,6 @@ import {
   IMAGE_AERIAL
 } from '../const';
 import {
-  generateCallback,
   getHoveringInfo
 } from '../util';
 
@@ -34,21 +33,6 @@ export default function useInit(): () => void {
         pluginTooltip: {
           getHoveringInfo
         },
-        onCreateStart: generateCallback('onCreateStart'),
-        onCreateCancel: generateCallback('onCreateCancel'),
-        onCreateComplete: generateCallback('onCreateComplete'),
-        onClick: generateCallback('onClick'),
-        onSelectionChange: generateCallback('onSelectionChange'),
-        onPointRemove: generateCallback('onPointRemove'),
-        onPointInsert: generateCallback('onPointInsert'),
-        onDragEnd: generateCallback('onDragEnd'),
-        onEditCancel: generateCallback('onEditCancel'),
-        onEditComplete: generateCallback('onEditComplete'),
-        onDelete: generateCallback('onDelete'),
-        onZoomChange: generateCallback('onZoomChange'),
-        onMoveStart: generateCallback('onMoveStart'),
-        onMovePause: generateCallback('onMovePause'),
-        onMoveEnd: generateCallback('onMoveEnd'),
         onStatsChange: dispatchSetMarkingStageStats
       }));
     }

@@ -704,7 +704,6 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     }
     
     this.clearEditing();
-    
     this.refreshStats();
     
     return cancel || stats.dirty;
@@ -723,13 +722,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     } = this;
     
     if (hoveringPointIndex >= 0) { // 在已有的点上
-      if (statsSnapshot.creatingWillFinish === 'close') {
-        // this.finishCreating();
-        
-        return 'close';
-      }
-      
-      return false;
+      return statsSnapshot.creatingWillFinish === 'close' ? 'close' : false;
     }
     
     const {
@@ -743,7 +736,6 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const pathForDraw = this.getPathForDraw();
     let last: boolean;
     
-    // TODO 这里逻辑有冗余
     switch (options.type) {
       case 'rect': // 利用对角线两个点，生成矩形的 4 个点
       case 'rect2': // 先画一条边的两个点，再利用第三个点确定另一条平行边所在的位置，从而确定一个矩形
@@ -756,8 +748,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       default:
         last = max > 0 && path.length + 1 >= max;
         
-        // 即将添加的是最末一个点，需避免 crossing
-        if (last && stats.crossing) {
+        if (last && stats.crossing) { // 即将添加的是最末一个点，需避免 crossing
           return false;
         }
         

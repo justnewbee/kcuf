@@ -47,6 +47,7 @@ export interface IMarkingItemStats<T = void> {
 export interface IMarkingStageStats<T = void> {
   // 整体状态
   disabled: boolean;
+  zoom: number;
   stageSize: TSize;
   canvasSize: TSize;
   canvasCoords: Point; // 画布左上角相对于 stage 的位置 (x, y)
@@ -54,7 +55,8 @@ export interface IMarkingStageStats<T = void> {
   imageSize: TSize;
   imageScale: number;
   imageMouse: Point;
-  zoom: number;
+  imageMouseInMagnet: boolean;
+  imageMouseInSnap: boolean;
   mouseInStage: Point | null;
   mouseInCanvas: Point | null;
   mouseDownCanvas: boolean;

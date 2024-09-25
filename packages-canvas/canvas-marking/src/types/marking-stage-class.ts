@@ -66,7 +66,7 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
   /**
    * 切换是否 snap
    */
-  toggleSnapping(snapping?: boolean): void;
+  toggleSnap(snapping?: boolean): void;
   
   /**
    * 开始新建

@@ -29,8 +29,8 @@ export enum EMarkingStatsChangeCause {
   TOGGLE_DISABLED_FALSE = 'toggle_disabled:false',
   TOGGLE_MAGNET_TRUE = 'toggle_magnet:true',
   TOGGLE_MAGNET_FALSE = 'toggle_magnet:false',
-  TOGGLE_SNAPPING_TRUE = 'toggle_snapping:true',
-  TOGGLE_SNAPPING_FALSE = 'toggle_snapping:false',
+  TOGGLE_SNAP_TRUE = 'toggle_snap:true',
+  TOGGLE_SNAP_FALSE = 'toggle_snap:false',
   LOADING_IMAGE = 'loading_image', // 由 SET_DATA 间接触发
   START_CREATING = 'start_creating',
   FINISH_CREATING = 'finish_creating',

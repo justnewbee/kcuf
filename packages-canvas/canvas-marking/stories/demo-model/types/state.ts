@@ -10,5 +10,4 @@ export interface IModelState {
   markingStageStats: MarkingStageStats | null;
   logEvents: boolean;
   fullscreen: boolean; // TODO use useFullscreen hook
-  floatingVisible: boolean;
 }
