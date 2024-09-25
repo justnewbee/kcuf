@@ -3,12 +3,14 @@ ignores: [
   "@typescript-eslint/*",
   "stylelint",
   "stylelint-*",
+  "@chromatic-com/storybook",
   "@storybook/*",
   "@commitlint/*",
   "markdownlint-cli2",
   "@kcuf/*-config",
   "ts-node",
-  "lerna"
+  "lerna",
+  "rimraf"
 ]
 ignorePatterns: [
   "build"
