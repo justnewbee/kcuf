@@ -5,7 +5,7 @@ import {
 /**
  * 以给定两点作为矩形的对角线（不论水平或垂直），求矩形的四个点
  */
-export default function getRectPathByTwoPoints(p1: TPoint, p2: TPoint): [TPoint, TPoint, TPoint, TPoint] {
+export default function pathRectByTwoPoints(p1: TPoint, p2: TPoint): [TPoint, TPoint, TPoint, TPoint] {
   return [
     p1,
     [p1[0], p2[1]],

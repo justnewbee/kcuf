@@ -716,7 +716,6 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     }
     
     const {
-      path,
       hoveringPointIndex,
       pointCountRange: [, max],
       statsSnapshot
@@ -733,31 +732,33 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       options,
       stats
     } = this;
-    
-    const pathForDraw = this.getPathForDraw();
     let last: boolean;
     
     switch (options.type) {
       case 'rect': // 利用对角线两个点，生成矩形的 4 个点
-      case 'rect2': // 先画一条边的两个点，再利用第三个点确定另一条平行边所在的位置，从而确定一个矩形
-        path.length = 0; // 不要改 this.path 的引用
-        path.push(...pathForDraw);
+        this.path = this.getPathForDraw();
         
-        last = path.length >= 4;
+        last = this.path.length >= 4;
+        
+        break;
+      case 'rect2': // 先画一条边的两个点，再利用第三个点确定另一条平行边所在的位置，从而确定一个矩形
+        this.path = this.getPathForDraw();
+        
+        last = this.path.length >= 4;
         
         break;
       default:
-        last = max > 0 && path.length + 1 >= max;
+        last = max > 0 && this.path.length + 1 >= max;
         
         if (last && stats.crossing) { // 即将添加的是最末一个点，需避免 crossing
           return false;
         }
         
-        if (pointIsAlongPath(imageMouse, path, true)) {
+        if (pointIsAlongPath(imageMouse, this.path, true)) {
           return false;
         }
         
-        path.push(imageMouse);
+        this.path.push(imageMouse);
         
         break;
     }

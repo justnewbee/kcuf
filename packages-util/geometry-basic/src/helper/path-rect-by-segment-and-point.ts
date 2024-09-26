@@ -16,7 +16,7 @@ import pointDistanceToSegmentDetailed from './point-distance-to-segment-detailed
  * - 若点离线过近，返回 null
  * - 给定范围（左上顶点和右下顶点围成的正矩形）的情况下，需保证矩形不会超出
  */
-export default function getRectPathBySegmentAndPoint(segment: TSegment, point: TPoint, limit?: [TPoint, TPoint]): [TPoint, TPoint, TPoint, TPoint] | null {
+export default function pathRectBySegmentAndPoint(segment: TSegment, point: TPoint, limit?: [TPoint, TPoint]): [TPoint, TPoint, TPoint, TPoint] | null {
   const [, dx0, dy0] = pointDistanceToSegmentDetailed(point, segment);
   
   if (Math.abs(dx0) < Number.EPSILON) { // dy0 认为也是 0

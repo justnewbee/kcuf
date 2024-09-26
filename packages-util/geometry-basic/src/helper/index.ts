@@ -68,6 +68,8 @@ export { default as pathEdgeCenterPoints } from './path-edge-center-points';
 export { default as pathHasSegmentCrossing } from './path-has-segment-crossing';
 export { default as pathSegmentList } from './path-segment-list';
 export { default as pathMidpointList } from './path-midpoint-list';
+export { default as pathRectBySegmentAndPoint } from './path-rect-by-segment-and-point';
+export { default as pathRectByTwoPoints } from './path-rect-by-two-points';
 // 路径 vs 线段
 export { default as pathIntersectionWithSegment } from './path-intersection-with-segment';
 // 路径 vs 直线
@@ -75,8 +77,6 @@ export { default as pathIntersectionWithLine } from './path-intersection-with-li
 export { default as pathSplitByLine } from './path-split-by-line';
 export { default as pathSplitByLines } from './path-split-by-lines';
 // TODO
-export { default as getRectPathBySegmentAndPoint } from './get-rect-path-by-segment-and-point';
-export { default as getRectPathByTwoPoints } from './get-rect-path-by-two-points';
 export { default as checkInPathPointDuplicate } from './check-in-path-point-duplicate';
 export { default as getAuxiliarySegmentList } from './get-auxiliary-segment-list';
 
