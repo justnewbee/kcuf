@@ -554,9 +554,13 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       this.emit('drag-end', itemEditing.stats, statsList);
     }
     
-    if (!mouseInStage || mouseDownMoving) {
+    if (mouseDownMoving) {
       this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_UP_WINDOW);
       
+      return;
+    }
+    
+    if (!mouseInStage) {
       return;
     }
     
