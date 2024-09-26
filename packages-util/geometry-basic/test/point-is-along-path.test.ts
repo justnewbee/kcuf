@@ -37,4 +37,21 @@ describe('pointIsAlongPath(point: Point, path: Path): boolean', () => {
     expect(pointIsAlongPath([2, 2], TEST_PATH_4_SQUARE.path)).toBe(false);
     expect(pointIsAlongPath([2, 3], TEST_PATH_4_SQUARE.path)).toBe(false);
   });
+  
+  test('bug fix', () => {
+    expect(pointIsAlongPath([2857.5015, 2849.8033], [
+      [2444.898, 2608.1633],
+      [2714.2857, 2922.449],
+      [3559.1837, 2493.8776],
+      [3363.744, 2593.0137]
+    ], true)).toBe(true);
+  });
+  
+  test('bug fix 2', () => {
+    expect(pointIsAlongPath([3325.6552, 2072.8126], [
+      [2661.2245, 1824.4898],
+      [2902.0408, 2469.3878],
+      [3669.3878, 1751.0204]
+    ], true)).toBe(true);
+  });
 });

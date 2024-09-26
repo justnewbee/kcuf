@@ -11,6 +11,7 @@ import {
   segmentLength,
   segmentMidpoint,
   pathHasSegmentCrossing,
+  pointIsAlongPath,
   pointIsWithinPath,
   pathPerimeter,
   pathArea,
@@ -749,6 +750,10 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
         last = max > 0 && path.length + 1 >= max;
         
         if (last && stats.crossing) { // 即将添加的是最末一个点，需避免 crossing
+          return false;
+        }
+        
+        if (pointIsAlongPath(imageMouse, path, true)) {
           return false;
         }
         

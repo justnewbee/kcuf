@@ -18,6 +18,6 @@ import pointIsAlongSegment from './point-is-along-segment';
  *    - 对 canvas context 产生依赖
  * 2. 开发时的热加载导致有可能导致报错「Argument 1 is not a finite floating-point value.」
  */
-export default function pointIsAlongPath(point: TPoint, path: TPath): boolean {
-  return pathSegmentList(path).some(v => pointIsAlongSegment(point, v), false);
+export default function pointIsAlongPath(point: TPoint, path: TPath, open?: boolean): boolean {
+  return pathSegmentList(path, open).some(v => pointIsAlongSegment(point, v), false);
 }

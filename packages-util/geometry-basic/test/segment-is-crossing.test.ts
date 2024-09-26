@@ -39,13 +39,13 @@ describe('segmentIsCrossing(s1: Segment, s2: Segment): boolean', () => {
     expect(segmentIsCrossing([[1, 2], [2, 7]], [[1, 3], [2, 6]])).toBe(true);
   });
   
-  test('bug fixed', () => {
+  test('bug fix', () => {
     expect(segmentIsCrossing([
       [2689.7959, 2853.0612],
       [3346.9388, 2412.2449]
     ], [
       [2342.8571, 2551.0204],
       [3066.7723, 2600.1826]
-    ])).toEqual(true);
+    ])).toBe(true);
   });
 });
