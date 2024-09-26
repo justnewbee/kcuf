@@ -17,9 +17,9 @@ import pointDistanceToSegmentDetailed from './point-distance-to-segment-detailed
  * - 给定范围（左上顶点和右下顶点围成的正矩形）的情况下，需保证矩形不会超出
  */
 export default function pathRectBySegmentAndPoint(segment: TSegment, point: TPoint, limit?: [TPoint, TPoint]): [TPoint, TPoint, TPoint, TPoint] | null {
-  const [, dx0, dy0] = pointDistanceToSegmentDetailed(point, segment);
+  const [d, dx0, dy0] = pointDistanceToSegmentDetailed(point, segment);
   
-  if (Math.abs(dx0) < Number.EPSILON) { // dy0 认为也是 0
+  if (d < 1) {
     return null;
   }
   
@@ -29,7 +29,7 @@ export default function pathRectBySegmentAndPoint(segment: TSegment, point: TPoi
   let p4x = p1[0] + dx0;
   let p4y = p1[1] + dy0;
   
-  if (!limit) {
+  if (!limit || !dx0 || !dy0) { // 水平或垂直的情况下，不需要对 limit 进行调整
     return [
       p1,
       p2,

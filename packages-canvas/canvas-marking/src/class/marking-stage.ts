@@ -1314,6 +1314,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   
   zoomReset(): void {
     this.zoomTo(1, EMarkingStatsChangeCause.ZOOM_RESET);
+    this.moveTo([0, 0]);
   }
   
   moveReady(): void {

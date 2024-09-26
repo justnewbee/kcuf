@@ -55,7 +55,8 @@ import {
   canvasCheckPointInStroke,
   markingDrawBorder,
   markingDrawInsertionPoint,
-  markingDrawPoint
+  markingDrawPoint,
+  canFinishRect
 } from '../util';
 
 export default class MarkingItem<T> implements IMarkingItemClass<T> {
@@ -428,7 +429,8 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
   private generateStats(): IMarkingItemStats<T> {
     const {
       markingStage: {
-        imageSize
+        imageSize,
+        imageScale
       },
       options,
       path,
@@ -448,7 +450,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       switch (options.type) {
         case 'rect':
         case 'rect2':
-          creatingWillFinish = pathForDraw.length >= 4; // 自由矩形只需要三个点
+          creatingWillFinish = canFinishRect(pathForDraw, imageScale); // 自由矩形只需要三个点
           
           break;
         default:
@@ -727,24 +729,29 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     const {
       markingStage: {
-        imageMouse
+        imageMouse,
+        imageScale
       },
       options,
       stats
     } = this;
-    let last: boolean;
+    let newPath: Path | undefined;
+    let last = false;
     
     switch (options.type) {
-      case 'rect': // 利用对角线两个点，生成矩形的 4 个点
-        this.path = this.getPathForDraw();
+      case 'rect': // path 只可能是 0、1、4 个点
+      case 'rect2': // path 只可能是 0、1、2、4 个点
+        newPath = this.getPathForDraw();
         
-        last = this.path.length >= 4;
-        
-        break;
-      case 'rect2': // 先画一条边的两个点，再利用第三个点确定另一条平行边所在的位置，从而确定一个矩形
-        this.path = this.getPathForDraw();
-        
-        last = this.path.length >= 4;
+        if (newPath.length >= 4) {
+          if (canFinishRect(newPath, imageScale)) { // TODO 这里和 creatingWillFinish 有点冗余
+            this.path = newPath;
+            
+            last = true;
+          }
+        } else {
+          this.path = newPath;
+        }
         
         break;
       default:

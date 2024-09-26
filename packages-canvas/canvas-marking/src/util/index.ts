@@ -29,3 +29,5 @@ export { default as canvasDrawArea } from './canvas-draw-area';
 export { default as markingDrawBorder } from './marking-draw-border';
 export { default as markingDrawPoint } from './marking-draw-point';
 export { default as markingDrawInsertionPoint } from './marking-draw-insertion-point';
+
+export { default as canFinishRect } from './can-finish-rect';
