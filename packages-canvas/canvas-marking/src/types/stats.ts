@@ -5,7 +5,9 @@ import {
 
 import {
   TSize,
-  TCreatingWillFinish
+  TCreatingWillFinish,
+  TImageStatus,
+  TImageMouseJustified
 } from './common';
 
 /**
@@ -51,12 +53,11 @@ export interface IMarkingStageStats<T = void> {
   stageSize: TSize;
   canvasSize: TSize;
   canvasCoords: Point; // 画布左上角相对于 stage 的位置 (x, y)
-  imageStatus: 'none' | 'loading' | 'loaded' | 'error';
+  imageStatus: TImageStatus;
   imageSize: TSize;
   imageScale: number;
   imageMouse: Point;
-  imageMouseInMagnet: boolean;
-  imageMouseInSnap: boolean;
+  imageMouseJustified: TImageMouseJustified;
   mouseInStage: Point | null;
   mouseInCanvas: Point | null;
   mouseDownCanvas: boolean;

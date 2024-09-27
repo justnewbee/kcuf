@@ -9,10 +9,11 @@ import {
   MagnetPoint,
   roundCoords,
   pointSiblingsFromPath,
-  getSnappingPoint,
-  getSnappingPointBetween,
-  getMagnetPointAlongPath,
-  getMagnetPointAlongPaths,
+  pointJustifyMagnetAlongPath,
+  pointJustifyMagnetAlongPaths,
+  pointJustifyRightAngle,
+  pointSnapAroundPoint,
+  pointSnapAroundPointBetween,
   getAuxiliarySegmentList
 } from '@kcuf/geometry-basic';
 import {
@@ -92,15 +93,11 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   private pixelRatio = pixelRatioGet();
   
   /**
-   * 磁吸效果（就近吸附至已有点或线）
+   * 自动纠正，包括磁吸（就近吸附至已有点或线）和直角纠正
    *
    * 对新建和编辑有效，将鼠标磁吸到点或边，按住 Alt 键临时取消
    */
-  private magnetEnabled = true;
-  /**
-   * 处于磁吸状态
-   */
-  private inMagnet = false;
+  private justifyEnabled = true;
   /**
    * Snap 效果（45° 倍数角方向跳）
    *
@@ -108,9 +105,9 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
    */
   private snapEnabled = false;
   /**
-   * 处于 Snap 状态
+   * 鼠标矫正状态
    */
-  private inSnap = false;
+  private justified: '' | 'magnet' | 'right-angle' | 'snap' = '';
   
   private plugins: IMarkingPlugin<T>[] = [];
   
@@ -832,10 +829,11 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     }
   }
   
-  /**
-   * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
-   */
-  private updateImageMouse(mouseInCanvas: Point | null): void {
+  private justifyImageMouseMagnet(coords: Point): Point | null {
+    if (!this.justifyEnabled) {
+      return null;
+    }
+    
     const {
       options: {
         magnetRadius: magnetRadius0 = DEFAULT_MAGNET_RADIUS
@@ -845,61 +843,112 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       itemEditing
     } = this;
     
-    this.inMagnet = false;
-    this.inSnap = false;
+    const creatingPath = itemCreating?.stats.path;
+    const magnetRadius = magnetRadius0 / imageScale; // 将屏幕像素转化成 canvas 内的像素，以保证磁吸距离和肉眼看到的一致
+    let magnetPoint: MagnetPoint | null = null;
+    
+    // 自动磁吸，先从正在新建或编辑的图形自身找，再找其他
+    if (magnetRadius > 0 && (itemCreating || (itemEditing && itemEditing.stats.draggingPointIndex >= 0))) {
+      // 从正在新建的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
+      magnetPoint = creatingPath ? pointJustifyMagnetAlongPath(coords, creatingPath, magnetRadius) : null;
+      
+      // 从正在编辑的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
+      magnetPoint ||= itemEditing ? pointJustifyMagnetAlongPath(coords, itemEditing.stats.path.filter((_v, i) => i !== itemEditing.stats.draggingPointIndex), magnetRadius) : null;
+      
+      // 从非编辑图形中找
+      magnetPoint ||= pointJustifyMagnetAlongPaths(coords, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
+    }
+    
+    return magnetPoint ? magnetPoint.point : null;
+  }
+  
+  private justifyImageMouseRightAngle(coords: Point): Point | null {
+    if (!this.justifyEnabled) {
+      return null;
+    }
+    
+    const {
+      itemCreating
+    } = this;
+    const creatingPath = itemCreating?.stats.path;
+    
+    // 自动垂直正交矫正
+    if (creatingPath) {
+      return pointJustifyRightAngle(coords, creatingPath);
+    }
+    
+    return null;
+  }
+  
+  private justifyImageMouseSnap(coords: Point): Point | null {
+    if (!this.snapEnabled) {
+      return null;
+    }
+    
+    const {
+      itemCreating,
+      itemEditing
+    } = this;
+    
+    const creatingPath = itemCreating?.stats.path;
+    // const magnetRadius = magnetRadius0 / imageScale; // 将屏幕像素转化成 canvas 内的像素，以保证磁吸距离和肉眼看到的一致
+    
+    // Snap（前提是未磁吸）
+    let snapP: Point | null = null;
+    
+    if (creatingPath?.length) {
+      snapP = pointSnapAroundPoint(coords, creatingPath[creatingPath.length - 1]!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    } else if (itemEditing?.stats) {
+      const siblings = pointSiblingsFromPath(itemEditing.stats.path, itemEditing.stats.draggingPointIndex);
+      
+      if (siblings.length === 1) {
+        snapP = pointSnapAroundPoint(coords, siblings[0]);
+      } else if (siblings.length === 2) {
+        snapP = pointSnapAroundPointBetween(coords, siblings[0], siblings[1]);
+      }
+    }
+    
+    return snapP;
+  }
+  
+  /**
+   * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
+   */
+  private updateImageMouse(mouseInCanvas: Point | null): void {
+    const {
+      imageScale
+    } = this;
+    
+    this.justified = '';
     
     if (!mouseInCanvas) {
       return;
     }
     
-    const coords: Point = this.roundClampCoordsInImage([mouseInCanvas[0] / imageScale, mouseInCanvas[1] / imageScale]);
-    const creatingPath = itemCreating?.stats.path;
-    const magnetRadius = magnetRadius0 / imageScale; // 将屏幕像素转化成 canvas 内的像素，以保证磁吸距离和肉眼看到的一致
+    this.imageMouse = this.roundClampCoordsInImage([mouseInCanvas[0] / imageScale, mouseInCanvas[1] / imageScale]); // 鼠标坐标转成图片内部坐标
     
-    // 磁吸，先从正在新建或编辑的图形自身找，再找其他
-    if (this.magnetEnabled && magnetRadius > 0 && (itemCreating || (itemEditing && itemEditing.stats.draggingPointIndex >= 0))) {
-      // 从正在新建的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
-      let magnetPoint: MagnetPoint | null = creatingPath ? getMagnetPointAlongPath(coords, creatingPath, magnetRadius) : null;
+    let justifiedCoords = this.justifyImageMouseMagnet(this.imageMouse);
+    
+    if (justifiedCoords) {
+      this.justified = 'magnet';
+      this.imageMouse = this.roundClampCoordsInImage(justifiedCoords);
       
-      // 从正在编辑的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
-      magnetPoint ||= itemEditing ? getMagnetPointAlongPath(coords, itemEditing.stats.path.filter((_v, i) => i !== itemEditing.stats.draggingPointIndex), magnetRadius) : null;
-      
-      // 从非编辑图形中找
-      magnetPoint ||= getMagnetPointAlongPaths(coords, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
-      
-      if (magnetPoint) {
-        this.inMagnet = true;
-        this.imageMouse = this.roundClampCoordsInImage(magnetPoint.point);
-        
-        return;
-      }
+      return;
     }
     
-    // Snap（前提是未磁吸）
-    if (this.snapEnabled) {
-      let snapP: Point | null = null;
-      
-      if (creatingPath?.length) {
-        snapP = getSnappingPoint(coords, creatingPath[creatingPath.length - 1]!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
-      } else if (itemEditing?.stats) {
-        const siblings = pointSiblingsFromPath(itemEditing.stats.path, itemEditing.stats.draggingPointIndex);
-        
-        if (siblings.length === 1) {
-          snapP = getSnappingPoint(coords, siblings[0]);
-        } else if (siblings.length === 2) {
-          snapP = getSnappingPointBetween(coords, siblings[0], siblings[1]);
-        }
-      }
-      
-      if (snapP) {
-        this.inSnap = true;
-        this.imageMouse = this.roundClampCoordsInImage(snapP);
-        
-        return;
-      }
+    justifiedCoords = this.justifyImageMouseRightAngle(this.imageMouse);
+    
+    if (justifiedCoords) {
+      this.justified = 'right-angle';
+      this.imageMouse = this.roundClampCoordsInImage(justifiedCoords);
     }
     
-    this.imageMouse = this.roundClampCoordsInImage(coords);
+    justifiedCoords = this.justifyImageMouseSnap(this.imageMouse);
+    
+    if (justifiedCoords) {
+      this.justified = 'snap';
+      this.imageMouse = this.roundClampCoordsInImage(justifiedCoords);
+    }
   }
   
   private hoverMarkingItem(markingItem: IMarkingItemClass<T> | null): void {
@@ -962,7 +1011,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   private drawAuxiliaryLines(): void {
-    if (this.inMagnet) { // 正在磁吸不画引导线
+    if (this.justified) { // 正在磁吸不画引导线
       return;
     }
     
@@ -1154,14 +1203,14 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.updateAndDraw(disabled ? EMarkingStatsChangeCause.TOGGLE_DISABLED_TRUE : EMarkingStatsChangeCause.TOGGLE_DISABLED_FALSE);
   }
   
-  toggleMagnet(enabled = true): void {
-    if (this.magnetEnabled === enabled) {
+  toggleJustify(enabled = true): void {
+    if (this.justifyEnabled === enabled) {
       return;
     }
     
-    this.magnetEnabled = enabled;
+    this.justifyEnabled = enabled;
     this.updateImageMouse(this.mouseInCanvas);
-    this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_MAGNET_TRUE : EMarkingStatsChangeCause.TOGGLE_MAGNET_FALSE);
+    this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_JUSTIFY_TRUE : EMarkingStatsChangeCause.TOGGLE_JUSTIFY_FALSE);
   }
   
   toggleSnap(enabled = true): void {
@@ -1462,8 +1511,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       imageSize: imageLoader ? [imageLoader.naturalWidth, imageLoader.naturalHeight] : [0, 0],
       imageScale: this.imageScale,
       imageMouse: _cloneDeep(this.imageMouse), // 避免使用 immer 对其锁定造成新建后拖拽报错
-      imageMouseInMagnet: this.inMagnet,
-      imageMouseInSnap: this.inSnap,
+      imageMouseJustified: this.justified,
       // 鼠标
       mouseInStage: this.mouseInStage,
       mouseInCanvas: this.mouseInCanvas,

@@ -17,12 +17,12 @@ export default function pluginMagnet<T>(markingStage: IMarkingStageClass<T>): IM
   
   const unbindDocKeydown = bindDocumentEvent('keydown', (e: KeyboardEvent): void => {
     if (inCanvas && e.key === KEY) {
-      markingStage.toggleMagnet(false);
+      markingStage.toggleJustify(false);
     }
   }, true);
   const unbindDocKeyup = bindDocumentEvent('keyup', (e: KeyboardEvent): void => {
     if (e.key === KEY) {
-      markingStage.toggleMagnet(true);
+      markingStage.toggleJustify(true);
     }
   }, true);
   

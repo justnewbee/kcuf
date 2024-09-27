@@ -13,12 +13,12 @@ import pointIsIncluded from './point-is-included';
  * 1. 点在线段投影内
  * 2. 点与线段两个端点连线的斜率相同
  */
-export default function pointIsAlongSegment(p: TPoint, segment: TSegment): boolean {
-  if (pointIsIncluded(p, segment)) {
+export default function pointIsAlongSegment(point: TPoint, segment: TSegment): boolean {
+  if (pointIsIncluded(point, segment)) {
     return true;
   }
   
   const [start, end] = segment;
   
-  return pointIsInSegmentProjection(p, segment) && segmentIsEqualSlope([start, p], [p, end]);
+  return pointIsInSegmentProjection(point, segment) && segmentIsEqualSlope([start, point], [point, end]);
 }

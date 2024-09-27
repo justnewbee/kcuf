@@ -11,9 +11,9 @@ import segmentToLine from './segment-to-line';
  * 垂足 x + dx = px
  * 垂足 y + dy = py
  */
-export default function pointDistanceToSegmentDetailed(p: TPoint, segment: TSegment): [number, number, number] {
+export default function pointDistanceToSegmentDetailed(point: TPoint, segment: TSegment): [number, number, number] {
   const [A, B, C] = segmentToLine(segment);
-  const [x, y] = p;
+  const [x, y] = point;
   const AABB = A * A + B * B;
   const d = Math.abs(A * x + B * y + C) / Math.sqrt(AABB);
   const dx = A * (A * x + B * y + C) / AABB;

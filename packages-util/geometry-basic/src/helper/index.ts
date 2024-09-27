@@ -1,16 +1,11 @@
 /* ========================== *
- * 通用
- * ========================== */
-export { default as fromDegreesToRadians } from './from-degrees-to-radians';
-export { default as fromRadiansToDegrees } from './from-radians-to-degrees';
-
-/* ========================== *
  * 点
  * ========================== */
 // 点 vs 点（或点们）
 export { default as pointIsEqual } from './point-is-equal';
 export { default as pointIsIncluded } from './point-is-included';
 export { default as pointDistance } from './point-distance';
+export { default as pointRotateAroundPoint } from './point-rotate-around-point';
 // 点 vs 线段
 export { default as pointIsAlongSegment } from './point-is-along-segment';
 export { default as pointIsInSegmentProjection } from './point-is-in-segment-projection';
@@ -20,12 +15,13 @@ export { default as pointDistanceToSegmentDetailed } from './point-distance-to-s
 export { default as pointIsWithinPath } from './point-is-within-path';
 export { default as pointIsAlongPath } from './point-is-along-path';
 export { default as pointSiblingsFromPath } from './point-siblings-from-path';
+export { default as pointJustifyMagnetAlongPath } from './point-justify-magnet-along-path';
+export { default as pointJustifyMagnetAlongPaths } from './point-justify-magnet-along-paths';
+export { default as pointJustifyRightAngle } from './point-justify-right-angle';
 // TODO
-export { default as getSnappingPoint } from './get-snapping-point';
-export { default as getSnappingPointBetween } from './get-snapping-point-between';
+export { default as pointSnapAroundPoint } from './point-snap-around-point';
+export { default as pointSnapAroundPointBetween } from './point-snap-around-point-between';
 export { default as getVerticalIntersectionPoint } from './get-vertical-intersection-point';
-export { default as getMagnetPointAlongPath } from './get-magnet-point-along-path';
-export { default as getMagnetPointAlongPaths } from './get-magnet-point-along-paths';
 
 /* ========================== *
  * 直线
@@ -42,19 +38,18 @@ export { default as segmentMidpoint } from './segment-midpoint';
 export { default as segmentSlope } from './segment-slope';
 export { default as segmentProjectionX } from './segment-projection-x';
 export { default as segmentProjectionY } from './segment-projection-y';
-// 线段 vs 直线
-export { default as segmentToLine } from './segment-to-line';
-export { default as segmentIntersectionWithLine } from './segment-intersection-with-line';
 // 线段 vs 线段
 export { default as segmentIntersection } from './segment-intersection';
 export { default as segmentIsEqual } from './segment-is-equal';
 export { default as segmentIsEqualSlope } from './segment-is-equal-slope';
 export { default as segmentIsCrossing } from './segment-is-crossing';
+export { default as segmentProjectionOverlap } from './segment-projection-overlap';
+// 线段 vs 直线
+export { default as segmentToLine } from './segment-to-line';
+export { default as segmentIntersectionWithLine } from './segment-intersection-with-line';
 // 线段 vs 路径
 export { default as segmentInnerSliceListByPath } from './segment-inner-slice-list-by-path';
 export { default as segmentInnerSliceTotalLengthByPath } from './segment-inner-slice-total-length-by-path';
-// TODO
-export { default as isSegmentProjectionOverlap } from './is-segment-projection-overlap';
 
 /* ========================== *
  * 路径（多边形）
@@ -81,6 +76,7 @@ export { default as checkInPathPointDuplicate } from './check-in-path-point-dupl
 export { default as getAuxiliarySegmentList } from './get-auxiliary-segment-list';
 
 // 角 - 返回弧度，角的正负按数学规范
-export { default as getAngleBetweenSegments } from './get-angle-between-segments';
-export { default as getAngleBetweenSegmentAndAxisX } from './get-angle-between-segment-and-axis-x';
-export { default as getAngleBetweenSegmentAndAxisY } from './get-angle-between-segment-and-axis-y';
+export { default as angleFromSegmentToSegment } from './angle-from-segment-to-segment';
+export { default as angleBetweenSegments } from './angle-between-segments';
+export { default as angleBetweenSegmentAndAxisX } from './angle-between-segment-and-axis-x';
+export { default as angleBetweenSegmentAndAxisY } from './angle-between-segment-and-axis-y';

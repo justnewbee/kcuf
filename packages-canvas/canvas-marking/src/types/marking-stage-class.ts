@@ -59,14 +59,14 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
   toggleDisabled(disabled?: boolean): void;
   
   /**
-   * 切换是否磁吸
+   * 切换是否自动矫正（磁吸、正交）
    */
-  toggleMagnet(magnet?: boolean): void;
+  toggleJustify(enabled?: boolean): void;
   
   /**
    * 切换是否 snap
    */
-  toggleSnap(snapping?: boolean): void;
+  toggleSnap(enabled?: boolean): void;
   
   /**
    * 开始新建

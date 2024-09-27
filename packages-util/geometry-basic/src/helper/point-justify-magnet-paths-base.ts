@@ -4,11 +4,11 @@ import {
   IMagnetPoint
 } from '../types';
 
-type TGetter = (p: TPoint, paths: TPath, magnetRadius: number) => IMagnetPoint | null;
+type TGetter = (point: TPoint, paths: TPath, magnetRadius: number) => IMagnetPoint | null;
 
-export default function getMagnetPointFromPathsBase(p: TPoint, paths: TPath[], magnetRadius: number, getter: TGetter): IMagnetPoint | null {
+export default function pointJustifyMagnetPathsBase(point: TPoint, paths: TPath[], magnetRadius: number, getter: TGetter): IMagnetPoint | null {
   return paths.reduce((result: IMagnetPoint | null, v): IMagnetPoint | null => {
-    const magnetPoint = getter(p, v, magnetRadius);
+    const magnetPoint = getter(point, v, magnetRadius);
     
     if (!result) {
       return magnetPoint;

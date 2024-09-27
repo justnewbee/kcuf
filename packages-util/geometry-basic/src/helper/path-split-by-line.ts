@@ -37,13 +37,13 @@ export default function pathSplitByLine(path: TPath, line: TLine): [TPath, TPath
     return null;
   }
   
-  function push(p: TPoint) {
-    pathPushPoint(currentPath, p);
+  function push(point: TPoint): void {
+    pathPushPoint(currentPath, point);
   }
   
-  function pushIntersection(p: TPoint) {
-    pathPushPoint(currentPath, p);
-    pathPushPoint(currentPath === subPath1 ? subPath2 : subPath1, p);
+  function pushIntersection(point: TPoint): void {
+    pathPushPoint(currentPath, point);
+    pathPushPoint(currentPath === subPath1 ? subPath2 : subPath1, point);
   }
   
   segments.forEach(border => {

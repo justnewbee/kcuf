@@ -5,6 +5,6 @@ import {
 
 import pointDistanceToSegmentDetailed from './point-distance-to-segment-detailed';
 
-export default function pointDistanceToSegment(p: TPoint, segment: TSegment): number {
-  return pointDistanceToSegmentDetailed(p, segment)[0];
+export default function pointDistanceToSegment(point: TPoint, segment: TSegment): number {
+  return pointDistanceToSegmentDetailed(point, segment)[0];
 }

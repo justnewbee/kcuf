@@ -35,7 +35,7 @@ export default function pathSplitByLines(path: TPath, lines: TLine[]): TPath[] {
       const shit = pathSplitByLine(v, line);
       
       if (shit) {
-        subPaths.push(...shit)
+        subPaths.push(...shit);
       } else {
         subPaths.push(v);
       }

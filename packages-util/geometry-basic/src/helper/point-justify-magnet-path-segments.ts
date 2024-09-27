@@ -9,28 +9,28 @@ import getVerticalIntersectionPoint from './get-vertical-intersection-point';
 import segmentLength from './segment-length';
 
 /**
- * 从 path 的所有边（不包含边的顶点）中找距 p 最近的磁吸点
+ * 从 path 的所有边（不包含边的顶点）中找距 point 最近的磁吸点
  */
-export default function getMagnetPointFromPathSegments(p: TPoint, path: TPath, magnetRadius: number): IMagnetPoint | null {
+export default function pointJustifyMagnetPathSegments(point: TPoint, path: TPath, magnetRadius: number): IMagnetPoint | null {
   const segmentList = pathSegmentList(path);
-  let point: TPoint | undefined;
+  let pointM: TPoint | undefined;
   let distance = Infinity;
   
   segmentList.forEach(v => {
-    const verticalIntersectionPoint = getVerticalIntersectionPoint(p, v);
+    const verticalIntersectionPoint = getVerticalIntersectionPoint(point, v);
     
     if (verticalIntersectionPoint) {
-      const d = segmentLength([p, verticalIntersectionPoint]);
+      const d = segmentLength([point, verticalIntersectionPoint]);
       
       if (d <= magnetRadius && d < distance) {
-        point = verticalIntersectionPoint;
+        pointM = verticalIntersectionPoint;
         distance = d;
       }
     }
   });
   
-  return point ? {
-    point,
+  return pointM ? {
+    point: pointM,
     distance,
     order: 3
   } : null;

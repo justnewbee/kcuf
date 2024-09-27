@@ -26,8 +26,7 @@ export default function getStatsDisplayHtml<T>(stats: IMarkingStageStats<T>, cau
     ['ImageSize', displaySize(stats.imageSize)],
     ['ImageScale', displayPercentage(stats.imageScale)],
     ['ImageMouse', displayCoords(stats.imageMouse)],
-    ['ImageMouseInMagnet', displayBoolean(stats.imageMouseInMagnet)],
-    ['ImageMouseInSnap', displayBoolean(stats.imageMouseInSnap)],
+    ['ImageMouseJustified', stats.imageMouseJustified],
     // 鼠标状态
     ['MouseInStage', displayCoords(stats.mouseInStage)],
     ['MouseInCanvas', displayCoords(stats.mouseInCanvas)],

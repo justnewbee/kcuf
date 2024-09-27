@@ -9,7 +9,7 @@ function isOverlap(n1: number, n2: number, n3: number, n4: number): boolean {
 /**
  * 判断两根线段的投影重叠，可用于交叉、重叠检测预检
  */
-export default function isSegmentProjectionOverlap(segment1: TSegment, segment2: TSegment): boolean {
+export default function segmentProjectionOverlap(segment1: TSegment, segment2: TSegment): boolean {
   const [p1, p2] = segment1;
   const [p3, p4] = segment2;
   

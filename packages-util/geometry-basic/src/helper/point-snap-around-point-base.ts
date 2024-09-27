@@ -13,8 +13,8 @@ import pointDistance from './point-distance';
  *
  * 返回点和移动距离元组
  */
-export default function getSnappingPointBase(point: TPoint, fixedPoint: TPoint, steps = 8): [TPoint, number] {
-  const radius = pointDistance(fixedPoint, point);
+export default function pointSnapAroundPointBase(point: TPoint, center: TPoint, steps = 8): [TPoint, number] {
+  const radius = pointDistance(center, point);
   
   if (radius <= 0) {
     return [point, 0];
@@ -26,8 +26,8 @@ export default function getSnappingPointBase(point: TPoint, fixedPoint: TPoint, 
   
   for (let i = 0; i < steps; i++) {
     const p: TPoint = [
-      fixedPoint[0] + radius * Math.cos(i * radian),
-      fixedPoint[1] + radius * Math.sin(i * radian)
+      center[0] + radius * Math.cos(i * radian),
+      center[1] + radius * Math.sin(i * radian)
     ];
     const d = pointDistance(p, point);
     
