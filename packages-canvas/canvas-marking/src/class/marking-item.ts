@@ -7,16 +7,16 @@ import _cloneDeep from 'lodash/cloneDeep';
 import {
   Point,
   Path,
-  checkInPathPointDuplicate,
+  isPointAlongPath,
+  isPointWithinPath,
   segmentLength,
   segmentMidpoint,
-  pathHasSegmentCrossing,
-  pointIsAlongPath,
-  pointIsWithinPath,
-  pathPerimeter,
   pathArea,
+  pathPerimeter,
   pathBbox,
-  pathSegmentList
+  pathSegmentList,
+  checkPathForDuplicatePoints,
+  checkPathForInnerIntersection
 } from '@kcuf/geometry-basic';
 
 import {
@@ -590,7 +590,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     const pathForDraw = this.getPathForDraw();
     
-    return (!this.creating && checkInPathPointDuplicate(pathForDraw)) || pathHasSegmentCrossing(pathForDraw);
+    return (!this.creating && checkPathForDuplicatePoints(pathForDraw)) || checkPathForInnerIntersection(pathForDraw);
   }
   
   private removePointCreating(): number {
@@ -652,7 +652,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       return EMarkingMouseStatus.IN_BORDER;
     }
     
-    if (pointIsWithinPath(imageMouse, path)) {
+    if (isPointWithinPath(imageMouse, path)) {
       return EMarkingMouseStatus.IN;
     }
     
@@ -761,7 +761,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
           return false;
         }
         
-        if (pointIsAlongPath(imageMouse, this.path, true)) {
+        if (isPointAlongPath(imageMouse, this.path, true)) {
           return false;
         }
         

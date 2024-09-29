@@ -27,8 +27,11 @@ describe('pathIntersectionWithSegment(path: Path, segment: Segment, extended?: b
     TEST_PATH_5_CONVEX.intersectionWithSegment.forEach(v => {
       test(v.title, () => {
         expect(pathIntersectionWithSegment(TEST_PATH_5_CONVEX.path, v.input)).toEqual(v.output);
+      });
+      
+      test(`${v.title} - extended`, () => {
         expect(pathIntersectionWithSegment(TEST_PATH_5_CONVEX.path, v.input, true)).toEqual(v.outputExtended);
       });
     });
-  })
+  });
 });

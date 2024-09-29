@@ -8,13 +8,13 @@ import {
   Path,
   MagnetPoint,
   roundCoords,
-  pointSiblingsFromPath,
+  pathPointSiblingsByIndex,
   pointJustifyMagnetAlongPath,
   pointJustifyMagnetAlongPaths,
   pointJustifyRightAngle,
-  pointSnapAroundPoint,
-  pointSnapAroundPointBetween,
-  getAuxiliarySegmentList
+  pointJustifySnapAroundPoint,
+  pointJustifySnapAroundPointBetween,
+  pathsAuxiliaryList
 } from '@kcuf/geometry-basic';
 import {
   pixelRatioGet,
@@ -829,7 +829,10 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     }
   }
   
-  private justifyImageMouseMagnet(coords: Point): Point | null {
+  /**
+   * 磁吸，先从正在新建或编辑的图形自身找，再找其他
+   */
+  private justifyImageMouseMagnet(): Point | null {
     if (!this.justifyEnabled) {
       return null;
     }
@@ -838,77 +841,87 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       options: {
         magnetRadius: magnetRadius0 = DEFAULT_MAGNET_RADIUS
       },
-      imageScale,
-      itemCreating,
-      itemEditing
+      imageScale
     } = this;
-    
-    const creatingPath = itemCreating?.stats.path;
     const magnetRadius = magnetRadius0 / imageScale; // 将屏幕像素转化成 canvas 内的像素，以保证磁吸距离和肉眼看到的一致
-    let magnetPoint: MagnetPoint | null = null;
     
-    // 自动磁吸，先从正在新建或编辑的图形自身找，再找其他
-    if (magnetRadius > 0 && (itemCreating || (itemEditing && itemEditing.stats.draggingPointIndex >= 0))) {
-      // 从正在新建的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
-      magnetPoint = creatingPath ? pointJustifyMagnetAlongPath(coords, creatingPath, magnetRadius) : null;
-      
-      // 从正在编辑的图形中找（这里有个美好的副作用，就是点可以在两边的点连线上磁吸）
-      magnetPoint ||= itemEditing ? pointJustifyMagnetAlongPath(coords, itemEditing.stats.path.filter((_v, i) => i !== itemEditing.stats.draggingPointIndex), magnetRadius) : null;
-      
-      // 从非编辑图形中找
-      magnetPoint ||= pointJustifyMagnetAlongPaths(coords, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
-    }
-    
-    return magnetPoint ? magnetPoint.point : null;
-  }
-  
-  private justifyImageMouseRightAngle(coords: Point): Point | null {
-    if (!this.justifyEnabled) {
+    if (magnetRadius <= 0) {
       return null;
     }
     
     const {
-      itemCreating
+      imageMouse,
+      itemCreating,
+      itemEditing
     } = this;
-    const creatingPath = itemCreating?.stats.path;
+    const creatingStats = itemCreating?.stats;
+    const editingStats = itemEditing?.stats;
     
-    // 自动垂直正交矫正
-    if (creatingPath) {
-      return pointJustifyRightAngle(coords, creatingPath);
+    let magnetPoint: MagnetPoint | null = creatingStats ? pointJustifyMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
+    
+    magnetPoint ||= editingStats && editingStats.draggingPointIndex >= 0 ? pointJustifyMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
+      return i !== editingStats.draggingPointIndex;
+    }), magnetRadius) : null;
+    
+    magnetPoint ||= pointJustifyMagnetAlongPaths(imageMouse, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
+    
+    return magnetPoint ? magnetPoint.point : null;
+  }
+  
+  /**
+   * 自动垂直正交矫正
+   */
+  private justifyImageMouseRightAngle(): Point | null {
+    if (!this.justifyEnabled) {
+      return null;
+    }
+    
+    const creatingStats = this.itemCreating?.stats;
+    
+    if (creatingStats) {
+      const lastP = creatingStats.path[creatingStats.path.length - 1];
+      const last2ndP = creatingStats.path[creatingStats.path.length - 2];
+      
+      if (!lastP || !last2ndP) {
+        return null;
+      }
+      
+      return pointJustifyRightAngle(this.imageMouse, [lastP, last2ndP]);
     }
     
     return null;
   }
   
-  private justifyImageMouseSnap(coords: Point): Point | null {
+  private justifyImageMouseSnap(): Point | null {
     if (!this.snapEnabled) {
       return null;
     }
     
     const {
-      itemCreating,
-      itemEditing
+      imageMouse
     } = this;
+    const creatingStats = this.itemCreating?.stats;
+    const editingStats = this.itemEditing?.stats;
     
-    const creatingPath = itemCreating?.stats.path;
-    // const magnetRadius = magnetRadius0 / imageScale; // 将屏幕像素转化成 canvas 内的像素，以保证磁吸距离和肉眼看到的一致
-    
-    // Snap（前提是未磁吸）
-    let snapP: Point | null = null;
-    
-    if (creatingPath?.length) {
-      snapP = pointSnapAroundPoint(coords, creatingPath[creatingPath.length - 1]!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
-    } else if (itemEditing?.stats) {
-      const siblings = pointSiblingsFromPath(itemEditing.stats.path, itemEditing.stats.draggingPointIndex);
+    if (creatingStats) {
+      const lastPoint = creatingStats.path[creatingStats.path.length - 1];
       
-      if (siblings.length === 1) {
-        snapP = pointSnapAroundPoint(coords, siblings[0]);
-      } else if (siblings.length === 2) {
-        snapP = pointSnapAroundPointBetween(coords, siblings[0], siblings[1]);
+      return lastPoint ? pointJustifySnapAroundPoint(imageMouse, lastPoint) : null;
+    }
+    
+    if (editingStats) {
+      const siblingPoints = pathPointSiblingsByIndex(editingStats.path, editingStats.draggingPointIndex);
+      
+      if (siblingPoints.length === 1) {
+        return pointJustifySnapAroundPoint(imageMouse, siblingPoints[0]);
+      }
+      
+      if (siblingPoints.length === 2) {
+        return pointJustifySnapAroundPointBetween(imageMouse, siblingPoints[0], siblingPoints[1]);
       }
     }
     
-    return snapP;
+    return null;
   }
   
   /**
@@ -927,7 +940,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     this.imageMouse = this.roundClampCoordsInImage([mouseInCanvas[0] / imageScale, mouseInCanvas[1] / imageScale]); // 鼠标坐标转成图片内部坐标
     
-    let justifiedCoords = this.justifyImageMouseMagnet(this.imageMouse);
+    let justifiedCoords = this.justifyImageMouseMagnet();
     
     if (justifiedCoords) {
       this.justified = 'magnet';
@@ -936,14 +949,14 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return;
     }
     
-    justifiedCoords = this.justifyImageMouseRightAngle(this.imageMouse);
+    justifiedCoords = this.justifyImageMouseRightAngle();
     
     if (justifiedCoords) {
       this.justified = 'right-angle';
       this.imageMouse = this.roundClampCoordsInImage(justifiedCoords);
     }
     
-    justifiedCoords = this.justifyImageMouseSnap(this.imageMouse);
+    justifiedCoords = this.justifyImageMouseSnap();
     
     if (justifiedCoords) {
       this.justified = 'snap';
@@ -1035,7 +1048,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return;
     }
     
-    const auxiliarySegmentList = getAuxiliarySegmentList(this.markingItems.filter(v => v !== itemEditing).map(v => v.stats.path), activePath);
+    const auxiliarySegmentList = pathsAuxiliaryList(this.markingItems.filter(v => v !== itemEditing).map(v => v.stats.path), activePath);
     
     if (!auxiliarySegmentList.length) {
       return;
@@ -1555,6 +1568,11 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.plugins = [];
     this.cleanups.forEach(v => v());
     this.cleanups = [];
-    this.container.removeChild(this.stage);
+    
+    try {
+      this.container.removeChild(this.stage);
+    } catch (err) {
+      // Uncaught DOMException: Node.removeChild: The node to be removed is not a child of this node
+    }
   }
 }

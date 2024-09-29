@@ -3,11 +3,17 @@ import {
 } from 'react';
 
 import useInit from './use-init';
+import useModelState from './_use-model-state';
 
 export default function useEffectInit(): void {
   const init = useInit();
+  const {
+    everInit
+  } = useModelState();
   
   useEffect(() => {
-    init();
-  }, [init]);
+    if (!everInit) {
+      init();
+    }
+  }, [everInit, init]);
 }

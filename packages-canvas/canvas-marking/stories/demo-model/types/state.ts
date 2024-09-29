@@ -4,6 +4,7 @@ import {
 } from '../../../src';
 
 export interface IModelState {
+  everInit: boolean;
   domContainer: HTMLDivElement | null;
   domMarking: HTMLDivElement | null;
   markingStage: MarkingStageClassType | null;

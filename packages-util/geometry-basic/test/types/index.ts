@@ -28,12 +28,12 @@ export interface ITestPath {
     output: Point[];
     outputExtended: Point[];
   }>;
-  splitByLine?: Array<{ // pathSplitByLine
+  spliceByLine?: Array<{ // pathSliceByLine
     title: string;
     input: LineStandard;
     output: [Path, Path] | null;
   }>;
-  splitByLines?: Array<{
+  spliceByLines?: Array<{
     title: string;
     input: LineStandard[];
     output: Path[];

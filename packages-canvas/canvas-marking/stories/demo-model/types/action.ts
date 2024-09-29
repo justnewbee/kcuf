@@ -11,6 +11,8 @@ import {
 } from '../../../src';
 
 export type TModelAction = {
+  type: EAction.SET_EVER_INIT;
+} | {
   type: EAction.SET_DOM_CONTAINER | EAction.SET_DOM_MARKING;
   payload: HTMLDivElement | null;
 } | {

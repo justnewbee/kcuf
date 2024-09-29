@@ -6,6 +6,7 @@ import {
   EAction
 } from '../enum';
 
+import reduceSetEverInit from './reduce-set-ever-init';
 import reduceSetDomContainer from './reduce-set-dom-container';
 import reduceSetDomMarking from './reduce-set-dom-marking';
 import reduceSetMarkingStage from './reduce-set-marking-stage';
@@ -15,6 +16,8 @@ import reduceToggleFullscreen from './reduce-toggle-fullscreen';
 
 export default function reducer(state: IModelState, action: TModelAction): IModelState {
   switch (action.type) {
+    case EAction.SET_EVER_INIT:
+      return reduceSetEverInit(state);
     case EAction.SET_DOM_CONTAINER:
       return reduceSetDomContainer(state, action.payload);
     case EAction.SET_DOM_MARKING:

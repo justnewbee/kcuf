@@ -12,6 +12,7 @@ import {
 } from '../util';
 
 import useModelState from './_use-model-state';
+import useDispatchSetEverInit from './use-dispatch-set-ever-init';
 import useDispatchSetMarkingStage from './use-dispatch-set-marking-stage';
 import useDispatchSetMarkingStageStats from './use-dispatch-set-marking-stage-stats';
 
@@ -20,11 +21,14 @@ export default function useInit(): () => void {
     domMarking,
     markingStage
   } = useModelState();
+  const dispatchSetEverInit = useDispatchSetEverInit();
   const dispatchSetMarkingStage = useDispatchSetMarkingStage();
   const dispatchSetMarkingStageStats = useDispatchSetMarkingStageStats();
   
   return useCallback(() => {
     if (domMarking && !markingStage) {
+      dispatchSetEverInit();
+      
       dispatchSetMarkingStage(new CanvasMarking(domMarking, {
         image: IMAGE_AERIAL,
         items: DEMO_MARKINGS_AERIAL,
@@ -36,5 +40,5 @@ export default function useInit(): () => void {
         onStatsChange: dispatchSetMarkingStageStats
       }));
     }
-  }, [domMarking, markingStage, dispatchSetMarkingStage, dispatchSetMarkingStageStats]);
+  }, [domMarking, markingStage, dispatchSetEverInit, dispatchSetMarkingStage, dispatchSetMarkingStageStats]);
 }

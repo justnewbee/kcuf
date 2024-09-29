@@ -1,4 +1,5 @@
 export enum EAction {
+  SET_EVER_INIT,
   SET_DOM_CONTAINER,
   SET_DOM_MARKING,
   SET_MARKING_STAGE,

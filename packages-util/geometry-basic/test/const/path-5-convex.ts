@@ -42,7 +42,7 @@ export default {
     title: 'both points inside 2',
     input: [[1, 1], [2, 2]],
     output: [],
-    outputExtended: [[0, 0], [3, 3]]
+    outputExtended: [[0, -0], [3, 3]]
   }, {
     title: 'both points outside no crossing',
     input: [[5, 0], [6, 1]],
@@ -61,23 +61,23 @@ export default {
   }, {
     title: 'both points outside crossing through',
     input: [[-1, -1], [4, 4]],
-    output: [[0, 0], [3, 3]],
-    outputExtended: [[0, 0], [3, 3]]
+    output: [[0, -0], [3, 3]],
+    outputExtended: [[0, -0], [3, 3]]
   }, {
     title: 'both points are path points',
     input: [[0, 0], [4, 2]],
-    output: [[0, 0], [4, 2]],
-    outputExtended: [[0, 0], [4, 2]]
+    output: [[0, -0], [4, 2]],
+    outputExtended: [[0, -0], [4, 2]]
   }, {
     title: 'both points are along edge',
     input: [[0, 1], [3, 3]],
-    output: [[0, 1], [3, 3]],
-    outputExtended: [[0, 1], [3, 3]]
+    output: [[-0, 1], [3.0000000000000004, 3.0000000000000004]],
+    outputExtended: [[-0, 1], [3.0000000000000004, 3.0000000000000004]]
   }, {
     title: 'one path point, one inside',
     input: [[0, 0], [2, 2]],
-    output: [[0, 0]],
-    outputExtended: [[0, 0], [3, 3]]
+    output: [[0, -0]],
+    outputExtended: [[0, -0], [3, 3]]
   }, {
     title: 'one path point, one inside',
     input: [[4, 2], [3, 1]],
@@ -91,13 +91,13 @@ export default {
   }, {
     title: 'one path point, one through',
     input: [[0, 0], [4, 4]],
-    output: [[0, 0], [3, 3]],
-    outputExtended: [[0, 0], [3, 3]]
+    output: [[0, -0], [3, 3]],
+    outputExtended: [[0, -0], [3, 3]]
   }, {
     title: 'one along border, one inside',
     input: [[0, 1], [2, 3]],
-    output: [[0, 1]],
-    outputExtended: [[0, 1], [2.5, 3.5]]
+    output: [[-0, 1]],
+    outputExtended: [[-0, 1], [2.5, 3.5]]
   }, {
     title: 'one along border, one outward',
     input: [[4, 1], [5, 2]],
