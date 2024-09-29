@@ -9,12 +9,12 @@ import {
   MagnetPoint,
   roundCoords,
   pathPointSiblingsByIndex,
+  pathsAuxiliaryList,
   pointJustifyMagnetAlongPath,
   pointJustifyMagnetAlongPaths,
   pointJustifyRightAngle,
   pointJustifySnapAroundPoint,
-  pointJustifySnapAroundPointBetween,
-  pathsAuxiliaryList
+  pointJustifySnapAroundPointBetween
 } from '@kcuf/geometry-basic';
 import {
   pixelRatioGet,

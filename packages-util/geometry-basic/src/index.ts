@@ -1,6 +1,6 @@
 export {
-  isNearlyEqual,
   roundCoords,
+  isNearlyEqual,
   fromDegreesToRadians,
   fromRadiansToDegrees
 } from './util';
