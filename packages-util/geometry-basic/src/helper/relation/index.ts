@@ -1,10 +1,15 @@
-export { default as pointVerticalIntersectionWithSegment } from './point-vertical-intersection-with-segment';
+export { default as pointDistanceToLine } from './point-distance-to-line';
+export { default as pointDistanceToLineDetailed } from './point-distance-to-line-detailed';
+export { default as pointDistanceToSegment } from './point-distance-to-segment';
+export { default as pointPerpendicularIntersectionToLine } from './point-perpendicular-intersection-to-line';
+export { default as pointPerpendicularIntersectionToSegment } from './point-perpendicular-intersection-to-segment';
 
 export { default as lineIntersection } from './line-intersection';
 
 export { default as segmentIntersection } from './segment-intersection';
 export { default as segmentIntersectionWithLine } from './segment-intersection-with-line';
 
+export { default as checkPathForDuplicate } from './check-path-for-duplicate';
 export { default as checkPathForInnerIntersection } from './check-path-for-inner-intersection';
 
 export { default as pathIntersectionWithLine } from './path-intersection-with-line';

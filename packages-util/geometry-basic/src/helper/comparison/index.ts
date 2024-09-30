@@ -1,5 +1,3 @@
-export { default as checkPathForDuplicatePoints } from './check-path-for-duplicate-points';
-
 export { default as comparePaths } from './compare-paths';
 export { default as comparePoints } from './compare-points';
 

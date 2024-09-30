@@ -15,8 +15,9 @@ import {
   pathPerimeter,
   pathBbox,
   pathSegmentList,
-  checkPathForDuplicatePoints,
-  checkPathForInnerIntersection
+  checkPathForDuplicate,
+  checkPathForInnerIntersection,
+  translatePath
 } from '@kcuf/geometry-basic';
 
 import {
@@ -590,7 +591,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     const pathForDraw = this.getPathForDraw();
     
-    return (!this.creating && checkPathForDuplicatePoints(pathForDraw)) || checkPathForInnerIntersection(pathForDraw);
+    return (!this.creating && checkPathForDuplicate(pathForDraw)) || checkPathForInnerIntersection(pathForDraw);
   }
   
   private removePointCreating(): number {
@@ -837,7 +838,6 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       this.path.splice(draggingInsertionPointIndex + 1, 0, [imageMouse[0], imageMouse[1]]); // 新一个 Point，避免类似 immer 的锁对象行为造成问题
       this.draggingPointIndex = draggingInsertionPointIndex + 1;
       this.draggingInsertionPointIndex = -1; // 消除
-      
       this.refreshStats();
       
       return draggingInsertionPointIndex;
@@ -845,10 +845,11 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     // 拖动整体图形
     const [[xMin, yMin], [xMax, yMax]] = pathBbox(this.pathSnapshotDragging);
-    const dx = _clamp(imageMouse[0] - draggingStartCoords[0], -xMin, imageSize[0] - xMax);
-    const dy = _clamp(imageMouse[1] - draggingStartCoords[1], -yMin, imageSize[1] - yMax);
     
-    this.path = this.pathSnapshotDragging.map(v => [v[0] + dx, v[1] + dy]);
+    this.path = translatePath(this.pathSnapshotDragging, [
+      _clamp(imageMouse[0] - draggingStartCoords[0], -xMin, imageSize[0] - xMax),
+      _clamp(imageMouse[1] - draggingStartCoords[1], -yMin, imageSize[1] - yMax)
+    ]);
     
     return true;
   }

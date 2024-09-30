@@ -1,13 +1,14 @@
 import {
   TPath
 } from '../../types';
-
-import isEqualPoints from './is-equal-points';
+import {
+  isEqualPoints
+} from '../comparison';
 
 /**
- * 检查闭合路径内，是否存在两个点重叠
+ * 检查路径内是否存在重叠的点
  */
-export default function checkPathForDuplicatePoints(path: TPath): boolean {
+export default function checkPathForDuplicate(path: TPath): boolean {
   if (path.length < 2) {
     return false;
   }

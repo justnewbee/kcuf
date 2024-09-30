@@ -9,10 +9,10 @@ import {
   translatePoint
 } from '../src';
 
-describe('translatePoint(point: Point, [dx, dy]: [number, number]): Point', () => {
+describe('translatePoint(point: Point, dxy: [number, number]): Point', () => {
   const P: Point = [1, 3];
   
-  test('will create new point no matter what', () => {
+  test('will not mutate', () => {
     expect(translatePoint(P, [0, 0])).toEqual(P);
     expect(translatePoint(P, [0, 0]) === P).toBe(false);
   });

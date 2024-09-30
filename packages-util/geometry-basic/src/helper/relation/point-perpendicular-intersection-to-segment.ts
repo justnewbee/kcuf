@@ -10,7 +10,7 @@ import {
 /**
  * 点到线段的垂足
  */
-export default function pointVerticalIntersectionWithSegment(point: TPoint, segment: TSegment): TPoint | null {
+export default function pointPerpendicularIntersectionToSegment(point: TPoint, segment: TSegment): TPoint | null {
   const vector = segmentVector(segment);
   const length = segmentLength(segment);
   const a = segment[0];

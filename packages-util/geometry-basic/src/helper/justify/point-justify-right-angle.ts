@@ -47,7 +47,7 @@ function needRotate(deltaTheta: number, threshold: number): boolean {
  * 1. `equidistant: true`，则等距旋转，模 |AC| === |AC'|
  *
  * A ⦿→-------◉ B
- *   | \  ↙ θ
+ *   | \  ↙ 0 < | 90° - θ | ≤ threshold
  *   |   \
  *   |    ◉ C
  *   ◉ C'
@@ -55,7 +55,7 @@ function needRotate(deltaTheta: number, threshold: number): boolean {
  * 2. `equidistant: false`，则返回垂足，模 |AC| > |AC'|
  *
  * A ⦿→-------◉ B
- *   | \  ↙ θ
+ *   | \  ↙ 0 < | 90° - θ | ≤ threshold
  *   |   \
  *   ◉ C' ◉ C
  */

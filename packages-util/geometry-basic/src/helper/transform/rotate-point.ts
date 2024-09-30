@@ -6,7 +6,7 @@ import {
 } from '../../util';
 
 /**
- * 将点 point 绕轴心旋转一定的角度后得到 point'
+ * 将点绕轴心旋转一定的角度后得到新的点
  */
 export default function rotatePoint(point: TPoint, pivot: TPoint, radians: number): TPoint {
   const cosValue = Math.cos(radians);

@@ -7,8 +7,12 @@ import {
 import {
   roundCoords
 } from '../../util';
-
-import pointDistanceToSegmentDetailed from './point-distance-to-segment-detailed';
+import {
+  segmentLine
+} from '../base';
+import {
+  pointDistanceToLineDetailed
+} from '../relation';
 
 /**
  * 以给定线段为矩形的一条边，其平行边经过给定点，求矩形四个点坐标
@@ -17,7 +21,7 @@ import pointDistanceToSegmentDetailed from './point-distance-to-segment-detailed
  * - 给定范围（左上顶点和右下顶点围成的正矩形）的情况下，需保证矩形不会超出
  */
 export default function pathRectBySegmentAndPoint(segment: TSegment, point: TPoint, limit?: [TPoint, TPoint]): [TPoint, TPoint, TPoint, TPoint] | null {
-  const [d, dx0, dy0] = pointDistanceToSegmentDetailed(point, segment);
+  const [d, dx0, dy0] = pointDistanceToLineDetailed(point, segmentLine(segment));
   
   if (d < 1) {
     return null;

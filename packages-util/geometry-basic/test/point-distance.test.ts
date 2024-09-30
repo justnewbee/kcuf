@@ -8,7 +8,7 @@ import {
   pointDistance
 } from '../src';
 
-describe('pointDistance(p1: Point, p2: Point): number', () => {
+describe('pointDistance(point1: Point, point2: Point): number', () => {
   test(() => {
     expect(pointDistance([0, 0], [0, 0])).toEqual(0);
     expect(pointDistance([0, 0], [0, 1])).toEqual(1);
