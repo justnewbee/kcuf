@@ -8,6 +8,7 @@ import {
   pathSegmentList
 } from '../base';
 import {
+  isPointAlongSegment,
   pointPerpendicularIntersectionToSegment
 } from '../relation';
 
@@ -22,7 +23,7 @@ export default function pointJustifyMagnetPathSegments(point: TPoint, path: TPat
   segmentList.forEach(v => {
     const verticalIntersectionPoint = pointPerpendicularIntersectionToSegment(point, v);
     
-    if (verticalIntersectionPoint) {
+    if (isPointAlongSegment(verticalIntersectionPoint, v)) {
       const d = pointDistance(point, verticalIntersectionPoint);
       
       if (d <= magnetRadius && d < distance) {
