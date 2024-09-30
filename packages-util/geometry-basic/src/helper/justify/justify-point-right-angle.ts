@@ -35,12 +35,6 @@ function resolveOptions(arg?: number | boolean | IOptions): Required<IOptions> {
   return options;
 }
 
-function needRotate(deltaTheta: number, threshold: number): boolean {
-  const deltaThetaDegreesAbs = Math.abs(fromRadiansToDegrees(deltaTheta));
-  
-  return deltaThetaDegreesAbs > 0 && deltaThetaDegreesAbs <= threshold;
-}
-
 /**
  * 线段 A→B，点 C，当 A→B A→C 之间的夹角 θ 接近 90° 时（≤ threshold），返回点 C'，使 A→B A→C' 为直角
  *
@@ -65,18 +59,18 @@ export default function justifyPointRightAngle(point: TPoint, segment: TSegment,
     // equidistant
   } = resolveOptions(optionsArg);
   const sharedPoint = segment[0];
-  
   const theta = angleFromSegmentToSegment(segment, [sharedPoint, point]);
-  let deltaTheta = Math.PI / 2 - theta;
   
-  if (needRotate(deltaTheta, threshold)) {
-    return rotatePoint(point, sharedPoint, deltaTheta);
-  }
-  
-  deltaTheta = 3 * Math.PI / 2 - theta;
-  
-  if (needRotate(deltaTheta, threshold)) {
-    return rotatePoint(point, sharedPoint, deltaTheta);
+  for (const v of [
+    Math.PI / 2,
+    Math.PI / 2 * 3
+  ]) {
+    const deltaTheta = v - theta;
+    const deltaThetaDegreesAbs = Math.abs(fromRadiansToDegrees(deltaTheta));
+    
+    if (deltaThetaDegreesAbs > 0 && deltaThetaDegreesAbs <= threshold) {
+      return rotatePoint(point, sharedPoint, deltaTheta);
+    }
   }
   
   return null;

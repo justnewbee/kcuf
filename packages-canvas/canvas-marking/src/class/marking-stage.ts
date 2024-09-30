@@ -1198,6 +1198,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   setData(imageUrl?: string, markings: IMarkingConfigItem<T>[] = []): void {
+    this.cancelCreating();
     this.setupImageAndItems(imageUrl, markings);
   }
   
