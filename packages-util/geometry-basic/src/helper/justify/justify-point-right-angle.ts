@@ -47,7 +47,7 @@ function needRotate(deltaTheta: number, threshold: number): boolean {
  * 1. `equidistant: true`，则等距旋转，模 |AC| === |AC'|
  *
  * A ⦿→-------◉ B
- *   | \  ↙ 0 < | 90° - θ | ≤ threshold
+ *   | \  ↙ `0 < | 90° - θ | ≤ threshold`
  *   |   \
  *   |    ◉ C
  *   ◉ C'
@@ -55,11 +55,11 @@ function needRotate(deltaTheta: number, threshold: number): boolean {
  * 2. `equidistant: false`，则返回垂足，模 |AC| > |AC'|
  *
  * A ⦿→-------◉ B
- *   | \  ↙ 0 < | 90° - θ | ≤ threshold
+ *   | \  ↙ `0 < | 90° - θ | ≤ threshold`
  *   |   \
  *   ◉ C' ◉ C
  */
-export default function pointJustifyRightAngle(point: TPoint, segment: TSegment, optionsArg = 5): TPoint | null {
+export default function justifyPointRightAngle(point: TPoint, segment: TSegment, optionsArg = 5): TPoint | null {
   const {
     threshold
     // equidistant

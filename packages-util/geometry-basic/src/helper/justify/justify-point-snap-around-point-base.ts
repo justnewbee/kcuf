@@ -14,7 +14,7 @@ import {
  *
  * 返回点和移动距离元组
  */
-export default function pointJustifySnapAroundPointBase(point: TPoint, pivot: TPoint, steps = 8): [TPoint, number] {
+export default function justifyPointSnapAroundPointBase(point: TPoint, pivot: TPoint, steps = 8): [TPoint, number] {
   const radius = pointDistance(pivot, point);
   
   if (radius <= 0) {

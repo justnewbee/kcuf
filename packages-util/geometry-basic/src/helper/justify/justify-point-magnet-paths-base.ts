@@ -6,7 +6,7 @@ import {
 
 type TGetter = (point: TPoint, paths: TPath, magnetRadius: number) => IMagnetPoint | null;
 
-export default function pointJustifyMagnetPathsBase(point: TPoint, paths: TPath[], magnetRadius: number, getter: TGetter): IMagnetPoint | null {
+export default function justifyPointMagnetPathsBase(point: TPoint, paths: TPath[], magnetRadius: number, getter: TGetter): IMagnetPoint | null {
   return paths.reduce((result: IMagnetPoint | null, v): IMagnetPoint | null => {
     const magnetPoint = getter(point, v, magnetRadius);
     

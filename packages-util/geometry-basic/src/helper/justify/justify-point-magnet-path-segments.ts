@@ -15,7 +15,7 @@ import {
 /**
  * 从 path 的所有边（不包含边的顶点）中找距 point 最近的磁吸点
  */
-export default function pointJustifyMagnetPathSegments(point: TPoint, path: TPath, magnetRadius: number): IMagnetPoint | null {
+export default function justifyPointMagnetPathSegments(point: TPoint, path: TPath, magnetRadius: number): IMagnetPoint | null {
   const segmentList = pathSegmentList(path);
   let pointM: TPoint | undefined;
   let distance = Infinity;

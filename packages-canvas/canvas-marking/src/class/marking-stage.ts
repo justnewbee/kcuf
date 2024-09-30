@@ -10,11 +10,11 @@ import {
   roundCoords,
   pathPointSiblingsByIndex,
   pathsAuxiliaryList,
-  pointJustifyMagnetAlongPath,
-  pointJustifyMagnetAlongPaths,
-  pointJustifyRightAngle,
-  pointJustifySnapAroundPoint,
-  pointJustifySnapAroundPointBetween
+  justifyPointMagnetAlongPath,
+  justifyPointMagnetAlongPaths,
+  justifyPointRightAngle,
+  justifyPointSnapAroundPoint,
+  justifyPointSnapAroundPointBetween
 } from '@kcuf/geometry-basic';
 import {
   pixelRatioGet,
@@ -857,13 +857,13 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     const creatingStats = itemCreating?.stats;
     const editingStats = itemEditing?.stats;
     
-    let magnetPoint: MagnetPoint | null = creatingStats ? pointJustifyMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
+    let magnetPoint: MagnetPoint | null = creatingStats ? justifyPointMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
     
-    magnetPoint ||= editingStats && editingStats.draggingPointIndex >= 0 ? pointJustifyMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
+    magnetPoint ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyPointMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
       return i !== editingStats.draggingPointIndex;
     }), magnetRadius) : null;
     
-    magnetPoint ||= pointJustifyMagnetAlongPaths(imageMouse, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
+    magnetPoint ||= justifyPointMagnetAlongPaths(imageMouse, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
     
     return magnetPoint ? magnetPoint.point : null;
   }
@@ -886,7 +886,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
         return null;
       }
       
-      return pointJustifyRightAngle(this.imageMouse, [lastP, last2ndP]);
+      return justifyPointRightAngle(this.imageMouse, [lastP, last2ndP]);
     }
     
     return null;
@@ -906,18 +906,18 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     if (creatingStats) {
       const lastPoint = creatingStats.path[creatingStats.path.length - 1];
       
-      return lastPoint ? pointJustifySnapAroundPoint(imageMouse, lastPoint) : null;
+      return lastPoint ? justifyPointSnapAroundPoint(imageMouse, lastPoint) : null;
     }
     
     if (editingStats) {
       const siblingPoints = pathPointSiblingsByIndex(editingStats.path, editingStats.draggingPointIndex);
       
       if (siblingPoints.length === 1) {
-        return pointJustifySnapAroundPoint(imageMouse, siblingPoints[0]);
+        return justifyPointSnapAroundPoint(imageMouse, siblingPoints[0]);
       }
       
       if (siblingPoints.length === 2) {
-        return pointJustifySnapAroundPointBetween(imageMouse, siblingPoints[0], siblingPoints[1]);
+        return justifyPointSnapAroundPointBetween(imageMouse, siblingPoints[0], siblingPoints[1]);
       }
     }
     

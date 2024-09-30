@@ -1,5 +1,5 @@
-export { default as pointJustifyMagnetAlongPath } from './point-justify-magnet-along-path';
-export { default as pointJustifyMagnetAlongPaths } from './point-justify-magnet-along-paths';
-export { default as pointJustifyRightAngle } from './point-justify-right-angle';
-export { default as pointJustifySnapAroundPoint } from './point-justify-snap-around-point';
-export { default as pointJustifySnapAroundPointBetween } from './point-justify-snap-around-point-between';
+export { default as justifyPointMagnetAlongPath } from './justify-point-magnet-along-path';
+export { default as justifyPointMagnetAlongPaths } from './justify-point-magnet-along-paths';
+export { default as justifyPointRightAngle } from './justify-point-right-angle';
+export { default as justifyPointSnapAroundPoint } from './justify-point-snap-around-point';
+export { default as justifyPointSnapAroundPointBetween } from './justify-point-snap-around-point-between';
