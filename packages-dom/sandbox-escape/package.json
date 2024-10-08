@@ -22,11 +22,11 @@
     "access": "public"
   },
   "devDependencies": {
-    "@babel/cli": "^7.25.6",
-    "@babel/core": "^7.25.2",
-    "@babel/plugin-transform-runtime": "^7.25.4",
-    "@babel/preset-env": "^7.25.4",
-    "@babel/preset-typescript": "^7.24.7",
+    "@babel/cli": "^7.25.7",
+    "@babel/core": "^7.25.7",
+    "@babel/plugin-transform-runtime": "^7.25.7",
+    "@babel/preset-env": "^7.25.7",
+    "@babel/preset-typescript": "^7.25.7",
     "@kcuf/ts-config": "workspace:^",
     "rimraf": "^6.0.1",
     "typescript": "^5.6.2"
