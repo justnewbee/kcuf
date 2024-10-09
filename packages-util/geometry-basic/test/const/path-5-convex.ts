@@ -9,13 +9,12 @@ import {
 /**
  * 凸多边形（形如房子）
  *
- *   0  1  2  3  4  5
- * 0 ⦿→ +--+--+--◉--+-
+ *   0  1  2  3  4
+ * 0 ⦿→ +━━+━━+━━◉
  * 1 ↑           ↓
  * 2 ◉           ◉
- * 3 | ↖       ↙
- * 4 |     ◉ (2, 4)
- * 5 |
+ * 3 ┃ ↖       ↙
+ * 4 ┃     ◉ (2, 4)
  */
 export default {
   title: 'Path of points 5 ⌂',
@@ -42,7 +41,7 @@ export default {
     title: 'both points inside 2',
     input: [[1, 1], [2, 2]],
     output: [],
-    outputExtended: [[0, -0], [3, 3]]
+    outputExtended: [[0, 0], [3, 3]]
   }, {
     title: 'both points outside no crossing',
     input: [[5, 0], [6, 1]],
@@ -61,13 +60,13 @@ export default {
   }, {
     title: 'both points outside crossing through',
     input: [[-1, -1], [4, 4]],
-    output: [[0, -0], [3, 3]],
-    outputExtended: [[0, -0], [3, 3]]
+    output: [[0, 0], [3, 3]],
+    outputExtended: [[0, 0], [3, 3]]
   }, {
     title: 'both points are path points',
     input: [[0, 0], [4, 2]],
-    output: [[0, -0], [4, 2]],
-    outputExtended: [[0, -0], [4, 2]]
+    output: [[0, 0], [4, 2]],
+    outputExtended: [[0, 0], [4, 2]]
   }, {
     title: 'both points are along edge',
     input: [[0, 1], [3, 3]],
@@ -76,8 +75,8 @@ export default {
   }, {
     title: 'one path point, one inside',
     input: [[0, 0], [2, 2]],
-    output: [[0, -0]],
-    outputExtended: [[0, -0], [3, 3]]
+    output: [[0, 0]],
+    outputExtended: [[0, 0], [3, 3]]
   }, {
     title: 'one path point, one inside',
     input: [[4, 2], [3, 1]],
@@ -91,8 +90,8 @@ export default {
   }, {
     title: 'one path point, one through',
     input: [[0, 0], [4, 4]],
-    output: [[0, -0], [3, 3]],
-    outputExtended: [[0, -0], [3, 3]]
+    output: [[0, 0], [3, 3]],
+    outputExtended: [[0, 0], [3, 3]]
   }, {
     title: 'one along border, one inside',
     input: [[0, 1], [2, 3]],

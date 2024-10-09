@@ -7,7 +7,7 @@ export type TVector = [number, number];
 // 线段 [p1, p2]
 export type TSegment = [TPoint, TPoint];
 
-// 直线方程系数 `A*x + B*y + C = 0`
+// 直线方程系数 `Ax + By + C = 0`，对应垂直线的方程为 `A'x + B'y + C' = 0` 的 A' = B，B' = -A
 export type TLine = [number, number, number];
 
 export type TLineStandard = [1, 0, number] | [number, -1, number];
@@ -32,4 +32,15 @@ export interface IPathEdgeCenterPoints {
   b: TPoint;
   l: TPoint;
   c: TPoint;
+}
+
+export interface IJustifyPointPerpendicularThreshold {
+  /**
+   * 角度变化不可超过此值（默认 5° 以内）
+   */
+  angle?: number;
+  /**
+   * 距离变化不可超过此值，默认 0（不比较）
+   */
+  distance?: number;
 }

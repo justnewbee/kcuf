@@ -30,12 +30,12 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
       });
       
       test('outside crossing', () => {
-        expect(segmentInnerSliceByPath([[-1, -1], [4, 4]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, -0], [3, 3]]]);
+        expect(segmentInnerSliceByPath([[-1, -1], [4, 4]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, 0], [3, 3]]]);
         expect(segmentInnerSliceTotalLengthByPath([[-1, -1], [4, 4]], TEST_PATH_5_CONVEX.path)).toEqual(Math.hypot(3, 3));
       });
       
       test('path point', () => {
-        expect(segmentInnerSliceByPath([[0, 0], [4, 2]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, -0], [4, 2]]]);
+        expect(segmentInnerSliceByPath([[0, 0], [4, 2]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, 0], [4, 2]]]);
         expect(segmentInnerSliceTotalLengthByPath([[0, 0], [4, 2]], TEST_PATH_5_CONVEX.path)).toEqual(Math.hypot(4, 2));
       });
       
@@ -47,7 +47,7 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
     
     describe('one point is path point', () => {
       test('the other inside', () => {
-        expect(segmentInnerSliceByPath([[0, 0], [3, 2]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, -0], [3, 2]]]);
+        expect(segmentInnerSliceByPath([[0, 0], [3, 2]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, 0], [3, 2]]]);
         expect(segmentInnerSliceTotalLengthByPath([[0, 0], [3, 2]], TEST_PATH_5_CONVEX.path)).toEqual(Math.hypot(3, 2));
       });
       
@@ -57,7 +57,7 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
       });
       
       test('the other outside crossing', () => {
-        expect(segmentInnerSliceByPath([[0, 0], [4, 4]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, -0], [3, 3]]]);
+        expect(segmentInnerSliceByPath([[0, 0], [4, 4]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, 0], [3, 3]]]);
         expect(segmentInnerSliceTotalLengthByPath([[0, 0], [4, 4]], TEST_PATH_5_CONVEX.path)).toEqual(Math.hypot(3, 3));
       });
     });
@@ -98,7 +98,7 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
       });
       
       test('outside crossing', () => {
-        expect(segmentInnerSliceByPath([[-1, -1], [5, 5]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, -0], [4, 4]]]);
+        expect(segmentInnerSliceByPath([[-1, -1], [5, 5]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, 0], [4, 4]]]);
         expect(segmentInnerSliceByPath([[-1, 0], [4, 5]], TEST_PATH_6_CONCAVE.path)).toEqual([[[-0, 1], [1, 2]], [[2, 3], [3, 4]]]);
         expect(segmentInnerSliceByPath([[1, 4], [5, 0]], TEST_PATH_6_CONCAVE.path)).toEqual([[[2, 3], [4, 1]]]);
       });
@@ -108,8 +108,8 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
         expect(segmentInnerSliceByPath([[2, 4], [0, 2]], TEST_PATH_6_CONCAVE.path)).toEqual([]);
         
         expect(segmentInnerSliceByPath([[2, 4], [4, 0]], TEST_PATH_6_CONCAVE.path)).toEqual([[[2, 4], [4, 0]]]);
-        expect(segmentInnerSliceByPath([[0, 0], [2, 2]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, -0], [2, 2]]]);
-        expect(segmentInnerSliceByPath([[2, 2], [0, 0]], TEST_PATH_6_CONCAVE.path)).toEqual([[[2, 2], [0, -0]]]);
+        expect(segmentInnerSliceByPath([[0, 0], [2, 2]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, 0], [2, 2]]]);
+        expect(segmentInnerSliceByPath([[2, 2], [0, 0]], TEST_PATH_6_CONCAVE.path)).toEqual([[[2, 2], [0, 0]]]);
       });
       
       test('along path', () => {
@@ -119,7 +119,7 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
     
     describe('one point is path point', () => {
       test('the other inside', () => {
-        expect(segmentInnerSliceByPath([[0, 0], [3, 2]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, -0], [3, 2]]]);
+        expect(segmentInnerSliceByPath([[0, 0], [3, 2]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, 0], [3, 2]]]);
       });
       
       test('the other outside', () => {
@@ -127,7 +127,7 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
       });
 
       test('the other outside crossing', () => {
-        expect(segmentInnerSliceByPath([[0, 0], [8, 2]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, -0], [4, 1]]]);
+        expect(segmentInnerSliceByPath([[0, 0], [8, 2]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, 0], [4, 1]]]);
       });
     });
 

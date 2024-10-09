@@ -42,10 +42,12 @@ export default function getStatsDisplayHtml<T>(stats: IMarkingStageStats<T>, cau
     ['CreatingCrossing', displayBoolean(stats.creatingCrossing)],
     ['CreatingWillFinish', stats.creatingWillFinish],
     ['Highlighting', displayBoolean(stats.highlighting)],
+    // Hover
     ['Hovering', displayBoolean(stats.hovering)],
-    ['HoveringPoint', displayCoordsAndIndex(stats.itemStatsHovering?.path[stats.hoveringPointIndex] || null, stats.hoveringPointIndex)],
+    ['HoveringPoint', displayCoordsAndIndex(stats.hoveringPoint, stats.hoveringPointIndex)],
     ['HoveringInsertionPoint', stats.hoveringInsertionPointIndex],
     ['HoveringBorder', stats.hoveringBorderIndex],
+    // 编辑
     ['Editing', displayBoolean(stats.editing)],
     ['EditingDirty', displayBoolean(stats.editingDirty)],
     ['EditingCrossing', displayBoolean(stats.editingCrossing)],

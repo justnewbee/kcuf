@@ -12,7 +12,7 @@ import {
   pathsAuxiliaryList,
   justifyPointMagnetAlongPath,
   justifyPointMagnetAlongPaths,
-  justifyPointRightAngle,
+  justifyPointPerpendicularAlongPath,
   justifyPointSnapAroundPoint,
   justifyPointSnapAroundPointBetween
 } from '@kcuf/geometry-basic';
@@ -840,10 +840,9 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     const {
       options: {
         magnetRadius: magnetRadius0 = DEFAULT_MAGNET_RADIUS
-      },
-      imageScale
+      }
     } = this;
-    const magnetRadius = magnetRadius0 / imageScale; // 将屏幕像素转化成 canvas 内的像素，以保证磁吸距离和肉眼看到的一致
+    const magnetRadius = this.fromCanvasPixelToImagePixel(magnetRadius0);
     
     if (magnetRadius <= 0) {
       return null;
@@ -879,14 +878,9 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     const creatingStats = this.itemCreating?.stats;
     
     if (creatingStats) {
-      const lastP = creatingStats.path[creatingStats.path.length - 1];
-      const last2ndP = creatingStats.path[creatingStats.path.length - 2];
-      
-      if (!lastP || !last2ndP) {
-        return null;
-      }
-      
-      return justifyPointRightAngle(this.imageMouse, [lastP, last2ndP]);
+      return justifyPointPerpendicularAlongPath(this.imageMouse, creatingStats.path, {
+        distance: this.fromCanvasPixelToImagePixel(10)
+      });
     }
     
     return null;
@@ -925,20 +919,27 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   /**
+   * 图片有缩放，有写场景下我们需要将肉眼看到相对于 canvas 的坐标转换成相对于 image 的坐标
+   */
+  private fromCanvasPixelToImagePixel(canvasPixel: number): number {
+    return canvasPixel / this.imageScale;
+  }
+  
+  private fromCanvasCoordsToImageCoords(canvasCoords: Point): Point {
+    return [canvasCoords[0] / this.imageScale, canvasCoords[1] / this.imageScale];
+  }
+  
+  /**
    * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
    */
   private updateImageMouse(mouseInCanvas: Point | null): void {
-    const {
-      imageScale
-    } = this;
-    
     this.justified = '';
     
     if (!mouseInCanvas) {
       return;
     }
     
-    this.imageMouse = this.roundClampCoordsInImage([mouseInCanvas[0] / imageScale, mouseInCanvas[1] / imageScale]); // 鼠标坐标转成图片内部坐标
+    this.imageMouse = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
     
     let justifiedCoords = this.justifyImageMouseMagnet();
     
@@ -1033,7 +1034,6 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       canvasContext,
       itemCreating,
       itemEditing,
-      imageScale,
       imageMouse
     } = this;
     let activePath: Path | undefined;
@@ -1061,7 +1061,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     canvasContext.save();
     canvasContext.strokeStyle = auxiliaryLineOptions.color;
-    canvasContext.lineWidth = auxiliaryLineOptions.width / imageScale;
+    canvasContext.lineWidth = this.fromCanvasPixelToImagePixel(auxiliaryLineOptions.width);
     
     auxiliarySegmentList.forEach(v => {
       canvasContext.beginPath();
@@ -1547,9 +1547,10 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       creatingCrossing: !!itemStatsCreating?.crossing,
       creatingWillFinish: itemStatsCreating ? itemStatsCreating.creatingWillFinish : false,
       hovering: !!itemStatsHovering,
-      hoveringPointIndex: itemStatsHovering ? itemStatsHovering.hoveringPointIndex : -1,
-      hoveringInsertionPointIndex: itemStatsHovering ? itemStatsHovering.hoveringInsertionPointIndex : -1,
-      hoveringBorderIndex: itemStatsHovering ? itemStatsHovering.hoveringBorderIndex : -1,
+      hoveringPoint: itemStatsHovering?.path[itemStatsHovering.hoveringPointIndex] || null,
+      hoveringPointIndex: itemStatsHovering?.hoveringPointIndex ?? -1,
+      hoveringInsertionPointIndex: itemStatsHovering?.hoveringInsertionPointIndex ?? -1,
+      hoveringBorderIndex: itemStatsHovering?.hoveringBorderIndex ?? -1,
       highlighting: !!itemStatsHighlighting,
       editing: !!itemStatsEditing,
       editingDirty: itemStatsEditing ? itemStatsEditing.dirty : false,

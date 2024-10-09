@@ -9,7 +9,7 @@ import {
 } from '../base';
 import {
   isPointAlongSegment,
-  pointPerpendicularIntersectionToSegment
+  perpendicularIntersectionThroughPointToSegment
 } from '../relation';
 
 /**
@@ -21,7 +21,7 @@ export default function justifyPointMagnetPathSegments(point: TPoint, path: TPat
   let distance = Infinity;
   
   segmentList.forEach(v => {
-    const verticalIntersectionPoint = pointPerpendicularIntersectionToSegment(point, v);
+    const verticalIntersectionPoint = perpendicularIntersectionThroughPointToSegment(point, v);
     
     if (isPointAlongSegment(verticalIntersectionPoint, v)) {
       const d = pointDistance(point, verticalIntersectionPoint);

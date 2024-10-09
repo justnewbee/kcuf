@@ -6,11 +6,11 @@ import {
   pointDistance
 } from '../base';
 
-import pointPerpendicularIntersectionToLine from './point-perpendicular-intersection-to-line';
+import perpendicularIntersectionThroughPointToLine from './perpendicular-intersection-through-point-to-line';
 
 /**
  * 点到直线的距离
  */
 export default function pointDistanceToLine(point: TPoint, line: TLine): number {
-  return pointDistance(point, pointPerpendicularIntersectionToLine(point, line));
+  return pointDistance(point, perpendicularIntersectionThroughPointToLine(point, line));
 }

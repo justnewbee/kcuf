@@ -8,7 +8,7 @@ import {
   angleFromSegmentToSegment
 } from '../src';
 
-describe('angleFromSegmentToSegment(segmentF: Segment, segmentT: Segment): number', () => {
+describe('angleFromSegmentToSegment(segment1: Segment, segment2: Segment): number', () => {
   test('0°', () => {
     expect(angleFromSegmentToSegment([[0, 0], [1, 0]], [[0, 0], [2, 0]])).toBe(0);
     expect(angleFromSegmentToSegment([[0, 0], [1, 0]], [[1, 1], [4, 1]])).toBe(0);

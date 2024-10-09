@@ -78,6 +78,7 @@ export interface IMarkingStageStats<T = void> {
   creatingWillFinish: TCreatingWillFinish;
   highlighting: boolean;
   hovering: boolean;
+  hoveringPoint: Point | null;
   hoveringPointIndex: number;
   hoveringInsertionPointIndex: number;
   hoveringBorderIndex: number;

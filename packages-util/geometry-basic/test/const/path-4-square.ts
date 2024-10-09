@@ -36,13 +36,12 @@ import {
 /**
  * 正方形
  *
- *  0  1  2  3  4  5
- * 0 ⦿→ +--+--+--◉--+-
- * 1 |           ↓
- * 2 |           |
- * 3 ↑           |
- * 4 ◉--------- ←◉ (4, 4)
- * 5 |
+ *   0  1  2  3  4
+ * 0 ⦿→ +━━+━━+━━◉
+ * 1 ┃            ↓
+ * 2 ┃            ┃
+ * 3 ↑            ┃
+ * 4 ◉━━━━━━━━━ ←◉ (4, 4)
  */
 export default {
   title: 'Path of points 4 square ◼',
@@ -68,7 +67,7 @@ export default {
     }, {
       title: 'x = 0',
       input: LINE_1X_0Y_0,
-      output: [[-0, -0], [-0, 4]]
+      output: [[-0, 0], [-0, 4]]
     }, {
       title: 'x = 1',
       input: LINE_1X_0Y_N1,
@@ -96,7 +95,7 @@ export default {
     }, {
       title: 'y = 0',
       input: LINE_0X_N1Y_0,
-      output: [[-0, 0], [4, 0]]
+      output: [[-0, -0], [4, 0]]
     }, {
       title: 'y = 1',
       input: LINE_0X_N1Y_1,
@@ -124,7 +123,7 @@ export default {
     }, {
       title: 'y = x',
       input: LINE_1X_N1Y_0,
-      output: [[0, -0], [4, 4]]
+      output: [[0, 0], [4, 4]]
     }, {
       title: 'y = x + 1',
       input: LINE_1X_N1Y_1,
@@ -261,7 +260,7 @@ export default {
       title: 'y = x',
       input: LINE_1X_N1Y_0,
       output: [
-        [[0, -0], [4, 4], [0, 4]],
+        [[0, 0], [4, 4], [0, 4]],
         [[0, 0], [4, 0], [4, 4]]
       ]
     }, {
@@ -347,7 +346,7 @@ export default {
       ],
       output: [
         [[3, 4], [0, 4], [-0, 1]],
-        [[0, -0], [4, 4], [3, 4], [-0, 1]],
+        [[0, 0], [4, 4], [3, 4], [-0, 1]],
         [[0, 0], [4, 0], [4, 4]]
       ]
     }, {

@@ -7,9 +7,15 @@ import {
 } from '../../util';
 
 /**
- * 点到直线的垂足
+ * 点 point 到直线 line 的垂足
+ *
+ *     ◉ p
+ *     ┃
+ *     ┃
+ *     ┃⏋↙ 垂足
+ * ━━━━⦿━━━━━━━━━━ line
  */
-export default function pointPerpendicularIntersectionToLine(point: TPoint, line: TLine): TPoint {
+export default function perpendicularIntersectionThroughPointToLine(point: TPoint, line: TLine): TPoint {
   const [x, y] = point;
   const [A, B, C] = standardizeLine(line);
   const AABB = A * A + B * B;
