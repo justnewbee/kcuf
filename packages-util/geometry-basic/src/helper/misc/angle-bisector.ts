@@ -3,7 +3,7 @@ import {
   TVector
 } from '../../types';
 import {
-  vectorNormalize,
+  normalizeVector,
   segmentVectorNormalized
 } from '../base';
 import {
@@ -24,5 +24,5 @@ export default function angleBisector(angle: TAngle): TVector {
     return rotateVector(v1, Math.PI / 2);
   }
   
-  return vectorNormalize([vxSum, vySum]);
+  return normalizeVector([vxSum, vySum]);
 }

@@ -7,6 +7,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import {
   Point,
   Path,
+  Angle,
   isPointAlongPath,
   isPointWithinPath,
   segmentLength,
@@ -37,13 +38,15 @@ import {
 } from '../types';
 import {
   DEFAULT_FILL_ALPHA_EDITING,
-  DEFAULT_POINT_INSERTION_MIN_DISTANCE
+  DEFAULT_POINT_INSERTION_MIN_DISTANCE,
+  DEFAULT_RIGHT_ANGLE_MARK_SIZE
 } from '../const';
 import {
   roundFloat,
   initDrawStyleBorder,
   initDrawStylePoint,
   initDrawStyleFill,
+  canFinishRect,
   fadeStyleBorder,
   fadeStylePoint,
   fadeStyleFill,
@@ -52,13 +55,12 @@ import {
   getPathCreatingRect,
   getPathCreatingRect2,
   canvasDrawArea,
+  canvasDrawRightAngleMark,
   canvasPathPointShape,
-  canvasCheckPointInStroke,
-  markingDrawBorder,
-  markingDrawInsertionPoint,
-  markingDrawPoint,
-  canFinishRect
+  canvasCheckPointInStroke
 } from '../util';
+import canvasDrawPathBorder from '../util/canvas-draw-path-border';
+import canvasDrawShape from '../util/canvas-draw-shape';
 
 export default class MarkingItem<T> implements IMarkingItemClass<T> {
   private readonly markingStage: IMarkingStageClassProtected<T>;
@@ -404,6 +406,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
    */
   private getPathForDraw(): Path {
     const {
+      options,
       markingStage: {
         imageSize,
         imageMouse
@@ -417,7 +420,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     }
     
     // 以下为新建中的路径
-    switch (this.options.type) {
+    switch (options.type) {
       case 'rect':
         return getPathCreatingRect(path, imageMouse);
       case 'rect2':
@@ -494,15 +497,13 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
   }
   
   private drawArea(): void {
-    canvasDrawArea(this.markingStage.canvasContext, this.getPathForDraw(), this.getDrawStyleFill().color);
+    canvasDrawArea(this.markingStage.canvasContext, this.getPathForDraw(), {
+      color: this.getDrawStyleFill().color
+    });
   }
   
   private drawBorder(): void {
     const {
-      markingStage: {
-        canvasContext,
-        imageScale
-      },
       options: {
         type
       },
@@ -518,7 +519,9 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const close = !this.creating || type === 'rect' || type === 'rect2';
     const diffAll = highlightingBorderIndex !== null && highlightingBorderIndex < 0 ? borderDiff?.highlight || borderDiff?.all : borderDiff?.all;
     
-    markingDrawBorder(canvasContext, pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll, faded), imageScale, close);
+    this.drawRightAngleMark(borderStyle);
+    
+    this.drawBorderPartial(pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll, faded), close);
     
     const segmentList = pathSegmentList(pathForDraw);
     
@@ -532,7 +535,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       const mergedStyle = mergeBorderStyleWithDiff(borderStyle, diff, faded);
       
       if (mergedStyle !== borderStyle) {
-        markingDrawBorder(canvasContext, segment, mergedStyle, imageScale);
+        this.drawBorderPartial(segment, mergedStyle);
       }
     });
     
@@ -541,7 +544,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const mergedStyleHover = mergeBorderStyleWithDiff(borderStyle, borderDiff?.hover, faded);
     
     if (hoveringBorder && mergedStyleHover !== borderStyle) {
-      markingDrawBorder(canvasContext, hoveringBorder, mergedStyleHover, imageScale);
+      this.drawBorderPartial(hoveringBorder, mergedStyleHover);
     }
     
     if (highlightingBorderIndex !== null && highlightingBorderIndex >= 0 && highlightingBorderIndex !== hoveringBorderIndex) {
@@ -549,9 +552,79 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       const mergedStyleHighlighting = mergeBorderStyleWithDiff(borderStyle, borderDiff?.highlight, faded);
       
       if (highlightingBorder && mergedStyleHighlighting !== borderStyle) {
-        markingDrawBorder(canvasContext, highlightingBorder, mergedStyleHighlighting, imageScale);
+        this.drawBorderPartial(highlightingBorder, mergedStyleHighlighting);
       }
     }
+  }
+  
+  private drawBorderPartial(path: Path, borderStyle: TMarkingBorderStyleResolved, close?: boolean): void {
+    const {
+      markingStage: {
+        canvasContext,
+        imageScale
+      }
+    } = this;
+    
+    if (borderStyle.outerWidth > 0) { // 如果有外线宽度差，则先渲染外线，这样会形成一条带边框的线
+      canvasDrawPathBorder(canvasContext, path, {
+        scale: imageScale,
+        width: borderStyle.width + borderStyle.outerWidth * 2,
+        color: borderStyle.outerColor,
+        lineJoin: borderStyle.lineJoin,
+        close
+      });
+    }
+    
+    canvasDrawPathBorder(canvasContext, path, {
+      scale: imageScale,
+      width: borderStyle.width,
+      color: borderStyle.color,
+      lineJoin: borderStyle.lineJoin,
+      close
+    });
+  }
+  
+  private drawRightAngleMark(borderStyle: TMarkingBorderStyleResolved): void {
+    if (!this.creating && !this.draggingMoved) {
+      return;
+    }
+    
+    const {
+      markingStage: {
+        options: {
+          rightAngleMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
+        },
+        canvasContext,
+        imageMouse,
+        imageScale
+      },
+      path
+    } = this;
+    
+    if (path.length < 2) {
+      return;
+    }
+    
+    const prev = path[0];
+    const prev2 = path[1];
+    const next = path[path.length - 1];
+    const next2 = path[path.length - 2];
+    
+    if (path.length < 2 || !prev || !prev2 || !next || !next2) {
+      return;
+    }
+    
+    const angles: Angle[] = [
+      [prev2, prev, imageMouse],
+      [prev, imageMouse, next],
+      [imageMouse, next, next2]
+    ];
+    
+    angles.forEach(v => canvasDrawRightAngleMark(canvasContext, v, {
+      scale: imageScale,
+      size: rightAngleMarkSize,
+      color: borderStyle.color
+    }));
   }
   
   private drawPoints(): void {
@@ -559,6 +632,38 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       return;
     }
     
+    const pointStyle = this.getDrawStylePoint();
+    
+    this.drawInsertionPoints(pointStyle); // 先画虚点，避免实点距离过近的时候的显示问题
+    this.drawVertexPoints(pointStyle);
+  }
+  
+  private drawInsertionPoints(pointStyle: TMarkingPointStyleResolved): void {
+    const {
+      markingStage: {
+        canvasContext,
+        imageScale
+      }
+    } = this;
+    
+    this.insertionPoints.forEach(v => {
+      if (!v) {
+        return;
+      }
+      
+      canvasDrawShape(canvasContext, v, {
+        scale: imageScale,
+        type: pointStyle.typeMiddle,
+        radius: pointStyle.radius,
+        // 注意这里会调换顺序
+        lineWidth: pointStyle.lineWidth * 0.75,
+        lineColor: pointStyle.fillColor,
+        fillColor: pointStyle.lineColor
+      });
+    });
+  }
+  
+  private drawVertexPoints(pointStyle: TMarkingPointStyleResolved): void {
     const {
       markingStage: {
         canvasContext,
@@ -566,19 +671,15 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       },
       statsSnapshot
     } = this;
-    const pointStyle = this.getDrawStylePoint();
     
-    // 先画虚点，避免实点距离过近的时候的显示问题
-    this.insertionPoints.forEach(v => {
-      if (v) {
-        markingDrawInsertionPoint(canvasContext, v, pointStyle, imageScale);
-      }
-    });
-    
-    this.getPathForDraw().forEach((v, i) => markingDrawPoint(canvasContext, v, i === 0 && statsSnapshot.creatingWillFinish === 'close' ? {
-      ...pointStyle,
-      radius: pointStyle.radius * 2
-    } : pointStyle, imageScale));
+    this.getPathForDraw().forEach((v, i) => canvasDrawShape(canvasContext, v, {
+      scale: imageScale,
+      type: pointStyle.type,
+      radius: i === 0 && statsSnapshot.creatingWillFinish === 'close' ? pointStyle.radius * 2 : pointStyle.radius,
+      lineWidth: pointStyle.lineWidth,
+      lineColor: pointStyle.lineColor,
+      fillColor: pointStyle.fillColor
+    }));
   }
   
   /**

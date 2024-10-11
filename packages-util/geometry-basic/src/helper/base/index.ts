@@ -1,3 +1,6 @@
+export { default as normalizeVector } from './normalize-vector';
+export { default as normalizeLine } from './normalize-line';
+
 export { default as pointDistance } from './point-distance';
 
 export { default as segmentLine } from './segment-line';
@@ -9,10 +12,10 @@ export { default as segmentSlope } from './segment-slope';
 export { default as segmentProjectionX } from './segment-projection-x';
 export { default as segmentProjectionY } from './segment-projection-y';
 
-export { default as vectorNormalize } from './vector-normalize';
 export { default as vectorMagnitude } from './vector-magnitude';
 
-export { default as lineNormalize } from './line-normalize';
+export { default as angleRadians } from './angle-radians';
+export { default as angleDegrees } from './angle-degrees';
 
 export { default as pathSegmentList } from './path-segment-list';
 export { default as pathMidpointList } from './path-midpoint-list';

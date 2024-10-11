@@ -29,8 +29,6 @@ export { default as isPointWithinPath } from './is-point-within-path';
 export { default as isSegmentCollinearWithLine } from './is-segment-collinear-with-line';
 export { default as isSegmentsIntersected } from './is-segments-intersected';
 
-export { default as angleRadians } from './angle-radians';
-export { default as angleDegrees } from './angle-degrees';
 export { default as angleFromSegmentToSegment } from './angle-from-segment-to-segment';
 export { default as angleBetweenLines } from './angle-between-lines';
 export { default as angleBetweenSegments } from './angle-between-segments';

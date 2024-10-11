@@ -4,7 +4,7 @@ import {
 } from '../../types';
 
 /**
- * p1 → p2 的向量
+ * 线段向量
  */
 export default function segmentVector(segment: TSegment): TVector {
   const [p1, p2] = segment;

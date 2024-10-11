@@ -3,23 +3,15 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  TLineJoin
+  IDrawBorderOptions
 } from '../types';
 
 import canvasPathThroughPoints from './canvas-path-through-points';
 
-interface ICanvasDrawLineOptions {
-  width: number;
-  color: string;
-  lineJoin: TLineJoin;
-  scale: number; // 需将 scale 反转过来，保证线在视觉上永远是绝对粗细
-  close?: boolean;
-}
-
 /**
  * 根据路径画出边框，若 options.close 为 false，则最末一条将是虚线
  */
-export default function canvasDrawPathBorder(canvasContext: CanvasRenderingContext2D, path: Path, options: ICanvasDrawLineOptions): void {
+export default function canvasDrawPathBorder(canvasContext: CanvasRenderingContext2D, path: Path, options: IDrawBorderOptions): void {
   if (path.length <= 1) {
     return;
   }

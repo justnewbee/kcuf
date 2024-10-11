@@ -3,7 +3,7 @@ import {
 } from '../../types';
 import {
   angleDegrees
-} from '../relation';
+} from '../base';
 
 export default function checkThresholdAngle(thresholdDegrees: number, angle: TAngle): number {
   let degrees = angleDegrees(angle);

@@ -11,7 +11,7 @@ import angleFromSegmentToSegment from './angle-from-segment-to-segment';
  * - `orientationRegardless: false` 需显式传入 → `[0, π]`
  */
 export default function angleBetweenSegments(segment1: TSegment, segment2: TSegment): number {
-  const radians = angleFromSegmentToSegment(segment1, segment2) % Math.PI; // 0-π
+  const radians = angleFromSegmentToSegment(segment1, segment2, true); // 0-π
   
   return Math.min(radians, Math.PI - radians);
 }

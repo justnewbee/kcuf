@@ -4,7 +4,7 @@ import {
 } from '../../types';
 import {
   segmentLine,
-  lineNormalize
+  normalizeLine
 } from '../base';
 import {
   isEqualLines
@@ -14,5 +14,5 @@ import {
  * 线段与直线是否共线
  */
 export default function isSegmentCollinearWithLine(segment: TSegment, line: TLine): boolean {
-  return isEqualLines(segmentLine(segment), lineNormalize(line));
+  return isEqualLines(segmentLine(segment), normalizeLine(line));
 }

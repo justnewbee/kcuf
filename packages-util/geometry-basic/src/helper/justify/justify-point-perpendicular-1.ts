@@ -7,19 +7,18 @@ import {
   fromRadiansToDegrees
 } from '../../util';
 import {
-  pointDistance
-} from '../base';
-import {
   angleRadians
-} from '../relation';
+} from '../base';
 import {
   rotatePoint
 } from '../transform';
 
+import checkThresholdRadius from './_check-threshold-radius';
+
 /**
  * 正交纠正 #1：与临边垂直
  *
- * 给定线段 segment，对 p 绕 segment[0] 等轴旋转，得 p'，使 p'-segment[0] 与 segment 垂直，
+ * 给定线段 segment，对 p 绕 segment.0 等轴旋转，得 p'，使 p'-segment.0 与 segment 垂直，
  * 需判断旋转角度及位移是否在允许范围内
  *
  * ▲━━━━━━ ←▲ segment
@@ -40,9 +39,9 @@ export default function justifyPointPerpendicular1(point: TPoint, segment: TSegm
     
     if (deltaThetaDegreesAbs > 0 && deltaThetaDegreesAbs <= thresholdDegrees) {
       const pointPrime = rotatePoint(point, segment[0], deltaTheta);
-      const distance = pointDistance(pointPrime, point);
+      const distance = checkThresholdRadius(thresholdRadius, point, pointPrime);
       
-      if (thresholdRadius <= 0 || pointDistance(pointPrime, point) <= thresholdRadius) {
+      if (distance >= 0) {
         return {
           point: pointPrime,
           theta: deltaThetaDegreesAbs,

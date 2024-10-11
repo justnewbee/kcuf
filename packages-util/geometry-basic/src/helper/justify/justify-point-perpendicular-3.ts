@@ -17,7 +17,7 @@ import checkThresholdAngle from './_check-threshold-angle';
 /**
  * 正交纠正 #3：在 1 的基础上，沿与某临点连线移动，与另一临边正交
  *
- * 对 p 沿 sibling-p 移动，得到 p'，使 p'-segment[0] 与 segment 垂直
+ * 对 p 沿 sibling-p 移动，得到 p'，使 p'-segment.0 与 segment 垂直
  *
  *        ▲→ ━━━━━▲ segment 待正交
  *      ╱ ┃θ╲⏌

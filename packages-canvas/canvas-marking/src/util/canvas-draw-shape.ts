@@ -3,21 +3,12 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  TPointType
+  IDrawShapeOptions
 } from '../types';
 
 import canvasPathPointShape from './canvas-path-point-shape';
 
-interface ICanvasDrawShapeOptions {
-  type: TPointType;
-  radius: number;
-  lineWidth: number;
-  lineColor: string;
-  fillColor: string;
-  scale: number;
-}
-
-export default function canvasDrawShape(canvasContext: CanvasRenderingContext2D, center: Point, options: ICanvasDrawShapeOptions): void {
+export default function canvasDrawShape(canvasContext: CanvasRenderingContext2D, center: Point, options: IDrawShapeOptions): void {
   const {
     type,
     radius,

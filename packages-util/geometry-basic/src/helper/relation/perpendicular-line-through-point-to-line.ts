@@ -4,7 +4,7 @@ import {
   TLineNormalized
 } from '../../types';
 import {
-  lineNormalize
+  normalizeLine
 } from '../base';
 
 /**
@@ -26,5 +26,5 @@ export default function perpendicularLineThroughPointToLine(point: TPoint, line:
   const [A, B] = line;
   const C = -B * point[0] + A * point[1];
   
-  return lineNormalize([B, -A, C]);
+  return normalizeLine([B, -A, C]);
 }

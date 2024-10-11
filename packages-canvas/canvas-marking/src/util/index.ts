@@ -26,8 +26,6 @@ export { default as getPathCreatingRect2 } from './get-path-creating-rect2';
 
 export { default as canvasPathPointShape } from './canvas-path-point-shape';
 export { default as canvasDrawArea } from './canvas-draw-area';
-export { default as markingDrawBorder } from './marking-draw-border';
-export { default as markingDrawPoint } from './marking-draw-point';
-export { default as markingDrawInsertionPoint } from './marking-draw-insertion-point';
+export { default as canvasDrawRightAngleMark } from './canvas-draw-right-angle-mark';
 
 export { default as canFinishRect } from './can-finish-rect';

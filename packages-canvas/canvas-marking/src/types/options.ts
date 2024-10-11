@@ -2,6 +2,10 @@ import {
   IMarkingAuxiliaryLine
 } from './common';
 import {
+  TLineJoin,
+  TPointType
+} from './style';
+import {
   IMarkingConfigItem,
   IMarkingItemConfig
 } from './marking-item-class';
@@ -37,6 +41,10 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig, IOptionsEve
    * 矩形矫正时距离阈值
    */
   justifyPerpendicularThresholdRadius?: number;
+  /**
+   * 直角标记大小，若临边长度不足此值则不显示
+   */
+  rightAngleMarkSize?: number;
   // --- 可选插件 --- //
   pluginTooltip?: boolean | IMarkingPluginTooltipOptions<T>;
   pluginZoom?: boolean | IMarkingPluginZoomOptions;
@@ -46,4 +54,31 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig, IOptionsEve
   // --- 一些钩子方法 --- //
   beforeCreateComplete?: IBeforeHook<T>; // 新建结束前，自动调整路径
   beforeEditDragEnd?: IBeforeHook<T>; // 编辑拖拽结束前，自动调整路径
+}
+
+export interface IDrawBorderOptions {
+  scale: number; // 需将 scale 反转过来，保证线在视觉上永远是绝对粗细
+  width: number;
+  color: string;
+  lineJoin: TLineJoin;
+  close?: boolean;
+}
+
+export interface IDrawRightAngleMarkOptions {
+  scale: number; // 需将 scale 反转过来，保证线在视觉上永远是绝对粗细
+  size: number; // 边长
+  color: string;
+}
+
+export interface IDrawShapeOptions {
+  type: TPointType;
+  radius: number;
+  lineWidth: number;
+  lineColor: string;
+  fillColor: string;
+  scale: number;
+}
+
+export interface IDrawAreaOptions {
+  color: string;
 }

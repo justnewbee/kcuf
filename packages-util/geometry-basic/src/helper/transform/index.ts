@@ -1,3 +1,5 @@
+export { default as multiplyVectorByScalar } from './multiply-vector-by-scalar';
+
 export { default as translatePoint } from './translate-point';
 export { default as translateSegment } from './translate-segment';
 export { default as translatePath } from './translate-path';
