@@ -520,7 +520,6 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const diffAll = highlightingBorderIndex !== null && highlightingBorderIndex < 0 ? borderDiff?.highlight || borderDiff?.all : borderDiff?.all;
     
     this.drawRightAngleMark(borderStyle);
-    
     this.drawBorderPartial(pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll, faded), close);
     
     const segmentList = pathSegmentList(pathForDraw);
@@ -605,19 +604,19 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       return;
     }
     
-    const prev = path[0];
-    const prev2 = path[1];
-    const next = path[path.length - 1];
-    const next2 = path[path.length - 2];
+    const first = path[0];
+    const first2 = path[1];
+    const last = path[path.length - 1];
+    const last2 = path[path.length - 2];
     
-    if (path.length < 2 || !prev || !prev2 || !next || !next2) {
+    if (path.length < 2 || !first || !first2 || !last || !last2) {
       return;
     }
     
     const angles: Angle[] = [
-      [prev2, prev, imageMouse],
-      [prev, imageMouse, next],
-      [imageMouse, next, next2]
+      [first2, first, imageMouse],
+      [first, imageMouse, last],
+      [imageMouse, last, last2]
     ];
     
     angles.forEach(v => canvasDrawRightAngleMark(canvasContext, v, {
@@ -675,7 +674,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     this.getPathForDraw().forEach((v, i) => canvasDrawShape(canvasContext, v, {
       scale: imageScale,
       type: pointStyle.type,
-      radius: i === 0 && statsSnapshot.creatingWillFinish === 'close' ? pointStyle.radius * 2 : pointStyle.radius,
+      radius: i === 0 && statsSnapshot.creatingWillFinish === 'close' ? pointStyle.radius * (1 + pointStyle.radiusEnlargeWhenClose) : pointStyle.radius,
       lineWidth: pointStyle.lineWidth,
       lineColor: pointStyle.lineColor,
       fillColor: pointStyle.fillColor

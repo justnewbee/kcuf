@@ -108,7 +108,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   /**
    * 鼠标矫正状态
    */
-  private justified: '' | 'magnet' | 'right-angle' | 'snap' = '';
+  private justified: '' | 'magnet' | 'perpendicular' | 'snap' = '';
   
   private plugins: IMarkingPlugin<T>[] = [];
   
@@ -871,7 +871,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   /**
    * 自动垂直正交矫正
    */
-  private justifyImageMouseRightAngle(): Point | null {
+  private justifyImageMousePerpendicular(): Point | null {
     if (!this.justifyEnabled) {
       return null;
     }
@@ -942,27 +942,27 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     this.imageMouse = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
     
-    let justifiedCoords = this.justifyImageMouseMagnet();
+    let justifiedImageMouse = this.justifyImageMouseMagnet();
     
-    if (justifiedCoords) {
+    if (justifiedImageMouse) {
       this.justified = 'magnet';
-      this.imageMouse = this.roundClampCoordsInImage(justifiedCoords);
+      this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
       
       return;
     }
     
-    justifiedCoords = this.justifyImageMouseRightAngle();
+    justifiedImageMouse = this.justifyImageMousePerpendicular();
     
-    if (justifiedCoords) {
-      this.justified = 'right-angle';
-      this.imageMouse = this.roundClampCoordsInImage(justifiedCoords);
+    if (justifiedImageMouse) {
+      this.justified = 'perpendicular';
+      this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
     }
     
-    justifiedCoords = this.justifyImageMouseSnap();
+    justifiedImageMouse = this.justifyImageMouseSnap();
     
-    if (justifiedCoords) {
+    if (justifiedImageMouse) {
       this.justified = 'snap';
-      this.imageMouse = this.roundClampCoordsInImage(justifiedCoords);
+      this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
     }
   }
   

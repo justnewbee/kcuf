@@ -59,6 +59,10 @@ export interface IMarkingPointStyle {
    */
   radius?: number;
   /**
+   * 自动闭合时的扩大比例（会加上 1），默认 0.5
+   */
+  radiusEnlargeWhenClose?: number;
+  /**
    * 边框宽度
    */
   lineWidth?: number;
