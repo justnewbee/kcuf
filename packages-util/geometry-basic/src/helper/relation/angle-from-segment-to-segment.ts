@@ -9,11 +9,12 @@ import {
 /**
  * 计算有向线段（可能不相交）之间的夹角，范围 `[0, 2π)`
  *
- * 0 +--------------> x
- *   |   ◉-------- segment1(rom)
- *   |    \ ↙ +θ
- *   |     \
- *   |     segment2(o)
+ * 0 +━━━━━━━━━━━━━━━━━━━━> x
+ *   ┃   ◉━━━━━━━◉ segment1 (from)
+ *   ┃    ╲ ↙ +θ
+ *   ┃     ╲
+ *   ┃      ◉
+ *   ┃     segment2 (to)
  */
 export default function angleFromSegmentToSegment(segment1: TSegment, segment2: TSegment): number {
   const vector1 = segmentVector(segment1);

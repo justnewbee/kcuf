@@ -9,13 +9,13 @@ export default function parseJustifyPointPerpendicularThreshold(threshold: IJust
   if (typeof threshold === 'number') {
     return {
       angle: threshold,
-      distance: THRESHOLD_DISTANCE
+      radius: THRESHOLD_DISTANCE
     };
   }
   
   return {
     angle: THRESHOLD_ANGLE,
-    distance: THRESHOLD_DISTANCE,
+    radius: THRESHOLD_DISTANCE,
     ...threshold
   };
 }

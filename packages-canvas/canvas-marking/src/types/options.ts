@@ -33,6 +33,10 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig, IOptionsEve
    * 双击间隔时间，默认 200ms（这里没用用原生的 dblclick 事件，而是由单击模拟的）
    */
   doubleClickInterval?: number;
+  /**
+   * 矩形矫正时距离阈值
+   */
+  justifyPerpendicularThresholdRadius?: number;
   // --- 可选插件 --- //
   pluginTooltip?: boolean | IMarkingPluginTooltipOptions<T>;
   pluginZoom?: boolean | IMarkingPluginZoomOptions;

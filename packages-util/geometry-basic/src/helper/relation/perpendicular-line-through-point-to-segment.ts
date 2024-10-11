@@ -1,7 +1,7 @@
 import {
   TPoint,
   TSegment,
-  TLineStandard
+  TLineNormalized
 } from '../../types';
 import {
   segmentLine
@@ -20,6 +20,6 @@ import perpendicularLineThroughPointToLine from './perpendicular-line-through-po
  * ---┃---◉━━━━━━━━◉ segment      ◉━━◉━━━━━━━━━━◉ segment
  *    ┃                               ┃ p 在线段上
  */
-export default function perpendicularLineThroughPointToSegment(point: TPoint, segment: TSegment): TLineStandard {
+export default function perpendicularLineThroughPointToSegment(point: TPoint, segment: TSegment): TLineNormalized {
   return perpendicularLineThroughPointToLine(point, segmentLine(segment));
 }

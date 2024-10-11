@@ -14,11 +14,13 @@
 
 ## 各模块说明
 
-`src/helper` 下各模块作用及依赖关系，需避免循环依赖
+保证 `src/helper` 下各模块依赖关系为下方依赖上方，避免循环依赖：
 
-| 模块 | 作用 | 依赖 |
-| --- | --- | --- |
-| `measurement` | 长度、面积、中心、边缘等 | - |
-| `comparison` | 比较、是否等效 | `measurement` |
-| `mutation` | 修改传入数据 | `comparison` |
-| `relation` | 投影、相交、平行、共线等关系 | `measurement`、`comparison` |
+* `base` 基础，获取形状原信息
+* `comparison` 比较
+* `relation` 关系
+* `transform` 变化（选择、移动等）
+* `mutation` 修改
+* `slicing` 切割
+* `justify` 矫正
+* `misc` 杂项

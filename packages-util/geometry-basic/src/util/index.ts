@@ -1,4 +1,3 @@
-export { default as standardizeLine } from './standardize-line';
 export { default as fromDegreesToRadians } from './from-degrees-to-radians';
 export { default as fromRadiansToDegrees } from './from-radians-to-degrees';
 export { default as isNearlyEqual } from './is-nearly-equal';

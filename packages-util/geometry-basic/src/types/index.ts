@@ -1,16 +1,27 @@
-// 坐标 [x, y]
-export type TPoint = [number, number];
-
 // 向量 [vx, vy]
 export type TVector = [number, number];
+
+// 坐标 [x, y]
+export type TPoint = [number, number];
 
 // 线段 [p1, p2]
 export type TSegment = [TPoint, TPoint];
 
-// 直线方程系数 `Ax + By + C = 0`，对应垂直线的方程为 `A'x + B'y + C' = 0` 的 A' = B，B' = -A
+// // 射线
+// export interface IRay {
+//   point: TPoint;
+//   norm: TVector; // 单位向量
+// }
+
+// 直线一般式表示 `Ax + By + C = 0`，A B 不同时为 0
 export type TLine = [number, number, number];
 
-export type TLineStandard = [1, 0, number] | [number, -1, number];
+export type TLineNormalized = [1, 0, number] | [number, -1, number];
+
+/**
+ * 角 ∠ABC
+ */
+export type TAngle = [TPoint, TPoint, TPoint];
 
 /**
  * 路径，一组有序坐标，也可以表示多边形（Polygon），当表示多边形的时候，
@@ -40,7 +51,13 @@ export interface IJustifyPointPerpendicularThreshold {
    */
   angle?: number;
   /**
-   * 距离变化不可超过此值，默认 0（不比较）
+   * 距离变化不可超过此值，默认 0，不比较（因跟图片比例有关系，必须要传入）
    */
-  distance?: number;
+  radius?: number;
+}
+
+export interface IJustifyPointPerpendicularDetailed {
+  point: TPoint;
+  theta: number; // 度数
+  distance: number;
 }

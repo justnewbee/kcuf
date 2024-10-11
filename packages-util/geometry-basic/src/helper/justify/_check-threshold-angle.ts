@@ -1,15 +1,18 @@
 import {
-  TPoint
+  TAngle
 } from '../../types';
 import {
-  fromRadiansToDegrees
-} from '../../util';
-import {
-  angleThroughPoints
+  angleDegrees
 } from '../relation';
 
-export default function checkThresholdAngle(angle: number, pointStart: TPoint, pointMid: TPoint, pointEnd: TPoint): boolean {
-  const theta = fromRadiansToDegrees(angleThroughPoints(pointStart, pointMid, pointEnd));
+export default function checkThresholdAngle(thresholdDegrees: number, angle: TAngle): number {
+  let degrees = angleDegrees(angle);
   
-  return theta <= angle || theta >= 360 - angle;
+  if (degrees <= thresholdDegrees) {
+    return degrees;
+  }
+  
+  degrees = 360 - degrees;
+  
+  return degrees <= thresholdDegrees ? degrees : -1;
 }

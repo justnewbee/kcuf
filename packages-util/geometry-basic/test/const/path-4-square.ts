@@ -95,7 +95,7 @@ export default {
     }, {
       title: 'y = 0',
       input: LINE_0X_N1Y_0,
-      output: [[-0, -0], [4, 0]]
+      output: [[-0, 0], [4, 0]]
     }, {
       title: 'y = 1',
       input: LINE_0X_N1Y_1,

@@ -40,7 +40,7 @@ import {
   LINE_N1X_N1Y_5
 } from './const';
 
-describe('perpendicularLineThroughPointToLine(point: Point, line: Line): LineStandard ', () => {
+describe('perpendicularLineThroughPointToLine(point: Point, line: Line): LineNormalized ', () => {
   const P: Point = [0, 0];
   
   test('x = n', () => {
@@ -54,13 +54,13 @@ describe('perpendicularLineThroughPointToLine(point: Point, line: Line): LineSta
   });
   
   test('y = n', () => {
-    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_N1)).toEqual([1, 0, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_0)).toEqual([1, 0, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_1)).toEqual([1, 0, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_2)).toEqual([1, 0, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_3)).toEqual([1, 0, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_4)).toEqual([1, 0, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_5)).toEqual([1, 0, 0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_N1)).toEqual([1, 0, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_0)).toEqual([1, 0, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_1)).toEqual([1, 0, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_2)).toEqual([1, 0, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_3)).toEqual([1, 0, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_4)).toEqual([1, 0, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_0X_N1Y_5)).toEqual([1, 0, -0]);
   });
   
   test('y = x + n', () => {
@@ -74,12 +74,12 @@ describe('perpendicularLineThroughPointToLine(point: Point, line: Line): LineSta
   });
   
   test('y = -x + n', () => {
-    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_N1)).toEqual([1, -1, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_0)).toEqual([1, -1, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_1)).toEqual([1, -1, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_2)).toEqual([1, -1, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_3)).toEqual([1, -1, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_4)).toEqual([1, -1, 0]);
-    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_5)).toEqual([1, -1, 0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_N1)).toEqual([1, -1, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_0)).toEqual([1, -1, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_1)).toEqual([1, -1, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_2)).toEqual([1, -1, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_3)).toEqual([1, -1, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_4)).toEqual([1, -1, -0]);
+    expect(perpendicularLineThroughPointToLine(P, LINE_N1X_N1Y_5)).toEqual([1, -1, -0]);
   });
 });

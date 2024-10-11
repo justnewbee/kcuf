@@ -24,9 +24,6 @@ export default function canvasDrawPathBorder(canvasContext: CanvasRenderingConte
     return;
   }
   
-  const firstCoords = path[0];
-  const lastCoords = path[path.length - 1];
-  
   const {
     width,
     color,
@@ -34,6 +31,8 @@ export default function canvasDrawPathBorder(canvasContext: CanvasRenderingConte
     scale,
     close
   } = options;
+  const point1st = path[0];
+  const pointLast = path[path.length - 1];
   
   canvasContext.save();
   canvasContext.lineWidth = width / scale;
@@ -44,12 +43,12 @@ export default function canvasDrawPathBorder(canvasContext: CanvasRenderingConte
   
   canvasContext.stroke();
   
-  if (path.length > 2 && !close && firstCoords && lastCoords) { // 最末一条稍细虚线
+  if (path.length > 2 && !close && point1st && pointLast) { // 最末一条稍细虚线
     canvasContext.beginPath();
     canvasContext.lineWidth = width * 0.77 / scale;
     canvasContext.setLineDash([7 / scale, 5 / scale]);
-    canvasContext.moveTo(lastCoords[0], lastCoords[1]);
-    canvasContext.lineTo(firstCoords[0], firstCoords[1]);
+    canvasContext.moveTo(pointLast[0], pointLast[1]);
+    canvasContext.lineTo(point1st[0], point1st[1]);
     canvasContext.stroke();
   }
   

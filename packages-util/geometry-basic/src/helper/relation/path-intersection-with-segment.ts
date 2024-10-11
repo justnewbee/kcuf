@@ -24,20 +24,20 @@ function isSameDirection(segment1: TSegment, segment2: TSegment): boolean {
 
 // 超过两个点的情况下，保证获取到的点方向和给定线段的方向一致
 function sortPoints(points: TPoint[], segment: TSegment): TPoint[] {
-  const firstPoint = points[0];
-  const lastPoint = points[points.length - 1];
+  const point1st = points[0];
+  const pointLast = points[points.length - 1];
   
-  if (!firstPoint || !lastPoint || firstPoint === lastPoint) {
+  if (!point1st || !pointLast || point1st === pointLast) {
     return points;
   }
   
   // 首先，由于之前是按 path 进行的遍历，得到的点序列并非有序的，需要排列一下
   points.sort((v1, v2) => {
-    return pointDistance(v1, firstPoint) - pointDistance(v2, firstPoint);
+    return pointDistance(v1, point1st) - pointDistance(v2, point1st);
   });
   
   // 向量若相反，则表示需要翻转数组
-  if (!isSameDirection([firstPoint, lastPoint], segment)) {
+  if (!isSameDirection([point1st, pointLast], segment)) {
     points.reverse();
   }
   

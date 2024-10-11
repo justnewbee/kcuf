@@ -4,9 +4,15 @@ export { default as segmentLine } from './segment-line';
 export { default as segmentLength } from './segment-length';
 export { default as segmentMidpoint } from './segment-midpoint';
 export { default as segmentVector } from './segment-vector';
+export { default as segmentVectorNormalized } from './segment-vector-normalized';
 export { default as segmentSlope } from './segment-slope';
 export { default as segmentProjectionX } from './segment-projection-x';
 export { default as segmentProjectionY } from './segment-projection-y';
+
+export { default as vectorNormalize } from './vector-normalize';
+export { default as vectorMagnitude } from './vector-magnitude';
+
+export { default as lineNormalize } from './line-normalize';
 
 export { default as pathSegmentList } from './path-segment-list';
 export { default as pathMidpointList } from './path-midpoint-list';

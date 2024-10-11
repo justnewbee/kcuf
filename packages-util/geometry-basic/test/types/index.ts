@@ -3,7 +3,7 @@ import {
   Segment,
   Path,
   Bbox,
-  LineStandard,
+  LineNormalized,
   PathEdgeCenterPoints
 } from '../../src';
 
@@ -19,7 +19,7 @@ export interface ITestPath {
   ecp: PathEdgeCenterPoints | null;
   intersectionWithLine?: Array<{ // pathIntersectionWithLine
     title: string;
-    input: LineStandard;
+    input: LineNormalized;
     output: Point[];
   }>;
   intersectionWithSegment?: Array<{ // pathIntersectionWithSegment
@@ -30,12 +30,12 @@ export interface ITestPath {
   }>;
   spliceByLine?: Array<{ // pathSliceByLine
     title: string;
-    input: LineStandard;
+    input: LineNormalized;
     output: [Path, Path] | null;
   }>;
   spliceByLines?: Array<{
     title: string;
-    input: LineStandard[];
+    input: LineNormalized[];
     output: Path[];
   }>;
 }

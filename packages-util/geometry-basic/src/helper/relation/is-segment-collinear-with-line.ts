@@ -3,10 +3,8 @@ import {
   TSegment
 } from '../../types';
 import {
-  standardizeLine
-} from '../../util';
-import {
-  segmentLine
+  segmentLine,
+  lineNormalize
 } from '../base';
 import {
   isEqualLines
@@ -16,5 +14,5 @@ import {
  * 线段与直线是否共线
  */
 export default function isSegmentCollinearWithLine(segment: TSegment, line: TLine): boolean {
-  return isEqualLines(segmentLine(segment), standardizeLine(line));
+  return isEqualLines(segmentLine(segment), lineNormalize(line));
 }

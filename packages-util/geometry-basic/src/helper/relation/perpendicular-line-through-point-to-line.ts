@@ -1,11 +1,11 @@
 import {
   TPoint,
   TLine,
-  TLineStandard
+  TLineNormalized
 } from '../../types';
 import {
-  standardizeLine
-} from '../../util';
+  lineNormalize
+} from '../base';
 
 /**
  * 经过点且垂直于直线的直线 line'
@@ -22,9 +22,9 @@ import {
  * ━━━━+━━━━━━━━━━━ line         ━━━━◉━━━━━━━━━━━ line
  *     ┃                               ┃ p
  */
-export default function perpendicularLineThroughPointToLine(point: TPoint, line: TLine): TLineStandard {
+export default function perpendicularLineThroughPointToLine(point: TPoint, line: TLine): TLineNormalized {
   const [A, B] = line;
   const C = -B * point[0] + A * point[1];
   
-  return standardizeLine([B, -A, C]);
+  return lineNormalize([B, -A, C]);
 }

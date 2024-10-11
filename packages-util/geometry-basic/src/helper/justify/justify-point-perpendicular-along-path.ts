@@ -1,38 +1,35 @@
 import {
   TPoint,
+  TSegment,
   TPath,
   IJustifyPointPerpendicularThreshold
 } from '../../types';
 import {
-  pointDistance
-} from '../base';
+  parseJustifyPointPerpendicularThreshold
+} from '../../util';
 
-import justifyPointPerpendicular1 from './justify-point-perpendicular-1';
-import justifyPointPerpendicular2 from './justify-point-perpendicular-2';
-import justifyPointPerpendicular3 from './justify-point-perpendicular-3';
+import determineJustifiedPerpendicular from './_determine-justified-perpendicular';
+import justifyPointPerpendicular123 from './justify-point-perpendicular-123';
 
 export default function justifyPointPerpendicularAlongPath(point: TPoint, path: TPath, threshold?: IJustifyPointPerpendicularThreshold | number): TPoint | null {
-  const point1st = path[0];
-  const point2nd = path[1];
-  const pointLast2nd = path[path.length - 2];
-  const pointLast = path[path.length - 1];
+  const {
+    radius: thresholdRadius,
+    angle: thresholdDegrees
+  } = parseJustifyPointPerpendicularThreshold(threshold);
+  const first = path[0];
+  const first2 = path[1];
+  const last = path[path.length - 1];
+  const last2 = path[path.length - 2];
   
-  if (!point1st || !point2nd || !pointLast2nd || !pointLast) {
+  if (!first || !first2 || !last || !last2) {
     return null;
   }
   
-  const justifiedPoint1 = justifyPointPerpendicular1(point, pointLast, pointLast2nd, threshold);
-  const activePoint = justifiedPoint1 || point;
-  const justifiedPoint2 = justifyPointPerpendicular2(activePoint, pointLast, point1st, threshold);
-  const justifiedPoint3 = justifyPointPerpendicular3(activePoint, pointLast, point1st, point2nd, threshold);
+  const siblingSegmentPrev: TSegment = [first, first2];
+  const siblingSegmentNext: TSegment = [last, last2];
   
-  if (!justifiedPoint2 && !justifiedPoint3) {
-    return justifiedPoint1;
-  }
-  
-  if (justifiedPoint2 && justifiedPoint3) {
-    return pointDistance(activePoint, justifiedPoint2) < pointDistance(activePoint, justifiedPoint3) ? justifiedPoint2 : justifiedPoint3;
-  }
-  
-  return justifiedPoint2 || justifiedPoint3;
+  return determineJustifiedPerpendicular(
+      justifyPointPerpendicular123(point, siblingSegmentPrev, siblingSegmentNext, thresholdRadius, thresholdDegrees),
+      justifyPointPerpendicular123(point, siblingSegmentNext, siblingSegmentPrev, thresholdRadius, thresholdDegrees)
+  )?.point || null;
 }

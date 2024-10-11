@@ -17,23 +17,23 @@ import {
 
 function buildSegments(points: TPoint[], path: TPath): TSegment[] {
   const segments: TSegment[] = [];
-  let lastSegment: TSegment | undefined;
+  let segmentLast: TSegment | undefined;
   
   points.forEach((v, i) => {
-    const lastPoint = points[i - 1];
+    const pointLast = points[i - 1];
     
-    if (!lastPoint) { // 去掉第一个
+    if (!pointLast) { // 去掉第一个
       return;
     }
     
-    const segment: TSegment = [lastPoint, v];
+    const segment: TSegment = [pointLast, v];
     
     if (isPointWithinPath(segmentMidpoint(segment), path)) {
       // 凹多边形的场景，有可能会出现多个线段相连的情况，需要把这些线段连起来
-      if (lastSegment && isEqualPoints(lastSegment[1], segment[0])) { // 相连了，不新增
-        lastSegment[1] = segment[1];
+      if (segmentLast && isEqualPoints(segmentLast[1], segment[0])) { // 相连了，不新增
+        segmentLast[1] = segment[1];
       } else {
-        lastSegment = segment;
+        segmentLast = segment;
         
         segments.push(segment);
       }

@@ -18,6 +18,9 @@ export { default as checkPathForInnerIntersection } from './check-path-for-inner
 export { default as pathIntersectionWithLine } from './path-intersection-with-line';
 export { default as pathIntersectionWithSegment } from './path-intersection-with-segment';
 
+export { default as parallelLineThroughPointToLine } from './parallel-line-through-point-to-line';
+export { default as parallelLineThroughPointToSegment } from './parallel-line-through-point-to-segment';
+
 export { default as isPointInSegmentProjection } from './is-point-in-segment-projection';
 export { default as isPointAlongSegment } from './is-point-along-segment';
 export { default as isPointAlongPath } from './is-point-along-path';
@@ -26,7 +29,8 @@ export { default as isPointWithinPath } from './is-point-within-path';
 export { default as isSegmentCollinearWithLine } from './is-segment-collinear-with-line';
 export { default as isSegmentsIntersected } from './is-segments-intersected';
 
-export { default as angleThroughPoints } from './angle-through-points';
+export { default as angleRadians } from './angle-radians';
+export { default as angleDegrees } from './angle-degrees';
 export { default as angleFromSegmentToSegment } from './angle-from-segment-to-segment';
 export { default as angleBetweenLines } from './angle-between-lines';
 export { default as angleBetweenSegments } from './angle-between-segments';

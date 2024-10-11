@@ -1,3 +1,4 @@
+export * from './common';
 export * from './lines';
 
 export { default as TEST_PATH_0 } from './path-0';

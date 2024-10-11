@@ -1,10 +1,8 @@
 import {
-  IJustifyPointPerpendicularThreshold,
-  TPoint
+  IJustifyPointPerpendicularDetailed,
+  TPoint,
+  TSegment
 } from '../../types';
-import {
-  parseJustifyPointPerpendicularThreshold
-} from '../../util';
 import {
   segmentLine
 } from '../base';
@@ -13,31 +11,39 @@ import {
   perpendicularLineThroughPointToSegment
 } from '../relation';
 
-import checkThresholdDistance from './_check-threshold-distance';
+import checkThresholdRadius from './_check-threshold-radius';
 import checkThresholdAngle from './_check-threshold-angle';
 
 /**
- * 对 p 沿 last-p 移动，得到 p'，使 p'-1st 与 1st-2nd 垂直
+ * 正交纠正 #3：在 1 的基础上，沿与某临点连线移动，与另一临边正交
  *
- *       1st          2nd
- *        ◉━━━━━━━━━━━◉
+ * 对 p 沿 sibling-p 移动，得到 p'，使 p'-segment[0] 与 segment 垂直
+ *
+ *        ▲→ ━━━━━▲ segment 待正交
  *      ╱ ┃θ╲⏌
  *     ╱  ┃  ╲
  *    ╱   ┃    ╲
- *   ◉━━━━⦿━━━━◉━━━━━━━━━━◉ 上下两条线不一定平行，这里只是画起来方便
- *   p→   p'   ←p     last
+ *   ◉━━━━⦿━━━━◉━━━━━━━━━━▲ 上下两条线不一定平行，这里只是画起来方便
+ *   p→   p'   ←p         sibling
  */
-export default function justifyPointPerpendicular3(point: TPoint, pointLast: TPoint, point1st: TPoint, point2nd: TPoint, threshold?: IJustifyPointPerpendicularThreshold | number): TPoint | null {
-  const {
-    angle,
-    distance
-  } = parseJustifyPointPerpendicularThreshold(threshold);
+export default function justifyPointPerpendicular3(point: TPoint, sibling: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPointPerpendicularDetailed | null {
+  const pointPrime = lineIntersection(segmentLine([sibling, point]), perpendicularLineThroughPointToSegment(segment[0], segment));
   
-  const pointPrime = lineIntersection(segmentLine([pointLast, point]), perpendicularLineThroughPointToSegment(point1st, [point1st, point2nd]));
+  if (!pointPrime) {
+    return null;
+  }
+
+  const distance = checkThresholdRadius(thresholdRadius, point, pointPrime);
   
-  if (!pointPrime || !checkThresholdDistance(distance, point, pointPrime)) {
+  if (distance < 0) {
     return null;
   }
   
-  return checkThresholdAngle(angle, point, point1st, pointPrime) ? pointPrime : null;
+  const theta = checkThresholdAngle(thresholdDegrees, [point, segment[0], pointPrime]);
+  
+  return theta >= 0 ? {
+    point: pointPrime,
+    theta,
+    distance
+  } : null;
 }

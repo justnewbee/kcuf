@@ -42,9 +42,10 @@ import {
   IMarkingStageStats
 } from '../types';
 import {
+  DEFAULT_MARKING_OPTIONS,
   DEFAULT_AUXILIARY_STYLE,
-  DEFAULT_MAGNET_RADIUS,
-  DEFAULT_MARKING_OPTIONS
+  DEFAULT_JUSTIFY_MAGNET_RADIUS,
+  DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS
 } from '../const';
 import {
   roundFloat,
@@ -839,7 +840,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     const {
       options: {
-        magnetRadius: magnetRadius0 = DEFAULT_MAGNET_RADIUS
+        magnetRadius: magnetRadius0 = DEFAULT_JUSTIFY_MAGNET_RADIUS
       }
     } = this;
     const magnetRadius = this.fromCanvasPixelToImagePixel(magnetRadius0);
@@ -879,7 +880,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     if (creatingStats) {
       return justifyPointPerpendicularAlongPath(this.imageMouse, creatingStats.path, {
-        distance: this.fromCanvasPixelToImagePixel(10)
+        radius: this.fromCanvasPixelToImagePixel(this.options.justifyPerpendicularThresholdRadius ?? DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS)
       });
     }
     
@@ -898,9 +899,9 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     const editingStats = this.itemEditing?.stats;
     
     if (creatingStats) {
-      const lastPoint = creatingStats.path[creatingStats.path.length - 1];
+      const pointLast = creatingStats.path[creatingStats.path.length - 1];
       
-      return lastPoint ? justifyPointSnapAroundPoint(imageMouse, lastPoint) : null;
+      return pointLast ? justifyPointSnapAroundPoint(imageMouse, pointLast) : null;
     }
     
     if (editingStats) {

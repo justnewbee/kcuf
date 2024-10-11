@@ -1,37 +1,35 @@
 import {
-  IJustifyPointPerpendicularThreshold,
-  TPoint
+  IJustifyPointPerpendicularDetailed,
+  TPoint,
+  TSegment
 } from '../../types';
 import {
-  fromRadiansToDegrees,
-  parseJustifyPointPerpendicularThreshold
+  fromRadiansToDegrees
 } from '../../util';
 import {
   pointDistance
 } from '../base';
 import {
-  angleThroughPoints
+  angleRadians
 } from '../relation';
 import {
   rotatePoint
 } from '../transform';
 
 /**
- * 对 p 绕 last 等轴旋转，得 p'，使 p'-last 所在直线与 last2ndd-last 线段垂直
+ * 正交纠正 #1：与临边垂直
  *
- * last2nd
- *   ◉━━━━━━━◉ last
- *        └ ╱θ┃θ╲
- *         ╱  ┃  ╲
- *      p ◉ ↘ ┃  ↙ ◉ p
- *            ⦿ p'
+ * 给定线段 segment，对 p 绕 segment[0] 等轴旋转，得 p'，使 p'-segment[0] 与 segment 垂直，
+ * 需判断旋转角度及位移是否在允许范围内
+ *
+ * ▲━━━━━━ ←▲ segment
+ *      └ ╱θ┃θ╲
+ *       ╱  ┃  ╲
+ *    p ◉ ↘ ┃  ↙ ◉ p
+ *          ⦿ p'
  */
-export default function justifyPointPerpendicular1(point: TPoint, pointLast: TPoint, pointLast2nd: TPoint, threshold?: IJustifyPointPerpendicularThreshold | number): TPoint | null {
-  const {
-    angle,
-    distance
-  } = parseJustifyPointPerpendicularThreshold(threshold);
-  const bearingAngle = angleThroughPoints(pointLast2nd, pointLast, point);
+export default function justifyPointPerpendicular1(point: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPointPerpendicularDetailed | null {
+  const bearingAngle = angleRadians([segment[1], segment[0], point]);
   
   for (const v of [
     Math.PI / 2,
@@ -40,11 +38,16 @@ export default function justifyPointPerpendicular1(point: TPoint, pointLast: TPo
     const deltaTheta = v - bearingAngle;
     const deltaThetaDegreesAbs = Math.abs(fromRadiansToDegrees(deltaTheta));
     
-    if (deltaThetaDegreesAbs > 0 && deltaThetaDegreesAbs <= angle) {
-      const pointPrime = rotatePoint(point, pointLast, deltaTheta);
+    if (deltaThetaDegreesAbs > 0 && deltaThetaDegreesAbs <= thresholdDegrees) {
+      const pointPrime = rotatePoint(point, segment[0], deltaTheta);
+      const distance = pointDistance(pointPrime, point);
       
-      if (distance <= 0 || pointDistance(pointPrime, point) <= distance) {
-        return pointPrime;
+      if (thresholdRadius <= 0 || pointDistance(pointPrime, point) <= thresholdRadius) {
+        return {
+          point: pointPrime,
+          theta: deltaThetaDegreesAbs,
+          distance
+        };
       }
     }
   }
