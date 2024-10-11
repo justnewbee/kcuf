@@ -7,7 +7,6 @@ import _cloneDeep from 'lodash/cloneDeep';
 import {
   Point,
   Path,
-  Angle,
   isPointAlongPath,
   isPointWithinPath,
   segmentLength,
@@ -16,6 +15,7 @@ import {
   pathPerimeter,
   pathBbox,
   pathSegmentList,
+  pathAngleList,
   checkPathForDuplicate,
   checkPathForInnerIntersection,
   translatePath
@@ -54,13 +54,13 @@ import {
   getPathCreatingFree,
   getPathCreatingRect,
   getPathCreatingRect2,
-  canvasDrawArea,
-  canvasDrawRightAngleMark,
   canvasPathPointShape,
-  canvasCheckPointInStroke
+  canvasCheckPointInStroke,
+  canvasDrawPathBorder,
+  canvasDrawRightAngleMark,
+  canvasDrawShape,
+  canvasDrawArea
 } from '../util';
-import canvasDrawPathBorder from '../util/canvas-draw-path-border';
-import canvasDrawShape from '../util/canvas-draw-shape';
 
 export default class MarkingItem<T> implements IMarkingItemClass<T> {
   private readonly markingStage: IMarkingStageClassProtected<T>;
@@ -519,7 +519,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const close = !this.creating || type === 'rect' || type === 'rect2';
     const diffAll = highlightingBorderIndex !== null && highlightingBorderIndex < 0 ? borderDiff?.highlight || borderDiff?.all : borderDiff?.all;
     
-    this.drawRightAngleMark(borderStyle);
+    this.drawRightAngleMarks(borderStyle);
     this.drawBorderPartial(pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll, faded), close);
     
     const segmentList = pathSegmentList(pathForDraw);
@@ -583,8 +583,8 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     });
   }
   
-  private drawRightAngleMark(borderStyle: TMarkingBorderStyleResolved): void {
-    if (!this.creating && !this.draggingMoved) {
+  private drawRightAngleMarks(borderStyle: TMarkingBorderStyleResolved): void {
+    if (!this.creating && !(this.draggingPointIndex >= 0 && this.draggingMoved)) {
       return;
     }
     
@@ -594,32 +594,11 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
           rightAngleMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
         },
         canvasContext,
-        imageMouse,
         imageScale
-      },
-      path
+      }
     } = this;
     
-    if (path.length < 2) {
-      return;
-    }
-    
-    const first = path[0];
-    const first2 = path[1];
-    const last = path[path.length - 1];
-    const last2 = path[path.length - 2];
-    
-    if (path.length < 2 || !first || !first2 || !last || !last2) {
-      return;
-    }
-    
-    const angles: Angle[] = [
-      [first2, first, imageMouse],
-      [first, imageMouse, last],
-      [imageMouse, last, last2]
-    ];
-    
-    angles.forEach(v => canvasDrawRightAngleMark(canvasContext, v, {
+    pathAngleList(this.getPathForDraw()).forEach(v => canvasDrawRightAngleMark(canvasContext, v, {
       scale: imageScale,
       size: rightAngleMarkSize,
       color: borderStyle.color

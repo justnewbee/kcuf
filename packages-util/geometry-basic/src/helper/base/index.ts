@@ -17,11 +17,13 @@ export { default as vectorMagnitude } from './vector-magnitude';
 export { default as angleRadians } from './angle-radians';
 export { default as angleDegrees } from './angle-degrees';
 
-export { default as pathSegmentList } from './path-segment-list';
-export { default as pathMidpointList } from './path-midpoint-list';
 export { default as pathArea } from './path-area';
 export { default as pathPerimeter } from './path-perimeter';
 export { default as pathBbox } from './path-bbox';
 export { default as pathCentroid } from './path-centroid';
+
+export { default as pathSegmentList } from './path-segment-list';
+export { default as pathMidpointList } from './path-midpoint-list';
+export { default as pathAngleList } from './path-angle-list';
 export { default as pathEdgeCenterPoints } from './path-edge-center-points';
 export { default as pathPointSiblingsByIndex } from './path-point-siblings-by-index';

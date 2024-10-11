@@ -876,11 +876,28 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return null;
     }
     
+    const {
+      options: {
+        justifyPerpendicularThresholdRadius = DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS
+      },
+      imageMouse
+    } = this;
     const creatingStats = this.itemCreating?.stats;
+    const editingStats = this.itemEditing?.stats;
     
     if (creatingStats) {
-      return justifyPointPerpendicularAlongPath(this.imageMouse, creatingStats.path, {
-        radius: this.fromCanvasPixelToImagePixel(this.options.justifyPerpendicularThresholdRadius ?? DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS)
+      return justifyPointPerpendicularAlongPath(imageMouse, creatingStats.path, {
+        radius: this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius)
+      });
+    }
+    
+    if (editingStats && editingStats.draggingPointIndex >= 0) {
+      const pathBefore = editingStats.path.slice(0, editingStats.draggingPointIndex);
+      const pathAfter = editingStats.path.slice(editingStats.draggingPointIndex + 1);
+      const pathNew = [...pathAfter, ...pathBefore];
+      
+      return justifyPointPerpendicularAlongPath(imageMouse, pathNew, {
+        radius: this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius)
       });
     }
     
