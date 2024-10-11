@@ -5,7 +5,7 @@ import {
 } from 'vitest';
 
 import {
-  pathIntersectionWithSegment
+  intersectionSegmentWithPath
 } from '../src';
 
 import {
@@ -22,15 +22,17 @@ import {
   // TEST_PATH_6_CONCAVE
 } from './const';
 
-describe('pathIntersectionWithSegment(path: Path, segment: Segment, extended?: boolean): Point[]', () => {
+describe('intersectionSegmentWithPath(path: Path, segment: Segment, options?): Point[]', () => {
   describe(TEST_PATH_5_CONVEX.title, () => {
     TEST_PATH_5_CONVEX.intersectionWithSegment.forEach(v => {
       test(v.title, () => {
-        expect(pathIntersectionWithSegment(TEST_PATH_5_CONVEX.path, v.input)).toEqual(v.output);
+        expect(intersectionSegmentWithPath(v.input, TEST_PATH_5_CONVEX.path)).toEqual(v.output);
       });
       
       test(`${v.title} - extended`, () => {
-        expect(pathIntersectionWithSegment(TEST_PATH_5_CONVEX.path, v.input, true)).toEqual(v.outputExtended);
+        expect(intersectionSegmentWithPath(v.input, TEST_PATH_5_CONVEX.path, {
+          extended: true
+        })).toEqual(v.outputExtended);
       });
     });
   });

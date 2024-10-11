@@ -7,7 +7,7 @@ import {
 } from '../../util';
 import {
   isPointWithinPath,
-  lineIntersection
+  intersectionLineWithLine
 } from '../relation';
 import {
   comparePaths
@@ -21,7 +21,7 @@ import pathSliceByLine from './path-slice-by-line';
 export default function pathSliceByLines(path: TPath, lines: TLine[]): TPath[] {
   // 限制 1：直线在 path 内部不相交
   if (pairwise(lines).some(v => {
-    const p = lineIntersection(v[0], v[1]);
+    const p = intersectionLineWithLine(v[0], v[1]);
     
     return p ? isPointWithinPath(p, path) : false;
   })) {

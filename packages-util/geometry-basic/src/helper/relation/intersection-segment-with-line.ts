@@ -7,14 +7,14 @@ import {
   segmentLine
 } from '../base';
 
-import lineIntersection from './line-intersection';
+import intersectionLineWithLine from './intersection-line-with-line';
 import isPointInSegmentProjection from './is-point-in-segment-projection';
 
 /**
  * 线段与直线相交点
  */
-export default function segmentIntersectionWithLine(segment: TSegment, line: TLine): TPoint | null {
-  const p = lineIntersection(segmentLine(segment), line);
+export default function intersectionSegmentWithLine(segment: TSegment, line: TLine): TPoint | null {
+  const p = intersectionLineWithLine(segmentLine(segment), line);
   
   if (!p) {
     return null;

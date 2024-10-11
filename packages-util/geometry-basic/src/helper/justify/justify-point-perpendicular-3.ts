@@ -7,7 +7,7 @@ import {
   segmentLine
 } from '../base';
 import {
-  lineIntersection,
+  intersectionLineWithLine,
   perpendicularLineThroughPointToSegment
 } from '../relation';
 
@@ -27,7 +27,7 @@ import checkThresholdAngle from './_check-threshold-angle';
  *   p→   p'   ←p         sibling
  */
 export default function justifyPointPerpendicular3(point: TPoint, sibling: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPointPerpendicularDetailed | null {
-  const pointPrime = lineIntersection(segmentLine([sibling, point]), perpendicularLineThroughPointToSegment(segment[0], segment));
+  const pointPrime = intersectionLineWithLine(segmentLine([sibling, point]), perpendicularLineThroughPointToSegment(segment[0], segment));
   
   if (!pointPrime) {
     return null;

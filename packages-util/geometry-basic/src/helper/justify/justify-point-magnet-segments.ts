@@ -1,27 +1,25 @@
 import {
-  TPath,
   TPoint,
-  IMagnetPoint
+  IMagnetPointResult,
+  TSegment
 } from '../../types';
 import {
-  pointDistance,
-  pathSegmentList
+  pointDistance
 } from '../base';
 import {
   isPointAlongSegment,
-  perpendicularIntersectionThroughPointToSegment
+  perpendicularFootThroughPointToSegment
 } from '../relation';
 
 /**
- * 从 path 的所有边（不包含边的顶点）中找距 point 最近的磁吸点
+ * 从线段列表找距 point 最近的磁吸点
  */
-export default function justifyPointMagnetPathSegments(point: TPoint, path: TPath, magnetRadius: number): IMagnetPoint | null {
-  const segmentList = pathSegmentList(path);
+export default function justifyPointMagnetSegments(point: TPoint, segments: TSegment[], magnetRadius: number, order: number): IMagnetPointResult | null {
   let pointM: TPoint | undefined;
   let distance = Infinity;
   
-  segmentList.forEach(v => {
-    const verticalIntersectionPoint = perpendicularIntersectionThroughPointToSegment(point, v);
+  segments.forEach(v => {
+    const verticalIntersectionPoint = perpendicularFootThroughPointToSegment(point, v);
     
     if (isPointAlongSegment(verticalIntersectionPoint, v)) {
       const d = pointDistance(point, verticalIntersectionPoint);
@@ -36,6 +34,6 @@ export default function justifyPointMagnetPathSegments(point: TPoint, path: TPat
   return pointM ? {
     point: pointM,
     distance,
-    order: 3
+    order
   } : null;
 }

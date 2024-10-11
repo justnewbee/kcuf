@@ -869,9 +869,9 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   /**
-   * 自动垂直正交矫正
+   * 正在新建或编辑的图形，内部自动垂直正交矫正
    */
-  private justifyImageMousePerpendicular(): Point | null {
+  private justifyImageMousePerpendicularInner(): Point | null {
     if (!this.justifyEnabled) {
       return null;
     }
@@ -899,6 +899,28 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return justifyPointPerpendicularAlongPath(imageMouse, pathNew, {
         radius: this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius)
       });
+    }
+    
+    return null;
+  }
+  
+  /**
+   * 正在新建或编辑的图形，若只有两个点（即线段），且一端磁吸在别的图形的一条边，则进行正交矫正
+   */
+  private justifyImageMousePerpendicularOuter(): Point | null {
+    if (!this.justifyEnabled) {
+      return null;
+    }
+    
+    const creatingStats = this.itemCreating?.stats;
+    const editingStats = this.itemEditing?.stats;
+    
+    if (creatingStats?.path.length === 2) {
+      return null;
+    }
+    
+    if (editingStats?.path.length === 2 && editingStats.draggingPointIndex >= 0) {
+      return null;
     }
     
     return null;
@@ -965,14 +987,21 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       this.justified = 'magnet';
       this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
       
+      // 磁吸的时候，还需要进一步
+      this.justifyImageMousePerpendicularOuter(); // TODO
+      
       return;
     }
     
-    justifiedImageMouse = this.justifyImageMousePerpendicular();
+    this.justifyImageMousePerpendicularOuter(); // TODO
+    
+    justifiedImageMouse = this.justifyImageMousePerpendicularInner();
     
     if (justifiedImageMouse) {
       this.justified = 'perpendicular';
       this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
+      
+      return;
     }
     
     justifiedImageMouse = this.justifyImageMouseSnap();

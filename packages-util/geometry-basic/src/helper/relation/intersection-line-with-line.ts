@@ -6,7 +6,7 @@ import {
 /**
  * 直线交点
  */
-export default function lineIntersection(line1: TLine, line2: TLine): TPoint | null {
+export default function intersectionLineWithLine(line1: TLine, line2: TLine): TPoint | null {
   const [A1, B1, C1] = line1;
   const [A2, B2, C2] = line2;
   const D = A1 * B2 - A2 * B1;

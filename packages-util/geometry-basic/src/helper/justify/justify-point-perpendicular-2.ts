@@ -3,7 +3,7 @@ import {
   TPoint
 } from '../../types';
 import {
-  perpendicularIntersectionThroughPointToSegment
+  perpendicularFootThroughPointToSegment
 } from '../relation';
 
 import checkThresholdRadius from './_check-threshold-radius';
@@ -22,7 +22,7 @@ import checkThresholdAngle from './_check-threshold-angle';
  *  p'→  p'   ←p      sibling1
  */
 export default function justifyPointPerpendicular2(point: TPoint, sibling1: TPoint, sibling2: TPoint, thresholdRadius: number, thresholdDegrees: number): IJustifyPointPerpendicularDetailed | null {
-  const pointPrime = perpendicularIntersectionThroughPointToSegment(sibling2, [sibling1, point]);
+  const pointPrime = perpendicularFootThroughPointToSegment(sibling2, [sibling1, point]);
   const distance = checkThresholdRadius(thresholdRadius, point, pointPrime);
   
   if (distance < 0) {

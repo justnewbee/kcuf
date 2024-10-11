@@ -15,7 +15,7 @@ import {
  *     ┃⏋↙ 垂足
  * ━━━━⦿━━━━━━━━━━ line
  */
-export default function perpendicularIntersectionThroughPointToLine(point: TPoint, line: TLine): TPoint {
+export default function perpendicularFootThroughPointToLine(point: TPoint, line: TLine): TPoint {
   const [x, y] = point;
   const [A, B, C] = normalizeLine(line);
   const AABB = A * A + B * B;

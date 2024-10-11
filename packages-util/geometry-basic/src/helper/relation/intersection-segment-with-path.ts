@@ -1,7 +1,8 @@
 import {
   TPoint,
   TPath,
-  TSegment
+  TSegment,
+  IPathIntersectionWithSegmentOptions
 } from '../../types';
 import {
   pathSegmentList,
@@ -12,8 +13,8 @@ import {
   isPointIncluded
 } from '../comparison';
 
-import segmentIntersectionWithLine from './segment-intersection-with-line';
-import segmentIntersection from './segment-intersection';
+import intersectionSegmentWithLine from './intersection-segment-with-line';
+import intersectionSegmentWithSegment from './intersection-segment-with-segment';
 
 function isSameDirection(segment1: TSegment, segment2: TSegment): boolean {
   const [[x1, y1], [x2, y2]] = segment1;
@@ -51,10 +52,14 @@ function sortPoints(points: TPoint[], segment: TSegment): TPoint[] {
  * - `true` 对线段进行延伸，至最远的相交点
  * - `min` 对线段进行延伸，至最近的相交点 TODO 还未实现
  */
-export default function pathIntersectionWithSegment(path: TPath, segment: TSegment, extended?: boolean): TPoint[] {
+export default function intersectionSegmentWithPath(segment: TSegment, path: TPath, options: IPathIntersectionWithSegmentOptions = {}): TPoint[] {
+  const {
+    sorted = true,
+    extended
+  } = options;
   const line = segmentLine(segment);
   const points = pathSegmentList(path).reduce((result: TPoint[], v) => {
-    const p = extended ? segmentIntersectionWithLine(v, line) : segmentIntersection(v, segment);
+    const p = extended ? intersectionSegmentWithLine(v, line) : intersectionSegmentWithSegment(v, segment);
     
     if (p && !isPointIncluded(p, result)) {
       result.push(p);
@@ -63,5 +68,5 @@ export default function pathIntersectionWithSegment(path: TPath, segment: TSegme
     return result;
   }, []);
   
-  return sortPoints(points, segment);
+  return sorted ? sortPoints(points, segment) : points;
 }

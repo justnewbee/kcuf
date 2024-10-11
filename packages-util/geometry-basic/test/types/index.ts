@@ -17,12 +17,12 @@ export interface ITestPath {
   centroid: Point | null; // pathCentroid
   bbox: Bbox; // pathBbox
   ecp: PathEdgeCenterPoints | null;
-  intersectionWithLine?: Array<{ // pathIntersectionWithLine
+  intersectionWithLine?: Array<{ // intersectionLineWithPath
     title: string;
     input: LineNormalized;
     output: Point[];
   }>;
-  intersectionWithSegment?: Array<{ // pathIntersectionWithSegment
+  intersectionWithSegment?: Array<{ // intersectionSegmentWithPath
     title: string;
     input: Segment;
     output: Point[];

@@ -6,14 +6,14 @@ import {
   segmentLine
 } from '../base';
 
-import lineIntersection from './line-intersection';
+import intersectionLineWithLine from './intersection-line-with-line';
 import isPointInSegmentProjection from './is-point-in-segment-projection';
 
 /**
  * 线段交点
  */
-export default function segmentIntersection(segment1: TSegment, segment2: TSegment): TPoint | null {
-  const p = lineIntersection(segmentLine(segment1), segmentLine(segment2)); // 这是直线相交点，并不表示线段相交
+export default function intersectionSegmentWithSegment(segment1: TSegment, segment2: TSegment): TPoint | null {
+  const p = intersectionLineWithLine(segmentLine(segment1), segmentLine(segment2)); // 这是直线相交点，并不表示线段相交
   
   if (!p) {
     return null;

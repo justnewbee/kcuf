@@ -5,7 +5,7 @@ import {
 } from 'vitest';
 
 import {
-  pathIntersectionWithLine
+  intersectionLineWithPath
 } from '../src';
 
 import {
@@ -22,11 +22,11 @@ import {
   // TEST_PATH_6_CONCAVE
 } from './const';
 
-describe('pathIntersectionWithLine(path: Path, line: Line): Point[]', () => {
+describe('intersectionLineWithPath(line: Line, path: Path): Point[]', () => {
   describe(TEST_PATH_4_SQUARE.title, () => {
     TEST_PATH_4_SQUARE.intersectionWithLine.forEach(v => {
       test(v.title, () => {
-        expect(pathIntersectionWithLine(TEST_PATH_4_SQUARE.path, v.input)).toEqual(v.output);
+        expect(intersectionLineWithPath(v.input, TEST_PATH_4_SQUARE.path)).toEqual(v.output);
       });
     });
   });

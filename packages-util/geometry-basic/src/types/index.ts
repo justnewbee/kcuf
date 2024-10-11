@@ -31,10 +31,18 @@ export type TPath = TPoint[];
 
 export type TBbox = [TPoint, TPoint];
 
-export interface IMagnetPoint {
+export interface IMagnetPointResult {
   point: TPoint;
   distance: number;
-  order: 1 | 2 | 3; // 需要比较时，当 distance 当等时，优先取 order 小者，1 端点 2 中点 3 边上其他点
+  /**
+   * 比较时，先用 order 小的，order 相等取 distance 小者
+   *
+   * - 1 端点
+   * - 1.5 交点
+   * - 2 中点
+   * - 3 边上其他点
+   */
+  order: number;
 }
 
 export interface IPathEdgeCenterPoints {
@@ -60,4 +68,9 @@ export interface IJustifyPointPerpendicularDetailed {
   point: TPoint;
   theta: number; // 度数
   distance: number;
+}
+
+export interface IPathIntersectionWithSegmentOptions {
+  extended?: boolean;
+  sorted?: boolean;
 }

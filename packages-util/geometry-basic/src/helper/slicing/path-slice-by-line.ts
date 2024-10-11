@@ -11,9 +11,9 @@ import {
   comparePaths
 } from '../comparison';
 import {
-  segmentIntersectionWithLine,
+  intersectionSegmentWithLine,
   isSegmentCollinearWithLine,
-  pathIntersectionWithLine
+  intersectionLineWithPath
 } from '../relation';
 import {
   pathPushPoint
@@ -40,7 +40,7 @@ export default function pathSliceByLine(path: TPath, line: TLine): [TPath, TPath
    * - 只交一点（顶点的情况）
    * - 相交超 2 点（凹多边形）
    */
-  if (segments.some(v => isSegmentCollinearWithLine(v, line)) || pathIntersectionWithLine(path, line).length !== 2) {
+  if (segments.some(v => isSegmentCollinearWithLine(v, line)) || intersectionLineWithPath(line, path).length !== 2) {
     return null;
   }
   
@@ -56,7 +56,7 @@ export default function pathSliceByLine(path: TPath, line: TLine): [TPath, TPath
   segments.forEach(border => {
     push(border[0]);
     
-    const intersection = segmentIntersectionWithLine(border, line);
+    const intersection = intersectionSegmentWithLine(border, line);
     
     if (intersection) {
       intersectCount += 1;

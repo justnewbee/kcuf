@@ -13,14 +13,14 @@ import {
   pathPushPoint
 } from '../mutation';
 
-import segmentIntersectionWithLine from './segment-intersection-with-line';
+import intersectionSegmentWithLine from './intersection-segment-with-line';
 
 /**
  * path 与直线相交的点集合，优先按 x 从小到大进行排序
  */
-export default function pathIntersectionWithLine(path: TPath, line: TLine): TPoint[] {
+export default function intersectionLineWithPath(line: TLine, path: TPath, sorted = true): TPoint[] {
   const points = pathSegmentList(path).reduce((result: TPoint[], v) => {
-    const p = segmentIntersectionWithLine(v, line);
+    const p = intersectionSegmentWithLine(v, line);
     
     if (p) {
       pathPushPoint(result, p);
@@ -29,5 +29,5 @@ export default function pathIntersectionWithLine(path: TPath, line: TLine): TPoi
     return result;
   }, []);
   
-  return points.sort(comparePoints);
+  return sorted ? points.sort(comparePoints) : points;
 }

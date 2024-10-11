@@ -1,20 +1,19 @@
 import {
-  TPath,
   TPoint,
-  IMagnetPoint
+  IMagnetPointResult
 } from '../../types';
 import {
   pointDistance
 } from '../base';
 
 /**
- * 从 path 的所有顶点中找距 point 最近的磁吸点
+ * 从点列表中找距 point 最近的磁吸点
  */
-export default function justifyPointMagnetPathPoints(point: TPoint, path: TPath, magnetRadius: number): IMagnetPoint | null {
+export default function justifyPointMagnetPoints(point: TPoint, points: TPoint[], magnetRadius: number, order: number): IMagnetPointResult | null {
   let pointM: TPoint | undefined;
   let distance = Infinity;
   
-  path.forEach(v => {
+  points.forEach(v => {
     const d = pointDistance(point, v);
     
     if (d <= magnetRadius && d < distance) {
@@ -26,6 +25,6 @@ export default function justifyPointMagnetPathPoints(point: TPoint, path: TPath,
   return pointM ? {
     point: pointM,
     distance,
-    order: 1
+    order
   } : null;
 }

@@ -9,7 +9,7 @@ import {
 } from '../comparison';
 import {
   isPointWithinPath,
-  pathIntersectionWithSegment
+  intersectionSegmentWithPath
 } from '../relation';
 import {
   segmentMidpoint
@@ -51,7 +51,7 @@ function buildSegments(points: TPoint[], path: TPath): TSegment[] {
  * 3. 线段穿过多边形，且可能多次进出多边形
  */
 export default function segmentInnerSliceByPath(segment: TSegment, path: TPath): TSegment[] {
-  const points = pathIntersectionWithSegment(path, segment);
+  const points = intersectionSegmentWithPath(segment, path);
   
   if (!isPointIncluded(segment[0], points) && isPointWithinPath(segment[0], path)) {
     points.unshift(segment[0]);

@@ -16,6 +16,6 @@ export type {
   TAngle as Angle,
   TBbox as Bbox,
   TVector as Vector,
-  IMagnetPoint as MagnetPoint,
+  IMagnetPointResult as MagnetPoint,
   IPathEdgeCenterPoints as PathEdgeCenterPoints
 } from './types';
