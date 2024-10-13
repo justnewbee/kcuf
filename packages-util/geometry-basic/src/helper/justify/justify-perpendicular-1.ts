@@ -1,5 +1,5 @@
 import {
-  IJustifyPointPerpendicularDetailed,
+  IJustifyPerpendicularResult,
   TPoint,
   TSegment
 } from '../../types';
@@ -27,7 +27,7 @@ import checkThresholdRadius from './_check-threshold-radius';
  *    p ◉ ↘ ┃  ↙ ◉ p
  *          ⦿ p'
  */
-export default function justifyPerpendicular1(point: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPointPerpendicularDetailed | null {
+export default function justifyPerpendicular1(point: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPerpendicularResult | null {
   const bearingAngle = angleRadians([segment[1], segment[0], point]);
   
   for (const v of [

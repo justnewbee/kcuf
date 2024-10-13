@@ -24,6 +24,8 @@ export { default as getPathCreatingFree } from './get-path-creating-free';
 export { default as getPathCreatingRect } from './get-path-creating-rect';
 export { default as getPathCreatingRect2 } from './get-path-creating-rect2';
 
+export { default as getMouseJustifiedStatusMagnet } from './get-mouse-justified-status-magnet';
+
 export { default as canvasPathPointShape } from './canvas-path-point-shape';
 export { default as canvasDrawArea } from './canvas-draw-area';
 export { default as canvasDrawPathBorder } from './canvas-draw-path-border';

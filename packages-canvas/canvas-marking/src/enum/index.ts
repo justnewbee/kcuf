@@ -1,3 +1,20 @@
+export enum EImageStatus {
+  NONE = 'none',
+  LOADING = 'loading',
+  LOADED = 'loaded',
+  ERROR = 'error'
+}
+
+export enum EMouseJustifyStatus {
+  NONE = '',
+  MAGNET_VERTEX = 'magnet:v',
+  MAGNET_INTERSECTION = 'magnet:i',
+  MAGNET_MID = 'magnet:m',
+  MAGNET_BORDER = 'magnet:b',
+  PERPENDICULAR = 'perpendicular',
+  SNAP = 'snap'
+}
+
 export enum EMarkingMouseStatus {
   OUT,
   IN,

@@ -22,7 +22,3 @@ export interface IMarkingAuxiliaryLine {
    */
   color?: string;
 }
-
-export type TImageStatus = 'none' | 'loading' | 'loaded' | 'error';
-
-export type TImageMouseJustified = '' | 'magnet' | 'perpendicular' | 'snap';

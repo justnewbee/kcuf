@@ -7,6 +7,10 @@ export {
 
 export * from './helper';
 
+export {
+  EJustifyMagnetOrder as JustifyMagnetOrder
+} from './enum';
+
 export type {
   TPoint as Point,
   TSegment as Segment,
@@ -16,6 +20,7 @@ export type {
   TAngle as Angle,
   TBbox as Bbox,
   TVector as Vector,
-  IMagnetPointResult as MagnetPoint,
-  IPathEdgeCenterPoints as PathEdgeCenterPoints
+  IPathEdgeCenterPoints as PathEdgeCenterPoints,
+  IJustifyMagnetResult as JustifyMagnetResult,
+  IJustifyPerpendicularResult as JustifyPerpendicularResult
 } from './types';

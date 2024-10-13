@@ -4,17 +4,17 @@ import _round from 'lodash/round';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
-  Point,
-  Path,
-  MagnetPoint,
-  roundCoords,
-  pathPointSiblingsByIndex,
-  pathsAuxiliaryList,
   justifyMagnetAlongPath,
   justifyMagnetAlongPaths,
+  JustifyMagnetResult,
   justifyPerpendicularAlongPath,
+  justifySnapAroundBetweenPivots,
   justifySnapAroundPivot,
-  justifySnapAroundBetweenPivots
+  Path,
+  pathPointSiblingsByIndex,
+  pathsAuxiliaryList,
+  Point,
+  roundCoords
 } from '@kcuf/geometry-basic';
 import {
   pixelRatioGet,
@@ -23,13 +23,12 @@ import {
 import Subscribable from '@kcuf/subscribable';
 
 import {
+  EImageStatus,
+  EMouseJustifyStatus,
   EMarkingMouseStatus,
   EMarkingStatsChangeCause
 } from '../enum';
 import {
-  TSize,
-  TMarkingItemFinder,
-  TSubscribableEvents,
   IMarkingConfigItem,
   IMarkingItemClass,
   IMarkingItemConfig,
@@ -39,32 +38,36 @@ import {
   IMarkingPluginZoomOptions,
   IMarkingStageClass,
   IMarkingStageOptions,
-  IMarkingStageStats
+  IMarkingStageStats,
+  TMarkingItemFinder,
+  TSize,
+  TSubscribableEvents
 } from '../types';
 import {
-  DEFAULT_MARKING_OPTIONS,
   DEFAULT_AUXILIARY_STYLE,
   DEFAULT_JUSTIFY_MAGNET_RADIUS,
-  DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS
+  DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS,
+  DEFAULT_MARKING_OPTIONS
 } from '../const';
 import {
-  roundFloat,
-  roundSize,
   bindDocumentEvent,
-  loadImage,
   createMarkingCanvas,
   createMarkingImageBg,
-  createMarkingStage
+  createMarkingStage,
+  getMouseJustifiedStatusMagnet,
+  loadImage,
+  roundFloat,
+  roundSize
 } from '../util';
 import {
   pluginCursor,
-  pluginTooltip,
+  pluginFps,
   pluginMagnet,
-  pluginSnapping,
-  pluginZoom,
   pluginMove,
+  pluginSnapping,
   pluginStats,
-  pluginFps
+  pluginTooltip,
+  pluginZoom
 } from '../plugin';
 
 import MarkingItem from './marking-item';
@@ -108,7 +111,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   /**
    * 鼠标矫正状态
    */
-  private justified: '' | 'magnet' | 'perpendicular' | 'snap' = '';
+  private justified: EMouseJustifyStatus = EMouseJustifyStatus.NONE;
   
   private plugins: IMarkingPlugin<T>[] = [];
   
@@ -833,7 +836,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   /**
    * 磁吸，先从正在新建或编辑的图形自身找，再找其他
    */
-  private justifyImageMouseMagnet(): Point | null {
+  private justifyImageMouseMagnet(): JustifyMagnetResult | null {
     if (!this.justifyEnabled) {
       return null;
     }
@@ -857,15 +860,15 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     const creatingStats = itemCreating?.stats;
     const editingStats = itemEditing?.stats;
     
-    let magnetPoint: MagnetPoint | null = creatingStats ? justifyMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
+    let magnetResult: JustifyMagnetResult | null = creatingStats ? justifyMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
     
-    magnetPoint ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
+    magnetResult ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
       return i !== editingStats.draggingPointIndex;
     }), magnetRadius) : null;
     
-    magnetPoint ||= justifyMagnetAlongPaths(imageMouse, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
+    magnetResult ||= justifyMagnetAlongPaths(imageMouse, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
     
-    return magnetPoint ? magnetPoint.point : null;
+    return magnetResult;
   }
   
   /**
@@ -969,7 +972,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
    * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
    */
   private updateImageMouse(mouseInCanvas: Point | null): void {
-    this.justified = '';
+    this.justified = EMouseJustifyStatus.NONE;
     
     if (!mouseInCanvas) {
       return;
@@ -977,11 +980,11 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     this.imageMouse = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
     
-    let justifiedImageMouse = this.justifyImageMouseMagnet();
+    const justifiedMagnet = this.justifyImageMouseMagnet();
     
-    if (justifiedImageMouse) {
-      this.justified = 'magnet';
-      this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
+    if (justifiedMagnet) {
+      this.justified = getMouseJustifiedStatusMagnet(justifiedMagnet);
+      this.imageMouse = this.roundClampCoordsInImage(justifiedMagnet.point);
       
       // 磁吸的时候，还需要进一步
       this.justifyImageMousePerpendicularOuter(); // TODO
@@ -991,10 +994,10 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     this.justifyImageMousePerpendicularOuter(); // TODO
     
-    justifiedImageMouse = this.justifyImageMousePerpendicularInner();
+    let justifiedImageMouse = this.justifyImageMousePerpendicularInner();
     
     if (justifiedImageMouse) {
-      this.justified = 'perpendicular';
+      this.justified = EMouseJustifyStatus.PERPENDICULAR;
       this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
       
       return;
@@ -1003,7 +1006,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     justifiedImageMouse = this.justifyImageMouseSnap();
     
     if (justifiedImageMouse) {
-      this.justified = 'snap';
+      this.justified = EMouseJustifyStatus.SNAP;
       this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
     }
   }
@@ -1556,14 +1559,14 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       canvasCoords: roundCoords([rectCanvas.left - rectStage.left, rectCanvas.top - rectStage.top]),
       imageStatus: (() => {
         if (!imageUrl) {
-          return 'none';
+          return EImageStatus.NONE;
         }
         
         if (imageLoading) {
-          return 'loading';
+          return EImageStatus.LOADING;
         }
         
-        return imageLoader ? 'loaded' : 'error';
+        return imageLoader ? EImageStatus.LOADED : EImageStatus.ERROR;
       })(),
       imageSize: imageLoader ? [imageLoader.naturalWidth, imageLoader.naturalHeight] : [0, 0],
       imageScale: this.imageScale,

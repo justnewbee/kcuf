@@ -4,10 +4,13 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
+  EImageStatus,
+  EMouseJustifyStatus
+} from '../enum';
+
+import {
   TSize,
-  TCreatingWillFinish,
-  TImageStatus,
-  TImageMouseJustified
+  TCreatingWillFinish
 } from './common';
 
 /**
@@ -53,11 +56,11 @@ export interface IMarkingStageStats<T = void> {
   stageSize: TSize;
   canvasSize: TSize;
   canvasCoords: Point; // 画布左上角相对于 stage 的位置 (x, y)
-  imageStatus: TImageStatus;
+  imageStatus: EImageStatus;
   imageSize: TSize;
   imageScale: number;
   imageMouse: Point;
-  imageMouseJustified: TImageMouseJustified;
+  imageMouseJustified: EMouseJustifyStatus;
   mouseInStage: Point | null;
   mouseInCanvas: Point | null;
   mouseDownCanvas: boolean;

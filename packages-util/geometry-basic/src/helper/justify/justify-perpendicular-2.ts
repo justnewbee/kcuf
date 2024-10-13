@@ -1,5 +1,5 @@
 import {
-  IJustifyPointPerpendicularDetailed,
+  IJustifyPerpendicularResult,
   TPoint
 } from '../../types';
 import {
@@ -21,7 +21,7 @@ import checkThresholdAngle from './_check-threshold-angle';
  *  ◉━━━━⦿━━━◉━━━━━━━━▲ 待正交
  *  p'→  p'   ←p      sibling1
  */
-export default function justifyPerpendicular2(point: TPoint, sibling1: TPoint, sibling2: TPoint, thresholdRadius: number, thresholdDegrees: number): IJustifyPointPerpendicularDetailed | null {
+export default function justifyPerpendicular2(point: TPoint, sibling1: TPoint, sibling2: TPoint, thresholdRadius: number, thresholdDegrees: number): IJustifyPerpendicularResult | null {
   const pointPrime = perpendicularFootThroughPointToSegment(sibling2, [sibling1, point]);
   const distance = checkThresholdRadius(thresholdRadius, point, pointPrime);
   

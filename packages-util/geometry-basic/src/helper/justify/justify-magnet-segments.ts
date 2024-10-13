@@ -1,6 +1,9 @@
 import {
+  EJustifyMagnetOrder
+} from '../../enum';
+import {
   TPoint,
-  IMagnetPointResult,
+  IJustifyMagnetResult,
   TSegment
 } from '../../types';
 import {
@@ -14,7 +17,7 @@ import {
 /**
  * 从线段列表找距 point 最近的磁吸点
  */
-export default function justifyMagnetSegments(point: TPoint, segments: TSegment[], magnetRadius: number, order: number): IMagnetPointResult | null {
+export default function justifyMagnetSegments(point: TPoint, segments: TSegment[], magnetRadius: number, order: EJustifyMagnetOrder): IJustifyMagnetResult | null {
   let pointM: TPoint | undefined;
   let distance = Infinity;
   

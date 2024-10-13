@@ -1,11 +1,11 @@
 import {
-  IJustifyPointPerpendicularDetailed
+  IJustifyPerpendicularResult
 } from '../../types';
 
 export default function determineJustifiedPerpendicular(
-    justified1: IJustifyPointPerpendicularDetailed | null,
-    justified2: IJustifyPointPerpendicularDetailed | null
-): IJustifyPointPerpendicularDetailed | null {
+    justified1: IJustifyPerpendicularResult | null,
+    justified2: IJustifyPerpendicularResult | null
+): IJustifyPerpendicularResult | null {
   if (!justified1 || !justified2) {
     return justified1 || justified2;
   }
