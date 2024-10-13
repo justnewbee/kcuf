@@ -10,11 +10,11 @@ import {
   roundCoords,
   pathPointSiblingsByIndex,
   pathsAuxiliaryList,
-  justifyPointMagnetAlongPath,
-  justifyPointMagnetAlongPaths,
-  justifyPointPerpendicularAlongPath,
-  justifyPointSnapAroundPoint,
-  justifyPointSnapAroundPointBetween
+  justifyMagnetAlongPath,
+  justifyMagnetAlongPaths,
+  justifyPerpendicularAlongPath,
+  justifySnapAroundPivot,
+  justifySnapAroundBetweenPivots
 } from '@kcuf/geometry-basic';
 import {
   pixelRatioGet,
@@ -857,13 +857,13 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     const creatingStats = itemCreating?.stats;
     const editingStats = itemEditing?.stats;
     
-    let magnetPoint: MagnetPoint | null = creatingStats ? justifyPointMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
+    let magnetPoint: MagnetPoint | null = creatingStats ? justifyMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
     
-    magnetPoint ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyPointMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
+    magnetPoint ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
       return i !== editingStats.draggingPointIndex;
     }), magnetRadius) : null;
     
-    magnetPoint ||= justifyPointMagnetAlongPaths(imageMouse, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
+    magnetPoint ||= justifyMagnetAlongPaths(imageMouse, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
     
     return magnetPoint ? magnetPoint.point : null;
   }
@@ -884,24 +884,20 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     } = this;
     const creatingStats = this.itemCreating?.stats;
     const editingStats = this.itemEditing?.stats;
+    let pathToJustifyPerpendicular: Path | undefined;
     
     if (creatingStats) {
-      return justifyPointPerpendicularAlongPath(imageMouse, creatingStats.path, {
-        radius: this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius)
-      });
-    }
-    
-    if (editingStats && editingStats.draggingPointIndex >= 0) {
+      pathToJustifyPerpendicular = creatingStats.path;
+    } else if (editingStats && editingStats.draggingPointIndex >= 0) {
       const pathBefore = editingStats.path.slice(0, editingStats.draggingPointIndex);
       const pathAfter = editingStats.path.slice(editingStats.draggingPointIndex + 1);
-      const pathNew = [...pathAfter, ...pathBefore];
       
-      return justifyPointPerpendicularAlongPath(imageMouse, pathNew, {
-        radius: this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius)
-      });
+      pathToJustifyPerpendicular = [...pathAfter, ...pathBefore];
     }
     
-    return null;
+    return pathToJustifyPerpendicular ? justifyPerpendicularAlongPath(imageMouse, pathToJustifyPerpendicular, {
+      radius: this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius)
+    }) : null;
   }
   
   /**
@@ -940,18 +936,18 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     if (creatingStats) {
       const pointLast = creatingStats.path[creatingStats.path.length - 1];
       
-      return pointLast ? justifyPointSnapAroundPoint(imageMouse, pointLast) : null;
+      return pointLast ? justifySnapAroundPivot(imageMouse, pointLast) : null;
     }
     
     if (editingStats) {
       const siblingPoints = pathPointSiblingsByIndex(editingStats.path, editingStats.draggingPointIndex);
       
       if (siblingPoints.length === 1) {
-        return justifyPointSnapAroundPoint(imageMouse, siblingPoints[0]);
+        return justifySnapAroundPivot(imageMouse, siblingPoints[0]);
       }
       
       if (siblingPoints.length === 2) {
-        return justifyPointSnapAroundPointBetween(imageMouse, siblingPoints[0], siblingPoints[1]);
+        return justifySnapAroundBetweenPivots(imageMouse, siblingPoints[0], siblingPoints[1]);
       }
     }
     

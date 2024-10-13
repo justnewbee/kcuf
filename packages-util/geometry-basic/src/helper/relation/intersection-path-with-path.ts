@@ -12,7 +12,7 @@ import {
 import intersectionSegmentWithSegment from './intersection-segment-with-segment';
 
 /**
- * path 与 path 交点集合，无序
+ * 路径与路径交点集合，无序
  */
 export default function intersectionPathWithPath(path1: TPath, path2: TPath): TPoint[] {
   const segments1 = pathSegmentList(path1);

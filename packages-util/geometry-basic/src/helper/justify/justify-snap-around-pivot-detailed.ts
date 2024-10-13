@@ -8,13 +8,13 @@ import {
 /**
  * 找到一个点 point' 满足以下条件：
  *
- * 1. fixedPoint-p2 和 fixedPoint-point' 距离相等（即 point 和 point' 在以 fixedPoint 为半径的圆周上）
- * 2. fixedPoint-point' 与水平方向的夹角是 π/4 的倍数
+ * 1. pivot-p2 和 pivot-point' 距离相等（即 point 和 point' 在以 pivot 为半径的圆周上）
+ * 2. pivot-point' 与水平方向的夹角是 π/4 的倍数
  * 3. p2-point' 移动距离最小
  *
  * 返回点和移动距离元组
  */
-export default function justifyPointSnapAroundPointDetailed(point: TPoint, pivot: TPoint, steps = 8): [TPoint, number] {
+export default function justifySnapAroundPivotDetailed(point: TPoint, pivot: TPoint, steps = 8): [TPoint, number] {
   const radius = pointDistance(pivot, point);
   
   if (radius <= 0) {

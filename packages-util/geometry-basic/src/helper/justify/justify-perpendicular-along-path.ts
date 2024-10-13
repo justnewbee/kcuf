@@ -9,9 +9,12 @@ import {
 } from '../../util';
 
 import determineJustifiedPerpendicular from './_determine-justified-perpendicular';
-import justifyPointPerpendicular123 from './justify-point-perpendicular-123';
+import justifyPerpendicular123 from './justify-perpendicular-123';
 
-export default function justifyPointPerpendicularAlongPath(point: TPoint, path: TPath, threshold?: IJustifyPointPerpendicularThreshold | number): TPoint | null {
+/**
+ * 在路径末尾插入一个点 point，使 point 尽可能与路径中的相邻边垂直
+ */
+export default function justifyPerpendicularAlongPath(point: TPoint, path: TPath, threshold?: IJustifyPointPerpendicularThreshold | number): TPoint | null {
   const {
     radius: thresholdRadius,
     angle: thresholdDegrees
@@ -29,7 +32,7 @@ export default function justifyPointPerpendicularAlongPath(point: TPoint, path: 
   const siblingSegmentNext: TSegment = [last, last2];
   
   return determineJustifiedPerpendicular(
-      justifyPointPerpendicular123(point, siblingSegmentPrev, siblingSegmentNext, thresholdRadius, thresholdDegrees),
-      justifyPointPerpendicular123(point, siblingSegmentNext, siblingSegmentPrev, thresholdRadius, thresholdDegrees)
+      justifyPerpendicular123(point, siblingSegmentPrev, siblingSegmentNext, thresholdRadius, thresholdDegrees),
+      justifyPerpendicular123(point, siblingSegmentNext, siblingSegmentPrev, thresholdRadius, thresholdDegrees)
   )?.point || null;
 }

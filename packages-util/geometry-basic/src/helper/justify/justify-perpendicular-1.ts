@@ -21,13 +21,13 @@ import checkThresholdRadius from './_check-threshold-radius';
  * 给定线段 segment，对 p 绕 segment.0 等轴旋转，得 p'，使 p'-segment.0 与 segment 垂直，
  * 需判断旋转角度及位移是否在允许范围内
  *
- * ▲━━━━━━ ←▲ segment
+ * ▲━━━━━━ ←▲ segment 待正交
  *      └ ╱θ┃θ╲
  *       ╱  ┃  ╲
  *    p ◉ ↘ ┃  ↙ ◉ p
  *          ⦿ p'
  */
-export default function justifyPointPerpendicular1(point: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPointPerpendicularDetailed | null {
+export default function justifyPerpendicular1(point: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPointPerpendicularDetailed | null {
   const bearingAngle = angleRadians([segment[1], segment[0], point]);
   
   for (const v of [

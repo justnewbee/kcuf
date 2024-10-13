@@ -14,7 +14,7 @@ import {
 /**
  * 从线段列表找距 point 最近的磁吸点
  */
-export default function justifyPointMagnetSegments(point: TPoint, segments: TSegment[], magnetRadius: number, order: number): IMagnetPointResult | null {
+export default function justifyMagnetSegments(point: TPoint, segments: TSegment[], magnetRadius: number, order: number): IMagnetPointResult | null {
   let pointM: TPoint | undefined;
   let distance = Infinity;
   

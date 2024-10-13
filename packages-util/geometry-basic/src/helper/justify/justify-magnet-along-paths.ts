@@ -10,12 +10,12 @@ import {
   intersectionPathWithPath
 } from '../relation';
 
-import justifyPointMagnetPoints from './justify-point-magnet-points';
-import justifyPointMagnetAlongPath from './justify-point-magnet-along-path';
+import justifyMagnetPoints from './justify-magnet-points';
+import justifyMagnetAlongPath from './justify-magnet-along-path';
 
-export default function justifyPointMagnetAlongPaths(point: TPoint, paths: TPath[], magnetRadius: number): IMagnetPointResult | null {
+export default function justifyMagnetAlongPaths(point: TPoint, paths: TPath[], magnetRadius: number): IMagnetPointResult | null {
   const possibleResults = paths.reduce((result: IMagnetPointResult[], v) => {
-    const justifiedResult = justifyPointMagnetAlongPath(point, v, magnetRadius);
+    const justifiedResult = justifyMagnetAlongPath(point, v, magnetRadius);
     
     if (justifiedResult) {
       result.push(justifiedResult);
@@ -26,7 +26,7 @@ export default function justifyPointMagnetAlongPaths(point: TPoint, paths: TPath
   
   // 检测路径的交点，优先级在顶点和中点之间
   pairwise(paths).forEach(([path1, path2]) => {
-    const o = justifyPointMagnetPoints(point, intersectionPathWithPath(path1, path2), magnetRadius, 1.5);
+    const o = justifyMagnetPoints(point, intersectionPathWithPath(path1, path2), magnetRadius, 1.5);
     
     if (o) {
       possibleResults.push(o);

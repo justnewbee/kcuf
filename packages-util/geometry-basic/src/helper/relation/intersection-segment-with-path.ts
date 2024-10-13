@@ -46,7 +46,7 @@ function sortPoints(points: TPoint[], segment: TSegment): TPoint[] {
 }
 
 /**
- * path 与线段相交的点集合，所有的点在同一条直线上，且顺序与给定线段方向一致，根据 `extended` 对线段进行延伸
+ * 线段与路径交点集合，所有的点在同一条直线上，且顺序与给定线段方向一致，根据 `extended` 对线段进行延伸
  *
  * - `false` 不对线段进行延伸（默认）
  * - `true` 对线段进行延伸，至最远的相交点
