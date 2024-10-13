@@ -15,7 +15,7 @@ import isPointInSegmentProjection from './is-point-in-segment-projection';
  * 1. 点在线段投影内
  * 2. 点与线段两个端点连线的斜率相同
  */
-export default function isPointAlongSegment(point: TPoint, segment: TSegment): boolean {
+export default function isPointOnSegment(point: TPoint, segment: TSegment): boolean {
   if (isPointIncluded(point, segment)) {
     return true;
   }

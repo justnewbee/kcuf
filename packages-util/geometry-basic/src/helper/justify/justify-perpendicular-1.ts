@@ -22,9 +22,9 @@ import checkThresholdRadius from './_check-threshold-radius';
  * 需判断旋转角度及位移是否在允许范围内
  *
  * ▲━━━━━━ ←▲ segment 待正交
- *      └ ╱θ┃θ╲
- *       ╱  ┃  ╲
- *    p ◉ ↘ ┃  ↙ ◉ p
+ *         └┃θ╲
+ *          ┃  ╲
+ *          ┃  ↙ ◉ p
  *          ⦿ p'
  */
 export default function justifyPerpendicular1(point: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPerpendicularResult | null {

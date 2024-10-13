@@ -10,7 +10,7 @@ import {
   pointDistance
 } from '../base';
 import {
-  isPointAlongSegment,
+  isPointOnSegment,
   perpendicularFootThroughPointToSegment
 } from '../relation';
 
@@ -24,7 +24,7 @@ export default function justifyMagnetSegments(point: TPoint, segments: TSegment[
   segments.forEach(v => {
     const verticalIntersectionPoint = perpendicularFootThroughPointToSegment(point, v);
     
-    if (isPointAlongSegment(verticalIntersectionPoint, v)) {
+    if (isPointOnSegment(verticalIntersectionPoint, v)) {
       const d = pointDistance(point, verticalIntersectionPoint);
       
       if (d <= magnetRadius && d < distance) {

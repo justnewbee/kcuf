@@ -6,7 +6,7 @@ import {
   pathSegmentList
 } from '../base';
 
-import isPointAlongPath from './is-point-along-path';
+import isPointOnPath from './is-point-on-path';
 
 /**
  * 点是否在 path 围成的多边形内部
@@ -15,7 +15,7 @@ import isPointAlongPath from './is-point-along-path';
  * 若交点数为奇数，则该点位于多边形内部；如果为偶数，则位于外部。
  */
 export default function isPointWithinPath(point: TPoint, path: TPath): boolean {
-  return path.length <= 2 || isPointAlongPath(point, path) ? false : pathSegmentList(path).reduce((result, v) => {
+  return path.length <= 2 || isPointOnPath(point, path) ? false : pathSegmentList(path).reduce((result, v) => {
     const [[xi, yi], [xj, yj]] = v;
     const intersect = ((yi > point[1]) !== (yj > point[1])) && (point[0] < (xj - xi) * (point[1] - yi) / (yj - yi) + xi);
     

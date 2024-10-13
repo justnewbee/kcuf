@@ -4,17 +4,17 @@ import _round from 'lodash/round';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
-  justifyMagnetAlongPath,
-  justifyMagnetAlongPaths,
-  JustifyMagnetResult,
-  justifyPerpendicularAlongPath,
-  justifySnapAroundBetweenPivots,
-  justifySnapAroundPivot,
   Path,
+  Point,
+  roundCoords,
   pathPointSiblingsByIndex,
   pathsAuxiliaryList,
-  Point,
-  roundCoords
+  justifyMagnetAlongPath,
+  justifyMagnetAlongPaths,
+  justifyPerpendicularInternal,
+  justifyPerpendicularExternal,
+  justifySnapAroundBetweenPivots,
+  justifySnapAroundPivot
 } from '@kcuf/geometry-basic';
 import {
   pixelRatioGet,
@@ -50,14 +50,14 @@ import {
   DEFAULT_MARKING_OPTIONS
 } from '../const';
 import {
+  roundFloat,
+  roundSize,
   bindDocumentEvent,
   createMarkingCanvas,
   createMarkingImageBg,
   createMarkingStage,
   getMouseJustifiedStatusMagnet,
-  loadImage,
-  roundFloat,
-  roundSize
+  loadImage
 } from '../util';
 import {
   pluginCursor,
@@ -262,6 +262,57 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     };
   }
   
+  /**
+   * 返回根据面积降序的 MarkingItem 列表（注意不会影响 this.markingItems）
+   */
+  private getMarkingItemsOrdered(): IMarkingItemClass<T>[] {
+    const {
+      markingItems,
+      itemEditing
+    } = this;
+    const list = [...markingItems];
+    
+    return list.sort((v1, v2) => {
+      // 保证编辑未完成（dirty 状态）的一定在最末一个
+      if (v2 === itemEditing && v2.stats.dirty) {
+        return -1;
+      }
+      
+      if (v1 === itemEditing && v1.stats.dirty) {
+        return 1;
+      }
+      
+      return v2.stats.area - v1.stats.area;
+    });
+  }
+  
+  private getAllStats(excludeEditing?: boolean): IMarkingItemStats<T>[] {
+    const {
+      itemEditing
+    } = this;
+    
+    return (excludeEditing && itemEditing ? this.markingItems.filter(v => v !== itemEditing) : this.markingItems).map(v => v.stats);
+  }
+  
+  private getAllPaths(excludeEditing?: boolean): Path[] {
+    return this.getAllStats(excludeEditing).map(v => v.path);
+  }
+  
+  private getMouseInStageFromMouseEvent(e: MouseEvent): Point {
+    const rectStage = this.stage.getBoundingClientRect();
+    
+    return roundCoords([
+      _clamp(e.clientX - rectStage.left, 0, rectStage.width),
+      _clamp(e.clientY - rectStage.top, 0, rectStage.height)
+    ]);
+  }
+  
+  private getMouseInCanvasFromMouseEvent(e: MouseEvent): Point {
+    const rectCanvas = this.canvas.getBoundingClientRect();
+    
+    return this.roundClampCoordsInCanvas([e.clientX - rectCanvas.left, e.clientY - rectCanvas.top]);
+  }
+  
   private setupEvents(): void {
     const {
       stage,
@@ -400,10 +451,6 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     canvas.height = height * pixelRatio;
     canvas.style.top = `${top}px`;
     canvas.style.left = `${left}px`;
-  }
-  
-  private getItemStatsList(exclude?: IMarkingItemClass<T> | null): IMarkingItemStats<T>[] {
-    return (exclude ? this.markingItems.filter(v => v !== exclude) : this.markingItems).map(v => v.stats);
   }
   
   private updatePixelRatio(pixelRatio: number): void {
@@ -549,7 +596,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     }
     
     if (itemEditing?.finishDragging(this.options.beforeEditDragEnd)) {
-      const statsList = this.getItemStatsList();
+      const statsList = this.getAllStats();
       
       this.options.onDragEnd?.(itemEditing.stats, statsList);
       this.emit('drag-end', itemEditing.stats, statsList);
@@ -600,7 +647,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     const draggingResult = itemEditing.processDragging();
     
     if (typeof draggingResult === 'number') {
-      const statsList = this.getItemStatsList();
+      const statsList = this.getAllStats();
       
       this.options.onPointInsert?.(itemEditing.stats, draggingResult, statsList);
       this.emit('point-insert', itemEditing.stats, draggingResult, statsList);
@@ -680,7 +727,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     itemHighlighting?.toggleHighlighting(false);
     
     if (itemUnderMouse) {
-      const statsList = this.getItemStatsList();
+      const statsList = this.getAllStats();
       
       this.options.onClick?.(itemUnderMouse.stats, statsList);
       this.emit('click', itemUnderMouse.stats, statsList);
@@ -716,7 +763,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
         const pointRemovedIndex = itemEditing.removePoint();
         
         if (pointRemovedIndex >= 0) {
-          const statsList = this.getItemStatsList();
+          const statsList = this.getAllStats();
           
           this.options.onPointRemove?.(itemEditing.stats, pointRemovedIndex, statsList);
           this.emit('point-remove', itemEditing.stats, pointRemovedIndex, statsList);
@@ -770,21 +817,6 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.draw();
   }
   
-  private getMouseInStageFromMouseEvent(e: MouseEvent): Point {
-    const rectStage = this.stage.getBoundingClientRect();
-    
-    return roundCoords([
-      _clamp(e.clientX - rectStage.left, 0, rectStage.width),
-      _clamp(e.clientY - rectStage.top, 0, rectStage.height)
-    ]);
-  }
-  
-  private getMouseInCanvasFromMouseEvent(e: MouseEvent): Point {
-    const rectCanvas = this.canvas.getBoundingClientRect();
-    
-    return this.roundClampCoordsInCanvas([e.clientX - rectCanvas.left, e.clientY - rectCanvas.top]);
-  }
-  
   private roundClampCoordsInCanvas([x, y]: Point): Point {
     const rectCanvas = this.canvas.getBoundingClientRect();
     
@@ -834,130 +866,6 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   /**
-   * 磁吸，先从正在新建或编辑的图形自身找，再找其他
-   */
-  private justifyImageMouseMagnet(): JustifyMagnetResult | null {
-    if (!this.justifyEnabled) {
-      return null;
-    }
-    
-    const {
-      options: {
-        magnetRadius: magnetRadius0 = DEFAULT_JUSTIFY_MAGNET_RADIUS
-      }
-    } = this;
-    const magnetRadius = this.fromCanvasPixelToImagePixel(magnetRadius0);
-    
-    if (magnetRadius <= 0) {
-      return null;
-    }
-    
-    const {
-      imageMouse,
-      itemCreating,
-      itemEditing
-    } = this;
-    const creatingStats = itemCreating?.stats;
-    const editingStats = itemEditing?.stats;
-    
-    let magnetResult: JustifyMagnetResult | null = creatingStats ? justifyMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
-    
-    magnetResult ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
-      return i !== editingStats.draggingPointIndex;
-    }), magnetRadius) : null;
-    
-    magnetResult ||= justifyMagnetAlongPaths(imageMouse, this.getItemStatsList(itemCreating || itemEditing).map(v => v.path), magnetRadius);
-    
-    return magnetResult;
-  }
-  
-  /**
-   * 正在新建或编辑的图形，内部自动垂直正交矫正
-   */
-  private justifyImageMousePerpendicularInner(): Point | null {
-    if (!this.justifyEnabled) {
-      return null;
-    }
-    
-    const {
-      options: {
-        justifyPerpendicularThresholdRadius = DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS
-      },
-      imageMouse
-    } = this;
-    const creatingStats = this.itemCreating?.stats;
-    const editingStats = this.itemEditing?.stats;
-    let pathToJustifyPerpendicular: Path | undefined;
-    
-    if (creatingStats) {
-      pathToJustifyPerpendicular = creatingStats.path;
-    } else if (editingStats && editingStats.draggingPointIndex >= 0) {
-      const pathBefore = editingStats.path.slice(0, editingStats.draggingPointIndex);
-      const pathAfter = editingStats.path.slice(editingStats.draggingPointIndex + 1);
-      
-      pathToJustifyPerpendicular = [...pathAfter, ...pathBefore];
-    }
-    
-    return pathToJustifyPerpendicular ? justifyPerpendicularAlongPath(imageMouse, pathToJustifyPerpendicular, {
-      radius: this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius)
-    }) : null;
-  }
-  
-  /**
-   * 正在新建或编辑的图形，若只有两个点（即线段），且一端磁吸在别的图形的一条边，则进行正交矫正
-   */
-  private justifyImageMousePerpendicularOuter(): Point | null {
-    if (!this.justifyEnabled) {
-      return null;
-    }
-    
-    const creatingStats = this.itemCreating?.stats;
-    const editingStats = this.itemEditing?.stats;
-    
-    if (creatingStats?.path.length === 2) {
-      return null;
-    }
-    
-    if (editingStats?.path.length === 2 && editingStats.draggingPointIndex >= 0) {
-      return null;
-    }
-    
-    return null;
-  }
-  
-  private justifyImageMouseSnap(): Point | null {
-    if (!this.snapEnabled) {
-      return null;
-    }
-    
-    const {
-      imageMouse
-    } = this;
-    const creatingStats = this.itemCreating?.stats;
-    const editingStats = this.itemEditing?.stats;
-    
-    if (creatingStats) {
-      const pointLast = creatingStats.path[creatingStats.path.length - 1];
-      
-      return pointLast ? justifySnapAroundPivot(imageMouse, pointLast) : null;
-    }
-    
-    if (editingStats) {
-      const siblingPoints = pathPointSiblingsByIndex(editingStats.path, editingStats.draggingPointIndex);
-      
-      if (siblingPoints.length === 1) {
-        return justifySnapAroundPivot(imageMouse, siblingPoints[0]);
-      }
-      
-      if (siblingPoints.length === 2) {
-        return justifySnapAroundBetweenPivots(imageMouse, siblingPoints[0], siblingPoints[1]);
-      }
-    }
-    
-    return null;
-  }
-  
-  /**
    * 图片有缩放，有写场景下我们需要将肉眼看到相对于 canvas 的坐标转换成相对于 image 的坐标
    */
   private fromCanvasPixelToImagePixel(canvasPixel: number): number {
@@ -980,35 +888,161 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     this.imageMouse = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
     
-    const justifiedMagnet = this.justifyImageMouseMagnet();
-    
-    if (justifiedMagnet) {
-      this.justified = getMouseJustifiedStatusMagnet(justifiedMagnet);
-      this.imageMouse = this.roundClampCoordsInImage(justifiedMagnet.point);
-      
-      // 磁吸的时候，还需要进一步
-      this.justifyImageMousePerpendicularOuter(); // TODO
-      
-      return;
+    this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
+  }
+  
+  /**
+   * 磁吸，先从正在新建或编辑的图形自身找，再找其他
+   */
+  private justifyImageMouseMagnet(): boolean {
+    if (!this.justifyEnabled) {
+      return false;
     }
     
-    this.justifyImageMousePerpendicularOuter(); // TODO
+    const {
+      options: {
+        magnetRadius: magnetRadius0 = DEFAULT_JUSTIFY_MAGNET_RADIUS
+      }
+    } = this;
+    const magnetRadius = this.fromCanvasPixelToImagePixel(magnetRadius0);
     
-    let justifiedImageMouse = this.justifyImageMousePerpendicularInner();
-    
-    if (justifiedImageMouse) {
-      this.justified = EMouseJustifyStatus.PERPENDICULAR;
-      this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
-      
-      return;
+    if (magnetRadius <= 0) {
+      return false;
     }
     
-    justifiedImageMouse = this.justifyImageMouseSnap();
+    const {
+      imageMouse,
+      itemCreating,
+      itemEditing
+    } = this;
+    const creatingStats = itemCreating?.stats;
+    const editingStats = itemEditing?.stats;
     
-    if (justifiedImageMouse) {
+    let justifiedResult = creatingStats ? justifyMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
+    
+    justifiedResult ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
+      return i !== editingStats.draggingPointIndex;
+    }), magnetRadius) : null;
+    
+    justifiedResult ||= justifyMagnetAlongPaths(imageMouse, this.getAllPaths(true), magnetRadius);
+    
+    if (justifiedResult) {
+      this.justified = getMouseJustifiedStatusMagnet(justifiedResult);
+      this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
+      
+      this.justifyImageMousePerpendicularExternal(); // 磁吸的时候，还需要进一步
+    }
+    
+    return !!justifiedResult;
+  }
+  
+  /**
+   * 正在新建或编辑的图形，内部自动垂直正交矫正
+   */
+  private justifyImageMousePerpendicularInternal(): boolean {
+    if (!this.justifyEnabled) {
+      return false;
+    }
+    
+    const {
+      options: {
+        justifyPerpendicularThresholdRadius = DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS
+      },
+      imageMouse
+    } = this;
+    const creatingStats = this.itemCreating?.stats;
+    const editingStats = this.itemEditing?.stats;
+    let pathToJustifyPerpendicular: Path | undefined;
+    
+    if (creatingStats) {
+      pathToJustifyPerpendicular = creatingStats.path;
+    } else if (editingStats && editingStats.draggingPointIndex >= 0) {
+      const pathBefore = editingStats.path.slice(0, editingStats.draggingPointIndex);
+      const pathAfter = editingStats.path.slice(editingStats.draggingPointIndex + 1);
+      
+      pathToJustifyPerpendicular = [...pathAfter, ...pathBefore];
+    }
+    
+    const justifiedResult = pathToJustifyPerpendicular ? justifyPerpendicularInternal(imageMouse, pathToJustifyPerpendicular, {
+      radius: this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius)
+    }) : null;
+    
+    if (justifiedResult) {
+      this.justified = EMouseJustifyStatus.PERPENDICULAR_INTERNAL;
+      this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
+    }
+    
+    return !!justifiedResult;
+  }
+  
+  /**
+   * 正在新建或编辑的图形，若只有两个点（即线段），且一端磁吸在别的图形的一条边，则进行正交矫正
+   */
+  private justifyImageMousePerpendicularExternal(): boolean {
+    if (!this.justifyEnabled) {
+      return false;
+    }
+    
+    const creatingStats = this.itemCreating?.stats;
+    const editingStats = this.itemEditing?.stats;
+    let pivot: Point | undefined;
+    
+    if (creatingStats?.path.length === 1) {
+      pivot = creatingStats.path[0];
+    } else if (editingStats?.path.length === 2 && editingStats.draggingPointIndex >= 0) {
+      pivot = editingStats.path[editingStats.draggingPointIndex === 0 ? 1 : 0];
+    }
+    
+    const justifiedResult = pivot ? justifyPerpendicularExternal(this.imageMouse, pivot, this.getAllPaths(true)) : null;
+    
+    if (justifiedResult) {
+      this.justified = EMouseJustifyStatus.PERPENDICULAR_EXTERNAL;
+      this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
+    }
+    
+    return !!justifiedResult;
+  }
+  
+  private justifyImageMouseSnap(): boolean {
+    if (!this.snapEnabled) {
+      return false;
+    }
+    
+    const {
+      imageMouse
+    } = this;
+    const creatingStats = this.itemCreating?.stats;
+    const editingStats = this.itemEditing?.stats;
+    let pivot1: Point | undefined;
+    let pivot2: Point | undefined;
+    
+    if (creatingStats) {
+      pivot1 = creatingStats.path[creatingStats.path.length - 1];
+    } else if (editingStats) {
+      const siblingPoints = pathPointSiblingsByIndex(editingStats.path, editingStats.draggingPointIndex);
+      
+      if (siblingPoints.length === 1) {
+        pivot1 = siblingPoints[0];
+      } else if (siblingPoints.length === 2) {
+        pivot1 = siblingPoints[0];
+        pivot2 = siblingPoints[1];
+      }
+    }
+    
+    let justifiedResult: Point | undefined;
+    
+    if (pivot1 && pivot2) {
+      justifiedResult = justifySnapAroundBetweenPivots(imageMouse, pivot1, pivot2);
+    } else if (pivot1) {
+      justifiedResult = justifySnapAroundPivot(imageMouse, pivot1);
+    }
+    
+    if (justifiedResult) {
       this.justified = EMouseJustifyStatus.SNAP;
-      this.imageMouse = this.roundClampCoordsInImage(justifiedImageMouse);
+      this.imageMouse = this.roundClampCoordsInImage(justifiedResult);
     }
+    
+    return !!justifiedResult;
   }
   
   private hoverMarkingItem(markingItem: IMarkingItemClass<T> | null): void {
@@ -1019,30 +1053,6 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     if (markingItem) {
       this.itemHighlighting?.toggleHighlighting(false);
     }
-  }
-  
-  /**
-   * 返回根据面积降序的 MarkingItem 列表（注意不会影响 this.markingItems）
-   */
-  private getMarkingItemsOrdered(): IMarkingItemClass<T>[] {
-    const {
-      markingItems,
-      itemEditing
-    } = this;
-    const list = [...markingItems];
-    
-    return list.sort((v1, v2) => {
-      // 保证编辑未完成（dirty 状态）的一定在最末一个
-      if (v2 === itemEditing && v2.stats.dirty) {
-        return -1;
-      }
-
-      if (v1 === itemEditing && v1.stats.dirty) {
-        return 1;
-      }
-      
-      return v2.stats.area - v1.stats.area;
-    });
   }
   
   private draw(): void {
@@ -1181,7 +1191,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     item?.select();
     
     const itemStats = item ? item.stats : null;
-    const statsList = this.getItemStatsList();
+    const statsList = this.getAllStats();
     
     this.options.onSelectionChange?.(itemStats, statsList);
     this.emit('selection-change', itemStats, statsList);
@@ -1299,7 +1309,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     if (this.itemEditing) { // 副作用 3 - 结束编辑
       this.finishEditing();
       
-      const statsList = this.getItemStatsList();
+      const statsList = this.getAllStats();
       
       this.options.onSelectionChange?.(null, statsList);
       this.emit('selection-change', null, statsList);
@@ -1324,7 +1334,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.itemCreating = null;
     this.markingItems.push(itemCreating);
     
-    const statsList = this.getItemStatsList();
+    const statsList = this.getAllStats();
     
     this.options.onCreateComplete?.(itemCreating.stats, statsList);
     this.emit('create-complete', itemCreating.stats, statsList);
@@ -1349,7 +1359,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     } = this;
     
     if (itemEditing?.finishEditing(cancel)) {
-      const statsList = this.getItemStatsList();
+      const statsList = this.getAllStats();
       
       if (cancel) {
         this.options.onEditCancel?.(itemEditing.stats, statsList);
@@ -1379,7 +1389,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.markingItems.splice(index, 1);
     this.updateAndDraw(EMarkingStatsChangeCause.DELETE);
     
-    const statsList = this.getItemStatsList();
+    const statsList = this.getAllStats();
     
     this.options.onDelete?.(itemEditing.stats, statsList);
     this.emit('delete', itemEditing.stats, statsList);
@@ -1582,7 +1592,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       movingCoordsStart: this.movingCoordsStart,
       movingCoords: this.movingCoords,
       // 与 MarkingItem 有关状态
-      itemStatsList: this.getItemStatsList(),
+      itemStatsList: this.getAllStats(),
       itemStatsCreating,
       itemStatsHovering,
       itemStatsHighlighting,

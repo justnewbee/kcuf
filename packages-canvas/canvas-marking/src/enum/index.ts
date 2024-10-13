@@ -11,7 +11,8 @@ export enum EMouseJustifyStatus {
   MAGNET_INTERSECTION = 'magnet:i',
   MAGNET_MID = 'magnet:m',
   MAGNET_BORDER = 'magnet:b',
-  PERPENDICULAR = 'perpendicular',
+  PERPENDICULAR_INTERNAL = 'perpendicular:i',
+  PERPENDICULAR_EXTERNAL = 'perpendicular:e',
   SNAP = 'snap'
 }
 

@@ -7,7 +7,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import {
   Point,
   Path,
-  isPointAlongPath,
+  isPointOnPath,
   isPointWithinPath,
   segmentLength,
   segmentMidpoint,
@@ -841,7 +841,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
           return false;
         }
         
-        if (isPointAlongPath(imageMouse, this.path, true)) {
+        if (isPointOnPath(imageMouse, this.path, true)) {
           return false;
         }
         

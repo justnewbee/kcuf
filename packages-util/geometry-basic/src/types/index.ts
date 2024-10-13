@@ -65,7 +65,7 @@ export interface IJustifyPerpendicularResult {
   distance: number;
 }
 
-export interface IJustifyPointPerpendicularThreshold {
+export interface IJustifyPerpendicularThreshold {
   /**
    * 角度变化不可超过此值（默认 5° 以内）
    */

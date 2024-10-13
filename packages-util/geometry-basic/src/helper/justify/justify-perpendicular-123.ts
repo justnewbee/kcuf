@@ -21,5 +21,5 @@ export default function justifyPerpendicular123(
   const justified2 = justifyPerpendicular2(movingPoint, siblingSegment1[0], siblingSegment2[0], thresholdRadius, thresholdDegrees);
   const justified3 = justifyPerpendicular3(movingPoint, siblingSegment1[0], siblingSegment2, thresholdRadius, thresholdDegrees);
   
-  return !justified2 && !justified3 ? justified1 : determineJustifiedPerpendicular(justified2, justified3);
+  return !justified2 && !justified3 ? justified1 : determineJustifiedPerpendicular([justified2, justified3]);
 }
