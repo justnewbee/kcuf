@@ -163,6 +163,13 @@ export interface IMarkingItemClass<T = void> {
    */
   startDragging(): boolean;
   
+  /**
+   * 处理拖动，返回结果
+   *
+   * - true 拖动
+   * - false 未拖动
+   * - number 新增节点（拖中点的情况）
+   */
   processDragging(): boolean | number;
   
   finishDragging(beforeHook?: IBeforeHook<T>): boolean;

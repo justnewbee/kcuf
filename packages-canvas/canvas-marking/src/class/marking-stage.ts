@@ -99,17 +99,13 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   private pixelRatio = pixelRatioGet();
   
   /**
-   * Snap 效果（45° 倍数角方向跳）
-   *
-   * 对新建有效（若已磁吸，将不生效），需按住 Shift 键启用
+   * 磁吸 + 正交，默认开启，按住 Alt 键临时取消
    */
-  private snapEnabled = false;
+  private justifying = true;
   /**
-   * 自动纠正，包括磁吸（就近吸附至已有点或线）和直角纠正
-   *
-   * 对新建和编辑有效，将鼠标磁吸到点或边，按住 Alt 键临时取消
+   * Snap 效果（45° 倍数角方向跳），默认不开启，按住 Shift 键启用
    */
-  private justifyEnabled = true;
+  private snapping = false;
   /**
    * 鼠标矫正状态
    */
@@ -557,7 +553,24 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
         this.mouseDownMoving = true;
       }
       
-      this.actOnMouseMove();
+      const {
+        moving,
+        itemCreating,
+        itemEditing
+      } = this;
+      
+      if (moving || itemCreating || !itemEditing) {
+        return;
+      }
+      
+      const draggingResult = itemEditing.processDragging();
+      
+      if (typeof draggingResult === 'number') {
+        const statsList = this.getAllStats();
+        
+        this.options.onPointInsert?.(itemEditing.stats, draggingResult, statsList);
+        this.emit('point-insert', itemEditing.stats, draggingResult, statsList);
+      }
     }
     
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_MOVE_STAGE);
@@ -648,31 +661,6 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return;
     }
     
-    this.actOnKeyDown(e);
-  }
-  
-  private actOnMouseMove(): void {
-    const {
-      moving,
-      itemCreating,
-      itemEditing
-    } = this;
-    
-    if (moving || itemCreating || !itemEditing) {
-      return;
-    }
-    
-    const draggingResult = itemEditing.processDragging();
-    
-    if (typeof draggingResult === 'number') {
-      const statsList = this.getAllStats();
-      
-      this.options.onPointInsert?.(itemEditing.stats, draggingResult, statsList);
-      this.emit('point-insert', itemEditing.stats, draggingResult, statsList);
-    }
-  }
-  
-  private actOnKeyDown(e: KeyboardEvent): void {
     const {
       itemCreating,
       itemEditing
@@ -865,15 +853,13 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       this.mouseInStage[0] - (rectCanvas.left - rectStage.left),
       this.mouseInStage[1] - (rectCanvas.top - rectStage.top)
     ]) : null;
-    
-    this.mouseInCanvas = mouseInCanvas;
-    
     const {
       itemCreating,
       itemEditing,
       moving
     } = this;
     
+    this.mouseInCanvas = mouseInCanvas;
     this.updateImageMouse(mouseInCanvas);
     
     if (!mouseInCanvas || moving || itemCreating || itemEditing?.stats.dragging) {
@@ -918,7 +904,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
    * 磁吸，先从正在新建或编辑的图形自身找，再找其他
    */
   private justifyImageMouseMagnet(): boolean {
-    if (!this.justifyEnabled) {
+    if (!this.justifying) {
       return false;
     }
     
@@ -963,7 +949,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
    * 正在新建或编辑的图形，内部自动垂直正交矫正
    */
   private justifyImageMousePerpendicularInternal(): boolean {
-    if (!this.justifyEnabled) {
+    if (!this.justifying) {
       return false;
     }
     
@@ -996,7 +982,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
    * 正在新建或编辑的图形，若只有两个点（即线段），且一端磁吸在别的图形的一条边，则进行正交矫正
    */
   private justifyImageMousePerpendicularExternal(): boolean {
-    if (!this.justifyEnabled) {
+    if (!this.justifying) {
       return false;
     }
     
@@ -1024,7 +1010,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   private justifyImageMouseSnap(): boolean {
-    if (!this.snapEnabled) {
+    if (!this.snapping) {
       return false;
     }
     
@@ -1317,22 +1303,24 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   }
   
   toggleJustify(enabled = true): void {
-    if (this.justifyEnabled === enabled) {
+    if (this.justifying === enabled) {
       return;
     }
     
-    this.justifyEnabled = enabled;
+    this.justifying = enabled;
     this.updateImageMouse(this.mouseInCanvas);
+    this.itemEditing?.processDragging(); // 否则不会立即产生效果
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_JUSTIFY_TRUE : EMarkingStatsChangeCause.TOGGLE_JUSTIFY_FALSE);
   }
   
   toggleSnap(enabled = true): void {
-    if (this.snapEnabled === enabled) {
+    if (this.snapping === enabled) {
       return;
     }
     
-    this.snapEnabled = enabled;
+    this.snapping = enabled;
     this.updateImageMouse(this.mouseInCanvas);
+    this.itemEditing?.processDragging(); // 否则不会立即产生效果
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_SNAP_TRUE : EMarkingStatsChangeCause.TOGGLE_SNAP_FALSE);
   }
   

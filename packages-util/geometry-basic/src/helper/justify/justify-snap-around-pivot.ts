@@ -42,6 +42,6 @@ export default function justifySnapAroundPivot(point: TPoint, pivot: TPoint, ste
   return {
     point: pointP,
     distance: dMin,
-    theta: 0 // 不必算？
+    theta: 0 // 不必算
   };
 }
