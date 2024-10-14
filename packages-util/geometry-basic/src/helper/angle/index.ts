@@ -3,6 +3,8 @@ export { default as angleDegrees } from './angle-degrees';
 
 export { default as angleOfLineWithRespectToAxisX } from './angle-of-line-with-respect-to-axis-x';
 export { default as angleOfLineWithRespectToAxisY } from './angle-of-line-with-respect-to-axis-y';
+export { default as angleOfSegmentWithRespectToAxisX } from './angle-of-segment-with-respect-to-axis-x';
+export { default as angleOfSegmentWithRespectToAxisY } from './angle-of-segment-with-respect-to-axis-y';
 export { default as angleOfSegmentWithRespectToSegment } from './angle-of-segment-with-respect-to-segment';
 
 export { default as angleBetweenLines } from './angle-between-lines';
