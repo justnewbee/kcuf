@@ -7,10 +7,6 @@ const DIFF_HOVER: MarkingBorderStyleDiff = {
   outerColor: 'hsl(177 100% 50%)',
   outerWidth: 2
 };
-const DIFF_HIGHLIGHT: MarkingBorderStyleDiff = {
-  outerColor: 'hsl(210 100% 60%)',
-  outerWidth: 2
-};
 const DIFF_FULL: MarkingBorderStyleDiff = {
   color: 'hsl(0 50% 48%)',
   outerColor: 'hsl(48 100% 50%)',
@@ -40,7 +36,6 @@ export default [{
   },
   borderDiff: {
     hover: DIFF_HOVER,
-    highlight: DIFF_HIGHLIGHT,
     [1 as number]: DIFF_ONE,
     [4 as number]: DIFF_ONE
   }

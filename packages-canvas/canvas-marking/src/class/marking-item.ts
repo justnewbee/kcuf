@@ -493,7 +493,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
   }
   
   private shouldDrawPoint(): boolean {
-    return this.creating || this.highlighting || this.hovering || this.editing;
+    return this.creating || this.editing || this.hovering;
   }
   
   private drawArea(): void {
@@ -517,7 +517,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const pathForDraw = this.getPathForDraw();
     const borderStyle = this.getDrawStyleBorder();
     const close = !this.creating || type === 'rect' || type === 'rect2';
-    const diffAll = highlightingBorderIndex !== null && highlightingBorderIndex < 0 ? borderDiff?.highlight || borderDiff?.all : borderDiff?.all;
+    const diffAll = highlightingBorderIndex !== null && highlightingBorderIndex < 0 ? borderDiff?.hover || borderDiff?.all : borderDiff?.all;
     
     this.drawPerpendicularMarks(borderStyle);
     this.drawBorderPartial(pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll, faded), close);
@@ -548,7 +548,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     
     if (highlightingBorderIndex !== null && highlightingBorderIndex >= 0 && highlightingBorderIndex !== hoveringBorderIndex) {
       const highlightingBorder = segmentList[highlightingBorderIndex];
-      const mergedStyleHighlighting = mergeBorderStyleWithDiff(borderStyle, borderDiff?.highlight, faded);
+      const mergedStyleHighlighting = mergeBorderStyleWithDiff(borderStyle, borderDiff?.hover, faded);
       
       if (highlightingBorder && mergedStyleHighlighting !== borderStyle) {
         this.drawBorderPartial(highlightingBorder, mergedStyleHighlighting);

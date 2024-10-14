@@ -100,8 +100,7 @@ export interface IMarkingItemConfig {
 
 export interface IMarkingConfigItemBorderDiff {
   all?: IMarkingBorderStyleDiff;
-  hover?: IMarkingBorderStyleDiff;
-  highlight?: IMarkingBorderStyleDiff;
+  hover?: IMarkingBorderStyleDiff; // 复用于 highlight
   [index: number]: IMarkingBorderStyleDiff;
 }
 
