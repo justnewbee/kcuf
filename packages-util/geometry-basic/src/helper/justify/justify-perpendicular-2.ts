@@ -33,7 +33,8 @@ export default function justifyPerpendicular2(point: TPoint, sibling1: TPoint, s
   
   return theta >= 0 ? {
     point: pointPrime,
+    distance,
     theta,
-    distance
+    angle: [sibling1, pointPrime, sibling2]
   } : null;
 }

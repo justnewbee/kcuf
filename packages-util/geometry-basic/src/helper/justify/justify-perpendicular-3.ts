@@ -43,7 +43,8 @@ export default function justifyPerpendicular3(point: TPoint, sibling: TPoint, se
   
   return theta >= 0 ? {
     point: pointPrime,
+    distance,
     theta,
-    distance
+    angle: [pointPrime, segment[0], segment[1]]
   } : null;
 }

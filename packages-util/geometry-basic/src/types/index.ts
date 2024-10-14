@@ -63,7 +63,9 @@ export interface IJustifyMagnetResult extends IJustifyResultBase {
   type: EJustifyMagnetType;
 }
 
-export interface IJustifyPerpendicularResult extends IJustifyResultBase {}
+export interface IJustifyPerpendicularResult extends IJustifyResultBase {
+  angle: TAngle; // 记录直角是哪个
+}
 
 export interface IJustifySnapResult extends IJustifyResultBase {}
 

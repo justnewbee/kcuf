@@ -44,8 +44,9 @@ export default function justifyPerpendicular1(point: TPoint, segment: TSegment, 
       if (distance >= 0) {
         return {
           point: pointPrime,
+          distance,
           theta: deltaThetaDegreesAbs,
-          distance
+          angle: [pointPrime, segment[0], segment[1]]
         };
       }
     }
