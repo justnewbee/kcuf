@@ -24,7 +24,7 @@ import checkThresholdAngle from './_check-threshold-angle';
  *     ╱  ┃
  *    ╱   ┃
  *   ◉━━━━⦿━━━━━━━━━━━▲ 上下两条线不一定平行，这里只是画起来方便
- *   p→   p'          sibling
+ *   p→   p'?         sibling
  */
 export default function justifyPerpendicular3(point: TPoint, sibling: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPerpendicularResult | null {
   const pointPrime = intersectionLineWithLine(segmentLine([sibling, point]), perpendicularLineThroughPointToSegment(segment[0], segment));

@@ -14,7 +14,7 @@ import {
  *
  * 由于垂直线经过 `point`，将 `point` 代入即可（以上算法跟 C 值无关）
  *
- *  求 line'                        求 line'
+ *   line'?                          line'?
  *     ┃                               ┃
  *     ◉ p                             ┃
  *     ┃                               ┃

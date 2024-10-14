@@ -1,4 +1,5 @@
 export * from './base';
+export * from './angle';
 export * from './comparison';
 export * from './relation';
 export * from './slicing';

@@ -12,7 +12,7 @@ import {
  *     ◉ p
  *     ┃
  *     ┃
- *     ┃⏋↙ 垂足
+ *     ┃⏋↙ ?
  * ━━━━⦿━━━━━━━━━━ line
  */
 export default function perpendicularFootThroughPointToLine(point: TPoint, line: TLine): TPoint {

@@ -14,7 +14,7 @@ import perpendicularFootThroughPointToLine from './perpendicular-foot-through-po
  *     ◉ p
  *     ┃
  *     ┃
- *     ┃⏋↙ 垂足
+ *     ┃⏋↙ ?
  * ◉━━━⦿━━━━━━━━━━◉ segment
  */
 export default function perpendicularFootThroughPointToSegment(point: TPoint, segment: TSegment): TPoint {

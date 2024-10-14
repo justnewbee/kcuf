@@ -2,16 +2,17 @@ import {
   TAngle,
   TSegment
 } from '../../types';
-
-import segmentVector from './segment-vector';
-import segmentLength from './segment-length';
+import {
+  segmentVector,
+  segmentLength
+} from '../base';
 
 /**
  * 角弧度，默认范围 `[0, 2π)`，若传入 `undirected: true`，范围为 `[0, π]`
  *
  *      ◉ C
  *     ╱
- *    ╱ θ
+ *    ╱ θ?
  * B ◉━━━━━━━◉ A
  */
 export default function angleRadians(angle: TAngle, undirected?: boolean): number {

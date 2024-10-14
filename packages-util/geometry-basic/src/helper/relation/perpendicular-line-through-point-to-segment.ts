@@ -12,8 +12,8 @@ import perpendicularLineThroughPointToLine from './perpendicular-line-through-po
 /**
  * 经过点 point 且垂直于线段 segment 的直线 line（直线与线段不一定相交）
  *
- *   line
- *    ┃                              line
+ *   line?
+ *    ┃                              line?
  *    ◉ p 在线段外                     ┃
  *    ┃                               ┃
  *    ┃⏋                             ┃⏋

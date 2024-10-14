@@ -17,6 +17,7 @@
 保证 `src/helper` 下各模块依赖关系为下方依赖上方，避免循环依赖：
 
 * `base` 基础，获取形状原信息
+* `angle` 角
 * `comparison` 比较
 * `relation` 关系
 * `transform` 变化（选择、移动等）

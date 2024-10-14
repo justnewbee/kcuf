@@ -27,11 +27,11 @@ function getEndPoint(segment: TSegment, pointOnSetment: TPoint): TPoint {
  *       └┃θ╲
  *        ┃  ╲
  *        ┃  ↙ ◉ p
- *        ⦿ p'
+ *        ⦿ p'?
  *
  * 场景 2：point 在线段上（需加判断 p' 是否在 segment 上）
  *
- *      p'  ←p
+ *      p'? ←p
  * ▲━━━⦿━━━━◉━━━━━▲ segment
  *      ┃⏌  ╱
  *      ┃  ╱

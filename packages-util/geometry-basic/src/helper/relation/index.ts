@@ -31,9 +31,3 @@ export { default as isPointOnPath } from './is-point-on-path';
 export { default as isPointWithinPath } from './is-point-within-path';
 
 export { default as isSegmentCollinearWithLine } from './is-segment-collinear-with-line';
-
-export { default as angleFromSegmentToSegment } from './angle-from-segment-to-segment';
-export { default as angleBetweenLines } from './angle-between-lines';
-export { default as angleBetweenSegments } from './angle-between-segments';
-export { default as angleBetweenSegmentAndAxisX } from './angle-between-segment-and-axis-x';
-export { default as angleBetweenSegmentAndAxisY } from './angle-between-segment-and-axis-y';
