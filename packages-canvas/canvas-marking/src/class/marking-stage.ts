@@ -13,8 +13,7 @@ import {
   justifyMagnetAlongPaths,
   justifyPerpendicularInternal,
   justifyPerpendicularExternal,
-  justifySnapAroundBetweenPivots,
-  justifySnapAroundPivot
+  justifySnapAroundPivots
 } from '@kcuf/geometry-basic';
 import {
   pixelRatioGet,
@@ -1029,17 +1028,11 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       }
     }
     
-    let justifiedResult: Point | undefined;
-    
-    if (pivot1 && pivot2) {
-      justifiedResult = justifySnapAroundBetweenPivots(imageMouse, pivot1, pivot2);
-    } else if (pivot1) {
-      justifiedResult = justifySnapAroundPivot(imageMouse, pivot1);
-    }
+    const justifiedResult = justifySnapAroundPivots(imageMouse, [pivot1, pivot2]);
     
     if (justifiedResult) {
       this.justified = EMouseJustifyStatus.SNAP;
-      this.imageMouse = this.roundClampCoordsInImage(justifiedResult);
+      this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
     }
     
     return !!justifiedResult;

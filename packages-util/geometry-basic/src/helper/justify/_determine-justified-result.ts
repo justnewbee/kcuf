@@ -1,9 +1,9 @@
 import {
-  IJustifyPerpendicularResult
+  IJustifyResultBase
 } from '../../types';
 
-export default function determineJustifiedPerpendicular(possibleResults: (IJustifyPerpendicularResult | null)[]): IJustifyPerpendicularResult | null {
-  let result: IJustifyPerpendicularResult | null = null;
+export default function determineJustifiedResult<T extends IJustifyResultBase>(possibleResults: (T | null)[]): T | null {
+  let result: T | null = null;
   
   possibleResults.forEach(v => {
     if (!v) {

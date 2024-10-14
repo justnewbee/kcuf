@@ -1,6 +1,6 @@
 import {
-  IJustifyPerpendicularResult,
-  TPoint
+  TPoint,
+  IJustifyPerpendicularResult
 } from '../../types';
 import {
   perpendicularFootThroughPointToSegment

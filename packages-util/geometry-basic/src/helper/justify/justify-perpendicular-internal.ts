@@ -9,8 +9,8 @@ import {
   parseJustifyPointPerpendicularThreshold
 } from '../../util';
 
-import determineJustifiedPerpendicular from './_determine-justified-perpendicular';
 import justifyPerpendicular123 from './justify-perpendicular-123';
+import determineJustifiedResult from './_determine-justified-result';
 
 /**
  * 在路径末插一个点 point，在一定的范围内调整 point 得到 point'，使 point' 在路径中与临边产生直角
@@ -32,7 +32,7 @@ export default function justifyPerpendicularInternal(point: TPoint, path: TPath,
   const siblingSegmentPrev: TSegment = [first, first2];
   const siblingSegmentNext: TSegment = [last, last2];
   
-  return determineJustifiedPerpendicular([
+  return determineJustifiedResult([
     justifyPerpendicular123(point, siblingSegmentPrev, siblingSegmentNext, thresholdRadius, thresholdDegrees),
     justifyPerpendicular123(point, siblingSegmentNext, siblingSegmentPrev, thresholdRadius, thresholdDegrees)
   ]);

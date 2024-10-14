@@ -8,7 +8,7 @@ export {
 export * from './helper';
 
 export {
-  EJustifyMagnetOrder as JustifyMagnetOrder
+  EJustifyMagnetType as JustifyMagnetType
 } from './enum';
 
 export type {
@@ -22,5 +22,6 @@ export type {
   TVector as Vector,
   IPathEdgeCenterPoints as PathEdgeCenterPoints,
   IJustifyMagnetResult as JustifyMagnetResult,
-  IJustifyPerpendicularResult as JustifyPerpendicularResult
+  IJustifyPerpendicularResult as JustifyPerpendicularResult,
+  IJustifySnapResult as JustifySnapResult
 } from './types';

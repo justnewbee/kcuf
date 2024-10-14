@@ -5,4 +5,4 @@ export { default as justifyPerpendicularInternal } from './justify-perpendicular
 export { default as justifyPerpendicularExternal } from './justify-perpendicular-external';
 
 export { default as justifySnapAroundPivot } from './justify-snap-around-pivot';
-export { default as justifySnapAroundBetweenPivots } from './justify-snap-between-pivots';
+export { default as justifySnapAroundPivots } from './justify-snap-around-pivots';

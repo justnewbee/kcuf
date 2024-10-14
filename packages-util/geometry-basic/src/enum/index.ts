@@ -1,4 +1,4 @@
-export enum EJustifyMagnetOrder {
+export enum EJustifyMagnetType {
   VERTEX = 10, // 端点
   INTERSECTION = 20, // 交点
   MID = 30, // 中点

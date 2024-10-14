@@ -1,10 +1,10 @@
 import {
-  EJustifyMagnetOrder
+  EJustifyMagnetType
 } from '../../enum';
 import {
-  IJustifyMagnetResult,
   TPath,
-  TPoint
+  TPoint,
+  IJustifyMagnetResult
 } from '../../types';
 import {
   pairwise
@@ -28,7 +28,7 @@ export default function justifyMagnetAlongPaths(point: TPoint, paths: TPath[], m
   }, []);
   
   pairwise(paths).forEach(([path1, path2]) => {
-    const o = justifyMagnetPoints(point, intersectionPathWithPath(path1, path2), magnetRadius, EJustifyMagnetOrder.INTERSECTION);
+    const o = justifyMagnetPoints(point, intersectionPathWithPath(path1, path2), magnetRadius, EJustifyMagnetType.INTERSECTION);
     
     if (o) {
       possibleResults.push(o);
@@ -41,6 +41,6 @@ export default function justifyMagnetAlongPaths(point: TPoint, paths: TPath[], m
     }
     
     // 比较时，先用 order 小的，order 相等取 distance 小者
-    return v.order < result.order || (v.order === result.order && v.distance < result.distance) ? v : result;
+    return v.type < result.type || (v.type === result.type && v.distance < result.distance) ? v : result;
   }, null);
 }

@@ -1,7 +1,7 @@
 import {
-  IJustifyPerpendicularResult,
   TPoint,
-  TSegment
+  TSegment,
+  IJustifyPerpendicularResult
 } from '../../types';
 import {
   isPointOnSegment

@@ -1,13 +1,13 @@
 import {
-  IJustifyPerpendicularResult,
   TPoint,
-  TSegment
+  TSegment,
+  IJustifyPerpendicularResult
 } from '../../types';
 
 import justifyPerpendicular1 from './justify-perpendicular-1';
 import justifyPerpendicular2 from './justify-perpendicular-2';
 import justifyPerpendicular3 from './justify-perpendicular-3';
-import determineJustifiedPerpendicular from './_determine-justified-perpendicular';
+import determineJustifiedResult from './_determine-justified-result';
 
 export default function justifyPerpendicular123(
     point: TPoint,
@@ -21,5 +21,5 @@ export default function justifyPerpendicular123(
   const justified2 = justifyPerpendicular2(movingPoint, siblingSegment1[0], siblingSegment2[0], thresholdRadius, thresholdDegrees);
   const justified3 = justifyPerpendicular3(movingPoint, siblingSegment1[0], siblingSegment2, thresholdRadius, thresholdDegrees);
   
-  return !justified2 && !justified3 ? justified1 : determineJustifiedPerpendicular([justified2, justified3]);
+  return !justified2 && !justified3 ? justified1 : determineJustifiedResult([justified2, justified3]);
 }

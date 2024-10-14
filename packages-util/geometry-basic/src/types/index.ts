@@ -1,5 +1,5 @@
 import {
-  EJustifyMagnetOrder
+  EJustifyMagnetType
 } from '../enum';
 
 /**
@@ -53,17 +53,19 @@ export interface IPathEdgeCenterPoints {
   c: TPoint;
 }
 
-export interface IJustifyMagnetResult {
+export interface IJustifyResultBase {
   point: TPoint;
-  distance: number;
-  order: EJustifyMagnetOrder;
+  distance: number; // 移动距离
+  theta: number; // 旋转弧度
 }
 
-export interface IJustifyPerpendicularResult {
-  point: TPoint;
-  theta: number; // 度数
-  distance: number;
+export interface IJustifyMagnetResult extends IJustifyResultBase {
+  type: EJustifyMagnetType;
 }
+
+export interface IJustifyPerpendicularResult extends IJustifyResultBase {}
+
+export interface IJustifySnapResult extends IJustifyResultBase {}
 
 export interface IJustifyPerpendicularThreshold {
   /**

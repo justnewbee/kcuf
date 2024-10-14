@@ -1,10 +1,10 @@
 import {
-  EJustifyMagnetOrder
+  EJustifyMagnetType
 } from '../../enum';
 import {
   TPoint,
-  IJustifyMagnetResult,
-  TSegment
+  TSegment,
+  IJustifyMagnetResult
 } from '../../types';
 import {
   pointDistance
@@ -17,7 +17,7 @@ import {
 /**
  * 从线段列表找距 point 最近的磁吸点
  */
-export default function justifyMagnetSegments(point: TPoint, segments: TSegment[], magnetRadius: number, order: EJustifyMagnetOrder): IJustifyMagnetResult | null {
+export default function justifyMagnetSegments(point: TPoint, segments: TSegment[], magnetRadius: number, order: EJustifyMagnetType): IJustifyMagnetResult | null {
   let pointM: TPoint | undefined;
   let distance = Infinity;
   
@@ -37,6 +37,7 @@ export default function justifyMagnetSegments(point: TPoint, segments: TSegment[
   return pointM ? {
     point: pointM,
     distance,
-    order
+    theta: 0,
+    type: order
   } : null;
 }
