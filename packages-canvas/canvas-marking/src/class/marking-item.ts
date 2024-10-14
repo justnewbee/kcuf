@@ -57,7 +57,7 @@ import {
   canvasPathPointShape,
   canvasCheckPointInStroke,
   canvasDrawPathBorder,
-  canvasDrawRightAngleMark,
+  canvasDrawPerpendicularMark,
   canvasDrawShape,
   canvasDrawArea
 } from '../util';
@@ -65,7 +65,7 @@ import {
 export default class MarkingItem<T> implements IMarkingItemClass<T> {
   private readonly markingStage: IMarkingStageClassProtected<T>;
   
-  private options: IMarkingItemOptions<T>;
+  protected options: IMarkingItemOptions<T>;
   
   private path: Path = []; // 永远是相对于图片大小的位置
   private pathSnapshotEditing: Path = []; // 编辑结束后，需要它
@@ -519,7 +519,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const close = !this.creating || type === 'rect' || type === 'rect2';
     const diffAll = highlightingBorderIndex !== null && highlightingBorderIndex < 0 ? borderDiff?.highlight || borderDiff?.all : borderDiff?.all;
     
-    this.drawRightAngleMarks(borderStyle);
+    this.drawPerpendicularMarks(borderStyle);
     this.drawBorderPartial(pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll, faded), close);
     
     const segmentList = pathSegmentList(pathForDraw);
@@ -583,7 +583,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     });
   }
   
-  private drawRightAngleMarks(borderStyle: TMarkingBorderStyleResolved): void {
+  private drawPerpendicularMarks(borderStyle: TMarkingBorderStyleResolved): void {
     if (!this.creating && !(this.draggingPointIndex >= 0 && this.draggingMoved)) {
       return;
     }
@@ -591,16 +591,16 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     const {
       markingStage: {
         options: {
-          rightAngleMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
+          PerpendicularMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
         },
         canvasContext,
         imageScale
       }
     } = this;
     
-    pathAngleList(this.getPathForDraw()).forEach(v => canvasDrawRightAngleMark(canvasContext, v, {
+    pathAngleList(this.getPathForDraw()).forEach(v => canvasDrawPerpendicularMark(canvasContext, v, {
       scale: imageScale,
-      size: rightAngleMarkSize,
+      size: PerpendicularMarkSize,
       color: borderStyle.color
     }));
   }
@@ -701,6 +701,10 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     this.refreshStats();
     
     return hoveringPointIndex;
+  }
+  
+  getBorderColor(): string {
+    return this.borderStyle.color;
   }
   
   toggleHovering(value = true): void {

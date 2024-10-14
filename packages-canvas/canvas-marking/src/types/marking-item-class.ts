@@ -118,6 +118,8 @@ export interface IMarkingConfigItem<T = void> extends IMarkingItemConfig {
 export interface IMarkingItemOptions<T> extends IMarkingConfigItem<T> {}
 
 export interface IMarkingItemClass<T = void> {
+  getBorderColor(): string;
+  
   toggleHovering(value?: boolean): void;
   
   toggleHighlighting(value?: boolean, borderIndex?: number | null): void;

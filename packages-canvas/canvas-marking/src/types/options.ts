@@ -44,7 +44,7 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig, IOptionsEve
   /**
    * 直角标记大小，若临边长度不足此值则不显示
    */
-  rightAngleMarkSize?: number;
+  PerpendicularMarkSize?: number;
   // --- 可选插件 --- //
   pluginTooltip?: boolean | IMarkingPluginTooltipOptions<T>;
   pluginZoom?: boolean | IMarkingPluginZoomOptions;
@@ -64,7 +64,7 @@ export interface IDrawBorderOptions {
   close?: boolean;
 }
 
-export interface IDrawRightAngleMarkOptions {
+export interface IDrawPerpendicularMarkOptions {
   scale: number; // 需将 scale 反转过来，保证线在视觉上永远是绝对粗细
   size: number; // 边长
   color: string;

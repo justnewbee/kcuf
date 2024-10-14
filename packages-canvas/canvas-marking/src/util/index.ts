@@ -30,6 +30,6 @@ export { default as canvasPathPointShape } from './canvas-path-point-shape';
 export { default as canvasDrawArea } from './canvas-draw-area';
 export { default as canvasDrawPathBorder } from './canvas-draw-path-border';
 export { default as canvasDrawShape } from './canvas-draw-shape';
-export { default as canvasDrawRightAngleMark } from './canvas-draw-right-angle-mark';
+export { default as canvasDrawPerpendicularMark } from './canvas-draw-perpendicular-mark';
 
 export { default as canFinishRect } from './can-finish-rect';

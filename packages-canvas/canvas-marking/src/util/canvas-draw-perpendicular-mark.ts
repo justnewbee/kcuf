@@ -11,10 +11,10 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  IDrawRightAngleMarkOptions
+  IDrawPerpendicularMarkOptions
 } from '../types';
 
-export default function canvasDrawRightAngleMark(canvasContext: CanvasRenderingContext2D, angle: Angle, options: IDrawRightAngleMarkOptions): void {
+export default function canvasDrawPerpendicularMark(canvasContext: CanvasRenderingContext2D, angle: Angle, options: IDrawPerpendicularMarkOptions): void {
   if (!isNearlyEqual(angleDegrees(angle, true), 90, 1e-3)) {
     return;
   }

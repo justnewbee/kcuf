@@ -6,6 +6,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 import {
   Path,
   Point,
+  Angle,
   roundCoords,
   pathPointSiblingsByIndex,
   pathsAuxiliaryList,
@@ -28,6 +29,8 @@ import {
   EMarkingStatsChangeCause
 } from '../enum';
 import {
+  TSize,
+  TSubscribableEvents,
   IMarkingConfigItem,
   IMarkingItemClass,
   IMarkingItemConfig,
@@ -38,15 +41,14 @@ import {
   IMarkingStageClass,
   IMarkingStageOptions,
   IMarkingStageStats,
-  TMarkingItemFinder,
-  TSize,
-  TSubscribableEvents
+  TMarkingItemFinder
 } from '../types';
 import {
   DEFAULT_AUXILIARY_STYLE,
   DEFAULT_JUSTIFY_MAGNET_RADIUS,
   DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS,
-  DEFAULT_MARKING_OPTIONS
+  DEFAULT_MARKING_OPTIONS,
+  DEFAULT_RIGHT_ANGLE_MARK_SIZE
 } from '../const';
 import {
   roundFloat,
@@ -56,7 +58,8 @@ import {
   createMarkingImageBg,
   createMarkingStage,
   getMouseJustifiedStatusMagnet,
-  loadImage
+  loadImage,
+  canvasDrawPerpendicularMark
 } from '../util';
 import {
   pluginCursor,
@@ -96,21 +99,25 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   private pixelRatio = pixelRatioGet();
   
   /**
-   * 自动纠正，包括磁吸（就近吸附至已有点或线）和直角纠正
-   *
-   * 对新建和编辑有效，将鼠标磁吸到点或边，按住 Alt 键临时取消
-   */
-  private justifyEnabled = true;
-  /**
    * Snap 效果（45° 倍数角方向跳）
    *
    * 对新建有效（若已磁吸，将不生效），需按住 Shift 键启用
    */
   private snapEnabled = false;
   /**
+   * 自动纠正，包括磁吸（就近吸附至已有点或线）和直角纠正
+   *
+   * 对新建和编辑有效，将鼠标磁吸到点或边，按住 Alt 键临时取消
+   */
+  private justifyEnabled = true;
+  /**
    * 鼠标矫正状态
    */
   private justified: EMouseJustifyStatus = EMouseJustifyStatus.NONE;
+  /**
+   * 外部正交时，记录直角的坐标用于画标记
+   */
+  private justifiedRightAngle: Angle | null = null;
   
   private plugins: IMarkingPlugin<T>[] = [];
   
@@ -259,6 +266,16 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       ...o,
       ...options.pluginZoom
     };
+  }
+  
+  private getOptionJustifyPerpendicularThresholdRadius(): number {
+    const {
+      options: {
+        justifyPerpendicularThresholdRadius = DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS
+      }
+    } = this;
+    
+    return this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius);
   }
   
   /**
@@ -595,6 +612,8 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     }
     
     if (itemEditing?.finishDragging(this.options.beforeEditDragEnd)) {
+      this.clearJustified();
+      
       const statsList = this.getAllStats();
       
       this.options.onDragEnd?.(itemEditing.stats, statsList);
@@ -875,11 +894,16 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     return [canvasCoords[0] / this.imageScale, canvasCoords[1] / this.imageScale];
   }
   
+  private clearJustified(): void {
+    this.justified = EMouseJustifyStatus.NONE;
+    this.justifiedRightAngle = null;
+  }
+  
   /**
    * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
    */
   private updateImageMouse(mouseInCanvas: Point | null): void {
-    this.justified = EMouseJustifyStatus.NONE;
+    this.clearJustified();
     
     if (!mouseInCanvas) {
       return;
@@ -943,12 +967,6 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return false;
     }
     
-    const {
-      options: {
-        justifyPerpendicularThresholdRadius = DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS
-      },
-      imageMouse
-    } = this;
     const creatingStats = this.itemCreating?.stats;
     const editingStats = this.itemEditing?.stats;
     let pathToJustifyPerpendicular: Path | undefined;
@@ -962,8 +980,8 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       pathToJustifyPerpendicular = [...pathAfter, ...pathBefore];
     }
     
-    const justifiedResult = pathToJustifyPerpendicular ? justifyPerpendicularInternal(imageMouse, pathToJustifyPerpendicular, {
-      radius: this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius)
+    const justifiedResult = pathToJustifyPerpendicular ? justifyPerpendicularInternal(this.imageMouse, pathToJustifyPerpendicular, {
+      radius: this.getOptionJustifyPerpendicularThresholdRadius()
     }) : null;
     
     if (justifiedResult) {
@@ -992,10 +1010,13 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       pivot = editingStats.path[editingStats.draggingPointIndex === 0 ? 1 : 0];
     }
     
-    const justifiedResult = pivot ? justifyPerpendicularExternal(this.imageMouse, pivot, this.getAllPaths(true)) : null;
+    const justifiedResult = pivot ? justifyPerpendicularExternal(this.imageMouse, pivot, this.getAllPaths(true), {
+      radius: this.getOptionJustifyPerpendicularThresholdRadius()
+    }) : null;
     
     if (justifiedResult) {
       this.justified = EMouseJustifyStatus.PERPENDICULAR_EXTERNAL;
+      this.justifiedRightAngle = justifiedResult.angle;
       this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
     }
     
@@ -1068,9 +1089,38 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     canvasContext.scale(imageScale * pixelRatio, imageScale * pixelRatio);
     
     this.drawItems();
+    this.drawPerpendicularMark();
     this.drawAuxiliaryLines();
     
     canvasContext.setTransform(1, 0, 0, 1, 0, 0); // 清除，必须清除，否则 scale 效果会叠加
+  }
+  
+  /**
+   * 画线与某边的正交直角标记，只有一个
+   */
+  private drawPerpendicularMark(): void {
+    const {
+      justifiedRightAngle
+    } = this;
+    const activeItem = this.itemEditing || this.itemCreating;
+    
+    if (!justifiedRightAngle || !activeItem) {
+      return;
+    }
+    
+    const {
+      options: {
+        PerpendicularMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
+      },
+      canvasContext,
+      imageScale
+    } = this;
+    
+    canvasDrawPerpendicularMark(canvasContext, justifiedRightAngle, {
+      scale: imageScale,
+      size: PerpendicularMarkSize,
+      color: activeItem.getBorderColor()
+    });
   }
   
   private drawAuxiliaryLines(): void {
@@ -1324,6 +1374,8 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       return;
     }
     
+    this.clearJustified();
+    
     this.itemCreating = null;
     this.markingItems.push(itemCreating);
     
@@ -1339,6 +1391,8 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   
   cancelCreating(): void {
     if (this.itemCreating) {
+      this.clearJustified();
+      
       this.itemCreating = null;
       this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
       this.options.onCreateCancel?.();
@@ -1352,6 +1406,8 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     } = this;
     
     if (itemEditing?.finishEditing(cancel)) {
+      this.clearJustified();
+      
       const statsList = this.getAllStats();
       
       if (cancel) {
