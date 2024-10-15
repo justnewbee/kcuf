@@ -1055,32 +1055,6 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     }
   }
   
-  private draw(): void {
-    const {
-      canvas: {
-        width,
-        height
-      },
-      canvasContext,
-      pixelRatio,
-      imageScale,
-      statsSnapshot
-    } = this;
-    
-    if (statsSnapshot.imageStatus === 'loading') {
-      return;
-    }
-    
-    canvasContext.clearRect(0, 0, width, height);
-    canvasContext.scale(imageScale * pixelRatio, imageScale * pixelRatio);
-    
-    this.drawItems();
-    this.drawPerpendicularMark();
-    this.drawAuxiliaryLines();
-    
-    canvasContext.setTransform(1, 0, 0, 1, 0, 0); // 清除，必须清除，否则 scale 效果会叠加
-  }
-  
   /**
    * 画线与某边的正交直角标记，只有一个
    */
@@ -1656,6 +1630,34 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       editingDraggingPointIndex: itemStatsEditing ? itemStatsEditing.draggingPointIndex : -1,
       editingDraggingInsertionPointIndex: itemStatsEditing ? itemStatsEditing.draggingInsertionPointIndex : -1
     };
+  }
+  
+  draw(drawExtra?: (canvasContext: CanvasRenderingContext2D) => void): void {
+    const {
+      canvas: {
+        width,
+        height
+      },
+      canvasContext,
+      pixelRatio,
+      imageScale,
+      statsSnapshot
+    } = this;
+    
+    if (statsSnapshot.imageStatus === 'loading') {
+      return;
+    }
+    
+    canvasContext.clearRect(0, 0, width, height);
+    canvasContext.scale(imageScale * pixelRatio, imageScale * pixelRatio);
+    
+    this.drawItems();
+    this.drawPerpendicularMark();
+    this.drawAuxiliaryLines();
+    
+    drawExtra?.(canvasContext);
+    
+    canvasContext.setTransform(1, 0, 0, 1, 0, 0); // 清除，必须清除，否则 scale 效果会叠加
   }
   
   destroy(): void {
