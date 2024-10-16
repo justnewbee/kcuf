@@ -5,7 +5,7 @@ import {
 } from 'vitest';
 
 import {
-  pathSliceByLines
+  slicePathWithLines
 } from '../src';
 
 import {
@@ -18,10 +18,10 @@ import {
   TEST_PATH_4_SQUARE
 } from './const';
 
-describe('pathSliceByLines(path: Path, lines: Line[]): Point[]', () => {
+describe('slicePathWithLines(path: Path, lines: Line[]): Point[]', () => {
   describe('不相交', () => {
     test('y = x & y = x + 1', () => {
-      expect(pathSliceByLines(TEST_PATH_4_SQUARE.path, [
+      expect(slicePathWithLines(TEST_PATH_4_SQUARE.path, [
         LINE_1X_N1Y_0,
         LINE_1X_N1Y_1
       ])).toEqual([
@@ -34,12 +34,12 @@ describe('pathSliceByLines(path: Path, lines: Line[]): Point[]', () => {
   
   describe('内部相交', () => {
     test('y = -x + 3 & y = x + 1', () => {
-      expect(pathSliceByLines(TEST_PATH_4_SQUARE.path, [
+      expect(slicePathWithLines(TEST_PATH_4_SQUARE.path, [
         LINE_N1X_N1Y_3,
         LINE_1X_N1Y_1
       ])).toEqual([]);
       
-      expect(pathSliceByLines(TEST_PATH_4_SQUARE.path, [
+      expect(slicePathWithLines(TEST_PATH_4_SQUARE.path, [
         LINE_0X_N1Y_2,
         LINE_1X_0Y_N2
       ])).toEqual([]);
@@ -48,7 +48,7 @@ describe('pathSliceByLines(path: Path, lines: Line[]): Point[]', () => {
   
   describe('一根在内，一根在外', () => {
     test('y = -x - 1 & y = x + 1', () => {
-      expect(pathSliceByLines(TEST_PATH_4_SQUARE.path, [
+      expect(slicePathWithLines(TEST_PATH_4_SQUARE.path, [
         LINE_N1X_N1Y_N1,
         LINE_1X_N1Y_1
       ])).toEqual([
@@ -60,7 +60,7 @@ describe('pathSliceByLines(path: Path, lines: Line[]): Point[]', () => {
   
   describe('交点在边上', () => {
     test('y = 4x & y = -4x / 3 + 16 / 3 → 交点 (1, 4)', () => {
-      expect(pathSliceByLines(TEST_PATH_4_SQUARE.path, [
+      expect(slicePathWithLines(TEST_PATH_4_SQUARE.path, [
         [4, -1, 0],
         [-4 / 3, -1, 16 / 3]
       ])).toEqual([
@@ -73,7 +73,7 @@ describe('pathSliceByLines(path: Path, lines: Line[]): Point[]', () => {
   
   // describe('交点在边上 with BUG', () => {
   //   test('should fix', () => {
-  //     expect(pathSliceByLines([
+  //     expect(slicePathWithLines([
   //       [568.5484, 713.7097],
   //       [1120.9677, 1342.7419],
   //       [1551.71, 964.4618],

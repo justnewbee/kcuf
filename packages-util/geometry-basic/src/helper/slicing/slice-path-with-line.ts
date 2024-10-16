@@ -23,7 +23,7 @@ import {
  * - 若不相交（包括贴边），返回 null
  * - 相交，返回两个子 path，并且保证点的顺序和原顺序相同
  */
-export default function pathSliceByLine(path: TPath, line: TLine): [TPath, TPath] | null {
+export default function slicePathWithLine(path: TPath, line: TLine): [TPath, TPath] | null {
   const segments = pathSegmentList(path);
   const subPath1: TPath = [];
   const subPath2: TPath = [];

@@ -13,12 +13,12 @@ import {
   comparePaths
 } from '../comparison';
 
-import pathSliceByLine from './path-slice-by-line';
+import slicePathWithLine from './slice-path-with-line';
 
 /**
  * 路径切片
  */
-export default function pathSliceByLines(path: TPath, lines: TLine[]): TPath[] {
+export default function slicePathWithLines(path: TPath, lines: TLine[]): TPath[] {
   // 限制 1：直线在 path 内部不相交
   if (pairwise(lines).some(v => {
     const p = intersectionLineWithLine(v[0], v[1]);
@@ -36,7 +36,7 @@ export default function pathSliceByLines(path: TPath, lines: TLine[]): TPath[] {
     subPaths = [];
     
     subPathsTemp.forEach(v => {
-      const arr = pathSliceByLine(v, line);
+      const arr = slicePathWithLine(v, line);
       
       if (arr) {
         subPaths.push(...arr);
