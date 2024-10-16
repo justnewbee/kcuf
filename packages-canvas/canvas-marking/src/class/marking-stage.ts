@@ -1632,7 +1632,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     };
   }
   
-  draw(drawExtra?: (canvasContext: CanvasRenderingContext2D) => void): void {
+  draw(drawExtra?: (canvasContext: CanvasRenderingContext2D, scale: number) => void): void {
     const {
       canvas: {
         width,
@@ -1655,7 +1655,11 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.drawPerpendicularMark();
     this.drawAuxiliaryLines();
     
-    drawExtra?.(canvasContext);
+    if (drawExtra) {
+      canvasContext.save();
+      drawExtra(canvasContext, imageScale);
+      canvasContext.restore();
+    }
     
     canvasContext.setTransform(1, 0, 0, 1, 0, 0); // 清除，必须清除，否则 scale 效果会叠加
   }

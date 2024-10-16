@@ -132,8 +132,10 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
   
   /**
    * 根据当前 stats 进行绘画，主要用于内部调用；但也可以由使用者按需主动调用，`drawExtra` 仅供外部调用，以于画一些额外的图形
+   *
+   * `drawExtra` 的 `scale` 参数主要用于画视觉等效的线
    */
-  draw(drawExtra?: (canvasContext: CanvasRenderingContext2D) => void): void;
+  draw(drawExtra?: (canvasContext: CanvasRenderingContext2D, scale: number) => void): void;
   
   /**
    * 销毁
