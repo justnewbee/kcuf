@@ -27,6 +27,9 @@ function compareByBox(path1: TPath, path2: TPath): number {
   return xMin1 !== xMin2 ? xMin1 - xMin2 : yMin1 - yMin2;
 }
 
+/**
+ * 比较路径，判断质心位置
+ */
 export default function comparePaths(path1: TPath, path2: TPath): number {
   const centroid1 = pathCentroid(path1);
   const centroid2 = pathCentroid(path2);

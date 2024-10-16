@@ -7,11 +7,9 @@ import {
   pathSegmentList
 } from '../base';
 import {
-  comparePoints
+  comparePoints,
+  isPointIncludedApproximately
 } from '../comparison';
-import {
-  pathPushPoint
-} from '../mutation';
 
 import intersectionSegmentWithLine from './intersection-segment-with-line';
 
@@ -22,8 +20,8 @@ export default function intersectionLineWithPath(line: TLine, path: TPath, sorte
   const points = pathSegmentList(path).reduce((result: TPoint[], v) => {
     const p = intersectionSegmentWithLine(v, line);
     
-    if (p) {
-      pathPushPoint(result, p);
+    if (p && !isPointIncludedApproximately(p, result)) {
+      result.push(p);
     }
     
     return result;

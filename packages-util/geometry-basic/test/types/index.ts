@@ -28,14 +28,4 @@ export interface ITestPath {
     output: Point[];
     outputExtended: Point[];
   }>;
-  spliceByLine?: Array<{ // pathSliceByLine
-    title: string;
-    input: LineNormalized;
-    output: [Path, Path] | null;
-  }>;
-  spliceByLines?: Array<{
-    title: string;
-    input: LineNormalized[];
-    output: Path[];
-  }>;
 }

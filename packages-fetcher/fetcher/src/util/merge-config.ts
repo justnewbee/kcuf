@@ -38,7 +38,7 @@ export default function mergeConfig(...args: (IFetcherConfig | undefined)[]): IF
           
           break;
         default: // 其他，替换
-          (finalConfig as any)[k] = v;
+          (finalConfig as Record<string, unknown>)[k] = v;
           
           break;
       }

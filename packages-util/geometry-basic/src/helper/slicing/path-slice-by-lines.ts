@@ -29,17 +29,17 @@ export default function pathSliceByLines(path: TPath, lines: TLine[]): TPath[] {
   }
   
   let subPaths: TPath[] = [path];
-  let subPathsTemp: TPath[];
   
   lines.forEach(line => {
-    subPathsTemp = subPaths;
+    const subPathsTemp = subPaths;
+    
     subPaths = [];
     
     subPathsTemp.forEach(v => {
-      const shit = pathSliceByLine(v, line);
+      const arr = pathSliceByLine(v, line);
       
-      if (shit) {
-        subPaths.push(...shit);
+      if (arr) {
+        subPaths.push(...arr);
       } else {
         subPaths.push(v);
       }

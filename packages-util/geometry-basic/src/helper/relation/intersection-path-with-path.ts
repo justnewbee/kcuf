@@ -8,6 +8,9 @@ import {
 import {
   pathSegmentList
 } from '../base';
+import {
+  isEqualPointsApproximately
+} from '../comparison';
 
 import intersectionSegmentWithSegment from './intersection-segment-with-segment';
 
@@ -21,7 +24,7 @@ export default function intersectionPathWithPath(path1: TPath, path2: TPath): TP
   return cartesianProduct(segments1, segments2).reduce((result: TPoint[], v) => {
     const p = intersectionSegmentWithSegment(v[0], v[1]);
     
-    if (p) {
+    if (p && !result.some(vv => isEqualPointsApproximately(p, vv))) {
       result.push(p);
     }
     
