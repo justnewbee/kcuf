@@ -15,6 +15,8 @@ import {
 import pkgInfo from '../package.json';
 import fetcher, {
   createFetcher,
+  createFetcherErrorSkipNetwork,
+  FetcherConfig,
   FetcherErrorName
 } from '../src';
 
@@ -212,7 +214,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   
   test('interceptor request', async () => {
     const myFetcher = createFetcher();
-    const remove = myFetcher.interceptRequest(() => ({
+    const eject = myFetcher.interceptRequest(() => ({
       body: {
         addedByInterceptor: true
       }
@@ -231,8 +233,8 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await myFetcher.post('/api/post', 'whenCall=strMode');
     expect(fetchMock.lastCall()?.[1]?.body).toEqual('whenCall=strMode&addedByInterceptor=true');
     
-    // remove the interceptor
-    remove();
+    // eject the interceptor
+    eject();
     
     await myFetcher.post('/api/post', {
       noInterceptorNow: true
@@ -240,27 +242,42 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(fetchMock.lastCall()?.[1]?.body).toEqual('noInterceptorNow=true');
   });
   
+  test('interceptor request - skip network', async () => {
+    const myFetcher = createFetcher();
+    const eject = myFetcher.interceptRequest((config: FetcherConfig): never => {
+      throw createFetcherErrorSkipNetwork('no request was made', config);
+    });
+    
+    const result = await myFetcher.post('/api/post');
+    
+    expect(result).toBe('no request was made');
+    expect(fetchMock.calls().length).toBe(0);
+    
+    eject();
+    expect(myFetcher.post('/api/post')).resolves.toEqual(RESULT);
+  });
+  
   test('interceptor response onFulfilled', async () => {
     const myFetcher = createFetcher();
-    const remove = myFetcher.interceptResponse(() => {
+    const eject = myFetcher.interceptResponse(() => {
       return 'response altered';
     });
     
     expect(await myFetcher.post('/api/post')).toBe('response altered');
     
-    remove();
+    eject();
     expect(myFetcher.post('/api/post')).resolves.toEqual(RESULT);
   });
   
   test('interceptor response onRejected', async () => {
     const myFetcher = createFetcher();
-    const remove = myFetcher.interceptResponse(undefined, () => new Promise(resolve => {
+    const eject = myFetcher.interceptResponse(undefined, () => new Promise(resolve => {
       setTimeout(() => resolve('response corrected'), 200);
     }));
     
     expect(await myFetcher.post('/api/404')).toBe('response corrected');
     
-    remove();
+    eject();
     expect(fetcher.get('/api/404')).rejects.toHaveProperty('name', 'FetcherError.ResponseStatus');
   });
 });

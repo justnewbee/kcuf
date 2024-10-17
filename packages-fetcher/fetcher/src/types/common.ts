@@ -2,7 +2,7 @@ import {
   IStringifyOptions
 } from 'qs';
 
-export interface IRemover {
+export interface IInterceptorEject {
   (): void;
 }
 
@@ -24,6 +24,21 @@ export type TFetcherParams = Record<string, unknown> | string | null;
  * 能够接受 body 类型
  */
 export type TFetcherBody = Record<string, unknown> | string | null;
+
+export interface IErrorExtendedInfo {
+  /**
+   * 预留扩展字段 - 错误码
+   */
+  code?: string;
+  /**
+   * 预留扩展字段 - 错误标题
+   */
+  title?: string;
+  /**
+   * 预留扩展字段 - 原始 response 中的数据；强行把返回变成出错时需要
+   */
+  responseData?: unknown;
+}
 
 export interface ISerializeParamsOptions extends IStringifyOptions {}
 

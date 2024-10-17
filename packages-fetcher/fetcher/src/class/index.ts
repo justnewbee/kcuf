@@ -1,27 +1,23 @@
 import {
-  EFetcherErrorName
-} from '../enum';
-import {
-  IRemover,
+  IInterceptorEject,
+  IInterceptorQueueItemRequest,
+  IInterceptorQueueItemResponse,
   IFetcherConfigDefault,
   IFetcherConfig,
   IFetcherResponse,
   IFetcherError,
-  IFetcherErrorSpecial,
-  IInterceptorQueueItemRequest,
-  IInterceptorQueueItemResponse,
-  TInterceptRequestArgs,
-  TInterceptResponseArgs,
-  IFetcherClassType
+  IFetcherErrorSkipNetwork,
+  IFetcherClassType,
+  IFetcherInterceptRequest,
+  IFetcherInterceptResponseFulfilled,
+  IFetcherInterceptResponseRejected
 } from '../types';
 import {
   fetchX,
   mergeConfig,
   convertError,
-  parseInterceptorQueueItemForRequest,
-  parseInterceptorQueueItemForResponse,
   queueInterceptor,
-  filterAndSortInterceptors
+  sortInterceptors
 } from '../util';
 import {
   interceptRequestFirst,
@@ -41,18 +37,18 @@ import {
 export default class Fetcher implements IFetcherClassType {
   private readonly defaultConfig?: IFetcherConfigDefault;
   
+  private interceptorQueueRequest: IInterceptorQueueItemRequest[] = [];
+  
+  private interceptorQueueResponse: IInterceptorQueueItemResponse[] = [];
+  
   private interceptorRequestSealed = false;
   
   private interceptorResponseSealed = false;
   
-  private interceptorQueueForRequest: IInterceptorQueueItemRequest[] = [];
-  
-  private interceptorQueueForResponse: IInterceptorQueueItemResponse[] = [];
-  
   /**
    * 传递给 interceptor，这样在 interceptor 内部有需要的话可以通过它加上 fetcherConfig 进行重新请求
    */
-  private requestByInterceptor = <T>(fetcherConfig: IFetcherConfig): Promise<T> => this.request<T>({
+  private requestForInterceptor = <T>(fetcherConfig: IFetcherConfig): Promise<T> => this.request<T>({
     ...fetcherConfig,
     _byInterceptor: true
   });
@@ -64,30 +60,16 @@ export default class Fetcher implements IFetcherClassType {
   /**
    * 获取此次调用需要用到的所有请求拦截器，且拦截器的顺序按指定顺序
    */
-  private getInterceptorRequestQueue(fetcherConfig: IFetcherConfig): IInterceptorQueueItemRequest[] {
-    const unsorted: IInterceptorQueueItemRequest[] = [...this.interceptorQueueForRequest];
-    
-    if (fetcherConfig.additionalInterceptorsForRequest) {
-      fetcherConfig.additionalInterceptorsForRequest.forEach(v => unsorted.push(parseInterceptorQueueItemForRequest(v as TInterceptRequestArgs)));
-    }
-    
-    const sorted = filterAndSortInterceptors(unsorted);
-    
+  private getInterceptorRequestQueue(): IInterceptorQueueItemRequest[] {
     return [{
       onFulfilled: interceptRequestFirst
-    }, ...sorted, {
+    }, ...sortInterceptors(this.interceptorQueueRequest), {
       onFulfilled: interceptRequestFinal
     }];
   }
   
-  private getInterceptorResponseQueue(fetcherConfig: IFetcherConfig): IInterceptorQueueItemResponse[] {
-    const unsorted: IInterceptorQueueItemResponse[] = [...this.interceptorQueueForResponse];
-    
-    if (fetcherConfig.additionalInterceptorsForResponse) {
-      fetcherConfig.additionalInterceptorsForResponse.forEach(v => unsorted.push(parseInterceptorQueueItemForResponse(v as TInterceptResponseArgs)));
-    }
-    
-    return filterAndSortInterceptors(unsorted);
+  private getInterceptorResponseQueue(): IInterceptorQueueItemResponse[] {
+    return sortInterceptors(this.interceptorQueueResponse);
   }
   
   /**
@@ -99,7 +81,7 @@ export default class Fetcher implements IFetcherClassType {
   private invokeInterceptorQueueRequest(fetcherConfig: IFetcherConfig): Promise<IFetcherConfig> {
     let promise: Promise<IFetcherConfig> = Promise.resolve(fetcherConfig);
     
-    this.getInterceptorRequestQueue(fetcherConfig).forEach(v => {
+    this.getInterceptorRequestQueue().forEach(v => {
       promise = promise.then((configLastMerged: IFetcherConfig) => { // 上一次 merge 完的结果
         const {
           onFulfilled
@@ -112,7 +94,7 @@ export default class Fetcher implements IFetcherClassType {
         // 利用前置 `Promise.resolve()`，不管 onFulfilled 返回是否 Promise 都可以在一个运行空间获取到 configLastMerged 和 configToMerge
         // configToMerge 是 onFulfilled 计算后得到的结果，可能为空；也可能是 Promise
         return Promise.resolve()
-            .then(() => onFulfilled(configLastMerged, this.requestByInterceptor))
+            .then(() => onFulfilled(configLastMerged, this.requestForInterceptor))
             .then(configToMerge => mergeConfig(configLastMerged, configToMerge));
       });
     });
@@ -133,9 +115,9 @@ export default class Fetcher implements IFetcherClassType {
     }
     
     // 逐个调用响应拦截器，如果有 success 则其返回将作为结果传递给下一个拦截器
-    this.getInterceptorResponseQueue(fetcherConfig).forEach(v => {
+    this.getInterceptorResponseQueue().forEach(v => {
       promise = promise.then((result: T) => {
-        return v.onFulfilled ? v.onFulfilled(result, fetcherConfig, fetcherResponse, this.requestByInterceptor) as T : result;
+        return v.onFulfilled ? v.onFulfilled(result, fetcherConfig, fetcherResponse, this.requestForInterceptor) as T : result;
       }, err => {
         const error2 = convertError(err, fetcherConfig);
         
@@ -144,7 +126,7 @@ export default class Fetcher implements IFetcherClassType {
          * 所以这里提供了「纠错」和「调整错误」两个功能
          */
         if (v.onRejected) {
-          return v.onRejected(error2, fetcherConfig, fetcherResponse, this.requestByInterceptor) as T;
+          return v.onRejected(error2, fetcherConfig, fetcherResponse, this.requestForInterceptor) as T;
         }
         
         throw error2;
@@ -162,26 +144,30 @@ export default class Fetcher implements IFetcherClassType {
     return promise;
   }
   
-  /**
-   * 添加「预设」请求拦截器，返回解除拦截的无参方法
-   */
-  interceptRequest(...args: TInterceptRequestArgs): IRemover {
+  interceptRequest(onFulfilled: IFetcherInterceptRequest, priority?: number): IInterceptorEject {
     if (this.interceptorRequestSealed) {
-      throw new Error('[Fetcher#interceptRequest] Cannot add more interceptors. You need to unseal it first.');
+      throw new Error('[Fetcher#interceptRequest] Interceptor request is sealed. You need to unseal it first.');
     }
     
-    return queueInterceptor<IInterceptorQueueItemRequest>(this.interceptorQueueForRequest, parseInterceptorQueueItemForRequest(args));
+    return queueInterceptor<IInterceptorQueueItemRequest>(this.interceptorQueueRequest, {
+      onFulfilled,
+      priority
+    });
   }
   
   /**
    * 添加「预设」响应拦截器，返回解除拦截的无参方法
    */
-  interceptResponse(...args: TInterceptResponseArgs): IRemover {
+  interceptResponse(onFulfilled?: IFetcherInterceptResponseFulfilled, onRejected?: IFetcherInterceptResponseRejected, priority?: number): IInterceptorEject {
     if (this.interceptorResponseSealed) {
-      throw new Error('[Fetcher#interceptResponse] Cannot add more interceptors. You need to unseal it first.');
+      throw new Error('[Fetcher#interceptResponse] Interceptor response is sealed. You need to unseal it first.');
     }
     
-    return queueInterceptor<IInterceptorQueueItemResponse>(this.interceptorQueueForResponse, parseInterceptorQueueItemForResponse(args));
+    return queueInterceptor<IInterceptorQueueItemResponse>(this.interceptorQueueResponse, {
+      onFulfilled,
+      onRejected,
+      priority
+    });
   }
   
   /**
@@ -204,11 +190,11 @@ export default class Fetcher implements IFetcherClassType {
     } catch (err) {
       const error = convertError(err, finalConfig);
       
-      if (error.name === EFetcherErrorName.SKIP_NETWORK) { // 绕过请求，直接返回
-        return (error as IFetcherErrorSpecial<T>).result;
+      if (error.name === 'FetcherSkipNetwork') { // 跳过网络请求和响应拦截器
+        return (error as IFetcherErrorSkipNetwork<T>).result; // 直接返回结果
       }
       
-      throw error; // 继续错下去
+      throw error; // 继续错下去，但不会进入请求环节
     }
     
     // 2. 网络请求

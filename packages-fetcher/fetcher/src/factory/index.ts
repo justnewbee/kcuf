@@ -1,9 +1,9 @@
 import {
   IFetcher,
   IFetcherConfig,
-  TArgsForJsonp,
-  TArgsForGet,
-  TArgsForPost,
+  TFetcherJsonpArgs,
+  TFetcherGetArgs,
+  TFetcherPostArgs,
   TFetcherParams,
   TFetcherBody
 } from '../types';
@@ -25,12 +25,12 @@ export default function createFetcher(fetcherConfig?: IFetcherConfig): IFetcher 
   const request = fetcher.request.bind(fetcher);
   
   // 便捷方法
-  const jsonp = <T, P extends TFetcherParams>(...args: TArgsForJsonp<P>): Promise<T> => requestWithNoBody<T, P>(fetcher, 'JSONP', args);
-  const get = <T, P extends TFetcherParams>(...args: TArgsForGet<P>): Promise<T> => requestWithNoBody<T, P>(fetcher, 'GET', args);
-  const deleteFn = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TArgsForPost<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'DELETE', args);
-  const post = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TArgsForPost<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'POST', args);
-  const put = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TArgsForPost<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'PUT', args);
-  const patch = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TArgsForPost<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'PATCH', args);
+  const jsonp = <T, P extends TFetcherParams>(...args: TFetcherJsonpArgs<P>): Promise<T> => requestWithNoBody<T, P>(fetcher, 'JSONP', args);
+  const get = <T, P extends TFetcherParams>(...args: TFetcherGetArgs<P>): Promise<T> => requestWithNoBody<T, P>(fetcher, 'GET', args);
+  const deleteFn = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TFetcherPostArgs<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'DELETE', args);
+  const post = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TFetcherPostArgs<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'POST', args);
+  const put = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TFetcherPostArgs<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'PUT', args);
+  const patch = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TFetcherPostArgs<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'PATCH', args);
   
   return {
     interceptRequest,

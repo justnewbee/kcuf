@@ -1,8 +1,11 @@
 import {
-  IRemover
+  IInterceptorEject
 } from '../types';
 
-export default function queueInterceptor<T>(interceptorQueue: T[], item: T): IRemover {
+/**
+ * 推拦截器入队，并返回出队方法
+ */
+export default function queueInterceptor<T>(interceptorQueue: T[], item: T): IInterceptorEject {
   interceptorQueue.push(item);
   
   return () => {

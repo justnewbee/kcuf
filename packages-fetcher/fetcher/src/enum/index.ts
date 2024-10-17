@@ -16,10 +16,6 @@ export enum EFetcherErrorName {
    * 响应解析错误，一般出现在非 JSON 的场景
    */
   RESPONSE_PARSE = 'FetcherError.ResponseParse',
-  /**
-   * 跳过网络请求和响应拦截器，直接到最末
-   */
-  SKIP_NETWORK = 'FetcherError:SkipNetwork',
   // 以下用于扩展
   BIZ = 'FetcherError.Biz'
 }

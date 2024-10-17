@@ -1,6 +1,6 @@
 import {
-  TArgsForJsonp,
-  TArgsForGet,
+  TFetcherJsonpArgs,
+  TFetcherGetArgs,
   IFetcherClassType,
   IFetcherConfigQuick,
   TFetcherParams
@@ -12,18 +12,18 @@ import {
 /**
  * 用于执行不带 body 的请求，对应点 method 有 'GET' / 'DELETE' / 'HEAD' / 'OPTIONS' / 'JSONP'
  */
-export default function requestWithNoBody<T, P extends TFetcherParams>(fetcher: IFetcherClassType, method: string, args: TArgsForJsonp<P> | TArgsForGet<P>): Promise<T> {
-  let options: IFetcherConfigQuick | undefined;
+export default function requestWithNoBody<T, P extends TFetcherParams>(fetcher: IFetcherClassType, method: string, args: TFetcherJsonpArgs<P> | TFetcherGetArgs<P>): Promise<T> {
+  let config: IFetcherConfigQuick | undefined;
   let url: string;
   let params: P | undefined;
   
   if (typeof args[0] === 'string') {
     [url, params] = args as [string, P?];
   } else {
-    [options, url, params] = args as [IFetcherConfigQuick, string, P?];
+    [config, url, params] = args as [IFetcherConfigQuick, string, P?];
   }
   
-  return fetcher.request<T>(mergeConfig(options, {
+  return fetcher.request<T>(mergeConfig(config, {
     url,
     method,
     params

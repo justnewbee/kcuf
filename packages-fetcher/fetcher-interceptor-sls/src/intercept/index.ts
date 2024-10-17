@@ -54,5 +54,5 @@ export default function intercept(fetcher: Fetcher, options: IFetcherInterceptor
     throw error;
   }
   
-  return fetcher.interceptResponse(priority, onFulfilled, onRejected);
+  return fetcher.interceptResponse(onFulfilled, onRejected, priority);
 }

@@ -7,8 +7,8 @@ import {
  *
  * 建议将 priority 设定在 1-100 之间
  */
-export default function filterAndSortInterceptors<T extends IInterceptorQueueItemBase>(unsorted: T[]): T[] {
-  return unsorted.sort(({
+export default function sortInterceptors<T extends IInterceptorQueueItemBase>(interceptors: T[]): T[] {
+  return interceptors.sort(({
     priority: priority1 = 10
   }, {
     priority: priority2 = 10

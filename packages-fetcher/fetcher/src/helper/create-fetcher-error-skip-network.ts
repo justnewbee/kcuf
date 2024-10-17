@@ -1,9 +1,6 @@
 import {
-  EFetcherErrorName
-} from '../enum';
-import {
   IFetcherConfig,
-  IFetcherErrorSpecial
+  IFetcherErrorSkipNetwork
 } from '../types';
 
 /**
@@ -16,10 +13,10 @@ import {
  * 2. 合并接口请求，则直接返回合并前的临时 Promise
  * 3. 请求被代理到新的 Promise
  */
-export default function createFetcherErrorSkipNetwork<T = void>(result: T | Promise<T>, fetcherConfig?: IFetcherConfig): IFetcherErrorSpecial<T> {
-  const error: IFetcherErrorSpecial<T> = new Error() as IFetcherErrorSpecial<T>;
+export default function createFetcherErrorSkipNetwork<T = void>(result: T | Promise<T>, fetcherConfig: IFetcherConfig): IFetcherErrorSkipNetwork<T> {
+  const error: IFetcherErrorSkipNetwork<T> = new Error() as IFetcherErrorSkipNetwork<T>;
   
-  error.name = EFetcherErrorName.SKIP_NETWORK; // Fetcher.request 中将用它来做判断
+  error.name = 'FetcherSkipNetwork';
   error.result = result;
   error.config = fetcherConfig;
   
