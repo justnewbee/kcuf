@@ -39,6 +39,8 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       data: 'aborted'
     }), 100)));
     
+    fetchMock.mock('/api/text', () => 'api returning text');
+    
     fetchMock.get('/api/200', 200);
     fetchMock.post('/api/201', 201);
     fetchMock.put('/api/255', 255);
@@ -170,13 +172,38 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     (global as Record<string, unknown>).window = dom.window;
     (global as Record<string, unknown>).document = dom.window.document;
     
-    const JSONP_URL = 'https://jsfiddle.net/echo/jsonp?who=boshit&love=wlp';
-    const JSONP_RESULT = {
+    expect(await fetcher.jsonp('https://jsfiddle.net/echo/jsonp?who=boshit&love=wlp')).toEqual({
       who: 'boshit',
       love: 'wlp'
-    };
+    });
     
-    expect(await fetcher.jsonp(JSONP_URL)).toEqual(JSONP_RESULT);
+    expect(fetchMock.calls().length).toEqual(0); // 不会调用到 fetch
+    
+    dom.window.close();
+  });
+  
+  test('responseType text', () => {
+    const promise = fetcher.post({
+      responseType: 'text'
+    }, '/api/text');
+    
+    expect(promise).resolves.toBeTypeOf('string');
+  });
+  
+  test('responseType text - jsonp', async () => {
+    const dom = new JSDOM('<!DOCTYPE html><html lang="en"><head><title>JsDom</title></head><body></body></html>', {
+      resources: 'usable',
+      runScripts: 'dangerously'
+    });
+    
+    (global as Record<string, unknown>).window = dom.window;
+    (global as Record<string, unknown>).document = dom.window.document;
+    
+    expect(fetcher.jsonp({
+      jsonpCallback: 'jsonp',
+      jsonpCallbackFunction: 'text-only',
+      responseType: 'text'
+    }, 'https://apifoxmock.com/m1/4847676-4502957-default/jsonp')).resolves.toBeTypeOf('string');
     
     expect(fetchMock.calls().length).toEqual(0); // 不会调用到 fetch
     
@@ -185,7 +212,6 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   
   test('interceptor request', async () => {
     const myFetcher = createFetcher();
-    
     const remove = myFetcher.interceptRequest(() => ({
       body: {
         addedByInterceptor: true

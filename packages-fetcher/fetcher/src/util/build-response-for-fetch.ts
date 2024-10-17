@@ -8,14 +8,15 @@ import {
 
 import normalizeHeaderKey from './normalize-header-key';
 import createFetcherError from './create-fetcher-error';
+import buildResponseX from './build-response-x';
 
-export default async function convertResponseFromFetch<T = void>(response: Response, fetcherConfig: IFetcherConfig): Promise<IFetcherResponse<T>> {
-  const headers: Record<string, string> = {};
+export default async function buildResponseForFetch<T>(response: Response, fetcherConfig: IFetcherConfig): Promise<IFetcherResponse<T>> {
+  const responseHeaders: Record<string, string> = {};
   
   // IE 不行
   if (typeof response.headers?.forEach === 'function') { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
     response.headers.forEach((v, k) => {
-      headers[normalizeHeaderKey(k)] = v;
+      responseHeaders[normalizeHeaderKey(k)] = v;
     });
   }
   
@@ -34,13 +35,5 @@ export default async function convertResponseFromFetch<T = void>(response: Respo
     });
   }
   
-  try { // TODO 可能要一个非 JSON 的设置
-    return {
-      url: response.url,
-      headers,
-      data: await response.json() as T
-    };
-  } catch (err) { // 如果后端返回的不是 JSON，这里会报错「JSON.parse: unexpected character at line 1 column 1 of the JSON data」
-    throw createFetcherError(fetcherConfig, EFetcherErrorName.RESPONSE_PARSE, (err as Error | undefined)?.message);
-  }
+  return buildResponseX(response, responseHeaders, fetcherConfig);
 }

@@ -12,8 +12,8 @@ import {
 import {
   TFetcherBody,
   TFetcherHeaders,
-  TFetcherParams // ,
-  // TFetcherResponseType
+  TFetcherParams,
+  TFetcherResponseType
 } from './common';
 import {
   TInterceptRequestArgs,
@@ -66,10 +66,10 @@ export interface IFetcherConfigDefault extends Omit<FetchOptions, 'method' | 'he
    * 自定义 `body` 的 serialize
    */
   bodySerializeOptions?: IStringifyOptions;
-  // /**
-  //  * 对返回数据的处理，默认 'json'
-  //  */
-  // responseType?: TFetcherResponseType;
+  /**
+   * 对返回数据的处理，默认 'json'
+   */
+  responseType?: TFetcherResponseType;
 }
 
 /**

@@ -10,7 +10,7 @@ import {
  * 执行请求的方法定义
  */
 export interface IFetcherFnRequest {
-  <T = void>(fetcherConfig: IFetcherConfig): Promise<T>;
+  <T = unknown>(fetcherConfig: IFetcherConfig): Promise<T>;
 }
 
 /**
@@ -28,10 +28,10 @@ export interface IFetcherFnRequest {
  * ```
  */
 export interface IFetcherFnJsonp {
-  <T = void>(url: string): Promise<T>;
-  <T = void, P = unknown>(url: string, params: P): Promise<T>;
-  <T = void>(options: IFetcherOptionsForQuickJsonp, url: string): Promise<T>;
-  <T = void, P = unknown>(options: IFetcherOptionsForQuickJsonp, url: string, params: P): Promise<T>;
+  <T = unknown>(url: string): Promise<T>;
+  <T = unknown, P = unknown>(url: string, params: P): Promise<T>;
+  <T = unknown>(options: IFetcherOptionsForQuickJsonp, url: string): Promise<T>;
+  <T = unknown, P = unknown>(options: IFetcherOptionsForQuickJsonp, url: string, params: P): Promise<T>;
 }
 
 /**
@@ -49,10 +49,10 @@ export interface IFetcherFnJsonp {
  * ```
  */
 export interface IFetcherFnGetAlike {
-  <T = void>(url: string): Promise<T>;
-  <T = void, P = unknown>(url: string, params: P): Promise<T>;
-  <T = void>(options: IFetcherOptionsForQuickFn, url: string): Promise<T>;
-  <T = void, P = unknown>(options: IFetcherOptionsForQuickFn, url: string, params: P): Promise<T>;
+  <T = unknown>(url: string): Promise<T>;
+  <T = unknown, P = unknown>(url: string, params: P): Promise<T>;
+  <T = unknown>(options: IFetcherOptionsForQuickFn, url: string): Promise<T>;
+  <T = unknown, P = unknown>(options: IFetcherOptionsForQuickFn, url: string, params: P): Promise<T>;
 }
 
 /**
@@ -71,10 +71,10 @@ export interface IFetcherFnGetAlike {
  * ```
  */
 export interface IFetcherFnPostAlike {
-  <T = void>(url: string): Promise<T>;
-  <T = void, B = unknown>(url: string, body: B): Promise<T>;
-  <T = void, B = unknown, P = unknown>(url: string, body: B, params: P): Promise<T>;
-  <T = void>(options: IFetcherOptionsForQuickFn, url: string): Promise<T>;
-  <T = void, B = unknown>(options: IFetcherOptionsForQuickFn, url: string, body: B): Promise<T>;
-  <T = void, B = unknown, P = unknown>(options: IFetcherOptionsForQuickFn, url: string, body: B, params: P): Promise<T>;
+  <T = unknown>(url: string): Promise<T>;
+  <T = unknown, B = unknown>(url: string, body: B): Promise<T>;
+  <T = unknown, B = unknown, P = unknown>(url: string, body: B, params: P): Promise<T>;
+  <T = unknown>(options: IFetcherOptionsForQuickFn, url: string): Promise<T>;
+  <T = unknown, B = unknown>(options: IFetcherOptionsForQuickFn, url: string, body: B): Promise<T>;
+  <T = unknown, B = unknown, P = unknown>(options: IFetcherOptionsForQuickFn, url: string, body: B, params: P): Promise<T>;
 }

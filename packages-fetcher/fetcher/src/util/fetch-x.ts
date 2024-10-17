@@ -12,13 +12,13 @@ import isJsonp from './is-jsonp';
 import serializeBody from './serialize-body';
 import buildUrl from './build-url';
 import canHaveBody from './can-have-body';
-import convertResponseFromFetch from './convert-response-from-fetch';
-import convertResponseFromJsonp from './convert-response-from-jsonp';
+import buildResponseForFetch from './build-response-for-fetch';
+import buildResponseForJsonp from './build-response-for-jsonp';
 
 /**
  * 将 fetch 和 jsonp 整合在一起（即当 method 为 'JSONP' 的时候会发送 JSONP 请求）
  */
-export default async function fetchX<T = void>(fetcherConfig: IFetcherConfig): Promise<IFetcherResponse<T>> {
+export default async function fetchX<T = unknown>(fetcherConfig: IFetcherConfig): Promise<IFetcherResponse<T>> {
   const {
     method,
     body,
@@ -37,7 +37,7 @@ export default async function fetchX<T = void>(fetcherConfig: IFetcherConfig): P
       jsonpCallback,
       jsonpCallbackFunction,
       signal
-    }).then(response => convertResponseFromJsonp<T>(response));
+    }).then(response => buildResponseForJsonp<T>(response, fetcherConfig));
   }
   
   const fetchOptions: FetchOptions = {
@@ -55,5 +55,5 @@ export default async function fetchX<T = void>(fetcherConfig: IFetcherConfig): P
     fetchOptions.body = serializeBody(fetcherConfig);
   }
   
-  return fetcherFetch(fetchUrl, fetchOptions).then(response => convertResponseFromFetch<T>(response, fetcherConfig));
+  return fetcherFetch(fetchUrl, fetchOptions).then(response => buildResponseForFetch<T>(response, fetcherConfig));
 }
