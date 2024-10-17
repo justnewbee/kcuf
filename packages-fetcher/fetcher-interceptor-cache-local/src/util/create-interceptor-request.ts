@@ -2,7 +2,7 @@ import _cloneDeep from 'lodash/cloneDeep';
 
 import {
   FetcherConfig,
-  FetcherFnInterceptRequest,
+  FetcherInterceptRequest,
   FetcherInterceptRequestReturn,
   createFetcherErrorSkipNetwork
 } from '@kcuf/fetcher';
@@ -11,7 +11,7 @@ import parseCacheLocalOptions from './parse-cache-local-options';
 import cacheGet from './cache-get';
 import cacheAdd from './cache-add';
 
-export default function createInterceptorRequest(): FetcherFnInterceptRequest {
+export default function createInterceptorRequest(): FetcherInterceptRequest {
   return (fetcherConfig: FetcherConfig): FetcherInterceptRequestReturn => {
     const cacheLocal = parseCacheLocalOptions(fetcherConfig);
     

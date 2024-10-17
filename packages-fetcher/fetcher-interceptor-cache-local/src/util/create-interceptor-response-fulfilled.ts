@@ -2,14 +2,14 @@ import _cloneDeep from 'lodash/cloneDeep';
 
 import {
   FetcherConfig,
-  FetcherFnInterceptResponseFulfilled
+  FetcherInterceptResponseFulfilled
 } from '@kcuf/fetcher';
 
 import parseCacheLocalOptions from './parse-cache-local-options';
 import cacheRemoveMatched from './cache-remove-matched';
 import cacheResolve from './cache-resolve';
 
-export default function createInterceptorResponseFulfilled(): FetcherFnInterceptResponseFulfilled {
+export default function createInterceptorResponseFulfilled(): FetcherInterceptResponseFulfilled {
   return (data: unknown, fetcherConfig: FetcherConfig): unknown => {
     if (fetcherConfig.cacheLocalRemove) {
       cacheRemoveMatched(fetcherConfig.cacheLocalRemove);

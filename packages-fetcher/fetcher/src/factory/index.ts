@@ -7,7 +7,7 @@ import {
   TFetcherParams,
   TFetcherBody
 } from '../types';
-import Fetcher from '../fetcher';
+import Fetcher from '../class';
 
 import requestWithNoBody from './request-with-no-body';
 import requestWithBody from './request-with-body';

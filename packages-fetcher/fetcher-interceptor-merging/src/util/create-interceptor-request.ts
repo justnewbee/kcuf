@@ -1,6 +1,6 @@
 import {
   FetcherConfig,
-  FetcherFnInterceptRequest,
+  FetcherInterceptRequest,
   FetcherInterceptRequestReturn,
   createFetcherErrorSkipNetwork
 } from '@kcuf/fetcher';
@@ -9,7 +9,7 @@ import parseMergingOptions from './parse-merging-options';
 import mergingGet from './merging-get';
 import mergingAdd from './merging-add';
 
-export default function createInterceptorRequest(): FetcherFnInterceptRequest {
+export default function createInterceptorRequest(): FetcherInterceptRequest {
   return (fetcherConfig: FetcherConfig): FetcherInterceptRequestReturn => {
     const merging = parseMergingOptions(fetcherConfig);
     

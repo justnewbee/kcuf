@@ -2,13 +2,13 @@ import _cloneDeep from 'lodash/cloneDeep';
 
 import {
   FetcherConfig,
-  FetcherFnInterceptResponseFulfilled
+  FetcherInterceptResponseFulfilled
 } from '@kcuf/fetcher';
 
 import parseMergingOptions from './parse-merging-options';
 import mergingResolve from './merging-resolve';
 
-export default function createInterceptorResponseFulfilled(): FetcherFnInterceptResponseFulfilled {
+export default function createInterceptorResponseFulfilled(): FetcherInterceptResponseFulfilled {
   return (data: unknown, fetcherConfig: FetcherConfig): unknown => {
     const merging = parseMergingOptions(fetcherConfig);
     

@@ -22,7 +22,7 @@ export default function buildUrl(config: IFetcherConfig): string {
     urlBase,
     urlCacheBusting,
     params,
-    paramsSerializeOptions = { // 默认 URL 参数序列化操作，qs 默认 a[0]=b&a[1]=c&a[2]=d，但我们需要 a=0&a=1&a=2
+    serializeParams: serializeParamsOptions = { // 默认 URL 参数序列化操作，qs 默认 a[0]=b&a[1]=c&a[2]=d，但我们需要 a=0&a=1&a=2
       indices: false
     }
   } = config;
@@ -46,8 +46,8 @@ export default function buildUrl(config: IFetcherConfig): string {
       _cache_busting_: Date.now()
     } : undefined,
     params
-  ], paramsSerializeOptions);
-  const finalQueryStr = serializeParams(finalParams, paramsSerializeOptions);
+  ], serializeParamsOptions);
+  const finalQueryStr = serializeParams(finalParams, serializeParamsOptions);
   
   return finalQueryStr ? `${urlWithoutQuery}?${finalQueryStr}` : urlWithoutQuery;
 }

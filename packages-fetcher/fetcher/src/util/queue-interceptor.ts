@@ -1,8 +1,8 @@
 import {
-  IInterceptorRemover
+  IRemover
 } from '../types';
 
-export default function queueInterceptor<T>(interceptorQueue: T[], item: T): IInterceptorRemover {
+export default function queueInterceptor<T>(interceptorQueue: T[], item: T): IRemover {
   interceptorQueue.push(item);
   
   return () => {

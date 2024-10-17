@@ -9,9 +9,9 @@ import {
 } from '../types';
 
 import isJsonp from './is-jsonp';
+import canHaveBody from './can-have-body';
 import serializeBody from './serialize-body';
 import buildUrl from './build-url';
-import canHaveBody from './can-have-body';
 import buildResponseForFetch from './build-response-for-fetch';
 import buildResponseForJsonp from './build-response-for-jsonp';
 

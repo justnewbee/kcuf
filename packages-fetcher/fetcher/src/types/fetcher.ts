@@ -1,17 +1,17 @@
 import {
-  IFetcherFnGetAlike,
-  IFetcherFnJsonp,
-  IFetcherFnPostAlike
-} from './fn';
+  IFetcherCallGetAlike,
+  IFetcherCallJsonp,
+  IFetcherCallPostAlike
+} from './config';
 import {
   IFetcherClassType
 } from './class';
 
 export interface IFetcher extends Pick<IFetcherClassType, 'interceptRequest' | 'interceptResponse' | 'sealInterceptors' | 'request'> {
-  jsonp: IFetcherFnJsonp;
-  get: IFetcherFnGetAlike;
-  post: IFetcherFnPostAlike;
-  put: IFetcherFnPostAlike;
-  patch: IFetcherFnPostAlike;
-  delete: IFetcherFnPostAlike;
+  jsonp: IFetcherCallJsonp;
+  get: IFetcherCallGetAlike;
+  post: IFetcherCallPostAlike;
+  put: IFetcherCallPostAlike;
+  patch: IFetcherCallPostAlike;
+  delete: IFetcherCallPostAlike;
 }

@@ -2,17 +2,17 @@ import {
   EFetcherErrorName
 } from '../enum';
 import {
+  IRemover,
+  IFetcherConfigDefault,
   IFetcherConfig,
   IFetcherResponse,
-  IFetcherClassType,
-  IInterceptorRemover,
   IFetcherError,
   IFetcherErrorSpecial,
   IInterceptorQueueItemRequest,
   IInterceptorQueueItemResponse,
   TInterceptRequestArgs,
   TInterceptResponseArgs,
-  IFetcherConfigDefault
+  IFetcherClassType
 } from '../types';
 import {
   fetchX,
@@ -165,7 +165,7 @@ export default class Fetcher implements IFetcherClassType {
   /**
    * 添加「预设」请求拦截器，返回解除拦截的无参方法
    */
-  interceptRequest(...args: TInterceptRequestArgs): IInterceptorRemover {
+  interceptRequest(...args: TInterceptRequestArgs): IRemover {
     if (this.interceptorRequestSealed) {
       throw new Error('[Fetcher#interceptRequest] Cannot add more interceptors. You need to unseal it first.');
     }
@@ -176,7 +176,7 @@ export default class Fetcher implements IFetcherClassType {
   /**
    * 添加「预设」响应拦截器，返回解除拦截的无参方法
    */
-  interceptResponse(...args: TInterceptResponseArgs): IInterceptorRemover {
+  interceptResponse(...args: TInterceptResponseArgs): IRemover {
     if (this.interceptorResponseSealed) {
       throw new Error('[Fetcher#interceptResponse] Cannot add more interceptors. You need to unseal it first.');
     }

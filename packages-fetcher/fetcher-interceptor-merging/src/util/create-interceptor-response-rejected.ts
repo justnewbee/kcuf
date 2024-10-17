@@ -1,13 +1,13 @@
 import {
   FetcherConfig,
   FetcherError,
-  FetcherFnInterceptResponseRejected
+  FetcherInterceptResponseRejected
 } from '@kcuf/fetcher';
 
 import parseMergingOptions from './parse-merging-options';
 import mergingReject from './merging-reject';
 
-export default function createInterceptorResponseRejected(): FetcherFnInterceptResponseRejected {
+export default function createInterceptorResponseRejected(): FetcherInterceptResponseRejected {
   return (err: FetcherError, fetcherConfig: FetcherConfig): void => {
     const merging = parseMergingOptions(fetcherConfig);
     
