@@ -124,4 +124,15 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       jsonpCallback: 'jsonp'
     })).resolves.toBeTruthy();
   });
+  
+  test('responseType: text', () => {
+    expect(fetcherJsonp('https://apifoxmock.com/m1/4847676-4502957-default/jsonp', {
+      jsonpCallback: 'jsonp'
+    }).then(response => response.text())).resolves.toBeTypeOf('string');
+    
+    expect(fetcherJsonp('https://apifoxmock.com/m1/4847676-4502957-default/jsonp', {
+      jsonpCallback: 'jsonp',
+      jsonpCallbackFunction: 'text-only'
+    }).then(response => response.text())).resolves.toBeTypeOf('string');
+  });
 });

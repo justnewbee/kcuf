@@ -65,7 +65,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
     let returned = false;
     
     // 异步事件 1：回调
-    (window as unknown as Record<string, (result: T) => void>)[jsonpCallbackFunction] = (result: T) => {
+    (window as unknown as Record<string, (result: T) => void>)[jsonpCallbackFunction] = (result: unknown) => {
       if (returned) {
         return;
       }
@@ -75,7 +75,20 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
       resolve({
         ok: true,
         url,
-        json: (): Promise<T> => Promise.resolve(result)
+        json: (): Promise<T> => {
+          if (typeof result === 'string') {
+            return Promise.resolve(JSON.parse(result) as T);
+          }
+          
+          return Promise.resolve(result as T);
+        },
+        text: (): Promise<string> => {
+          if (result && typeof result === 'object') {
+            return Promise.resolve(JSON.stringify(result));
+          }
+          
+          return Promise.resolve(result as string);
+        }
       });
       cleanup();
     };

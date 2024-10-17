@@ -14,7 +14,7 @@ import {
 import createError from './create-error';
 
 /**
- * 「几乎」纯生的 fetch，增加 timeout，且返回到 json 这一层
+ * 「几乎」纯生的 fetch，增加 timeout
  *
  * 引自 https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
  *

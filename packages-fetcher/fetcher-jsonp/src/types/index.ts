@@ -1,5 +1,5 @@
 /**
- * 纯 jsonp options
+ * 纯 JSONP options
  */
 export interface IJsonpOptions {
   timeout?: number;
@@ -21,6 +21,7 @@ export interface IJsonpOptions {
 
 /**
  * 模仿 Response 对象，fetch 的 Response 对象包含如下属性
+ *
  * - body: ReadableStream;
  * - bodyUsed: boolean;
  * - headers: Headers; // JSONP 无法有 headers
@@ -30,10 +31,12 @@ export interface IJsonpOptions {
  * - statusText: string;
  * - type: string; // basic
  * - url: string;
- * - json(): Promise<any>;
+ * - json(): Promise<unknown>;
+ * - text(): Promise<string>;
  */
-export interface IJsonpResponse<T = void> {
+export interface IJsonpResponse<T = unknown> {
   ok: true;
   url: string;
-  json(): Promise<T>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  json(): Promise<T>;
+  text(): Promise<string>;
 }

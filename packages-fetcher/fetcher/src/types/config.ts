@@ -11,7 +11,9 @@ import {
 
 import {
   TFetcherBody,
-  TFetcherParams
+  TFetcherHeaders,
+  TFetcherParams // ,
+  // TFetcherResponseType
 } from './common';
 import {
   TInterceptRequestArgs,
@@ -45,7 +47,7 @@ export interface IFetcherConfigDefault extends Omit<FetchOptions, 'method' | 'he
   /**
    * 约束 FetchOptions.headers
    */
-  headers?: Record<string, string | number | boolean>;
+  headers?: TFetcherHeaders;
   /**
    * URL search 参数，纯的 fetch/jsonp 的 url 要求是已经拼接好参数的 url。
    *
@@ -64,6 +66,10 @@ export interface IFetcherConfigDefault extends Omit<FetchOptions, 'method' | 'he
    * 自定义 `body` 的 serialize
    */
   bodySerializeOptions?: IStringifyOptions;
+  // /**
+  //  * 对返回数据的处理，默认 'json'
+  //  */
+  // responseType?: TFetcherResponseType;
 }
 
 /**
