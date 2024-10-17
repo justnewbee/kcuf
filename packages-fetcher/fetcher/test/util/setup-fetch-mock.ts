@@ -17,9 +17,10 @@ export default function setupFetchMock(): void {
   
   fetchMock.mock(APIS.CORS, () => RESULTS.CORS);
   fetchMock.mock(APIS.CORS2, () => RESULTS.CORS2);
-  fetchMock.mock(APIS.ABORT, () => new Promise(resolve => setTimeout(() => resolve(RESULTS.ABORT), 100)));
   
+  fetchMock.mock(APIS.UPLOAD, () => RESULTS.UPLOAD);
   fetchMock.mock(APIS.TEXT, () => RESULTS.TEXT);
+  fetchMock.mock(APIS.ABORT, () => new Promise(resolve => setTimeout(() => resolve(RESULTS.ABORT), 100)));
   
   fetchMock.get(APIS.STATUS_200, 200);
   fetchMock.post(APIS.STATUS_201, 201);

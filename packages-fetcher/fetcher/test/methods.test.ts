@@ -12,7 +12,6 @@ import {
   JSDOM
 } from 'jsdom';
 
-import pkgInfo from '../package.json';
 import fetcher from '../src';
 
 import {
@@ -23,10 +22,10 @@ import {
   setupFetchMock
 } from './util';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('methods', () => {
   beforeEach(setupFetchMock);
   
-  test('methods', () => {
+  test('standard', () => {
     expect(fetcher.get(APIS.GET)).resolves.toEqual(RESULTS.GET);
     expect(fetcher.post(APIS.POST, {
       str: 'a string',

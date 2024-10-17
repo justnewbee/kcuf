@@ -5,10 +5,11 @@ export const APIS = {
   PUT: '/api/put',
   PATCH: '/api/patch',
   DELETE: '/api/delete',
+  UPLOAD: '/api/upload',
+  TEXT: '/api/text',
   CORS: 'https://anotherdomain.com/api/cors',
   CORS2: 'http://anotherdomain.com/api/cors',
   ABORT: '/api/abort',
-  TEXT: '/api/text',
   STATUS_200: '/api/200',
   STATUS_201: '/api/201',
   STATUS_255: '/api/255',
@@ -38,6 +39,9 @@ export const RESULTS = {
   },
   DELETE: {
     m: 'DELETE'
+  },
+  UPLOAD: {
+    m: 'UPLOAD'
   },
   CORS: {
     m: 'CORS'

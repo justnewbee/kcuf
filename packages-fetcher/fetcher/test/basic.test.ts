@@ -9,7 +9,6 @@ import {
 } from 'vitest';
 import fetchMock from 'fetch-mock';
 
-import pkgInfo from '../package.json';
 import fetcher from '../src';
 
 import {
@@ -19,7 +18,7 @@ import {
   setupFetchMock
 } from './util';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('basic', () => {
   beforeEach(setupFetchMock);
   
   test('await to get fetchMock stats', async () => {

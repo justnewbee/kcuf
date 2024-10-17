@@ -12,7 +12,6 @@ import {
   JSDOM
 } from 'jsdom';
 
-import pkgInfo from '../package.json';
 import fetcher from '../src';
 
 import {
@@ -23,7 +22,7 @@ import {
   setupFetchMock
 } from './util';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('parse headers/params/body', () => {
   beforeEach(setupFetchMock);
   
   test('params parse', async () => {
