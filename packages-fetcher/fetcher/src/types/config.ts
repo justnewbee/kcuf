@@ -8,9 +8,9 @@ import {
 import {
   ISerializeParamsOptions,
   ISerializeBodyOptions,
-  TFetcherBody,
   TFetcherHeaders,
   TFetcherParams,
+  TFetcherBody,
   TFetcherResponseType
 } from './common';
 

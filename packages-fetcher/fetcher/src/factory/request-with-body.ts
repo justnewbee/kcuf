@@ -1,6 +1,6 @@
 import {
   TFetcherPostArgs,
-  IFetcherClassType,
+  IFetcherClass,
   IFetcherConfigQuick,
   TFetcherParams,
   TFetcherBody
@@ -12,7 +12,7 @@ import {
 /**
  * 用于执行带 body 的请求，对应点 method 有 'POST' / 'PUT' / 'PATCH'
  */
-export default function requestWithBody<T, B extends TFetcherBody, P extends TFetcherParams>(fetcher: IFetcherClassType, method: string, args: TFetcherPostArgs<B, P>): Promise<T> {
+export default function requestWithBody<T, B extends TFetcherBody, P extends TFetcherParams>(fetcher: IFetcherClass, method: string, args: TFetcherPostArgs<B, P>): Promise<T> {
   let config: IFetcherConfigQuick | undefined;
   let url: string;
   let body: B | undefined;

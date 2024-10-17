@@ -7,7 +7,7 @@ import {
   IFetcherResponse,
   IFetcherError,
   IFetcherErrorSkipNetwork,
-  IFetcherClassType,
+  IFetcherClass,
   IFetcherInterceptRequest,
   IFetcherInterceptResponseFulfilled,
   IFetcherInterceptResponseRejected
@@ -34,7 +34,7 @@ import {
  * 5. `interceptRequest` 如果抛错，不会触发真实的 API 请求（axios 一样），也不会触发任何 response interceptors（axios 会触发）
  * 6. `interceptRequest` 可以不必返回全的 `fetcherConfig`，会自动进行 merge，axios 要求返回全的
  */
-export default class Fetcher implements IFetcherClassType {
+export default class Fetcher implements IFetcherClass {
   private readonly defaultConfig?: IFetcherConfigDefault;
   
   private interceptorQueueRequest: IInterceptorQueueItemRequest[] = [];

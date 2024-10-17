@@ -1,11 +1,16 @@
 import _forEach from 'lodash/forEach';
 
 import {
-  IFetcherConfig
+  IFetcherConfig,
+  TFetcherBody,
+  TFetcherHeaders,
+  TFetcherParams
 } from '../types';
 
 import normalizeHeaders from './normalize-headers';
-import mergeParams from './merge-params';
+import mergeConfigHeaders from './merge-config-headers';
+import mergeConfigParams from './merge-config-params';
+import mergeConfigBody from './merge-config-body';
 
 /**
  * 将多个 FetcherConfig 进行合并
@@ -22,19 +27,16 @@ export default function mergeConfig(...args: (IFetcherConfig | undefined)[]): IF
       }
       
       switch (k as keyof IFetcherConfig) {
-        case 'headers': // header 会做 merge
-          finalConfig.headers = {
-            ...finalConfig.headers,
-            ...normalizeHeaders(v as unknown as Record<string, string>)
-          };
+        case 'headers': // headers 合并
+          mergeConfigHeaders(finalConfig, v as TFetcherHeaders);
           
           break;
-        case 'params': // 参数和 body 也会做 merge
-          finalConfig.params = mergeParams([finalConfig.params, v]);
+        case 'params': // 参数合并
+          mergeConfigParams(finalConfig, v as TFetcherParams);
           
           break;
-        case 'body':
-          finalConfig.body = mergeParams([finalConfig.body, v]);
+        case 'body': // body 合并
+          mergeConfigBody(finalConfig, v as TFetcherBody);
           
           break;
         default: // 其他，替换

@@ -1,7 +1,7 @@
 import {
   TFetcherJsonpArgs,
   TFetcherGetArgs,
-  IFetcherClassType,
+  IFetcherClass,
   IFetcherConfigQuick,
   TFetcherParams
 } from '../types';
@@ -12,7 +12,7 @@ import {
 /**
  * 用于执行不带 body 的请求，对应点 method 有 'GET' / 'DELETE' / 'HEAD' / 'OPTIONS' / 'JSONP'
  */
-export default function requestWithNoBody<T, P extends TFetcherParams>(fetcher: IFetcherClassType, method: string, args: TFetcherJsonpArgs<P> | TFetcherGetArgs<P>): Promise<T> {
+export default function requestWithNoBody<T, P extends TFetcherParams>(fetcher: IFetcherClass, method: string, args: TFetcherJsonpArgs<P> | TFetcherGetArgs<P>): Promise<T> {
   let config: IFetcherConfigQuick | undefined;
   let url: string;
   let params: P | undefined;

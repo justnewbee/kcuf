@@ -15,7 +15,7 @@ import {
   IFetcherInterceptResponseRejected
 } from './interceptor';
 
-export interface IFetcherClassType {
+export interface IFetcherClass {
   /**
    * 发送请求：前置请求拦截器 → 网络请求 → 后置响应拦截器
    */
@@ -37,7 +37,7 @@ export interface IFetcherClassType {
   sealInterceptors(requestSealed?: boolean, responseSealed?: boolean): void;
 }
 
-export interface IFetcher extends Pick<IFetcherClassType, 'interceptRequest' | 'interceptResponse' | 'sealInterceptors' | 'request'> {
+export interface IFetcher extends Pick<IFetcherClass, 'interceptRequest' | 'interceptResponse' | 'sealInterceptors' | 'request'> {
   jsonp: IFetcherCallJsonp;
   get: IFetcherCallGetAlike;
   post: IFetcherCallPostAlike;
