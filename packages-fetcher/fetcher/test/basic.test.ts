@@ -12,7 +12,13 @@ import fetchMock from 'fetch-mock';
 import fetcher from '../src';
 
 import {
-  APIS
+  API_GET,
+  API_POST,
+  API_PUT,
+  API_PATCH,
+  API_DELETE,
+  API_CORS,
+  API_CORS2
 } from './const';
 import {
   setupFetchMock
@@ -26,23 +32,23 @@ describe('basic', () => {
     // fetcher 对拦截器进行了异步处理，因而 fetch 的调用也异步，调用 fetcher 后，无法立即反应到 `fetchMock`，故此，对 fetchMock
     // 的状态判断都需要先对 await fetcher
     await Promise.all([
-      fetcher.get(APIS.GET),
-      fetcher.post(APIS.POST),
-      fetcher.put(APIS.PUT),
-      fetcher.patch(APIS.PATCH),
-      fetcher.delete(APIS.DELETE)
+      fetcher.get(API_GET.url),
+      fetcher.post(API_POST.url),
+      fetcher.put(API_PUT.url),
+      fetcher.patch(API_PATCH.url),
+      fetcher.delete(API_DELETE.url)
     ]);
     
     expect(fetchMock.calls().length).toBe(5);
   });
   
   test('cors', async () => {
-    await fetcher.get(APIS.CORS);
+    await fetcher.get(API_CORS.url);
     
     expect(fetchMock.calls().length).toBe(1);
     expect(fetchMock.lastCall()?.[1]?.credentials).toBe('include');
     
-    await fetcher.get(APIS.CORS2);
+    await fetcher.get(API_CORS2.url);
     
     expect(fetchMock.calls().length).toBe(2);
     expect(fetchMock.lastCall()?.[1]?.credentials).toBe('include');

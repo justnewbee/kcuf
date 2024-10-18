@@ -15,8 +15,9 @@ import {
 import fetcher from '../src';
 
 import {
-  APIS,
-  RESULTS
+  API_GET_WITH_PARAMS,
+  API_POST,
+  API_TEXT
 } from './const';
 import {
   setupFetchMock
@@ -26,14 +27,16 @@ describe('parse headers/params/body', () => {
   beforeEach(setupFetchMock);
   
   test('params parse', async () => {
-    expect(await fetcher.get(APIS.GET_WITH_PARAMS, {
+    expect(await fetcher.get(API_GET_WITH_PARAMS.url, {
       id: 1234,
-      arr: [1, 2]
-    })).toEqual(RESULTS.GET_WITH_PARAMS);
+      arr: [1, 2, 3]
+    })).toEqual(API_GET_WITH_PARAMS.result);
+    
+    expect(fetchMock.lastCall()?.[0]).toEqual(`${API_GET_WITH_PARAMS.url}?id=1234&arr=1&arr=2&arr=3`);
   });
   
   test('body parse', async () => {
-    await fetcher.post(APIS.POST, {
+    await fetcher.post(API_POST.url, {
       str: 'a string',
       num: 1234,
       boo: true,
@@ -48,7 +51,7 @@ describe('parse headers/params/body', () => {
       headers: {
         'Content-type': 'application/json'
       }
-    }, APIS.POST, {
+    }, API_POST.url, {
       str: 'a string',
       num: 1234,
       boo: true,
@@ -63,7 +66,7 @@ describe('parse headers/params/body', () => {
   test('responseType text', () => {
     const promise = fetcher.post({
       responseType: 'text'
-    }, APIS.TEXT);
+    }, API_TEXT.url);
     
     expect(promise).resolves.toBeTypeOf('string');
   });

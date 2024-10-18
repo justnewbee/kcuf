@@ -17,8 +17,8 @@ import fetcher, {
 } from '../src';
 
 import {
-  APIS,
-  RESULTS
+  API_POST,
+  API_STATUS_404
 } from './const';
 import {
   setupFetchMock
@@ -35,23 +35,23 @@ describe('fetcher interceptor', () => {
       }
     }));
     
-    await myFetcher.post(APIS.POST);
+    await myFetcher.post(API_POST.url);
     expect(fetchMock.lastCall()?.[1]?.body).toEqual('addedByInterceptor=true');
     
     // body will merge 1
-    await myFetcher.post(APIS.POST, {
+    await myFetcher.post(API_POST.url, {
       whenCall: 123
     });
     expect(fetchMock.lastCall()?.[1]?.body).toEqual('whenCall=123&addedByInterceptor=true');
     
     // body will merge 2
-    await myFetcher.post(APIS.POST, 'whenCall=strMode');
+    await myFetcher.post(API_POST.url, 'whenCall=strMode');
     expect(fetchMock.lastCall()?.[1]?.body).toEqual('whenCall=strMode&addedByInterceptor=true');
     
     // eject the interceptor
     eject();
     
-    await myFetcher.post(APIS.POST, {
+    await myFetcher.post(API_POST.url, {
       noInterceptorNow: true
     });
     expect(fetchMock.lastCall()?.[1]?.body).toEqual('noInterceptorNow=true');
@@ -63,13 +63,13 @@ describe('fetcher interceptor', () => {
       throw createFetcherErrorSkipNetwork('no request was made', config);
     });
     
-    const result = await myFetcher.post(APIS.POST);
+    const result = await myFetcher.post(API_POST.url);
     
     expect(result).toBe('no request was made');
     expect(fetchMock.calls().length).toBe(0);
     
     eject();
-    expect(myFetcher.post(APIS.POST)).resolves.toEqual(RESULTS.POST);
+    expect(myFetcher.post(API_POST.url)).resolves.toEqual(API_POST.result);
   });
   
   test('interceptor response onFulfilled', async () => {
@@ -78,10 +78,10 @@ describe('fetcher interceptor', () => {
       return 'response altered';
     });
     
-    expect(await myFetcher.post(APIS.POST)).toBe('response altered');
+    expect(await myFetcher.post(API_POST.url)).toBe('response altered');
     
     eject();
-    expect(myFetcher.post(APIS.POST)).resolves.toEqual(RESULTS.POST);
+    expect(myFetcher.post(API_POST.url)).resolves.toEqual(API_POST.result);
   });
   
   test('interceptor response onRejected', async () => {
@@ -90,9 +90,9 @@ describe('fetcher interceptor', () => {
       setTimeout(() => resolve('response corrected'), 200);
     }));
     
-    expect(await myFetcher.post(APIS.STATUS_404)).toBe('response corrected');
+    expect(await myFetcher.post(API_STATUS_404.url)).toBe('response corrected');
     
     eject();
-    expect(fetcher.get(APIS.STATUS_404)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_STATUS);
+    expect(fetcher.get(API_STATUS_404.url)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_STATUS);
   });
 });

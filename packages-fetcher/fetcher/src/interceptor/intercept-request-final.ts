@@ -3,8 +3,7 @@ import {
 } from '../types';
 import {
   isCors,
-  isJsonp,
-  canHaveBody
+  isJsonp
 } from '../util';
 
 /**
@@ -12,20 +11,13 @@ import {
  */
 export default function interceptRequestFinal(fetcherConfig: IFetcherConfig): Partial<IFetcherConfig> {
   const config: IFetcherConfig = {
-    _timeStarted: Date.now()
+    _timeStarted: Date.now() // 开始请求的时间
   };
   
   if (isJsonp(fetcherConfig)) {
     return config;
   }
   
-  const headers = fetcherConfig.headers || {};
-  
-  if (!headers['Content-Type'] && canHaveBody(fetcherConfig)) {
-    headers['Content-Type'] = 'application/x-www-form-urlencoded';
-  }
-  
-  config.headers = headers;
   config.credentials = fetcherConfig.credentials || (isCors(fetcherConfig) ? 'include' : 'same-origin'); // MUST
   
   return config;

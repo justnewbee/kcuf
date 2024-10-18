@@ -21,9 +21,11 @@ export type TFetcherHeaders = Record<string, string | number | boolean>;
 export type TFetcherParams = Record<string, unknown> | string | null;
 
 /**
- * 能够接受 body 类型
+ * 能够接受 body 类型，是 `BodyInit` 的子集 + `Record<string, unknown>`
+ *
+ * `BodyInit = ReadableStream | Blob | BufferSource | FormData | URLSearchParams | string`
  */
-export type TFetcherBody = Record<string, unknown> | string | null;
+export type TFetcherBody = Record<string, unknown> | URLSearchParams | FormData | Blob | string;
 
 export interface IErrorExtendedInfo {
   /**

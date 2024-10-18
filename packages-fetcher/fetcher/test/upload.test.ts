@@ -12,8 +12,7 @@ import fetchMock from 'fetch-mock';
 import fetcher from '../src';
 
 import {
-  APIS,
-  RESULTS
+  API_UPLOAD
 } from './const';
 import {
   setupFetchMock
@@ -27,11 +26,11 @@ describe('upload', () => {
     
     formData.append('file', new window.File(['bubblegum pie'], 'my-file'));
     
-    const promises = fetcher.post(APIS.UPLOAD, {
+    const promises = fetcher.post(API_UPLOAD.url, {
       body: formData
     });
     
-    expect(promises).resolves.toEqual(RESULTS.UPLOAD);
+    expect(promises).resolves.toEqual(API_UPLOAD.result);
     
     await promises;
     

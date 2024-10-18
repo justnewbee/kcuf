@@ -1,60 +1,113 @@
-export const APIS = {
-  GET: '/api/get',
-  GET_WITH_PARAMS: '/api/get-with-params?id=1234&arr=1&arr=2',
-  POST: '/api/post',
-  PUT: '/api/put',
-  PATCH: '/api/patch',
-  DELETE: '/api/delete',
-  UPLOAD: '/api/upload',
-  TEXT: '/api/text',
-  CORS: 'https://anotherdomain.com/api/cors',
-  CORS2: 'http://anotherdomain.com/api/cors',
-  ABORT: '/api/abort',
-  STATUS_200: '/api/200',
-  STATUS_201: '/api/201',
-  STATUS_255: '/api/255',
-  STATUS_299: '/api/299',
-  STATUS_300: '/api/300',
-  STATUS_404: '/api/404',
-  STATUS_500: '/api/500',
-  TIMEOUT: '/api/timeout'
-};
+import {
+  IMockApi
+} from '../types';
 
-export const RESULTS = {
-  GET: {
-    m: 'GET'
-  },
-  GET_WITH_PARAMS: {
-    m: 'GET',
-    data: 'with parameters'
-  },
-  POST: {
-    m: 'POST'
-  },
-  PUT: {
-    m: 'PUT'
-  },
-  PATCH: {
-    m: 'PATCH'
-  },
-  DELETE: {
-    m: 'DELETE'
-  },
-  UPLOAD: {
-    m: 'UPLOAD'
-  },
-  CORS: {
-    m: 'CORS'
-  },
-  CORS2: {
-    m: 'CORS2'
-  },
-  ABORT: {
-    m: 'ABORT'
-  },
-  TEXT: 'api returning text',
-  TIMEOUT: {
-    m: '*',
-    data: 'might timeout'
+export const API_GET: IMockApi = {
+  method: 'get',
+  url: '/api/get',
+  result: {
+    data: 'GET'
   }
+};
+export const API_GET_WITH_PARAMS: IMockApi = {
+  method: 'get',
+  url: '/api/get-with-params',
+  match: /\/api\/get-with-params\?.*/,
+  result: {
+    data: 'GET_WITH_PARAMS'
+  }
+};
+export const API_POST: IMockApi = {
+  method: 'post',
+  url: '/api/post',
+  result: {
+    data: 'POST'
+  }
+};
+export const API_PUT: IMockApi = {
+  method: 'put',
+  url: '/api/put',
+  result: {
+    data: 'PUT'
+  }
+};
+export const API_PATCH: IMockApi = {
+  method: 'patch',
+  url: '/api/patch',
+  result: {
+    data: 'PATCH'
+  }
+};
+export const API_DELETE: IMockApi = {
+  method: 'delete',
+  url: '/api/delete',
+  result: {
+    data: 'DELETE'
+  }
+};
+export const API_UPLOAD: IMockApi = {
+  url: '/api/upload',
+  result: {
+    data: 'UPLOAD'
+  }
+};
+export const API_TEXT: IMockApi = {
+  url: '/api/text',
+  result: {
+    data: 'TEXT'
+  }
+};
+export const API_CORS: IMockApi = {
+  url: 'https://anotherdomain.com/api/cors',
+  result: {
+    data: 'CORS'
+  }
+};
+export const API_CORS2: IMockApi = {
+  url: 'http://anotherdomain.com/api/cors',
+  result: {
+    data: 'CORS2'
+  }
+};
+export const API_STATUS_200: IMockApi = {
+  url: '/api/200',
+  result: 200
+};
+export const API_STATUS_201: IMockApi = {
+  url: '/api/201',
+  result: 201
+};
+export const API_STATUS_255: IMockApi = {
+  url: '/api/255',
+  result: 255
+};
+export const API_STATUS_299: IMockApi = {
+  url: '/api/299',
+  result: 299
+};
+export const API_STATUS_300: IMockApi = {
+  url: '/api/300',
+  result: 300
+};
+export const API_STATUS_404: IMockApi = {
+  url: '/api/404',
+  result: 404
+};
+export const API_STATUS_500: IMockApi = {
+  url: '/api/500',
+  result: 500
+};
+export const API_ABORT: IMockApi = {
+  url: '/api/abort',
+  result: {
+    data: 'ABORT'
+  },
+  timeout: 200
+};
+export const API_TIMEOUT: IMockApi = {
+  url: '/api/timeout',
+  result: {
+    data: 'TIMEOUT'
+  },
+  timeout: 250
 };

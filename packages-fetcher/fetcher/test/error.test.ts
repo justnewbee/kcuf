@@ -13,7 +13,15 @@ import fetcher, {
 } from '../src';
 
 import {
-  APIS
+  API_STATUS_200,
+  API_STATUS_201,
+  API_STATUS_255,
+  API_STATUS_299,
+  API_STATUS_300,
+  API_STATUS_404,
+  API_STATUS_500,
+  API_ABORT,
+  API_TIMEOUT
 } from './const';
 import {
   setupFetchMock
@@ -23,29 +31,29 @@ describe('fetcher error', () => {
   beforeEach(setupFetchMock);
   
   test('status 200-299 ok, no data', () => {
-    expect(fetcher.get(APIS.STATUS_200)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_PARSE);
-    expect(fetcher.post(APIS.STATUS_201)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_PARSE);
-    expect(fetcher.put(APIS.STATUS_255)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_PARSE);
-    expect(fetcher.delete(APIS.STATUS_299)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_PARSE);
+    expect(fetcher.get(API_STATUS_200.url)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_PARSE);
+    expect(fetcher.post(API_STATUS_201.url)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_PARSE);
+    expect(fetcher.put(API_STATUS_255.url)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_PARSE);
+    expect(fetcher.delete(API_STATUS_299.url)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_PARSE);
   });
   
   test('response status NOT 200', () => {
-    expect(fetcher.get(APIS.STATUS_300)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_STATUS);
-    expect(fetcher.get(APIS.STATUS_404)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_STATUS);
-    expect(fetcher.post(APIS.STATUS_500)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_STATUS);
+    expect(fetcher.get(API_STATUS_300.url)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_STATUS);
+    expect(fetcher.get(API_STATUS_404.url)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_STATUS);
+    expect(fetcher.post(API_STATUS_500.url)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_STATUS);
   });
   
   test('timeout', () => {
     expect(fetcher.get({
       timeout: 100
-    }, APIS.TIMEOUT)).rejects.toHaveProperty('name', FetcherErrorName.TIMEOUT);
+    }, API_TIMEOUT.url)).rejects.toHaveProperty('name', FetcherErrorName.TIMEOUT);
   });
   
   test('abort', () => {
     const abortController = new AbortController();
     const promise = fetcher.post({
       signal: abortController.signal
-    }, APIS.ABORT);
+    }, API_ABORT.url);
     
     expect(promise).rejects.toThrowError('The operation was aborted.');
     expect(promise).rejects.toHaveProperty('name', 'AbortError');
