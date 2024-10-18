@@ -9,8 +9,8 @@ import parseMergingOptions from './parse-merging-options';
 import mergingResolve from './merging-resolve';
 
 export default function createInterceptorResponseFulfilled(): FetcherInterceptResponseFulfilled {
-  return (data: unknown, fetcherConfig: FetcherConfig): unknown => {
-    const merging = parseMergingOptions(fetcherConfig);
+  return (data: unknown, config: FetcherConfig): unknown => {
+    const merging = parseMergingOptions(config);
     
     if (merging) {
       mergingResolve(merging.key, data);

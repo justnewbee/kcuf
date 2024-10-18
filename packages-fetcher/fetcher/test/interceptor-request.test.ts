@@ -9,22 +9,20 @@ import {
 } from 'vitest';
 import fetchMock from 'fetch-mock';
 
-import fetcher, {
-  FetcherErrorName,
+import {
   FetcherConfig,
   createFetcher,
   createFetcherErrorSkipNetwork
 } from '../src';
 
 import {
-  API_POST,
-  API_STATUS_404
+  API_POST
 } from './const';
 import {
   setupFetchMock
 } from './util';
 
-describe('fetcher interceptor', () => {
+describe('interceptor request', () => {
   beforeEach(setupFetchMock);
   
   test('interceptor request', async () => {
@@ -42,11 +40,11 @@ describe('fetcher interceptor', () => {
     await myFetcher.post(API_POST.url, {
       whenCall: 123
     });
-    expect(fetchMock.lastCall()?.[1]?.body).toEqual('whenCall=123&addedByInterceptor=true');
+    expect(fetchMock.lastCall()?.[1]?.body).toEqual('addedByInterceptor=true&whenCall=123');
     
     // body will merge 2
     await myFetcher.post(API_POST.url, 'whenCall=strMode');
-    expect(fetchMock.lastCall()?.[1]?.body).toEqual('whenCall=strMode&addedByInterceptor=true');
+    expect(fetchMock.lastCall()?.[1]?.body).toEqual('addedByInterceptor=true&whenCall=strMode');
     
     // eject the interceptor
     eject();
@@ -70,29 +68,5 @@ describe('fetcher interceptor', () => {
     
     eject();
     expect(myFetcher.post(API_POST.url)).resolves.toEqual(API_POST.result);
-  });
-  
-  test('interceptor response onFulfilled', async () => {
-    const myFetcher = createFetcher();
-    const eject = myFetcher.interceptResponse(() => {
-      return 'response altered';
-    });
-    
-    expect(await myFetcher.post(API_POST.url)).toBe('response altered');
-    
-    eject();
-    expect(myFetcher.post(API_POST.url)).resolves.toEqual(API_POST.result);
-  });
-  
-  test('interceptor response onRejected', async () => {
-    const myFetcher = createFetcher();
-    const eject = myFetcher.interceptResponse(undefined, () => new Promise(resolve => {
-      setTimeout(() => resolve('response corrected'), 200);
-    }));
-    
-    expect(await myFetcher.post(API_STATUS_404.url)).toBe('response corrected');
-    
-    eject();
-    expect(fetcher.get(API_STATUS_404.url)).rejects.toHaveProperty('name', FetcherErrorName.RESPONSE_STATUS);
   });
 });

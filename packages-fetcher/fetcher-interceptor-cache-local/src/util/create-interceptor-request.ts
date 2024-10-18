@@ -12,8 +12,8 @@ import cacheGet from './cache-get';
 import cacheAdd from './cache-add';
 
 export default function createInterceptorRequest(): FetcherInterceptRequest {
-  return (fetcherConfig: FetcherConfig): FetcherInterceptRequestReturn => {
-    const cacheLocal = parseCacheLocalOptions(fetcherConfig);
+  return (config: FetcherConfig): FetcherInterceptRequestReturn => {
+    const cacheLocal = parseCacheLocalOptions(config);
     
     // 不需要 cacheLocal，直接跳过，将继续请求
     if (!cacheLocal) {
@@ -44,7 +44,7 @@ export default function createInterceptorRequest(): FetcherInterceptRequest {
         reject
       }));
       
-      throw createFetcherErrorSkipNetwork(promise, fetcherConfig);
+      throw createFetcherErrorSkipNetwork(promise, config);
     }
     
     // 重新请求的场景，不要和之前的第 0 个请求逻辑合并
@@ -57,6 +57,6 @@ export default function createInterceptorRequest(): FetcherInterceptRequest {
     }
     
     // 命中缓存
-    throw createFetcherErrorSkipNetwork(_cloneDeep(data), fetcherConfig); // 返回 clone 后的数据避免副作用
+    throw createFetcherErrorSkipNetwork(_cloneDeep(data), config); // 返回 clone 后的数据避免副作用
   };
 }

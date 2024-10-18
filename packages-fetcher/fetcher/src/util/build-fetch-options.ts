@@ -8,6 +8,7 @@ import {
 
 import canHaveBody from './can-have-body';
 import serializeBody from './serialize-body';
+import cloneTypeHeaders from './clone-type-headers';
 
 /**
  * 主要处理 headers 和 body 信息。
@@ -61,7 +62,7 @@ import serializeBody from './serialize-body';
  * });
  * ```
  */
-export default function buildFetchOptions(fetcherConfig: IFetcherConfig): FetchOptions {
+export default function buildFetchOptions(config: IFetcherConfig): FetchOptions {
   const {
     // 剔除 JSONP 参数
     charset,
@@ -70,29 +71,34 @@ export default function buildFetchOptions(fetcherConfig: IFetcherConfig): FetchO
     // 剔除需要进一步处理的
     body,
     ...options
-  } = fetcherConfig;
+  } = config;
   const fetchOptions: FetchOptions = {
     ...options
   };
-  const headers = fetcherConfig.headers || {};
   
-  if (body && canHaveBody(fetcherConfig)) {
+  const headers = cloneTypeHeaders(config.headers || {});
+  
+  if (body && canHaveBody(config)) {
     if (typeof body === 'string') {
       fetchOptions.body = body;
+      
+      if (!headers.get('Content-Type')) {
+        headers.set('Content-Type', 'application/x-www-form-urlencoded');
+      }
     } else if (body instanceof URLSearchParams) {
       fetchOptions.body = body;
-      delete headers['Content-Type'];
+      headers.delete('Content-Type');
     } else if (body instanceof FormData) {
       fetchOptions.body = body;
-      delete headers['Content-Type'];
+      headers.delete('Content-Type');
     } else if (body instanceof Blob) {
       fetchOptions.body = body;
-      delete headers['Content-Type'];
-    } else if (headers['Content-Type'] === 'application/json') {
+      headers.delete('Content-Type');
+    } else if (headers.get('Content-Type') === 'application/json') {
       fetchOptions.body = JSON.stringify(body);
     } else {
-      headers['Content-Type'] = 'application/x-www-form-urlencoded';
-      fetchOptions.body = serializeBody(body, fetcherConfig.serializeBody);
+      headers.set('Content-Type', 'application/x-www-form-urlencoded');
+      fetchOptions.body = serializeBody(body, config.serializeBody);
     }
   }
   

@@ -45,16 +45,6 @@ export interface IFetcherConfigDefault extends Omit<FetchOptions, 'method' | 'he
    */
   headers?: TFetcherHeaders;
   /**
-   * URL search 参数，纯的 `fetch/jsonp` 的 url 要求是已经拼接好参数的 url。
-   *
-   * `{ url: '/url', params: { a: 1, b: 2} }` 等价于 `{ url: '/url', params: 'a=1&b=2' }` 等价于 `{ url: '/url?a=1&b=2' }`
-   */
-  params?: TFetcherParams;
-  /**
-   * POST/PUT 等请求体
-   */
-  body?: TFetcherBody;
-  /**
    * 如果传入的 `params` 是对象，用 `qs` 来序列化它的参数
    */
   serializeParams?: ISerializeParamsOptions;
@@ -86,6 +76,16 @@ export interface IFetcherConfig extends IFetcherConfigDefault {
    * 在 Fetcher 内部由拦截器发起的请求
    */
   _byInterceptor?: boolean;
+  /**
+   * URL search 参数，纯的 `fetch/jsonp` 的 url 要求是已经拼接好参数的 url。
+   *
+   * `{ url: '/url', params: { a: 1, b: 2} }` 等价于 `{ url: '/url', params: 'a=1&b=2' }` 等价于 `{ url: '/url?a=1&b=2' }`
+   */
+  params?: TFetcherParams;
+  /**
+   * POST/PUT 等请求体
+   */
+  body?: TFetcherBody;
 }
 
 /**

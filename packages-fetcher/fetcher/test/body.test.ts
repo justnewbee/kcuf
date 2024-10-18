@@ -18,7 +18,7 @@ import {
   setupFetchMock
 } from './util';
 
-describe('parse headers/params/body', () => {
+describe('parse body', () => {
   beforeEach(setupFetchMock);
   
   test('body parse', async () => {

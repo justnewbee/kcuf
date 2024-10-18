@@ -6,8 +6,8 @@ import {
   ICacheLocalOptionsParsed
 } from '../types';
 
-export default function parseCacheLocalOptions(fetcherConfig: FetcherConfig): ICacheLocalOptionsParsed | null {
-  if (!fetcherConfig.cacheLocal) {
+export default function parseCacheLocalOptions(config: FetcherConfig): ICacheLocalOptionsParsed | null {
+  if (!config.cacheLocal) {
     return null;
   }
   
@@ -15,10 +15,10 @@ export default function parseCacheLocalOptions(fetcherConfig: FetcherConfig): IC
     key = '',
     ttl = -1,
     overwrite = false
-  } = fetcherConfig.cacheLocal === true ? {} : fetcherConfig.cacheLocal;
+  } = config.cacheLocal === true ? {} : config.cacheLocal;
   
   return {
-    key: key || fetcherConfig._id!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    key: key || config._id!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
     ttl,
     overwrite
   };

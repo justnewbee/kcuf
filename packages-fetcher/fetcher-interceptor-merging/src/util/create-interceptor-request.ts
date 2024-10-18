@@ -10,8 +10,8 @@ import mergingGet from './merging-get';
 import mergingAdd from './merging-add';
 
 export default function createInterceptorRequest(): FetcherInterceptRequest {
-  return (fetcherConfig: FetcherConfig): FetcherInterceptRequestReturn => {
-    const merging = parseMergingOptions(fetcherConfig);
+  return (config: FetcherConfig): FetcherInterceptRequestReturn => {
+    const merging = parseMergingOptions(config);
     
     // 不需要，直接跳过，将继续请求
     if (!merging) {
@@ -30,7 +30,7 @@ export default function createInterceptorRequest(): FetcherInterceptRequest {
         reject
       }));
       
-      throw createFetcherErrorSkipNetwork(promise, fetcherConfig);
+      throw createFetcherErrorSkipNetwork(promise, config);
     } else {
       mergingAdd(key);
     }

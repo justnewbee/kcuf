@@ -17,7 +17,7 @@ export type TFetcherInterceptRequestReturn = undefined | IFetcherConfig | Promis
  * Request interceptor 方法类型
  */
 export interface IFetcherInterceptRequest {
-  (fetcherConfig: IFetcherConfig, callRequest: IFetcherCallRequest): TFetcherInterceptRequestReturn;
+  (config: IFetcherConfig, callRequest: IFetcherCallRequest): TFetcherInterceptRequestReturn;
 }
 
 /**
@@ -26,14 +26,14 @@ export interface IFetcherInterceptRequest {
  *  - D - 接口实际返回的 Promise 类型
  */
 export interface IFetcherInterceptResponseFulfilled<T = unknown, D = T> {
-  (data: D, fetcherConfig: IFetcherConfig, fetcherResponse: IFetcherResponse<T> | undefined, fetcherRequest: IFetcherCallRequest): T | never;
+  (data: D, config: IFetcherConfig, fetcherResponse: IFetcherResponse<T> | undefined, fetcherRequest: IFetcherCallRequest): T | never;
 }
 
 /**
  * Response error interceptor 方法类型
  */
 export interface IFetcherInterceptResponseRejected<T = unknown> {
-  (error: IFetcherError, fetcherConfig: IFetcherConfig, fetcherResponse: IFetcherResponse<T> | undefined, fetcherRequest: IFetcherCallRequest): T | never;
+  (error: IFetcherError, config: IFetcherConfig, fetcherResponse: IFetcherResponse<T> | undefined, fetcherRequest: IFetcherCallRequest): T | never;
 }
 
 export interface IInterceptorQueueItemBase {

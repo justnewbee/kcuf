@@ -83,7 +83,7 @@ export interface IFlattenOptions {
   /**
    * 将属性直接输出，提前结束该属性深度
    */
-  pass?: TFlattenPathTester;
+  direct?: TFlattenPathTester;
 }
 
 /**

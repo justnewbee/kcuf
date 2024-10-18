@@ -1,5 +1,3 @@
-import _isError from 'lodash/isError';
-
 import {
   TLogArgs,
   ICreateLoggerOptions,
@@ -16,7 +14,7 @@ import {
 import {
   getLogOnceKey,
   flattenObject,
-  convertErrorToPlain,
+  normalizePayload,
   resolveDefaultParams
 } from '../util';
 
@@ -44,12 +42,12 @@ export default class SlsLogger {
   log: ISlsLogFn = (...args: TLogArgs): void => {
     let options: ISlsLogOptions = {};
     let topic: string;
-    let payload: Record<string, unknown> | undefined;
+    let payload: object | undefined;
     
     if (typeof args[0] === 'string') {
-      [topic, payload] = args as [string, Record<string, unknown>?];
+      [topic, payload] = args as [string, object?];
     } else {
-      [options, topic, payload] = args as [ISlsLogOptions, string, Record<string, unknown>?];
+      [options, topic, payload] = args as [ISlsLogOptions, string, object?];
     }
     
     const {
@@ -78,16 +76,10 @@ export default class SlsLogger {
       this.once[onceKey] = 1;
     }
     
-    let plainInfo: object | undefined;
+    let plainInfo: object | undefined = payload ? normalizePayload(payload) : payload;
     
-    if (payload) {
-      if (flatten) {
-        plainInfo = flattenObject(payload, flatten === true ? '' : flatten);
-      } else if (_isError(payload)) {
-        plainInfo = convertErrorToPlain(payload);
-      } else {
-        plainInfo = payload;
-      }
+    if (plainInfo && flatten) {
+      plainInfo = flattenObject(plainInfo, flatten === true ? '' : flatten);
     }
     
     this.slsPipe.pipe({

@@ -7,8 +7,8 @@ import extractProtocolHost from './extract-protocol-host';
 /**
  * 测试最终请求是否跨域
  */
-export default function isCors(fetcherConfig: IFetcherConfig): boolean {
-  const protocolHost = extractProtocolHost(fetcherConfig);
+export default function isCors(config: IFetcherConfig): boolean {
+  const protocolHost = extractProtocolHost(config);
   
   if (!protocolHost) {
     return false;

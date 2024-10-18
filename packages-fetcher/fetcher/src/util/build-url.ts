@@ -2,9 +2,8 @@ import {
   IFetcherConfig
 } from '../types';
 
-import getProtocolAndHost from './get-protocol-and-host';
-import mergeParams from './merge-params';
-import serializeParams from './serialize-params';
+import mergeUrlWithParams from './merge-url-with-params';
+import mergeUrlWithUrlBase from './merge-url-with-url-base';
 
 /**
  * GET / JSONP 的参数需要放到 URL 的 search 部分，这里参数 **可能** 由以下组成：
@@ -20,34 +19,9 @@ export default function buildUrl(config: IFetcherConfig): string {
   const {
     url = '',
     urlBase,
-    urlCacheBusting,
     params,
-    serializeParams: serializeParamsOptions = { // 默认 URL 参数序列化操作，qs 默认 a[0]=b&a[1]=c&a[2]=d，但我们需要 a=0&a=1&a=2
-      indices: false
-    }
+    serializeParams: serializeParamsOptions
   } = config;
-  const searchIndex = url.indexOf('?');
-  let urlWithoutQuery = url;
-  let searchStr = '';
   
-  if (searchIndex >= 0) {
-    urlWithoutQuery = url.substring(0, searchIndex);
-    searchStr = url.substring(searchIndex + 1);
-  }
-  
-  // 传入了 urlBase 且 url 是相对路径，则需要将 urlBase 拼接在前部
-  if (urlBase && !getProtocolAndHost(urlWithoutQuery)) {
-    urlWithoutQuery = `${urlBase}${urlWithoutQuery}`;
-  }
-  
-  const finalParams = mergeParams([
-    searchStr,
-    urlCacheBusting ? {
-      _cache_busting_: Date.now()
-    } : undefined,
-    params
-  ], serializeParamsOptions);
-  const finalQueryStr = serializeParams(finalParams, serializeParamsOptions);
-  
-  return finalQueryStr ? `${urlWithoutQuery}?${finalQueryStr}` : urlWithoutQuery;
+  return mergeUrlWithUrlBase(mergeUrlWithParams(url, params, serializeParamsOptions), urlBase);
 }

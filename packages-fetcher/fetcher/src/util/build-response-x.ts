@@ -12,14 +12,14 @@ import {
 
 import createFetcherError from './create-fetcher-error';
 
-export default async function buildResponseX<T>(response: JsonpResponse<T> | Response, responseHeaders: Record<string, string>, fetcherConfig: IFetcherConfig): Promise<IFetcherResponse<T>> {
+export default async function buildResponseX<T>(response: JsonpResponse<T> | Response, responseHeaders: Record<string, string>, config: IFetcherConfig): Promise<IFetcherResponse<T>> {
   try {
     return {
       url: response.url,
       headers: responseHeaders,
-      data: (fetcherConfig.responseType === 'text' ? await response.text() : await response.json()) as T
+      data: (config.responseType === 'text' ? await response.text() : await response.json()) as T
     };
   } catch (err) {
-    throw createFetcherError(fetcherConfig, EFetcherErrorName.RESPONSE_PARSE, (err as Error | undefined)?.message);
+    throw createFetcherError(config, EFetcherErrorName.RESPONSE_PARSE, (err as Error | undefined)?.message);
   }
 }

@@ -7,18 +7,24 @@ import {
 } from '../util';
 
 /**
- * request 最后一个拦截器，写入 _timeStarted，如果不是 JSONP，对 headers 和 credentials 做补充
+ * request 最后一个拦截器，发送请求前一刻执行
  */
-export default function interceptRequestFinal(fetcherConfig: IFetcherConfig): Partial<IFetcherConfig> {
-  const config: IFetcherConfig = {
+export default function interceptRequestFinal(config: IFetcherConfig): Partial<IFetcherConfig> {
+  const configMix: IFetcherConfig = {
     _timeStarted: Date.now() // 开始请求的时间
   };
   
-  if (isJsonp(fetcherConfig)) {
-    return config;
+  if (config.urlCacheBusting) {
+    configMix.params = {
+      _cache_busting_: Date.now()
+    };
   }
   
-  config.credentials = fetcherConfig.credentials || (isCors(fetcherConfig) ? 'include' : 'same-origin'); // MUST
+  if (isJsonp(config)) {
+    return configMix;
+  }
   
-  return config;
+  configMix.credentials = config.credentials || (isCors(config) ? 'include' : 'same-origin'); // MUST
+  
+  return configMix;
 }

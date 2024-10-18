@@ -19,7 +19,7 @@ export interface IFetcherClass {
   /**
    * 发送请求：前置请求拦截器 → 网络请求 → 后置响应拦截器
    */
-  request<T = unknown>(fetcherConfig: IFetcherConfig): Promise<T>;
+  request<T = unknown>(config: IFetcherConfig): Promise<T>;
   
   /**
    * 添加「预设」请求拦截器，返回解除拦截的无参方法

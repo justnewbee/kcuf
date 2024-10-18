@@ -10,7 +10,7 @@ import normalizeHeaderKey from './normalize-header-key';
 import createFetcherError from './create-fetcher-error';
 import buildResponseX from './build-response-x';
 
-export default async function buildResponseForFetch<T>(response: Response, fetcherConfig: IFetcherConfig): Promise<IFetcherResponse<T>> {
+export default async function buildResponseForFetch<T>(response: Response, config: IFetcherConfig): Promise<IFetcherResponse<T>> {
   const responseHeaders: Record<string, string> = {};
   
   // IE 不行
@@ -29,11 +29,11 @@ export default async function buildResponseForFetch<T>(response: Response, fetch
       // ignore
     }
     
-    throw createFetcherError(fetcherConfig, EFetcherErrorName.RESPONSE_STATUS, `Response status ${response.status}.`, {
+    throw createFetcherError(config, EFetcherErrorName.RESPONSE_STATUS, `Response status ${response.status}.`, {
       code: `${response.status}`,
       responseData
     });
   }
   
-  return buildResponseX(response, responseHeaders, fetcherConfig);
+  return buildResponseX(response, responseHeaders, config);
 }

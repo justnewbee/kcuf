@@ -13,12 +13,12 @@ import {
  * 2. 合并接口请求，则直接返回合并前的临时 Promise
  * 3. 请求被代理到新的 Promise
  */
-export default function createFetcherErrorSkipNetwork<T = void>(result: T | Promise<T>, fetcherConfig: IFetcherConfig): IFetcherErrorSkipNetwork<T> {
+export default function createFetcherErrorSkipNetwork<T = void>(result: T | Promise<T>, config: IFetcherConfig): IFetcherErrorSkipNetwork<T> {
   const error: IFetcherErrorSkipNetwork<T> = new Error() as IFetcherErrorSkipNetwork<T>;
   
   error.name = 'FetcherSkipNetwork';
   error.result = result;
-  error.config = fetcherConfig;
+  error.config = config;
   
   return error;
 }

@@ -12,7 +12,7 @@ export type TFetcherPostArgs<B = void, P = void> = [string, B?, P?] | [IFetcherC
  * 执行请求的方法定义
  */
 export interface IFetcherCallRequest {
-  <T = unknown>(fetcherConfig: IFetcherConfig): Promise<T>;
+  <T = unknown>(config: IFetcherConfig): Promise<T>;
 }
 
 /**

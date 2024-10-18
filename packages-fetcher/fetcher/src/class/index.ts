@@ -48,8 +48,8 @@ export default class Fetcher implements IFetcherClass {
   /**
    * 传递给 interceptor，这样在 interceptor 内部有需要的话可以通过它加上 fetcherConfig 进行重新请求
    */
-  private requestForInterceptor = <T>(fetcherConfig: IFetcherConfig): Promise<T> => this.request<T>({
-    ...fetcherConfig,
+  private requestForInterceptor = <T>(config: IFetcherConfig): Promise<T> => this.request<T>({
+    ...config,
     _byInterceptor: true
   });
   
@@ -73,13 +73,13 @@ export default class Fetcher implements IFetcherClass {
   }
   
   /**
-   * 逐个调用请求拦截器，每个拦截器可以返回部分期望修改的 fetcherConfig（也可以不返回任何东西），最终得到的是合并后完整的 fetcherConfig 对象。
+   * 逐个调用请求拦截器，每个拦截器可以返回部分期望修改的 config（也可以不返回任何东西），最终得到的是合并后完整的 FetcherConfig 对象。
    *
    * 注意，Request 拦截器是一条不会反转 Reject 的 Promise 链，即只要其中任何一环 `throw`，即表明接口失败，并且不会进行真正的接口调用，也不会
    * 进入响应拦截流程。
    */
-  private invokeInterceptorQueueRequest(fetcherConfig: IFetcherConfig): Promise<IFetcherConfig> {
-    let promise: Promise<IFetcherConfig> = Promise.resolve(fetcherConfig);
+  private invokeInterceptorQueueRequest(config: IFetcherConfig): Promise<IFetcherConfig> {
+    let promise: Promise<IFetcherConfig> = Promise.resolve(config);
     
     this.getInterceptorRequestQueue().forEach(v => {
       promise = promise.then((configLastMerged: IFetcherConfig) => { // 上一次 merge 完的结果
@@ -105,7 +105,7 @@ export default class Fetcher implements IFetcherClass {
   /**
    * 逐个调用响应拦截器，你可以在 `onFulfilled` 里转换数据或者将结果转成错误；也可以在 `onReject` 中将结果反转成成功。
    */
-  private async invokeInterceptorQueueResponse<T>(fetcherConfig: IFetcherConfig, fetcherResponse?: IFetcherResponse<T>, error?: IFetcherError): Promise<T> {
+  private async invokeInterceptorQueueResponse<T>(config: IFetcherConfig, fetcherResponse?: IFetcherResponse<T>, error?: IFetcherError): Promise<T> {
     let promise: Promise<T>;
     
     if (fetcherResponse) {
@@ -117,21 +117,21 @@ export default class Fetcher implements IFetcherClass {
     // 逐个调用响应拦截器，如果有 success 则其返回将作为结果传递给下一个拦截器
     this.getInterceptorResponseQueue().forEach(v => {
       promise = promise.then((result: T) => {
-        return v.onFulfilled ? v.onFulfilled(result, fetcherConfig, fetcherResponse, this.requestForInterceptor) as T : result;
+        return v.onFulfilled ? v.onFulfilled(result, config, fetcherResponse, this.requestForInterceptor) as T : result;
       }, err => {
-        const error2 = convertError(err, fetcherConfig);
+        const error2 = convertError(err, config);
         
         /**
          * 如果继续 throw 则 promise 继续 reject，如果不 throw 则 promise 将被 resolve
          * 所以这里提供了「纠错」和「调整错误」两个功能
          */
         if (v.onRejected) {
-          return v.onRejected(error2, fetcherConfig, fetcherResponse, this.requestForInterceptor) as T;
+          return v.onRejected(error2, config, fetcherResponse, this.requestForInterceptor) as T;
         }
         
         throw error2;
       }).catch(err => {
-        const error2 = convertError(err, fetcherConfig);
+        const error2 = convertError(err, config);
         
         if (fetcherResponse?.data) {
           error2.responseData = fetcherResponse.data;

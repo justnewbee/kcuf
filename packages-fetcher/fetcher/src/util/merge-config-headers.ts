@@ -3,13 +3,18 @@ import {
   IFetcherConfig
 } from '../types';
 
-import normalizeHeaders from './normalize-headers';
+import mergeHeaders from './merge-headers';
 
 export default function mergeConfigHeaders(config: IFetcherConfig, headers?: TFetcherHeaders): void {
-  if (headers) {
-    config.headers = {
-      ...config.headers,
-      ...normalizeHeaders(headers)
-    };
+  if (!headers) {
+    return;
   }
+  
+  if (!config.headers) {
+    config.headers = headers;
+    
+    return;
+  }
+  
+  config.headers = mergeHeaders(config.headers, headers);
 }

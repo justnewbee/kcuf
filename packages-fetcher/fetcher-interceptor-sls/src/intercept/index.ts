@@ -10,7 +10,7 @@ import {
   IFetcherInterceptorSlsOptions
 } from '../types';
 
-const FLATTEN_PASS = ['request.headers', 'request.body', 'response.headers', 'response.data'];
+const FLATTEN_DIRECT = ['request.headers', 'request.body', 'response.headers', 'response.data'];
 
 function getDuration(config: FetcherConfig): number {
   return config._timeStarted ? Date.now() - config._timeStarted : -1;
@@ -27,7 +27,7 @@ export default function intercept(fetcher: Fetcher, options: IFetcherInterceptor
   function onFulfilled(data: unknown, config: FetcherConfig, response: FetcherResponse<unknown> | undefined): unknown {
     sls({
       flatten: {
-        pass: FLATTEN_PASS
+        direct: FLATTEN_DIRECT
       }
     }, topicSuccess, {
       request: config,
@@ -42,7 +42,7 @@ export default function intercept(fetcher: Fetcher, options: IFetcherInterceptor
     sls.error({
       flatten: {
         omit: 'error.config',
-        pass: FLATTEN_PASS
+        direct: FLATTEN_DIRECT
       }
     }, topicError, {
       error,

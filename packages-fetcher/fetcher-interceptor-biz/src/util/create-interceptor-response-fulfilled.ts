@@ -21,17 +21,17 @@ import getErrorMessage from './get-error-message';
  * 这里会判断业务是否成功，如果成功则返回从原屎返回中得出的真正的数据，如果失败在抛出 FetchErrorBiz。
  */
 export default function createInterceptorResponseFulfilled(options?: IFetcherInterceptBizOptions): FetcherInterceptResponseFulfilled {
-  return (o: unknown, fetcherConfig: FetcherConfig): unknown => {
+  return (o: unknown, config: FetcherConfig): unknown => {
     const result = o as TResponseResult;
-    const success = isResponseSuccess(result, fetcherConfig.isSuccess ?? options?.isSuccess);
+    const success = isResponseSuccess(result, config.isSuccess ?? options?.isSuccess);
     
     if (success) {
-      return getDataFromResponse(result, fetcherConfig.getData ?? options?.getData);
+      return getDataFromResponse(result, config.getData ?? options?.getData);
     }
     
-    throw createFetcherError(fetcherConfig, FetcherErrorName.BIZ, getErrorMessage(result, fetcherConfig.getMessage ?? options?.getMessage) || '', {
-      code: getErrorCode(result, fetcherConfig.getCode ?? options?.getCode) || '__UNKNOWN__',
-      title: getErrorTitle(result, fetcherConfig.getTitle ?? options?.getTitle)
+    throw createFetcherError(config, FetcherErrorName.BIZ, getErrorMessage(result, config.getMessage ?? options?.getMessage) || '', {
+      code: getErrorCode(result, config.getCode ?? options?.getCode) || '__UNKNOWN__',
+      title: getErrorTitle(result, config.getTitle ?? options?.getTitle)
     });
   };
 }

@@ -13,19 +13,23 @@ export interface IBuildUrlOptions {
   serializeOptions?: IStringifyOptions;
 }
 
-export type TFetcherHeaders = Record<string, string | number | boolean>;
+export type TFetcherHeaders = Record<string, string | number | boolean> | Headers;
+
+export type TFetcherParamsMergeable = Record<string, unknown> | URLSearchParams;
 
 /**
  * 能够接受的 URL 参数类型
  */
-export type TFetcherParams = Record<string, unknown> | string | null;
+export type TFetcherParams = TFetcherParamsMergeable | string | null;
+
+export type TFetcherBodyMergeable = Record<string, unknown> | URLSearchParams | FormData;
 
 /**
  * 能够接受 body 类型，是 `BodyInit` 的子集 + `Record<string, unknown>`
  *
  * `BodyInit = ReadableStream | Blob | BufferSource | FormData | URLSearchParams | string`
  */
-export type TFetcherBody = Record<string, unknown> | URLSearchParams | FormData | Blob | string;
+export type TFetcherBody = TFetcherBodyMergeable | Blob | string | null;
 
 export interface IErrorExtendedInfo {
   /**

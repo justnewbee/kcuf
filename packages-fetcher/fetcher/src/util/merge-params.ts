@@ -1,21 +1,17 @@
-import qs, {
-  IParseOptions
-} from 'qs';
-
 import {
-  TFetcherParams
+  TFetcherParamsMergeable
 } from '../types';
 
-/**
- * 合并多个参数，如果传入的有字符串，会先 parse 成对象再合并
- */
-export default function mergeParams(arr: TFetcherParams[], parseOptions?: IParseOptions): Record<string, unknown> { // eslint-disable-line @typescript-eslint/no-explicit-any
-  return arr.filter(v => v).reduce((result: Record<string, unknown>, v: Record<string, unknown> | string) => {
-    const mix: Record<string, unknown> = typeof v === 'string' ? qs.parse(v, parseOptions) : v;
-    
-    return {
-      ...result,
-      ...mix
-    };
-  }, {});
+import cloneTypeSearchParams from './clone-type-search-params';
+import mergeTypeSearchParams from './merge-type-search-params';
+
+export default function mergeParams(params1: TFetcherParamsMergeable, params2: TFetcherParamsMergeable): TFetcherParamsMergeable {
+  if (params1 instanceof URLSearchParams || params2 instanceof URLSearchParams) {
+    return mergeTypeSearchParams(cloneTypeSearchParams(params1), cloneTypeSearchParams(params2));
+  }
+  
+  return {
+    ...params2,
+    ...params1
+  };
 }

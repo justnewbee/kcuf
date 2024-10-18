@@ -10,12 +10,12 @@ import cacheRemoveMatched from './cache-remove-matched';
 import cacheResolve from './cache-resolve';
 
 export default function createInterceptorResponseFulfilled(): FetcherInterceptResponseFulfilled {
-  return (data: unknown, fetcherConfig: FetcherConfig): unknown => {
-    if (fetcherConfig.cacheLocalRemove) {
-      cacheRemoveMatched(fetcherConfig.cacheLocalRemove);
+  return (data: unknown, config: FetcherConfig): unknown => {
+    if (config.cacheLocalRemove) {
+      cacheRemoveMatched(config.cacheLocalRemove);
     }
     
-    const cacheLocal = parseCacheLocalOptions(fetcherConfig);
+    const cacheLocal = parseCacheLocalOptions(config);
     
     if (cacheLocal) {
       cacheResolve(cacheLocal.key, data, cacheLocal.ttl);

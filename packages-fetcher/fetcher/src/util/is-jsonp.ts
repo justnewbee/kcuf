@@ -4,6 +4,6 @@ import {
 
 const REG_JSONP = /^JSONP$/i;
 
-export default function isJsonp(fetcherConfig: IFetcherConfig): boolean {
-  return !!fetcherConfig.method && REG_JSONP.test(fetcherConfig.method);
+export default function isJsonp(config: IFetcherConfig): boolean {
+  return !!config.method && REG_JSONP.test(config.method);
 }
