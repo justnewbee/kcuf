@@ -8,6 +8,6 @@ export type {
 } from './types';
 
 export {
-  EButtonTheme as ButtonTheme,
+  EButtonVariant as ButtonTheme,
   EButtonSize as ButtonSize
 } from './enum';

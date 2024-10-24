@@ -1,7 +1,7 @@
 {
-  "name": "@kcuf/fetcher-interceptor-sls",
-  "version": "0.1.7",
-  "description": "Fetcher interceptor to do sls log when request success or fail.",
+  "name": "@kcuf/template-lib",
+  "version": "0.0.0",
+  "description": "Some description.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-fetcher/fetcher-interceptor-sls",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-xx/template-lib",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -30,8 +30,6 @@
     "@kcuf/ts-config": "workspace:^",
     "@types/react": "^18.3.12",
     "@vitest/coverage-v8": "^2.1.3",
-    "fetch-mock": "^11.1.5",
-    "jsdom": "^25.0.1",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
     "typescript": "^5.6.3",
@@ -39,10 +37,6 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.24.8"
-  },
-  "dependencies": {
-    "@kcuf/fetcher": "workspace:^",
-    "@kcuf/sls-logger-web": "workspace:^"
   },
   "scripts": {
     "build:clean": "rimraf dist",

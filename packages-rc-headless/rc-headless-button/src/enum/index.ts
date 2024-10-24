@@ -8,7 +8,7 @@ export enum EButtonSize {
   XL = 'xl'
 }
 
-export enum EButtonTheme {
+export enum EButtonVariant {
   NONE = 'none',
   DANGER = 'danger',
   MENU = 'menu',

@@ -6,7 +6,7 @@ import {
 } from 'react';
 
 import {
-  EButtonTheme,
+  EButtonVariant,
   EButtonSize
 } from '../enum';
 
@@ -50,7 +50,7 @@ export interface IPropsCustom {
    * 右侧 Icon，类上
    */
   iconRight?: ReactElement;
-  theme?: EButtonTheme;
+  theme?: EButtonVariant;
   size?: EButtonSize;
   /**
    * a button is by default center aligned (`align` is a deprecated HTML attribute)

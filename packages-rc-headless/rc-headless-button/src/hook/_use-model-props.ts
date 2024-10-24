@@ -3,7 +3,7 @@ import {
 } from 'react';
 
 import {
-  EButtonTheme
+  EButtonVariant
 } from '../enum';
 import {
   IPropsCustom,
@@ -31,7 +31,7 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
       iconSpacing,
       iconLeft,
       iconRight,
-      theme = EButtonTheme.TERTIARY,
+      theme = EButtonVariant.TERTIARY,
       size,
       textAlign,
       cursor,
