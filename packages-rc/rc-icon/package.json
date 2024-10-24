@@ -1,0 +1,70 @@
+{
+  "name": "@kcuf/rc-icon",
+  "version": "0.0.1",
+  "description": "Icon used in all @kcuf/rc- components.",
+  "keywords": [],
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnewbee/kcuf.git"
+  },
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-rc/rc-icon",
+  "bugs": "https://github.com/justnewbee/kcuf/issues",
+  "author": {
+    "name": "Jianchun Wang",
+    "email": "justnewbee@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.25.9",
+    "@babel/plugin-transform-react-jsx": "^7.25.9",
+    "@babel/plugin-transform-runtime": "^7.25.9",
+    "@babel/preset-env": "^7.25.9",
+    "@babel/preset-react": "^7.25.9",
+    "@babel/preset-typescript": "^7.25.9",
+    "@chromatic-com/storybook": "^1.9.0",
+    "@kcuf/demo-rc": "workspace:^",
+    "@kcuf/ts-config": "workspace:^",
+    "@storybook/addon-essentials": "^8.3.6",
+    "@storybook/addon-interactions": "^8.3.6",
+    "@storybook/addon-links": "^8.3.6",
+    "@storybook/addon-onboarding": "^8.3.6",
+    "@storybook/blocks": "^8.3.6",
+    "@storybook/react": "^8.3.6",
+    "@storybook/react-vite": "^8.3.6",
+    "@storybook/test": "^8.3.6",
+    "@types/react": "^18.3.12",
+    "babel-plugin-styled-components": "^2.1.4",
+    "react": "^18.3.1",
+    "rimraf": "^6.0.1",
+    "storybook": "^8.3.6",
+    "styled-components": "^6.1.13",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "^7.24.8",
+    "react": "^18.x",
+    "styled-components": "^6.x"
+  },
+  "dependencies": {
+    "@kcuf/rc-icon-base": "workspace:^*"
+  },
+  "scripts": {
+    "start": "storybook dev -p 6006",
+    "build:clean": "rimraf dist",
+    "build:esm": "ESM=1 babel src -d dist/esm --extensions .ts,.tsx --source-maps",
+    "build:cjs": "ESM=0 babel src -d dist/cjs --extensions .ts,.tsx",
+    "build:types": "tsc -rootDir src --outDir dist/types --declaration --noEmit false --emitDeclarationOnly --isolatedModules false",
+    "build:sb": "storybook build",
+    "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
+    "watch": "pnpm build:esm -w",
+    "prepublishOnly": "pnpm build:clean && pnpm build"
+  }
+}
