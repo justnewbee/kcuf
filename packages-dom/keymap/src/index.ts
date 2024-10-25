@@ -31,14 +31,13 @@ import {
 export default function keymap(keyBindingMap: IKeyBindingMap, {
   target = window,
   keyup,
-  capture,
+  capture = true,
   timeout
 }: IKeymapOptions = {}): () => void {
-  const onKeyEvent = createKeybindingsHandler(keyBindingMap, {timeout});
-  
+  const handleKeyEvent = createKeybindingsHandler(keyBindingMap, timeout);
   const event = keyup ? 'keyup' : 'keydown';
   
-  target.addEventListener(event, onKeyEvent, capture);
+  target.addEventListener(event, handleKeyEvent, capture);
   
-  return () => target.removeEventListener(event, onKeyEvent, capture);
+  return () => target.removeEventListener(event, handleKeyEvent, capture);
 }

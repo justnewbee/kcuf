@@ -1,9 +1,11 @@
 import {
-  IKeyBindingHandlerOptions,
   IKeyBindingMap,
   TKeyBindingPress
 } from '../types';
-import { DEFAULT_TIMEOUT } from '../const';
+import {
+  DEFAULT_TIMEOUT
+} from '../const';
+
 import parseKeybinding from './parse-key-binding';
 import matchKeyBindingPress from './match-key-binding-press';
 import getModifierState from './get-modifier-state';
@@ -30,34 +32,21 @@ import getModifierState from './get-modifier-state';
  * window.addEvenListener("keydown", handler)
  * ```
  */
-export default function createKeybindingsHandler(
-  keyBindingMap: IKeyBindingMap,
-  options: IKeyBindingHandlerOptions = {}
-): EventListener {
-  let timeout = options.timeout ?? DEFAULT_TIMEOUT;
-  let keyBindings = Object.keys(keyBindingMap).map(key => {
+export default function createKeybindingsHandler(keyBindingMap: IKeyBindingMap, timeout = DEFAULT_TIMEOUT): (event: KeyboardEvent) => void {
+  const keyBindings = Object.keys(keyBindingMap).map(key => {
     return [parseKeybinding(key), keyBindingMap[key]] as const;
   });
-  let possibleMatches = new Map<TKeyBindingPress[], TKeyBindingPress[]>();
-  let timer: number | null = null;
+  const possibleMatches = new Map<TKeyBindingPress[], TKeyBindingPress[]>();
+  let timer: ReturnType<typeof setTimeout> | null = null;
   
-  return event => {
-    // Ensure and stop any event that isn't a full keyboard event.
-    // Autocomplete option navigation and selection would fire a instanceof Event,
-    // instead of the expected KeyboardEvent
-    if (!(event instanceof KeyboardEvent)) {
-      return;
-    }
-    
+  return (event: KeyboardEvent) => {
     keyBindings.forEach(keyBinding => {
-      let sequence = keyBinding[0];
-      let callback = keyBinding[1];
-      
-      let prev = possibleMatches.get(sequence);
-      let remainingExpectedPresses = prev ? prev : sequence;
-      let currentExpectedPress = remainingExpectedPresses[0];
-      
-      let matches = matchKeyBindingPress(event, currentExpectedPress);
+      const sequence = keyBinding[0];
+      const callback = keyBinding[1];
+      const prev = possibleMatches.get(sequence);
+      const remainingExpectedPresses = prev || sequence;
+      const currentExpectedPress = remainingExpectedPresses[0];
+      const matches = matchKeyBindingPress(event, currentExpectedPress);
       
       if (!matches) {
         // Modifier keydown events shouldn't break sequences
