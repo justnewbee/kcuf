@@ -41,7 +41,7 @@ export default function KeymapDemo({
   }), [keystroke, onFire]);
   
   return <P>
-    {splitKeystroke(keystroke).map((v, i) => <kbd key={`${v}-${i}`}>{v === ' ' ? ' ' : v}</kbd>)}
+    {splitKeystroke(keystroke).map((v, i) => <kbd key={`${v}-${i}`}>{v === ' ' ? '空格' : v}</kbd>)}
     {stateFired > 0 ? <ScFired>Fired: <code>{stateFired}</code></ScFired> : null}
   </P>;
 }

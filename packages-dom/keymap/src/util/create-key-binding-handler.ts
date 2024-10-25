@@ -41,7 +41,7 @@ export default function createKeyBindingHandler(key: string, callback, timeout =
     const prev = possibleMatches.get(keybinding);
     const remainingExpectedPresses = prev || keybinding;
     const currentExpectedPress = remainingExpectedPresses[0];
-    const matches = matchKeybinding(currentExpectedPress, event);
+    const matches = currentExpectedPress ? matchKeybinding(currentExpectedPress, event) : false;
     
     if (!matches) {
       // Modifier keydown events shouldn't break sequences

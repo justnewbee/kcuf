@@ -55,6 +55,9 @@ export default function StoryDefault(): ReactElement {
       keystroke: 'Ctrl+Z Ctrl+X'
     }} />
     <KeymapDemo {...{
+      keystroke: 'Control+Z Shift+X'
+    }} />
+    <KeymapDemo {...{
       keystroke: 'h e l l o'
     }} />
     <KeymapDemo {...{
