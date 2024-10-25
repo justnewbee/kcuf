@@ -1,3 +1,7 @@
+import {
+  EModifier
+} from '../enum';
+
 /**
  * These are the modifier keys that change the meaning of keybindings.
  *
@@ -32,3 +36,19 @@ export const MOD = APPLE_DEVICE ? 'Meta' : 'Control';
  * @see https://kkgithub.com/jamiebuilds/tinykeys/issues/185
  */
 export const ALT_GRAPH_ALIASES = PLATFORM === 'Win32' ? ['Control', 'Alt'] : APPLE_DEVICE ? ['Alt'] : [];
+
+export const MODIFIER_MAPPING: Record<string, EModifier> = {
+  control: EModifier.CONTROL,
+  ctrl: EModifier.CONTROL,
+  '⌃': EModifier.CONTROL,
+  alt: EModifier.ALT,
+  option: EModifier.ALT,
+  '⌥': EModifier.ALT,
+  shift: EModifier.SHIFT,
+  '⇧': EModifier.SHIFT,
+  meta: EModifier.META,
+  command: EModifier.META,
+  cmd: EModifier.META,
+  '⌘': EModifier.META,
+  $mod: APPLE_DEVICE ? EModifier.META : EModifier.CONTROL
+};

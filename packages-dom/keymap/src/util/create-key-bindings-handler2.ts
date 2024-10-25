@@ -1,4 +1,5 @@
 import {
+  IKeybindingParseResult,
   TKeyBindingPress
 } from '../types';
 import {
@@ -7,7 +8,7 @@ import {
 
 import parseKeybinding from './parse-key-binding';
 import parseKeybinding2 from './parse-key-binding2';
-import matchKeyBindingPress from './match-key-binding-press';
+import matchKeyBindingPress from './match-key-binding-press2';
 import getModifierState from './get-modifier-state';
 
 /**
@@ -33,10 +34,10 @@ import getModifierState from './get-modifier-state';
  * ```
  */
 export default function createKeybindingsHandler(key: string, callback, timeout = DEFAULT_TIMEOUT): (event: KeyboardEvent) => void {
-  const possibleMatches = new Map<TKeyBindingPress[], TKeyBindingPress[]>();
+  const possibleMatches = new Map<IKeybindingParseResult[], IKeybindingParseResult[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
   
-  const sequence = parseKeybinding(key);
+  const sequence = parseKeybinding2(key);
   
   return (event: KeyboardEvent) => {
     const prev = possibleMatches.get(sequence);

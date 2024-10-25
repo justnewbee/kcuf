@@ -1,13 +1,15 @@
+import {
+  EModifier
+} from '../enum';
+
 /**
  * A single press of a keybinding sequence
  */
 export type TKeyBindingPress = [mods: string[], key: string | RegExp]
 
-/**
- * A map of keybinding strings to event handlers.
- */
-export interface IKeyBindingMap {
-  [keybinding: string]: (event: KeyboardEvent) => void;
+export interface IKeybindingParseResult {
+  modifiers: EModifier[];
+  key: string | RegExp;
 }
 
 export interface IKeymapOptions {

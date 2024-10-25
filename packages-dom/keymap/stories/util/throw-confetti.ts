@@ -1,19 +1,27 @@
 import confetti from 'canvas-confetti';
 
-export default function throwConfetti(): void {
-  const duration = 5 * 1000;
-  const animationEnd = Date.now() + duration;
-  const defaults = {
+const DURATION = 5 * 1000;
+
+function randomInRange(min: number, max: number): number {
+  return Math.random() * (max - min) + min;
+}
+
+function throwOne(particleCount: number, x: number): void {
+  confetti({ // since particles fall down, start a bit higher than random
     startVelocity: 30,
     spread: 360,
     ticks: 60,
-    zIndex: 0
-  };
-  
-  function randomInRange(min: number, max: number) {
-    return Math.random() * (max - min) + min;
-  }
-  
+    zIndex: 0,
+    particleCount,
+    origin: {
+      x,
+      y: Math.random() - 0.2
+    }
+  });
+}
+
+export default function throwConfetti(): void {
+  const animationEnd = Date.now() + DURATION;
   const interval = setInterval(() => {
     const timeLeft = animationEnd - Date.now();
     
@@ -21,23 +29,10 @@ export default function throwConfetti(): void {
       return clearInterval(interval);
     }
     
-    const particleCount = 50 * (timeLeft / duration);
+    const particleCount = 50 * (timeLeft / DURATION);
+    
     // since particles fall down, start a bit higher than random
-    confetti({
-      ...defaults,
-      particleCount,
-      origin: {
-        x: randomInRange(0.1, 0.3),
-        y: Math.random() - 0.2
-      }
-    });
-    confetti({
-      ...defaults,
-      particleCount,
-      origin: {
-        x: randomInRange(0.7, 0.9),
-        y: Math.random() - 0.2
-      }
-    });
+    throwOne(particleCount, randomInRange(0.1, 0.3));
+    throwOne(particleCount, randomInRange(0.7, 0.9));
   }, 250);
 }
