@@ -6,3 +6,4 @@ reject:
   - 'eslint' # 9 还不行
   - 'unfetch' # 5.0 输出的是 .mjs 对构建有要求...
   - '@chromatic-com/storybook' # 2.0.0 导致 storybook 启动时报错
+  - 'fetch-mock' # 12 BREAK without guide

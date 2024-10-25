@@ -1,15 +1,16 @@
-import { TKeyBindingPress } from '../types';
+import {
+  TKeyBindingPress
+} from '../types';
+import {
+  KEYBINDING_MODIFIER_KEYS
+} from '../const';
+
 import getModifierState from './get-modifier-state';
-import { KEYBINDING_MODIFIER_KEYS } from '../const';
 
 /**
  * This tells us if a single keyboard event matches a single keybinding press.
  */
-export default function matchKeyBindingPress(
-  event: KeyboardEvent,
-  [mods, key]: TKeyBindingPress
-): boolean {
-  // prettier-ignore
+export default function matchKeyBindingPress(event: KeyboardEvent, [mods, key]: TKeyBindingPress): boolean {
   return !(
     // Allow either the `event.key` or the `event.code`
     // MDN event.key: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key

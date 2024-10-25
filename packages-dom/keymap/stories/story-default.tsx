@@ -3,49 +3,34 @@ import {
   useEffect
 } from 'react';
 
-import keymap from '../src';
-
 import {
-  Button
+  P
 } from '@kcuf/demo-rc';
 
-import {
-  throwConfetti
-} from './util';
+import keymap from '../src';
+
+import Hello from './rc/hello';
+import Konami from './rc/konami';
 
 export default function StoryDefault(): ReactElement {
   useEffect(() => {
-    keymap(window, {
+    keymap({
       'Shift+D': () => {
         alert('The \'Shift\' and \'d\' keys were pressed at the same time');
       },
-      'h e l l o': () => {
-        alert('The keys \'y\', \'e\', \'e\', and \'t\' were pressed in order');
+      '*': () => {
+        alert('The \'?\' keys were pressed at the same time');
       },
       '$mod+([1-9])': event => {
         event.preventDefault();
         alert(`Either 'Control+${event.key}' or 'Meta+${event.key}' were pressed`);
       }
     });
-    
-    const KonamiCode = [
-      'ArrowUp',
-      'ArrowUp',
-      'ArrowDown',
-      'ArrowDown',
-      'ArrowLeft',
-      'ArrowRight',
-      'ArrowLeft',
-      'ArrowRight',
-      'KeyB',
-      'KeyA',
-      'Enter'
-    ].join(' ');
-    
-    keymap(window, {
-      [KonamiCode]: throwConfetti
-    });
   }, []);
   
-  return <Button>FUCKME</Button>;
+  return <>
+    <P><kbd>Shift+D</kbd></P>
+    <Hello />
+    <Konami />
+  </>;
 }

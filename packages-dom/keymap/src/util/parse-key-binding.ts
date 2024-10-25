@@ -1,5 +1,9 @@
-import { TKeyBindingPress } from '../types';
-import { MOD } from '../const';
+import {
+  TKeyBindingPress
+} from '../types';
+import {
+  MOD
+} from '../const';
 
 /**
  * Parses a "Key Binding String" into its parts
@@ -12,17 +16,17 @@ import { MOD } from '../const';
  * <key>      = `(<regex>)` -> `/^<regex>$/` (case-sensitive)
  */
 export default function parseKeybinding(str: string): TKeyBindingPress[] {
-  return str
-    .trim()
-    .split(' ')
-    .map(press => {
-      let mods = press.split(/\b\+/);
-      let key: string | RegExp = mods.pop() as string;
-      let match = key.match(/^\((.+)\)$/);
-      if (match) {
-        key = new RegExp(`^${match[1]}$`);
-      }
-      mods = mods.map(mod => (mod === '$mod' ? MOD : mod));
-      return [mods, key];
-    });
+  return str.trim().split(' ').map(press => {
+    let mods = press.split(/\b\+/);
+    let key: string | RegExp = mods.pop() as string;
+    const match = key.match(/^\((.+)\)$/);
+    
+    if (match) {
+      key = new RegExp(`^${match[1]}$`);
+    }
+    
+    mods = mods.map(mod => (mod === '$mod' ? MOD : mod));
+    
+    return [mods, key];
+  });
 }

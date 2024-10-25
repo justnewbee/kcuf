@@ -31,7 +31,8 @@ import {
  * })
  * ```
  */
-export default function keymap(target: Window | HTMLElement, keyBindingMap: IKeyBindingMap, {
+export default function keymap(keyBindingMap: IKeyBindingMap, {
+  target = window,
   event = DEFAULT_EVENT,
   capture,
   timeout
