@@ -2,9 +2,25 @@ import {
   EModifier
 } from '../enum';
 import {
-  MODIFIER_MAPPING
+  APPLE_DEVICE
 } from '../const';
 
+const MAPPING: Record<string, EModifier> = {
+  CONTROL: EModifier.CONTROL,
+  CTRL: EModifier.CONTROL,
+  '⌃': EModifier.CONTROL,
+  ALT: EModifier.ALT,
+  OPTION: EModifier.ALT,
+  '⌥': EModifier.ALT,
+  SHIFT: EModifier.SHIFT,
+  '⇧': EModifier.SHIFT,
+  META: EModifier.META,
+  COMMAND: EModifier.META,
+  CMD: EModifier.META,
+  '⌘': EModifier.META,
+  $MOD: APPLE_DEVICE ? EModifier.META : EModifier.CONTROL
+};
+
 export default function normalizeModifier(modifier: string): EModifier | null {
-  return MODIFIER_MAPPING[modifier.toLowerCase()] || null;
+  return MAPPING[modifier.toUpperCase()] || null;
 }

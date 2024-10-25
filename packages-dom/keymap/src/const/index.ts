@@ -52,3 +52,19 @@ export const MODIFIER_MAPPING: Record<string, EModifier> = {
   '⌘': EModifier.META,
   $mod: APPLE_DEVICE ? EModifier.META : EModifier.CONTROL
 };
+
+export const KEY_MAPPING: Record<string, string> = {
+  control: 'Enter',
+  ctrl: EModifier.CONTROL,
+  '⌃': EModifier.CONTROL,
+  alt: EModifier.ALT,
+  option: EModifier.ALT,
+  '⌥': EModifier.ALT,
+  shift: EModifier.SHIFT,
+  '⇧': EModifier.SHIFT,
+  meta: EModifier.META,
+  command: EModifier.META,
+  cmd: EModifier.META,
+  '⌘': EModifier.META,
+  $mod: APPLE_DEVICE ? EModifier.META : EModifier.CONTROL
+};

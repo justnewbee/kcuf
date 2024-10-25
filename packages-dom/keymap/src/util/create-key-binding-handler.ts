@@ -1,5 +1,5 @@
 import {
-  IKeybindingParseResult,
+  IKeybinding,
   TKeyBindingPress
 } from '../types';
 import {
@@ -7,8 +7,7 @@ import {
 } from '../const';
 
 import parseKeybinding from './parse-key-binding';
-import parseKeybinding2 from './parse-key-binding2';
-import matchKeyBindingPress from './match-key-binding-press2';
+import matchKeybinding from './match-keybinding';
 import getModifierState from './get-modifier-state';
 
 /**
@@ -33,17 +32,16 @@ import getModifierState from './get-modifier-state';
  * window.addEvenListener("keydown", handler)
  * ```
  */
-export default function createKeybindingsHandler(key: string, callback, timeout = DEFAULT_TIMEOUT): (event: KeyboardEvent) => void {
-  const possibleMatches = new Map<IKeybindingParseResult[], IKeybindingParseResult[]>();
+export default function createKeyBindingHandler(key: string, callback, timeout = DEFAULT_TIMEOUT): (event: KeyboardEvent) => void {
+  const possibleMatches = new Map<IKeybinding[], IKeybinding[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
-  
-  const sequence = parseKeybinding2(key);
+  const keybinding = parseKeybinding(key);
   
   return (event: KeyboardEvent) => {
-    const prev = possibleMatches.get(sequence);
-    const remainingExpectedPresses = prev || sequence;
+    const prev = possibleMatches.get(keybinding);
+    const remainingExpectedPresses = prev || keybinding;
     const currentExpectedPress = remainingExpectedPresses[0];
-    const matches = matchKeyBindingPress(event, currentExpectedPress);
+    const matches = matchKeybinding(currentExpectedPress, event);
     
     if (!matches) {
       // Modifier keydown events shouldn't break sequences
@@ -52,12 +50,12 @@ export default function createKeybindingsHandler(key: string, callback, timeout 
       // - if the current keypress is a modifier then it will return true when we check its state
       // MDN: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
       if (!getModifierState(event, event.key)) {
-        possibleMatches.delete(sequence);
+        possibleMatches.delete(keybinding);
       }
     } else if (remainingExpectedPresses.length > 1) {
-      possibleMatches.set(sequence, remainingExpectedPresses.slice(1));
+      possibleMatches.set(keybinding, remainingExpectedPresses.slice(1));
     } else {
-      possibleMatches.delete(sequence);
+      possibleMatches.delete(keybinding);
       callback(event);
     }
     

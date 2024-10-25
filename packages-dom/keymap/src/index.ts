@@ -2,7 +2,7 @@ import {
   IKeymapOptions
 } from './types';
 import {
-  createKeybindingsHandler2
+  createKeybindingsHandler
 } from './util';
 
 /**
@@ -27,13 +27,13 @@ import {
  * })
  * ```
  */
-export default function keymap(keybinding: string, callback, {
+export default function keymap(keystroke: string, callback, {
   target = window,
   keyup,
   capture = true,
   timeout
 }: IKeymapOptions = {}): () => void {
-  const handleKeyEvent = createKeybindingsHandler2(keybinding, callback, timeout);
+  const handleKeyEvent = createKeybindingsHandler(keystroke, callback, timeout);
   const event = keyup ? 'keyup' : 'keydown';
   
   target.addEventListener(event, handleKeyEvent, capture);

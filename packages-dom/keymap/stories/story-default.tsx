@@ -1,29 +1,86 @@
 import {
-  ReactElement,
-  useEffect
+  ReactElement
 } from 'react';
 
 import {
-  P
+  MinimalNormalize,
+  H1
 } from '@kcuf/demo-rc';
 
-import keymap from '../src';
-
-import Hello from './rc/hello';
-import Konami from './rc/konami';
+import KeymapDemo from './rc/keymap-demo';
+import {
+  throwConfetti
+} from './util';
 
 export default function StoryDefault(): ReactElement {
-  useEffect(() => keymap('Shift+D', () => {
-    alert('The \'Shift\' and \'d\' keys were pressed at the same time');
-  }), []);
-  useEffect(() => keymap('$mod+([1-9])', event => {
-    event.preventDefault();
-    alert(`Either 'Control+${event.key}' or 'Meta+${event.key}' were pressed`);
-  }), []);
-  
   return <>
-    <P><kbd>Shift+D</kbd></P>
-    <Hello />
-    <Konami />
+    <MinimalNormalize />
+    <H1>Single</H1>
+    <KeymapDemo {...{
+      keystroke: '1'
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'p'
+    }} />
+    <H1>Modifiers</H1>
+    <KeymapDemo {...{
+      keystroke: 'shift+a'
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'Shift+B'
+    }} />
+    <KeymapDemo {...{
+      keystroke: '⇧+C'
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'Ctrl+E'
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'Control+F'
+    }} />
+    <KeymapDemo {...{
+      keystroke: '⌃+G'
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'Alt+H'
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'Option+I'
+    }} />
+    <KeymapDemo {...{
+      keystroke: '⌥+J'
+    }} />
+    <H1>Combo</H1>
+    <KeymapDemo {...{
+      keystroke: 'Ctrl+Z Ctrl+X'
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'h e l l o'
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'C + +'
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'ArrowUp ArrowUp ArrowDown ArrowDown ArrowLeft ArrowRight ArrowLeft ArrowRight B A Enter',
+      onFire: throwConfetti
+    }} />
+    <KeymapDemo {...{
+      keystroke: '↑ ↑ ↓ ↓ ← → ← → B A B A ⏎',
+      onFire: throwConfetti
+    }} />
+    <KeymapDemo {...{
+      keystroke: 'T E N T H L E V E L T A U R E N C H I E F T A I N',
+      onFire: throwConfetti
+    }} />
+    <H1>加号 <code>+</code> 和空格有特殊用途</H1>
+    <KeymapDemo {...{
+      keystroke: ' '
+    }} />
+    <KeymapDemo {...{
+      keystroke: '␣'
+    }} />
+    <KeymapDemo {...{
+      keystroke: '+'
+    }} />
   </>;
 }

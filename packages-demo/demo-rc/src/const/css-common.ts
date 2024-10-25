@@ -57,7 +57,7 @@ export const CSS_INLINE_ELEMENTS_INSIDE = css`
     box-shadow: 0 1px 0 hsl(0 8% 5% / 20%), 0 0 0 2px hsl(0 0% 100%) inset;
     background-color: hsl(204 13% 92%);
     font: 600 11px/1.4 Arial, 'Helvetica Neue', Helvetica, sans-serif;
-    white-space: nowrap;
+    white-space: pre-wrap;
     color: hsl(0 0% 20%);
   }
 `;

@@ -1,30 +1,48 @@
 import {
-  TKeyBindingPress
+  IKeybinding
 } from '../types';
-import {
-  MOD
-} from '../const';
+
+import normalizeModifiers from './normalize-modifiers';
+import normalizeKey from './normalize-key';
 
 /**
  * Parses a "Key Binding String" into its parts
  *
- * grammar    = `<sequence>`
- * <sequence> = `<press> <press> <press> ...`
- * <press>    = `<key>` or `<mods>+<key>`
- * <mods>     = `<mod>+<mod>+...`
- * <key>      = `<KeyboardEvent.key>` or `<KeyboardEvent.code>` (case-insensitive)
- * <key>      = `(<regex>)` -> `/^<regex>$/` (case-sensitive)
+ * keystroke    = `<sequence>`
+ * <sequence>   = `<press> <press> <press> ...`
+ * <press>      = `<key>` or `<mods>+<key>`
+ * <modifiers>  = `<modifier>+<modifier>+...`
+ * <key>        = `<KeyboardEvent.key>` or `<KeyboardEvent.code>` (case-insensitive)
+ *
+ * 注意 `+` 和空格有特殊含义，当有 combo 或者 modifier 的时候，需要替换：
+ *
+ * - `+` 用 `Plus` 替换
+ * - 空格 用 `Space` 或 `␣` 替换
+ *
+ * 单独使用的时候，可以直接用 `+` 或 ` `
  */
-export default function parseKeybinding(keybinding: string): TKeyBindingPress[] {
-  return keybinding.trim().split(' ').map(press => {
-    const modifiers = press.split(/\b\+/);
-    let key: string | RegExp = modifiers.pop() as string;
-    const match = key.match(/^\((.+)\)$/);
-    
-    if (match) {
-      key = new RegExp(`^${match[1]}$`);
+export default function parseKeybinding(keystroke: string): IKeybinding[] {
+  if (keystroke === '+' || keystroke === ' ' || !/[ +]/.test(keystroke)) {
+    return [{
+      key: normalizeKey(keystroke)
+    }];
+  }
+  
+  return keystroke.trim().split(/\s+/).reduce((result: IKeybinding[], v) => {
+    if (!v) {
+      return result;
     }
     
-    return [modifiers.map(mod => (mod === '$mod' ? MOD : mod)), key];
-  });
+    const modifiers = v.split('+'); // /\b\+/ 无法匹配 `⇧+C` 这种
+    const key = modifiers.pop();
+    
+    if (key) {
+      result.push({
+        modifiers: normalizeModifiers(modifiers),
+        key: normalizeKey(key)
+      });
+    }
+    
+    return result;
+  }, []);
 }

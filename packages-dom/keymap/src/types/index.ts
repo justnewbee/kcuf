@@ -7,9 +7,9 @@ import {
  */
 export type TKeyBindingPress = [mods: string[], key: string | RegExp]
 
-export interface IKeybindingParseResult {
-  modifiers: EModifier[];
-  key: string | RegExp;
+export interface IKeybinding {
+  modifiers?: EModifier[];
+  key: string;
 }
 
 export interface IKeymapOptions {
