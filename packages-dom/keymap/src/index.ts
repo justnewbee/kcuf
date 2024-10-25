@@ -3,9 +3,6 @@ import {
   IKeymapOptions
 } from './types';
 import {
-  DEFAULT_EVENT
-} from './const';
-import {
   createKeybindingsHandler
 } from './util';
 
@@ -33,11 +30,13 @@ import {
  */
 export default function keymap(keyBindingMap: IKeyBindingMap, {
   target = window,
-  event = DEFAULT_EVENT,
+  keyup,
   capture,
   timeout
 }: IKeymapOptions = {}): () => void {
   const onKeyEvent = createKeybindingsHandler(keyBindingMap, {timeout});
+  
+  const event = keyup ? 'keyup' : 'keydown';
   
   target.addEventListener(event, onKeyEvent, capture);
   

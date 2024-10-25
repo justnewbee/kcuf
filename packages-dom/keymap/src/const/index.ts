@@ -12,11 +12,6 @@ export const KEYBINDING_MODIFIER_KEYS = ['Shift', 'Meta', 'Alt', 'Control'];
 export const DEFAULT_TIMEOUT = 1000;
 
 /**
- * Keybinding sequences should bind to this event by default.
- */
-export const DEFAULT_EVENT = 'keydown';
-
-/**
  * Platform detection code.
  * @see https://kkgithub.com/jamiebuilds/tinykeys/issues/184
  */

@@ -26,14 +26,13 @@ export interface IKeyBindingHandlerOptions {
  */
 export interface IKeymapOptions extends IKeyBindingHandlerOptions {
   /**
-   * Which dom target to bind the event to. Default is window.
+   * 事件绑在哪个 DOM 上，默认 `window`，也可以指定为 `document`（和 `window` 等价）或特定 DOM。
    */
   target?: Window | Document | HTMLElement;
-  
   /**
-   * Key presses will listen to this event (default: "keydown").
+   * 是否使用 `keyup` 事件，默认用 `keydown` 事件，不会用到其他事件，`keypress` 已经被标注弃用，因此也不会再支持。
    */
-  event?: 'keydown' | 'keyup';
+  keyup?: boolean;
   
   /**
    * Key presses will use a capture listener (default: false)
