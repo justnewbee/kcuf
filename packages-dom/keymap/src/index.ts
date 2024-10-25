@@ -28,13 +28,13 @@ import {
  * })
  * ```
  */
-export default function keymap(keyBindingMap: IKeyBindingMap, {
+export default function keymap(key, callback, {
   target = window,
   keyup,
   capture = true,
   timeout
 }: IKeymapOptions = {}): () => void {
-  const handleKeyEvent = createKeybindingsHandler(keyBindingMap, timeout);
+  const handleKeyEvent = createKeybindingsHandler(key, callback, timeout);
   const event = keyup ? 'keyup' : 'keydown';
   
   target.addEventListener(event, handleKeyEvent, capture);

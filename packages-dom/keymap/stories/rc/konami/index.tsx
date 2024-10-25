@@ -27,9 +27,7 @@ const KonamiCode = [
 ].join(' ');
 
 export default function Konami(): ReactElement {
-  useEffect(() => keymap({
-    [KonamiCode]: throwConfetti
-  }), []);
+  useEffect(() => keymap(KonamiCode, throwConfetti), []);
   
   return <P><kbd>↑</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd><kbd>←</kbd><kbd>→</kbd><kbd>B</kbd><kbd>A</kbd><kbd>↵</kbd></P>;
 }

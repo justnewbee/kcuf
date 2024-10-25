@@ -32,38 +32,43 @@ import getModifierState from './get-modifier-state';
  * window.addEvenListener("keydown", handler)
  * ```
  */
-export default function createKeybindingsHandler(keyBindingMap: IKeyBindingMap, timeout = DEFAULT_TIMEOUT): (event: KeyboardEvent) => void {
-  const keyBindings = Object.keys(keyBindingMap).map(key => {
-    return [parseKeybinding(key), keyBindingMap[key]] as const;
-  });
+export default function createKeybindingsHandler(key, callback, timeout = DEFAULT_TIMEOUT): (event: KeyboardEvent) => void {
+  // const keyBindings = Object.keys(keyBindingMap).map(key => {
+  //   return [parseKeybinding(key), keyBindingMap[key]] as const;
+  // });
+  //
+  // console.info(keyBindingMap, keyBindings)
+  
   const possibleMatches = new Map<TKeyBindingPress[], TKeyBindingPress[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
   
+  const sequence = parseKeybinding(key);
+  
   return (event: KeyboardEvent) => {
-    keyBindings.forEach(keyBinding => {
-      const sequence = keyBinding[0];
-      const callback = keyBinding[1];
-      const prev = possibleMatches.get(sequence);
-      const remainingExpectedPresses = prev || sequence;
-      const currentExpectedPress = remainingExpectedPresses[0];
-      const matches = matchKeyBindingPress(event, currentExpectedPress);
-      
-      if (!matches) {
-        // Modifier keydown events shouldn't break sequences
-        // Note: This works because:
-        // - non-modifiers will always return false
-        // - if the current keypress is a modifier then it will return true when we check its state
-        // MDN: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
-        if (!getModifierState(event, event.key)) {
-          possibleMatches.delete(sequence);
-        }
-      } else if (remainingExpectedPresses.length > 1) {
-        possibleMatches.set(sequence, remainingExpectedPresses.slice(1));
-      } else {
+    // keyBindings.forEach(keyBinding => {
+    //   const sequence = keyBinding[0];
+    //   const callback = keyBinding[1];
+    const prev = possibleMatches.get(sequence);
+    const remainingExpectedPresses = prev || sequence;
+    const currentExpectedPress = remainingExpectedPresses[0];
+    const matches = matchKeyBindingPress(event, currentExpectedPress);
+    
+    if (!matches) {
+      // Modifier keydown events shouldn't break sequences
+      // Note: This works because:
+      // - non-modifiers will always return false
+      // - if the current keypress is a modifier then it will return true when we check its state
+      // MDN: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
+      if (!getModifierState(event, event.key)) {
         possibleMatches.delete(sequence);
-        callback(event);
       }
-    });
+    } else if (remainingExpectedPresses.length > 1) {
+      possibleMatches.set(sequence, remainingExpectedPresses.slice(1));
+    } else {
+      possibleMatches.delete(sequence);
+      callback(event);
+    }
+    // });
     
     if (timer) {
       clearTimeout(timer);
