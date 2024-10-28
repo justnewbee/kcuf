@@ -2,6 +2,13 @@ import {
   EModifier
 } from '../enum';
 
+export const MODIFIERS = [
+  EModifier.CONTROL,
+  EModifier.ALT,
+  EModifier.SHIFT,
+  EModifier.META
+];
+
 /**
  * These are the modifier keys that change the meaning of keybindings.
  *
@@ -23,11 +30,6 @@ export const PLATFORM = typeof navigator === 'object' ? navigator.platform : '';
 export const APPLE_DEVICE = /Mac|iPod|iPhone|iPad/.test(PLATFORM);
 
 /**
- * An alias for creating platform-specific keybinding aliases.
- */
-export const MOD = APPLE_DEVICE ? 'Meta' : 'Control';
-
-/**
  * Meaning of `AltGraph`, from MDN:
  * - Windows: Both Alt and Ctrl keys are pressed, or AltGr key is pressed
  * - Mac: ⌥ Option key pressed
@@ -36,35 +38,3 @@ export const MOD = APPLE_DEVICE ? 'Meta' : 'Control';
  * @see https://kkgithub.com/jamiebuilds/tinykeys/issues/185
  */
 export const ALT_GRAPH_ALIASES = PLATFORM === 'Win32' ? ['Control', 'Alt'] : APPLE_DEVICE ? ['Alt'] : [];
-
-export const MODIFIER_MAPPING: Record<string, EModifier> = {
-  control: EModifier.CONTROL,
-  ctrl: EModifier.CONTROL,
-  '⌃': EModifier.CONTROL,
-  alt: EModifier.ALT,
-  option: EModifier.ALT,
-  '⌥': EModifier.ALT,
-  shift: EModifier.SHIFT,
-  '⇧': EModifier.SHIFT,
-  meta: EModifier.META,
-  command: EModifier.META,
-  cmd: EModifier.META,
-  '⌘': EModifier.META,
-  $mod: APPLE_DEVICE ? EModifier.META : EModifier.CONTROL
-};
-
-export const KEY_MAPPING: Record<string, string> = {
-  control: 'Enter',
-  ctrl: EModifier.CONTROL,
-  '⌃': EModifier.CONTROL,
-  alt: EModifier.ALT,
-  option: EModifier.ALT,
-  '⌥': EModifier.ALT,
-  shift: EModifier.SHIFT,
-  '⇧': EModifier.SHIFT,
-  meta: EModifier.META,
-  command: EModifier.META,
-  cmd: EModifier.META,
-  '⌘': EModifier.META,
-  $mod: APPLE_DEVICE ? EModifier.META : EModifier.CONTROL
-};

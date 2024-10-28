@@ -6,7 +6,7 @@ import {
   DEFAULT_TIMEOUT
 } from '../const';
 
-import parseKeybinding from './parse-key-binding';
+import parseKeybindings from './parse-keybindings';
 import matchKeybinding from './match-keybinding';
 import getModifierState from './get-modifier-state';
 
@@ -32,16 +32,15 @@ import getModifierState from './get-modifier-state';
  * window.addEvenListener("keydown", handler)
  * ```
  */
-export default function createKeyBindingHandler(key: string, callback, timeout = DEFAULT_TIMEOUT): (event: KeyboardEvent) => void {
+export default function createKeybindingHandler(keybindings: IKeybinding[], callback, timeout = DEFAULT_TIMEOUT): (event: KeyboardEvent) => void {
   const possibleMatches = new Map<IKeybinding[], IKeybinding[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
-  const keybinding = parseKeybinding(key);
   
-  return (event: KeyboardEvent) => {
-    const prev = possibleMatches.get(keybinding);
-    const remainingExpectedPresses = prev || keybinding;
+  return (e: KeyboardEvent) => {
+    const prev = possibleMatches.get(keybindings);
+    const remainingExpectedPresses = prev || keybindings;
     const currentExpectedPress = remainingExpectedPresses[0];
-    const matches = currentExpectedPress ? matchKeybinding(currentExpectedPress, event) : false;
+    const matches = currentExpectedPress ? matchKeybinding(currentExpectedPress, e) : false;
     
     if (!matches) {
       // Modifier keydown events shouldn't break sequences
@@ -49,14 +48,14 @@ export default function createKeyBindingHandler(key: string, callback, timeout =
       // - non-modifiers will always return false
       // - if the current keypress is a modifier then it will return true when we check its state
       // MDN: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
-      if (!getModifierState(event, event.key)) {
-        possibleMatches.delete(keybinding);
+      if (!getModifierState(e, e.key)) {
+        possibleMatches.delete(keybindings);
       }
     } else if (remainingExpectedPresses.length > 1) {
-      possibleMatches.set(keybinding, remainingExpectedPresses.slice(1));
+      possibleMatches.set(keybindings, remainingExpectedPresses.slice(1));
     } else {
-      possibleMatches.delete(keybinding);
-      callback(event);
+      possibleMatches.delete(keybindings);
+      callback(e);
     }
     
     if (timer) {
@@ -64,5 +63,8 @@ export default function createKeyBindingHandler(key: string, callback, timeout =
     }
     
     timer = setTimeout(possibleMatches.clear.bind(possibleMatches), timeout);
+    
+    // e.preventDefault();
+    // e.stopPropagation();
   };
 }

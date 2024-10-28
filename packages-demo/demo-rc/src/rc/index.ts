@@ -1,10 +1,7 @@
 export { default as MinimalNormalize } from './minimal-normalize';
 
 // typo
-export * from './h1-6';
-export { default as P } from './p';
-export { default as Blockquote } from './blockquote';
-export { default as Hr } from './hr';
+export * from './simple';
 export * from './html-text';
 export { default as HtmlText } from './html-text';
 export { default as RainbowText } from './rainbow-text';
@@ -54,10 +51,6 @@ export { default as Codemirror } from './codemirror';
 
 // /* block elements */
 
-// export { default as P } from './p';
-
-// export { default as Hr } from './hr';
-//
 // /* form & form controls */
 // export { default as Form } from './form';
 

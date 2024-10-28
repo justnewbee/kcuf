@@ -1,4 +1,7 @@
 import {
+  EModifier
+} from '../enum';
+import {
   ALT_GRAPH_ALIASES
 } from '../const';
 
@@ -6,6 +9,6 @@ import {
  * There's a bug in Chrome that causes event.getModifierState not to exist on
  * KeyboardEvent's for F1/F2/etc keys.
  */
-export default function getModifierState(event: KeyboardEvent, mod: string): boolean {
-  return typeof event.getModifierState === 'function' ? event.getModifierState(mod) || (ALT_GRAPH_ALIASES.includes(mod) && event.getModifierState('AltGraph')) : false;
+export default function getModifierState(e: KeyboardEvent, modifier: EModifier): boolean {
+  return typeof e.getModifierState === 'function' ? e.getModifierState(modifier) || (ALT_GRAPH_ALIASES.includes(modifier) && e.getModifierState('AltGraph')) : false;
 }

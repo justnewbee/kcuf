@@ -7,11 +7,6 @@ import {
  */
 export type TKeyBindingPress = [mods: string[], key: string | RegExp]
 
-export interface IKeybinding {
-  modifiers?: EModifier[];
-  key: string;
-}
-
 export interface IKeymapOptions {
   /**
    * 事件绑在哪个 DOM 上，默认 `window`，也可以指定为 `document`（和 `window` 等价）或特定 DOM。
@@ -26,9 +21,18 @@ export interface IKeymapOptions {
    */
   capture?: boolean;
   /**
+   * 是否大小写敏感，对 a-zA-Z 有效
+   */
+  caseSensitive?: boolean;
+  /**
    * Combo 的超时设置，默认 1000ms
    *
    * **Note:** 不建议太小，比如 300 就可能对大多数用户来说太快了
    */
   timeout?: number;
+}
+
+export interface IKeybinding {
+  key: string; // toUpperCase
+  modifiers?: EModifier[];
 }

@@ -1,89 +1,189 @@
 import {
   ReactElement
 } from 'react';
+import styled from 'styled-components';
 
 import {
   MinimalNormalize,
   H1
 } from '@kcuf/demo-rc';
 
-import KeymapDemo from './rc/keymap-demo';
 import {
   throwConfetti
 } from './util';
+import Keystroke from './rc/keystroke';
+import MacKeyboard from './rc/mac-keyboard';
+
+const ScGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 4px;
+`;
+
+const NUMBER = '1234567890'.split('');
+const NUMBER_SHIFT = '!@#$%^&*()'.split('');
+const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const SYMBOL = '`-=[]\\;\',./'.split('');
+const SYMBOL_SHIFT = '~_+{}|:"<>?'.split('');
+const FN = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
+const MISC = ['Escape', 'Backspace', 'Delete', 'Tab', 'Space', 'Capslock', 'Enter', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'PageUp', 'PageDown'];
+const MISC_ALIAS = ['⎋', '⌫', '⌦', '⇥', '␣', '⇪', '⏎', '↑', '↓', '←', '→', '⇞', '⇟'];
+const EXTRA_ALIAS = ['↵', '↩', 'UP', 'DOWN', 'LEFT', 'RIGHT', ' '];
 
 export default function StoryDefault(): ReactElement {
   return <>
     <MinimalNormalize />
-    <H1>Single</H1>
-    <KeymapDemo {...{
-      keystroke: '1'
-    }} />
-    <KeymapDemo {...{
-      keystroke: 'p'
-    }} />
-    <H1>Modifiers</H1>
-    <KeymapDemo {...{
-      keystroke: 'shift+a'
-    }} />
-    <KeymapDemo {...{
-      keystroke: 'Shift+B'
-    }} />
-    <KeymapDemo {...{
-      keystroke: '⇧+C'
-    }} />
-    <KeymapDemo {...{
-      keystroke: 'Ctrl+E'
-    }} />
-    <KeymapDemo {...{
-      keystroke: 'Control+F'
-    }} />
-    <KeymapDemo {...{
-      keystroke: '⌃+G'
-    }} />
-    <KeymapDemo {...{
-      keystroke: 'Alt+H'
-    }} />
-    <KeymapDemo {...{
-      keystroke: 'Option+I'
-    }} />
-    <KeymapDemo {...{
-      keystroke: '⌥+J'
-    }} />
+    <MacKeyboard />
     <H1>Combo</H1>
-    <KeymapDemo {...{
-      keystroke: 'Ctrl+Z Ctrl+X'
-    }} />
-    <KeymapDemo {...{
-      keystroke: 'Control+Z Shift+X'
-    }} />
-    <KeymapDemo {...{
-      keystroke: 'h e l l o'
-    }} />
-    <KeymapDemo {...{
-      keystroke: 'C + +'
-    }} />
-    <KeymapDemo {...{
+    <Keystroke {...{
       keystroke: 'ArrowUp ArrowUp ArrowDown ArrowDown ArrowLeft ArrowRight ArrowLeft ArrowRight B A Enter',
       onFire: throwConfetti
     }} />
-    <KeymapDemo {...{
+    <Keystroke {...{
       keystroke: '↑ ↑ ↓ ↓ ← → ← → B A B A ⏎',
       onFire: throwConfetti
     }} />
-    <KeymapDemo {...{
+    <Keystroke {...{
       keystroke: 'T E N T H L E V E L T A U R E N C H I E F T A I N',
       onFire: throwConfetti
     }} />
-    <H1>加号 <code>+</code> 和空格有特殊用途</H1>
-    <KeymapDemo {...{
-      keystroke: ' '
+    <Keystroke {...{
+      keystroke: 'Ctrl+Z Ctrl+X'
     }} />
-    <KeymapDemo {...{
-      keystroke: '␣'
+    <Keystroke {...{
+      keystroke: 'Control+Z Shift+X'
     }} />
-    <KeymapDemo {...{
-      keystroke: '+'
+    <Keystroke {...{
+      keystroke: 'C + +'
     }} />
+    <H1>Control ⌃</H1>
+    <ScGrid>
+      <Keystroke {...{
+        keystroke: 'Ctrl+J'
+      }} />
+      <Keystroke {...{
+        keystroke: 'ctrl+j'
+      }} />
+      <Keystroke {...{
+        keystroke: 'Control+J'
+      }} />
+      <Keystroke {...{
+        keystroke: 'control+j'
+      }} />
+      <Keystroke {...{
+        keystroke: '⌃+J'
+      }} />
+      <Keystroke {...{
+        keystroke: '⌃+j'
+      }} />
+      <Keystroke {...{
+        keystroke: '⌃+]'
+      }} />
+    </ScGrid>
+    <H1>Alt ⌥</H1>
+    <ScGrid>
+      <Keystroke {...{
+        keystroke: 'Alt+J'
+      }} />
+      <Keystroke {...{
+        keystroke: 'alt+j'
+      }} />
+      <Keystroke {...{
+        keystroke: 'Option+J'
+      }} />
+      <Keystroke {...{
+        keystroke: 'option+j'
+      }} />
+      <Keystroke {...{
+        keystroke: '⌥+J'
+      }} />
+      <Keystroke {...{
+        keystroke: '⌥+j'
+      }} />
+      <Keystroke {...{
+        keystroke: '⌥+]'
+      }} />
+      <Keystroke {...{
+        keystroke: '⌥+"'
+      }} />
+    </ScGrid>
+    <H1>Shift ⇧</H1>
+    <ScGrid>
+      <Keystroke {...{
+        keystroke: 'Shift+J'
+      }} />
+      <Keystroke {...{
+        keystroke: 'shift+j'
+      }} />
+      <Keystroke {...{
+        keystroke: '⇧+J'
+      }} />
+      <Keystroke {...{
+        keystroke: '⇧+j'
+      }} />
+      <Keystroke {...{
+        keystroke: '⇧+/'
+      }} />
+    </ScGrid>
+    <H1>Number</H1>
+    <ScGrid>
+      {NUMBER.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
+    </ScGrid>
+    <ScGrid>
+      {NUMBER_SHIFT.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
+    </ScGrid>
+    <H1>Alphabet</H1>
+    <ScGrid>
+      {ALPHABET.map(v => <Keystroke key={v} {...{
+        keystroke: v.toUpperCase()
+      }} />)}
+    </ScGrid>
+    <ScGrid>
+      {ALPHABET.map(v => <Keystroke key={v} {...{
+        keystroke: v.toLowerCase()
+      }} />)}
+    </ScGrid>
+    <H1>Symbol</H1>
+    <ScGrid>
+      {SYMBOL.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
+    </ScGrid>
+    <ScGrid>
+      {SYMBOL_SHIFT.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
+    </ScGrid>
+    <H1>F1-12（F11 不行）</H1>
+    <ScGrid>
+      {FN.map(v => <Keystroke key={v} {...{
+        keystroke: v.toUpperCase()
+      }} />)}
+    </ScGrid>
+    <ScGrid>
+      {FN.map(v => <Keystroke key={v} {...{
+        keystroke: v.toLowerCase()
+      }} />)}
+    </ScGrid>
+    <H1>Alias（你可以用符号表示）</H1>
+    <ScGrid>
+      {MISC.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
+    </ScGrid>
+    <ScGrid>
+      {MISC_ALIAS.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
+    </ScGrid>
+    <ScGrid>
+      {EXTRA_ALIAS.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
+    </ScGrid>
   </>;
 }
