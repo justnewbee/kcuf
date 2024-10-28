@@ -1,7 +1,7 @@
-interface IModifier {
-  codes: [string, string];
-  last: string;
-}
+import {
+  IModifier,
+  IKeyboardInfo
+} from '../types';
 
 const modifierCtrl: IModifier = {
   codes: ['ControlLeft', 'ControlRight'],
@@ -20,7 +20,7 @@ const modifierMeta: IModifier = {
   last: ''
 };
 
-export default function getKeyboardEventCodes(e: KeyboardEvent): string[] {
+export default function getKeyboardEventInfo(e: KeyboardEvent): IKeyboardInfo {
   const codes: string[] = [];
   const {
     code
@@ -60,5 +60,8 @@ export default function getKeyboardEventCodes(e: KeyboardEvent): string[] {
   pushModifierKeyCode(e.shiftKey, modifierShift);
   pushModifierKeyCode(e.metaKey, modifierMeta);
   
-  return codes;
+  return {
+    codes,
+    capsLock: e.getModifierState('CapsLock')
+  };
 }

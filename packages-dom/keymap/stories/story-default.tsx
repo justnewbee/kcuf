@@ -7,12 +7,12 @@ import {
   MinimalNormalize,
   H1
 } from '@kcuf/demo-rc';
+import KeyboardMac from '@kcuf/rc-keyboard-mac';
 
 import {
   throwConfetti
 } from './util';
 import Keystroke from './rc/keystroke';
-import MacKeyboard from './rc/mac-keyboard';
 
 const ScGrid = styled.div`
   display: grid;
@@ -26,14 +26,14 @@ const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
 const SYMBOL = '`-=[]\\;\',./'.split('');
 const SYMBOL_SHIFT = '~_+{}|:"<>?'.split('');
 const FN = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11', 'F12'];
-const MISC = ['Escape', 'Backspace', 'Delete', 'Tab', 'Space', 'Capslock', 'Enter', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'PageUp', 'PageDown'];
+const MISC = ['Escape', 'Backspace', 'Delete', 'Tab', 'Space', 'CapsLock', 'Enter', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'PageUp', 'PageDown'];
 const MISC_ALIAS = ['⎋', '⌫', '⌦', '⇥', '␣', '⇪', '⏎', '↑', '↓', '←', '→', '⇞', '⇟'];
 const EXTRA_ALIAS = ['↵', '↩', 'UP', 'DOWN', 'LEFT', 'RIGHT', ' '];
 
 export default function StoryDefault(): ReactElement {
   return <>
     <MinimalNormalize />
-    <MacKeyboard />
+    <KeyboardMac />
     <H1>Combo</H1>
     <Keystroke {...{
       keystroke: 'ArrowUp ArrowUp ArrowDown ArrowDown ArrowLeft ArrowRight ArrowLeft ArrowRight B A Enter',

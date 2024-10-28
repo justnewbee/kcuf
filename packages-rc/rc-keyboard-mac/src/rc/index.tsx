@@ -1,19 +1,19 @@
 import {
   ReactElement,
-  useEffect,
-  useState
+  useState,
+  useEffect
 } from 'react';
 import styled from 'styled-components';
 
 import {
   KEY_DATA_LIST
-} from './const';
+} from '../const';
 import {
-  IMacKeyBoardProps
-} from './types';
+  IKeyboardMacProps
+} from '../types';
 import {
-  getKeyboardEventCodes
-} from './util';
+  getKeyboardEventInfo
+} from '../util';
 
 const KEYBOARD_WIDTH = 982;
 const KEYBOARD_HEIGHT = 394;
@@ -21,7 +21,7 @@ const KEY_WIDTH = 64;
 const KEY_HEIGHT = 64;
 const KEY_HEIGHT_SHORT = 30;
 
-const ScMacKeyboard = styled.div`
+const ScKeyboardMac = styled.div`
   position: relative;
   margin: 0 auto;
   width: ${KEYBOARD_WIDTH}px;
@@ -31,9 +31,10 @@ const ScMacKeyboard = styled.div`
   background: hsl(0 0% 95%);
   box-shadow: 2px 0 2px hsl(0 0% 89%) inset, -2px 2px 3px hsl(0 0% 89%) inset, 1px -0px 0 hsl(0 0% 76%) inset, 0 -2px 3px hsl(0 0% 76%) inset;
   user-select: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 `;
 
-const ScMacKeyBoardUl = styled.ul`
+const ScKeyboardMacUl = styled.ul`
   width: ${KEYBOARD_WIDTH - 3}px;
   margin-top: 9px;
   padding-left: 11px;
@@ -41,7 +42,7 @@ const ScMacKeyBoardUl = styled.ul`
   float: left;
 `;
 
-const ScMacKeyBoardLi = styled.li`
+const ScKeyboardMacLi = styled.li`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -58,7 +59,6 @@ const ScMacKeyBoardLi = styled.li`
   box-shadow: 1px 0 0 rgb(0, 0, 0), 0 1px 0 rgb(0, 0, 0), -1px 0 0 rgb(0, 0, 0), 0 -1px 0 rgb(0, 0, 0);
   background: hsl(0 0% 8%);
   color: hsl(0 0% 90%);
-  text-align: center;
   font-size: 12px;
   box-sizing: border-box;
   transition: all 0.4s ease-in;
@@ -73,7 +73,6 @@ const ScMacKeyBoardLi = styled.li`
     transition: 1ms linear;
   }
   
-  // first row
   &[data-code=Escape],
   &[data-code^=F], // F1-F12
   &[data-code=Power] {
@@ -82,8 +81,7 @@ const ScMacKeyBoardLi = styled.li`
   
   &[data-code=Escape] {
     width: 99px;
-    text-indent: 1em;
-    text-align: left;
+    align-items: flex-start;
   }
   
   &[data-code^=F], // F1-F12
@@ -153,10 +151,9 @@ const ScMacKeyBoardLi = styled.li`
       border-radius: 3px;
     }
     
-    &:active,
-    &[data-active] {
+    &[data-on] {
       &::before {
-        background: #52f800;
+        background: hsl(114 100% 50%);
       }
     }
   }
@@ -179,7 +176,7 @@ const ScMacKeyBoardLi = styled.li`
   &[data-code^=Meta] {
     justify-content: space-between;
     
-    span:first-child {
+    div:first-child {
       font-size: 14px;
     }
   }
@@ -222,10 +219,13 @@ const ScMacKeyBoardLi = styled.li`
   }
 `;
 
-export default function MacKeyBoard({
+export default function KeyboardMac({
   listen = true,
+  codes: codesInProps,
+  capsLock: capsLockInProps,
   ...props
-}: IMacKeyBoardProps): ReactElement {
+}: IKeyboardMacProps): ReactElement {
+  const [stateCapsLock, setStateCapsLock] = useState(false);
   const [stateCodes, setStateCodes] = useState<string[]>([]);
   
   useEffect(() => {
@@ -240,7 +240,10 @@ export default function MacKeyBoard({
         clearTimeout(timer);
       }
       
-      setStateCodes(getKeyboardEventCodes(e));
+      const info = getKeyboardEventInfo(e);
+      
+      setStateCapsLock(info.capsLock);
+      setStateCodes(info.codes);
       
       timer = setTimeout(() => {
         setStateCodes([]);
@@ -259,14 +262,15 @@ export default function MacKeyBoard({
     };
   }, [listen]);
   
-  return <ScMacKeyboard {...props}>
-    <ScMacKeyBoardUl>
-      {KEY_DATA_LIST.map(v => <ScMacKeyBoardLi key={v.code} {...{
+  return <ScKeyboardMac {...props}>
+    <ScKeyboardMacUl>
+      {KEY_DATA_LIST.map(v => <ScKeyboardMacLi key={v.code} {...{
         'data-code': v.code,
-        'data-active': stateCodes.includes(v.code) ? '' : undefined
+        'data-on': v.code === 'CapsLock' && (capsLockInProps || stateCapsLock) ? '' : undefined,
+        'data-active': (codesInProps || stateCodes).includes(v.code) ? '' : undefined
       }}>
-        {Array.isArray(v.name) ? v.name.map(vv => <span key={`${vv}`}>{vv}</span>) : <span>{v.name}</span>}
-      </ScMacKeyBoardLi>)}
-    </ScMacKeyBoardUl>
-  </ScMacKeyboard>;
+        {Array.isArray(v.name) ? v.name.map(vv => <div key={`${vv}`}>{vv}</div>) : v.name}
+      </ScKeyboardMacLi>)}
+    </ScKeyboardMacUl>
+  </ScKeyboardMac>;
 }
