@@ -207,10 +207,10 @@ export const KEY_DATA_LIST: IKeyData[] = [{
   name: 'fn',
   code: 'TheFn'
 }, {
-  name: 'control',
+  name: ['⌃', 'control'],
   code: 'ControlLeft'
 }, {
-  name: ['alt', 'option'],
+  name: ['⌥', 'option'],
   code: 'AltLeft'
 }, {
   name: ['⌘', 'command'],
@@ -222,7 +222,7 @@ export const KEY_DATA_LIST: IKeyData[] = [{
   name: ['⌘', 'command'],
   code: 'MetaRight'
 }, {
-  name: ['alt', 'option'],
+  name: ['⌥', 'option'],
   code: 'AltRight'
 }, {
   name: '◀',

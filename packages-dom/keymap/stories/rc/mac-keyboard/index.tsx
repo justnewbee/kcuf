@@ -11,12 +11,15 @@ import {
 import {
   IMacKeyBoardProps
 } from './types';
+import {
+  getKeyboardEventCodes
+} from './util';
 
-const KEYBOARD_WIDTH = 995;
+const KEYBOARD_WIDTH = 982;
 const KEYBOARD_HEIGHT = 394;
-const KEY_WIDTH = 62;
-const KEY_HEIGHT = 62;
-const KEY_HEIGHT_SHORT = 28;
+const KEY_WIDTH = 64;
+const KEY_HEIGHT = 64;
+const KEY_HEIGHT_SHORT = 30;
 
 const ScMacKeyboard = styled.div`
   position: relative;
@@ -39,25 +42,28 @@ const ScMacKeyBoardUl = styled.ul`
 `;
 
 const ScMacKeyBoardLi = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 2px;
+  padding: 6px;
   width: ${KEY_WIDTH}px;
   height: ${KEY_HEIGHT}px;
   float: left;
   list-style: none;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  background: hsl(0 0% 8%);
-  color: hsl(0 0% 78%);
-  text-align: center;
-  line-height: ${KEY_HEIGHT}px;
-  font-size: 12px;
-  border-radius: 8px;
   border: 1px solid hsl(0 0% 23%);
+  border-radius: 8px;
   box-shadow: 1px 0 0 rgb(0, 0, 0), 0 1px 0 rgb(0, 0, 0), -1px 0 0 rgb(0, 0, 0), 0 -1px 0 rgb(0, 0, 0);
-  box-sizing: initial;
+  background: hsl(0 0% 8%);
+  color: hsl(0 0% 90%);
+  text-align: center;
+  font-size: 12px;
+  box-sizing: border-box;
   transition: all 0.4s ease-in;
   user-select: none;
   cursor: pointer;
-  position: relative;
   
   &:active,
   &[data-active] {
@@ -67,11 +73,11 @@ const ScMacKeyBoardLi = styled.li`
     transition: 1ms linear;
   }
   
+  // first row
   &[data-code=Escape],
-  &[data-code^=F],
+  &[data-code^=F], // F1-F12
   &[data-code=Power] {
     height: ${KEY_HEIGHT_SHORT}px;
-    line-height: ${KEY_HEIGHT_SHORT}px;
   }
   
   &[data-code=Escape] {
@@ -82,71 +88,47 @@ const ScMacKeyBoardLi = styled.li`
   
   &[data-code^=F], // F1-F12
   &[data-code=Power] {
-    width: 60px;
+    width: 62px;
   }
   
   &[data-code=Backquote],
   &[data-code^=Digit],
   &[data-code^=Minus],
   &[data-code^=Equal],
-  &[data-code=BracketLeft],
-  &[data-code=BracketRight],
+  &[data-code^=Bracket],
   &[data-code=BackSlash],
   &[data-code=Semicolon],
   &[data-code=Quote],
   &[data-code=Comma],
   &[data-code=Period],
   &[data-code=Slash] {
-    padding: 7px 0;
-    height: 48px;
-    
-    span {
-      line-height: 23px;
-      height: 23px;
-      width: 100%;
-      float: left;
-      font-size: 14px;
-    }
+    font-size: 14px;
   }
   
   &[data-code=Backspace],
   &[data-code=Tab],
+  &[data-code=CapsLock],
   &[data-code=Enter],
   &[data-code^=Shift] {
     font-size: 16px;
   }
   
+  &[data-code=Tab],
+  &[data-code=CapsLock],
+  &[data-code^=ShiftLeft] {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+  
   &[data-code=Backspace],
   &[data-code=Enter],
   &[data-code=ShiftRight] {
-    span {
-      line-height: 14px;
-      margin-top: 40px;
-      float: right;
-      margin-right: 8px;
-    }
+    justify-content: flex-end;
+    align-items: flex-end;
   }
   
   &[data-code^=Key] {
     font-size: 18px;
-    line-height: 64px;
-  }
-  
-  &[data-code=Tab],
-  &[data-code=CapsLock],
-  &[data-code=ShiftLeft],
-  &[data-code=TheFn],
-  &[data-code=ControlLeft],
-  &&[data-code=AltLeft],
-  &[data-code=Slash],
-  &[data-code=MetaRight],
-  &[data-code=AltRight] {
-    span {
-      line-height: 14px;
-      margin-top: 43px;
-      text-indent: 5px;
-      float: left;
-    }
   }
   
   &[data-code=Backspace],
@@ -171,33 +153,12 @@ const ScMacKeyBoardLi = styled.li`
       border-radius: 3px;
     }
     
-    &:active {
+    &:active,
+    &[data-active] {
       &::before {
         background: #52f800;
       }
     }
-  }
-  
-  &[data-code=Enter] span:first-child,
-  &&[data-code=AltLeft] span:first-child {
-    position: absolute;
-    right: 0;
-    top: -37px;
-    font-size: 12px;
-    line-height: 12px;
-  }
-  
-  &&[data-code=AltLeft] span:first-child {
-    left: 0;
-    text-align: left;
-  }
-  
-  &[data-code=AltRight] span:first-child {
-    position: absolute;
-    left: 0;
-    top: -37px;
-    font-size: 12px;
-    line-height: 12px;
   }
   
   &[data-code=ShiftLeft] {
@@ -206,6 +167,32 @@ const ScMacKeyBoardLi = styled.li`
   
   &[data-code=ShiftRight] {
     width: 137px;
+  }
+  
+  &[data-code^=TheFn] {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+  
+  &[data-code^=Control],
+  &[data-code^=Alt],
+  &[data-code^=Meta] {
+    justify-content: space-between;
+    
+    span:first-child {
+      font-size: 14px;
+    }
+  }
+  
+  &[data-code=ControlLeft],
+  &[data-code=AltLeft],
+  &[data-code=MetaLeft] {
+    align-items: flex-end;
+  }
+  
+  &[data-code=AltRight],
+  &[data-code=MetaRight] {
+    align-items: flex-start;
   }
   
   &[data-code^=Meta] {
@@ -218,8 +205,7 @@ const ScMacKeyBoardLi = styled.li`
   
   &[data-code=ArrowUp],
   &[data-code=ArrowDown] {
-    height: 29px;
-    line-height: 29px;
+    height: 31px;
   }
   
   &[data-code=ArrowUp] {
@@ -232,7 +218,7 @@ const ScMacKeyBoardLi = styled.li`
     border-top-right-radius: 0;
     position: absolute;
     bottom: 0;
-    right: 84px;
+    right: 86px;
   }
 `;
 
@@ -254,23 +240,7 @@ export default function MacKeyBoard({
         clearTimeout(timer);
       }
       
-      const {
-        code
-      } = e;
-      const codes: string[] = [code];
-      
-      function pushModifierKeyCode(modKey: boolean, modCode: string): void {
-        if (modKey && modCode !== code) {
-          codes.push(modCode);
-        }
-      }
-
-      pushModifierKeyCode(e.ctrlKey, 'ControlLeft');
-      pushModifierKeyCode(e.altKey, 'AltLeft');
-      pushModifierKeyCode(e.shiftKey, 'ShiftLeft');
-      pushModifierKeyCode(e.metaKey, 'MetaLeft');
-      
-      setStateCodes(codes);
+      setStateCodes(getKeyboardEventCodes(e));
       
       timer = setTimeout(() => {
         setStateCodes([]);
