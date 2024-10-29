@@ -121,5 +121,25 @@ export default function StoryDefault(): ReactElement {
       modifierNames,
       modifierSymbols
     }} />
+    <KeystrokeModifiers {...{
+      theKey: 'Backspace',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: '⌫',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: 'Delete',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: '⌦',
+      modifierNames,
+      modifierSymbols
+    }} />
   </>;
 }
