@@ -94,9 +94,35 @@ export default function StoryDefault(): ReactElement {
       modifierNames,
       modifierSymbols
     }} />
+    <KeystrokeModifiers {...{
+      theKey: '&',
+      modifierNames,
+      modifierSymbols
+    }} />
     <H2>Letter</H2>
     <KeystrokeModifiers {...{
       theKey: 'X',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <H2>Symbol</H2>
+    <KeystrokeModifiers {...{
+      theKey: '=',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: '+',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: '/',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: '?',
       modifierNames,
       modifierSymbols
     }} />
