@@ -9,14 +9,36 @@ import {
 import KeyboardMac from '@kcuf/rc-keyboard-mac';
 
 import {
+  throwConfetti
+} from './util';
+import {
   GridContainer,
   Keystroke
 } from './rc';
 
-export default function StoryDefault(): ReactElement {
+export default function StoryCombo(): ReactElement {
   return <>
     <MinimalNormalize />
     <KeyboardMac />
+    <H1>Combo</H1>
+    <Keystroke {...{
+      keystroke: 'ArrowUp ArrowUp ArrowDown ArrowDown ArrowLeft ArrowRight ArrowLeft ArrowRight B A Enter',
+      onFire: throwConfetti
+    }} />
+    <Keystroke {...{
+      keystroke: '↑ ↑ ↓ ↓ ← → ← → B A B A ⏎',
+      onFire: throwConfetti
+    }} />
+    <Keystroke {...{
+      keystroke: 'T E N T H L E V E L T A U R E N C H I E F T A I N',
+      onFire: throwConfetti
+    }} />
+    <Keystroke {...{
+      keystroke: 'Ctrl+Z Ctrl+X'
+    }} />
+    <Keystroke {...{
+      keystroke: 'Control+Z Shift+X'
+    }} />
     <Keystroke {...{
       keystroke: 'C + +'
     }} />

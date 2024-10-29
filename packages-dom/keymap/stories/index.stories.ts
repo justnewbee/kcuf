@@ -6,4 +6,6 @@ export default {
   title: 'keymap'
 } satisfies TMeta;
 
-export { default as Demo } from './story-default';
+export { default as Default } from './story-default';
+export { default as Combo } from './story-combo';
+export { default as Keys } from './story-keys';
