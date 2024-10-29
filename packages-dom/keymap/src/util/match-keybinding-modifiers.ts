@@ -1,7 +1,7 @@
 import _xor from 'lodash/xor';
 
 import {
-  EModifier
+  EModifierKey
 } from '../enum';
 import {
   IKeybinding
@@ -15,7 +15,7 @@ export default function matchKeybindingModifiers(keybinding: IKeybinding, e: Key
   } = keybinding;
   const eventModifiers = getKeyboardEventModifiers(e);
   
-  if (!modifiers.length && eventModifiers.length === 1 && eventModifiers[0] === EModifier.SHIFT) {
+  if (!modifiers.length && eventModifiers.length === 1 && eventModifiers[0] === EModifierKey.SHIFT) {
     return true;
   }
   

@@ -1,12 +1,12 @@
 import {
-  EModifier
+  EModifierKey
 } from '../enum';
 
 export const MODIFIERS = [
-  EModifier.CONTROL,
-  EModifier.ALT,
-  EModifier.SHIFT,
-  EModifier.META
+  EModifierKey.CONTROL,
+  EModifierKey.ALT,
+  EModifierKey.SHIFT,
+  EModifierKey.META
 ];
 
 /**
@@ -37,4 +37,4 @@ export const APPLE_DEVICE = /Mac|iPod|iPhone|iPad/.test(PLATFORM);
  * - Android: Not supported
  * @see https://kkgithub.com/jamiebuilds/tinykeys/issues/185
  */
-export const ALT_GRAPH_ALIASES = PLATFORM === 'Win32' ? ['Control', 'Alt'] : APPLE_DEVICE ? ['Alt'] : [];
+export const ALT_GRAPH_ALIASES = (PLATFORM === 'Win32' ? ['Control', 'Alt'] : APPLE_DEVICE ? ['Alt'] : []);

@@ -31,11 +31,11 @@ import getModifierState from './get-modifier-state';
  * window.addEvenListener("keydown", handler)
  * ```
  */
-export default function createKeybindingHandler(keybindings: IKeybinding[], callback: IKeymapCallback, timeout = DEFAULT_TIMEOUT): (event: Event) => void {
+export default function createKeybindingHandler(keybindings: IKeybinding[], callback: IKeymapCallback, timeout = DEFAULT_TIMEOUT): (e: KeyboardEvent) => void {
   const possibleMatches = new Map<IKeybinding[], IKeybinding[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
   
-  return (e: Event) => {
+  return (e: KeyboardEvent) => {
     const prev = possibleMatches.get(keybindings);
     const remainingExpectedPresses = prev || keybindings;
     const currentExpectedPress = remainingExpectedPresses[0];

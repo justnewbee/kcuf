@@ -17,8 +17,10 @@ export interface IKeyboardInfo {
 }
 
 export interface IKeyData {
-  code: EKeyboardCode;
-  name: string | string[];
+  code: EKeyboardCode; // KeyboardEvent.code
+  key?: string; // KeyboardEvent.key
+  keyShift?: string; // KeyboardEvent.key when Shift is ON
+  name?: string | [string, string];
 }
 
 export interface IKeyboardProps extends Partial<IKeyboardInfo> {
@@ -31,5 +33,12 @@ export interface IKeyboardProps extends Partial<IKeyboardInfo> {
   /**
    * 点击按钮，返回的是 code
    */
-  onKeyPress?(code: EKeyboardCode): void;
+  onKeyPress?(code: EKeyboardCode, key: string): void;
+}
+
+export interface IKeyboardKeyProps {
+  data: IKeyData;
+  statusOn?: boolean;
+  statusActive?: boolean;
+  onClick?(data: IKeyData): void;
 }

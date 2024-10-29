@@ -18,7 +18,7 @@ export default function keymap(keystroke: string, callback: IKeymapCallback, {
   timeout
 }: IKeymapOptions = {}): () => void {
   const type = keyup ? 'keyup' : 'keydown';
-  const handleKeyEvent = createKeybindingsHandler(parseKeybindings(keystroke), callback, timeout);
+  const handleKeyEvent = createKeybindingsHandler(parseKeybindings(keystroke), callback, timeout) as (e: Event) => void;
   
   target.addEventListener(type, handleKeyEvent, capture);
   

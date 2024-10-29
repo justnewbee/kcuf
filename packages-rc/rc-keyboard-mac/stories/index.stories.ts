@@ -24,3 +24,5 @@ export const Controlled: TStory = {
     codes: ['TheFn', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
   }
 };
+
+export { default as Event } from './story-event';

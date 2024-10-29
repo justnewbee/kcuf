@@ -1,35 +1,29 @@
 import {
   ReactElement,
   useState,
-  useEffect
+  useEffect,
+  useCallback
 } from 'react';
 import styled from 'styled-components';
 
 import {
+  EKeyboardCode
+} from '../enum';
+import {
+  IKeyboardProps,
+  IKeyData
+} from '../types';
+import {
+  KEYBOARD_PADDING,
+  KEYBOARD_WIDTH,
+  KEYBOARD_HEIGHT,
   KEY_DATA_LIST
 } from '../const';
-import {
-  IKeyboardProps
-} from '../types';
 import {
   getKeyboardEventInfo
 } from '../util';
 
-/**
- * Mac 键盘每行键数有 14、13、12、9，需要保证每行左右齐平
- */
-const KEY_SPACING = 2;
-const KEY_WIDTH = 64;
-const KEY_WIDTH_1 = 70; // 宽度 +1，用于 Command
-const KEY_WIDTH_2 = 73; // 宽度 +2，用于 Escape、Backspace、Tab
-const KEY_WIDTH_3 = 102; // 宽度 +3，用于 CapsLock、Enter
-const KEY_WIDTH_4 = 136; // 宽度 +4，用于 Shift
-const KEY_WIDTH_5 = 333; // 宽度 +5，用于 Space
-const KEY_HEIGHT = 64;
-const KEY_HEIGHT_SHORT = 30;
-const KEYBOARD_PADDING = 10;
-const KEYBOARD_WIDTH = 13 * KEY_WIDTH + KEY_WIDTH_2 + 28 * KEY_SPACING + 2 * KEYBOARD_PADDING;
-const KEYBOARD_HEIGHT = 5 * KEY_HEIGHT + KEY_HEIGHT_SHORT + 12 * KEY_SPACING + 2 * KEYBOARD_PADDING;
+import KeyboardKey from './keyboard-key';
 
 const ScKeyboard = styled.div`
   position: relative;
@@ -45,168 +39,6 @@ const ScKeyboard = styled.div`
   user-select: none;
 `;
 
-const ScKeyboardKey = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin: ${KEY_SPACING}px;
-  padding: 6px;
-  width: ${KEY_WIDTH}px;
-  height: ${KEY_HEIGHT}px;
-  float: left;
-  border-radius: 6px;
-  box-shadow: 1px 0 0 hsl(0 0% 0%), 0 1px 0 hsl(0 0% 0%), -1px 0 0 hsl(0 0% 0%), 0 -1px 0 hsl(0 0% 0%);
-  background: hsl(0 0% 8%);
-  color: hsl(0 0% 90%);
-  font-size: 12px;
-  line-height: 1.6;
-  box-sizing: border-box;
-  transition: all 400ms ease-in;
-  cursor: pointer;
-  
-  &:active,
-  &[data-active] {
-    color: hsl(100 100% 49%);
-    background-color: hsl(249 100% 20%);
-    transition: 1ms linear;
-  }
-  
-  &[data-code^=Meta] {
-    width: ${KEY_WIDTH_1}px;
-  }
-  
-  &[data-code=Escape],
-  &[data-code=Backspace],
-  &[data-code=Tab] {
-    width: ${KEY_WIDTH_2}px;
-  }
-  
-  &[data-code=CapsLock],
-  &[data-code=Enter] {
-    width: ${KEY_WIDTH_3}px;
-  }
-  
-  &[data-code^=Shift] {
-    width: ${KEY_WIDTH_4}px;
-  }
-  
-  &[data-code=Space] {
-    width: ${KEY_WIDTH_5}px;
-  }
-  
-  &[data-code=Escape],
-  &[data-code^=F], // F1-F12
-  &[data-code=Power] {
-    height: ${KEY_HEIGHT_SHORT}px;
-  }
-  
-  &[data-code=Escape],
-  &[data-code=AltRight],
-  &[data-code=MetaRight] {
-    align-items: flex-start;
-  }
-  
-  &[data-code=Tab],
-  &[data-code=CapsLock],
-  &[data-code^=ShiftLeft] {
-    align-items: flex-start;
-    justify-content: flex-end;
-  }
-  
-  &[data-code=Backspace],
-  &[data-code=Enter],
-  &[data-code=ShiftRight] {
-    align-items: flex-end;
-    justify-content: flex-end;
-  }
-  
-  &[data-code^=TheFn] {
-    align-items: flex-start;
-    justify-content: flex-end;
-  }
-  
-  &[data-code=ControlLeft],
-  &[data-code=AltLeft],
-  &[data-code=MetaLeft] {
-    align-items: flex-end;
-  }
-  
-  &[data-code=Backquote],
-  &[data-code^=Digit],
-  &[data-code^=Minus],
-  &[data-code^=Equal],
-  &[data-code^=Bracket],
-  &[data-code=BackSlash],
-  &[data-code=Semicolon],
-  &[data-code=Quote],
-  &[data-code=Comma],
-  &[data-code=Period],
-  &[data-code=Slash] {
-    font-size: 14px;
-  }
-  
-  &[data-code=Backspace],
-  &[data-code=Tab],
-  &[data-code=CapsLock],
-  &[data-code=Enter],
-  &[data-code^=Shift] {
-    font-size: 16px;
-  }
-  
-  &[data-code^=Key] {
-    font-size: 18px;
-  }
-  
-  &[data-code=CapsLock] {
-    &::before {
-      content: '';
-      position: absolute;
-      top: 6px;
-      left: 6px;
-      width: 6px;
-      height: 6px;
-      background: hsl(0 0% 100%);
-      border-radius: 100%;
-    }
-    
-    &[data-on] {
-      &::before {
-        background: hsl(114 100% 50%);
-      }
-    }
-  }
-  
-  &[data-code^=Control],
-  &[data-code^=Alt],
-  &[data-code^=Meta] {
-    justify-content: space-between;
-    
-    div:first-child {
-      font-size: 14px;
-    }
-  }
-  
-  &[data-code=ArrowUp],
-  &[data-code=ArrowDown] {
-    height: ${KEY_HEIGHT / 2 - 1}px;
-  }
-  
-  &[data-code=ArrowUp] {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  
-  &[data-code=ArrowDown] {
-    position: absolute;
-    bottom: ${KEYBOARD_PADDING}px;
-    right: ${KEYBOARD_PADDING + KEY_WIDTH + KEY_SPACING * 2}px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-`;
-
 export default function Keyboard({
   className,
   style,
@@ -217,6 +49,22 @@ export default function Keyboard({
 }: IKeyboardProps): ReactElement {
   const [stateCapsLock, setStateCapsLock] = useState(false);
   const [stateCodes, setStateCodes] = useState<string[]>([]);
+  const shiftIsOn = codesInProps ? codesInProps.includes(EKeyboardCode.SHIFT_LEFT) || codesInProps.includes(EKeyboardCode.SHIFT_RIGHT) : false;
+  
+  const handleKeyClick = useCallback((data: IKeyData) => {
+    let key = data.key ?? data.code;
+    
+    if (shiftIsOn && data.keyShift) {
+      key = data.keyShift;
+    }
+    
+    // 设置中的字符是大写的，需判断是否要大写
+    if (/^Key[A-Z]$/.test(data.code) && (stateCapsLock ? shiftIsOn : !shiftIsOn)) {
+      key = key.toLowerCase();
+    }
+    
+    onKeyPress?.(data.code, key);
+  }, [stateCapsLock, shiftIsOn, onKeyPress]);
   
   useEffect(() => {
     if (!listen) {
@@ -256,13 +104,11 @@ export default function Keyboard({
     className,
     style
   }}>
-    {KEY_DATA_LIST.map(v => <ScKeyboardKey key={v.code} {...{
-      'data-code': v.code,
-      'data-on': v.code === 'CapsLock' && (capsLockInProps || stateCapsLock) ? '' : undefined,
-      'data-active': codesInProps?.includes(v.code) || stateCodes.includes(v.code) ? '' : undefined,
-      onClick: onKeyPress ? () => onKeyPress(v.code) : undefined
-    }}>
-      {Array.isArray(v.name) ? v.name.map(vv => <div key={`${vv}`}>{vv}</div>) : v.name}
-    </ScKeyboardKey>)}
+    {KEY_DATA_LIST.map(v => <KeyboardKey key={v.code} {...{
+      data: v,
+      statusOn: v.code === EKeyboardCode.CAPS_LOCK && (capsLockInProps || stateCapsLock),
+      statusActive: codesInProps?.includes(v.code) || stateCodes.includes(v.code),
+      onClick: handleKeyClick
+    }} />)}
   </ScKeyboard>;
 }

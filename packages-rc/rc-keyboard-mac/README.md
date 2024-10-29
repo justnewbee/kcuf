@@ -9,6 +9,7 @@ Yet another MacKeyboard react component, inspired by `@uiw/react-mac-keyboard` w
 5. Can tell Left or Right Control/Option/Shift/Meta
 6. Can tell the difference between Backspace and Delete
 7. Ditched deprecated [keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode) for [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code)
+8. An `onKeyPress` event which can reflect Shift state
 
 ## How to Use
 

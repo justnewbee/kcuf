@@ -1,5 +1,5 @@
 import {
-  EModifier
+  EModifierKey
 } from '../enum';
 
 /**
@@ -38,5 +38,5 @@ export interface IKeymapOptions {
 
 export interface IKeybinding {
   key: string; // toUpperCase
-  modifiers?: EModifier[];
+  modifiers?: EModifierKey[];
 }

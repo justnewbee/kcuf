@@ -1,4 +1,4 @@
-export enum EModifier {
+export enum EModifierKey {
   CONTROL = 'Control',
   ALT = 'Alt',
   SHIFT = 'Shift',
