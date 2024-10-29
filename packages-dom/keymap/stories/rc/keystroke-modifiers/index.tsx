@@ -2,6 +2,7 @@ import {
   ReactElement
 } from 'react';
 
+import GridContainer from '../grid-container';
 import Keystroke from '../keystroke';
 
 interface IProps {
@@ -15,7 +16,7 @@ export default function KeystrokeModifiers({
   modifierNames,
   modifierSymbols
 }: IProps): ReactElement {
-  return <>
+  return <GridContainer $repeat={5}>
     <Keystroke {...{
       keystroke: theKey
     }} />
@@ -28,5 +29,5 @@ export default function KeystrokeModifiers({
     {modifierSymbols.length ? <Keystroke {...{
       keystroke: [...modifierSymbols, theKey].join('+')
     }} /> : null}
-  </>;
+  </GridContainer>;
 }

@@ -78,7 +78,7 @@ export default function StoryDefault(): ReactElement {
     <MinimalNormalize />
     <Keyboard {...{
       listen: false,
-      codes: [KeyboardCode.F1, KeyboardCode.D7, KeyboardCode.X, ...stateModifiers],
+      codes: [KeyboardCode.F1, KeyboardCode.D7, KeyboardCode.X, KeyboardCode.ESC, KeyboardCode.ENTER, ...stateModifiers],
       onKeyPress: handleKeyboardKeyPress
     }} />
     <H1>Modifiers ⌃ ⌥ ⇧ ⌘</H1>
@@ -97,6 +97,27 @@ export default function StoryDefault(): ReactElement {
     <H2>Letter</H2>
     <KeystrokeModifiers {...{
       theKey: 'X',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <H2>Functional</H2>
+    <KeystrokeModifiers {...{
+      theKey: 'Escape',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: '⎋',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: 'Enter',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: '⏎',
       modifierNames,
       modifierSymbols
     }} />
