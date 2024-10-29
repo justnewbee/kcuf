@@ -4,7 +4,8 @@ import {
 
 import {
   MinimalNormalize,
-  H1
+  H1,
+  H2
 } from '@kcuf/demo-rc';
 import KeyboardMac from '@kcuf/rc-keyboard-mac';
 
@@ -27,13 +28,14 @@ export default function StoryKeys(): ReactElement {
   return <>
     <MinimalNormalize />
     <KeyboardMac />
-    <H1>功能键</H1>
+    <H1>单键</H1>
+    <H2>功能键</H2>
     <GridContainer>
       {FUNCTIONAL.map(v => <Keystroke key={v} {...{
         keystroke: v
       }} />)}
     </GridContainer>
-    <H1>功能键 Alias（你可以用符号表示）</H1>
+    <H2>功能键 Alias（你可以用符号表示）</H2>
     <GridContainer>
       {FUNCTIONAL_ALIAS.map(v => <Keystroke key={v} {...{
         keystroke: v
@@ -44,7 +46,7 @@ export default function StoryKeys(): ReactElement {
         keystroke: v
       }} />)}
     </GridContainer>
-    <H1>F1-12（F11 不行）</H1>
+    <H2>F1-12（F11 不行）</H2>
     <GridContainer>
       {FN.map(v => <Keystroke key={v} {...{
         keystroke: v.toUpperCase()
@@ -55,7 +57,7 @@ export default function StoryKeys(): ReactElement {
         keystroke: v.toLowerCase()
       }} />)}
     </GridContainer>
-    <H1>Number</H1>
+    <H2>Number</H2>
     <GridContainer>
       {NUMBER.map(v => <Keystroke key={v} {...{
         keystroke: v
@@ -66,7 +68,7 @@ export default function StoryKeys(): ReactElement {
         keystroke: v
       }} />)}
     </GridContainer>
-    <H1>Alphabet</H1>
+    <H2>Alphabet</H2>
     <GridContainer>
       {ALPHABET.map(v => <Keystroke key={v} {...{
         keystroke: v.toUpperCase()
@@ -77,7 +79,7 @@ export default function StoryKeys(): ReactElement {
         keystroke: v.toLowerCase()
       }} />)}
     </GridContainer>
-    <H1>Symbol</H1>
+    <H2>Symbol</H2>
     <GridContainer>
       {SYMBOL.map(v => <Keystroke key={v} {...{
         keystroke: v
