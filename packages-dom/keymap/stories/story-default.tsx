@@ -77,7 +77,6 @@ export default function StoryDefault(): ReactElement {
   return <>
     <MinimalNormalize />
     <Keyboard {...{
-      listen: false,
       codes: [KeyboardCode.F1, KeyboardCode.D7, KeyboardCode.X, KeyboardCode.ESC, KeyboardCode.ENTER, ...stateModifiers],
       onKeyPress: handleKeyboardKeyPress
     }} />

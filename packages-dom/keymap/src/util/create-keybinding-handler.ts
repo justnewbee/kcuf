@@ -1,12 +1,11 @@
 import {
   IKeybinding,
-  TKeyBindingPress
+  IKeymapCallback
 } from '../types';
 import {
   DEFAULT_TIMEOUT
 } from '../const';
 
-import parseKeybindings from './parse-keybindings';
 import matchKeybinding from './match-keybinding';
 import getModifierState from './get-modifier-state';
 
@@ -32,11 +31,11 @@ import getModifierState from './get-modifier-state';
  * window.addEvenListener("keydown", handler)
  * ```
  */
-export default function createKeybindingHandler(keybindings: IKeybinding[], callback, timeout = DEFAULT_TIMEOUT): (event: KeyboardEvent) => void {
+export default function createKeybindingHandler(keybindings: IKeybinding[], callback: IKeymapCallback, timeout = DEFAULT_TIMEOUT): (event: Event) => void {
   const possibleMatches = new Map<IKeybinding[], IKeybinding[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
   
-  return (e: KeyboardEvent) => {
+  return (e: Event) => {
     const prev = possibleMatches.get(keybindings);
     const remainingExpectedPresses = prev || keybindings;
     const currentExpectedPress = remainingExpectedPresses[0];
@@ -55,7 +54,13 @@ export default function createKeybindingHandler(keybindings: IKeybinding[], call
       possibleMatches.set(keybindings, remainingExpectedPresses.slice(1));
     } else {
       possibleMatches.delete(keybindings);
-      callback(e);
+      
+      const callbackResult = callback();
+      
+      if (callbackResult === false) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
     }
     
     if (timer) {
@@ -63,8 +68,5 @@ export default function createKeybindingHandler(keybindings: IKeybinding[], call
     }
     
     timer = setTimeout(possibleMatches.clear.bind(possibleMatches), timeout);
-    
-    // e.preventDefault();
-    // e.stopPropagation();
   };
 }

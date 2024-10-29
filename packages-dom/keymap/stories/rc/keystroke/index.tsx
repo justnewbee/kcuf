@@ -15,6 +15,7 @@ import keymap from '../../../src';
 
 interface IProps {
   keystroke: string;
+  returnFalse?: boolean;
   onFire?(): void;
 }
 
@@ -36,6 +37,7 @@ const ScKeymapDemo = styled.div`
 
 export default function Keystroke({
   keystroke,
+  returnFalse,
   onFire
 }: IProps): ReactElement {
   const [stateFired, setStateFired] = useState(0);
@@ -55,11 +57,13 @@ export default function Keystroke({
         setStateFired(0);
       }, 1000);
     });
-  }, [onFire, setStateFired]);
+    
+    if (returnFalse) {
+      return false;
+    }
+  }, [returnFalse, onFire, setStateFired]);
   
-  useEffect(() => {
-    return keymap(keystroke, handleFire);
-  }, [keystroke, handleFire]);
+  useEffect(() => keymap(keystroke, handleFire), [keystroke, handleFire]);
   
   useEffect(() => {
     return () => {

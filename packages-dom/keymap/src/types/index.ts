@@ -5,7 +5,11 @@ import {
 /**
  * A single press of a keybinding sequence
  */
-export type TKeyBindingPress = [mods: string[], key: string | RegExp]
+export type TKeyBindingPress = [mods: string[], key: string];
+
+export interface IKeymapCallback {
+  (): void | boolean;
+}
 
 export interface IKeymapOptions {
   /**
@@ -20,10 +24,10 @@ export interface IKeymapOptions {
    * 是否时间捕获，默认 true
    */
   capture?: boolean;
-  /**
-   * 是否大小写敏感，对 a-zA-Z 有效
-   */
-  caseSensitive?: boolean;
+  // /**
+  //  * 是否大小写敏感，对 a-zA-Z 有效
+  //  */
+  // caseSensitive?: boolean;
   /**
    * Combo 的超时设置，默认 1000ms
    *

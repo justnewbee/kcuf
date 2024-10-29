@@ -259,7 +259,7 @@ export default function Keyboard({
     {KEY_DATA_LIST.map(v => <ScKeyboardKey key={v.code} {...{
       'data-code': v.code,
       'data-on': v.code === 'CapsLock' && (capsLockInProps || stateCapsLock) ? '' : undefined,
-      'data-active': (codesInProps || stateCodes).includes(v.code) ? '' : undefined,
+      'data-active': codesInProps?.includes(v.code) || stateCodes.includes(v.code) ? '' : undefined,
       onClick: onKeyPress ? () => onKeyPress(v.code) : undefined
     }}>
       {Array.isArray(v.name) ? v.name.map(vv => <div key={`${vv}`}>{vv}</div>) : v.name}

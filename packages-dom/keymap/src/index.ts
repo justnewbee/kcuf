@@ -1,4 +1,5 @@
 import {
+  IKeymapCallback,
   IKeymapOptions
 } from './types';
 import {
@@ -7,32 +8,13 @@ import {
 } from './util';
 
 /**
- * Subscribes to keybindings.
- *
- * Returns an unsubscribe method.
- *
- * @example
- * ```js
- * import { tinykeys } from "../src"
- *
- * tinykeys(window, {
- *    "Shift+d": () => {
- *        alert("The 'Shift' and 'd' keys were pressed at the same time")
- *    },
- *    "y e e t": () => {
- *        alert("The keys 'y', 'e', 'e', and 't' were pressed in order")
- *    },
- *    "$mod+d": () => {
- *        alert("Either 'Control+d' or 'Meta+d' were pressed")
- *    },
- * })
- * ```
+ * 绑定 keystroke，返回无参的解绑方法。
  */
-export default function keymap(keystroke: string, callback, {
+export default function keymap(keystroke: string, callback: IKeymapCallback, {
   target = window,
   keyup,
   capture = true,
-  caseSensitive,
+  // caseSensitive,
   timeout
 }: IKeymapOptions = {}): () => void {
   const type = keyup ? 'keyup' : 'keydown';
