@@ -1,93 +1,104 @@
+import _without from 'lodash/without';
 import {
-  ReactElement
+  ReactElement,
+  useState,
+  useCallback
 } from 'react';
 
 import {
   MinimalNormalize,
-  H1
+  H1,
+  H2
 } from '@kcuf/demo-rc';
-import KeyboardMac from '@kcuf/rc-keyboard-mac';
+import Keyboard, {
+  KeyboardCode
+} from '@kcuf/rc-keyboard-mac';
 
 import {
-  GridContainer,
-  Keystroke
+  getModifierNamesAndSymbols
+} from './util';
+import {
+  KeystrokeModifiers
 } from './rc';
 
 export default function StoryDefault(): ReactElement {
+  const [stateModifiers, setStateModifiers] = useState<KeyboardCode[]>([KeyboardCode.ALT_LEFT]);
+  const [modifierNames, modifierSymbols] = getModifierNamesAndSymbols(stateModifiers);
+  
+  const handleSetModifier = useCallback((code: KeyboardCode, theOtherCode: KeyboardCode): void => {
+    setStateModifiers(value => {
+      if (value.includes(code)) {
+        return _without(value, code);
+      }
+      
+      return [...value.includes(theOtherCode) ? _without(value, theOtherCode) : value, code];
+    });
+  }, [setStateModifiers]);
+  
+  const handleKeyboardKeyPress = useCallback((code: KeyboardCode) => {
+    switch (code) {
+      case KeyboardCode.CTRL_LEFT:
+        handleSetModifier(code, KeyboardCode.CTRL_RIGHT);
+        
+        break;
+      case KeyboardCode.CTRL_RIGHT:
+        handleSetModifier(code, KeyboardCode.CTRL_LEFT);
+        
+        break;
+      case KeyboardCode.ALT_LEFT:
+        handleSetModifier(code, KeyboardCode.ALT_RIGHT);
+        
+        break;
+      case KeyboardCode.ALT_RIGHT:
+        handleSetModifier(code, KeyboardCode.ALT_LEFT);
+        
+        break;
+      case KeyboardCode.SHIFT_LEFT:
+        handleSetModifier(code, KeyboardCode.SHIFT_RIGHT);
+        
+        break;
+      case KeyboardCode.SHIFT_RIGHT:
+        handleSetModifier(code, KeyboardCode.SHIFT_LEFT);
+        
+        break;
+      case KeyboardCode.META_LEFT:
+        handleSetModifier(code, KeyboardCode.META_RIGHT);
+        
+        break;
+      case KeyboardCode.META_RIGHT:
+        handleSetModifier(code, KeyboardCode.META_LEFT);
+        
+        break;
+      default:
+        break;
+    }
+  }, [handleSetModifier]);
+  
   return <>
     <MinimalNormalize />
-    <KeyboardMac />
-    <Keystroke {...{
-      keystroke: 'C + +'
+    <Keyboard {...{
+      listen: false,
+      codes: [KeyboardCode.F1, KeyboardCode.D7, KeyboardCode.X, ...stateModifiers],
+      onKeyPress: handleKeyboardKeyPress
     }} />
-    <H1>Control ⌃</H1>
-    <GridContainer>
-      <Keystroke {...{
-        keystroke: 'Ctrl+J'
-      }} />
-      <Keystroke {...{
-        keystroke: 'ctrl+j'
-      }} />
-      <Keystroke {...{
-        keystroke: 'Control+J'
-      }} />
-      <Keystroke {...{
-        keystroke: 'control+j'
-      }} />
-      <Keystroke {...{
-        keystroke: '⌃+J'
-      }} />
-      <Keystroke {...{
-        keystroke: '⌃+j'
-      }} />
-      <Keystroke {...{
-        keystroke: '⌃+]'
-      }} />
-    </GridContainer>
-    <H1>Alt ⌥</H1>
-    <GridContainer>
-      <Keystroke {...{
-        keystroke: 'Alt+J'
-      }} />
-      <Keystroke {...{
-        keystroke: 'alt+j'
-      }} />
-      <Keystroke {...{
-        keystroke: 'Option+J'
-      }} />
-      <Keystroke {...{
-        keystroke: 'option+j'
-      }} />
-      <Keystroke {...{
-        keystroke: '⌥+J'
-      }} />
-      <Keystroke {...{
-        keystroke: '⌥+j'
-      }} />
-      <Keystroke {...{
-        keystroke: '⌥+]'
-      }} />
-      <Keystroke {...{
-        keystroke: '⌥+"'
-      }} />
-    </GridContainer>
-    <H1>Shift ⇧</H1>
-    <GridContainer>
-      <Keystroke {...{
-        keystroke: 'Shift+J'
-      }} />
-      <Keystroke {...{
-        keystroke: 'shift+j'
-      }} />
-      <Keystroke {...{
-        keystroke: '⇧+J'
-      }} />
-      <Keystroke {...{
-        keystroke: '⇧+j'
-      }} />
-      <Keystroke {...{
-        keystroke: '⇧+/'
-      }} />
-    </GridContainer>
+    <H1>Modifiers ⌃ ⌥ ⇧ ⌘</H1>
+    <H2>F1-F12</H2>
+    <KeystrokeModifiers {...{
+      theKey: 'F1',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <H2>Number</H2>
+    <KeystrokeModifiers {...{
+      theKey: '7',
+      modifierNames,
+      modifierSymbols
+    }} />
+    <H2>Letter</H2>
+    <KeystrokeModifiers {...{
+      theKey: 'X',
+      modifierNames,
+      modifierSymbols
+    }} />
   </>;
 }

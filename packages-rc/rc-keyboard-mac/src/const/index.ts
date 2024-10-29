@@ -1,239 +1,242 @@
 import {
+  EKeyboardCode
+} from '../enum';
+import {
   IKeyData
 } from '../types';
 
 export const KEY_DATA_LIST: IKeyData[] = [{
   name: 'esc',
-  code: 'Escape'
+  code: EKeyboardCode.ESC
 }, {
   name: 'F1',
-  code: 'F1'
+  code: EKeyboardCode.F1
 }, {
   name: 'F2',
-  code: 'F2'
+  code: EKeyboardCode.F2
 }, {
   name: 'F3',
-  code: 'F3'
+  code: EKeyboardCode.F3
 }, {
   name: 'F4',
-  code: 'F4'
+  code: EKeyboardCode.F4
 }, {
   name: 'F5',
-  code: 'F5'
+  code: EKeyboardCode.F5
 }, {
   name: 'F6',
-  code: 'F6'
+  code: EKeyboardCode.F6
 }, {
   name: 'F7',
-  code: 'F7'
+  code: EKeyboardCode.F7
 }, {
   name: 'F8',
-  code: 'F8'
+  code: EKeyboardCode.F8
 }, {
   name: 'F9',
-  code: 'F9'
+  code: EKeyboardCode.F9
 }, {
   name: 'F10',
-  code: 'F10'
+  code: EKeyboardCode.F10
 }, {
   name: 'F11',
-  code: 'F11'
+  code: EKeyboardCode.F11
 }, {
   name: 'F12',
-  code: 'F12'
+  code: EKeyboardCode.F12
 }, {
   name: '〇',
-  code: 'Power'
+  code: EKeyboardCode.POWER
 }, {
   name: ['~', '`'],
-  code: 'Backquote'
+  code: EKeyboardCode.BACKQUOTE
 }, {
   name: ['!', '1'],
-  code: 'Digit1'
+  code: EKeyboardCode.D1
 }, {
   name: ['@', '2'],
-  code: 'Digit2'
+  code: EKeyboardCode.D2
 }, {
   name: ['#', '3'],
-  code: 'Digit3'
+  code: EKeyboardCode.D3
 }, {
   name: ['$', '4'],
-  code: 'Digit4'
+  code: EKeyboardCode.D4
 }, {
   name: ['%', '5'],
-  code: 'Digit5'
+  code: EKeyboardCode.D5
 }, {
   name: ['^', '6'],
-  code: 'Digit6'
+  code: EKeyboardCode.D6
 }, {
   name: ['&', '7'],
-  code: 'Digit7'
+  code: EKeyboardCode.D7
 }, {
   name: ['*', '8'],
-  code: 'Digit8'
+  code: EKeyboardCode.D8
 }, {
   name: ['(', '9'],
-  code: 'Digit9'
+  code: EKeyboardCode.D9
 }, {
   name: [')', '0'],
-  code: 'Digit0'
+  code: EKeyboardCode.D0
 }, {
   name: ['_', '-'],
-  code: 'Minus'
+  code: EKeyboardCode.MINUS
 }, {
   name: ['+', '='],
-  code: 'Equal'
+  code: EKeyboardCode.EQUAL
 }, { // 按 Fn 转成 ⌦ / Delete
   name: '⌫',
-  code: 'Backspace'
+  code: EKeyboardCode.BACKSPACE
 }, {
   name: '⇥',
-  code: 'Tab'
+  code: EKeyboardCode.TAB
 }, {
   name: 'Q',
-  code: 'KeyQ'
+  code: EKeyboardCode.Q
 }, {
   name: 'W',
-  code: 'KeyW'
+  code: EKeyboardCode.W
 }, {
   name: 'E',
-  code: 'KeyE'
+  code: EKeyboardCode.E
 }, {
   name: 'R',
-  code: 'KeyR'
+  code: EKeyboardCode.R
 }, {
   name: 'T',
-  code: 'KeyT'
+  code: EKeyboardCode.T
 }, {
   name: 'Y',
-  code: 'KeyY'
+  code: EKeyboardCode.Y
 }, {
   name: 'U',
-  code: 'KeyU'
+  code: EKeyboardCode.U
 }, {
   name: 'I',
-  code: 'KeyI'
+  code: EKeyboardCode.I
 }, {
   name: 'O',
-  code: 'KeyO'
+  code: EKeyboardCode.O
 }, {
   name: 'P',
-  code: 'KeyP'
+  code: EKeyboardCode.P
 }, {
   name: ['{', '['],
-  code: 'BracketLeft'
+  code: EKeyboardCode.BRACKET_LEFT
 }, {
   name: ['}', ']'],
-  code: 'BracketRight'
+  code: EKeyboardCode.BRACKET_RIGHT
 }, {
   name: ['|', '\\'],
-  code: 'Backslash'
+  code: EKeyboardCode.BACKSLASH
 }, {
   name: '⇪',
-  code: 'CapsLock'
+  code: EKeyboardCode.CAPS_LOCK
 }, {
   name: 'A',
-  code: 'KeyA'
+  code: EKeyboardCode.A
 }, {
   name: 'S',
-  code: 'KeyS'
+  code: EKeyboardCode.S
 }, {
   name: 'D',
-  code: 'KeyD'
+  code: EKeyboardCode.D
 }, {
   name: 'F',
-  code: 'KeyF'
+  code: EKeyboardCode.F
 }, {
   name: 'G',
-  code: 'KeyG'
+  code: EKeyboardCode.G
 }, {
   name: 'H',
-  code: 'KeyH'
+  code: EKeyboardCode.H
 }, {
   name: 'J',
-  code: 'KeyJ'
+  code: EKeyboardCode.J
 }, {
   name: 'K',
-  code: 'KeyK'
+  code: EKeyboardCode.K
 }, {
   name: 'L',
-  code: 'KeyL'
+  code: EKeyboardCode.L
 }, {
   name: [':', ';'],
-  code: 'Semicolon'
+  code: EKeyboardCode.SEMICOLON
 }, {
   name: ['"', "'"],
-  code: 'Quote'
+  code: EKeyboardCode.QUOTE
 }, {
   name: '⏎',
-  code: 'Enter'
+  code: EKeyboardCode.ENTER
 }, {
   name: '⇧',
-  code: 'ShiftLeft'
+  code: EKeyboardCode.SHIFT_LEFT
 }, {
   name: 'Z',
-  code: 'KeyZ'
+  code: EKeyboardCode.Z
 }, {
   name: 'X',
-  code: 'KeyX'
+  code: EKeyboardCode.X
 }, {
   name: 'C',
-  code: 'KeyC'
+  code: EKeyboardCode.C
 }, {
   name: 'V',
-  code: 'KeyV'
+  code: EKeyboardCode.V
 }, {
   name: 'B',
-  code: 'KeyB'
+  code: EKeyboardCode.B
 }, {
   name: 'N',
-  code: 'KeyN'
+  code: EKeyboardCode.N
 }, {
   name: 'M',
-  code: 'KeyM'
+  code: EKeyboardCode.M
 }, {
   name: ['<', ','],
-  code: 'Comma'
+  code: EKeyboardCode.COMMA
 }, {
   name: ['>', '.'],
-  code: 'Period'
+  code: EKeyboardCode.PERIOD
 }, {
   name: ['?', '/'],
-  code: 'Slash'
+  code: EKeyboardCode.SLASH
 }, {
   name: '⇧',
-  code: 'ShiftRight'
+  code: EKeyboardCode.SHIFT_RIGHT
 }, {
   name: 'fn',
-  code: 'TheFn'
+  code: EKeyboardCode.FN
 }, {
   name: ['⌃', 'control'],
-  code: 'ControlLeft'
+  code: EKeyboardCode.CTRL_LEFT
 }, {
   name: ['⌥', 'option'],
-  code: 'AltLeft'
+  code: EKeyboardCode.ALT_LEFT
 }, {
   name: ['⌘', 'command'],
-  code: 'MetaLeft'
+  code: EKeyboardCode.META_LEFT
 }, {
   name: [' '],
-  code: 'Space'
+  code: EKeyboardCode.SPACE
 }, {
   name: ['⌘', 'command'],
-  code: 'MetaRight'
+  code: EKeyboardCode.META_RIGHT
 }, {
   name: ['⌥', 'option'],
-  code: 'AltRight'
+  code: EKeyboardCode.ALT_RIGHT
 }, {
   name: '◀',
-  code: 'ArrowLeft'
+  code: EKeyboardCode.ARROW_LEFT
 }, {
   name: '▲',
-  code: 'ArrowUp'
+  code: EKeyboardCode.ARROW_UP
 }, {
   name: '▶',
-  code: 'ArrowRight'
+  code: EKeyboardCode.ARROW_RIGHT
 }, {
   name: '▼',
-  code: 'ArrowDown'
+  code: EKeyboardCode.ARROW_DOWN
 }];

@@ -1,4 +1,4 @@
-import KeyboardMac from '../src';
+import Keyboard from '../src';
 
 import {
   TMeta,
@@ -6,8 +6,8 @@ import {
 } from './types';
 
 const meta = {
-  title: 'KeyboardMac',
-  component: KeyboardMac,
+  title: 'Keyboard',
+  component: Keyboard,
   parameters: {
     layout: 'fullscreen'
   },

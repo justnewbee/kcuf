@@ -3,7 +3,7 @@ import {
   StoryObj
 } from '@storybook/react';
 
-import KeyboardMac from '../../src';
+import Keyboard from '../../src';
 
-export type TMeta = Meta<typeof KeyboardMac>;
+export type TMeta = Meta<typeof Keyboard>;
 export type TStory = StoryObj<TMeta>;

@@ -5,20 +5,21 @@ Yet another MacKeyboard react component, inspired by `@uiw/react-mac-keyboard` w
 1. Listen to document keydown events and reflect status by default
 2. Use `styled-components` as CSS solution
 3. Less CSS code using data attributes selector instead of `nth` selector
-4. Can tell Left or Right Control/Option/Shift/Meta
-5. Can tell the difference between Backspace and Delete
-6. Ditched deprecated [keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode) for [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code)
+4. Reduced hard code in CSS
+5. Can tell Left or Right Control/Option/Shift/Meta
+6. Can tell the difference between Backspace and Delete
+7. Ditched deprecated [keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode) for [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code)
 
 ## How to Use
 
 ```tsx
-import KeyboardMac from '@kcuf/rc-keyboard-mac';
+import Keyboard from '@kcuf/rc-keyboard-mac';
 
 // default
-<KeyboardMac />
+<Keyboard />
 
 // manually control keyboard
-<KeyboardMac {...{
+<Keyboard {...{
   listen: false,
   codes: ['TheFn', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
 }} />
@@ -29,7 +30,7 @@ import KeyboardMac from '@kcuf/rc-keyboard-mac';
 ## Props
 
 ```ts
-interface KeyboardMacProps extends HTMLAttributes<HTMLDivElement>, Partial<IKeyboardInfo> {
+interface KeyboardProps extends HTMLAttributes<HTMLDivElement>, Partial<IKeyboardInfo> {
   /**
    * By default, the component will listen to keydown event on document, and refect the status in the keyboard.
    * 
@@ -46,7 +47,7 @@ interface KeyboardMacProps extends HTMLAttributes<HTMLDivElement>, Partial<IKeyb
 }
 ```
 
-## Known Issues
+## FAQ
 
 ### `Fn` and `F11` cannot be listened
 

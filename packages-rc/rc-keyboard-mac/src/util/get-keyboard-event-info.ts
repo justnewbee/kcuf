@@ -2,35 +2,36 @@ import {
   IModifier,
   IKeyboardInfo
 } from '../types';
+import {
+  EKeyboardCode
+} from '../enum';
 
 const modifierCtrl: IModifier = {
-  codes: ['ControlLeft', 'ControlRight'],
-  last: ''
+  codes: [EKeyboardCode.CTRL_LEFT, EKeyboardCode.CTRL_RIGHT],
+  last: null
 };
 const modifierAlt: IModifier = {
-  codes: ['AltLeft', 'AltRight'],
-  last: ''
+  codes: [EKeyboardCode.ALT_LEFT, EKeyboardCode.ALT_RIGHT],
+  last: null
 };
 const modifierShift: IModifier = {
-  codes: ['ShiftLeft', 'ShiftRight'],
-  last: ''
+  codes: [EKeyboardCode.SHIFT_LEFT, EKeyboardCode.SHIFT_RIGHT],
+  last: null
 };
 const modifierMeta: IModifier = {
-  codes: ['MetaLeft', 'MetaRight'],
-  last: ''
+  codes: [EKeyboardCode.META_LEFT, EKeyboardCode.META_RIGHT],
+  last: null
 };
 
 export default function getKeyboardEventInfo(e: KeyboardEvent): IKeyboardInfo {
-  const codes: string[] = [];
-  const {
-    code
-  } = e;
+  const codes: EKeyboardCode[] = [];
+  const code = e.code as EKeyboardCode;
   
-  if (code === 'Delete') {
-    codes.push('Backspace');
-    codes.push('TheFn');
+  if (code === EKeyboardCode.DELETE) {
+    codes.push(EKeyboardCode.BACKSPACE);
+    codes.push(EKeyboardCode.FN);
   } else {
-    codes.push(code);
+    codes.push(code as EKeyboardCode);
   }
   
   if (modifierCtrl.codes.includes(code)) {
@@ -62,6 +63,6 @@ export default function getKeyboardEventInfo(e: KeyboardEvent): IKeyboardInfo {
   
   return {
     codes,
-    capsLock: e.getModifierState('CapsLock')
+    capsLock: e.getModifierState(EKeyboardCode.CAPS_LOCK)
   };
 }

@@ -34,7 +34,7 @@ const ScKeymapDemo = styled.div`
   padding: 4px;
 `;
 
-export default function KeymapDemo({
+export default function Keystroke({
   keystroke,
   onFire
 }: IProps): ReactElement {

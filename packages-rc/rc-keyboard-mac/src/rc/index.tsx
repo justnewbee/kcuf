@@ -9,68 +9,91 @@ import {
   KEY_DATA_LIST
 } from '../const';
 import {
-  IKeyboardMacProps
+  IKeyboardProps
 } from '../types';
 import {
   getKeyboardEventInfo
 } from '../util';
 
-const KEYBOARD_WIDTH = 982;
-const KEYBOARD_HEIGHT = 394;
+/**
+ * Mac 键盘每行键数有 14、13、12、9，需要保证每行左右齐平
+ */
+const KEY_SPACING = 2;
 const KEY_WIDTH = 64;
+const KEY_WIDTH_1 = 70; // 宽度 +1，用于 Command
+const KEY_WIDTH_2 = 73; // 宽度 +2，用于 Escape、Backspace、Tab
+const KEY_WIDTH_3 = 102; // 宽度 +3，用于 CapsLock、Enter
+const KEY_WIDTH_4 = 136; // 宽度 +4，用于 Shift
+const KEY_WIDTH_5 = 333; // 宽度 +5，用于 Space
 const KEY_HEIGHT = 64;
 const KEY_HEIGHT_SHORT = 30;
+const KEYBOARD_PADDING = 10;
+const KEYBOARD_WIDTH = 13 * KEY_WIDTH + KEY_WIDTH_2 + 28 * KEY_SPACING + 2 * KEYBOARD_PADDING;
+const KEYBOARD_HEIGHT = 5 * KEY_HEIGHT + KEY_HEIGHT_SHORT + 12 * KEY_SPACING + 2 * KEYBOARD_PADDING;
 
-const ScKeyboardMac = styled.div`
+const ScKeyboard = styled.div`
   position: relative;
   margin: 0 auto;
+  padding: ${KEYBOARD_PADDING}px;
   width: ${KEYBOARD_WIDTH}px;
   height: ${KEYBOARD_HEIGHT}px;
   border-radius: 10px;
-  border: 1px solid hsl(0 0% 79%);
   background: hsl(0 0% 95%);
   box-shadow: 2px 0 2px hsl(0 0% 89%) inset, -2px 2px 3px hsl(0 0% 89%) inset, 1px -0px 0 hsl(0 0% 76%) inset, 0 -2px 3px hsl(0 0% 76%) inset;
-  user-select: none;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  user-select: none;
 `;
 
-const ScKeyboardMacUl = styled.ul`
-  width: ${KEYBOARD_WIDTH - 3}px;
-  margin-top: 9px;
-  padding-left: 11px;
-  position: relative;
-  float: left;
-`;
-
-const ScKeyboardMacLi = styled.li`
+const ScKeyboardKey = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 2px;
+  margin: ${KEY_SPACING}px;
   padding: 6px;
   width: ${KEY_WIDTH}px;
   height: ${KEY_HEIGHT}px;
   float: left;
-  list-style: none;
-  border: 1px solid hsl(0 0% 23%);
-  border-radius: 8px;
-  box-shadow: 1px 0 0 rgb(0, 0, 0), 0 1px 0 rgb(0, 0, 0), -1px 0 0 rgb(0, 0, 0), 0 -1px 0 rgb(0, 0, 0);
+  border-radius: 6px;
+  box-shadow: 1px 0 0 hsl(0 0% 0%), 0 1px 0 hsl(0 0% 0%), -1px 0 0 hsl(0 0% 0%), 0 -1px 0 hsl(0 0% 0%);
   background: hsl(0 0% 8%);
   color: hsl(0 0% 90%);
   font-size: 12px;
+  line-height: 1.6;
   box-sizing: border-box;
-  transition: all 0.4s ease-in;
-  user-select: none;
+  transition: all 400ms ease-in;
   cursor: pointer;
   
   &:active,
   &[data-active] {
     color: hsl(100 100% 49%);
     background-color: hsl(249 100% 20%);
-    border: 1px solid hsl(252 54% 30%);
     transition: 1ms linear;
+  }
+  
+  &[data-code^=Meta] {
+    width: ${KEY_WIDTH_1}px;
+  }
+  
+  &[data-code=Escape],
+  &[data-code=Backspace],
+  &[data-code=Tab] {
+    width: ${KEY_WIDTH_2}px;
+  }
+  
+  &[data-code=CapsLock],
+  &[data-code=Enter] {
+    width: ${KEY_WIDTH_3}px;
+  }
+  
+  &[data-code^=Shift] {
+    width: ${KEY_WIDTH_4}px;
+  }
+  
+  &[data-code=Space] {
+    width: ${KEY_WIDTH_5}px;
   }
   
   &[data-code=Escape],
@@ -79,14 +102,35 @@ const ScKeyboardMacLi = styled.li`
     height: ${KEY_HEIGHT_SHORT}px;
   }
   
-  &[data-code=Escape] {
-    width: 99px;
+  &[data-code=Escape],
+  &[data-code=AltRight],
+  &[data-code=MetaRight] {
     align-items: flex-start;
   }
   
-  &[data-code^=F], // F1-F12
-  &[data-code=Power] {
-    width: 62px;
+  &[data-code=Tab],
+  &[data-code=CapsLock],
+  &[data-code^=ShiftLeft] {
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+  
+  &[data-code=Backspace],
+  &[data-code=Enter],
+  &[data-code=ShiftRight] {
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  
+  &[data-code^=TheFn] {
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+  
+  &[data-code=ControlLeft],
+  &[data-code=AltLeft],
+  &[data-code=MetaLeft] {
+    align-items: flex-end;
   }
   
   &[data-code=Backquote],
@@ -111,32 +155,8 @@ const ScKeyboardMacLi = styled.li`
     font-size: 16px;
   }
   
-  &[data-code=Tab],
-  &[data-code=CapsLock],
-  &[data-code^=ShiftLeft] {
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
-  
-  &[data-code=Backspace],
-  &[data-code=Enter],
-  &[data-code=ShiftRight] {
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-  
   &[data-code^=Key] {
     font-size: 18px;
-  }
-  
-  &[data-code=Backspace],
-  &[data-code=Tab] {
-    width: 73px;
-  }
-  
-  &[data-code=CapsLock],
-  &[data-code=Enter] {
-    width: 102px;
   }
   
   &[data-code=CapsLock] {
@@ -148,7 +168,7 @@ const ScKeyboardMacLi = styled.li`
       width: 6px;
       height: 6px;
       background: hsl(0 0% 100%);
-      border-radius: 3px;
+      border-radius: 100%;
     }
     
     &[data-on] {
@@ -156,19 +176,6 @@ const ScKeyboardMacLi = styled.li`
         background: hsl(114 100% 50%);
       }
     }
-  }
-  
-  &[data-code=ShiftLeft] {
-    width: 136px;
-  }
-  
-  &[data-code=ShiftRight] {
-    width: 137px;
-  }
-  
-  &[data-code^=TheFn] {
-    justify-content: flex-end;
-    align-items: flex-start;
   }
   
   &[data-code^=Control],
@@ -181,28 +188,9 @@ const ScKeyboardMacLi = styled.li`
     }
   }
   
-  &[data-code=ControlLeft],
-  &[data-code=AltLeft],
-  &[data-code=MetaLeft] {
-    align-items: flex-end;
-  }
-  
-  &[data-code=AltRight],
-  &[data-code=MetaRight] {
-    align-items: flex-start;
-  }
-  
-  &[data-code^=Meta] {
-    width: 70px;
-  }
-  
-  &[data-code=Space] {
-    width: 333px;
-  }
-  
   &[data-code=ArrowUp],
   &[data-code=ArrowDown] {
-    height: 31px;
+    height: ${KEY_HEIGHT / 2 - 1}px;
   }
   
   &[data-code=ArrowUp] {
@@ -211,20 +199,22 @@ const ScKeyboardMacLi = styled.li`
   }
   
   &[data-code=ArrowDown] {
+    position: absolute;
+    bottom: ${KEYBOARD_PADDING}px;
+    right: ${KEYBOARD_PADDING + KEY_WIDTH + KEY_SPACING * 2}px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    position: absolute;
-    bottom: 0;
-    right: 86px;
   }
 `;
 
-export default function KeyboardMac({
+export default function Keyboard({
+  className,
+  style,
   listen = true,
   codes: codesInProps,
   capsLock: capsLockInProps,
-  ...props
-}: IKeyboardMacProps): ReactElement {
+  onKeyPress
+}: IKeyboardProps): ReactElement {
   const [stateCapsLock, setStateCapsLock] = useState(false);
   const [stateCodes, setStateCodes] = useState<string[]>([]);
   
@@ -262,15 +252,17 @@ export default function KeyboardMac({
     };
   }, [listen]);
   
-  return <ScKeyboardMac {...props}>
-    <ScKeyboardMacUl>
-      {KEY_DATA_LIST.map(v => <ScKeyboardMacLi key={v.code} {...{
-        'data-code': v.code,
-        'data-on': v.code === 'CapsLock' && (capsLockInProps || stateCapsLock) ? '' : undefined,
-        'data-active': (codesInProps || stateCodes).includes(v.code) ? '' : undefined
-      }}>
-        {Array.isArray(v.name) ? v.name.map(vv => <div key={`${vv}`}>{vv}</div>) : v.name}
-      </ScKeyboardMacLi>)}
-    </ScKeyboardMacUl>
-  </ScKeyboardMac>;
+  return <ScKeyboard {...{
+    className,
+    style
+  }}>
+    {KEY_DATA_LIST.map(v => <ScKeyboardKey key={v.code} {...{
+      'data-code': v.code,
+      'data-on': v.code === 'CapsLock' && (capsLockInProps || stateCapsLock) ? '' : undefined,
+      'data-active': (codesInProps || stateCodes).includes(v.code) ? '' : undefined,
+      onClick: onKeyPress ? () => onKeyPress(v.code) : undefined
+    }}>
+      {Array.isArray(v.name) ? v.name.map(vv => <div key={`${vv}`}>{vv}</div>) : v.name}
+    </ScKeyboardKey>)}
+  </ScKeyboard>;
 }

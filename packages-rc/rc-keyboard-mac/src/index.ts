@@ -1,7 +1,9 @@
 export { default } from './rc';
 
-export type {
-  IKeyboardMacProps as KeyboardMacProps
-} from './types';
+export {
+  EKeyboardCode as KeyboardCode
+} from './enum';
 
-export { getKeyboardEventInfo } from './util';
+export type {
+  IKeyboardProps as KeyboardProps
+} from './types';
