@@ -3,10 +3,15 @@ import {
 } from '../enum';
 
 /**
- * 调用 `keymap` 方法返回解绑函数。
+ * 命中快捷键的回调，根据返回值的类型决定事件是否继续冒泡或触发默认行为：
+ *
+ * - `'stop'` → 调用 `e.stopPropagation()` 阻止事件冒泡
+ * - `'prevent'` → 调用 `e.preventDefault()` 阻止默认行为（浏览器自带快捷键等）
+ * - `false` → 调用 `e.stopPropagation()` + `e.preventDefault()`
+ * - 其他 → 什么都不做
  */
 export interface IKeymapCallback {
-  (): void | boolean;
+  (): void | boolean | 'stop' | 'prevent';
 }
 
 export interface IKeymapOptions {

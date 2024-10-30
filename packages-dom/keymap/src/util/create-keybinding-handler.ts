@@ -33,9 +33,22 @@ export default function createKeybindingHandler(keybindings: IKeybinding[], call
       
       const callbackResult = callback();
       
-      if (callbackResult === false) {
-        e.preventDefault();
-        e.stopPropagation();
+      switch (callbackResult) {
+        case false:
+          e.preventDefault();
+          e.stopPropagation();
+          
+          break;
+        case 'stop':
+          e.stopPropagation();
+          
+          break;
+        case 'prevent':
+          e.preventDefault();
+          
+          break;
+        default:
+          break;
       }
     }
     

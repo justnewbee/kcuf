@@ -58,6 +58,19 @@
 
 ## FAQ
 
+### ❓ 能否 `stopPropagation` 和 `preventDefault`？
+
+可以。由绑定方法的返回值决定：
+
+* `'stop'` → `e.stopPropagation()`
+* `'prevent'` → `e.preventDefault()`
+* `false` → `e.stopPropagation()` + `e.preventDefault()`
+* 其他 → 什么都不做
+
+### ❓能否在回调中拿到事件对象？
+
+不能，不需要，也不安全。
+
 ### ❓ Mac 下 F11 无响应？
 
 系统快捷键权限更高，接管不了。
