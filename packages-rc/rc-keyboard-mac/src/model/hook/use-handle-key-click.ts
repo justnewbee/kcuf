@@ -30,6 +30,6 @@ export default function useHandleKeyClick(): (data: IKeyData) => void {
       key = key.toLowerCase();
     }
     
-    onKeyPress?.(data.code, key);
+    onKeyPress?.(key, data.code);
   }, [capsLock, isShiftOn, onKeyPress]);
 }

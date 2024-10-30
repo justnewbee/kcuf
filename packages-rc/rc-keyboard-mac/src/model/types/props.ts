@@ -26,5 +26,5 @@ export interface IModelProps extends Partial<IKeyboardInfo> {
   /**
    * 点击按钮的回调，当 `capsLock` 受控时，能够根据 `Shift` 正确返回大小写的 `key` 值，但不会根据 `Alt` 做出反应。
    */
-  onKeyPress?(code: EKeyboardCode, key: string): void;
+  onKeyPress?(key: string, code: EKeyboardCode): void;
 }

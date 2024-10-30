@@ -34,7 +34,7 @@ export default function KeyboardWithModifiers({
     onModifiersChange?.(newValue);
   }, [stateModifiers, setStateModifiers, onModifiersChange]);
   
-  const handleKeyboardKeyPress = useCallback((code: KeyboardCode) => {
+  const handleKeyboardKeyPress = useCallback((_key: string, code: KeyboardCode) => {
     switch (code) {
       case KeyboardCode.CTRL_LEFT:
         handleSetModifier(code, KeyboardCode.CTRL_RIGHT);
