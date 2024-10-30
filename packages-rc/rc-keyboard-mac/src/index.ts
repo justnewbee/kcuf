@@ -1,9 +1,9 @@
-export { default } from './rc';
+export { default } from './with-model';
 
 export {
-  EKeyboardCode as KeyboardCode
-} from './enum';
+  KeyboardCode
+} from './model';
 
 export type {
-  IKeyboardProps as KeyboardProps
-} from './types';
+  KeyboardModelProps as KeyboardProps
+} from './model';

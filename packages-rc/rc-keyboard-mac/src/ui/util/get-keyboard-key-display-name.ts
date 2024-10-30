@@ -1,8 +1,8 @@
 import {
-  IKeyData
-} from '../types';
+  KeyData
+} from '../../model';
 
-export default function getKeyboardKeyDisplayName(data: IKeyData): string | [string, string] {
+export default function getKeyboardKeyDisplayName(data: KeyData): string | [string, string] {
   if (data.name) {
     return data.name;
   }

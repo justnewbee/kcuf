@@ -1,9 +1,7 @@
 import {
-  EKeyboardCode
-} from '../enum';
-import {
-  IKeyData
-} from '../types';
+  KeyboardCode,
+  KeyData
+} from '../../model';
 
 /**
  * Mac 键盘每行键数有 14、13、12、9，需要保证每行左右齐平
@@ -22,279 +20,279 @@ export const KEYBOARD_PADDING = 10;
 export const KEYBOARD_WIDTH = 13 * KEY_WIDTH + KEY_WIDTH_2 + 28 * KEY_SPACING + 2 * KEYBOARD_PADDING;
 export const KEYBOARD_HEIGHT = 5 * KEY_HEIGHT + KEY_HEIGHT_SHORT + 12 * KEY_SPACING + 2 * KEYBOARD_PADDING;
 
-export const KEY_DATA_LIST: IKeyData[] = [{
+export const KEY_DATA_LIST: KeyData[] = [{
   name: 'esc',
   key: 'Escape',
-  code: EKeyboardCode.ESC
+  code: KeyboardCode.ESC
 }, {
   name: 'F1',
-  code: EKeyboardCode.F1
+  code: KeyboardCode.F1
 }, {
   name: 'F2',
-  code: EKeyboardCode.F2
+  code: KeyboardCode.F2
 }, {
   name: 'F3',
-  code: EKeyboardCode.F3
+  code: KeyboardCode.F3
 }, {
   name: 'F4',
-  code: EKeyboardCode.F4
+  code: KeyboardCode.F4
 }, {
   name: 'F5',
-  code: EKeyboardCode.F5
+  code: KeyboardCode.F5
 }, {
   name: 'F6',
-  code: EKeyboardCode.F6
+  code: KeyboardCode.F6
 }, {
   name: 'F7',
-  code: EKeyboardCode.F7
+  code: KeyboardCode.F7
 }, {
   name: 'F8',
-  code: EKeyboardCode.F8
+  code: KeyboardCode.F8
 }, {
   name: 'F9',
-  code: EKeyboardCode.F9
+  code: KeyboardCode.F9
 }, {
   name: 'F10',
-  code: EKeyboardCode.F10
+  code: KeyboardCode.F10
 }, {
   name: 'F11',
-  code: EKeyboardCode.F11
+  code: KeyboardCode.F11
 }, {
   name: 'F12',
-  code: EKeyboardCode.F12
+  code: KeyboardCode.F12
 }, {
   name: '〇',
   key: '',
-  code: EKeyboardCode.POWER
+  code: KeyboardCode.POWER
 }, {
   key: '`',
   keyShift: '~',
-  code: EKeyboardCode.BACKQUOTE
+  code: KeyboardCode.BACKQUOTE
 }, {
   key: '1',
   keyShift: '!',
-  code: EKeyboardCode.D1
+  code: KeyboardCode.D1
 }, {
   key: '2',
   keyShift: '@',
-  code: EKeyboardCode.D2
+  code: KeyboardCode.D2
 }, {
   key: '3',
   keyShift: '#',
-  code: EKeyboardCode.D3
+  code: KeyboardCode.D3
 }, {
   key: '4',
   keyShift: '$',
-  code: EKeyboardCode.D4
+  code: KeyboardCode.D4
 }, {
   key: '5',
   keyShift: '%',
-  code: EKeyboardCode.D5
+  code: KeyboardCode.D5
 }, {
   key: '6',
   keyShift: '^',
-  code: EKeyboardCode.D6
+  code: KeyboardCode.D6
 }, {
   key: '7',
   keyShift: '&',
-  code: EKeyboardCode.D7
+  code: KeyboardCode.D7
 }, {
   key: '8',
   keyShift: '*',
-  code: EKeyboardCode.D8
+  code: KeyboardCode.D8
 }, {
   name: ['(', '9'],
   key: '9',
   keyShift: '(',
-  code: EKeyboardCode.D9
+  code: KeyboardCode.D9
 }, {
   name: [')', '0'],
   key: '0',
   keyShift: ')',
-  code: EKeyboardCode.D0
+  code: KeyboardCode.D0
 }, {
   name: ['_', '-'],
   key: '-',
   keyShift: '_',
-  code: EKeyboardCode.MINUS
+  code: KeyboardCode.MINUS
 }, {
   name: ['+', '='],
   key: '=',
   keyShift: '+',
-  code: EKeyboardCode.EQUAL
+  code: KeyboardCode.EQUAL
 }, { // 按 Fn 转成 ⌦ / Delete
   name: '⌫',
-  code: EKeyboardCode.BACKSPACE
+  code: KeyboardCode.BACKSPACE
 }, {
   name: '⇥',
-  code: EKeyboardCode.TAB
+  code: KeyboardCode.TAB
 }, {
   key: 'Q',
-  code: EKeyboardCode.Q
+  code: KeyboardCode.Q
 }, {
   key: 'W',
-  code: EKeyboardCode.W
+  code: KeyboardCode.W
 }, {
   key: 'E',
-  code: EKeyboardCode.E
+  code: KeyboardCode.E
 }, {
   key: 'R',
-  code: EKeyboardCode.R
+  code: KeyboardCode.R
 }, {
   key: 'T',
-  code: EKeyboardCode.T
+  code: KeyboardCode.T
 }, {
   key: 'Y',
-  code: EKeyboardCode.Y
+  code: KeyboardCode.Y
 }, {
   key: 'U',
-  code: EKeyboardCode.U
+  code: KeyboardCode.U
 }, {
   key: 'I',
-  code: EKeyboardCode.I
+  code: KeyboardCode.I
 }, {
   key: 'O',
-  code: EKeyboardCode.O
+  code: KeyboardCode.O
 }, {
   key: 'P',
-  code: EKeyboardCode.P
+  code: KeyboardCode.P
 }, {
   key: '[',
   keyShift: '{',
-  code: EKeyboardCode.BRACKET_LEFT
+  code: KeyboardCode.BRACKET_LEFT
 }, {
   key: ']',
   keyShift: '}',
-  code: EKeyboardCode.BRACKET_RIGHT
+  code: KeyboardCode.BRACKET_RIGHT
 }, {
   key: '\\',
   keyShift: '|',
-  code: EKeyboardCode.BACKSLASH
+  code: KeyboardCode.BACKSLASH
 }, {
   name: '⇪',
-  code: EKeyboardCode.CAPS_LOCK
+  code: KeyboardCode.CAPS_LOCK
 }, {
   key: 'A',
-  code: EKeyboardCode.A
+  code: KeyboardCode.A
 }, {
   key: 'S',
-  code: EKeyboardCode.S
+  code: KeyboardCode.S
 }, {
   key: 'D',
-  code: EKeyboardCode.D
+  code: KeyboardCode.D
 }, {
   key: 'F',
-  code: EKeyboardCode.F
+  code: KeyboardCode.F
 }, {
   key: 'G',
-  code: EKeyboardCode.G
+  code: KeyboardCode.G
 }, {
   key: 'H',
-  code: EKeyboardCode.H
+  code: KeyboardCode.H
 }, {
   key: 'J',
-  code: EKeyboardCode.J
+  code: KeyboardCode.J
 }, {
   key: 'K',
-  code: EKeyboardCode.K
+  code: KeyboardCode.K
 }, {
   name: 'L',
   key: 'L',
-  code: EKeyboardCode.L
+  code: KeyboardCode.L
 }, {
   key: ';',
   keyShift: ':',
-  code: EKeyboardCode.SEMICOLON
+  code: KeyboardCode.SEMICOLON
 }, {
   key: "'",
   keyShift: '"',
-  code: EKeyboardCode.QUOTE
+  code: KeyboardCode.QUOTE
 }, {
   name: '⏎',
   key: 'Enter',
-  code: EKeyboardCode.ENTER
+  code: KeyboardCode.ENTER
 }, {
   name: '⇧',
   key: 'Shift',
-  code: EKeyboardCode.SHIFT_LEFT
+  code: KeyboardCode.SHIFT_LEFT
 }, {
   key: 'Z',
-  code: EKeyboardCode.Z
+  code: KeyboardCode.Z
 }, {
   key: 'X',
-  code: EKeyboardCode.X
+  code: KeyboardCode.X
 }, {
   key: 'C',
-  code: EKeyboardCode.C
+  code: KeyboardCode.C
 }, {
   key: 'V',
-  code: EKeyboardCode.V
+  code: KeyboardCode.V
 }, {
   key: 'B',
-  code: EKeyboardCode.B
+  code: KeyboardCode.B
 }, {
   key: 'N',
-  code: EKeyboardCode.N
+  code: KeyboardCode.N
 }, {
   key: 'M',
-  code: EKeyboardCode.M
+  code: KeyboardCode.M
 }, {
   key: ',',
   keyShift: '<',
-  code: EKeyboardCode.COMMA
+  code: KeyboardCode.COMMA
 }, {
   key: '.',
   keyShift: '>',
-  code: EKeyboardCode.PERIOD
+  code: KeyboardCode.PERIOD
 }, {
   key: '/',
   keyShift: '?',
-  code: EKeyboardCode.SLASH
+  code: KeyboardCode.SLASH
 }, {
   name: '⇧',
   key: 'Shift',
-  code: EKeyboardCode.SHIFT_RIGHT
+  code: KeyboardCode.SHIFT_RIGHT
 }, {
   name: 'fn',
   key: '',
-  code: EKeyboardCode.FN
+  code: KeyboardCode.FN
 }, {
   name: ['⌃', 'control'],
   key: 'Control',
-  code: EKeyboardCode.CTRL_LEFT
+  code: KeyboardCode.CTRL_LEFT
 }, {
   name: ['⌥', 'option'],
   key: 'Alt',
-  code: EKeyboardCode.ALT_LEFT
+  code: KeyboardCode.ALT_LEFT
 }, {
   name: ['⌘', 'command'],
   key: 'Meta',
-  code: EKeyboardCode.META_LEFT
+  code: KeyboardCode.META_LEFT
 }, {
   key: ' ',
-  code: EKeyboardCode.SPACE
+  code: KeyboardCode.SPACE
 }, {
   name: ['⌘', 'command'],
   key: 'Meta',
-  code: EKeyboardCode.META_RIGHT
+  code: KeyboardCode.META_RIGHT
 }, {
   name: ['⌥', 'option'],
   key: 'Alt',
-  code: EKeyboardCode.ALT_RIGHT
+  code: KeyboardCode.ALT_RIGHT
 }, {
   name: '◀',
   key: 'ArrowLeft',
-  code: EKeyboardCode.ARROW_LEFT
+  code: KeyboardCode.ARROW_LEFT
 }, {
   name: '▲',
   key: 'ArrowUp',
-  code: EKeyboardCode.ARROW_UP
+  code: KeyboardCode.ARROW_UP
 }, {
   name: '▶',
   key: 'ArrowRight',
-  code: EKeyboardCode.ARROW_RIGHT
+  code: KeyboardCode.ARROW_RIGHT
 }, {
   name: '▼',
   key: 'ArrowDown',
-  code: EKeyboardCode.ARROW_DOWN
+  code: KeyboardCode.ARROW_DOWN
 }];

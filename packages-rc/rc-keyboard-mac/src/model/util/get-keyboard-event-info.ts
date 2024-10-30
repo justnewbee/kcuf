@@ -1,10 +1,10 @@
 import {
-  IModifier,
-  IKeyboardInfo
-} from '../types';
-import {
   EKeyboardCode
 } from '../enum';
+import {
+  IKeyboardInfo,
+  IModifier
+} from '../types';
 
 const modifierCtrl: IModifier = {
   codes: [EKeyboardCode.CTRL_LEFT, EKeyboardCode.CTRL_RIGHT],

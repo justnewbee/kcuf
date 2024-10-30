@@ -1,3 +1,8 @@
+export enum EAction {
+  SET_CODES,
+  SET_CAPS_LOCK
+}
+
 export enum EKeyboardCode {
   F1 = 'F1',
   F2 = 'F2',

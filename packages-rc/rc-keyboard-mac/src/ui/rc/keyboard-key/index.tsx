@@ -5,8 +5,11 @@ import {
 import styled from 'styled-components';
 
 import {
-  IKeyboardKeyProps
-} from '../../types';
+  KeyData,
+  useIsKeyActive,
+  useIsKeyOn,
+  useHandleKeyClick
+} from '../../../model';
 import {
   KEY_HEIGHT,
   KEY_HEIGHT_SHORT,
@@ -21,6 +24,10 @@ import {
   KEYBOARD_PADDING
 } from '../../const';
 import KeyboardKeyName from '../keyboard-key-name';
+
+interface IProps {
+  data: KeyData;
+}
 
 const ScKeyboardKey = styled.div`
   display: flex;
@@ -188,20 +195,19 @@ const ScKeyboardKey = styled.div`
 `;
 
 export default function KeyboardKey({
-  data,
-  statusOn,
-  statusActive,
-  displayEvent,
-  onClick
-}: IKeyboardKeyProps): ReactElement {
-  const handleClick = useCallback(() => onClick?.(data), [data, onClick]);
+  data
+}: IProps): ReactElement {
+  const isKeyActive = useIsKeyActive();
+  const isKeyOn = useIsKeyOn();
+  const handleKeyClick = useHandleKeyClick();
+  const handleClick = useCallback(() => handleKeyClick(data), [data, handleKeyClick]);
   
   return <ScKeyboardKey {...{
     'data-code': data.code,
-    'data-on': statusOn ? '' : undefined,
-    'data-active': statusActive ? '' : undefined,
+    'data-active': isKeyActive(data.code) ? '' : undefined,
+    'data-on': isKeyOn(data.code) ? '' : undefined,
     onClick: handleClick
   }}>
-    <KeyboardKeyName data={data} displayEvent={displayEvent} />
+    <KeyboardKeyName data={data} />
   </ScKeyboardKey>;
 }

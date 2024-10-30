@@ -3,21 +3,27 @@ import {
 } from 'react';
 
 import {
-  EKeyboardCode
-} from '../../enum';
-import {
-  IKeyboardKeyNameProps
-} from '../../types';
+  KeyboardCode,
+  KeyData,
+  useProps
+} from '../../../model';
 import {
   getKeyboardKeyDisplayName
 } from '../../util';
 import KeyboardEventDetails from '../keyboard-event-details';
 
+interface IProps {
+  data: KeyData;
+}
+
 export default function KeyboardKeyName({
-  data,
-  displayEvent
-}: IKeyboardKeyNameProps): ReactElement {
-  if (displayEvent && data.code === EKeyboardCode.SPACE) {
+  data
+}: IProps): ReactElement {
+  const {
+    displayEvent
+  } = useProps();
+  
+  if (displayEvent && data.code === KeyboardCode.SPACE) {
     return <KeyboardEventDetails />;
   }
   

@@ -38,7 +38,7 @@
     "@storybook/react": "^8.3.6",
     "@storybook/react-vite": "^8.3.6",
     "@storybook/test": "^8.3.6",
-    "@types/lodash": "^4.17.12",
+    "@types/lodash": "^4.17.13",
     "@types/react": "^18.3.12",
     "@vitest/coverage-v8": "^2.1.4",
     "fetch-mock": "^11.1.5",

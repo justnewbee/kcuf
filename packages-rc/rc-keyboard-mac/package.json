@@ -58,6 +58,10 @@
     "react": "^18.x",
     "styled-components": "^6.x"
   },
+  "dependencies": {
+    "@kcuf/react-hook-is-unmounted": "workspace:^",
+    "immer": "^10.1.1"
+  },
   "scripts": {
     "start": "storybook dev -p 6006",
     "build:clean": "rimraf dist",

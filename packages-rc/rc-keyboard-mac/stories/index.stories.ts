@@ -20,7 +20,6 @@ export const Default: TStory = {};
 
 export const Controlled: TStory = {
   args: {
-    listen: false,
     codes: ['TheFn', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
   }
 };
