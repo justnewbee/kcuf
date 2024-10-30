@@ -42,9 +42,10 @@ const ScKeyboard = styled.div`
 export default function Keyboard({
   className,
   style,
-  listen = true,
   codes: codesInProps,
   capsLock: capsLockInProps,
+  listen = true,
+  displayEvent = true,
   onKeyPress
 }: IKeyboardProps): ReactElement {
   const [stateCapsLock, setStateCapsLock] = useState(false);
@@ -108,6 +109,7 @@ export default function Keyboard({
       data: v,
       statusOn: v.code === EKeyboardCode.CAPS_LOCK && (capsLockInProps || stateCapsLock),
       statusActive: codesInProps?.includes(v.code) || stateCodes.includes(v.code),
+      displayEvent,
       onClick: handleKeyClick
     }} />)}
   </ScKeyboard>;

@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/keymap",
-  "version": "0.0.0",
-  "description": "Biding keys or key combos to functions.",
+  "version": "0.1.0",
+  "description": "Yet another keystroke helper.",
   "keywords": [
     "shortcut",
     "hotkey",

@@ -8,42 +8,49 @@ import {
   InputSwitch,
   H1
 } from '@kcuf/demo-rc';
-import Keyboard, {
+import {
   KeyboardCode
 } from '@kcuf/rc-keyboard-mac';
 
 import {
-  GridContainer,
-  Keystroke
+  getModifierNamesAndSymbols
+} from './util';
+import {
+  KeyboardWithModifiers,
+  KeystrokeModifiers
 } from './rc';
 
 export default function StoryReturnFalse(): ReactElement {
+  const [stateModifiers, setStateModifiers] = useState<KeyboardCode[]>([KeyboardCode.META_LEFT]);
   const [stateReturnFalse, setStateReturnFalse] = useState(true);
+  const [modifierNames] = getModifierNamesAndSymbols(stateModifiers);
   
   return <>
     <MinimalNormalize />
-    <Keyboard {...{
-      codes: [KeyboardCode.META_LEFT, KeyboardCode.S]
+    <KeyboardWithModifiers {...{
+      extraCodes: [KeyboardCode.S, KeyboardCode.D, KeyboardCode.L],
+      modifiers: stateModifiers,
+      onModifiersChange: setStateModifiers
     }} />
-    <H1>Return false == preventDefault + stopPropagation</H1>
-    <GridContainer>
-      <InputSwitch {...{
-        value: stateReturnFalse,
-        label: 'Return false',
-        onChange: setStateReturnFalse
-      }} />
-      <Keystroke {...{
-        keystroke: 'Cmd+S',
-        returnFalse: stateReturnFalse
-      }} />
-      <Keystroke {...{
-        keystroke: 'Cmd+D',
-        returnFalse: stateReturnFalse
-      }} />
-      <Keystroke {...{
-        keystroke: 'Cmd+L',
-        returnFalse: stateReturnFalse
-      }} />
-    </GridContainer>
+    <H1>Return false == preventDefault + stopPropagation <InputSwitch {...{
+      value: stateReturnFalse,
+      label: 'Return false',
+      onChange: setStateReturnFalse
+    }} /></H1>
+    <KeystrokeModifiers {...{
+      theKey: 'S',
+      modifierNames,
+      returnFalse: stateReturnFalse
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: 'D',
+      modifierNames,
+      returnFalse: stateReturnFalse
+    }} />
+    <KeystrokeModifiers {...{
+      theKey: 'L',
+      modifierNames,
+      returnFalse: stateReturnFalse
+    }} />
   </>;
 }

@@ -9,6 +9,7 @@ import {
  * Mac 键盘每行键数有 14、13、12、9，需要保证每行左右齐平
  */
 export const KEY_SPACING = 2;
+export const KEY_PADDING = 6;
 export const KEY_WIDTH = 64;
 export const KEY_WIDTH_1 = 70; // 宽度 +1，用于 Command
 export const KEY_WIDTH_2 = 73; // 宽度 +2，用于 Escape、Backspace、Tab

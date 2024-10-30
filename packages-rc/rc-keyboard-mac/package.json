@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/rc-keyboard-mac",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A mac book keyboard react component.",
   "keywords": [
     "mac",

@@ -8,11 +8,11 @@ function randomInRange(min: number, max: number): number {
 
 function throwOne(particleCount: number, x: number): void {
   confetti({ // since particles fall down, start a bit higher than random
+    particleCount,
     startVelocity: 30,
     spread: 360,
     ticks: 60,
     zIndex: 0,
-    particleCount,
     origin: {
       x,
       y: Math.random() - 0.2

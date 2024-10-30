@@ -7,51 +7,27 @@ import {
 } from '../const';
 
 import matchKeybinding from './match-keybinding';
-import getModifierState from './get-modifier-state';
 
-/**
- * Creates an event listener for handling keybindings.
- *
- * @example
- * ```js
- * import { createKeybindingsHandler } from "../src/keybindings"
- *
- * let handler = createKeybindingsHandler({
- *    "Shift+d": () => {
- *        alert("The 'Shift' and 'd' keys were pressed at the same time")
- *    },
- *    "y e e t": () => {
- *        alert("The keys 'y', 'e', 'e', and 't' were pressed in order")
- *    },
- *    "$mod+d": () => {
- *        alert("Either 'Control+d' or 'Meta+d' were pressed")
- *    },
- * })
- *
- * window.addEvenListener("keydown", handler)
- * ```
- */
 export default function createKeybindingHandler(keybindings: IKeybinding[], callback: IKeymapCallback, timeout = DEFAULT_TIMEOUT): (e: KeyboardEvent) => void {
   const possibleMatches = new Map<IKeybinding[], IKeybinding[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
   
   return (e: KeyboardEvent) => {
-    const prev = possibleMatches.get(keybindings);
-    const remainingExpectedPresses = prev || keybindings;
-    const currentExpectedPress = remainingExpectedPresses[0];
-    const matches = currentExpectedPress ? matchKeybinding(currentExpectedPress, e) : false;
+    const prevKeybinding = possibleMatches.get(keybindings);
+    const remainingKeybindings = prevKeybinding || keybindings;
+    const currentKeybinding = remainingKeybindings[0];
+    const matched = currentKeybinding ? matchKeybinding(e, currentKeybinding) : false;
     
-    if (!matches) {
+    if (!matched) {
       // Modifier keydown events shouldn't break sequences
       // Note: This works because:
       // - non-modifiers will always return false
       // - if the current keypress is a modifier then it will return true when we check its state
-      // MDN: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/getModifierState
-      if (!getModifierState(e, e.key)) {
+      if (!e.getModifierState(e.key)) {
         possibleMatches.delete(keybindings);
       }
-    } else if (remainingExpectedPresses.length > 1) {
-      possibleMatches.set(keybindings, remainingExpectedPresses.slice(1));
+    } else if (remainingKeybindings.length > 1) {
+      possibleMatches.set(keybindings, remainingKeybindings.slice(1));
     } else {
       possibleMatches.delete(keybindings);
       

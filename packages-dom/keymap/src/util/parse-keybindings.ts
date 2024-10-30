@@ -23,34 +23,35 @@ import normalizeKey from './normalize-key';
  *
  * 单独使用的时候，可以直接用 `+` 或 ` `
  */
-export default function parseKeybindings(keystroke: string): IKeybinding[] {
-  if (keystroke === '+' || keystroke === ' ' || !/[ +]/.test(keystroke)) {
-    return [{
-      key: normalizeKey(keystroke)
-    }];
+export default function parseKeybindings(keystroke: string, caseSensitive?: boolean): IKeybinding[] {
+  const result: IKeybinding[] = [];
+  
+  function push(key?: string, modifiers?: string[]): void {
+    if (key) {
+      result.push({
+        key: normalizeKey(key),
+        modifiers: modifiers?.length ? normalizeModifiers(modifiers) : undefined,
+        caseSensitive
+      });
+    }
   }
   
-  return keystroke.trim().split(/\s+/).reduce((result: IKeybinding[], v) => {
-    if (!v) {
-      return result;
-    }
+  if (keystroke === '+' || keystroke === ' ' || !/[ +]/.test(keystroke)) {
+    push(keystroke);
     
+    return result;
+  }
+  
+  keystroke.trim().split(/\s+/).forEach(v => {
     if (v === '+') {
-      result.push({
-        key: normalizeKey(v)
-      });
+      push(v);
     } else {
       const modifiers = v.split('+'); // /\b\+/ 无法匹配 `⇧+C` 这种
       const key = modifiers.pop();
       
-      if (key) {
-        result.push({
-          key: normalizeKey(key),
-          modifiers: normalizeModifiers(modifiers)
-        });
-      }
+      push(key, modifiers);
     }
-    
-    return result;
-  }, []);
+  });
+  
+  return result;
 }

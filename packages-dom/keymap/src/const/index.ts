@@ -2,39 +2,75 @@ import {
   EModifierKey
 } from '../enum';
 
-export const MODIFIERS = [
-  EModifierKey.CONTROL,
-  EModifierKey.ALT,
-  EModifierKey.SHIFT,
-  EModifierKey.META
-];
-
 /**
- * These are the modifier keys that change the meaning of keybindings.
- *
- * Note: Ignoring "AltGraph" because it is covered by the others.
- */
-export const KEYBINDING_MODIFIER_KEYS = ['Shift', 'Meta', 'Alt', 'Control'];
-
-/**
- * Keybinding sequences should timeout if individual key presses are more than
- * 1s apart by default.
+ * Combo 序列间隔超时时间，超过即取消 Combo。
  */
 export const DEFAULT_TIMEOUT = 1000;
 
-/**
- * Platform detection code.
- * @see https://kkgithub.com/jamiebuilds/tinykeys/issues/184
- */
-export const PLATFORM = typeof navigator === 'object' ? navigator.platform : '';
-export const APPLE_DEVICE = /Mac|iPod|iPhone|iPad/.test(PLATFORM);
+export const MODIFIER_ALIAS: Record<string, EModifierKey> = {
+  CONTROL: EModifierKey.CONTROL,
+  CTRL: EModifierKey.CONTROL,
+  '⌃': EModifierKey.CONTROL,
+  ALT: EModifierKey.ALT,
+  OPTION: EModifierKey.ALT,
+  '⌥': EModifierKey.ALT,
+  SHIFT: EModifierKey.SHIFT,
+  '⇧': EModifierKey.SHIFT,
+  META: EModifierKey.META,
+  COMMAND: EModifierKey.META,
+  CMD: EModifierKey.META,
+  '⌘': EModifierKey.META,
+  $MOD: /Mac OS X/i.test(navigator.userAgent) ? EModifierKey.META : EModifierKey.CONTROL
+};
 
 /**
- * Meaning of `AltGraph`, from MDN:
- * - Windows: Both Alt and Ctrl keys are pressed, or AltGr key is pressed
- * - Mac: ⌥ Option key pressed
- * - Linux: Level 3 Shift key (or Level 5 Shift key) pressed
- * - Android: Not supported
- * @see https://kkgithub.com/jamiebuilds/tinykeys/issues/185
+ * 设置的时候，可以用简化的 Alias 代替 key 值
  */
-export const ALT_GRAPH_ALIASES = (PLATFORM === 'Win32' ? ['Control', 'Alt'] : APPLE_DEVICE ? ['Alt'] : []);
+export const KEY_ALIAS: Record<string, string> = {
+  UP: 'ArrowUp',
+  DOWN: 'ArrowDown',
+  LEFT: 'ArrowLeft',
+  RIGHT: 'ArrowRight',
+  '↑': 'ArrowUp',
+  '↓': 'ArrowDown',
+  '←': 'ArrowLeft',
+  '→': 'ArrowRight',
+  '↵': 'Enter',
+  '↩': 'Enter',
+  '⏎': 'Enter',
+  SPACE: ' ',
+  '␣': ' ',
+  '⎋': 'Escape',
+  '⇥': 'Tab',
+  '⇞': 'PageUp',
+  '⇟': 'PageDown',
+  '⌫': 'Backspace',
+  '⌦': 'Delete'
+};
+
+/**
+ * 按住 Alt+Shift 的时候，需要通过 `code` 还原真实的 `key`，这里没有字母（字母可以通过 `code` 转换）。
+ */
+export const CODE_TO_KEYS: Record<string, [string, string]> = {
+  Digit1: ['1', '!'],
+  Digit2: ['2', '@'],
+  Digit3: ['3', '#'],
+  Digit4: ['4', '$'],
+  Digit5: ['5', '%'],
+  Digit6: ['6', '^'],
+  Digit7: ['7', '&'],
+  Digit8: ['8', '*'],
+  Digit9: ['9', '('],
+  Digit0: ['0', ')'],
+  Backquote: ['`', '~'],
+  Minus: ['-', '_'],
+  Equal: ['=', '+'],
+  BracketLeft: ['[', '{'],
+  BracketRight: [']', '}'],
+  Backslash: ['\\', '|'],
+  Semicolon: [';', ':'],
+  Quote: ['\'', '"'],
+  Comma: [',', '<'],
+  Period: ['.', '>'],
+  Slash: ['/', '?']
+};

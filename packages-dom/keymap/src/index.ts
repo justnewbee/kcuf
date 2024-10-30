@@ -14,11 +14,12 @@ export default function keymap(keystroke: string, callback: IKeymapCallback, {
   target = window,
   keyup,
   capture = true,
-  // caseSensitive,
+  caseSensitive,
   timeout
 }: IKeymapOptions = {}): () => void {
   const type = keyup ? 'keyup' : 'keydown';
-  const handleKeyEvent = createKeybindingsHandler(parseKeybindings(keystroke), callback, timeout) as (e: Event) => void;
+  const keybindings = parseKeybindings(keystroke, caseSensitive);
+  const handleKeyEvent = createKeybindingsHandler(keybindings, callback, timeout) as (e: Event) => void;
   
   target.addEventListener(type, handleKeyEvent, capture);
   

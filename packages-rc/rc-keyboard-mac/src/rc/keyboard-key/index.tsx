@@ -11,6 +11,7 @@ import {
   KEY_HEIGHT,
   KEY_HEIGHT_SHORT,
   KEY_SPACING,
+  KEY_PADDING,
   KEY_WIDTH,
   KEY_WIDTH_1,
   KEY_WIDTH_2,
@@ -19,9 +20,7 @@ import {
   KEY_WIDTH_5,
   KEYBOARD_PADDING
 } from '../../const';
-import {
-  getKeyboardKeyDisplayName
-} from '../../util';
+import KeyboardKeyName from '../keyboard-key-name';
 
 const ScKeyboardKey = styled.div`
   display: flex;
@@ -30,7 +29,7 @@ const ScKeyboardKey = styled.div`
   align-items: center;
   position: relative;
   margin: ${KEY_SPACING}px;
-  padding: 6px;
+  padding: ${KEY_PADDING}px;
   width: ${KEY_WIDTH}px;
   height: ${KEY_HEIGHT}px;
   float: left;
@@ -71,7 +70,10 @@ const ScKeyboardKey = styled.div`
   }
   
   &[data-code=Space] {
+    padding-left: ${KEY_PADDING * 2}px;
+    padding-right: ${KEY_PADDING * 2}px;
     width: ${KEY_WIDTH_5}px;
+    justify-content: flex-end;
   }
   
   &[data-code=Escape],
@@ -189,10 +191,10 @@ export default function KeyboardKey({
   data,
   statusOn,
   statusActive,
+  displayEvent,
   onClick
 }: IKeyboardKeyProps): ReactElement {
   const handleClick = useCallback(() => onClick?.(data), [data, onClick]);
-  const name = getKeyboardKeyDisplayName(data);
   
   return <ScKeyboardKey {...{
     'data-code': data.code,
@@ -200,6 +202,6 @@ export default function KeyboardKey({
     'data-active': statusActive ? '' : undefined,
     onClick: handleClick
   }}>
-    {Array.isArray(name) ? name.map(vv => <div key={`${vv}`}>{vv}</div>) : name}
+    <KeyboardKeyName data={data} displayEvent={displayEvent} />
   </ScKeyboardKey>;
 }

@@ -28,10 +28,44 @@
 | 代码触发（trigger） | ❌ | ✅ | ❌ | ✅ | ❌ |
 | 符号 Modifiers（⇧⌥⌃⌘） | ❌ | ✅ | ✅ | ❌ | ❌ |
 
-
 [tinykeys]: https://www.npmjs.com/package/tinykeys
 [hotkeys-js]: https://www.npmjs.com/package/hotkeys-js
 [keymaster]: https://www.npmjs.com/package/keymaster
 [mousetrap]: https://www.npmjs.com/package/mousetrap
 [shortcutjs]: https://www.npmjs.com/package/shortcutjs
 [hotkeys]: https://www.npmjs.com/package/hotkeys
+
+## 符号
+
+| 符号 | `key` | `code` | ~~`keyCode`~~ |
+| --- | --- | --- | --- |
+| ⌃ | Control | ControlLeft / ControlRight | 17 |
+| ⌥ | Alt | AltLeft / AltRight | 18 |
+| ⇧ | Shift | ShiftLeft / ShiftRight | 16 |
+| ⌘ | Meta | MetaLeft / MetaRight | 224 |
+| ↑ | ArrowUp | ArrowUp | 38 |
+| ↓ | ArrowDown | ArrowDown | 40 |
+| ← | ArrowLeft | ArrowLeft | 37 |
+| → | ArrowRight | ArrowRight | 39 |
+| ⏎ / ↵ / ↩ | Enter | Enter | 13 |
+| ␣ | Space | Space | 32 |
+| ⎋ | Escape | Escape | 27 |
+| ⇥ | Tab | Tab | 9 |
+| ⇞ | PageUp | PageUp | ? |
+| ⇟ | PageDown | PageDown | ? |
+| ⌫ | Backspace | Backspace | 8 |
+| ⌦ | Delete | Delete | 46 |
+
+## FAQ
+
+### ❓ Mac 下 F11 无响应？
+
+系统快捷键权限更高，接管不了。
+
+### ❓ `Ctrl++` 不行？
+
+不行。换 `Ctrl+=`。
+
+### ❓ Combo 下使用 `+`？
+
+可以。比如设置 `C + +`，可以在按键序列 `c` → `⇧=` → `⇧=` 时触发。

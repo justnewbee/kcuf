@@ -6,31 +6,31 @@ import {
 import {
   IKeybinding
 } from '../types';
+import {
+  CODE_TO_KEYS
+} from '../const';
 
+import isKeyboardEventCodeAlphabet from './is-keyboard-event-code-alphabet';
 import getKeyboardEventModifiers from './get-keyboard-event-modifiers';
 
-export default function matchKeybindingModifiers(keybinding: IKeybinding, e: KeyboardEvent): boolean {
+export default function matchKeybindingModifiers(e: KeyboardEvent, keybinding: IKeybinding): boolean {
   const {
     modifiers = []
   } = keybinding;
   const eventModifiers = getKeyboardEventModifiers(e);
   
+  // 只有 Shift 的时候，情况稍稍特殊，字母则返回 true
   if (!modifiers.length && eventModifiers.length === 1 && eventModifiers[0] === EModifierKey.SHIFT) {
-    return true;
+    if (isKeyboardEventCodeAlphabet(e)) { // true
+      return true;
+    }
+    
+    const keys = CODE_TO_KEYS[e.code];
+    
+    if (e.key === keys?.[1]) {
+      return true;
+    }
   }
   
-  return !_xor(modifiers, getKeyboardEventModifiers(e)).length;
-  
-  // return !(
-  //   // Ensure all the modifiers in the keybinding are pressed.
-  //   modifiers?.find(v => {
-  //     return !getModifierState(e, v);
-  //   }) ||
-  //
-  //   // KEYBINDING_MODIFIER_KEYS (Shift/Control/etc.) change the meaning of a keybinding.
-  //   // So if they are pressed but aren't part of the current keybinding press, then we don't have a match.
-  //   KEYBINDING_MODIFIER_KEYS.find(v => {
-  //     return !modifiers?.includes(v) && key !== v && getModifierState(e, v);
-  //   })
-  // );
+  return !_xor(modifiers, eventModifiers).length;
 }

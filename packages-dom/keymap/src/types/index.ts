@@ -3,10 +3,8 @@ import {
 } from '../enum';
 
 /**
- * A single press of a keybinding sequence
+ * 调用 `keymap` 方法返回解绑函数。
  */
-export type TKeyBindingPress = [mods: string[], key: string];
-
 export interface IKeymapCallback {
   (): void | boolean;
 }
@@ -24,10 +22,10 @@ export interface IKeymapOptions {
    * 是否时间捕获，默认 true
    */
   capture?: boolean;
-  // /**
-  //  * 是否大小写敏感，对 a-zA-Z 有效
-  //  */
-  // caseSensitive?: boolean;
+  /**
+   * 是否大小写敏感，仅对 a-zA-Z 有效，默认不敏感
+   */
+  caseSensitive?: boolean;
   /**
    * Combo 的超时设置，默认 1000ms
    *
@@ -37,6 +35,7 @@ export interface IKeymapOptions {
 }
 
 export interface IKeybinding {
-  key: string; // toUpperCase
+  key: string;
   modifiers?: EModifierKey[];
+  caseSensitive?: boolean;
 }

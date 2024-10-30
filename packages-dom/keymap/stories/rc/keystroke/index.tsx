@@ -7,20 +7,22 @@ import {
 import styled from 'styled-components';
 
 import {
-  Kbd,
-  Code
+  Kbd
 } from '@kcuf/demo-rc';
 
 import keymap from '../../../src';
 
 interface IProps {
   keystroke: string;
+  target?: HTMLElement;
   returnFalse?: boolean;
+  caseSensitive?: boolean;
   onFire?(): void;
 }
 
-const ScFired = styled(Code)`
+const ScFired = styled.strong`
   margin-left: 4px;
+  color: hsl(0 89% 50%);
 `;
 
 function splitKeystroke(keystroke: string): string[] {
@@ -37,14 +39,18 @@ const ScKeymapDemo = styled.div`
 
 export default function Keystroke({
   keystroke,
+  target,
   returnFalse,
+  caseSensitive,
   onFire
 }: IProps): ReactElement {
   const [stateFired, setStateFired] = useState(0);
+  const [stateFiredVisible, setStateFiredVisible] = useState(false);
   const [stateClearFiredTimer, setStateClearFiredTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
   
   const handleFire = useCallback(() => {
-    setStateFired(Date.now() % 10000);
+    setStateFired(value => value + 1);
+    setStateFiredVisible(true);
     
     onFire?.();
     
@@ -54,7 +60,7 @@ export default function Keystroke({
       }
       
       return setTimeout(() => {
-        setStateFired(0);
+        setStateFiredVisible(false);
       }, 1000);
     });
     
@@ -63,7 +69,10 @@ export default function Keystroke({
     }
   }, [returnFalse, onFire, setStateFired]);
   
-  useEffect(() => keymap(keystroke, handleFire), [keystroke, handleFire]);
+  useEffect(() => keymap(keystroke, handleFire, {
+    target,
+    caseSensitive
+  }), [keystroke, target, caseSensitive, handleFire]);
   
   useEffect(() => {
     return () => {
@@ -75,6 +84,6 @@ export default function Keystroke({
   
   return <ScKeymapDemo>
     {splitKeystroke(keystroke).map((v, i) => <Kbd key={`${v}-${i}`}>{v === ' ' ? '空' : v}</Kbd>)}
-    {stateFired > 0 ? <ScFired>{stateFired}</ScFired> : null}
+    {stateFiredVisible ? <ScFired><span role="img">🎉</span> {stateFired}</ScFired> : null}
   </ScKeymapDemo>;
 }
