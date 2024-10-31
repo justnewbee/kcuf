@@ -27,7 +27,6 @@
     "@babel/plugin-transform-runtime": "^7.25.9",
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
-    "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@types/lodash": "^4.17.13",
     "@vitest/coverage-v8": "^2.1.4",

@@ -10,15 +10,11 @@ module.exports = {
       },
       modules: process.env.ESM === '1' ? false : 'cjs'
     }],
-    '@babel/preset-typescript',
-    '@babel/preset-react'
+    '@babel/preset-typescript'
   ],
   plugins: [
     ['@babel/plugin-transform-runtime', {
       version: '^7.24.7'
-    }],
-    ['@babel/plugin-transform-react-jsx', {
-      runtime: 'automatic'
     }]
   ]
 }
