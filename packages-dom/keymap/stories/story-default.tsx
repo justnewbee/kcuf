@@ -8,7 +8,8 @@ import {
   H1,
   H2
 } from '@kcuf/demo-rc';
-import {
+import Keyboard, {
+  KeyboardModifiers,
   KeyboardCode
 } from '@kcuf/rc-keyboard-mac';
 
@@ -16,20 +17,21 @@ import {
   getModifierNamesAndSymbols
 } from './util';
 import {
-  KeyboardWithModifiers,
   KeystrokeModifiers
 } from './rc';
 
 export default function StoryDefault(): ReactElement {
-  const [stateModifiers, setStateModifiers] = useState<KeyboardCode[]>([KeyboardCode.ALT_LEFT]);
+  const [stateModifiers, setStateModifiers] = useState<KeyboardModifiers>({
+    alt: 'left'
+  });
   const [modifierNames, modifierSymbols] = getModifierNamesAndSymbols(stateModifiers);
   
   return <>
     <MinimalNormalize />
-    <KeyboardWithModifiers {...{
-      extraCodes: [KeyboardCode.F1, KeyboardCode.D1, KeyboardCode.X, KeyboardCode.ESC, KeyboardCode.ENTER],
-      modifiers: stateModifiers,
-      onModifiersChange: setStateModifiers
+    <Keyboard {...{
+      activeCodes: [KeyboardCode.F1, KeyboardCode.D1, KeyboardCode.X, KeyboardCode.ESC, KeyboardCode.ENTER],
+      activeModifiers: stateModifiers,
+      onActiveModifiersChange: setStateModifiers
     }} />
     <H1>Modifiers ⌃ ⌥ ⇧ ⌘</H1>
     <H2>F1-F12</H2>

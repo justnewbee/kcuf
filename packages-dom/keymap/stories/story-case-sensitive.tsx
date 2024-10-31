@@ -8,12 +8,12 @@ import {
   H1,
   InputSwitch
 } from '@kcuf/demo-rc';
-import {
-  KeyboardCode
+import Keyboard, {
+  KeyboardCode,
+  KeyboardModifiers
 } from '@kcuf/rc-keyboard-mac';
 
 import {
-  KeyboardWithModifiers,
   GridContainer,
   Keystroke
 } from './rc';
@@ -22,16 +22,18 @@ import {
 } from './util';
 
 export default function StoryCaseSensitive(): ReactElement {
-  const [stateModifiers, setStateModifiers] = useState<KeyboardCode[]>([KeyboardCode.SHIFT_LEFT]);
+  const [stateModifiers, setStateModifiers] = useState<KeyboardModifiers>({
+    shift: 'left'
+  });
   const [modifierNames] = getModifierNamesAndSymbols(stateModifiers);
   const [stateCaseSensitive, setStateCaseSensitive] = useState(true);
   
   return <>
     <MinimalNormalize />
-    <KeyboardWithModifiers {...{
-      extraCodes: [KeyboardCode.X, KeyboardCode.F1],
-      modifiers: stateModifiers,
-      onModifiersChange: setStateModifiers
+    <Keyboard {...{
+      activeCodes: [KeyboardCode.X, KeyboardCode.F1],
+      activeModifiers: stateModifiers,
+      onActiveModifiersChange: setStateModifiers
     }} />
     <H1>Case Sensitive <InputSwitch label="case sensitive" value={stateCaseSensitive} onChange={setStateCaseSensitive} /></H1>
     <GridContainer>

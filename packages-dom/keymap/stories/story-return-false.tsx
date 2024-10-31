@@ -8,29 +8,31 @@ import {
   InputSwitch,
   H1
 } from '@kcuf/demo-rc';
-import {
-  KeyboardCode
+import Keyboard, {
+  KeyboardCode,
+  KeyboardModifiers
 } from '@kcuf/rc-keyboard-mac';
 
 import {
   getModifierNamesAndSymbols
 } from './util';
 import {
-  KeyboardWithModifiers,
   KeystrokeModifiers
 } from './rc';
 
 export default function StoryReturnFalse(): ReactElement {
-  const [stateModifiers, setStateModifiers] = useState<KeyboardCode[]>([KeyboardCode.META_LEFT]);
+  const [stateModifiers, setStateModifiers] = useState<KeyboardModifiers>({
+    meta: 'left'
+  });
   const [stateReturnFalse, setStateReturnFalse] = useState(true);
   const [modifierNames] = getModifierNamesAndSymbols(stateModifiers);
   
   return <>
     <MinimalNormalize />
-    <KeyboardWithModifiers {...{
-      extraCodes: [KeyboardCode.S, KeyboardCode.D, KeyboardCode.L],
-      modifiers: stateModifiers,
-      onModifiersChange: setStateModifiers
+    <Keyboard {...{
+      activeCodes: [KeyboardCode.S, KeyboardCode.D, KeyboardCode.L],
+      activeModifiers: stateModifiers,
+      onActiveModifiersChange: setStateModifiers
     }} />
     <H1>Return false == preventDefault + stopPropagation <InputSwitch {...{
       value: stateReturnFalse,

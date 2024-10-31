@@ -5,14 +5,12 @@
 Yet another MacKeyboard React component, inspired by `@uiw/react-mac-keyboard` with some improvements and modifications:
 
 1. Listen to document keydown events and reflect status by default
-2. Use `styled-components` as CSS solution
-3. Less CSS code using data attributes selector instead of `nth` selector
-4. Reduced hard coded sizing in CSS
-5. Can tell Left or Right Control/Option/Shift/Meta
-6. Can tell the difference between Backspace and Delete
-7. Displays event details in the space bar by default
-8. Ditched deprecated [keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode) for [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code)
-9. An `onKeyPress` event which can reflect Shift state
+2. Can control active keys and modifiers
+3. Use `styled-components` as CSS solution, reduced CSS size by using data attributes selector instead of `nth` selector, and reduced hard coded sizing in CSS
+4. Can tell Left or Right Control/Option/Shift/Meta, and the difference between Backspace and Delete
+5. Displays event details in the space bar by default
+6. Ditched deprecated [keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode) for [code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code)
+7. An `onKeyPress` event which can reflect Shift state
 
 ## How to Use
 
@@ -36,33 +34,43 @@ import Keyboard from '@kcuf/rc-keyboard-mac';
 ```ts
 interface KeyboardProps extends HTMLAttributes<HTMLDivElement>, Partial<IKeyboardInfo> {
   /**
-   * Default: true
-   * 
    * By default, the component will listen to keydown event on document, and refect the status in the keyboard.
    * 
-   * However, if you want to control the behavior, you can pass codes and capsLock props.
+   * 是否监听键盘事件，默认 `true`，如果 `false`，可以通过 `codes` 和 `capsLock` 进行控制。
    */
   listen?: boolean;
   /**
-   * Makes some keys on by passing in codes.
+   * Controllable active codes, ref https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code.
    * 
-   * https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code
+   * 受控的 `activeCodes`
    */
-  codes?: string[];
+  activeCodes?: EKeyboardCode[];
   /**
-   * Make CapsLock key on.
-   */
-  capsLock?: boolean;
-  /**
-   * Default: true
+   * Whether Control / Alt / Shift / Meta / Fn can stay pressed before next click.
    * 
-   * Display current keydown event details in the space key, the info will disappear automatically after 3s.
+   * 是否对 Control / Alt / Shift / Meta / Fn 等键记录按下状态。
    */
-  details?: boolean;
+  activeModifiers?: boolean | IKeyboardModifiers;
+  /**
+   * Wheter (default true) to display current keydown details in the space key, the info will disappear automatically after 3s.
+   * 
+   * 将键盘事件的信息显示在空格键上，3s 后自动消失，默认 `true`。
+   * 
+   * 注意，Mac 键盘在 CapsLock 的时候，按住 Shift 不会返回小写的 `key`，这里也不作纠正，如实反应。
+   */
+  detailsInSpace?: boolean;
   /**
    * Callback when click a key in the UI, can reflect whether Shift is on.
+   * 
+   * 点击按钮的回调，当 `capsLock` 受控时，能够根据 `Shift` 正确返回大小写的 `key` 值，但不会根据 `Alt` 做出反应。
    */
   onKeyPress?(key: string, code: EKeyboardCode): void;
+  /**
+   * With `props.activeModifiers` in object format, can make it controllable.
+   * 
+   * 配合 `props.activeModifiers` 的对象写法，可以实现受控。
+   */
+  onActiveModifiersChange?(activeModifiers: IKeyboardModifiers): void;
 }
 ```
 
