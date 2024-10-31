@@ -4,8 +4,8 @@ import {
 
 export default function createInitialState(): IModelState {
   return {
-    codes: [],
-    modifierState: {},
+    activeCodes: [],
+    activeModifiers: {},
     keyDetails: null
   };
 }

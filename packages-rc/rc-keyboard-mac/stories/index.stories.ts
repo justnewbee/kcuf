@@ -22,7 +22,7 @@ export const Default: TStory = {};
 
 export const Controlled: TStory = {
   args: {
-    codes: [
+    activeCodes: [
       KeyboardCode.W,
       KeyboardCode.A,
       KeyboardCode.S,
@@ -32,7 +32,7 @@ export const Controlled: TStory = {
       KeyboardCode.ARROW_LEFT,
       KeyboardCode.ARROW_RIGHT
     ],
-    modifierState: {
+    activeModifiers: {
       shift: 'left',
       fn: true
     }
@@ -41,7 +41,7 @@ export const Controlled: TStory = {
 
 export const ModifierState: TStory = {
   args: {
-    modifierState: true
+    activeModifiers: true
   }
 };
 

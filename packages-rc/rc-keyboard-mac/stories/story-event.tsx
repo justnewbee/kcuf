@@ -6,6 +6,7 @@ import {
 import styled from 'styled-components';
 
 import Keyboard, {
+  KeyboardModifiers,
   KeyboardCode
 } from '../src';
 
@@ -15,28 +16,17 @@ const ScLastPress = styled.div`
 `;
 
 export default function StoryEvent(): ReactElement {
-  const [stateLastKeyPress, setStateLastKeyPress] = useState<null | [string, string]>(null);
-  const [stateShift, setStateShift] = useState<KeyboardCode.SHIFT_LEFT | KeyboardCode.SHIFT_RIGHT | ''>('');
+  const [stateActiveModifiers, setStateActiveModifiers] = useState<KeyboardModifiers>({});
+  const [stateLastKeyPress, setStateLastKeyPress] = useState<null | [string, KeyboardCode]>(null);
   const handleKeyPress = useCallback((key: string, code: KeyboardCode) => {
     setStateLastKeyPress([key, code]);
-    
-    switch (code) { // 记住 Shift 柱状
-      case KeyboardCode.SHIFT_LEFT:
-      case KeyboardCode.SHIFT_RIGHT:
-        setStateShift(value => {
-          return value === code ? '' : code;
-        });
-        
-        break;
-      default:
-        break;
-    }
   }, []);
   
   return <>
     <Keyboard {...{
-      codes: stateShift ? [stateShift] : undefined,
-      onKeyPress: handleKeyPress
+      activeModifiers: stateActiveModifiers,
+      onKeyPress: handleKeyPress,
+      onModifierStateChange: setStateActiveModifiers
     }} />
     {stateLastKeyPress ? <ScLastPress><code>{stateLastKeyPress[0]}</code> / <code>{stateLastKeyPress[1]}</code></ScLastPress> : null}
   </>;

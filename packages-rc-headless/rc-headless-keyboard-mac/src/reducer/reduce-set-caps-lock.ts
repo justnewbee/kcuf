@@ -8,6 +8,6 @@ import {
 
 export default function reduceSetCapsLock(state: IModelState, payload: boolean): IModelState {
   return produce(state, draft => {
-    draft.modifierState.capsLock = payload;
+    draft.activeModifiers.capsLock = payload;
   });
 }

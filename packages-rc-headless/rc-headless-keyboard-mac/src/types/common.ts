@@ -2,16 +2,6 @@ import {
   EKeyboardCode
 } from '../enum';
 
-export interface IModifier {
-  codes: [EKeyboardCode, EKeyboardCode]; // left & right
-  last: EKeyboardCode | null;
-}
-
-export interface IKeyboardInfo {
-  codes: EKeyboardCode[];
-  capsLock: boolean;
-}
-
 export interface IKeyData {
   code: EKeyboardCode; // KeyboardEvent.code
   key?: string; // KeyboardEvent.key
@@ -29,7 +19,7 @@ export interface IKeyDetails {
   meta: boolean;
 }
 
-export interface IModifierState {
+export interface IKeyboardModifiers {
   control?: '' | 'left' | 'right';
   alt?: '' | 'left' | 'right';
   shift?: '' | 'left' | 'right';

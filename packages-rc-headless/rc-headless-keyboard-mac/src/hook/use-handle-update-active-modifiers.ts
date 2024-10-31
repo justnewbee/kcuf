@@ -6,12 +6,12 @@ import {
   EKeyboardCode
 } from '../enum';
 import {
-  IModifierState
+  IKeyboardModifiers
 } from '../types';
 
 import useModelProps from './_use-model-props';
-import useModifierState from './use-modifier-state';
-import useDispatchUpdateModifierState from './use-dispatch-update-modifier-state';
+import useActiveModifiers from './use-active-modifiers';
+import useDispatchUpdateActiveModifiers from './use-dispatch-update-active-modifiers';
 
 function determineLeftRight(code: EKeyboardCode, codeLeft: EKeyboardCode, codeRight: EKeyboardCode, currentValue?: '' | 'left' | 'right'): '' | 'left' | 'right' {
   switch (currentValue) {
@@ -24,50 +24,46 @@ function determineLeftRight(code: EKeyboardCode, codeLeft: EKeyboardCode, codeRi
   }
 }
 
-export default function useHandleUpdateModifiers(): (code: EKeyboardCode) => void {
+export default function useHandleUpdateActiveModifiers(): (code: EKeyboardCode) => void {
   const {
-    modifierState: modifierStateInProps,
-    onModifierStateChange
+    activeModifiers: activeModifiersInProps,
+    onActiveModifiersChange
   } = useModelProps();
-  const modifierState = useModifierState();
-  const dispatchUpdateModifierState = useDispatchUpdateModifierState();
+  const activeModifiers = useActiveModifiers();
+  const dispatchUpdateModifierState = useDispatchUpdateActiveModifiers();
   
   return useCallback((code: EKeyboardCode) => {
-    if (!modifierStateInProps) {
+    if (!activeModifiersInProps) {
       return;
     }
     
-    const updates: IModifierState | undefined = (() => {
+    const updates: IKeyboardModifiers | undefined = (() => {
       switch (code) {
         case EKeyboardCode.CONTROL_LEFT:
         case EKeyboardCode.CONTROL_RIGHT:
           return {
-            control: determineLeftRight(code, EKeyboardCode.CONTROL_LEFT, EKeyboardCode.CONTROL_RIGHT, modifierState.control)
+            control: determineLeftRight(code, EKeyboardCode.CONTROL_LEFT, EKeyboardCode.CONTROL_RIGHT, activeModifiers.control)
           };
         case EKeyboardCode.ALT_LEFT:
         case EKeyboardCode.ALT_RIGHT:
           return {
-            alt: determineLeftRight(code, EKeyboardCode.ALT_LEFT, EKeyboardCode.ALT_RIGHT, modifierState.alt)
+            alt: determineLeftRight(code, EKeyboardCode.ALT_LEFT, EKeyboardCode.ALT_RIGHT, activeModifiers.alt)
           };
         case EKeyboardCode.SHIFT_LEFT:
         case EKeyboardCode.SHIFT_RIGHT:
           return {
-            shift: determineLeftRight(code, EKeyboardCode.SHIFT_LEFT, EKeyboardCode.SHIFT_RIGHT, modifierState.shift)
+            shift: determineLeftRight(code, EKeyboardCode.SHIFT_LEFT, EKeyboardCode.SHIFT_RIGHT, activeModifiers.shift)
           };
         case EKeyboardCode.META_LEFT:
         case EKeyboardCode.META_RIGHT:
           return {
-            meta: determineLeftRight(code, EKeyboardCode.META_LEFT, EKeyboardCode.META_RIGHT, modifierState.meta)
-          };
-        case EKeyboardCode.CAPS_LOCK:
-          return {
-            capsLock: !modifierState.capsLock
+            meta: determineLeftRight(code, EKeyboardCode.META_LEFT, EKeyboardCode.META_RIGHT, activeModifiers.meta)
           };
         case EKeyboardCode.FN:
           return {
-            fn: !modifierState.fn
+            fn: !activeModifiers.fn
           };
-        default:
+        default: // 注意这里不处理 CapsLock
           break;
       }
     })();
@@ -75,10 +71,10 @@ export default function useHandleUpdateModifiers(): (code: EKeyboardCode) => voi
     if (updates) {
       dispatchUpdateModifierState(updates);
       
-      onModifierStateChange?.({
-        ...modifierState,
+      onActiveModifiersChange?.({
+        ...activeModifiers,
         ...updates
       });
     }
-  }, [dispatchUpdateModifierState, modifierState, modifierStateInProps, onModifierStateChange]);
+  }, [dispatchUpdateModifierState, activeModifiers, activeModifiersInProps, onActiveModifiersChange]);
 }

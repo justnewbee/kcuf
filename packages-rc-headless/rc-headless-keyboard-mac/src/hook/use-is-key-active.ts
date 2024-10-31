@@ -6,12 +6,12 @@ import {
   EKeyboardCode
 } from '../enum';
 
-import useCodes from './use-codes';
-import useModifierState from './use-modifier-state';
+import useActiveCodes from './use-active-codes';
+import useActiveModifiers from './use-active-modifiers';
 
 export default function useIsKeyActive(): (code: string) => boolean {
-  const codes = useCodes();
-  const modifierState = useModifierState();
+  const codes = useActiveCodes();
+  const activeModifiers = useActiveModifiers();
   
   return useCallback((code: string): boolean => {
     if (codes.includes(code)) {
@@ -20,25 +20,25 @@ export default function useIsKeyActive(): (code: string) => boolean {
     
     switch (code) {
       case EKeyboardCode.CONTROL_LEFT:
-        return modifierState.control === 'left';
+        return activeModifiers.control === 'left';
       case EKeyboardCode.CONTROL_RIGHT:
-        return modifierState.control === 'right';
+        return activeModifiers.control === 'right';
       case EKeyboardCode.ALT_LEFT:
-        return modifierState.alt === 'left';
+        return activeModifiers.alt === 'left';
       case EKeyboardCode.ALT_RIGHT:
-        return modifierState.alt === 'right';
+        return activeModifiers.alt === 'right';
       case EKeyboardCode.SHIFT_LEFT:
-        return modifierState.shift === 'left';
+        return activeModifiers.shift === 'left';
       case EKeyboardCode.SHIFT_RIGHT:
-        return modifierState.shift === 'right';
+        return activeModifiers.shift === 'right';
       case EKeyboardCode.META_LEFT:
-        return modifierState.meta === 'left';
+        return activeModifiers.meta === 'left';
       case EKeyboardCode.META_RIGHT:
-        return modifierState.meta === 'right';
+        return activeModifiers.meta === 'right';
       case EKeyboardCode.FN:
-        return modifierState.fn === true;
+        return activeModifiers.fn === true;
       default:
         return false;
     }
-  }, [codes, modifierState]);
+  }, [codes, activeModifiers]);
 }

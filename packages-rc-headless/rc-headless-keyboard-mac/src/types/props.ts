@@ -3,7 +3,7 @@ import {
 } from '../enum';
 
 import {
-  IModifierState
+  IKeyboardModifiers
 } from './common';
 
 export interface IModelProps {
@@ -11,8 +11,8 @@ export interface IModelProps {
    * 是否监听键盘事件，默认 `true`，如果 `false`，可以通过 `codes` 和 `capsLock` 进行控制。
    */
   listen?: boolean;
-  codes?: EKeyboardCode[];
-  modifierState?: boolean | IModifierState;
+  activeCodes?: EKeyboardCode[];
+  activeModifiers?: boolean | IKeyboardModifiers;
   /**
    * 将键盘事件的信息显示在空格键上，3s 后自动消失，默认 `true`。
    *
@@ -24,5 +24,5 @@ export interface IModelProps {
    * 点击按钮的回调，当 `capsLock` 受控时，能够根据 `Shift` 正确返回大小写的 `key` 值，但不会根据 `Alt` 做出反应。
    */
   onKeyPress?(key: string, code: EKeyboardCode): void;
-  onModifierStateChange?(modifierState: IModifierState): void;
+  onActiveModifiersChange?(activeModifiers: IKeyboardModifiers): void;
 }

@@ -4,11 +4,11 @@ import {
 
 import {
   IKeyDetails,
-  IModifierState
+  IKeyboardModifiers
 } from './common';
 
 export interface IModelState {
-  codes: EKeyboardCode[];
-  modifierState: IModifierState;
+  activeCodes: EKeyboardCode[];
+  activeModifiers: IKeyboardModifiers;
   keyDetails: IKeyDetails | null;
 }

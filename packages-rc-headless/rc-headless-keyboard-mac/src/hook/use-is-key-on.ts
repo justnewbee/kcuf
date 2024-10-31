@@ -6,12 +6,12 @@ import {
   EKeyboardCode
 } from '../enum';
 
-import useModifierState from './use-modifier-state';
+import useActiveModifiers from './use-active-modifiers';
 
 export default function useIsKeyOn(): (code: string) => boolean {
-  const modifierState = useModifierState();
+  const activeModifiers = useActiveModifiers();
   
   return useCallback((code: string): boolean => {
-    return modifierState.capsLock ? code === EKeyboardCode.CAPS_LOCK : false;
-  }, [modifierState]);
+    return activeModifiers.capsLock ? code === EKeyboardCode.CAPS_LOCK : false;
+  }, [activeModifiers]);
 }

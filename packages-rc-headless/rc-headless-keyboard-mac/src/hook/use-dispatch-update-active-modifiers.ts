@@ -6,16 +6,16 @@ import {
   EAction
 } from '../enum';
 import {
-  IModifierState
+  IKeyboardModifiers
 } from '../types';
 
 import useModelDispatch from './_use-model-dispatch';
 
-export default function useDispatchUpdateModifierState(): (payload: IModifierState) => void {
+export default function useDispatchUpdateActiveModifiers(): (payload: IKeyboardModifiers) => void {
   const dispatch = useModelDispatch();
   
-  return useCallback((payload: IModifierState) => dispatch({
-    type: EAction.UPDATE_MODIFIER_STATE,
+  return useCallback((payload: IKeyboardModifiers) => dispatch({
+    type: EAction.UPDATE_ACTIVE_MODIFIERS,
     payload
   }), [dispatch]);
 }
