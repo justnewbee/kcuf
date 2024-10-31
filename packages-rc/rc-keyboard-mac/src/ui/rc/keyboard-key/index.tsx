@@ -21,6 +21,7 @@ import {
   KEY_WIDTH_3,
   KEY_WIDTH_4,
   KEY_WIDTH_5,
+  KEY_FONT_SIZE,
   KEYBOARD_PADDING
 } from '../../const';
 import KeyboardKeyName from '../keyboard-key-name';
@@ -39,12 +40,10 @@ const ScKeyboardKey = styled.div`
   padding: ${KEY_PADDING}px;
   width: ${KEY_WIDTH}px;
   height: ${KEY_HEIGHT}px;
-  float: left;
   border-radius: 6px;
-  box-shadow: 1px 0 0 hsl(0 0% 0%), 0 1px 0 hsl(0 0% 0%), -1px 0 0 hsl(0 0% 0%), 0 -1px 0 hsl(0 0% 0%);
   background: hsl(0 0% 8%);
   color: hsl(0 0% 90%);
-  font-size: 12px;
+  font-size: ${KEY_FONT_SIZE}px;
   line-height: 1.6;
   box-sizing: border-box;
   transition: all 400ms ease-in;
@@ -120,30 +119,37 @@ const ScKeyboardKey = styled.div`
     align-items: flex-end;
   }
   
-  &[data-code=Backquote],
-  &[data-code^=Digit],
-  &[data-code^=Minus],
-  &[data-code^=Equal],
-  &[data-code^=Bracket],
-  &[data-code=BackSlash],
-  &[data-code=Semicolon],
-  &[data-code=Quote],
-  &[data-code=Comma],
-  &[data-code=Period],
-  &[data-code=Slash] {
-    font-size: 14px;
+  &[data-code^=TheFn],
+  &[data-code^=Escape],
+  &[data-code^=F], // F1-F12
+  &[data-code^=Power],
+  &[data-code^=Arrow] {
+    font-size: ${KEY_FONT_SIZE - 2}px;
   }
   
   &[data-code=Backspace],
   &[data-code=Tab],
   &[data-code=CapsLock],
   &[data-code=Enter],
-  &[data-code^=Shift] {
-    font-size: 16px;
+  &[data-code^=Shift],
+  &[data-code^=Control],
+  &[data-code^=Alt],
+  &[data-code^=Meta] {
+    font-size: ${KEY_FONT_SIZE + 2}px;
   }
   
   &[data-code^=Key] {
-    font-size: 18px;
+    font-size: ${KEY_FONT_SIZE + 4}px;
+  }
+  
+  &[data-code^=Control],
+  &[data-code^=Alt],
+  &[data-code^=Meta] {
+    justify-content: space-between;
+    
+    div:last-child {
+      font-size: ${KEY_FONT_SIZE - 2}px;
+    }
   }
   
   &[data-code=CapsLock] {
@@ -162,16 +168,6 @@ const ScKeyboardKey = styled.div`
       &::before {
         background: hsl(114 100% 50%);
       }
-    }
-  }
-  
-  &[data-code^=Control],
-  &[data-code^=Alt],
-  &[data-code^=Meta] {
-    justify-content: space-between;
-    
-    div:first-child {
-      font-size: 14px;
     }
   }
   

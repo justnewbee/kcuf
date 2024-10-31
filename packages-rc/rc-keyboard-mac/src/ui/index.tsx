@@ -4,10 +4,6 @@ import {
 import styled from 'styled-components';
 
 import {
-  useProps
-} from '../model';
-
-import {
   KEYBOARD_PADDING,
   KEYBOARD_WIDTH,
   KEYBOARD_HEIGHT,
@@ -16,6 +12,8 @@ import {
 import KeyboardKey from './rc/keyboard-key';
 
 const ScKeyboard = styled.div`
+  display: flex;
+  flex-wrap: wrap;
   position: relative;
   margin: 0 auto;
   padding: ${KEYBOARD_PADDING}px;
@@ -30,15 +28,7 @@ const ScKeyboard = styled.div`
 `;
 
 export default function KeyboardUi(): ReactElement {
-  const {
-    className,
-    style
-  } = useProps();
-  
-  return <ScKeyboard {...{
-    className,
-    style
-  }}>
+  return <ScKeyboard>
     {KEY_DATA_LIST.map(v => <KeyboardKey key={v.code} {...{
       data: v
     }} />)}

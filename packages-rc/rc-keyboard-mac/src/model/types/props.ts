@@ -1,8 +1,4 @@
 import {
-  CSSProperties
-} from 'react';
-
-import {
   EKeyboardCode
 } from '../enum';
 
@@ -11,8 +7,6 @@ import {
 } from './common';
 
 export interface IModelProps extends Partial<IKeyboardInfo> {
-  className?: string;
-  style?: CSSProperties;
   /**
    * 是否监听键盘事件，默认 `true`，如果 `false`，可以通过 `codes` 和 `capsLock` 进行控制。
    */
