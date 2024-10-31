@@ -18,8 +18,8 @@ import normalizeKey from './normalize-key';
  *
  * 注意 `+` 和空格有特殊含义，当有 combo 或者 modifier 的时候，需要替换：
  *
- * - `+` 用 `Plus` 替换
- * - 空格 用 `Space` 或 `␣` 替换
+ * - 尽量用 `+`，但可以在 Combo 中使用，如 `C + +`
+ * - 空格用 `Space` 或 `␣` 替换
  *
  * 单独使用的时候，可以直接用 `+` 或 ` `
  */
