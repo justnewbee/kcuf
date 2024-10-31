@@ -7,7 +7,7 @@ import {
 } from '../types';
 
 const modifierCtrl: IModifier = {
-  codes: [EKeyboardCode.CONTROL_LEFT, EKeyboardCode.CONTROL_RIGHT],
+  codes: [EKeyboardCode.CONTROL_LEFT, EKeyboardCode.CONTROL_LEFT],
   last: null
 };
 const modifierAlt: IModifier = {

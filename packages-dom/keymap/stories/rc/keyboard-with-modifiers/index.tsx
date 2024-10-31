@@ -36,12 +36,12 @@ export default function KeyboardWithModifiers({
   
   const handleKeyboardKeyPress = useCallback((_key: string, code: KeyboardCode) => {
     switch (code) {
-      case KeyboardCode.CTRL_LEFT:
-        handleSetModifier(code, KeyboardCode.CTRL_RIGHT);
+      case KeyboardCode.CONTROL_LEFT:
+        handleSetModifier(code, KeyboardCode.CONTROL_RIGHT);
         
         break;
-      case KeyboardCode.CTRL_RIGHT:
-        handleSetModifier(code, KeyboardCode.CTRL_LEFT);
+      case KeyboardCode.CONTROL_RIGHT:
+        handleSetModifier(code, KeyboardCode.CONTROL_LEFT);
         
         break;
       case KeyboardCode.ALT_LEFT:

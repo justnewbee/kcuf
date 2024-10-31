@@ -8,8 +8,8 @@ export default function getModifierNamesAndSymbols(modifiers: KeyboardCode[]): [
   
   modifiers.forEach(v => {
     switch (v) {
-      case KeyboardCode.CTRL_LEFT:
-      case KeyboardCode.CTRL_RIGHT:
+      case KeyboardCode.CONTROL_LEFT:
+      case KeyboardCode.CONTROL_RIGHT:
         names.push('Ctrl');
         symbols.push('⌃');
         

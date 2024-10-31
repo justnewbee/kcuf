@@ -3,11 +3,12 @@ import {
 } from 'react';
 
 import KeyboardModel, {
-  KeyboardModelProps
-} from '../model';
+  KeyboardProps
+} from '@kcuf/rc-headless-keyboard-mac';
+
 import Ui from '../ui';
 
-export default function WithProvider(props: KeyboardModelProps): ReactElement {
+export default function WithProvider(props: KeyboardProps): ReactElement {
   return <KeyboardModel {...props}>
     <Ui />
   </KeyboardModel>;

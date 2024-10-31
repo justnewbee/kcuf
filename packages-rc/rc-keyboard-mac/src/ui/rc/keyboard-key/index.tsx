@@ -9,7 +9,8 @@ import {
   useIsKeyActive,
   useIsKeyOn,
   useHandleKeyClick
-} from '../../../model';
+} from '@kcuf/rc-headless-keyboard-mac';
+
 import {
   KEY_HEIGHT,
   KEY_HEIGHT_SHORT,

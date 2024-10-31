@@ -7,7 +7,8 @@ import {
   KeyboardCode,
   KeyData,
   useKeyDetails
-} from '../../../model';
+} from '@kcuf/rc-headless-keyboard-mac';
+
 import {
   getKeyboardKeyDisplayName
 } from '../../util';
@@ -39,12 +40,12 @@ export default function KeyboardKeyName({
   if (keyDetails && data.code === KeyboardCode.SPACE) {
     return <ScKeyDetails>
       <div>
-        {keyDetails.ctrl ? <>⌃</> : null}
+        {keyDetails.control ? <>⌃</> : null}
         {keyDetails.alt ? <>⌥</> : null}
         {keyDetails.shift ? <>⇧</> : null}
         {keyDetails.meta ? <>⌘</> : null}
       </div>
-      <span>key</span> <>{keyDetails.key}</>
+      <span>key</span> <>{keyDetails.key === ' ' ? '␣' : keyDetails.key}</>
       <span>code</span> <>{keyDetails.code}</>
       {keyDetails.keyCode ? <><span>keyCode</span> <>{keyDetails.keyCode}</></> : null}
     </ScKeyDetails>;

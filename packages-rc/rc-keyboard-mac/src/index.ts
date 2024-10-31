@@ -2,8 +2,8 @@ export { default } from './with-model';
 
 export {
   KeyboardCode
-} from './model';
+} from '@kcuf/rc-headless-keyboard-mac';
 
 export type {
-  KeyboardModelProps as KeyboardProps
-} from './model';
+  KeyboardProps
+} from '@kcuf/rc-headless-keyboard-mac';

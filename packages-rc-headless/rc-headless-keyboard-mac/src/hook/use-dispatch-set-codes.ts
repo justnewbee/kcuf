@@ -3,15 +3,16 @@ import {
 } from 'react';
 
 import {
-  EAction
+  EAction,
+  EKeyboardCode
 } from '../enum';
 
 import useModelDispatch from './_use-model-dispatch';
 
-export default function useDispatchSetCodes(): (payload: string[]) => void {
+export default function useDispatchSetCodes(): (payload: EKeyboardCode[]) => void {
   const dispatch = useModelDispatch();
   
-  return useCallback((payload: string[]) => dispatch({
+  return useCallback((payload: EKeyboardCode[]) => dispatch({
     type: EAction.SET_CODES,
     payload
   }), [dispatch]);

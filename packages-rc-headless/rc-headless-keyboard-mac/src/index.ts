@@ -8,5 +8,5 @@ export {
 
 export type {
   IKeyData as KeyData,
-  IModelProps as KeyboardModelProps
+  IModelProps as KeyboardProps
 } from './types';

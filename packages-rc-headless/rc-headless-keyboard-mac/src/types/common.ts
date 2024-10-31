@@ -8,7 +8,7 @@ export interface IModifier {
 }
 
 export interface IKeyboardInfo {
-  codes: string[];
+  codes: EKeyboardCode[];
   capsLock: boolean;
 }
 
@@ -23,8 +23,17 @@ export interface IKeyDetails {
   key: string;
   code: string;
   keyCode?: number;
-  ctrl: boolean;
+  control: boolean;
   alt: boolean;
   shift: boolean;
   meta: boolean;
+}
+
+export interface IModifierState {
+  control?: '' | 'left' | 'right';
+  alt?: '' | 'left' | 'right';
+  shift?: '' | 'left' | 'right';
+  meta?: '' | 'left' | 'right';
+  capsLock?: boolean;
+  fn?: boolean;
 }

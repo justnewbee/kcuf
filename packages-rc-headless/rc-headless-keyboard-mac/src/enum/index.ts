@@ -1,7 +1,8 @@
 export enum EAction {
   SET_CODES,
   SET_CAPS_LOCK,
-  SET_KEY_DETAILS
+  SET_KEY_DETAILS,
+  UPDATE_MODIFIER_STATE
 }
 
 export enum EKeyboardCode {

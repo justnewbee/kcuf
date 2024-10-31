@@ -16,12 +16,10 @@ export default function useEffectClearCodes(): void {
       return;
     }
     
-    let timer: ReturnType<typeof setTimeout> | null = null;
-    
-    timer = setTimeout(() => {
+    let timer: ReturnType<typeof setTimeout> | null = setTimeout(() => {
       dispatchSetCodes([]);
       timer = null;
-    }, 250);
+    }, 400);
     
     return () => {
       if (timer) {

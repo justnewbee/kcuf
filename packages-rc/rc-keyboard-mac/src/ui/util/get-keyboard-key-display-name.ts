@@ -1,6 +1,6 @@
 import {
   KeyData
-} from '../../model';
+} from '@kcuf/rc-headless-keyboard-mac';
 
 export default function getKeyboardKeyDisplayName(data: KeyData): string | [string, string] {
   if (data.name) {

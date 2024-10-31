@@ -4,11 +4,11 @@ import {
 
 export default function getEventDetails(e: KeyboardEvent): IKeyDetails {
   return {
-    ctrl: e.ctrlKey,
+    control: e.ctrlKey,
     alt: e.altKey,
     shift: e.shiftKey,
     meta: e.metaKey,
-    key: e.key === ' ' ? '␣' : e.key,
+    key: e.key,
     code: e.code,
     keyCode: e.keyCode
   };
