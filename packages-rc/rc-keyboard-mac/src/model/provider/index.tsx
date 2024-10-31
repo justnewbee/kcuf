@@ -18,12 +18,12 @@ import Lifecycle from '../lifecycle';
 export default function Provider({
   children,
   listen = true,
-  displayEvent = true,
+  detailsInSpace = true,
   ...restProps
 }: IModelProviderProps): ReactElement {
   const props = {
     listen,
-    displayEvent,
+    detailsInSpace,
     ...restProps
   };
   const [state, dispatch] = useReducer<IModelReducer, IModelProps>(reducer, props, createInitialState);

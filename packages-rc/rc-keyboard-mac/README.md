@@ -58,7 +58,7 @@ interface KeyboardProps extends HTMLAttributes<HTMLDivElement>, Partial<IKeyboar
    * 
    * Display current keydown event details in the space key, the info will disappear automatically after 3s.
    */
-  displayEvent?: boolean;
+  details?: boolean;
   /**
    * Callback when click a key in the UI, can reflect whether Shift is on.
    */

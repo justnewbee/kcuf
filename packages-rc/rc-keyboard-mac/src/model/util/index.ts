@@ -1,2 +1,3 @@
 export { default as createInitialState } from './create-initial-state';
-export { default as getKeyboardEventInfo } from './get-keyboard-event-info';
+export { default as getEventInfo } from './get-event-info';
+export { default as getEventDetails } from './get-event-details';

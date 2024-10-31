@@ -3,14 +3,14 @@ import {
 } from 'react';
 
 import {
-  getKeyboardEventInfo
+  getEventInfo
 } from '../util';
 
 import useModelProps from './_use-model-props';
 import useDispatchSetCapsLock from './use-dispatch-set-caps-lock';
 import useDispatchSetCodes from './use-dispatch-set-codes';
 
-export default function useEffectListenKeydown(): void {
+export default function useEffectListen(): void {
   const {
     listen
   } = useModelProps();
@@ -22,32 +22,15 @@ export default function useEffectListenKeydown(): void {
       return;
     }
     
-    let timer: ReturnType<typeof setTimeout> | null = null;
-    
     function onKeydown(e: KeyboardEvent): void {
-      if (timer) {
-        clearTimeout(timer);
-      }
-      
-      const info = getKeyboardEventInfo(e);
+      const info = getEventInfo(e);
       
       dispatchSetCodes(info.codes);
       dispatchSetCapsLock(info.capsLock);
-      
-      timer = setTimeout(() => {
-        dispatchSetCodes([]);
-      }, 250);
     }
     
     document.addEventListener('keydown', onKeydown);
     
-    return () => {
-      document.removeEventListener('keydown', onKeydown);
-      
-      if (timer) {
-        clearTimeout(timer);
-        timer = null;
-      }
-    };
+    return () => document.removeEventListener('keydown', onKeydown);
   }, [listen, dispatchSetCapsLock, dispatchSetCodes]);
 }

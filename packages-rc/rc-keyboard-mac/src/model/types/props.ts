@@ -16,7 +16,7 @@ export interface IModelProps extends Partial<IKeyboardInfo> {
    *
    * 注意，Mac 键盘在 CapsLock 的时候，按住 Shift 不会返回小写的 `key`，这里也不作纠正，如实反应。
    */
-  displayEvent?: boolean;
+  detailsInSpace?: boolean;
   /**
    * 点击按钮的回调，当 `capsLock` 受控时，能够根据 `Shift` 正确返回大小写的 `key` 值，但不会根据 `Alt` 做出反应。
    */

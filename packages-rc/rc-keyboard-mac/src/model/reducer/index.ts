@@ -8,6 +8,7 @@ import {
 
 import reduceSetCodes from './reduce-set-codes';
 import reduceSetCapsLock from './reduce-set-caps-lock';
+import reduceSetKeyDetails from './reduce-set-key-details';
 
 export default function reducer(state: IModelState, action: TModelAction): IModelState {
   switch (action.type) {
@@ -15,6 +16,8 @@ export default function reducer(state: IModelState, action: TModelAction): IMode
       return reduceSetCodes(state, action.payload);
     case EAction.SET_CAPS_LOCK:
       return reduceSetCapsLock(state, action.payload);
+    case EAction.SET_KEY_DETAILS:
+      return reduceSetKeyDetails(state, action.payload);
     default:
       return state;
   }

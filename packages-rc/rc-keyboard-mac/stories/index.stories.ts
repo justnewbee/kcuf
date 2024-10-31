@@ -20,7 +20,7 @@ export const Default: TStory = {};
 
 export const Controlled: TStory = {
   args: {
-    codes: ['TheFn', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
+    codes: ['TheFn', 'ShiftLeft', 'ControlLeft', 'AltLeft', 'MetaLeft', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
   }
 };
 

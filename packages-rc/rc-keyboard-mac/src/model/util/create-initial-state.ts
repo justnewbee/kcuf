@@ -5,6 +5,7 @@ import {
 export default function createInitialState(): IModelState {
   return {
     codes: [],
-    capsLock: false
+    capsLock: false,
+    keyDetails: null
   };
 }

@@ -1,6 +1,7 @@
 export enum EAction {
   SET_CODES,
-  SET_CAPS_LOCK
+  SET_CAPS_LOCK,
+  SET_KEY_DETAILS
 }
 
 export enum EKeyboardCode {
@@ -73,14 +74,14 @@ export enum EKeyboardCode {
   SPACE = 'Space',
   ENTER = 'Enter',
   
-  CTRL_LEFT = 'ControlLeft',
-  CTRL_RIGHT = 'ControlRight',
+  CONTROL_LEFT = 'ControlLeft',
+  CONTROL_RIGHT = 'ControlRight',
+  ALT_LEFT = 'AltLeft',
+  ALT_RIGHT = 'AltRight',
   SHIFT_LEFT = 'ShiftLeft',
   SHIFT_RIGHT = 'ShiftRight',
   META_LEFT = 'MetaLeft',
   META_RIGHT = 'MetaRight',
-  ALT_LEFT = 'AltLeft',
-  ALT_RIGHT = 'AltRight',
   ARROW_LEFT = 'ArrowLeft',
   ARROW_UP = 'ArrowUp',
   ARROW_RIGHT = 'ArrowRight',

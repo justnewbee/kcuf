@@ -7,7 +7,7 @@ import {
 } from '../types';
 
 const modifierCtrl: IModifier = {
-  codes: [EKeyboardCode.CTRL_LEFT, EKeyboardCode.CTRL_RIGHT],
+  codes: [EKeyboardCode.CONTROL_LEFT, EKeyboardCode.CONTROL_RIGHT],
   last: null
 };
 const modifierAlt: IModifier = {
@@ -23,7 +23,7 @@ const modifierMeta: IModifier = {
   last: null
 };
 
-export default function getKeyboardEventInfo(e: KeyboardEvent): IKeyboardInfo {
+export default function getEventInfo(e: KeyboardEvent): IKeyboardInfo {
   const codes: EKeyboardCode[] = [];
   const code = e.code as EKeyboardCode;
   

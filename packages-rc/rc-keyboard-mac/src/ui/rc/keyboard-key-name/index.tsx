@@ -1,16 +1,31 @@
 import {
   ReactElement
 } from 'react';
+import styled from 'styled-components';
 
 import {
   KeyboardCode,
   KeyData,
-  useProps
+  useKeyDetails
 } from '../../../model';
 import {
   getKeyboardKeyDisplayName
 } from '../../util';
-import KeyboardEventDetails from '../keyboard-event-details';
+
+const ScKeyDetails = styled.div`
+  font-size: 11px;
+  color: hsl(200 100% 50%);
+  text-align: center;
+  
+  span {
+    margin-left: 1em;
+    opacity: 0.5;
+    
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+`;
 
 interface IProps {
   data: KeyData;
@@ -19,12 +34,20 @@ interface IProps {
 export default function KeyboardKeyName({
   data
 }: IProps): ReactElement {
-  const {
-    displayEvent
-  } = useProps();
+  const keyDetails = useKeyDetails();
   
-  if (displayEvent && data.code === KeyboardCode.SPACE) {
-    return <KeyboardEventDetails />;
+  if (keyDetails && data.code === KeyboardCode.SPACE) {
+    return <ScKeyDetails>
+      <div>
+        {keyDetails.ctrl ? <>⌃</> : null}
+        {keyDetails.alt ? <>⌥</> : null}
+        {keyDetails.shift ? <>⇧</> : null}
+        {keyDetails.meta ? <>⌘</> : null}
+      </div>
+      <span>key</span> <>{keyDetails.key}</>
+      <span>code</span> <>{keyDetails.code}</>
+      {keyDetails.keyCode ? <><span>keyCode</span> <>{keyDetails.keyCode}</></> : null}
+    </ScKeyDetails>;
   }
   
   const name = getKeyboardKeyDisplayName(data);

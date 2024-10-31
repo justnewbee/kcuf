@@ -18,3 +18,13 @@ export interface IKeyData {
   keyShift?: string; // KeyboardEvent.key when Shift is ON
   name?: string | [string, string];
 }
+
+export interface IKeyDetails {
+  key: string;
+  code: string;
+  keyCode?: number;
+  ctrl: boolean;
+  alt: boolean;
+  shift: boolean;
+  meta: boolean;
+}

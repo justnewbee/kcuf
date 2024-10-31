@@ -260,7 +260,7 @@ export const KEY_DATA_LIST: KeyData[] = [{
 }, {
   name: ['⌃', 'control'],
   key: 'Control',
-  code: KeyboardCode.CTRL_LEFT
+  code: KeyboardCode.CONTROL_LEFT
 }, {
   name: ['⌥', 'option'],
   key: 'Alt',
