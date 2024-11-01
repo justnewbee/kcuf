@@ -14,9 +14,12 @@
         "index"
       ],
       "pathGroups": [{
-        "pattern": "@*/**",
+        "pattern": "@?*/**",
         "group": "external",
         "position": "after"
+      }, {
+        "pattern": "[@~:]/**",
+        "group": "internal"
       }],
       "pathGroupsExcludedImportTypes": [],
       "newlines-between": "always"

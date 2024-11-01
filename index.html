@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
+</head>
+<body>
+<script>
+document.addEventListener('keydown', e => {
+  e.preventDefault();
+  e.stopPropagation();
+  
+  if (['Shift', 'Alt', 'Control', 'Meta'].includes(e.key)) {
+    return;
+  }
+  
+  console.info(e.getModifierState('Shift'))
+
+  const pre = document.querySelector('pre');
+  
+  pre.innerHTML += '\n';
+  pre.innerHTML += [
+    e.getModifierState('CapsLock') ? '✅' : '❌',
+    e.ctrlKey ? '✅' : '❌',
+    e.altKey ? '✅' : '❌',
+    e.shiftKey ? '✅' : '❌',
+    e.metaKey ? '✅' : '❌',
+    e.key,
+    e.code,
+    e.keyCode,
+    e.which
+  ].join(' | ');
+});
+</script>
+<pre>⇪ | ⌃ | ⌥ | ⇧ | ⌘ | 键 | key | code | keyCode | which</pre>
+</body>
+</html>
