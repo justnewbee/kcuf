@@ -77,12 +77,6 @@ interface KeyboardProps extends HTMLAttributes<HTMLDivElement>, Partial<IKeyboar
 }
 ```
 
-## FAQ
+## Known Issues
 
-### `Fn` and `F11` cannot be listened?
-
-No, cannot.
-
-### How to highlight the `Fn` and `Power` key?
-
-The key does not have a code actually, use `TheFn` and `Power` in `props.codes`, like the example code above.
+* `Fn` and `F11` cannot be listened
