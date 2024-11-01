@@ -19,17 +19,17 @@ import Keyboard from '@kcuf/rc-keyboard-mac';
 
 // default
 <Keyboard />
-
-// manually control keyboard
-<Keyboard {...{
-  listen: false,
-  codes: ['TheFn', 'KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight']
-}} />
 ```
 
 ...that easy.
 
+## Demos
+
+* [掘金 - Default](https://code.juejin.cn/pen/7431469243382071359)
+
 ## Props
+
+All props are optional.
 
 ```ts
 interface KeyboardProps extends HTMLAttributes<HTMLDivElement>, Partial<IKeyboardInfo> {
