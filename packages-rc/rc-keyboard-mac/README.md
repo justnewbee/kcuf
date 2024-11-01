@@ -25,7 +25,10 @@ import Keyboard from '@kcuf/rc-keyboard-mac';
 
 ## Demos
 
-* [掘金 - Default](https://code.juejin.cn/pen/7431469243382071359)
+[![Edit @kcuf/rc-keyboard-mac](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/x4294z)
+
+* 其他
+  - [掘金](https://code.juejin.cn/pen/7431469243382071359)
 
 ## Props
 
