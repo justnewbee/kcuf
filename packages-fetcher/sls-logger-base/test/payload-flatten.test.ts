@@ -40,7 +40,7 @@ describe('payload flatten', () => {
     });
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -71,7 +71,7 @@ describe('payload flatten', () => {
     }, 'topic-error-flatten', error);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -93,7 +93,7 @@ describe('payload flatten', () => {
     }, 'topic-error-flatten', new Error('Error message'));
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -112,7 +112,7 @@ describe('payload flatten', () => {
     }, 'topic-flatten-omit-str', PAYLOAD_FOR_FLATTEN);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -132,7 +132,7 @@ describe('payload flatten', () => {
     }, 'topic-flatten-omit-regexp', PAYLOAD_FOR_FLATTEN);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -154,7 +154,7 @@ describe('payload flatten', () => {
     }, 'topic-flatten-omit-array-mixed', PAYLOAD_FOR_FLATTEN);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -176,7 +176,7 @@ describe('payload flatten', () => {
     }, 'topic-flatten-direct', PAYLOAD_FOR_FLATTEN);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     

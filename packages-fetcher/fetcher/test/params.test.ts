@@ -27,6 +27,6 @@ describe('parse params', () => {
       arr: [1, 2, 3]
     })).toEqual(API_GET_WITH_PARAMS.result);
     
-    expect(fetchMock.lastCall()?.[0]).toEqual(`${API_GET_WITH_PARAMS.url}?id=1234&arr=1&arr=2&arr=3`);
+    expect(fetchMock.callHistory.lastCall()?.args[0]).toEqual(`${API_GET_WITH_PARAMS.url}?id=1234&arr=1&arr=2&arr=3`);
   });
 });

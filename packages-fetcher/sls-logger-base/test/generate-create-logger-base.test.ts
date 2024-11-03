@@ -42,7 +42,7 @@ describe('generateCreateLoggerBase', () => {
     mySls('topic-factory-param');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     let body = getLastCallBody();
     
@@ -54,7 +54,7 @@ describe('generateCreateLoggerBase', () => {
     });
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     body = getLastCallBody();
     
@@ -75,7 +75,7 @@ describe('generateCreateLoggerBase', () => {
     mySls('topic-factory-param');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     let body = getLastCallBody();
     
@@ -87,7 +87,7 @@ describe('generateCreateLoggerBase', () => {
     });
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     body = getLastCallBody();
     
@@ -107,7 +107,7 @@ describe('generateCreateLoggerBase', () => {
     mySls('topic-factory-should-omit');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(0);
+    expect(fetchMock.callHistory.calls().length).toBe(0);
     
     spyMathRandom.mockRestore();
     
@@ -116,7 +116,7 @@ describe('generateCreateLoggerBase', () => {
     mySls('topic-factory-should-omit');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     spyMathRandom.mockRestore();
   });
@@ -138,14 +138,14 @@ describe('generateCreateLoggerBase', () => {
     mySls('topic-factory-should-omit-override');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     myIgnore = 4;
     
     mySls('topic-factory-should-omit-override2');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     spyMathRandom.mockRestore();
   });

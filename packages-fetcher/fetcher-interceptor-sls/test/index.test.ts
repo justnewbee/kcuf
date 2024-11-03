@@ -34,14 +34,16 @@ function sleep(time: number): Promise<void> {
 }
 
 function getLastCallBody(): SlsPostBody {
-  return JSON.parse(fetchMock.lastCall()?.[1]?.body as string || '');
+  return JSON.parse(fetchMock.callHistory.lastCall()?.options.body as string || '');
 }
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   beforeEach(() => {
-    fetchMock.reset();
+    fetchMock.clearHistory();
+    fetchMock.removeRoutes();
+    fetchMock.mockGlobal();
     
-    fetchMock.mock('/api/success', () => ({
+    fetchMock.route('/api/success', () => ({
       success: true,
       code: 200,
       data: {
@@ -57,7 +59,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         }]
       }
     }));
-    fetchMock.mock('/api/fail-404', 404);
+    fetchMock.route('/api/fail-404', 404);
     fetchMock.post(`https://${INTERCEPTOR_OPTIONS.project}.${INTERCEPTOR_OPTIONS.endpoint}/logstores/${INTERCEPTOR_OPTIONS.logstore}/track`, 200);
   });
   
@@ -66,7 +68,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await fetcher.get('/api/success');
     await sleep(SLS_WAIT_TIME);
     
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     const body = getLastCallBody();
     
@@ -84,7 +86,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     });
     await sleep(SLS_WAIT_TIME);
     
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     const body = getLastCallBody();
     
@@ -113,7 +115,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     
     await myFetcher.get('/api/success');
     await sleep(SLS_WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     let body = getLastCallBody();
     
@@ -126,7 +128,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       // do nothing
     });
     await sleep(SLS_WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(4);
+    expect(fetchMock.callHistory.calls().length).toBe(4);
     
     body = getLastCallBody();
     expect(body.__topic__).toBe('my_fetcher_error');

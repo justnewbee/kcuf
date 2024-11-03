@@ -25,7 +25,9 @@ import {
 import createMockResponse from './create-mock-response';
 
 export default function setupFetchMock(): void {
-  fetchMock.reset();
+  fetchMock.clearHistory();
+  fetchMock.removeRoutes();
+  fetchMock.mockGlobal();
   
   [
     API_GET,
@@ -70,7 +72,7 @@ export default function setupFetchMock(): void {
         
         break;
       default:
-        fetchMock.mock(v.match || v.url, createMockResponse(v));
+        fetchMock.route(v.match || v.url, createMockResponse(v));
         
         break;
     }

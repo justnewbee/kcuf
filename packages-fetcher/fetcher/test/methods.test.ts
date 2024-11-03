@@ -57,7 +57,7 @@ describe('methods', () => {
       love: 'wlp'
     });
     
-    expect(fetchMock.calls().length).toEqual(0); // 不会调用到 fetch
+    expect(fetchMock.callHistory.calls().length).toEqual(0); // 不会调用到 fetch
     
     dom.window.close();
   });

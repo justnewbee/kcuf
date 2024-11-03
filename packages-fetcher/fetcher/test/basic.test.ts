@@ -39,18 +39,18 @@ describe('basic', () => {
       fetcher.delete(API_DELETE.url)
     ]);
     
-    expect(fetchMock.calls().length).toBe(5);
+    expect(fetchMock.callHistory.calls().length).toBe(5);
   });
   
   test('cors', async () => {
     await fetcher.get(API_CORS.url);
     
-    expect(fetchMock.calls().length).toBe(1);
-    expect(fetchMock.lastCall()?.[1]?.credentials).toBe('include');
+    expect(fetchMock.callHistory.calls().length).toBe(1);
+    expect(fetchMock.callHistory.lastCall()?.options?.credentials).toBe('include');
     
     await fetcher.get(API_CORS2.url);
     
-    expect(fetchMock.calls().length).toBe(2);
-    expect(fetchMock.lastCall()?.[1]?.credentials).toBe('include');
+    expect(fetchMock.callHistory.calls().length).toBe(2);
+    expect(fetchMock.callHistory.lastCall()?.options.credentials).toBe('include');
   });
 });

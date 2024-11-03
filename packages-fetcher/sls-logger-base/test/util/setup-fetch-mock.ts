@@ -1,7 +1,9 @@
 import fetchMock from 'fetch-mock';
 
 export default function setupFetchMock(): void {
-  fetchMock.reset();
+  fetchMock.clearHistory();
+  fetchMock.removeRoutes();
+  fetchMock.mockGlobal();
   
-  fetchMock.mock('*', 200);
+  fetchMock.route('*', 200);
 }

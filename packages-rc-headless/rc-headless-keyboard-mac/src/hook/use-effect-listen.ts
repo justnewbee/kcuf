@@ -24,10 +24,11 @@ export default function useEffectListen(): void {
       return;
     }
     
-    let timer: ReturnType<typeof setTimeout> | null;
+    const timers: Record<string, ReturnType<typeof setTimeout>> = {};
     
     function onKeyDown(e: KeyboardEvent): void {
       const code = e.code as EKeyboardCode;
+      const timer = timers[code];
       
       dispatchPushActiveCode(code);
       dispatchSetCapsLock(e.getModifierState('CapsLock'));
@@ -37,10 +38,10 @@ export default function useEffectListen(): void {
       }
       
       // 浏览器的一些快捷键响应会导致 keyup 无法触发，比如 Tab、CapsLock、/、" 等键，因此不用 keyup 来清理
-      timer = setTimeout(() => {
+      timers[code] = setTimeout(() => {
         dispatchPullActiveCode(code);
-        timer = null;
-      }, 250);
+        delete timers[code];
+      }, 300); // 按住不放的话，会先触发这个 timeout（大概按住不放会经过 500ms 后开始发第二次 keydown 事件）
     }
     
     document.addEventListener('keydown', onKeyDown);
@@ -48,11 +49,15 @@ export default function useEffectListen(): void {
     return () => {
       document.removeEventListener('keydown', onKeyDown);
       
-      if (timer) {
-        clearTimeout(timer);
+      Object.keys(timers).forEach(v => {
+        const timer = timers[v];
         
-        timer = null;
-      }
+        if (timer) {
+          clearTimeout(timer);
+        }
+        
+        delete timers[v];
+      });
     };
   }, [listen, dispatchSetCapsLock, dispatchPushActiveCode, dispatchPullActiveCode]);
 }

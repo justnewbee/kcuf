@@ -39,8 +39,8 @@ describe('merge headers', () => {
     
     await myFetcher.post(API_POST.url);
     
-    expect(fetchMock.calls().length).toBe(1);
-    expect((fetchMock.lastCall()?.[1]?.headers as Headers).get('Hello')).toBe('world');
-    expect((fetchMock.lastCall()?.[1]?.headers as Headers).get('Hello2')).toBe('world2');
+    expect(fetchMock.callHistory.calls().length).toBe(1);
+    expect(new Headers(fetchMock.callHistory.lastCall()?.options.headers).get('Hello')).toBe('world');
+    expect(new Headers(fetchMock.callHistory.lastCall()?.options.headers).get('Hello2')).toBe('world2');
   });
 });

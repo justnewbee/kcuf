@@ -54,7 +54,7 @@ describe('createLogger', () => {
     mySls('world');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -74,7 +74,7 @@ describe('createLogger', () => {
     mySls('topic-default-params');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -97,7 +97,7 @@ describe('createLogger', () => {
     mySls('topic-default-params-fn');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -116,7 +116,7 @@ describe('createLogger', () => {
     mySls('topic-should-omit');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(0);
+    expect(fetchMock.callHistory.calls().length).toBe(0);
   });
   
   test('createLogger(), options.sampling', async () => {
@@ -133,14 +133,14 @@ describe('createLogger', () => {
     
     await sleep(WAIT_TIME);
     expect(spyMathRandom).toHaveBeenCalled();
-    expect(fetchMock.calls().length).toBe(0);
+    expect(fetchMock.callHistory.calls().length).toBe(0);
     
     mySls({
       sampling: 0.8 // override 0.3
     }, 'topic-sampling');
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     spyMathRandom.mockRestore();
   });
