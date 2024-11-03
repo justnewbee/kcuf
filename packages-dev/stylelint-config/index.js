@@ -24,10 +24,11 @@ module.exports = {
     'stylelint-order'
   ],
   rules: {
+    'hue-degree-notation': 'number',
     // space & brace
     'block-opening-brace-space-before': 'always-multi-line'
   //   'at-rule-no-vendor-prefix': true,
-  //   
+  //
   //   'color-hex-length': 'short',
   //   'color-named': 'never',
   //   'declaration-block-no-duplicate-properties': [true, { // 避免对 fallback 报错
