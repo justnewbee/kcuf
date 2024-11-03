@@ -34,17 +34,17 @@ describe('interceptor request', () => {
     }));
     
     await myFetcher.post(API_POST.url);
-    expect(fetchMock.lastCall()?.[1]?.body).toEqual('addedByInterceptor=true');
+    expect(fetchMock.callHistory.lastCall()?.options.body).toEqual('addedByInterceptor=true');
     
     // body will merge 1
     await myFetcher.post(API_POST.url, {
       whenCall: 123
     });
-    expect(fetchMock.lastCall()?.[1]?.body).toEqual('addedByInterceptor=true&whenCall=123');
+    expect(fetchMock.callHistory.lastCall()?.options.body).toEqual('addedByInterceptor=true&whenCall=123');
     
     // body will merge 2
     await myFetcher.post(API_POST.url, 'whenCall=strMode');
-    expect(fetchMock.lastCall()?.[1]?.body).toEqual('addedByInterceptor=true&whenCall=strMode');
+    expect(fetchMock.callHistory.lastCall()?.options.body).toEqual('addedByInterceptor=true&whenCall=strMode');
     
     // eject the interceptor
     eject();
@@ -52,7 +52,7 @@ describe('interceptor request', () => {
     await myFetcher.post(API_POST.url, {
       noInterceptorNow: true
     });
-    expect(fetchMock.lastCall()?.[1]?.body).toEqual('noInterceptorNow=true');
+    expect(fetchMock.callHistory.lastCall()?.options.body).toEqual('noInterceptorNow=true');
   });
   
   test('interceptor request - skip network', async () => {
@@ -64,7 +64,7 @@ describe('interceptor request', () => {
     const result = await myFetcher.post(API_POST.url);
     
     expect(result).toBe('no request was made');
-    expect(fetchMock.calls().length).toBe(0);
+    expect(fetchMock.callHistory.calls().length).toBe(0);
     
     eject();
     expect(myFetcher.post(API_POST.url)).resolves.toEqual(API_POST.result);

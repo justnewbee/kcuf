@@ -79,21 +79,24 @@ interceptLogin(fetcher, needLogin, doLogin);
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   beforeEach(() => {
-    fetchMock.reset();
+    fetchMock.clearHistory();
+    fetchMock.removeRoutes();
+    fetchMock.mockGlobal();
+    
     loggedIn = false;
     willCancelLogin = false;
     needLogin.mockClear();
     doLogin.mockClear();
     
-    fetchMock.mock('/api/error/need-login', {
+    fetchMock.route('/api/error/need-login', {
       data: 'logged'
     });
     
-    fetchMock.mock('/api/error/not-biz', {
+    fetchMock.route('/api/error/not-biz', {
       data: 'logged'
     });
     
-    fetchMock.mock('/api/error/no-code', {
+    fetchMock.route('/api/error/no-code', {
       data: 'logged'
     });
   });

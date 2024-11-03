@@ -40,7 +40,7 @@
     "@storybook/test": "^8.4.0",
     "@types/react": "^18.3.12",
     "@vitest/coverage-v8": "^2.1.4",
-    "fetch-mock": "^11.1.5",
+    "fetch-mock": "^12.0.2",
     "jsdom": "^25.0.1",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",

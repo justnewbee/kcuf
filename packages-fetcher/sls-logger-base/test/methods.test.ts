@@ -43,10 +43,10 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     sls.fatal({
       instant: true
     }, 'topic-fatal');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     const body = getLastCallBody();
     

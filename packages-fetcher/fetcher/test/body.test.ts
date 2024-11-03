@@ -31,7 +31,7 @@ describe('parse body', () => {
       }]
     });
     
-    expect(fetchMock.lastCall()?.[1]?.body).toEqual('str=a%20string&num=1234&boo=true&arr=1&arr=2&arr=33&arr%5Bright%5D=x');
+    expect(fetchMock.callHistory.lastCall()?.options.body).toEqual('str=a%20string&num=1234&boo=true&arr=1&arr=2&arr=33&arr%5Bright%5D=x');
     
     await fetcher.post({
       headers: {
@@ -46,6 +46,6 @@ describe('parse body', () => {
       }]
     });
     
-    expect(fetchMock.lastCall()?.[1]?.body).toEqual('{"str":"a string","num":1234,"boo":true,"arr":[1,"2",33,{"right":"x"}]}');
+    expect(fetchMock.callHistory.lastCall()?.options.body).toEqual('{"str":"a string","num":1234,"boo":true,"arr":[1,"2",33,{"right":"x"}]}');
   });
 });

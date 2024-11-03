@@ -55,7 +55,7 @@ interface KeyboardProps extends HTMLAttributes<HTMLDivElement>, Partial<IKeyboar
    */
   activeModifiers?: boolean | IKeyboardModifiers;
   /**
-   * Wheter (default true) to display current keydown details in the space key, the info will disappear automatically after 3s.
+   * Whether (default true) to display current keydown details in the space key, the info will disappear automatically after 3s.
    * 
    * 将键盘事件的信息显示在空格键上，3s 后自动消失，默认 `true`。
    * 

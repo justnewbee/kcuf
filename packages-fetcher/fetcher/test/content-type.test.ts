@@ -25,17 +25,17 @@ describe('content-type', () => {
   test('Content-Type according to body - null', async () => {
     await fetcher.post(API_POST.url);
     
-    expect(fetchMock.calls().length).toBe(1);
-    expect((fetchMock.lastCall()?.[1]?.headers as Headers).get('Content-Type')).toBeNull();
-    expect(fetchMock.lastCall()?.[1]?.body).toBeUndefined();
+    expect(fetchMock.callHistory.calls().length).toBe(1);
+    expect(new Headers(fetchMock.callHistory.lastCall()?.options.headers).get('Content-Type')).toBeNull();
+    expect(fetchMock.callHistory.lastCall()?.options.body).toBeUndefined();
   });
   
   test('Content-Type according to body - string', async () => {
     await fetcher.post(API_POST.url, 'hello=text,test=content-type');
     
-    expect(fetchMock.calls().length).toBe(1);
-    expect((fetchMock.lastCall()?.[1]?.headers as Headers).get('Content-Type')).toBe('application/x-www-form-urlencoded');
-    expect(fetchMock.lastCall()?.[1]?.body).toBe('hello=text,test=content-type');
+    expect(fetchMock.callHistory.calls().length).toBe(1);
+    expect(new Headers(fetchMock.callHistory.lastCall()?.options.headers).get('Content-Type')).toBe('application/x-www-form-urlencoded');
+    expect(fetchMock.callHistory.lastCall()?.options.body).toBe('hello=text,test=content-type');
   });
   
   test('Content-Type according to body - plain', async () => {
@@ -43,9 +43,9 @@ describe('content-type', () => {
       hello: 'world'
     });
     
-    expect(fetchMock.calls().length).toBe(1);
-    expect((fetchMock.lastCall()?.[1]?.headers as Headers).get('Content-Type')).toBe('application/x-www-form-urlencoded');
-    expect(fetchMock.lastCall()?.[1]?.body).toBe('hello=world');
+    expect(fetchMock.callHistory.calls().length).toBe(1);
+    expect(new Headers(fetchMock.callHistory.lastCall()?.options.headers).get('Content-Type')).toBe('application/x-www-form-urlencoded');
+    expect(fetchMock.callHistory.lastCall()?.options.body).toBe('hello=world');
   });
   
   test('Content-Type according to body - FormData', async () => {
@@ -56,9 +56,9 @@ describe('content-type', () => {
     
     await fetcher.post(API_POST.url, formData);
     
-    expect(fetchMock.calls().length).toBe(1);
-    // expect((fetchMock.lastCall()?.[1]?.headers as Headers).get('Content-Type')).toBe('multipart/form-data; boundary---...'); // mock 的 不会
-    expect(fetchMock.lastCall()?.[1]?.body instanceof FormData).toBe(true);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
+    // expec((fetchMock.callHistory.lastCall()?.options.headers['Content-Type']).toBe('multipart/form-data; boundary---...'); // mock 的 不会
+    expect(fetchMock.callHistory.lastCall()?.options.body instanceof FormData).toBe(true);
   });
   
   test('FormData upload', async () => {
@@ -72,9 +72,9 @@ describe('content-type', () => {
     
     await promises;
     
-    expect(fetchMock.calls().length).toBe(1);
-    // expect((fetchMock.lastCall()?.[1]?.headers as Headers).get('Content-Type')).toBe('multipart/form-data; boundary---...'); // mock 的 不会
-    expect(fetchMock.lastCall()?.[1]?.body instanceof FormData).toBe(true);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
+    // expec((fetchMock.callHistory.lastCall()?.options.headers['Content-Type']).toBe('multipart/form-data; boundary---...'); // mock 的 不会
+    expect(fetchMock.callHistory.lastCall()?.options.body instanceof FormData).toBe(true);
   });
   
   test('Content-Type according to body - URLSearchParams', async () => {
@@ -85,9 +85,9 @@ describe('content-type', () => {
     
     await fetcher.post(API_POST.url, searchParams);
     
-    expect(fetchMock.calls().length).toBe(1);
-    // expect((fetchMock.lastCall()?.[1]?.headers as Headers).get('Content-Type')).toBe('application/x-www-form-urlencoded;charset=UTF-8'); // mock 的 不会
-    expect(fetchMock.lastCall()?.[1]?.body instanceof URLSearchParams).toBe(true);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
+    // expec((fetchMock.callHistory.lastCall()?.options.headers['Content-Type']).toBe('application/x-www-form-urlencoded;charset=UTF-8'); // mock 的 不会
+    expect(fetchMock.callHistory.lastCall()?.options.body instanceof URLSearchParams).toBe(true);
   });
   
   test('Content-Type according to headers', async () => {
@@ -99,8 +99,8 @@ describe('content-type', () => {
       hello: 'world'
     });
     
-    expect(fetchMock.calls().length).toBe(1);
-    expect((fetchMock.lastCall()?.[1]?.headers as Headers).get('Content-Type')).toBe('application/json');
-    expect(fetchMock.lastCall()?.[1]?.body).toEqual('{"hello":"world"}');
+    expect(fetchMock.callHistory.calls().length).toBe(1);
+    expect(new Headers(fetchMock.callHistory.lastCall()?.options.headers).get('Content-Type')).toBe('application/json');
+    expect(fetchMock.callHistory.lastCall()?.options.body).toEqual('{"hello":"world"}');
   });
 });

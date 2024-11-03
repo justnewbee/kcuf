@@ -23,18 +23,21 @@ intercept(fetcher);
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   beforeEach(() => {
-    fetchMock.reset();
+    fetchMock.clearHistory();
+    fetchMock.removeRoutes();
+    fetchMock.mockGlobal();
+    
     delete (global as Record<string, unknown>).__fetcher_merging__;
     
-    fetchMock.mock('/api/one', () => ({
+    fetchMock.route('/api/one', () => ({
       result: 'hello one'
     }));
     
-    fetchMock.mock('/api/one?id=123', () => ({
+    fetchMock.route('/api/one?id=123', () => ({
       result: 'hello one 123'
     }));
     
-    fetchMock.mock('/api/error', () => {
+    fetchMock.route('/api/error', () => {
       throw new Error('Api Error');
     });
   });
@@ -50,7 +53,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         id: 123
       })
     ]);
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     await Promise.all([
       fetcher.get('/api/one'),
@@ -62,14 +65,14 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         merging: false
       }, '/api/one')
     ]);
-    expect(fetchMock.calls().length).toBe(5);
+    expect(fetchMock.callHistory.calls().length).toBe(5);
     
     await Promise.all([
       fetcher.delete('/api/error'),
       fetcher.delete('/api/error'),
       fetcher.delete('/api/error')
     ]).catch(_noop);
-    expect(fetchMock.calls().length).toBe(6);
+    expect(fetchMock.callHistory.calls().length).toBe(6);
     
     expect((global as Record<string, unknown>).__fetcher_merging__).toBeTruthy();
   });
@@ -89,7 +92,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         signal: abortController.signal
       }, '/api/one')
     ]);
-    expect(fetchMock.calls().length).toBe(3);
+    expect(fetchMock.callHistory.calls().length).toBe(3);
   });
 
   test('can be released', async () => {
@@ -101,10 +104,10 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       myFetcher.get('/api/one'),
       myFetcher.get('/api/one')
     ]);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
 
     await myFetcher.get('/api/one');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
 
     release();
     
@@ -113,8 +116,8 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       myFetcher.get('/api/one'),
       myFetcher.get('/api/one')
     ]);
-    expect(fetchMock.calls().length).toBe(5);
+    expect(fetchMock.callHistory.calls().length).toBe(5);
     await myFetcher.get('/api/one');
-    expect(fetchMock.calls().length).toBe(6);
+    expect(fetchMock.callHistory.calls().length).toBe(6);
   });
 });

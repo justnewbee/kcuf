@@ -43,7 +43,7 @@ describe('payload', () => {
     sls('topic-payload-plain', payload);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -68,7 +68,7 @@ describe('payload', () => {
     sls('topic-payload-cyclic', payload);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -87,7 +87,7 @@ describe('payload', () => {
     });
     
     await sleep(SILENT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -115,7 +115,7 @@ describe('payload', () => {
     sls('topic-error', error);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -135,7 +135,7 @@ describe('payload', () => {
     sls('topic-file', file);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -156,7 +156,7 @@ describe('payload', () => {
     sls('topic-form-data', formData);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -177,7 +177,7 @@ describe('payload', () => {
     sls('topic-headers', headers);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     
@@ -198,7 +198,7 @@ describe('payload', () => {
     sls('topic-search-params', searchParams);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     const body = getLastCallBody();
     

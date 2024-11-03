@@ -47,7 +47,7 @@ describe('response type can be set text', () => {
       responseType: 'text'
     }, 'https://apifoxmock.com/m1/4847676-4502957-default/jsonp')).resolves.toBeTypeOf('string');
     
-    expect(fetchMock.calls().length).toEqual(0); // 不会调用到 fetch
+    expect(fetchMock.callHistory.calls().length).toEqual(0); // 不会调用到 fetch
     
     dom.window.close();
   });

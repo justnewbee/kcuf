@@ -24,22 +24,25 @@ intercept(fetcher);
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   beforeEach(() => {
-    fetchMock.reset();
+    fetchMock.clearHistory();
+    fetchMock.removeRoutes();
+    fetchMock.mockGlobal();
+    
     delete (global as Record<string, unknown>).__fetcher_cache_local__;
     
-    fetchMock.mock('/api/one', () => ({
+    fetchMock.route('/api/one', () => ({
       result: 'hello one'
     }));
     
-    fetchMock.mock('/api/another', () => ({
+    fetchMock.route('/api/another', () => ({
       result: 'hello another'
     }));
     
-    fetchMock.mock('/api/one?id=123', () => ({
+    fetchMock.route('/api/one?id=123', () => ({
       result: 'hello one 123'
     }));
     
-    fetchMock.mock('/api/error', () => {
+    fetchMock.route('/api/error', () => {
       throw new Error('Api Error');
     });
   });
@@ -50,28 +53,28 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(await fetcher.get('/api/one')).toEqual({
       result: 'hello one'
     });
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     expect(await fetcher.get({
       cacheLocal: true
     }, '/api/one')).toEqual({
       result: 'hello one'
     });
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     expect(await fetcher.get({
       cacheLocal: true
     }, '/api/one')).toEqual({
       result: 'hello one'
     });
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     expect(await fetcher.get({
       cacheLocal: true
     }, '/api/one')).toEqual({
       result: 'hello one'
     });
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     expect(await fetcher.get({
       cacheLocal: true
@@ -80,21 +83,21 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     })).toEqual({
       result: 'hello one 123'
     });
-    expect(fetchMock.calls().length).toBe(3);
+    expect(fetchMock.callHistory.calls().length).toBe(3);
     
     expect(await fetcher.post({
       cacheLocal: true
     }, '/api/one')).toEqual({
       result: 'hello one'
     });
-    expect(fetchMock.calls().length).toBe(4);
+    expect(fetchMock.callHistory.calls().length).toBe(4);
     
     expect(await fetcher.post({
       cacheLocal: true
     }, '/api/one')).toEqual({
       result: 'hello one'
     });
-    expect(fetchMock.calls().length).toBe(4);
+    expect(fetchMock.callHistory.calls().length).toBe(4);
     
     expect((global as Record<string, unknown>).__fetcher_cache_local__).toBeTruthy();
   });
@@ -116,7 +119,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         cacheLocal: true
       }, '/api/one')
     ]);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await Promise.all([
       fetcher.delete({
@@ -129,7 +132,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         cacheLocal: true
       }, '/api/error')
     ]).catch(_noop);
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     expect((global as Record<string, unknown>).__fetcher_cache_local__).toBeTruthy();
   });
@@ -142,19 +145,19 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         key: 'custom-cache-local-key'
       }
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await fetcher.get({
       cacheLocal: {
         key: 'custom-cache-local-key'
       }
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await fetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     expect((global as Record<string, unknown>).__fetcher_cache_local__).toBeTruthy();
   });
@@ -165,7 +168,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await fetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     // 没有 ttl 一定被顶替
     await fetcher.get({
@@ -173,14 +176,14 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         ttl: 50
       }
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     await fetcher.get({
       cacheLocal: {
         ttl: 50
       }
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     await new Promise(resolve => {
       setTimeout(resolve, 36);
@@ -188,7 +191,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await fetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     await new Promise(resolve => {
       setTimeout(resolve, 100);
@@ -196,7 +199,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await fetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(3);
+    expect(fetchMock.callHistory.calls().length).toBe(3);
     
     expect((global as Record<string, unknown>).__fetcher_cache_local__).toBeTruthy();
   });
@@ -207,21 +210,21 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await fetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await fetcher.get({
       cacheLocal: {
         overwrite: true
       }
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     await fetcher.get({
       cacheLocal: {
         ttl: 50
       }
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(3);
+    expect(fetchMock.callHistory.calls().length).toBe(3);
     
     await fetcher.get({
       cacheLocal: {
@@ -229,12 +232,12 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         overwrite: true
       }
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(4);
+    expect(fetchMock.callHistory.calls().length).toBe(4);
     
     await fetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(4);
+    expect(fetchMock.callHistory.calls().length).toBe(4);
     
     expect((global as Record<string, unknown>).__fetcher_cache_local__).toBeTruthy();
   });
@@ -247,14 +250,14 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
         key: 'custom-cache-local-key'
       }
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await fetcher.get({
       cacheLocal: {
         key: 'custom-cache-local-key'
       }
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await fetcher.get({
       cacheLocal: {
@@ -262,12 +265,12 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       },
       cacheLocalRemove: 'shall not remove anything'
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await fetcher.get({
       cacheLocalRemove: 'custom-cache-local-key'
     }, '/api/another');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     expect(await fetcher.get({
       cacheLocal: {
@@ -276,22 +279,22 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     }, '/api/one')).toEqual({
       result: 'hello one'
     });
-    expect(fetchMock.calls().length).toBe(3);
+    expect(fetchMock.callHistory.calls().length).toBe(3);
     
     await fetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(4);
+    expect(fetchMock.callHistory.calls().length).toBe(4);
     
     await fetcher.get({
       cacheLocalRemove: '/api/one'
     }, '/api/another');
-    expect(fetchMock.calls().length).toBe(5);
+    expect(fetchMock.callHistory.calls().length).toBe(5);
     
     await fetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(6);
+    expect(fetchMock.callHistory.calls().length).toBe(6);
     
     expect((global as Record<string, unknown>).__fetcher_cache_local__).toBeTruthy();
   });
@@ -300,10 +303,10 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect((global as Record<string, unknown>).__fetcher_cache_local__).toBeFalsy();
     
     await fetcher.get('/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await fetcher.get('/api/one');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     expect((global as Record<string, unknown>).__fetcher_cache_local__).toBeFalsy();
   });
@@ -314,12 +317,12 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await fetcher.get({
       cacheLocal: true
     }, '/api/error').catch(_noop);
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await fetcher.get({
       cacheLocal: true
     }, '/api/error').catch(_noop);
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     expect(_isEmpty((global as Record<string, unknown>).__fetcher_cache_local__)).toBeTruthy(); // TODO 最好可以不设对象（但也无妨）
   });
@@ -331,18 +334,18 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     await myFetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await myFetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     release();
     
     await myFetcher.get({
       cacheLocal: true
     }, '/api/one');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
   });
 });

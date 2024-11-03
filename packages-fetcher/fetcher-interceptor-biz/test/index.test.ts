@@ -22,7 +22,9 @@ intercept(fetcher);
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   beforeEach(() => {
-    fetchMock.reset();
+    fetchMock.clearHistory();
+    fetchMock.removeRoutes();
+    fetchMock.mockGlobal();
     
     fetchMock.get('/api/get', () => ({
       code: '200',
@@ -41,28 +43,28 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       data: 'hello delete'
     }));
     
-    fetchMock.mock('/api/custom-data', () => ({
+    fetchMock.route('/api/custom-data', () => ({
       code: 200,
       DATA: 'hello custom data'
     }));
-    fetchMock.mock('/api/custom-success', () => ({
+    fetchMock.route('/api/custom-success', () => ({
       data: 'hello custom success'
     }));
-    fetchMock.mock('/api/custom-success-2', () => ({
+    fetchMock.route('/api/custom-success-2', () => ({
       ok: true,
       data: 'hello custom success 2'
     }));
     
-    fetchMock.mock('/api/custom-my', () => ({
+    fetchMock.route('/api/custom-my', () => ({
       code: 0,
       info: 'hello custom my'
     }));
     
-    fetchMock.mock('/api/error', () => ({
+    fetchMock.route('/api/error', () => ({
       code: 'SomethingWentWrong',
       data: 'hello world'
     }));
-    fetchMock.mock('/api/error-num', () => ({
+    fetchMock.route('/api/error-num', () => ({
       code: 1000123,
       data: 'hello world'
     }));

@@ -28,9 +28,11 @@ const sls = createLogger(LOGGER_OPTIONS);
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   beforeEach(() => {
-    fetchMock.reset();
+    fetchMock.clearHistory();
+    fetchMock.removeRoutes();
+    fetchMock.mockGlobal();
     
-    fetchMock.mock('*', 200);
+    fetchMock.route('*', 200);
   });
   
   test('silent time, wait time & instant', async () => {
@@ -38,21 +40,21 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     sls('topic1');
     sls('topic2');
     sls('topic3');
-    expect(fetchMock.calls().length).toBe(0); // above calls will not send before silent time up
+    expect(fetchMock.callHistory.calls().length).toBe(0); // above calls will not send before silent time up
     
     await sleep(SILENT_TIME / 2);
-    expect(fetchMock.calls().length).toBe(0); // still silent
+    expect(fetchMock.callHistory.calls().length).toBe(0); // still silent
     
     // 静默期间，instant 直接发送
     sls({
       instant: true
     }, 'topic-instant');
-    expect(fetchMock.calls().length).toBe(1);
+    expect(fetchMock.callHistory.calls().length).toBe(1);
     
     await sleep(SILENT_TIME / 2);
-    expect(fetchMock.calls().length).toBe(2);
-    expect(fetchMock.lastCall()?.[0]).toBe(`https://${LOGGER_OPTIONS.project}.${LOGGER_OPTIONS.endpoint}/logstores/${LOGGER_OPTIONS.logstore}/track`);
-    expect(fetchMock.lastCall()?.[1]?.method).toBe('POST');
+    expect(fetchMock.callHistory.calls().length).toBe(2);
+    expect(fetchMock.callHistory.lastCall()?.args[0]).toBe(`https://${LOGGER_OPTIONS.project}.${LOGGER_OPTIONS.endpoint}/logstores/${LOGGER_OPTIONS.logstore}/track`);
+    expect(fetchMock.callHistory.lastCall()?.options.method).toBe('post');
     
     const body = getLastCallBody();
     
@@ -64,15 +66,15 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(body.__logs__[3]?._TOPIC).toBe('topic3');
     
     sls('topic-wait');
-    expect(fetchMock.calls().length).toBe(2);
+    expect(fetchMock.callHistory.calls().length).toBe(2);
     
     sls({
       instant: true
     }, 'topic-instant2');
-    expect(fetchMock.calls().length).toBe(3);
+    expect(fetchMock.callHistory.calls().length).toBe(3);
     
     await sleep(WAIT_TIME);
-    expect(fetchMock.calls().length).toBe(4);
+    expect(fetchMock.callHistory.calls().length).toBe(4);
   });
   
   test('generateCreateLogger with factory dontSend', () => {

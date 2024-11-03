@@ -5,5 +5,5 @@ import {
 } from '../../src';
 
 export default function getLastCallBody(): SlsPostBody {
-  return JSON.parse(fetchMock.lastCall()?.[1]?.body as string || '');
+  return JSON.parse(fetchMock.callHistory.lastCall()?.options.body as string || '');
 }
