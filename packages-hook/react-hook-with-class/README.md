@@ -2,12 +2,6 @@
 
 > 利用 MutationObserver 动态监听元素是否有 className
 
-## INSTALL
-
-```shell
-tnpm i @kcuf/react-hook-with-class -S
-```
-
 ## Usage
 
 ```tsx

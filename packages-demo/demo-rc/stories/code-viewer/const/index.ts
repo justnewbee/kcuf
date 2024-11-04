@@ -97,10 +97,4 @@ export const CODE_MARKDOWN = `# @kcuf/demo-rc
   + \`JsonViewer\`
   + \`Flex100HBF\`
   + \`LongArticle\`
-
-## INSTALL
-
-\`\`\`shell script
-npm install -D @kcuf/demo-rc
-\`\`\`
 `;

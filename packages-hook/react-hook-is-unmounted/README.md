@@ -1,11 +1,5 @@
 # @kcuf/react-hook-is-unmounted
 
-## INSTALL
-
-```shell
-tnpm i @kcuf/react-hook-is-unmounted -S
-```
-
 ## Usage
 
 ```tsx
