@@ -1,12 +1,8 @@
 # @kcuf/stylelint-config
 
-A shareable markdown lint config, which can be used with `stylelint`.
+A shareable stylelint config.
 
-## Inherit
-
-`@kcuf/stylelint-config` ← `stylelint-config-standard` ← `stylelint-config-recommended`
-
-With plugins `stylelint-order`, more plugins can be found at [awesome-stylelint#plugins](https://github.com/stylelint/awesome-stylelint#plugins).
+* <https://stylelint.io/awesome-stylelint>
 
 ## Install & Setup
 
@@ -21,6 +17,14 @@ In your `.stylelintrc`:
   "extends": "@kcuf/stylelint-config"
 }
 ```
+
+According to your project type, you can choose to extend:
+
+* `@kcuf/stylelint-config` - React projects using css, less & styled-components (no scss)
+* `@kcuf/stylelint-config/config-css` - projects using only css
+* `@kcuf/stylelint-config/config-less` - projects using css & less
+* `@kcuf/stylelint-config/config-scss` - projects using css & scss
+* `@kcuf/stylelint-config/config-vue` - Vue projects using css, less & scss
 
 ## Usage
 
@@ -39,10 +43,10 @@ npm pkg set scripts.lint:style="stylelint \"**/src/**/*.{css,less}\""
 
 ## With `lint-staged`
 
+`.lintstagedrc`
+
 ```json
 {
-  "lint-staged": {
-    "*.{css,less}": "stylelint"
-  }
+  "*.{css,less,ts,tsx}": "stylelint"
 }
 ```
