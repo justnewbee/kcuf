@@ -1,9 +1,9 @@
-# @kcuf/use-is-unmounted
+# @kcuf/react-hook-is-unmounted
 
 ## INSTALL
 
 ```shell
-tnpm i @kcuf/use-is-unmounted -S
+tnpm i @kcuf/react-hook-is-unmounted -S
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ import dataOther, { // dataSomeList is some async method returning Promise<IData
   IDataOther
 } from ':/data/other';
 
-import useIsUnmounted from '@kcuf/use-is-unmounted';
+import useIsUnmounted from '@kcuf/react-hook-is-unmounted';
 
 export default function SomeComponent(): ReactElement {
   const isUnmounted = useIsUnmounted();
