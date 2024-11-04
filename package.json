@@ -55,7 +55,7 @@
     "depcheck:packages": "pnpm -r --no-bail exec depcheck",
     "lint": "eslint packages*/**/src/ --ext js,ts,tsx",
     "lint:style": "stylelint \"**/src/**/*.{css,less,ts,tsx}\"",
-    "lint:s": "stylelint ./packages-rc/rc-keyboard-mac/src/ui/rc/keyboard-key/index.tsx",
+    "lint:s": "stylelint ./packages-demo/demo-rc/src/rc/input-range/rc/index.tsx",
     "lint:md": "markdownlint-cli2 **/*.md !node_modules",
     "lerna:publish": "lerna publish",
     "lerna:publish:patch": "lerna publish patch",

@@ -6,9 +6,7 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import {
-  useControllable
-} from '@kcuf/react-hook-controllable';
+import useControllable from '@kcuf/react-hook-controllable';
 
 import {
   fromNumberToString,
@@ -19,55 +17,57 @@ import {
   IInputRangeProps
 } from '../types';
 
-// 不能将几个 -track 合一起写
+// 不能将几个选择器合一起写，会不生效，只能冗余一份
 const ScInputRange = styled.input`
-  margin: 10px 0;
-  background: transparent;
+  margin: 2px 1px;
+  width: 100%;
   height: 24px;
   appearance: none;
+  
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    background: #2497e3;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  &::-moz-range-track {
+    width: 100%;
+    height: 5px;
+    background: #2497e3;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  &::-webkit-slider-thumb {
+    margin-top: -6.5px;
+    width: 17px;
+    height: 17px;
+    appearance: none;
+    background: #a1d0ff;
+    border: 1px solid #2497e3;
+    border-radius: 17px;
+    cursor: pointer;
+  }
+  
+  &::-moz-range-thumb {
+    width: 17px;
+    height: 17px;
+    background: #a1d0ff;
+    border: 1px solid #2497e3;
+    border-radius: 17px;
+    cursor: pointer;
+  }
   
   &:focus {
     outline: none;
   }
   
-  ::-moz-range-track {
-    border-radius: 8px;
-    background: hsl(204 77% 52%);
-    width: 100%;
-    height: 4px;
-    cursor: default;
-  }
-  
-  ::-webkit-slider-runnable-track {
-    border-radius: 8px;
-    background: hsl(204 77% 52%);
-    width: 100%;
-    height: 4px;
-    cursor: default;
-  }
-  
-  &::-moz-range-thumb {
-    border: 1px solid hsl(204 77% 52%);
-    border-radius: 25px;
-    background: hsl(210 100% 82%);
-    width: 18px;
-    height: 18px;
-    cursor: default;
-  }
-  
-  &::-webkit-slider-thumb {
-    margin-top: -7.5px;
-    border: 1px solid hsl(204 77% 52%);
-    border-radius: 25px;
-    background: hsl(210 100% 82%);
-    width: 18px;
-    height: 18px;
-    cursor: default;
-    appearance: none;
-  }
-  
   &:focus::-webkit-slider-runnable-track {
-    background: hsl(204 77% 52%);
+    background: #2497e3;
   }
 `;
 

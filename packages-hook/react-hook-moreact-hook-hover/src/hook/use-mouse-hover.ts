@@ -4,9 +4,7 @@ import {
 } from 'react';
 
 import useIsUnmounted from '@kcuf/react-hook-is-unmounted';
-import {
-  useControllable
-} from '@kcuf/react-hook-controllable';
+import useControllable from '@kcuf/react-hook-controllable';
 
 // 延时后就不可能有 event 参数了，React 的 SyntheticEvent 机制决定
 interface IOptions {

@@ -1,8 +1,10 @@
 {
-  "name": "@kcuf/react-hook-click-away",
-  "version": "0.0.0",
-  "description": "React headless form component.",
-  "keywords": [],
+  "name": "@kcuf/react-hook-is-unmounted",
+  "version": "0.0.1",
+  "description": "React hook - check if unmounted.",
+  "keywords": [
+    "useIsUnmounted"
+  ],
   "license": "MIT",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
@@ -12,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/react-hook-click-away",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/react-hook-is-unmounted",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -30,7 +32,6 @@
     "@babel/preset-typescript": "^7.26.0",
     "@kcuf/ts-config": "workspace:^",
     "@testing-library/react": "^16.0.1",
-    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
     "@vitest/coverage-v8": "^2.1.4",
     "jsdom": "^25.0.1",

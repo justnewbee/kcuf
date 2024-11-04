@@ -1,7 +1,7 @@
 {
-  "name": "@kcuf/react-hook-is-unmounted",
-  "version": "0.0.1",
-  "description": "React headless form component.",
+  "name": "@kcuf/react-hook-controllable",
+  "version": "0.0.2",
+  "description": "React hook - useControllable.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/react-hook-is-unmounted",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/react-hook-controllable",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -29,10 +29,8 @@
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
     "@kcuf/ts-config": "workspace:^",
-    "@testing-library/react": "^16.0.1",
     "@types/react": "^18.3.12",
     "@vitest/coverage-v8": "^2.1.4",
-    "jsdom": "^25.0.1",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
     "typescript": "^5.6.3",

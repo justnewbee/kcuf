@@ -4,9 +4,7 @@ import {
   useCallback
 } from 'react';
 
-import {
-  useControllable
-} from '@kcuf/react-hook-controllable';
+import useControllable from '@kcuf/react-hook-controllable';
 
 import {
   IInputRadioProps

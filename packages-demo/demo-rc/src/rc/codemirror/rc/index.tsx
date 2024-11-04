@@ -11,10 +11,7 @@ import {
 import {
   EditorView
 } from '@codemirror/view';
-
-import {
-  useControllable
-} from '@kcuf/react-hook-controllable';
+import useControllable from '@kcuf/react-hook-controllable';
 
 import {
   ICodemirrorProps

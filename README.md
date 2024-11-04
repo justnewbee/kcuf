@@ -18,7 +18,7 @@
 
 ## How
 
-对 `package.json` 的 `scripts` 做一些说明：
+对 `package.json` 下 `scripts` 说明：
 
 | 命令 | 说明 |
 | --- | --- |
@@ -31,6 +31,22 @@
 | `depcheck` | 检查 `packages.json` 依赖项是否有遗漏或者多余 |
 | `depcheck:packages` | 检查所有 package 的 `packages.json` 依赖项是否有遗漏或者多余 |
 | `pub:canary` | 执行 lerna 发布金丝雀版本 |
+
+> 🍄 TODO 暂时还有部分 package 不能够被构建，执行 `boot:packages` 若出错，可以先改对应的 `pacakge.json`，把 `scripts.prepublishOnly` 先取消掉。
+
+## Packages 下 `package.json` 中的命令
+
+所有的 package 尽可能遵循一定的代码结构，
+
+* `start` 启用本地开发（storybook）
+* `prepublishOnly` 构建，在发布 npm 时执行
+* `build:clean` 删除构建目录
+* `build:esm` 构建 ESM
+* `build:cjs` 构建 CJS
+* `build:types` 构建类型
+* `build:sb` 构建 storybook（暂时用不到）
+* `test` 执行单测
+* `test:cov` 执行单测，并计算覆盖率
 
 ## TODO
 
