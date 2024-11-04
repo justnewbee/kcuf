@@ -1,9 +1,10 @@
 {
   "name": "@kcuf/react-hook-is-unmounted",
-  "version": "0.0.1",
-  "description": "React hook - check if unmounted.",
+  "version": "0.1.0",
+  "description": "React hook - useIsUnmounted.",
   "keywords": [
-    "useIsUnmounted"
+    "react",
+    "hook"
   ],
   "license": "MIT",
   "sideEffects": false,
