@@ -20,16 +20,16 @@ const ScSpan = styled.span`
   margin: 1px 2px;
   width: 120px;
   height: 32px;
-  line-height: 32px;
   font-size: 14px;
-  text-align: center;
   color: #fff;
+  text-align: center;
+  line-height: 32px;
 `;
 const ScActiveButton = styled.button`
-  border: 0;
   width: 32px;
   height: 32px;
   color: #fff;
+  border: 0;
   transition: all ease-in-out 300ms;
 `;
 
