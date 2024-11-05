@@ -1,6 +1,5 @@
 ignores: [
   "eslint-*",
-  "@typescript-eslint/*",
   "stylelint",
   "stylelint-*",
   "@chromatic-com/storybook",

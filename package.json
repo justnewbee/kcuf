@@ -21,9 +21,9 @@
     "email": "justnewbee@gmail.com"
   },
   "devDependencies": {
-    "@alicloud/eslint-config": "^1.13.3",
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
+    "@kcuf/eslint-config": "workspace:^",
     "@kcuf/markdownlint-config": "workspace:^",
     "@kcuf/npm-package-json-lint-config": "workspace:^",
     "@kcuf/stylelint-config": "workspace:^",
@@ -32,7 +32,7 @@
     "@types/node": "^22.8.7",
     "commander": "^12.1.0",
     "depcheck": "^1.4.7",
-    "eslint": "^8.57.0",
+    "eslint": "^9.14.0",
     "husky": "^9.1.6",
     "lerna": "^8.1.9",
     "lint-staged": "^15.2.10",
@@ -55,7 +55,6 @@
     "depcheck:packages": "pnpm -r --no-bail exec depcheck",
     "lint": "eslint packages*/**/src/ --ext js,ts,tsx",
     "lint:style": "stylelint \"**/src/**/*.{css,less,ts,tsx}\"",
-    "lint:s": "stylelint ./packages-demo/demo-rc/src/rc/input-range/rc/index.tsx",
     "lint:md": "markdownlint-cli2 **/*.md !node_modules",
     "lerna:publish": "lerna publish",
     "lerna:publish:patch": "lerna publish patch",
