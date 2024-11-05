@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 module.exports = {
   extends: 'npm-package-json-lint-config-default',
   rules: { // rules ref: https://npmpackagejsonlint.org/docs/rules

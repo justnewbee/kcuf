@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-dev/npm-package-json-lint-config",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-config/npm-package-json-lint-config",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
