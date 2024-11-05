@@ -1,6 +1,7 @@
 {
   "name": "kcuf",
   "version": "0.0.0",
+  "type": "module",
   "description": "A mono-repo for common purpose packages.",
   "keywords": [
     "react",
@@ -54,6 +55,7 @@
     "depcheck": "depcheck",
     "depcheck:packages": "pnpm -r --no-bail exec depcheck",
     "lint": "eslint packages*/**/src/ --ext js,ts,tsx",
+    "lint:fuck": "eslint packages-demo/demo-rc/src/rc/alert/rc/index.tsx",
     "lint:style": "stylelint \"**/src/**/*.{css,less,ts,tsx}\"",
     "lint:md": "markdownlint-cli2 **/*.md !node_modules",
     "lerna:publish": "lerna publish",
