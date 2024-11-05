@@ -7,6 +7,7 @@ export default [
   pluginImport.flatConfigs.react,
   {
     rules: {
+      'import/no-named-as-default': 0,
       'import/order': ['error', {
         groups: [
           'builtin',

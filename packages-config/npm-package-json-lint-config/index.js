@@ -29,6 +29,7 @@ module.exports = {
       // basic info
       'name',
       'version',
+      'type',
       'description',
       'keywords',
       'license',

@@ -1,6 +1,7 @@
 {
   "name": "@kcuf/stylelint-config",
   "version": "0.1.0",
+  "type": "module",
   "description": "Shareable stylelint config.",
   "keywords": [
     "stylelint",
@@ -8,7 +9,6 @@
   ],
   "license": "MIT",
   "main": "index.js",
-  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
