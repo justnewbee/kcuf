@@ -35,7 +35,7 @@ function getCssRotation(props: IScIconProps): RuleSet | undefined {
     `;
   }
   
-  if (typeof props.$rotate === 'number' && props.$rotate > 0) {
+  if (props.$rotate) {
     return css`
       transform: rotate(${props.$rotate}deg);
     `;
@@ -45,16 +45,16 @@ function getCssRotation(props: IScIconProps): RuleSet | undefined {
 const ScIcon = styled.i<IScIconProps>`
   &::before {
     display: inline-block;
-    line-height: 1;
     font-size: inherit;
     font-weight: 200;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    vertical-align: baseline;
     text-rendering: auto;
+    line-height: 1;
+    vertical-align: baseline;
+    -webkit-text-stroke-width: 0.2px;/* stylelint-disable-line */
     transition: all linear 200ms;
-    -webkit-text-stroke-width: 0.2px;
     
     ${props => getCssRotation(props)}
   }
