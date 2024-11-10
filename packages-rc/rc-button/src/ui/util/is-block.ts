@@ -10,5 +10,5 @@ const THEMES_BLOCK: EButtonPreset[] = [
 ];
 
 export default function isBlock(props: IScButtonProps): boolean | undefined {
-  return (props.$preset && THEMES_BLOCK.includes(props.$preset)) || props.$block;
+  return (props.$preset && THEMES_BLOCK.includes(props.$preset as EButtonPreset)) || props.$block;
 }

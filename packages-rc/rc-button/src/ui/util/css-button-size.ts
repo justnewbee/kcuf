@@ -41,5 +41,5 @@ export default function cssButtonSize(props: IScButtonProps): RuleSet | null {
     return MAPPING[props.$size];
   }
   
-  return MAPPING[props.$preset && THEMES_DEFAULT_SIZE_NONE.includes(props.$preset) ? EButtonSize.NONE : EButtonSize.M];
+  return MAPPING[props.$preset && THEMES_DEFAULT_SIZE_NONE.includes(props.$preset as EButtonPreset) ? EButtonSize.NONE : EButtonSize.M];
 }

@@ -20,5 +20,5 @@ const THEMES_NEED_BORDER: EButtonPreset[] = [
 ];
 
 export default function isBorderless(props: IScButtonProps): boolean {
-  return props.$size === EButtonSize.NONE || (props.$preset ? !THEMES_NEED_BORDER.includes(props.$preset) : true);
+  return props.$size === EButtonSize.NONE || (props.$preset ? !THEMES_NEED_BORDER.includes(props.$preset as EButtonPreset) : true);
 }

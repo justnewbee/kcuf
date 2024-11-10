@@ -28,7 +28,7 @@ export default function cssButtonShadow(props: IScButtonProps): RuleSet | null {
     return null;
   }
   
-  if (props.$preset && THEMES_NEED_SHADOW.includes(props.$preset)) {
+  if (props.$preset && THEMES_NEED_SHADOW.includes(props.$preset as EButtonPreset)) {
     return mixinButtonShadow;
   }
   
