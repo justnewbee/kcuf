@@ -40,9 +40,9 @@ interface IScDialogProps {
 }
 
 const cssNormal = css<IScDialogProps>`
-  top: ${props => (props.$active ? '50%' : '35%')};
+  top: ${props => (props.$active ? '40%' : '25%')};
   left: 50%;
-  min-height: 80px;
+  min-height: 64px;
   transform: translate(-50%, -50%);
   ${mixinBorderRadiusM}
 `;

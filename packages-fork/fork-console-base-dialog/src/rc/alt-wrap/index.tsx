@@ -42,13 +42,13 @@ const SPACING = 8;
 
 const ScAltWrap = styled.div`
   position: relative;
-  padding: 0 ${SPACING * 2}px 0 ${ICON_SIZE + SPACING}px;
+  padding: ${SPACING * 2}px ${SPACING * 2}px 0 ${ICON_SIZE + SPACING}px;
   min-height: ${ICON_SIZE + SPACING * 2}px;
 `;
 
 const ScIcon = styled(Icon)`
   position: absolute;
-  top: 0;
+  top: ${SPACING * 2}px;
   left: 0;
   font-size: ${ICON_SIZE}px;
   

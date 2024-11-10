@@ -62,10 +62,14 @@ const ScTitleExtra = styled.div`
   ${mixinTextSecondary}
 `;
 
-export default function Header(): ReactElement {
+export default function Header(): ReactElement | null {
   const dialogMode = useDialogMode();
   const dialogTitle = useDialogTitle();
   const dialogTitleExtra = useDialogTitleExtra();
+  
+  if (!dialogTitle && !dialogTitleExtra && ![DialogMode.SLIDE, DialogMode.SLIDE_UP].includes(dialogMode)) {
+    return null;
+  }
   
   return <ScHeader {...{
     $mode: dialogMode
