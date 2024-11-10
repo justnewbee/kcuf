@@ -20,7 +20,7 @@ function normalizeButton<R = void, D extends object = Record<string, unknown>>(b
     };
   }
   
-  return { // 因为需要往里边塞 spm disabled 等属性，故浅拷贝，保证不能修改传入的对象
+  return { // 因为需要往里边塞 disabled 等属性，故浅拷贝，保证不能修改传入的对象
     ...button
   };
 }
@@ -31,14 +31,12 @@ function normalizeButton<R = void, D extends object = Record<string, unknown>>(b
 export default function processButtons<R = void, D extends object = Record<string, unknown>>(buttons: TDialogButton<R, D>[] = [], locked: EDialogLockState): IDialogButtonProps<R, D>[] {
   let hasPrimary = false;
   
-  const buttonAttr: IDialogButtonProps<R, D>[] = buttons.reduce((reduced: IDialogButtonProps<R, D>[], v: TDialogButton<R, D>, i) => {
+  const buttonAttr: IDialogButtonProps<R, D>[] = buttons.reduce((reduced: IDialogButtonProps<R, D>[], v: TDialogButton<R, D>) => {
     if (!v) { // 去掉 null 等
       return reduced;
     }
     
     const buttonProps = normalizeButton<R, D>(v);
-    
-    buttonProps.spm = buttonProps.spm || `${i}`; // 保证 spm 一定存在
     
     if (buttonProps.primary) {
       hasPrimary = true;

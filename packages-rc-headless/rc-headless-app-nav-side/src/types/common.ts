@@ -1,6 +1,6 @@
 import {
   ButtonProps
-} from '@alicloud/console-base-rc-button';
+} from '@kcuf/rc-button';
 
 export type TNavItemMark = 'external' | 'new' | 'beta-public' | 'beta' | 'alpha';
 

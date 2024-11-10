@@ -39,8 +39,8 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
       noShadow,
       block,
       active,
-      classNameForIconLeft,
-      classNameForIconRight,
+      iconLeftClassName,
+      iconRightClassName,
       ...rest
     } = props;
     
@@ -60,8 +60,8 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
       noShadow,
       block,
       active,
-      classNameForIconLeft,
-      classNameForIconRight
+      iconLeftClassName,
+      iconRightClassName
     };
     const propsDom: IPropsDom = {
       ...rest,

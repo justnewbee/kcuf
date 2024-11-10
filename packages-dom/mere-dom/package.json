@@ -34,7 +34,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.24.8",
-    "lodash": "^4.1.0"
+    "lodash": "^4.17.21"
   },
   "scripts": {
     "build:clean": "rimraf dist",

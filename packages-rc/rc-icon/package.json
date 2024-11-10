@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/rc-icon",
   "version": "0.0.1",
-  "description": "Icon used in all @kcuf/rc- components.",
+  "description": "Icon used in all @kcuf/rc-xx components.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,

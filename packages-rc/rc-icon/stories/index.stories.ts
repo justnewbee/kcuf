@@ -3,7 +3,7 @@ import {
 } from './types';
 
 export default {
-  title: 'rc/icon'
+  title: 'Icon'
 } satisfies TMeta;
 
 export { default as All } from './story-all';

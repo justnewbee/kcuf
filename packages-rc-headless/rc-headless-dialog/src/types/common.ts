@@ -6,7 +6,7 @@ import {
 
 import {
   ButtonProps
-} from '@alicloud/console-base-rc-button';
+} from '@kcuf/rc-button';
 
 import {
   EDialogMode,
@@ -18,9 +18,7 @@ import {
  */
 export type TDynamicByData<T = void, D extends object = Record<string, unknown>> = T | ((dialogData: D) => T);
 
-export interface IDialogButtonProps<T = void, D extends object = Record<string, unknown>> extends Omit<ButtonProps, 'spm' | 'onClick'> {
-  // 覆盖 spm 参数，Dialog 会做默认填充，不强制传入
-  spm?: string;
+export interface IDialogButtonProps<T = void, D extends object = Record<string, unknown>> extends Omit<ButtonProps, 'onClick'> {
   // 是否使用主按钮，一般情况下 Dialog 都会自动判断，不需要传
   primary?: boolean;
   // 点击该按钮的时候，对 Promise value 产生的效果
@@ -44,8 +42,8 @@ export interface IDialogProps<T = void, D extends object = Record<string, unknow
   buttons?: TDynamicByData<TDialogButton<T, D>[], D>;
   content?: string | ReactElement;
   /* --- 展示 --- */
-  mode?: EDialogMode | 'normal' | 'slide' | 'slide_up';
-  size?: TDynamicByData<number | EDialogSize | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'auto' | 'almost-full' | 'full', D>;
+  mode?: EDialogMode | `${EDialogMode}`;
+  size?: TDynamicByData<number | EDialogSize | `${EDialogSize}`, D>;
   classNameOnBody?: string;
   /* --- 行为 --- */
   backdrop?: boolean; // 是否需要背投

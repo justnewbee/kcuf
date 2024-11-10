@@ -7,7 +7,8 @@ import styled from 'styled-components';
 import {
   MinimalNormalize,
   InputText,
-  InputNumber
+  InputNumber,
+  InputSwitch
 } from '@kcuf/demo-rc';
 
 import Icon, {
@@ -37,21 +38,23 @@ const ScIconListItem = styled.li`
   min-width: 50px;
   height: 50px;
   text-align: center;
-  color: hsl(0 0% 73%);
   
   i {
     font-size: 20px;
-    color: hsl(0 0% 20%);
   }
   
   &:hover {
     background-color: hsla(0 0% 0% / 10%);
   }
 `;
+const ScIconType = styled.div`
+  color: hsl(0 0% 73%);
+`;
 
 export default function DemoAll(): ReactElement {
   const [stateFilter, setStateFilter] = useState('');
   const [stateRotate, setStateRotate] = useState(0);
+  const [stateColored, setStateColored] = useState(true);
   const filterTrimmed = stateFilter.trim();
   const filteredTypes = filterTrimmed ? TYPES.filter(v => v.includes(filterTrimmed)) : TYPES;
   
@@ -68,14 +71,20 @@ export default function DemoAll(): ReactElement {
       value: stateRotate,
       onChange: setStateRotate
     }} />
+    <InputSwitch {...{
+      label: 'colored',
+      value: stateColored,
+      onChange: setStateColored
+    }} />
     {filterTrimmed ? `${filteredTypes.length} / ${TYPES.length}` : null}
     <ScIconList>
       {filteredTypes.map(v => <ScIconListItem key={v}>
         <Icon {...{
           type: v,
+          colored: stateColored,
           rotate: stateRotate
         }} />
-        <div>{v}</div>
+        <ScIconType>{v}</ScIconType>
       </ScIconListItem>)}
     </ScIconList>
   </>;

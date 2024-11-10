@@ -77,8 +77,8 @@ export interface IPropsCustom {
    */
   active?: boolean;
   // class 钩子，以便有需要自定义样式（比如 responsive 的情况，隐藏图标的需求）
-  classNameForIconLeft?: string;
-  classNameForIconRight?: string;
+  iconLeftClassName?: string;
+  iconRightClassName?: string;
 }
 
 export interface IModelProps extends Omit<IPropsDom, 'title'>, IPropsCustom {}
