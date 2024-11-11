@@ -11,7 +11,8 @@ export type {
   IBaseDataTimeModified as BaseDataTimeModified,
   IBaseDataTimes as BaseDataTimes,
   
-  IPagedList as PagedList
+  IPagedList as PagedList,
+  IPagedListUncertain as PagedListUncertain
 } from './types';
 
-export * from './util';
+export * from './helper';

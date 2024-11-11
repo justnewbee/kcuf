@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/data-normalizer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Data normalizer helper to make all frontend data sane.",
   "keywords": [],
   "license": "MIT",
