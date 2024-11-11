@@ -7,7 +7,6 @@ import styled, {
 
 import {
   SIZE,
-  mixinTextSecondary,
   mixinBgPrimary,
   mixinBorderTertiary,
   mixinBorderRadiusM,
@@ -75,7 +74,6 @@ const ScDialog = styled.div<IScDialogProps>`
   max-width: 100%;
   font-size: 12px;
   transition: all ease-in 200ms;
-  ${mixinTextSecondary}
   ${mixinBgPrimary}
   ${mixinBorderTertiary}
   ${mixinShadowL}

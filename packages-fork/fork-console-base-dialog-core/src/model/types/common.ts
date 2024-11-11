@@ -36,15 +36,14 @@ export type TDialogButton<T = void, D extends object = Record<string, unknown>> 
  * Dialog props 定义
  */
 export interface IDialogProps<T = void, D extends object = Record<string, unknown>> extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'content'> {
-  /* --- 内容 --- */
+  /* --- 内容 & 展示 --- */
   title?: TDynamicByData<string | ReactElement, D>;
   titleExtra?: TDynamicByData<string | ReactElement, D>;
   buttons?: TDynamicByData<TDialogButton<T, D>[], D>;
   content?: string | ReactElement;
-  /* --- 展示 --- */
-  mode?: EDialogMode | 'normal' | 'slide' | 'slide_up';
-  size?: TDynamicByData<number | EDialogSize | 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl' | 'auto' | 'almost-full' | 'full', D>;
-  classNameOnBody?: string;
+  contentClassName?: string;
+  mode?: EDialogMode | `${EDialogMode}`;
+  size?: TDynamicByData<number | EDialogSize | `${EDialogSize}`, D>;
   /* --- 行为 --- */
   backdrop?: boolean; // 是否需要背投
   closable?: boolean; // 显示关闭按钮

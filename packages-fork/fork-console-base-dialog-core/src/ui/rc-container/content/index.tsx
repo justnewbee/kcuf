@@ -11,14 +11,13 @@ import {
 } from '@alicloud/console-base-theme';
 
 import {
-  ModelProps,
   useProps,
   useDialogMaxContentHeight
 } from '../../../model';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {}
 
-const ScContent = styled.div<Partial<ModelProps>>`
+const ScContent = styled.div`
   position: relative;
   flex: 1;
   overflow: auto;
@@ -27,7 +26,7 @@ const ScContent = styled.div<Partial<ModelProps>>`
 
 function Content(props: IProps, ref: Ref<HTMLDivElement>): ReactElement {
   const {
-    classNameOnBody,
+    contentClassName,
     content
   } = useProps();
   const maxHeight = useDialogMaxContentHeight();
@@ -38,7 +37,7 @@ function Content(props: IProps, ref: Ref<HTMLDivElement>): ReactElement {
     style: maxHeight > 0 ? {
       maxHeight
     } : undefined,
-    className: classNameOnBody
+    className: contentClassName
   }}>{content}</ScContent>;
 }
 
