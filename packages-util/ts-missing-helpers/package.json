@@ -31,9 +31,6 @@
     "rimraf": "^6.0.1",
     "typescript": "^5.6.3"
   },
-  "peerDependencies": {
-    "@babel/runtime": "^7.24.8"
-  },
   "scripts": {
     "build:clean": "rimraf dist",
     "build:esm": "ESM=1 babel src -d dist/esm --extensions .ts,.tsx --source-maps",
