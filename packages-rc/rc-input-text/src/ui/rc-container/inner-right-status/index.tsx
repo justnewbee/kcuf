@@ -7,7 +7,7 @@ import {
   mixinTextSuccess,
   mixinTextError
 } from '@alicloud/console-base-theme';
-import Icon from '@alicloud/console-base-rc-icon';
+import Icon from '@kcuf/rc-icon';
 import {
   useProps,
   useValue,

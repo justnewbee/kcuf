@@ -4,7 +4,7 @@
 //
 // import {
 //   CodeMirrorProps
-// } from '@alicloud/rc-codemirror';
+// } from '@kcuf/rc-codemirror';
 //
 
 // export * from './alert';

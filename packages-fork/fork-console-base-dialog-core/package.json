@@ -49,12 +49,12 @@
   },
   "dependencies": {
     "@alicloud/console-base-theme": "^1.9.7",
-    "@alicloud/mere-dom": "^1.8.1",
-    "@alicloud/typescript-missing-helpers": "^1.3.4",
+    "@kcuf/mere-dom": "workspace:^",
     "@kcuf/rc-backdrop": "workspace:^",
     "@kcuf/rc-button": "workspace:^",
     "@kcuf/rc-icon": "workspace:^*",
     "@kcuf/react-hook-is-unmounted": "workspace:^",
+    "@kcuf/ts-missing-helpers": "workspace:^",
     "immer": "^10.1.1",
     "lodash": "^4.17.21"
   },

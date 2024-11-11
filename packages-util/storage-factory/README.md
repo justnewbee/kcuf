@@ -9,7 +9,7 @@
 这是一个工厂方法，生产一个方法：
 
 ```ts
-import storageFactory from '@alicloud/storage-factory';
+import storageFactory from '@kcuf/storage-factory';
 
 interface IAccount {
   id: string;

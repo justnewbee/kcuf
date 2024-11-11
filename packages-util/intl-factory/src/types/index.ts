@@ -2,7 +2,7 @@ import {
   IntlFactoryOptions as IntlFactoryOptionsBasic,
   FnIntlNumber,
   FnIntlDate
-} from '@alicloud/console-base-intl-factory-basic';
+} from '@kcuf/intl-factory-basic';
 
 export interface IIntlInstructions {
   html?: boolean;

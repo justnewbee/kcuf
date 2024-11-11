@@ -1,6 +1,6 @@
 import {
   SearchInputProps
-} from '@alicloud/console-base-rc-input';
+} from '@kcuf/rc-input';
 
 import useModelState from './_use-model-state';
 import useHandleFilterKeydownForEsc from './use-handle-filter-keydown-for-esc';

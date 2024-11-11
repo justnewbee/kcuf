@@ -44,7 +44,7 @@ function doLogin(): Promise<void>;
 
 ### ❓登录窗怎么实现？
 
-由于需要的是 `Promise`，你需要使用命令式的弹窗，而不应该是组件式。比如 `@alicloud/console-base-rc-dialog` 的命令式弹窗就很强。
+由于需要的是 `Promise`，你需要使用命令式的弹窗，而不应该是组件式。比如 `@kcuf/rc-dialog` 的命令式弹窗就很强。
 
 ### ❓登录窗登录成功，需要做什么？
 

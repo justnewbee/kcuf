@@ -1,6 +1,6 @@
 import {
   findFocusable
-} from '@alicloud/mere-dom';
+} from '@kcuf/mere-dom';
 
 import {
   EDialogFocusHow

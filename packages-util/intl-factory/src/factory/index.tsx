@@ -2,8 +2,8 @@ import React from 'react';
 
 import intlFactoryBasic, {
   IntlMessagesMap
-} from '@alicloud/console-base-intl-factory-basic';
-import RcIntl from '@alicloud/console-base-rc-intl';
+} from '@kcuf/intl-factory-basic';
+import RcIntl from '@kcuf/rc-intl';
 
 import {
   IIntlFactoryOptions,

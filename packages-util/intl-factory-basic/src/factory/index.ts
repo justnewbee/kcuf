@@ -1,5 +1,3 @@
-import CONF_LOCALE from '@alicloud/console-base-conf-locale';
-
 import {
   TIntlMessagesMap,
   IIntlFactoryOptions,
@@ -20,7 +18,7 @@ import {
 export default function factory<O>(messagesMap: TIntlMessagesMap<O>, {
   locale = CONF_LOCALE.LOCALE,
   localeDefault
-}: IIntlFactoryOptions = {}): IFnIntl<O> { // : <V extends {}>(id, values?: V) => string => 
+}: IIntlFactoryOptions = {}): IFnIntl<O> { // : <V extends {}>(id, values?: V) => string =>
   const messages: O = getMessages(messagesMap, locale, localeDefault);
   const intl: IFnIntl<O> = <V = void>(id: keyof O, values?: V, escapeValues?: boolean) => formatMessage(messages, id, values, escapeValues);
   

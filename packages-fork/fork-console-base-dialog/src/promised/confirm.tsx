@@ -27,7 +27,7 @@ import {
  * ```
  * import {
  *   confirm
- * } from '@alicloud/console-base-rc-dialog-promise';
+ * } from '@kcuf/rc-dialog';
  *
  * confirm(...).then(yes => {
  *   ...

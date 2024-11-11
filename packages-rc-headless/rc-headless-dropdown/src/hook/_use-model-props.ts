@@ -4,7 +4,7 @@ import {
 
 import {
   RequiredSelected
-} from '@alicloud/typescript-missing-helpers';
+} from '@kcuf/ts-missing-helpers';
 import {
   Z_INDEX
 } from '@alicloud/console-base-theme';

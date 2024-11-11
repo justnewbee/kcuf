@@ -4,7 +4,6 @@ import {
   H1,
   P
 } from '@kcuf/demo-rc';
-import ThemeSwitcher from '@alicloud/console-base-demo-helper-theme-switcher';
 
 import PkgInfo from '../pkg-info';
 import intl, {

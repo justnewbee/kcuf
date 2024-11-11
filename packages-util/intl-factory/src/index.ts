@@ -1,4 +1,4 @@
-export * from '@alicloud/console-base-intl-factory-basic';
+export * from '@kcuf/intl-factory-basic';
 
 export { default } from './factory';
 
