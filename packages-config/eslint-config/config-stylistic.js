@@ -5,9 +5,11 @@ export default [
   stylistic.configs.customize({
     // indent: 2, // default 2
     // quotes: 'single', // default single
-    semi: true,
     // jsx: true, // default true
-    commaDangle: 'never'
+    semi: true,
+    commaDangle: 'never',
+    // https://eslint.style/rules/default/brace-style
+    braceStyle: '1tbs' // 文档骗人说默认 1tbs，其实是 stroustrup
   }), {
     rules: {
       '@stylistic/indent': ['error', 2, {
