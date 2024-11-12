@@ -76,7 +76,9 @@ export default function Header(): ReactElement | null {
   }}>
     <ScTitle {...{
       $mode: dialogMode
-    }}>{dialogTitle}</ScTitle>
+    }}>
+      {dialogTitle}
+    </ScTitle>
     {dialogTitleExtra ? <ScTitleExtra>{dialogTitleExtra}</ScTitleExtra> : null}
   </ScHeader>;
 }

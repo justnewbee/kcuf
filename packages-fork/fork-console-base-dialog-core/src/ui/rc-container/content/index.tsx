@@ -38,7 +38,9 @@ function Content(props: IProps, ref: Ref<HTMLDivElement>): ReactElement {
       maxHeight
     } : undefined,
     className: contentClassName
-  }}>{content}</ScContent>;
+  }}>
+    {content}
+  </ScContent>;
 }
 
 export default forwardRef(Content);

@@ -57,7 +57,7 @@
     "lint": "eslint packages*/**/src/ --ext js,ts,tsx",
     "lint:style": "stylelint \"**/src/**/*.{css,less,ts,tsx}\"",
     "lint:md": "markdownlint-cli2 **/*.md !node_modules",
-    "fuck": "eslint packages-canvas/canvas-particles/src/types/common.ts",
+    "fuck": "eslint packages-demo/demo-rc/src",
     "lerna:publish": "lerna publish",
     "lerna:publish:patch": "lerna publish patch",
     "lerna:publish:minor": "lerna publish minor",

@@ -6,6 +6,7 @@ import eslintJs from '@eslint/js';
 import configTs from './config-ts.js';
 import configReact from './config-react.js';
 import configImport from './config-import.js';
+import configStylistic from './config-stylistic.js';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -17,5 +18,6 @@ export default [
   eslintJs.configs.recommended,
   ...configTs,
   ...configImport,
-  ...configReact
+  ...configReact,
+  ...configStylistic
 ];

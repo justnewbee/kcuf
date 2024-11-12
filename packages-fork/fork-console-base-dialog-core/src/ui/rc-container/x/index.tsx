@@ -27,7 +27,7 @@ interface IScProps {
 // z-index 用于保证在没有 header 的情况下不会被内容遮住
 const ScX = styled(Button)<IScProps>`
   position: absolute;
-  top: ${props => (props.$mode === DialogMode.NORMAL ? SIZE.PADDING_X_DIALOG : (SIZE.HEIGHT_DIALOG_SLIDE_HEADER - 24) / 2)}px;
+  top: ${props => props.$mode === DialogMode.NORMAL ? SIZE.PADDING_X_DIALOG : (SIZE.HEIGHT_DIALOG_SLIDE_HEADER - 24) / 2}px;
   right: ${SIZE.PADDING_X_DIALOG}px;
   z-index: 1;
   width: 24px;

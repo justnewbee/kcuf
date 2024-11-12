@@ -24,16 +24,16 @@ interface IProps {
 
 function getIconType(type?: TDialogAltIconType): IconType {
   switch (type) {
-    case 'warn':
-      return 'warn-fill';
-    case 'confirm':
-      return 'help-fill';
-    case 'success':
-      return 'success-fill';
-    case 'error':
-      return 'error-fill';
-    default:
-      return 'info-fill';
+  case 'warn':
+    return 'warn-fill';
+  case 'confirm':
+    return 'help-fill';
+  case 'success':
+    return 'success-fill';
+  case 'error':
+    return 'error-fill';
+  default:
+    return 'info-fill';
   }
 }
 

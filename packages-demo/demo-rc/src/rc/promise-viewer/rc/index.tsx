@@ -82,14 +82,14 @@ export default function PromiseViewer({
   return <ScPromiseViewer>
     {((): ReactElement => {
       switch (stateResult.loading) {
-        case ELoading.LOADING:
-          return <ScInfoLoading>Loading...</ScInfoLoading>;
-        case ELoading.RESOLVED:
-          return <ScInfoResolved>Success ({stateResult.duration}ms)</ScInfoResolved>;
-        case ELoading.REJECTED:
-          return <ScInfoRejected>Failed ({stateResult.duration}ms)</ScInfoRejected>;
-        default:
-          return <ScInfoIdle>Idle</ScInfoIdle>;
+      case ELoading.LOADING:
+        return <ScInfoLoading>Loading...</ScInfoLoading>;
+      case ELoading.RESOLVED:
+        return <ScInfoResolved>Success ({stateResult.duration}ms)</ScInfoResolved>;
+      case ELoading.REJECTED:
+        return <ScInfoRejected>Failed ({stateResult.duration}ms)</ScInfoRejected>;
+      default:
+        return <ScInfoIdle>Idle</ScInfoIdle>;
       }
     })()}
     <JsonViewer o={stateResult.loading === ELoading.REJECTED ? normalizeError(stateResult.result as Error) : stateResult.result} />

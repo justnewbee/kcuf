@@ -24,22 +24,22 @@ export default function mergeConfig(config1: IFetcherConfig | undefined, config2
       }
       
       switch (k as keyof IFetcherConfig) {
-        case 'headers': // headers 合并
-          mergeConfigHeaders(merged, v as TFetcherHeaders);
-          
-          break;
-        case 'params': // 参数合并
-          mergeConfigParams(merged, v as TFetcherParams);
-          
-          break;
-        case 'body': // body 合并
-          mergeConfigBody(merged, v as TFetcherBody);
-          
-          break;
-        default: // 其他，替换
-          (merged as Record<string, unknown>)[k] = v;
-          
-          break;
+      case 'headers': // headers 合并
+        mergeConfigHeaders(merged, v as TFetcherHeaders);
+        
+        break;
+      case 'params': // 参数合并
+        mergeConfigParams(merged, v as TFetcherParams);
+        
+        break;
+      case 'body': // body 合并
+        mergeConfigBody(merged, v as TFetcherBody);
+        
+        break;
+      default: // 其他，替换
+        (merged as Record<string, unknown>)[k] = v;
+        
+        break;
       }
     });
   });

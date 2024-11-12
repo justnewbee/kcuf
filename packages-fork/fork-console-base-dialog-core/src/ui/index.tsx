@@ -39,7 +39,7 @@ interface IScDialogProps {
 }
 
 const cssNormal = css<IScDialogProps>`
-  top: ${props => (props.$active ? '40%' : '25%')};
+  top: ${props => props.$active ? '40%' : '25%'};
   left: 50%;
   min-height: 64px;
   transform: translate(-50%, -50%);
@@ -52,7 +52,7 @@ const cssSlide = css<IScDialogProps>`
   top: 0;
   right: 0;
   bottom: 0;
-  transform: translateX(${props => (props.$active ? '0' : '100%')});
+  transform: translateX(${props => props.$active ? '0' : '100%'});
 `;
 
 const cssSlideUp = css<IScDialogProps>`
@@ -61,7 +61,7 @@ const cssSlideUp = css<IScDialogProps>`
   right: 0;
   bottom: 0;
   left: 0;
-  transform: translateY(${props => (props.$active ? '0' : '100%')});
+  transform: translateY(${props => props.$active ? '0' : '100%'});
   ${mixinShadowLUp}
 `;
 

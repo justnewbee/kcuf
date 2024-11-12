@@ -86,7 +86,7 @@ export default function openIndirect<T = void, D extends object = Record<string,
     
     // 不可有以下新属性进行覆盖
     delete updatedProps.onClose;
-  
+    
     dialogProps = { // 更新当前内存中的 props 对象
       ...dialogProps,
       ...updatedProps

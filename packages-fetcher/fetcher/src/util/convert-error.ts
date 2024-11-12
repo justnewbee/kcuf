@@ -30,18 +30,18 @@ export default function convertError(err: unknown, config: IFetcherConfig): IFet
   error.config = config;
   
   switch (error.name) {
-    case FetchErrorName.NETWORK:
-    case JsonpErrorName.NETWORK:
-      error.name = EFetcherErrorName.NETWORK;
-      
-      break;
-    case FetchErrorName.TIMEOUT:
-    case JsonpErrorName.TIMEOUT:
-      error.name = EFetcherErrorName.TIMEOUT;
-      
-      break;
-    default:
-      break;
+  case FetchErrorName.NETWORK:
+  case JsonpErrorName.NETWORK:
+    error.name = EFetcherErrorName.NETWORK;
+    
+    break;
+  case FetchErrorName.TIMEOUT:
+  case JsonpErrorName.TIMEOUT:
+    error.name = EFetcherErrorName.TIMEOUT;
+    
+    break;
+  default:
+    break;
   }
   
   // 所以 AbortError 的名字依然是 AbortError

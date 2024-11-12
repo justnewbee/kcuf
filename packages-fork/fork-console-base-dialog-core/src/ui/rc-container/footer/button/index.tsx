@@ -39,10 +39,10 @@ export default function FooterButton({
   const dispatchCloseWithValue = useHandleCloseWithValue<unknown>();
   
   const handleClick = useCallback((e: MouseEvent<HTMLElement>) => {
-    let willClose: boolean | void = false;
+    let willClose: boolean | undefined = false;
     
     if (onClick) {
-      willClose = onClick(dialog, e);
+      willClose = onClick(dialog, e) as boolean | undefined;
     }
     
     if (willClose === false) {

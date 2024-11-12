@@ -25,13 +25,6 @@ const GROUPS = [
     'zoom',
     'z-index',
     'isolation',
-    'transform-origin',
-    'transform-box',
-    'transform-style',
-    'transform',
-    'translate',
-    'rotate',
-    'scale',
     'offset-path',
     'offset-distance',
     'offset-rotate'
@@ -436,6 +429,13 @@ const GROUPS = [
     'shape-rendering',
     'clip-rule'
   ], [ // transition
+    'translate',
+    'rotate',
+    'scale',
+    'transform',
+    'transform-origin',
+    'transform-box',
+    'transform-style',
     'transition',
     'transition-delay',
     'transition-timing-function',
@@ -474,34 +474,34 @@ export default {
       type: 'at-rule',
       name: 'use'
     },
-      'dollar-variables',
-      'at-variables',
-      'custom-properties',
-      {
-        type: 'at-rule',
-        name: 'custom-media'
-      }, {
-        type: 'at-rule',
-        name: 'function'
-      }, {
-        type: 'at-rule',
-        name: 'mixin'
-      }, {
-        type: 'at-rule',
-        name: 'extend'
-      },
-      'declarations',
-      {
-        type: 'rule',
-        selector: /^&::[\w-]+/,
-        hasBlock: true
-      },
-      'rules',
-      {
-        type: 'at-rule',
-        name: 'media',
-        hasBlock: true
-      }], {
+    'dollar-variables',
+    'at-variables',
+    'custom-properties',
+    {
+      type: 'at-rule',
+      name: 'custom-media'
+    }, {
+      type: 'at-rule',
+      name: 'function'
+    }, {
+      type: 'at-rule',
+      name: 'mixin'
+    }, {
+      type: 'at-rule',
+      name: 'extend'
+    },
+    'declarations',
+    {
+      type: 'rule',
+      selector: /^&::[\w-]+/,
+      hasBlock: true
+    },
+    'rules',
+    {
+      type: 'at-rule',
+      name: 'media',
+      hasBlock: true
+    }], {
       severity: 'error'
     }],
     'order/properties-order': [GROUPS.map(properties => ({

@@ -24,7 +24,7 @@ export default function reduceUpdateProps(state: IModelState, payload: IDialogPr
     }
   });
   
-  return produce(state, draft =>  {
+  return produce(state, draft => {
     draft.propsUpdate = newUpdate;
   });
 }

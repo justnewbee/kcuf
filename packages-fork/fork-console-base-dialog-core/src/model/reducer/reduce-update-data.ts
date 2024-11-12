@@ -10,7 +10,7 @@ import {
  * 更新 data
  */
 export default function reduceUpdateData(state: IModelState, payload: Record<string, unknown>): IModelState {
-  return produce(state, draft =>  {
+  return produce(state, draft => {
     draft.data = payload;
   });
 }
