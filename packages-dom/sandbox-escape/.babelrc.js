@@ -17,4 +17,4 @@ module.exports = {
       version: '^7.24.7'
     }]
   ]
-}
+};

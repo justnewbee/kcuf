@@ -22,4 +22,4 @@ module.exports = {
     }],
     'babel-plugin-styled-components'
   ]
-}
+};
