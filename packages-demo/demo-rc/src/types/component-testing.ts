@@ -2,9 +2,7 @@ import {
   ReactElement
 } from 'react';
 
-export interface IComponentTestingProcessPropsFn<P> {
-  (props: P, o: Record<string, unknown>): void;
-}
+export type IComponentTestingProcessPropsFn<P> = (props: P, o: Record<string, unknown>) => void;
 
 export interface IComponentTestingProps<P> {
   componentName: string;

@@ -28,7 +28,7 @@
  */
 export type RequiredPick<T, K extends keyof T> = {
   [P in K]-?: T[P];
-}
+};
 
 /**
  * Make properties defined by `K` in `T` required, the rest untouched.

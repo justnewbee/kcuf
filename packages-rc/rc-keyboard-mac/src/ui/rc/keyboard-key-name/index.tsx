@@ -45,9 +45,17 @@ export default function KeyboardKeyName({
         {keyDetails.shift ? <>⇧</> : null}
         {keyDetails.meta ? <>⌘</> : null}
       </div>
-      <span>key</span> <>{keyDetails.key === ' ' ? '␣' : keyDetails.key}</>
-      <span>code</span> <>{keyDetails.code}</>
-      {keyDetails.keyCode ? <><span>keyCode</span> <>{keyDetails.keyCode}</></> : null}
+      <span>key</span>
+      {' '}
+      <>{keyDetails.key === ' ' ? '␣' : keyDetails.key}</>
+      <span>code</span>
+      {' '}
+      <>{keyDetails.code}</>
+      {keyDetails.keyCode ? <>
+        <span>keyCode</span>
+        {' '}
+        <>{keyDetails.keyCode}</>
+      </> : null}
     </ScKeyDetails>;
   }
   

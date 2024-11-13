@@ -44,11 +44,11 @@ const OPTIONS_DATE_TIME: Intl.DateTimeFormatOptions = {
 
 export default function getFormatDateOptions(format?: TDateFormat): Intl.DateTimeFormatOptions {
   switch (format) {
-    case 'date':
-      return OPTIONS_DATE;
-    case 'time':
-      return OPTIONS_TIME;
-    default:
-      return OPTIONS_DATE_TIME;
+  case 'date':
+    return OPTIONS_DATE;
+  case 'time':
+    return OPTIONS_TIME;
+  default:
+    return OPTIONS_DATE_TIME;
   }
 }

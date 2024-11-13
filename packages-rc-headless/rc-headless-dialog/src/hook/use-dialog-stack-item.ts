@@ -18,7 +18,7 @@ export default function useDialogStackItem(): IStackItem {
     domDialog,
     domDialogContent
   } = useModelState();
-  const dispatchSetZIndex = useDispatchSetZIndex(); // eslint-disable-line @typescript-eslint/naming-convention
+  const dispatchSetZIndex = useDispatchSetZIndex();
   const handleCloseOnEsc = useHandleCloseOnEsc();
   const handleCloseOnExternal = useHandleCloseOnExternal();
   

@@ -1,6 +1,6 @@
 import {
   produce
-} from 'immer'
+} from 'immer';
 
 import {
   IModelState

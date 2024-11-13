@@ -7,7 +7,7 @@ import {
 } from '../types';
 
 export default function reduceUpdateWindowHeight(state: IModelState): IModelState {
-  return produce(state, draft =>  {
+  return produce(state, draft => {
     draft.windowHeight = window.innerHeight;
   });
 }

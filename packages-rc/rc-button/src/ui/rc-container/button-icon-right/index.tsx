@@ -23,5 +23,6 @@ export default function ButtonIconRight(): ReactElement | null {
   return jsxIcon ? <ButtonIconWrapper {...{
     className: iconRightClassName,
     iconSpacing
-  }}>{jsxIcon}</ButtonIconWrapper> : null;
+  }}>{jsxIcon}
+  </ButtonIconWrapper> : null;
 }

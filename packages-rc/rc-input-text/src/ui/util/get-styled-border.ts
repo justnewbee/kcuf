@@ -15,7 +15,6 @@ import {
   mixinInputBorderFocusBrand,
   mixinInputBorderDisabled
 } from '@alicloud/console-base-theme';
-
 import {
   IPropsScInput
 } from '@kcuf/rc-headless-input-text';

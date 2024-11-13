@@ -10,7 +10,7 @@ import {
  *    ╲θ┃
  *   ━━━┃━━ X
  */
-export default function angleOfLineWithRespectToAxisY(line: TLine): number { // eslint-disable-line @typescript-eslint/naming-convention
+export default function angleOfLineWithRespectToAxisY(line: TLine): number {
   const [A, B] = line;
   
   if (A === 0) {

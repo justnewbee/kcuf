@@ -7,8 +7,7 @@ export default function normalizeError(error?: Error): Record<string, unknown> {
     name: error.name,
     message: error.message
   };
-  
-  // eslint-disable-next-line guard-for-in
+   
   for (const k in error) {
     o[k] = (error as never)[k];
   }

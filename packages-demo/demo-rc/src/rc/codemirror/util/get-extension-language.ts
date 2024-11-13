@@ -1,4 +1,8 @@
 import {
+  json5
+} from 'codemirror-json5';
+
+import {
   Extension
 } from '@codemirror/state';
 import {
@@ -22,36 +26,33 @@ import {
 import {
   json
 } from '@codemirror/lang-json';
-import {
-  json5
-} from 'codemirror-json5';
 
 export default function getExtensionLanguage(language?: string): Extension | null {
   switch (language?.toLowerCase()) {
-    case 'javascript':
-    case 'typescript':
-    case 'js':
-    case 'jsx':
-    case 'ts':
-    case 'tsx':
-      return tsxLanguage;
-    case 'json':
-      return json();
-    case 'json5':
-      return json5();
-    case 'css':
-      return css();
-    case 'less':
-      return less();
-    case 'sass':
-      return sass();
-    case 'htm':
-    case 'html':
-      return html();
-    case 'md':
-    case 'markdown':
-      return markdown();
-    default:
-      return null;
+  case 'javascript':
+  case 'typescript':
+  case 'js':
+  case 'jsx':
+  case 'ts':
+  case 'tsx':
+    return tsxLanguage;
+  case 'json':
+    return json();
+  case 'json5':
+    return json5();
+  case 'css':
+    return css();
+  case 'less':
+    return less();
+  case 'sass':
+    return sass();
+  case 'htm':
+  case 'html':
+    return html();
+  case 'md':
+  case 'markdown':
+    return markdown();
+  default:
+    return null;
   }
 }

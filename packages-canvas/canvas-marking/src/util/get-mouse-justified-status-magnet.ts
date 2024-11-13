@@ -9,13 +9,13 @@ import {
 
 export default function getMouseJustifiedStatusMagnet(result: JustifyMagnetResult): EMouseJustifyStatus {
   switch (result.type) {
-    case JustifyMagnetType.VERTEX:
-      return EMouseJustifyStatus.MAGNET_VERTEX;
-    case JustifyMagnetType.INTERSECTION:
-      return EMouseJustifyStatus.MAGNET_INTERSECTION;
-    case JustifyMagnetType.MID:
-      return EMouseJustifyStatus.MAGNET_MID;
-    default:
-      return EMouseJustifyStatus.MAGNET_BORDER;
+  case JustifyMagnetType.VERTEX:
+    return EMouseJustifyStatus.MAGNET_VERTEX;
+  case JustifyMagnetType.INTERSECTION:
+    return EMouseJustifyStatus.MAGNET_INTERSECTION;
+  case JustifyMagnetType.MID:
+    return EMouseJustifyStatus.MAGNET_MID;
+  default:
+    return EMouseJustifyStatus.MAGNET_BORDER;
   }
 }

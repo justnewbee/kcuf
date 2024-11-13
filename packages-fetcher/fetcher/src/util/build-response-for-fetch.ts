@@ -14,7 +14,7 @@ export default async function buildResponseForFetch<T>(response: Response, confi
   const responseHeaders: Record<string, string> = {};
   
   // IE 不行
-  if (typeof response.headers?.forEach === 'function') { // eslint-disable-line @typescript-eslint/no-unnecessary-condition
+  if (typeof response.headers?.forEach === 'function') {
     response.headers.forEach((v, k) => {
       responseHeaders[normalizeHeaderKey(k)] = v;
     });

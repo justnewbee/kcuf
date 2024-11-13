@@ -410,38 +410,38 @@ export default class Particle implements IParticleClassType {
     const radius = this.radiusBubble ?? this.radius;
     
     switch (shape) {
-      case EParticleShape.IMAGE:
-        canvasDrawShapeImage(canvasContext, image, coords, radius, imageAspectRatio);
+    case EParticleShape.IMAGE:
+      canvasDrawShapeImage(canvasContext, image, coords, radius, imageAspectRatio);
         
-        return; // 不需要往下走
-      case EParticleShape.TRIANGLE:
-        pathTriangle(canvasContext, coords, radius);
+      return; // 不需要往下走
+    case EParticleShape.TRIANGLE:
+      pathTriangle(canvasContext, coords, radius);
         
-        break;
-      case EParticleShape.SQUARE:
-        pathSquare(canvasContext, coords, radius);
+      break;
+    case EParticleShape.SQUARE:
+      pathSquare(canvasContext, coords, radius);
         
-        break;
-      case EParticleShape.PENTAGON:
-        pathPentagon(canvasContext, coords, radius);
+      break;
+    case EParticleShape.PENTAGON:
+      pathPentagon(canvasContext, coords, radius);
         
-        break;
-      case EParticleShape.HEXAGON:
-        pathHexagon(canvasContext, coords, radius);
+      break;
+    case EParticleShape.HEXAGON:
+      pathHexagon(canvasContext, coords, radius);
         
-        break;
-      case EParticleShape.STAR:
-        pathStar(canvasContext, 5, coords, radius);
+      break;
+    case EParticleShape.STAR:
+      pathStar(canvasContext, 5, coords, radius);
         
-        break;
-      case EParticleShape.STAR_7:
-        pathStar(canvasContext, 7, coords, radius);
+      break;
+    case EParticleShape.STAR_7:
+      pathStar(canvasContext, 7, coords, radius);
         
-        break;
-      default:
-        pathCircle(canvasContext, coords, radius);
+      break;
+    default:
+      pathCircle(canvasContext, coords, radius);
         
-        break;
+      break;
     }
     
     canvasContext.fillStyle = color.toColorString(opacity);

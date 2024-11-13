@@ -1,8 +1,6 @@
 import _forEach from 'lodash/forEach';
 
-interface ITraverseCallback {
-  (value: unknown, path: string[]): void;
-}
+type ITraverseCallback = (value: unknown, path: string[]) => void;
 
 export default function traverseObject<T extends object>(o: T, callback: ITraverseCallback, path: string[] = []): void {
   _forEach(o, (v, k) => {

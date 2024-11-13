@@ -14,8 +14,7 @@ export default function renderTableCell<T>(o: T, valueIndex: number, columnProps
   
   if ('dataIndex' in columnProps) {
     const value = o[columnProps.dataIndex];
-    
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+     
     if (value === undefined || value === null) {
       return null;
     }

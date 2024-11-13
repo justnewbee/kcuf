@@ -15,7 +15,7 @@ export default function storageFactory<T extends object>(wholeDataKey: string, d
           ...JSON.parse(str)
         };
       }
-    } catch (err) {
+    } catch (_err) {
       // ignore
     }
     
@@ -27,7 +27,7 @@ export default function storageFactory<T extends object>(wholeDataKey: string, d
   function save(wholeData: T): T {
     try {
       storage.setItem(wholeDataKey, JSON.stringify(wholeData));
-    } catch (err) {
+    } catch (_err) {
       // ignore
     }
     

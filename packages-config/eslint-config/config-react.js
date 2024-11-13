@@ -2,6 +2,10 @@ import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 
+// https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules
+// https://react.dev/reference/rules/rules-of-hooks
+// https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/tree/main/docs/rules
+
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {

@@ -103,19 +103,21 @@ function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
   } = usePropsDom();
   const jsxLabel = label || children; // label prior to children
   
-  return <ScButton ref={ref} {...{
-    as: component,
-    $preset: preset,
-    $size: size,
-    $loading: loading, // 否则报错
-    $noShadow: noShadow,
-    $textAlign: textAlign,
-    $cursor: cursor,
-    $borderRadius: borderRadius,
-    $block: block,
-    $active: active,
-    ...propsDom
-  }}>
+  return <ScButton
+    ref={ref}
+    {...{
+      as: component,
+      $preset: preset,
+      $size: size,
+      $loading: loading, // 否则报错
+      $noShadow: noShadow,
+      $textAlign: textAlign,
+      $cursor: cursor,
+      $borderRadius: borderRadius,
+      $block: block,
+      $active: active,
+      ...propsDom
+    }}>
     {iconLeft || iconRight || loading ? <ScInner>
       <ButtonIconLeft />
       {jsxLabel ? <ScInnerLabel>{jsxLabel}</ScInnerLabel> : null}

@@ -2,9 +2,7 @@ import {
   IStringifyOptions
 } from 'qs';
 
-export interface IInterceptorEject {
-  (): void;
-}
+export type IInterceptorEject = () => void;
 
 export interface IBuildUrlOptions {
   urlBase?: string;

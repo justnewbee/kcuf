@@ -22,5 +22,6 @@ export default function FormItems(): ReactElement {
     }
     
     return <Item {...v} key={getFormItemKey(v, i)} />;
-  })}</>;
+  })}
+  </>;
 }

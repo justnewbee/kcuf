@@ -7,13 +7,9 @@ export interface IIntlFactoryOptions {
   localeDefault?: string;
 }
 
-export interface IFnIntlNumber {
-  (n: number | string, options?: Intl.NumberFormatOptions): string;
-}
+export type IFnIntlNumber = (n: number | string, options?: Intl.NumberFormatOptions) => string;
 
-export interface IFnIntlDate {
-  (date: Date | string | number, format?: TDateFormat): string;
-}
+export type IFnIntlDate = (date: Date | string | number, format?: TDateFormat) => string;
 
 export interface IFnIntl<O> {
   <V = void>(id: keyof O, values?: V, escapeValues?: boolean): string;

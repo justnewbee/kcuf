@@ -4,7 +4,7 @@ import stackFindTopmost from './stack-find-topmost';
 /**
  * 处理背投和 z-index
  */
-export default function doBackdropAndZIndex(): void { // eslint-disable-line @typescript-eslint/naming-convention
+export default function doBackdropAndZIndex(): void {
   const topmost = stackFindTopmost();
   
   if (!topmost) {

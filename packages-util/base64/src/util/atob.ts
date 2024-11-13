@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import {
   REG_ATOB,
   B64TAB

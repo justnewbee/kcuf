@@ -3,9 +3,7 @@ export interface IListenerItem {
   fn(...args: unknown[]): void;
 }
 
-export interface IFnOff {
-  (): void;
-}
+export type IFnOff = () => void;
 
 export type TNamedListeners = Record<string, (...args: never[]) => unknown>;
 

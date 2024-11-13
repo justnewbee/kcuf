@@ -19,6 +19,6 @@ import justifyMagnetSegments from './justify-magnet-segments';
  */
 export default function justifyMagnetAlongPath(point: TPoint, path: TPath, magnetRadius: number): IJustifyMagnetResult | null {
   return justifyMagnetPoints(point, path, magnetRadius, EJustifyMagnetType.VERTEX)
-      || justifyMagnetPoints(point, pathMidpointList(path), magnetRadius, EJustifyMagnetType.MID)
-      || justifyMagnetSegments(point, pathSegmentList(path), magnetRadius, EJustifyMagnetType.OTHER);
+    || justifyMagnetPoints(point, pathMidpointList(path), magnetRadius, EJustifyMagnetType.MID)
+    || justifyMagnetSegments(point, pathSegmentList(path), magnetRadius, EJustifyMagnetType.OTHER);
 }

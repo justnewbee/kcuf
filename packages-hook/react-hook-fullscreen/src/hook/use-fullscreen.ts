@@ -8,11 +8,7 @@ import {
 function getFullscreenElement(): HTMLElement | null {
   const _document = window.document as any;
   
-  const fullscreenElement =
-    _document.fullscreenElement ||
-    _document.webkitFullscreenElement ||
-    _document.mozFullScreenElement ||
-    _document.msFullscreenElement;
+  const fullscreenElement = _document.fullscreenElement || _document.webkitFullscreenElement || _document.mozFullScreenElement || _document.msFullscreenElement;
   
   return fullscreenElement;
 }
@@ -39,31 +35,25 @@ async function exitFullscreen() {
 async function enterFullScreen(element: HTMLElement) {
   const _element = element as any;
   
-  return (
-    _element.requestFullscreen?.() ||
-    _element.msRequestFullscreen?.() ||
-    _element.webkitEnterFullscreen?.() ||
-    _element.webkitRequestFullscreen?.() ||
-    _element.mozRequestFullscreen?.()
-  );
+  return _element.requestFullscreen?.() || _element.msRequestFullscreen?.() || _element.webkitEnterFullscreen?.() || _element.webkitRequestFullscreen?.() || _element.mozRequestFullscreen?.();
 }
 
 const prefixes = ['', 'webkit', 'moz', 'ms'];
 
 function addEvents(
-  element: HTMLElement,
-  {
-    onFullScreen,
-    onError
-  }: { onFullScreen: (event: Event) => void; onError: (event: Event) => void }
+    element: HTMLElement,
+    {
+      onFullScreen,
+      onError
+    }: { onFullScreen: (event: Event) => void; onError: (event: Event) => void }
 ) {
-  prefixes.forEach((prefix) => {
+  prefixes.forEach(prefix => {
     element.addEventListener(`${prefix}fullscreenchange`, onFullScreen);
     element.addEventListener(`${prefix}fullscreenerror`, onError);
   });
   
   return () => {
-    prefixes.forEach((prefix) => {
+    prefixes.forEach(prefix => {
       element.removeEventListener(`${prefix}fullscreenchange`, onFullScreen);
       element.removeEventListener(`${prefix}fullscreenerror`, onError);
     });
@@ -76,21 +66,21 @@ export function useFullscreen<T extends HTMLElement = any>() {
   const _ref = useRef<T>();
   
   const handleFullscreenChange = useCallback(
-    (event: Event) => {
-      setFullscreen(event.target === getFullscreenElement());
-    },
-    [setFullscreen]
+      (event: Event) => {
+        setFullscreen(event.target === getFullscreenElement());
+      },
+      [setFullscreen]
   );
   
   const handleFullscreenError = useCallback(
-    (event: Event) => {
-      setFullscreen(false);
-      // eslint-disable-next-line no-console
-      console.error(
-        `[@mantine/hooks] use-fullscreen: Error attempting full-screen mode method: ${event} (${event.target})`
-      );
-    },
-    [setFullscreen]
+      (event: Event) => {
+        setFullscreen(false);
+        
+        console.error(
+            `[@mantine/hooks] use-fullscreen: Error attempting full-screen mode method: ${event} (${event.target})`
+        );
+      },
+      [setFullscreen]
   );
   
   const toggle = useCallback(async () => {

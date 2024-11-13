@@ -14,17 +14,17 @@ import reduceSetComposing from './reduce-set-composing';
 
 export default function reducer(state: IModelState, action: TModelAction): IModelState {
   switch (action.type) {
-    case EAction.SET_DOM_INPUT:
-      return reduceSetDomInput(state, action.payload);
-    case EAction.SET_VALUE:
-      return reduceSetValue(state, action.payload);
-    case EAction.SET_HOVERED:
-      return reduceSetHovered(state, action.payload);
-    case EAction.SET_FOCUSED:
-      return reduceSetFocused(state, action.payload);
-    case EAction.SET_COMPOSING:
-      return reduceSetComposing(state, action.payload);
-    default:
-      return state;
+  case EAction.SET_DOM_INPUT:
+    return reduceSetDomInput(state, action.payload);
+  case EAction.SET_VALUE:
+    return reduceSetValue(state, action.payload);
+  case EAction.SET_HOVERED:
+    return reduceSetHovered(state, action.payload);
+  case EAction.SET_FOCUSED:
+    return reduceSetFocused(state, action.payload);
+  case EAction.SET_COMPOSING:
+    return reduceSetComposing(state, action.payload);
+  default:
+    return state;
   }
 }

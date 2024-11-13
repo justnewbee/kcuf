@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 import {
   REG_BTOA,
   CHARS

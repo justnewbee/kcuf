@@ -16,25 +16,19 @@ export type TFetcherInterceptRequestReturn = undefined | IFetcherConfig | Promis
 /**
  * Request interceptor 方法类型
  */
-export interface IFetcherInterceptRequest {
-  (config: IFetcherConfig, callRequest: IFetcherCallRequest): TFetcherInterceptRequestReturn;
-}
+export type IFetcherInterceptRequest = (config: IFetcherConfig, callRequest: IFetcherCallRequest) => TFetcherInterceptRequestReturn;
 
 /**
  * Response success interceptor 方法类型
  *  - T - 最终需要返回的 Promise 类型
  *  - D - 接口实际返回的 Promise 类型
  */
-export interface IFetcherInterceptResponseFulfilled<T = unknown, D = T> {
-  (data: D, config: IFetcherConfig, fetcherResponse: IFetcherResponse<T> | undefined, fetcherRequest: IFetcherCallRequest): T | never;
-}
+export type IFetcherInterceptResponseFulfilled<T = unknown, D = T> = (data: D, config: IFetcherConfig, fetcherResponse: IFetcherResponse<T> | undefined, fetcherRequest: IFetcherCallRequest) => T | never;
 
 /**
  * Response error interceptor 方法类型
  */
-export interface IFetcherInterceptResponseRejected<T = unknown> {
-  (error: IFetcherError, config: IFetcherConfig, fetcherResponse: IFetcherResponse<T> | undefined, fetcherRequest: IFetcherCallRequest): T | never;
-}
+export type IFetcherInterceptResponseRejected<T = unknown> = (error: IFetcherError, config: IFetcherConfig, fetcherResponse: IFetcherResponse<T> | undefined, fetcherRequest: IFetcherCallRequest) => T | never;
 
 export interface IInterceptorQueueItemBase {
   priority?: number;

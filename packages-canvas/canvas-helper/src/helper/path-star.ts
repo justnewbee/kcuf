@@ -4,14 +4,14 @@ import {
 
 function getRadiusInner(points: number, radiusOuter: number): number {
   switch (points) {
-    case 4:
-      return radiusOuter * 0.35;
-    case 5:
-      return radiusOuter * 0.382;
-    case 6:
-      return radiusOuter * 0.577;
-    default:
-      return radiusOuter * 0.68;
+  case 4:
+    return radiusOuter * 0.35;
+  case 5:
+    return radiusOuter * 0.382;
+  case 6:
+    return radiusOuter * 0.577;
+  default:
+    return radiusOuter * 0.68;
   }
 }
 

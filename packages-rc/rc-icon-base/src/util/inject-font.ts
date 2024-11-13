@@ -35,8 +35,7 @@ export default function injectFont(fontFamily: string, options: IInjectIconFontO
   
   style.id = fontFamily;
   head.appendChild(style);
-  
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+   
   if ((style as unknown as IIe8Style).styleSheet) { // This is required for IE8 and below
     (style as unknown as IIe8Style).styleSheet.cssText = fontFace;
   } else {

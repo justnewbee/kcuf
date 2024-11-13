@@ -7,7 +7,7 @@ import {
 } from '@alicloud/console-base-theme';
 
 import {
-  EButtonPreset,
+  EButtonPreset
 } from '../../model';
 import {
   IScButtonProps

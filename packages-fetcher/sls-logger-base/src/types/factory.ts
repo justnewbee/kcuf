@@ -34,6 +34,4 @@ export interface ISlsLogger {
   fatal: ISlsLogFnQuick;
 }
 
-export interface ICreateLogger {
-  (options: ICreateLoggerOptions): ISlsLogger;
-}
+export type ICreateLogger = (options: ICreateLoggerOptions) => ISlsLogger;

@@ -205,7 +205,7 @@ export const KEY_DATA_LIST: KeyData[] = [{
   keyShift: ':',
   code: KeyboardCode.SEMICOLON
 }, {
-  key: "'",
+  key: '\'',
   keyShift: '"',
   code: KeyboardCode.QUOTE
 }, {

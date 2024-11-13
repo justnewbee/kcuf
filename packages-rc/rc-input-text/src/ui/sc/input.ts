@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {
   SIZE
 } from '@alicloud/console-base-theme';
-
 import {
   IPropsScInput
 } from '@kcuf/rc-headless-input-text';

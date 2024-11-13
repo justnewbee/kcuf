@@ -520,13 +520,13 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     }
     
     switch (this.itemCreating.pushPoint()) {
-      case 'close':
-      case 'last':
-        this.finishCreating();
+    case 'close':
+    case 'last':
+      this.finishCreating();
         
-        break;
-      default:
-        break;
+      break;
+    default:
+      break;
     }
   }
   
@@ -668,57 +668,57 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     if (itemCreating) {
       switch (e.key) {
-        case ' ': // 空格：添加节点
-          this.creatingPushPoint();
-          this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_PUSH_POINT);
+      case ' ': // 空格：添加节点
+        this.creatingPushPoint();
+        this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_PUSH_POINT);
           
-          break;
-        case 'Enter': // 回车：添加节点并完成新建
-          this.creatingPushPoint();
-          this.finishCreating();
+        break;
+      case 'Enter': // 回车：添加节点并完成新建
+        this.creatingPushPoint();
+        this.finishCreating();
           
-          break;
-        case 'Escape': // ESC：取消新建
-          e.preventDefault();
-          e.stopPropagation();
+        break;
+      case 'Escape': // ESC：取消新建
+        e.preventDefault();
+        e.stopPropagation();
           
-          this.cancelCreating();
+        this.cancelCreating();
           
-          break;
-        case 'Backspace': // BACKSPACE/DELETE：删除最末点
-        case 'Delete':
-          if (itemCreating.removePoint() >= 0) {
-            this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_REMOVE_POINT);
-          }
+        break;
+      case 'Backspace': // BACKSPACE/DELETE：删除最末点
+      case 'Delete':
+        if (itemCreating.removePoint() >= 0) {
+          this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_REMOVE_POINT);
+        }
           
-          break;
-        default:
-          break;
+        break;
+      default:
+        break;
       }
     }
     
     if (itemEditing) {
       switch (e.key) {
-        case 'Enter':
-          this.finishEditing();
-          this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_FINISH_EDITING);
+      case 'Enter':
+        this.finishEditing();
+        this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_FINISH_EDITING);
           
-          break;
-        case 'Escape':
-          e.preventDefault();
-          e.stopPropagation();
+        break;
+      case 'Escape':
+        e.preventDefault();
+        e.stopPropagation();
           
-          this.finishEditing(true);
-          this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_CANCEL_EDITING);
+        this.finishEditing(true);
+        this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_CANCEL_EDITING);
           
-          break;
-        case 'Backspace':
-        case 'Delete':
-          this.deleteActiveItem();
+        break;
+      case 'Backspace':
+      case 'Delete':
+        this.deleteActiveItem();
           
-          break;
-        default:
-          break;
+        break;
+      default:
+        break;
       }
     }
   }
@@ -761,28 +761,28 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     }
     
     switch (itemEditing.checkMouse()) {
-      case EMarkingMouseStatus.OUT:
-        this.select(null);
+    case EMarkingMouseStatus.OUT:
+      this.select(null);
         
-        break;
-      case EMarkingMouseStatus.IN_POINT: {
-        const pointRemovedIndex = itemEditing.removePoint();
+      break;
+    case EMarkingMouseStatus.IN_POINT: {
+      const pointRemovedIndex = itemEditing.removePoint();
         
-        if (pointRemovedIndex >= 0) {
-          const statsList = this.getAllStats();
+      if (pointRemovedIndex >= 0) {
+        const statsList = this.getAllStats();
           
-          this.options.onPointRemove?.(itemEditing.stats, pointRemovedIndex, statsList);
-          this.emit('point-remove', itemEditing.stats, pointRemovedIndex, statsList);
-        }
-        
-        break;
+        this.options.onPointRemove?.(itemEditing.stats, pointRemovedIndex, statsList);
+        this.emit('point-remove', itemEditing.stats, pointRemovedIndex, statsList);
       }
-      case EMarkingMouseStatus.IN_POINT_INSERTION: // 点中点不做任何事情
-        return;
-      default:
-        this.select(null);
         
-        break;
+      break;
+    }
+    case EMarkingMouseStatus.IN_POINT_INSERTION: // 点中点不做任何事情
+      return;
+    default:
+      this.select(null);
+        
+      break;
     }
   }
   
@@ -1623,7 +1623,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       editingDirty: itemStatsEditing ? itemStatsEditing.dirty : false,
       editingCrossing: itemStatsEditing ? itemStatsEditing.crossing : false,
       editingHovering: itemStatsEditing ? itemStatsEditing.hovering : false,
-      editingHoveringPointIndex: itemStatsEditing ? itemStatsEditing.draggingPointIndex >= 0 ? itemStatsEditing.draggingPointIndex : itemStatsEditing.hoveringPointIndex : -1, // eslint-disable-line no-nested-ternary
+      editingHoveringPointIndex: itemStatsEditing ? itemStatsEditing.draggingPointIndex >= 0 ? itemStatsEditing.draggingPointIndex : itemStatsEditing.hoveringPointIndex : -1,
       editingHoveringInsertionPointIndex: itemStatsEditing ? itemStatsEditing.hoveringInsertionPointIndex : -1,
       editingHoveringBorderIndex: itemStatsEditing ? itemStatsEditing.hoveringBorderIndex : -1, // TODO check -1
       editingDragging: itemStatsEditing ? itemStatsEditing.dragging : false,

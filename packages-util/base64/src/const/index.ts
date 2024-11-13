@@ -1,6 +1,6 @@
 export const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
-export const B64TAB: Record<string, number> = (function(bin) {
+export const B64TAB: Record<string, number> = (function (bin) {
   const o: Record<string, number> = {};
   const l = bin.length;
   

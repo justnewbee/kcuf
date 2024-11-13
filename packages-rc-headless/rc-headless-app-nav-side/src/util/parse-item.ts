@@ -78,20 +78,20 @@ export default function parseItem(o: TNavItem, options: IParseOptions): TParsedI
       itemParsed.defaultUnfolded = true;
     } else {
       switch (defaultUnfolded) {
-        case true:
-          itemParsed.defaultUnfolded = itemParsed.defaultUnfolded ?? true;
+      case true:
+        itemParsed.defaultUnfolded = itemParsed.defaultUnfolded ?? true;
           
-          break;
-        case false:
-          itemParsed.defaultUnfolded = itemParsed.defaultUnfolded ?? false;
+        break;
+      case false:
+        itemParsed.defaultUnfolded = itemParsed.defaultUnfolded ?? false;
           
-          break;
-        case 'first-level':
-          itemParsed.defaultUnfolded = itemParsed.defaultUnfolded ?? indent < 1;
+        break;
+      case 'first-level':
+        itemParsed.defaultUnfolded = itemParsed.defaultUnfolded ?? indent < 1;
           
-          break;
-        default:
-          break;
+        break;
+      default:
+        break;
       }
     }
   } else if (!isItemInteractive(itemParsed)) { // 没有子菜单，且本身不可操作（无 href、无事件）则忽略该项

@@ -4,7 +4,7 @@ import {
 } from '../types';
 
 export default function createInitialState(props: IModelProps): IModelState {
-  return  {
+  return {
     domDropdown: null,
     domDrop: null,
     visible: props.visible ?? false

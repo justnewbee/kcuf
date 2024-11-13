@@ -176,7 +176,7 @@ export default class Particles implements IParticlesClassType {
       this.image = image;
       this.imageAspectRatio = config.image?.aspectRatio ?? calculateImageAspectRatio(image);
     }).catch(err => {
-      console.error(err.message); // eslint-disable-line no-console
+      console.error(err.message);
     });
   }
   

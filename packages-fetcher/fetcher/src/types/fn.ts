@@ -11,9 +11,7 @@ export type TFetcherPostArgs<B = void, P = void> = [string, B?, P?] | [IFetcherC
 /**
  * 执行请求的方法定义
  */
-export interface IFetcherCallRequest {
-  <T = unknown>(config: IFetcherConfig): Promise<T>;
-}
+export type IFetcherCallRequest = <T = unknown>(config: IFetcherConfig) => Promise<T>;
 
 /**
  * 快捷方法定义 - JSONP

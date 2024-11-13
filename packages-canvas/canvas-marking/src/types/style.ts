@@ -84,10 +84,10 @@ export type TMarkingBorderStyleResolved = Required<Omit<IMarkingBorderStyle, 'ou
   crossingOuterColor: string;
 };
 export type TMarkingPointStyleResolved = Required<IMarkingPointStyle>;
-export type TMarkingFillStyleResolved = {
+export interface TMarkingFillStyleResolved {
   color: string;
   crossingColor: string;
-};
+}
 
 /**
  * 如果有特殊的边需要特殊的样式，可以用这个

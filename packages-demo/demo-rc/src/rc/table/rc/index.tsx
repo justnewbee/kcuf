@@ -25,11 +25,13 @@ export default function Table<T>({
       {firstColumnIndex ? <col style={{
         width: 48
       }} /> : null}
-      {columns.map((v, i) => <col key={getTableColumnKey(v, i)} {...{
-        style: v.width ? {
-          width: v.width
-        } : undefined
-      }} />)}
+      {columns.map((v, i) => <col
+        key={getTableColumnKey(v, i)}
+        {...{
+          style: v.width ? {
+            width: v.width
+          } : undefined
+        }} />)}
     </colgroup>
     <thead>
       <tr>

@@ -1,5 +1,7 @@
 import pluginImport from 'eslint-plugin-import';
 
+// https://github.com/import-js/eslint-plugin-import/tree/main/docs/rules
+
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   pluginImport.flatConfigs.recommended,

@@ -1,5 +1,7 @@
 import stylistic from '@stylistic/eslint-plugin';
 
+// https://eslint.style/rules
+
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   stylistic.configs.customize({

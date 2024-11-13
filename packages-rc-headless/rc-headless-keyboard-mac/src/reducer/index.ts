@@ -14,17 +14,17 @@ import reduceUpdateActiveModifiers from './reduce-update-active-modifiers';
 
 export default function reducer(state: IModelState, action: TModelAction): IModelState {
   switch (action.type) {
-    case EAction.PUSH_ACTIVE_CODE:
-      return reducePushActiveCode(state, action.payload);
-    case EAction.PULL_ACTIVE_CODE:
-      return reducePullActiveCode(state, action.payload);
-    case EAction.SET_CAPS_LOCK:
-      return reduceSetCapsLock(state, action.payload);
-    case EAction.SET_KEY_DETAILS:
-      return reduceSetKeyDetails(state, action.payload);
-    case EAction.UPDATE_ACTIVE_MODIFIERS:
-      return reduceUpdateActiveModifiers(state, action.payload);
-    default:
-      return state;
+  case EAction.PUSH_ACTIVE_CODE:
+    return reducePushActiveCode(state, action.payload);
+  case EAction.PULL_ACTIVE_CODE:
+    return reducePullActiveCode(state, action.payload);
+  case EAction.SET_CAPS_LOCK:
+    return reduceSetCapsLock(state, action.payload);
+  case EAction.SET_KEY_DETAILS:
+    return reduceSetKeyDetails(state, action.payload);
+  case EAction.UPDATE_ACTIVE_MODIFIERS:
+    return reduceUpdateActiveModifiers(state, action.payload);
+  default:
+    return state;
   }
 }

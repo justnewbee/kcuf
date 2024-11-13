@@ -92,12 +92,14 @@ function InputColor({
           backgroundColor: controllableValue
         }
       }} />
-      <input {...{
-        ...props,
-        value: hex,
-        type: 'color',
-        onChange: handleHexChange
-      }} ref={ref} />
+      <input
+        {...{
+          ...props,
+          value: hex,
+          type: 'color',
+          onChange: handleHexChange
+        }}
+        ref={ref} />
     </ScInputColorWrap>
     <InputRange {...{
       min: 0,

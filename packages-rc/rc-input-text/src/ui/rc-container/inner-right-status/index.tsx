@@ -40,26 +40,26 @@ export default function InnerRightStatus(): ReactElement | null {
   }
   
   switch (status) {
-    case 'loading':
-      jsx = <Icon type="loading" />;
-      
-      break;
-    case 'success':
-      jsx = <ScIconSuccess type="success-circle" />;
-      
-      break;
-    case 'error':
-      jsx = <ScIconError type="error-circle" />;
-      
-      break;
-    default:
-      if (hasClear) {
-        jsx = <ScInputClearButton onClick={handleClear}>
-          <Icon type="error-circle-fill" />
-        </ScInputClearButton>;
-      }
-      
-      break;
+  case 'loading':
+    jsx = <Icon type="loading" />;
+    
+    break;
+  case 'success':
+    jsx = <ScIconSuccess type="success-circle" />;
+    
+    break;
+  case 'error':
+    jsx = <ScIconError type="error-circle" />;
+    
+    break;
+  default:
+    if (hasClear) {
+      jsx = <ScInputClearButton onClick={handleClear}>
+        <Icon type="error-circle-fill" />
+      </ScInputClearButton>;
+    }
+    
+    break;
   }
   
   return jsx ? <ScInputInnerRight>{jsx}</ScInputInnerRight> : null;

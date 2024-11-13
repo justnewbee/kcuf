@@ -5,9 +5,7 @@ import {
   useEffect
 } from 'react';
 
-interface ICallback {
-  (e: MouseEvent): void;
-}
+type ICallback = (e: MouseEvent) => void;
 
 export default function useClickAway<E extends Element>(callback: ICallback): MutableRefObject<E | null> {
   const refElement = useRef<E>(null);

@@ -15,29 +15,29 @@ export default function useHandleDocKeydown(): (e: KeyboardEvent) => void {
   
   return useCallback((e: KeyboardEvent): void => {
     switch (e.key) {
-      case 'Escape':
-        dispatchToggleVisible(false);
-        onEsc?.();
+    case 'Escape':
+      dispatchToggleVisible(false);
+      onEsc?.();
         
-        break;
-      case 'ArrowDown':
-        if (onNavDown) {
-          e.preventDefault();
+      break;
+    case 'ArrowDown':
+      if (onNavDown) {
+        e.preventDefault();
           
-          onNavDown();
-        }
+        onNavDown();
+      }
         
-        break;
-      case 'ArrowUp':
-        if (onNavUp) {
-          e.preventDefault();
+      break;
+    case 'ArrowUp':
+      if (onNavUp) {
+        e.preventDefault();
           
-          onNavUp();
-        }
+        onNavUp();
+      }
         
-        break;
-      default:
-        break;
+      break;
+    default:
+      break;
     }
   }, [onEsc, onNavUp, onNavDown, dispatchToggleVisible]);
 }

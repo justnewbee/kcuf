@@ -44,5 +44,6 @@ export default function Button({
     ...restProps as ButtonHTMLAttributes<HTMLAnchorElement>,
     href: resolvedHref,
     target: target ?? getDefaultTarget(resolvedHref)
-  }}>{children}</ScButtonA> : <ScButton {...restProps} disabled={disabled}>{children}</ScButton>;
+  }}>{children}
+  </ScButtonA> : <ScButton {...restProps} disabled={disabled}>{children}</ScButton>;
 }

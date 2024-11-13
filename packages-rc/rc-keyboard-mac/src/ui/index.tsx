@@ -29,8 +29,10 @@ const ScKeyboard = styled.div`
 
 export default function KeyboardUi(): ReactElement {
   return <ScKeyboard>
-    {KEY_DATA_LIST.map(v => <KeyboardKey key={v.code} {...{
-      data: v
-    }} />)}
+    {KEY_DATA_LIST.map(v => <KeyboardKey
+      key={v.code}
+      {...{
+        data: v
+      }} />)}
   </ScKeyboard>;
 }

@@ -4,8 +4,7 @@ import {
 
 import useModelProps from './_use-model-props';
 import useModelState from './_use-model-state';
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
+ 
 export default function useZIndex(): number {
   const {
     zIndex = DEFAULT_Z_INDEX

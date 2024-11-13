@@ -95,7 +95,7 @@ export default function Codemirror(props: ICodemirrorProps): ReactElement {
           from: 0,
           to: viewValue.length,
           insert: props.value || ''
-        },
+        }
         // annotations: [External.of(true)],
       });
     }

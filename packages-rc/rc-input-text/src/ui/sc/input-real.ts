@@ -10,7 +10,6 @@ import {
 import {
   InputBase
 } from '@alicloud/console-base-theme-sc-base';
-
 import {
   IPropsScInput
 } from '@kcuf/rc-headless-input-text';

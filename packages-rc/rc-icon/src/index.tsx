@@ -10,7 +10,6 @@ import IconBase, {
 import {
   ICON_TYPE_MAPPING
 } from './const';
-
 import {
   TIconType,
   IIconProps,

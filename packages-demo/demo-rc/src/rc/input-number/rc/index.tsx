@@ -36,12 +36,14 @@ function InputNumber({
     controllableOnChange(fromStringToNumber(e.target.value));
   }, [controllableOnChange]);
   
-  return <ScInputNumber {...{
-    ...props,
-    value: fromNumberToString(controllableValue),
-    type: 'number',
-    onChange: handleChange
-  }} ref={ref} />;
+  return <ScInputNumber
+    {...{
+      ...props,
+      value: fromNumberToString(controllableValue),
+      type: 'number',
+      onChange: handleChange
+    }}
+    ref={ref} />;
 }
 
 /**

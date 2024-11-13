@@ -19,27 +19,27 @@ import reduceUpdateWindowHeight from './reduce-update-window-height';
 
 export default function reducer(state: IModelState, action: TModelAction): IModelState {
   switch (action.type) {
-    case EAction.SET_DOM_DIALOG:
-      return reduceSetDomDialog(state, action.payload);
-    case EAction.SET_DOM_DIALOG_CONTENT:
-      return reduceSetDomDialogContent(state, action.payload);
-    case EAction.SET_ACTIVE:
-      return reduceSetActive(state, action.payload);
-    case EAction.SET_Z_INDEX:
-      return reduceSetZIndex(state, action.payload);
-    case EAction.LOCK:
-      return reduceLock(state, action.payload);
-    case EAction.UNLOCK:
-      return reduceUnlock(state);
-    case EAction.UPDATE_PROPS:
-      return reduceUpdateProps(state, action.payload);
-    case EAction.UPDATE_DATA:
-      return reduceUpdateData(state, action.payload);
-    case EAction.FORCE_UPDATE:
-      return reduceForceUpdate(state);
-    case EAction.UPDATE_WINDOW_HEIGHT:
-      return reduceUpdateWindowHeight(state);
-    default:
-      return state;
+  case EAction.SET_DOM_DIALOG:
+    return reduceSetDomDialog(state, action.payload);
+  case EAction.SET_DOM_DIALOG_CONTENT:
+    return reduceSetDomDialogContent(state, action.payload);
+  case EAction.SET_ACTIVE:
+    return reduceSetActive(state, action.payload);
+  case EAction.SET_Z_INDEX:
+    return reduceSetZIndex(state, action.payload);
+  case EAction.LOCK:
+    return reduceLock(state, action.payload);
+  case EAction.UNLOCK:
+    return reduceUnlock(state);
+  case EAction.UPDATE_PROPS:
+    return reduceUpdateProps(state, action.payload);
+  case EAction.UPDATE_DATA:
+    return reduceUpdateData(state, action.payload);
+  case EAction.FORCE_UPDATE:
+    return reduceForceUpdate(state);
+  case EAction.UPDATE_WINDOW_HEIGHT:
+    return reduceUpdateWindowHeight(state);
+  default:
+    return state;
   }
 }

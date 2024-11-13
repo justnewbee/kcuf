@@ -86,18 +86,18 @@ const ScAlert = styled.div<IScProps>`
   
   ${props => {
     switch (props.$type) {
-      case 'help':
-        return cssHelp;
-      case 'info':
-        return cssInfo;
-      case 'success':
-        return cssSuccess;
-      case 'warning':
-        return cssWarning;
-      case 'error':
-        return cssError;
-      default:
-        break;
+    case 'help':
+      return cssHelp;
+    case 'info':
+      return cssInfo;
+    case 'success':
+      return cssSuccess;
+    case 'warning':
+      return cssWarning;
+    case 'error':
+      return cssError;
+    default:
+      break;
     }
   }}
 `;

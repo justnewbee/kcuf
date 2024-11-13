@@ -7,8 +7,7 @@ import {
 } from '../enum';
 
 import useModelDispatch from './_use-model-dispatch';
-
-// eslint-disable-next-line @typescript-eslint/naming-convention
+ 
 export default function useDispatchSetZIndex(): (payload: number) => void {
   const dispatch = useModelDispatch();
   

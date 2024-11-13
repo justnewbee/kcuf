@@ -26,7 +26,7 @@ export default function isVisible(el: HTMLElement | null): boolean {
       return false;
     }
     
-    el = el.parentElement; // eslint-disable-line no-param-reassign
+    el = el.parentElement;
   }
   
   return true;

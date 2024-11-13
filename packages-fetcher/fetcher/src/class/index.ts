@@ -94,8 +94,8 @@ export default class Fetcher implements IFetcherClass {
         // 利用前置 `Promise.resolve()`，不管 onFulfilled 返回是否 Promise 都可以在一个运行空间获取到 configLastMerged 和 configToMerge
         // configToMerge 是 onFulfilled 计算后得到的结果，可能为空；也可能是 Promise
         return Promise.resolve()
-            .then(() => onFulfilled(configLastMerged, this.requestForInterceptor))
-            .then(configToMerge => mergeConfig(configLastMerged, configToMerge));
+          .then(() => onFulfilled(configLastMerged, this.requestForInterceptor))
+          .then(configToMerge => mergeConfig(configLastMerged, configToMerge));
       });
     });
     

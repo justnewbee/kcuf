@@ -21,7 +21,9 @@ export default function HtmlText({
   text,
   ...restProps
 }: IHtmlTextProps): ReactElement {
-  return /</.test(text) ? <ScSpan {...restProps} dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-    __html: text
-  }} /> : <span {...restProps}>{text}</span>;
+  return /</.test(text) ? <ScSpan
+    {...restProps}
+    dangerouslySetInnerHTML={{
+      __html: text
+    }} /> : <span {...restProps}>{text}</span>;
 }

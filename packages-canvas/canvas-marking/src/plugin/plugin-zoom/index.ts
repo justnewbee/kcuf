@@ -15,20 +15,20 @@ export default function pluginZoom<T>(markingStage: IMarkingStageClass<T>): IMar
   
   function zoomOnKey(key: string, shift: boolean): boolean {
     switch (key) {
-      case '=': // +
-        shift ? markingStage.zoomMax() : markingStage.zoomIn();
+    case '=': // +
+      shift ? markingStage.zoomMax() : markingStage.zoomIn();
         
-        return true;
-      case '-':
-        shift ? markingStage.zoomMin() : markingStage.zoomOut();
+      return true;
+    case '-':
+      shift ? markingStage.zoomMin() : markingStage.zoomOut();
         
-        return true;
-      case '0':
-        markingStage.zoomReset(); // TODO 是不是有个 100%
+      return true;
+    case '0':
+      markingStage.zoomReset(); // TODO 是不是有个 100%
         
-        return true;
-      default:
-        return false;
+      return true;
+    default:
+      return false;
     }
   }
   
