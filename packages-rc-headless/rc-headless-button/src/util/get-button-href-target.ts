@@ -9,7 +9,7 @@ export default function getButtonHrefTarget(href: string, target?: string): stri
     } = new URL(href, window.location.href);
     
     return host === window.location.host ? undefined : '_blank';
-  } catch (err) {
+  } catch (_err) {
     return undefined;
   }
 }

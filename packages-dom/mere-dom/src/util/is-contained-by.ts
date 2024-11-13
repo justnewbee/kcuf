@@ -5,7 +5,7 @@ export default function isContainedBy(containedNode: Node | null, parentNode: No
   
   try { // https://developer.mozilla.org/en-US/docs/Web/API/Node/contains
     return parentNode.contains(containedNode);
-  } catch (err) {
+  } catch (_err) {
     return false;
   }
 }

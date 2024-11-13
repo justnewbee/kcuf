@@ -1,8 +1,7 @@
 import globals from 'globals';
 
-import eslintJs from '@eslint/js';
-
 // 相对引用必须 .js 否则 ERR_MODULE_NOT_FOUND
+import configEs from './config-es.js';
 import configTs from './config-ts.js';
 import configReact from './config-react.js';
 import configImport from './config-import.js';
@@ -15,7 +14,7 @@ export default [
       globals: globals.browser
     }
   },
-  eslintJs.configs.recommended,
+  ...configEs,
   ...configTs,
   ...configImport,
   ...configReact,

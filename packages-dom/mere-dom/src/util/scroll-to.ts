@@ -35,7 +35,7 @@ export default function scrollTo(selector: string | HTMLElement | Window | null,
       behavior: 'smooth',
       ...options
     });
-  } catch (err) {
+  } catch (_err) {
     fallbackForDom(container === window ? document.documentElement : container as HTMLElement, options.top, options.left);
   }
 }

@@ -19,6 +19,11 @@ export default eslintTs.config(
           caughtErrors: 'all',
           caughtErrorsIgnorePattern: '^_',
           ignoreRestSiblings: true
+        }],
+        '@typescript-eslint/no-unused-expressions': ['error', {
+          allowShortCircuit: true,
+          allowTernary: true,
+          enforceForJSX: true,
         }]
       }
     }

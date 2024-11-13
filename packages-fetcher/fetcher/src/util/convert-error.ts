@@ -8,12 +8,12 @@ import {
 } from '@kcuf/fetcher-jsonp';
 
 import {
+  EFetcherErrorName
+} from '../enum';
+import {
   IFetcherConfig,
   IFetcherError
 } from '../types';
-import {
-  EFetcherErrorName
-} from '../enum';
 
 /**
  * 确保任何错误（包括 undefined 等）都转成 FetcherError，填入 config，并把 fetcher-fetch 和 fetcher-jsonp 的错误 name 转成 fetcher 的

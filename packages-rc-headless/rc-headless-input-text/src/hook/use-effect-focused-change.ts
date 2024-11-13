@@ -22,7 +22,7 @@ export default function useEffectFocusedChange(): void {
       } else {
         domInput.blur();
       }
-    } catch (err) {
+    } catch (_err) {
       // ignore
     }
   }, [focused, domInput]);

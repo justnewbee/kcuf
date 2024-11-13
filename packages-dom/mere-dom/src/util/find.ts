@@ -20,7 +20,7 @@ export default function find<E extends Element = HTMLElement>(selector: TSelecto
       for (let i = 0; i < elements.length; i++) {
         arr.push(elements[i]!); // eslint-disable-line @typescript-eslint/no-non-null-assertion
       }
-    } catch (err) {
+    } catch (_err) {
       // do nothing
     }
   } else { // selector as element

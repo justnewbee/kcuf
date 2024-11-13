@@ -4057,7 +4057,8 @@
   function safeActiveElement() {
     try {
       return document.activeElement;
-    } catch (err) {
+    } catch (_err) {
+      // ignore
     }
   }
   

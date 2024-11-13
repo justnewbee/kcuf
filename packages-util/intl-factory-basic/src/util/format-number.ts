@@ -6,7 +6,7 @@ import formatNumberFallback from './format-number-fallback';
 export default function formatNumber(n: number, options?: Intl.NumberFormatOptions, locale = 'en-US'): string {
   try {
     return new Intl.NumberFormat(locale, options).format(n);
-  } catch (err) {
+  } catch (_err) {
     return formatNumberFallback(n, options?.minimumFractionDigits);
   }
 }

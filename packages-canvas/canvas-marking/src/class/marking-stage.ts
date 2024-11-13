@@ -423,7 +423,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
         
         imageBg.style.transition = 'opacity 200ms ease-in-out';
         imageBg.style.opacity = '1';
-      } catch (err) {
+      } catch (_err) {
         this.imageUrl = ''; // 再次设置，可以重新加载
       }
       
@@ -523,7 +523,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     case 'close':
     case 'last':
       this.finishCreating();
-        
+      
       break;
     default:
       break;
@@ -671,26 +671,26 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       case ' ': // 空格：添加节点
         this.creatingPushPoint();
         this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_PUSH_POINT);
-          
+        
         break;
       case 'Enter': // 回车：添加节点并完成新建
         this.creatingPushPoint();
         this.finishCreating();
-          
+        
         break;
       case 'Escape': // ESC：取消新建
         e.preventDefault();
         e.stopPropagation();
-          
+        
         this.cancelCreating();
-          
+        
         break;
       case 'Backspace': // BACKSPACE/DELETE：删除最末点
       case 'Delete':
         if (itemCreating.removePoint() >= 0) {
           this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_REMOVE_POINT);
         }
-          
+        
         break;
       default:
         break;
@@ -702,20 +702,20 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       case 'Enter':
         this.finishEditing();
         this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_FINISH_EDITING);
-          
+        
         break;
       case 'Escape':
         e.preventDefault();
         e.stopPropagation();
-          
+        
         this.finishEditing(true);
         this.updateAndDraw(EMarkingStatsChangeCause.KEYBOARD_CANCEL_EDITING);
-          
+        
         break;
       case 'Backspace':
       case 'Delete':
         this.deleteActiveItem();
-          
+        
         break;
       default:
         break;
@@ -763,25 +763,25 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     switch (itemEditing.checkMouse()) {
     case EMarkingMouseStatus.OUT:
       this.select(null);
-        
+      
       break;
     case EMarkingMouseStatus.IN_POINT: {
       const pointRemovedIndex = itemEditing.removePoint();
-        
+      
       if (pointRemovedIndex >= 0) {
         const statsList = this.getAllStats();
-          
+        
         this.options.onPointRemove?.(itemEditing.stats, pointRemovedIndex, statsList);
         this.emit('point-remove', itemEditing.stats, pointRemovedIndex, statsList);
       }
-        
+      
       break;
     }
     case EMarkingMouseStatus.IN_POINT_INSERTION: // 点中点不做任何事情
       return;
     default:
       this.select(null);
-        
+      
       break;
     }
   }
@@ -1672,7 +1672,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     
     try {
       this.container.removeChild(this.stage);
-    } catch (err) {
+    } catch (_err) {
       // Uncaught DOMException: Node.removeChild: The node to be removed is not a child of this node
     }
   }

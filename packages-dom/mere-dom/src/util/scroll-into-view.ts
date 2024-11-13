@@ -7,7 +7,7 @@ import getRect from './get-rect';
 
 /**
  * 基本都支持
- * 
+ *
  * https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
  */
 export default async function scrollIntoView(el: Element, {
@@ -44,7 +44,7 @@ export default async function scrollIntoView(el: Element, {
       });
       
       requestAnimationFrame(check);
-    } catch (err) {
+    } catch (_err) {
       resolve();
     }
   });

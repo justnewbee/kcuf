@@ -25,7 +25,7 @@ export default function convertLogInfo(info: ISlsLogPayload): Record<string, str
     } else {
       try { // 避免 cyclic error
         o[k] = JSON.stringify(v);
-      } catch (err) {
+      } catch (_err) {
         o[k] = 'TypeError: cyclic object value';
       }
     }

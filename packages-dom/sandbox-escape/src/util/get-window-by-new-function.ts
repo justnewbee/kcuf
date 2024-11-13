@@ -6,7 +6,7 @@ export default function getWindowByNewFunction(): Window | null {
    */
   try {
     return new Function('', 'return window')() as Window;
-  } catch (err) {
+  } catch (_err) {
     return null;
   }
 }

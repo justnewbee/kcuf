@@ -29,9 +29,33 @@ export default [
           parameters: 2
         }
       }],
+      '@stylistic/padding-line-between-statements': ['error', {
+        blankLine: 'always',
+        prev: ['const', 'let', 'var', 'block', 'block-like'],
+        next: '*'
+      }, {
+        blankLine: 'always',
+        prev: '*',
+        next: ['return', 'throw', 'break', 'continue', 'block', 'block-like', 'export']
+      }, {
+        blankLine: 'any',
+        prev: ['const', 'let', 'var'],
+        next: ['const', 'let', 'var']
+      }, {
+        blankLine: 'any',
+        prev: ['export'],
+        next: ['export']
+      }, {
+        blankLine: 'never',
+        prev: '*',
+        next: ['case', 'default']
+      }],
       '@stylistic/no-trailing-spaces': ['error', {
         skipBlankLines: true,
         ignoreComments: true
+      }],
+      '@stylistic/no-extra-parens': ['error', 'all', {
+        nestedBinaryExpressions: false
       }],
       '@stylistic/arrow-parens': ['error', 'as-needed'],
       '@stylistic/multiline-ternary': ['error', 'never'],

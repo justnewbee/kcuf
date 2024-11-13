@@ -13,7 +13,7 @@ export default function trapFocus(domDialog: HTMLDivElement, domDialogContent: H
   try {
     el.focus();
     (el as HTMLInputElement).select();
-  } catch (err) {
+  } catch (_err) {
     // ignore it
   }
 }

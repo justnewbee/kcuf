@@ -22,7 +22,7 @@ export default function useHandleClear(): () => void {
     if (domInput) {
       try {
         domInput.focus();
-      } catch (err) {
+      } catch (_err) {
         // ignore
       }
     }

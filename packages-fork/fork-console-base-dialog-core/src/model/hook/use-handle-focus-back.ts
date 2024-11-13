@@ -13,7 +13,7 @@ export default function useHandleFocusBack(): () => void {
     if (prevFocus) {
       try {
         (prevFocus as HTMLElement).focus();
-      } catch (err) {
+      } catch (_err) {
         // ignore
       }
     }

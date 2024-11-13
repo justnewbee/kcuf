@@ -1,10 +1,10 @@
 import {
+  EFetcherErrorName
+} from '../enum';
+import {
   IFetcherConfig,
   IFetcherResponse
 } from '../types';
-import {
-  EFetcherErrorName
-} from '../enum';
 
 import normalizeHeaderKey from './normalize-header-key';
 import createFetcherError from './create-fetcher-error';
@@ -25,7 +25,7 @@ export default async function buildResponseForFetch<T>(response: Response, confi
     
     try {
       responseData = await response.json();
-    } catch (err) {
+    } catch (_err) {
       // ignore
     }
     
