@@ -51,30 +51,30 @@ export default function setupFetchMock(): void {
     API_TIMEOUT
   ].forEach(v => {
     switch (v.method) {
-      case 'get':
-        fetchMock.get(v.match || v.url, createMockResponse(v));
+    case 'get':
+      fetchMock.get(v.match || v.url, createMockResponse(v));
         
-        break;
-      case 'post':
-        fetchMock.post(v.match || v.url, createMockResponse(v));
+      break;
+    case 'post':
+      fetchMock.post(v.match || v.url, createMockResponse(v));
         
-        break;
-      case 'put':
-        fetchMock.put(v.match || v.url, createMockResponse(v));
+      break;
+    case 'put':
+      fetchMock.put(v.match || v.url, createMockResponse(v));
         
-        break;
-      case 'patch':
-        fetchMock.patch(v.match || v.url, createMockResponse(v));
+      break;
+    case 'patch':
+      fetchMock.patch(v.match || v.url, createMockResponse(v));
         
-        break;
-      case 'delete':
-        fetchMock.delete(v.match || v.url, createMockResponse(v));
+      break;
+    case 'delete':
+      fetchMock.delete(v.match || v.url, createMockResponse(v));
         
-        break;
-      default:
-        fetchMock.route(v.match || v.url, createMockResponse(v));
+      break;
+    default:
+      fetchMock.route(v.match || v.url, createMockResponse(v));
         
-        break;
+      break;
     }
   });
 }

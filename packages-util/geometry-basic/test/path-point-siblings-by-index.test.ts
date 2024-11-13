@@ -45,6 +45,6 @@ describe('pathPointSiblingsByIndex(path: Path, index: number): [] | [Point] | [P
     expect(pathPointSiblingsByIndex(TEST_PATH_4_RECTANGLE.path, 0)).toEqual([TEST_PATH_4_RECTANGLE.path[TEST_PATH_4_RECTANGLE.path.length - 1], TEST_PATH_4_RECTANGLE.path[1]]);
     expect(pathPointSiblingsByIndex(TEST_PATH_4_RECTANGLE.path, 2)).toEqual([TEST_PATH_4_RECTANGLE.path[1], TEST_PATH_4_RECTANGLE.path[3]]);
     expect(pathPointSiblingsByIndex(TEST_PATH_4_RECTANGLE.path, TEST_PATH_4_RECTANGLE.path.length - 1))
-        .toEqual([TEST_PATH_4_RECTANGLE.path[TEST_PATH_4_RECTANGLE.path.length - 2], TEST_PATH_4_RECTANGLE.path[0]]);
+      .toEqual([TEST_PATH_4_RECTANGLE.path[TEST_PATH_4_RECTANGLE.path.length - 2], TEST_PATH_4_RECTANGLE.path[0]]);
   });
 });
