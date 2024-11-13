@@ -1,13 +1,14 @@
 {
   "name": "kcuf",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "A mono-repo for common purpose packages.",
   "keywords": [
     "react",
     "lerna",
     "babel",
-    "storybook"
+    "storybook",
+    "vitest"
   ],
   "license": "MIT",
   "private": true,
@@ -57,7 +58,6 @@
     "lint": "eslint packages*/**/src/ --ext js,ts,tsx",
     "lint:style": "stylelint \"**/src/**/*.{css,less,ts,tsx}\"",
     "lint:md": "markdownlint-cli2 **/*.md !node_modules",
-    "fuck": "eslint packages-*/**/.babelrc.js",
     "lerna:publish": "lerna publish",
     "lerna:publish:patch": "lerna publish patch",
     "lerna:publish:minor": "lerna publish minor",
