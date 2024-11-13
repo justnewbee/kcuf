@@ -34,11 +34,14 @@ export default function StoryReturnFalse(): ReactElement {
       activeModifiers: stateModifiers,
       onActiveModifiersChange: setStateModifiers
     }} />
-    <H1>Return false == preventDefault + stopPropagation <InputSwitch {...{
-      value: stateReturnFalse,
-      label: 'Return false',
-      onChange: setStateReturnFalse
-    }} /></H1>
+    <H1>
+      Return false == preventDefault + stopPropagation
+      <InputSwitch {...{
+        value: stateReturnFalse,
+        label: 'Return false',
+        onChange: setStateReturnFalse
+      }} />
+    </H1>
     <KeystrokeModifiers {...{
       theKey: 'S',
       modifierNames,

@@ -37,9 +37,9 @@ const ScColorBlock = styled.div<IScColorBlockProps>`
   padding: 8px 4px;
   border-radius: 2px;
   font-size: 10px;
-  ${props => (props.$transparent ? css`
+  ${props => props.$transparent ? css`
     background: #f2f2f2 0 0/16px 16px url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"%3E%3Cpath d="M1 2V0h1v1H0v1z" fill-opacity=".07"/%3E%3C/svg%3E')
-  ` : null)}
+  ` : null}
 `;
 
 const ScContrast = styled.div`
@@ -65,16 +65,19 @@ export default function ColorBlockList(props: IProps): ReactElement {
         justifyContent: 'flex-end',
         fontWeight: 600
       }
-    }}>{title}</ScColorBlock>
-    {list.map(v => <ScColorBlock key={v} {...{
-      $transparent: transparent,
-      style: text ? {
-        color: v
-      } : {
-        backgroundColor: v,
-        color: readableColor(v, undefined, transparent ? 'hsl(330 100% 60%)' : undefined)
-      }
-    }}>
+    }}>{title}
+    </ScColorBlock>
+    {list.map(v => <ScColorBlock
+      key={v}
+      {...{
+        $transparent: transparent,
+        style: text ? {
+          color: v
+        } : {
+          backgroundColor: v,
+          color: readableColor(v, undefined, transparent ? 'hsl(330 100% 60%)' : undefined)
+        }
+      }}>
       <div>{hslUnwrap(v)}</div>
       {transparent ? null : <ScContrast>{getContrast(v, dark ? 'hsl(0 0% 0%)' : 'hsl(0 0% 100%)')}</ScContrast>}
     </ScColorBlock>)}

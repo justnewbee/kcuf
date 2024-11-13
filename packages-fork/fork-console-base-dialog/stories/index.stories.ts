@@ -1,8 +1,8 @@
+import Dialog from '../src';
+
 import {
   TMeta
 } from './types';
-
-import Dialog from '../src';
 
 export default {
   title: 'Dialog',

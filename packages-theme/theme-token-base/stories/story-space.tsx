@@ -2,7 +2,6 @@ import {
   ReactElement
 } from 'react';
 import styled from 'styled-components';
-
 import {
   random
 } from 'colord';

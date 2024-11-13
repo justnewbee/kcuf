@@ -84,6 +84,10 @@ export default function Keystroke({
   
   return <ScKeymapDemo>
     {splitKeystroke(keystroke).map((v, i) => <Kbd key={`${v}-${i}`}>{v === ' ' ? '空' : v}</Kbd>)}
-    {stateFiredVisible ? <ScFired><span role="img">🎉</span> {stateFired}</ScFired> : null}
+    {stateFiredVisible ? <ScFired>
+      <span role="img">🎉</span>
+      {' '}
+      {stateFired}
+    </ScFired> : null}
   </ScKeymapDemo>;
 }

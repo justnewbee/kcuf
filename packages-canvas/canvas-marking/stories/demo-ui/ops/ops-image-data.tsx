@@ -22,15 +22,19 @@ export default function OpsImageData(): ReactElement {
   return <div>
     <Button {...{
       onClick: handleSetDataAerial
-    }}>航拍图</Button>
+    }}>航拍图
+    </Button>
     <Button {...{
       onClick: handleSetDataSexy
-    }}>性感图</Button>
+    }}>性感图
+    </Button>
     <Button {...{
       onClick: handleSetDataNoImage
-    }}>无图</Button>
+    }}>无图
+    </Button>
     <Button {...{
       onClick: handleSetDataEmpty
-    }}>空</Button>
+    }}>空
+    </Button>
   </div>;
 }

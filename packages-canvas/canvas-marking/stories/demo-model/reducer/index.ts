@@ -16,21 +16,21 @@ import reduceToggleFullscreen from './reduce-toggle-fullscreen';
 
 export default function reducer(state: IModelState, action: TModelAction): IModelState {
   switch (action.type) {
-    case EAction.SET_EVER_INIT:
-      return reduceSetEverInit(state);
-    case EAction.SET_DOM_CONTAINER:
-      return reduceSetDomContainer(state, action.payload);
-    case EAction.SET_DOM_MARKING:
-      return reduceSetDomMarking(state, action.payload);
-    case EAction.SET_MARKING_STAGE:
-      return reduceSetMarkingStage(state, action.payload);
-    case EAction.SET_MARKING_STAGE_STATS:
-      return reduceSetMarkingStageStats(state, action.payload);
-    case EAction.TOGGLE_LOG_EVENTS:
-      return reduceToggleLogEvents(state, action.payload);
-    case EAction.TOGGLE_FULLSCREEN:
-      return reduceToggleFullscreen(state, action.payload);
-    default:
-      return state;
+  case EAction.SET_EVER_INIT:
+    return reduceSetEverInit(state);
+  case EAction.SET_DOM_CONTAINER:
+    return reduceSetDomContainer(state, action.payload);
+  case EAction.SET_DOM_MARKING:
+    return reduceSetDomMarking(state, action.payload);
+  case EAction.SET_MARKING_STAGE:
+    return reduceSetMarkingStage(state, action.payload);
+  case EAction.SET_MARKING_STAGE_STATS:
+    return reduceSetMarkingStageStats(state, action.payload);
+  case EAction.TOGGLE_LOG_EVENTS:
+    return reduceToggleLogEvents(state, action.payload);
+  case EAction.TOGGLE_FULLSCREEN:
+    return reduceToggleFullscreen(state, action.payload);
+  default:
+    return state;
   }
 }

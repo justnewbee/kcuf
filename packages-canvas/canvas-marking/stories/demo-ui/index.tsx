@@ -27,10 +27,10 @@ const ScContainer = styled.div<IScContainerProps>`
   resize: vertical;
   overflow: auto;
   
-  ${props => (props.$fullscreen ? css`
+  ${props => props.$fullscreen ? css`
     background-color: hsl(0 0% 100%);
     resize: none;
-  ` : null)}
+  ` : null}
 `;
 const ScMarking = styled.div`
   flex: 1;

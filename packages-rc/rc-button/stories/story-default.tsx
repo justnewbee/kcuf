@@ -48,11 +48,13 @@ export default function DemoDefault(): ReactElement {
         onChange: setStateDisabled
       }} />
     </div>
-    {Object.entries(ButtonPreset).map(([k, v]) => <ScButtonThemes key={k} {...{
-      preset: v,
-      label: v,
-      disabled: stateDisabled
-    }} />)}
+    {Object.entries(ButtonPreset).map(([k, v]) => <ScButtonThemes
+      key={k}
+      {...{
+        preset: v,
+        label: v,
+        disabled: stateDisabled
+      }} />)}
     <H2>垂直对齐 IconLeft / IconRight</H2>
     <Button {...{
       iconLeft: ' ',

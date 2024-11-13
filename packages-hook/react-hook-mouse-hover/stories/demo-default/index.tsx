@@ -70,16 +70,22 @@ export default function DemoDefault(): ReactElement {
       },
       onMouseEnter: handleMouseEnterUnprotected,
       onMouseLeave: handleMouseLeaveUnprotected
-    }}>延时保护：无</ScSpan>
+    }}>延时保护：无
+    </ScSpan>
     <ScSpan {...{
       style: {
         background: stateInProtected ? '#0c0' : '#00c'
       },
       onMouseEnter,
       onMouseLeave
-    }}>延时保护：有</ScSpan>
+    }}>延时保护：有
+    </ScSpan>
     <H2>配合 active，鼠标移入后延时触发 active（能够被 click 抢先）</H2>
-    <P>当前状态：<kbd>{statePlaying ? '播放中' : '暂停'}</kbd>，移入短暂停留将暂停播放，点击切换状态</P>
+    <P>
+      当前状态：
+      <kbd>{statePlaying ? '播放中' : '暂停'}</kbd>
+      ，移入短暂停留将暂停播放，点击切换状态
+    </P>
     <ScActiveButton {...{
       style: {
         background: statePlaying ? '#90f' : '#fc0'
@@ -87,6 +93,7 @@ export default function DemoDefault(): ReactElement {
       onMouseEnter: onMouseEnterPlay,
       onMouseLeave: onMouseLeavePlay,
       onClick: onActiveChange
-    }}>{statePlaying ? '⏸' : '▶'}</ScActiveButton>
+    }}>{statePlaying ? '⏸' : '▶'}
+    </ScActiveButton>
   </>;
 }

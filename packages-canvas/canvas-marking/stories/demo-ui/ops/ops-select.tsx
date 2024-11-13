@@ -16,18 +16,23 @@ export default function OpsSelect(): ReactElement {
   return <div>
     <Button {...{
       onClick: () => handleSelect('first')
-    }}>select(first)</Button>
+    }}>select(first)
+    </Button>
     <Button {...{
       onClick: () => handleSelect('last')
-    }}>select(last)</Button>
+    }}>select(last)
+    </Button>
     <Button {...{
       onClick: () => handleSelect(-1)
-    }}>select(prev)</Button>
+    }}>select(prev)
+    </Button>
     <Button {...{
       onClick: () => handleSelect(1)
-    }}>select(next)</Button>
+    }}>select(next)
+    </Button>
     <Button {...{
       onClick: () => handleSelect(null)
-    }}>select(none)</Button>
+    }}>select(none)
+    </Button>
   </div>;
 }

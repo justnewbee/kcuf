@@ -19,7 +19,8 @@ export default function DemoDefault(): JSX.Element {
     <P>{intl('hello:world')}</P>
     <P>{intl('hello:{user}', {
       user: 'BoshiT'
-    })}</P>
+    })}
+    </P>
     <P>{intl('message!html')}</P>
     <P>{intl('message!html!lines')}</P>
     <H1>intlDate</H1>

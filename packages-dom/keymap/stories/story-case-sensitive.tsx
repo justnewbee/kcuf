@@ -35,7 +35,10 @@ export default function StoryCaseSensitive(): ReactElement {
       activeModifiers: stateModifiers,
       onActiveModifiersChange: setStateModifiers
     }} />
-    <H1>Case Sensitive <InputSwitch label="case sensitive" value={stateCaseSensitive} onChange={setStateCaseSensitive} /></H1>
+    <H1>
+      Case Sensitive
+      <InputSwitch label="case sensitive" value={stateCaseSensitive} onChange={setStateCaseSensitive} />
+    </H1>
     <GridContainer>
       <Keystroke {...{
         keystroke: 'X',

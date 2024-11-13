@@ -28,6 +28,12 @@ export default function StoryEvent(): ReactElement {
       onKeyPress: handleKeyPress,
       onModifierStateChange: setStateActiveModifiers
     }} />
-    {stateLastKeyPress ? <ScLastPress><code>{stateLastKeyPress[0]}</code> / <code>{stateLastKeyPress[1]}</code></ScLastPress> : null}
+    {stateLastKeyPress ? <ScLastPress>
+      <code>{stateLastKeyPress[0]}</code>
+      {' '}
+      /
+      {' '}
+      <code>{stateLastKeyPress[1]}</code>
+    </ScLastPress> : null}
   </>;
 }

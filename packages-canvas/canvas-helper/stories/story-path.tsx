@@ -200,7 +200,9 @@ export default function StoryPath(): ReactElement {
   }, [stateCanvas]);
   
   return <>
-    <div><ScCanvas ref={setStateCanvas} width={CANVAS_W} height={CANVAS_H} /></div>
+    <div>
+      <ScCanvas ref={setStateCanvas} width={CANVAS_W} height={CANVAS_H} />
+    </div>
     <ScSettings>
       <InputSwitch {...{
         label: 'Stroke',

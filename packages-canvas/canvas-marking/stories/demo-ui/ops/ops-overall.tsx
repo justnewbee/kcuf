@@ -35,17 +35,21 @@ export default function OpsOverall(): ReactElement {
   return <div>
     <Button {...{
       onClick: handleToggleFullscreen
-    }}>{fullscreen ? '退出全屏' : '进入全屏'}</Button>
+    }}>{fullscreen ? '退出全屏' : '进入全屏'}
+    </Button>
     <Button {...{
       onClick: markingStage ? handleDestroy : init
-    }}>{markingStage ? 'destroy' : 'init'}</Button>
+    }}>{markingStage ? 'destroy' : 'init'}
+    </Button>
     {markingStage ? <>
       <Button {...{
         onClick: handleDebugStats
-      }}>stats</Button>
+      }}>stats
+      </Button>
       <Button {...{
         onClick: handleToggleDisabled
-      }}>{markingStageStats?.disabled ? 'enable' : 'disable'}</Button>
+      }}>{markingStageStats?.disabled ? 'enable' : 'disable'}
+      </Button>
       <InputSwitch {...{
         label: '打印事件',
         value: logEvents,

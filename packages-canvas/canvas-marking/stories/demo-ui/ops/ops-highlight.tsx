@@ -16,24 +16,31 @@ export default function OpsHighlight(): ReactElement {
   return <div>
     <Button {...{
       onClick: () => handleHighlight('first')
-    }}>highlight(first)</Button>
+    }}>highlight(first)
+    </Button>
     <Button {...{
       onClick: () => handleHighlight('last')
-    }}>highlight(last)</Button>
+    }}>highlight(last)
+    </Button>
     <Button {...{
       onClick: () => handleHighlight(-1)
-    }}>highlight(prev)</Button>
+    }}>highlight(prev)
+    </Button>
     <Button {...{
       onClick: () => handleHighlight(1)
-    }}>highlight(next)</Button>
+    }}>highlight(next)
+    </Button>
     <Button {...{
       onClick: () => handleHighlight(-1, 0)
-    }}>highlight(prev & border:first)</Button>
+    }}>highlight(prev & border:first)
+    </Button>
     <Button {...{
       onClick: () => handleHighlight(1, -1)
-    }}>highlight(next & border:all)</Button>
+    }}>highlight(next & border:all)
+    </Button>
     <Button {...{
       onClick: () => handleHighlight(null)
-    }}>highlight(none)</Button>
+    }}>highlight(none)
+    </Button>
   </div>;
 }
