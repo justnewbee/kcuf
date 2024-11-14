@@ -1,6 +1,6 @@
 import {
   injectIconFont
-} from '@kcuf/rc-icon-base/src';
+} from '@kcuf/rc-icon-base';
 
 // https://at.alicdn.com/t/c/font_4720928_yvtln3fv7v.css
 export const ICON_FONT = injectIconFont('4720928', 'yvtln3fv7v', {
