@@ -2,48 +2,25 @@ import {
   ReactElement
 } from 'react';
 import styled, {
-  RuleSet,
-  css,
-  keyframes
+  css
 } from 'styled-components';
 
 import {
-  IIconBaseProps
+  IIconBaseProps,
+  IScIconBaseProps
 } from '../types';
+import {
+  getCssIconRotation
+} from '../util';
 
-interface IScIconProps {
-  $rotate?: number;
-  $rotating?: boolean;
-}
-
-const kfIconRotating = keyframes`
-  0% {
-    transform: rotate(0deg);
-    transform-origin: 50% 50%;
-  }
+const ScIcon = styled.i<IScIconBaseProps>`
+  font-family: ${props => props.$fontFamily} !important;
+  ${props => props.$color ? css`
+    color: ${props.$color} !important;
+  ` : null}
   
-  100% {
-    transform: rotate(1turn);
-    transform-origin: 50% 50%;
-  }
-`;
-
-function getCssRotation(props: IScIconProps): RuleSet | undefined {
-  if (props.$rotating) {
-    return css`
-      animation: ${kfIconRotating} 1s linear infinite;
-    `;
-  }
-  
-  if (props.$rotate) {
-    return css`
-      transform: rotate(${props.$rotate}deg);
-    `;
-  }
-}
-
-const ScIcon = styled.i<IScIconProps>`
   &::before {
+    content: '${props => props.$code}';
     display: inline-block;
     font-size: inherit;
     font-weight: 200;
@@ -56,21 +33,32 @@ const ScIcon = styled.i<IScIconProps>`
     -webkit-text-stroke-width: 0.2px;/* stylelint-disable-line */
     transition: all linear 200ms;
     
-    ${props => getCssRotation(props)}
+    ${props => getCssIconRotation(props)}
   }
 `;
 
 /**
  * ConsoleBase 项目自用的图标组件
  */
-export default function IconBase({
+export default function IconBase<T extends string>({
+  fontFamily,
+  type,
   rotate,
   rotating,
+  colored,
+  getIconCode,
+  getIconColor,
   ...props
-}: IIconBaseProps): ReactElement {
+}: IIconBaseProps<T>): ReactElement {
+  const $code = getIconCode(type);
+  const $color = colored && getIconColor ? getIconColor(type) : null;
+  
   return <ScIcon {...{
+    $fontFamily: fontFamily,
     $rotate: rotate,
     $rotating: rotating,
+    $code,
+    $color,
     ...props
   }} />;
 }

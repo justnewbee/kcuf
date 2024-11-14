@@ -37,18 +37,17 @@ const ScIconListItem = styled.li`
   padding: 10px;
   min-width: 50px;
   height: 50px;
+  color: hsl(0 0% 73%);
   text-align: center;
   
   i {
     font-size: 20px;
+    color: hsl(0 0% 20%);
   }
   
   &:hover {
     background-color: hsla(0 0% 0% / 10%);
   }
-`;
-const ScIconType = styled.div`
-  color: hsl(0 0% 73%);
 `;
 
 export default function DemoAll(): ReactElement {
@@ -84,7 +83,7 @@ export default function DemoAll(): ReactElement {
           colored: stateColored,
           rotate: stateRotate
         }} />
-        <ScIconType>{v}</ScIconType>
+        <div>{v}</div>
       </ScIconListItem>)}
     </ScIconList>
   </>;

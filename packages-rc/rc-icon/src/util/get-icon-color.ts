@@ -1,13 +1,9 @@
 import {
-  IScIconProps
+  TIconType
 } from '../types';
 
-export default function getIconColor(props: IScIconProps): string {
-  if (!props.$colored) {
-    return 'inherit';
-  }
-  
-  switch (props.$type) { // TODO use theme package for hardcoded colors
+export default function getIconColor(type: TIconType): string | null {
+  switch (type) { // TODO use theme package for hardcoded colors
   case 'help':
   case 'help-fill':
     return '#888';
@@ -24,6 +20,6 @@ export default function getIconColor(props: IScIconProps): string {
   case 'error-fill':
     return '#d93026';
   default:
-    return 'inherit';
+    return null;
   }
 }

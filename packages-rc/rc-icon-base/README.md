@@ -19,7 +19,7 @@ import {
 import styled from 'styled-components';
 
 import IconBase, {
-  IconBaseProps,
+  IconProps,
   injectIconFont
 } from '@kcuf/rc-icon-base';
 
@@ -29,29 +29,22 @@ const ICON_TYPE_MAPPING = {
   close: 'e612'
 };
 
-// 由于类型依赖了常量，不建议单独拎到 types 目录下
 type TIconType = keyof typeof ICON_TYPE_MAPPING;
 
-interface IIconProps extends Omit<IconBaseProps, 'rotating'> {
-  type: TIconType;
-}
-
-interface IScIconProps {
-  $type: TIconType;
-}
+interface IIconProps extends IconProps<TIconType> {}
 
 // https://at.alicdn.com/t/c/font_4720928_yvtln3fv7v.css
 const fontFamily = injectIconFont('4720928', 'yvtln3fv7v', { // 每次更新只需更新文件中的 hash 值
   pathExtra: '/c'
 });
 
-const ScIcon = styled(IconBase)<IScIconProps>`
-  font-family: ${fontFamily} !important;
-  
-  &::before {
-    content: '${props => `\\${ICON_TYPE_MAPPING[props.$type] || 'e600'}`}';
-  }
-`;
+function getIconCode(type: TIconType) {
+  return `\\${ICON_TYPE_MAPPING[type] || 'e600'}`;
+}
+
+function getIconColor(type: TIconType): string | null {
+  ...
+}
 
 /**
  * ConsoleBase 项目自用的图标组件
@@ -60,14 +53,17 @@ export default function Icon({
   type,
   ...props
 }: IIconProps): ReactElement {
-  return <ScIcon {...{
+  return <IconBase<TIconType> {...{
+    type,
+    rotating: type === 'loading',
     ...props,
-    $type: type,
-    rotating: type === 'loading'
+    fontFamily,
+    getIconCode,
+    getIconColor
   }} />;
 }
 
-export type { // export 类型是好习惯
+export type {
   TIconType as IconType,
   IIconProps as IconProps
 };

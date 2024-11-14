@@ -1,5 +1,5 @@
 import {
-  IconBaseProps
+  IconProps
 } from '@kcuf/rc-icon-base';
 
 import {
@@ -8,12 +8,4 @@ import {
 
 export type TIconType = keyof typeof ICON_TYPE_MAPPING;
 
-export interface IIconProps extends Omit<IconBaseProps, 'rotating'> {
-  type: TIconType;
-  colored?: boolean;
-}
-
-export interface IScIconProps {
-  $type: TIconType;
-  $colored?: boolean;
-}
+export interface IIconProps extends IconProps<TIconType> {}

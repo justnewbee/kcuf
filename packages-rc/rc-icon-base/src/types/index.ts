@@ -17,7 +17,23 @@ export interface IInjectIconFontOptions {
   base64Data?: string;
 }
 
-export interface IIconBaseProps extends HTMLAttributes<HTMLElement> {
+export interface IIconProps<T extends string = string> extends HTMLAttributes<HTMLElement> {
+  type: T;
   rotate?: number;
   rotating?: boolean;
+  colored?: boolean;
+}
+
+export interface IIconBaseProps<T extends string = string> extends IIconProps<T> {
+  fontFamily: string;
+  getIconCode(type: T): string;
+  getIconColor?(type: T): string | null;
+}
+
+export interface IScIconBaseProps {
+  $fontFamily: string;
+  $rotate?: number;
+  $rotating?: boolean;
+  $code: string;
+  $color: string | null;
 }

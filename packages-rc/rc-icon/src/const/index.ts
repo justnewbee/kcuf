@@ -1,3 +1,12 @@
+import {
+  injectIconFont
+} from '@kcuf/rc-icon-base/src';
+
+// https://at.alicdn.com/t/c/font_4720928_yvtln3fv7v.css
+export const ICON_FONT = injectIconFont('4720928', 'yvtln3fv7v', {
+  pathExtra: '/c'
+});
+
 export const ICON_TYPE_MAPPING = {
   arrowhead: 'e661',
   arrow: 'e665',
