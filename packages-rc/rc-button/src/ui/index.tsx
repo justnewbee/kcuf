@@ -25,7 +25,6 @@ import {
   isBlock,
   isBorderless,
   getStyleTextAlign,
-  cssButtonPreset,
   cssButtonSize,
   cssButtonShadow
 } from './util';
@@ -66,17 +65,16 @@ function getStyleCursor(props: IScButtonProps): string {
 }
 
 const ScButton = styled(ButtonBase)<Partial<IModelProps>>`
-  display: ${props => (isBlock(props) ? 'block' : 'inline-block')};
-  border: ${props => (isBorderless(props) ? 'none' : '1px solid transparent')};
+  display: ${props => isBlock(props) ? 'block' : 'inline-block'};
+  border: ${props => isBorderless(props) ? 'none' : '1px solid transparent'};
   border-radius: ${getStyleBorderRadius};
-  width: ${props => (isBlock(props) ? '100%' : 'auto')};
+  width: ${props => isBlock(props) ? '100%' : 'auto'};
   max-width: 100%;
   overflow: hidden;
   cursor: ${getStyleCursor};
   vertical-align: middle;
   text-align: ${getStyleTextAlign};
   ${mixinTypoEllipsis}
-  ${cssButtonPreset}
   ${cssButtonSize}
   ${cssButtonShadow}
 `;
