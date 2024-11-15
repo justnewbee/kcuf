@@ -104,37 +104,12 @@ export const mixinTypoBlockquote = css`
 `;
 
 export const mixinTypoLineWrap = css`
-  white-space: normal;
   word-wrap: break-word;
+  white-space: normal;
 `;
 
 export const mixinTypoNoWrap = css`
   white-space: nowrap;
-`;
-
-// 你需要为之设定一个宽度
-export const mixinTypoEllipsis = css`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-
-export const mixinTypoEllipsisLines = css<IPropsEllipsisLines>`
-  /* stylelint-disable */
-  display: -webkit-box;
-  line-height: ${props => props.lineHeight}px;
-  overflow: hidden;
-  -webkit-line-clamp: ${props => props.lines};
-  -webkit-box-orient: vertical;
-  ${props => {
-    const h = props.lineHeight * props.lines;
-    
-    return props.withMaxHeight ? css`
-      max-height: ${h}px;
-    ` : css`
-      height: ${h}px;
-    `;
-  }}
 `;
 
 /**
@@ -187,9 +162,9 @@ export const mixinTypoElementsList = css`
   dl {
     margin: 1em 0 1em 2em;
     padding: 0;
-    line-height: 1.5 !important;
     font-size: inherit;
     color: inherit;
+    line-height: 1.5 !important;
     
     &:first-child {
       margin-top: 0;
@@ -233,7 +208,7 @@ export const mixinTypoElementsList = css`
     }
     
     dd {
-      margin: 0 0 1em 0;
+      margin: 0 0 1em;
     }
   }
 `;

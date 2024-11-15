@@ -9,7 +9,7 @@
 export enum EMotionSpeed {
   FASTEST = 100, // 🐆
   FAST = 200, // 🐇
-  NORMAL = 200, // 🐐
+  NORMAL = 300, // 🐐
   SLOW = 400, // 🐢
   SLOWEST = 500 // 🐌
 }
