@@ -1,8 +1,8 @@
 import {
-  TIconSpacing
-} from '../../model';
+  ButtonIconSpacing
+} from '@kcuf/rc-headless-button';
 
-export default function getStyleIconSpacing(iconSpacing?: TIconSpacing): number {
+export default function getStyleIconSpacing(iconSpacing?: ButtonIconSpacing): number {
   switch (iconSpacing) {
   case 'no':
     return 0;

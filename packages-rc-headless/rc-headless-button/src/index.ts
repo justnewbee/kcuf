@@ -2,12 +2,13 @@ export { default } from './provider';
 
 export * from './hook';
 
-export type {
-  IModelProps as ButtonProps,
-  TIconSpacing as ButtonIconSpacing
-} from './types';
-
 export {
-  EButtonVariant as ButtonTheme,
+  EButtonPreset as ButtonPreset,
   EButtonSize as ButtonSize
 } from './enum';
+
+export type {
+  TButtonIconSpacing as ButtonIconSpacing,
+  TButtonTextAlign as ButtonTextAlign,
+  IModelProps as ButtonProps
+} from './types';

@@ -3,6 +3,9 @@ import {
 } from 'styled-components';
 
 import {
+  ButtonPreset
+} from '@kcuf/rc-headless-button';
+import {
   mixinButtonDangerStateNormal,
   mixinButtonMenuStateNormal,
   mixinButtonPrimaryStateNormal,
@@ -70,90 +73,87 @@ import {
 } from '@alicloud/console-base-theme';
 
 import {
-  EButtonPreset
-} from '../../model';
-import {
   IScButtonProps
 } from '../types';
 
-const MAPPING_DISABLED: Record<EButtonPreset, RuleSet | null> = {
-  [EButtonPreset.NONE]: null,
-  [EButtonPreset.DANGER]: mixinButtonDangerStateDisabled,
-  [EButtonPreset.MENU]: mixinButtonMenuStateDisabled,
-  [EButtonPreset.PRIMARY]: mixinButtonPrimaryStateDisabled,
-  [EButtonPreset.SECONDARY]: mixinButtonSecondaryStateDisabled,
-  [EButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAltStateDisabled,
-  [EButtonPreset.TERTIARY]: mixinButtonTertiaryStateDisabled,
-  [EButtonPreset.TERTIARY_ALT]: mixinButtonTertiaryAltStateDisabled,
-  [EButtonPreset.BRAND_PRIMARY]: mixinButtonBrandPrimaryStateDisabled,
-  [EButtonPreset.BRAND_SECONDARY]: mixinButtonBrandSecondaryStateDisabled,
-  [EButtonPreset.BRAND_SECONDARY_ALT]: mixinButtonBrandSecondaryAltStateDisabled,
-  [EButtonPreset.BRAND_TERTIARY]: mixinButtonBrandTertiaryStateDisabled,
-  [EButtonPreset.TEXT_PRIMARY]: mixinButtonTextPrimaryStateDisabled,
-  [EButtonPreset.TEXT_SECONDARY]: mixinButtonTextSecondaryStateDisabled,
-  [EButtonPreset.TEXT_TERTIARY]: mixinButtonTextTertiaryStateDisabled,
-  [EButtonPreset.TEXT_BRAND_PRIMARY]: mixinButtonTextBrandPrimaryStateDisabled,
-  [EButtonPreset.TEXT_BRAND_SECONDARY]: mixinButtonTextBrandSecondaryStateDisabled
+const MAPPING_DISABLED: Record<ButtonPreset, RuleSet | null> = {
+  [ButtonPreset.NONE]: null,
+  [ButtonPreset.DANGER]: mixinButtonDangerStateDisabled,
+  [ButtonPreset.MENU]: mixinButtonMenuStateDisabled,
+  [ButtonPreset.PRIMARY]: mixinButtonPrimaryStateDisabled,
+  [ButtonPreset.SECONDARY]: mixinButtonSecondaryStateDisabled,
+  [ButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAltStateDisabled,
+  [ButtonPreset.TERTIARY]: mixinButtonTertiaryStateDisabled,
+  [ButtonPreset.TERTIARY_ALT]: mixinButtonTertiaryAltStateDisabled,
+  [ButtonPreset.BRAND_PRIMARY]: mixinButtonBrandPrimaryStateDisabled,
+  [ButtonPreset.BRAND_SECONDARY]: mixinButtonBrandSecondaryStateDisabled,
+  [ButtonPreset.BRAND_SECONDARY_ALT]: mixinButtonBrandSecondaryAltStateDisabled,
+  [ButtonPreset.BRAND_TERTIARY]: mixinButtonBrandTertiaryStateDisabled,
+  [ButtonPreset.TEXT_PRIMARY]: mixinButtonTextPrimaryStateDisabled,
+  [ButtonPreset.TEXT_SECONDARY]: mixinButtonTextSecondaryStateDisabled,
+  [ButtonPreset.TEXT_TERTIARY]: mixinButtonTextTertiaryStateDisabled,
+  [ButtonPreset.TEXT_BRAND_PRIMARY]: mixinButtonTextBrandPrimaryStateDisabled,
+  [ButtonPreset.TEXT_BRAND_SECONDARY]: mixinButtonTextBrandSecondaryStateDisabled
 };
 
-const MAPPING_NORMAL: Record<EButtonPreset, RuleSet | null> = {
-  [EButtonPreset.NONE]: null,
-  [EButtonPreset.DANGER]: mixinButtonDangerStateNormal,
-  [EButtonPreset.MENU]: mixinButtonMenuStateNormal,
-  [EButtonPreset.PRIMARY]: mixinButtonPrimaryStateNormal,
-  [EButtonPreset.SECONDARY]: mixinButtonSecondaryStateNormal,
-  [EButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAltStateNormal,
-  [EButtonPreset.TERTIARY]: mixinButtonTertiaryStateNormal,
-  [EButtonPreset.TERTIARY_ALT]: mixinButtonTertiaryAltStateNormal,
-  [EButtonPreset.BRAND_PRIMARY]: mixinButtonBrandPrimaryStateNormal,
-  [EButtonPreset.BRAND_SECONDARY]: mixinButtonBrandSecondaryStateNormal,
-  [EButtonPreset.BRAND_SECONDARY_ALT]: mixinButtonBrandSecondaryAltStateNormal,
-  [EButtonPreset.BRAND_TERTIARY]: mixinButtonBrandTertiaryStateNormal,
-  [EButtonPreset.TEXT_PRIMARY]: mixinButtonTextPrimaryStateNormal,
-  [EButtonPreset.TEXT_SECONDARY]: mixinButtonTextSecondaryStateNormal,
-  [EButtonPreset.TEXT_TERTIARY]: mixinButtonTextTertiaryStateNormal,
-  [EButtonPreset.TEXT_BRAND_PRIMARY]: mixinButtonTextBrandPrimaryStateNormal,
-  [EButtonPreset.TEXT_BRAND_SECONDARY]: mixinButtonTextBrandSecondaryStateNormal
+const MAPPING_NORMAL: Record<ButtonPreset, RuleSet | null> = {
+  [ButtonPreset.NONE]: null,
+  [ButtonPreset.DANGER]: mixinButtonDangerStateNormal,
+  [ButtonPreset.MENU]: mixinButtonMenuStateNormal,
+  [ButtonPreset.PRIMARY]: mixinButtonPrimaryStateNormal,
+  [ButtonPreset.SECONDARY]: mixinButtonSecondaryStateNormal,
+  [ButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAltStateNormal,
+  [ButtonPreset.TERTIARY]: mixinButtonTertiaryStateNormal,
+  [ButtonPreset.TERTIARY_ALT]: mixinButtonTertiaryAltStateNormal,
+  [ButtonPreset.BRAND_PRIMARY]: mixinButtonBrandPrimaryStateNormal,
+  [ButtonPreset.BRAND_SECONDARY]: mixinButtonBrandSecondaryStateNormal,
+  [ButtonPreset.BRAND_SECONDARY_ALT]: mixinButtonBrandSecondaryAltStateNormal,
+  [ButtonPreset.BRAND_TERTIARY]: mixinButtonBrandTertiaryStateNormal,
+  [ButtonPreset.TEXT_PRIMARY]: mixinButtonTextPrimaryStateNormal,
+  [ButtonPreset.TEXT_SECONDARY]: mixinButtonTextSecondaryStateNormal,
+  [ButtonPreset.TEXT_TERTIARY]: mixinButtonTextTertiaryStateNormal,
+  [ButtonPreset.TEXT_BRAND_PRIMARY]: mixinButtonTextBrandPrimaryStateNormal,
+  [ButtonPreset.TEXT_BRAND_SECONDARY]: mixinButtonTextBrandSecondaryStateNormal
 };
 
-const MAPPING_ACTIVE: Record<EButtonPreset, RuleSet | null> = {
-  [EButtonPreset.NONE]: null,
-  [EButtonPreset.DANGER]: mixinButtonDangerStateActive,
-  [EButtonPreset.MENU]: mixinButtonMenuStateActive,
-  [EButtonPreset.PRIMARY]: mixinButtonPrimaryStateActive,
-  [EButtonPreset.SECONDARY]: mixinButtonSecondaryStateActive,
-  [EButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAltStateActive,
-  [EButtonPreset.TERTIARY]: mixinButtonTertiaryStateActive,
-  [EButtonPreset.TERTIARY_ALT]: mixinButtonTertiaryAltStateActive,
-  [EButtonPreset.BRAND_PRIMARY]: mixinButtonBrandPrimaryStateActive,
-  [EButtonPreset.BRAND_SECONDARY]: mixinButtonBrandSecondaryStateActive,
-  [EButtonPreset.BRAND_SECONDARY_ALT]: mixinButtonBrandSecondaryAltStateActive,
-  [EButtonPreset.BRAND_TERTIARY]: mixinButtonBrandTertiaryStateActive,
-  [EButtonPreset.TEXT_PRIMARY]: mixinButtonTextPrimaryStateActive,
-  [EButtonPreset.TEXT_SECONDARY]: mixinButtonTextSecondaryStateActive,
-  [EButtonPreset.TEXT_TERTIARY]: mixinButtonTextTertiaryStateActive,
-  [EButtonPreset.TEXT_BRAND_PRIMARY]: mixinButtonTextBrandPrimaryStateActive,
-  [EButtonPreset.TEXT_BRAND_SECONDARY]: mixinButtonTextBrandSecondaryStateActive
+const MAPPING_ACTIVE: Record<ButtonPreset, RuleSet | null> = {
+  [ButtonPreset.NONE]: null,
+  [ButtonPreset.DANGER]: mixinButtonDangerStateActive,
+  [ButtonPreset.MENU]: mixinButtonMenuStateActive,
+  [ButtonPreset.PRIMARY]: mixinButtonPrimaryStateActive,
+  [ButtonPreset.SECONDARY]: mixinButtonSecondaryStateActive,
+  [ButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAltStateActive,
+  [ButtonPreset.TERTIARY]: mixinButtonTertiaryStateActive,
+  [ButtonPreset.TERTIARY_ALT]: mixinButtonTertiaryAltStateActive,
+  [ButtonPreset.BRAND_PRIMARY]: mixinButtonBrandPrimaryStateActive,
+  [ButtonPreset.BRAND_SECONDARY]: mixinButtonBrandSecondaryStateActive,
+  [ButtonPreset.BRAND_SECONDARY_ALT]: mixinButtonBrandSecondaryAltStateActive,
+  [ButtonPreset.BRAND_TERTIARY]: mixinButtonBrandTertiaryStateActive,
+  [ButtonPreset.TEXT_PRIMARY]: mixinButtonTextPrimaryStateActive,
+  [ButtonPreset.TEXT_SECONDARY]: mixinButtonTextSecondaryStateActive,
+  [ButtonPreset.TEXT_TERTIARY]: mixinButtonTextTertiaryStateActive,
+  [ButtonPreset.TEXT_BRAND_PRIMARY]: mixinButtonTextBrandPrimaryStateActive,
+  [ButtonPreset.TEXT_BRAND_SECONDARY]: mixinButtonTextBrandSecondaryStateActive
 };
 
-const MAPPING: Record<EButtonPreset, RuleSet | null> = {
-  [EButtonPreset.NONE]: null,
-  [EButtonPreset.DANGER]: mixinButtonDanger,
-  [EButtonPreset.MENU]: mixinButtonMenu,
-  [EButtonPreset.PRIMARY]: mixinButtonPrimary,
-  [EButtonPreset.SECONDARY]: mixinButtonSecondary,
-  [EButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAlt,
-  [EButtonPreset.TERTIARY]: mixinButtonTertiary,
-  [EButtonPreset.TERTIARY_ALT]: mixinButtonTertiaryAlt,
-  [EButtonPreset.BRAND_PRIMARY]: mixinButtonBrandPrimary,
-  [EButtonPreset.BRAND_SECONDARY]: mixinButtonBrandSecondary,
-  [EButtonPreset.BRAND_SECONDARY_ALT]: mixinButtonBrandSecondaryAlt,
-  [EButtonPreset.BRAND_TERTIARY]: mixinButtonBrandTertiary,
-  [EButtonPreset.TEXT_PRIMARY]: mixinButtonTextPrimary,
-  [EButtonPreset.TEXT_SECONDARY]: mixinButtonTextSecondary,
-  [EButtonPreset.TEXT_TERTIARY]: mixinButtonTextTertiary,
-  [EButtonPreset.TEXT_BRAND_PRIMARY]: mixinButtonTextBrandPrimary,
-  [EButtonPreset.TEXT_BRAND_SECONDARY]: mixinButtonTextBrandSecondary
+const MAPPING: Record<ButtonPreset, RuleSet | null> = {
+  [ButtonPreset.NONE]: null,
+  [ButtonPreset.DANGER]: mixinButtonDanger,
+  [ButtonPreset.MENU]: mixinButtonMenu,
+  [ButtonPreset.PRIMARY]: mixinButtonPrimary,
+  [ButtonPreset.SECONDARY]: mixinButtonSecondary,
+  [ButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAlt,
+  [ButtonPreset.TERTIARY]: mixinButtonTertiary,
+  [ButtonPreset.TERTIARY_ALT]: mixinButtonTertiaryAlt,
+  [ButtonPreset.BRAND_PRIMARY]: mixinButtonBrandPrimary,
+  [ButtonPreset.BRAND_SECONDARY]: mixinButtonBrandSecondary,
+  [ButtonPreset.BRAND_SECONDARY_ALT]: mixinButtonBrandSecondaryAlt,
+  [ButtonPreset.BRAND_TERTIARY]: mixinButtonBrandTertiary,
+  [ButtonPreset.TEXT_PRIMARY]: mixinButtonTextPrimary,
+  [ButtonPreset.TEXT_SECONDARY]: mixinButtonTextSecondary,
+  [ButtonPreset.TEXT_TERTIARY]: mixinButtonTextTertiary,
+  [ButtonPreset.TEXT_BRAND_PRIMARY]: mixinButtonTextBrandPrimary,
+  [ButtonPreset.TEXT_BRAND_SECONDARY]: mixinButtonTextBrandSecondary
 };
 
 export default function cssButtonPreset(props: IScButtonProps): RuleSet | null {

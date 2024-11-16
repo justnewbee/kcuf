@@ -8,7 +8,10 @@ export enum EButtonSize {
   XL = 'xl'
 }
 
-export enum EButtonVariant {
+// TODO 拆成 如下
+//  color: default | primary | secondary | tertiary | danger
+//  variant: ghost | outline | solid | link | none
+export enum EButtonPreset {
   NONE = 'none',
   DANGER = 'danger',
   MENU = 'menu',

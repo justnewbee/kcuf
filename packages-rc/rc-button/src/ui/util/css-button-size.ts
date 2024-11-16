@@ -9,31 +9,31 @@ import {
   mixinButtonSizeL,
   mixinButtonSizeXl
 } from '@alicloud/console-base-theme';
-
 import {
-  EButtonSize,
-  EButtonPreset
-} from '../../model';
+  ButtonSize,
+  ButtonPreset
+} from '@kcuf/rc-headless-button';
+
 import {
   IScButtonProps
 } from '../types';
 
-const MAPPING: Record<EButtonSize, RuleSet | null> = {
-  [EButtonSize.NONE]: null,
-  [EButtonSize.XS]: mixinButtonSizeXs,
-  [EButtonSize.S]: mixinButtonSizeS,
-  [EButtonSize.M]: mixinButtonSizeM,
-  [EButtonSize.L]: mixinButtonSizeL,
-  [EButtonSize.XL]: mixinButtonSizeXl
+const MAPPING: Record<ButtonSize, RuleSet | null> = {
+  [ButtonSize.NONE]: null,
+  [ButtonSize.XS]: mixinButtonSizeXs,
+  [ButtonSize.S]: mixinButtonSizeS,
+  [ButtonSize.M]: mixinButtonSizeM,
+  [ButtonSize.L]: mixinButtonSizeL,
+  [ButtonSize.XL]: mixinButtonSizeXl
 };
 
 const THEMES_DEFAULT_SIZE_NONE = [
-  EButtonPreset.NONE,
-  EButtonPreset.TEXT_PRIMARY,
-  EButtonPreset.TEXT_SECONDARY,
-  EButtonPreset.TEXT_TERTIARY,
-  EButtonPreset.TEXT_BRAND_PRIMARY,
-  EButtonPreset.TEXT_BRAND_SECONDARY
+  ButtonPreset.NONE,
+  ButtonPreset.TEXT_PRIMARY,
+  ButtonPreset.TEXT_SECONDARY,
+  ButtonPreset.TEXT_TERTIARY,
+  ButtonPreset.TEXT_BRAND_PRIMARY,
+  ButtonPreset.TEXT_BRAND_SECONDARY
 ];
 
 export default function cssButtonSize(props: IScButtonProps): RuleSet | null {
@@ -41,5 +41,5 @@ export default function cssButtonSize(props: IScButtonProps): RuleSet | null {
     return MAPPING[props.$size];
   }
   
-  return MAPPING[props.$preset && THEMES_DEFAULT_SIZE_NONE.includes(props.$preset as EButtonPreset) ? EButtonSize.NONE : EButtonSize.M];
+  return MAPPING[props.$preset && THEMES_DEFAULT_SIZE_NONE.includes(props.$preset as ButtonPreset) ? ButtonSize.NONE : ButtonSize.M];
 }

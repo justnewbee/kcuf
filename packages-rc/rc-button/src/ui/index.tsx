@@ -6,17 +6,14 @@ import {
 import styled from 'styled-components';
 
 import {
-  ButtonBase
-} from '@alicloud/console-base-theme-sc-base';
-import {
+  ScBaseButton,
   mixinTypoEllipsis
-} from '@alicloud/console-base-theme';
-
+} from '@kcuf/styled-mixin';
 import {
-  IModelProps,
+  ButtonProps,
   usePropsCustom,
   usePropsDom
-} from '../model';
+} from '@kcuf/rc-headless-button';
 
 import {
   IScButtonProps
@@ -25,6 +22,7 @@ import {
   isBlock,
   isBorderless,
   getStyleTextAlign,
+  cssButtonPreset,
   cssButtonSize,
   cssButtonShadow
 } from './util';
@@ -64,17 +62,18 @@ function getStyleCursor(props: IScButtonProps): string {
   return props.$cursor || 'pointer';
 }
 
-const ScButton = styled(ButtonBase)<Partial<IModelProps>>`
+const ScButton = styled(ScBaseButton)<Partial<ButtonProps>>`
   display: ${props => isBlock(props) ? 'block' : 'inline-block'};
-  border: ${props => isBorderless(props) ? 'none' : '1px solid transparent'};
-  border-radius: ${getStyleBorderRadius};
+  overflow: hidden;
   width: ${props => isBlock(props) ? '100%' : 'auto'};
   max-width: 100%;
-  overflow: hidden;
-  cursor: ${getStyleCursor};
-  vertical-align: middle;
   text-align: ${getStyleTextAlign};
+  vertical-align: middle;
+  border: ${props => isBorderless(props) ? 'none' : '1px solid transparent'};
+  border-radius: ${getStyleBorderRadius};
+  cursor: ${getStyleCursor};
   ${mixinTypoEllipsis}
+  ${cssButtonPreset}
   ${cssButtonSize}
   ${cssButtonShadow}
 `;
@@ -103,8 +102,8 @@ function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
   
   return <ScButton
     ref={ref}
+    as={component}
     {...{
-      as: component,
       $preset: preset,
       $size: size,
       $loading: loading, // 否则报错

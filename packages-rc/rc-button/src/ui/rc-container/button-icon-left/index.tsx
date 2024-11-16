@@ -3,10 +3,10 @@ import {
 } from 'react';
 
 import Icon from '@kcuf/rc-icon';
-
 import {
   usePropsCustom
-} from '../../../model';
+} from '@kcuf/rc-headless-button';
+
 import {
   renderIcon
 } from '../../util';

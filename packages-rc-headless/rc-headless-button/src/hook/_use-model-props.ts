@@ -3,7 +3,7 @@ import {
 } from 'react';
 
 import {
-  EButtonVariant
+  EButtonPreset
 } from '../enum';
 import {
   IPropsCustom,
@@ -24,6 +24,7 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
   
   return useMemo((): [IPropsCustom, IPropsDom] => {
     const {
+      children,
       component,
       label,
       title,
@@ -31,7 +32,7 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
       iconSpacing,
       iconLeft,
       iconRight,
-      theme = EButtonVariant.TERTIARY,
+      preset = EButtonPreset.TERTIARY,
       size,
       textAlign,
       cursor,
@@ -46,13 +47,13 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
     
     const propsCustom: IPropsCustom = {
       component,
-      label,
+      label: label || children as IPropsCustom['label'],
       title,
       loading,
       iconSpacing,
       iconLeft,
       iconRight,
-      theme,
+      preset: preset,
       size,
       textAlign,
       cursor,
@@ -72,9 +73,9 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
     
     // loading 或 disabled 状态下不能有点击和链接
     if (propsDom.disabled || loading) {
-      delete propsDom.onClick;
       delete propsDom.href;
       delete propsDom.target;
+      delete propsDom.onClick;
     }
     
     if (propsDom.href) { // 保证有 href 且非 disabled 状态下一定是 a，以及外链默认 target blank

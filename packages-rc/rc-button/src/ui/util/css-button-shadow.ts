@@ -5,22 +5,22 @@ import {
 import {
   mixinButtonShadow
 } from '@alicloud/console-base-theme';
-
 import {
-  EButtonPreset
-} from '../../model';
+  ButtonPreset
+} from '@kcuf/rc-headless-button';
+
 import {
   IScButtonProps
 } from '../types';
 
-const THEMES_NEED_SHADOW: EButtonPreset[] = [
-  EButtonPreset.DANGER,
-  EButtonPreset.PRIMARY,
-  EButtonPreset.SECONDARY,
-  EButtonPreset.SECONDARY_ALT,
-  EButtonPreset.BRAND_PRIMARY,
-  EButtonPreset.BRAND_SECONDARY,
-  EButtonPreset.BRAND_SECONDARY_ALT
+const THEMES_NEED_SHADOW: ButtonPreset[] = [
+  ButtonPreset.DANGER,
+  ButtonPreset.PRIMARY,
+  ButtonPreset.SECONDARY,
+  ButtonPreset.SECONDARY_ALT,
+  ButtonPreset.BRAND_PRIMARY,
+  ButtonPreset.BRAND_SECONDARY,
+  ButtonPreset.BRAND_SECONDARY_ALT
 ];
 
 export default function cssButtonShadow(props: IScButtonProps): RuleSet | null {
@@ -28,7 +28,7 @@ export default function cssButtonShadow(props: IScButtonProps): RuleSet | null {
     return null;
   }
   
-  if (props.$preset && THEMES_NEED_SHADOW.includes(props.$preset as EButtonPreset)) {
+  if (props.$preset && THEMES_NEED_SHADOW.includes(props.$preset as ButtonPreset)) {
     return mixinButtonShadow;
   }
   

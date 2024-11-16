@@ -71,7 +71,7 @@
     "@codemirror/search": "^6.5.7",
     "@codemirror/state": "^6.4.1",
     "@codemirror/theme-one-dark": "^6.1.2",
-    "@codemirror/view": "^6.34.2",
+    "@codemirror/view": "^6.34.3",
     "@kcuf/rc-headless-form": "workspace:^",
     "@kcuf/react-hook-controllable": "workspace:^",
     "@uiw/codemirror-theme-material": "^4.23.6",

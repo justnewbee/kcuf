@@ -1,16 +1,16 @@
 import {
-  IModelProps
-} from '../../model';
+  ButtonProps
+} from '@kcuf/rc-headless-button';
 
 export interface IScButtonProps {
-  $preset?: IModelProps['preset'];
-  $size?: IModelProps['size'];
-  $loading?: IModelProps['loading'];
-  $noShadow?: IModelProps['noShadow'];
-  $textAlign?: IModelProps['textAlign'];
-  $cursor?: IModelProps['cursor'];
-  $borderRadius?: IModelProps['borderRadius'];
-  $block?: IModelProps['block'];
-  $active?: IModelProps['active'];
+  $preset?: ButtonProps['preset'];
+  $size?: ButtonProps['size'];
+  $loading?: ButtonProps['loading'];
+  $noShadow?: ButtonProps['noShadow'];
+  $textAlign?: ButtonProps['textAlign'];
+  $cursor?: ButtonProps['cursor'];
+  $borderRadius?: ButtonProps['borderRadius'];
+  $block?: ButtonProps['block'];
+  $active?: ButtonProps['active'];
   disabled?: boolean;
 }

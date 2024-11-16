@@ -9,7 +9,7 @@ import Context from '../context';
 
 export default function Provider({
   children,
-  ...props
+  props
 }: IModelProviderProps): ReactElement {
   return <Context.Provider value={{
     props

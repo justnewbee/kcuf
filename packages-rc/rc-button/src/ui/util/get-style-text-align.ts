@@ -1,12 +1,13 @@
 import {
-  EButtonPreset
-} from '../../model';
+  ButtonPreset
+} from '@kcuf/rc-headless-button';
+
 import {
   IScButtonProps
 } from '../types';
 
-const THEMES_TEXT_ALIGN_LEFT: EButtonPreset[] = [
-  EButtonPreset.MENU
+const THEMES_TEXT_ALIGN_LEFT: ButtonPreset[] = [
+  ButtonPreset.MENU
 ];
 
 export default function getStyleTextAlign(props: IScButtonProps): string {
@@ -14,7 +15,7 @@ export default function getStyleTextAlign(props: IScButtonProps): string {
     return props.$textAlign;
   }
   
-  if (props.$preset && THEMES_TEXT_ALIGN_LEFT.includes(props.$preset as EButtonPreset)) {
+  if (props.$preset && THEMES_TEXT_ALIGN_LEFT.includes(props.$preset as ButtonPreset)) {
     return 'left';
   }
   

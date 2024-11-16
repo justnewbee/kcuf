@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
 import {
-  IModelProps
-} from '../../../model';
+  ButtonIconSpacing
+} from '@kcuf/rc-headless-button';
+
 import {
   getStyleIconSpacing
 } from '../../util';
 
 interface IProps {
   className?: string;
-  iconSpacing?: IModelProps['iconSpacing'];
+  iconSpacing?: ButtonIconSpacing;
 }
 
 export default styled.span<IProps>`

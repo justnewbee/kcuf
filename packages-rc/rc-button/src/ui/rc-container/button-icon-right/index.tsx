@@ -4,7 +4,8 @@ import {
 
 import {
   usePropsCustom
-} from '../../../model';
+} from '@kcuf/rc-headless-button';
+
 import {
   renderIcon
 } from '../../util';

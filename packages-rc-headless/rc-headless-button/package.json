@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/rc-headless-button",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "React headless Button component.",
   "keywords": [],
   "license": "MIT",
@@ -34,9 +34,6 @@
   "peerDependencies": {
     "@babel/runtime": "^7.24.8",
     "react": "^18.x"
-  },
-  "dependencies": {
-    "@kcuf/react-hook-is-unmounted": "workspace:^"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

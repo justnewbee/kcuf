@@ -56,7 +56,9 @@
   "dependencies": {
     "@alicloud/console-base-theme": "^1.9.7",
     "@alicloud/console-base-theme-sc-base": "^1.6.4",
-    "@kcuf/rc-icon": "workspace:^*"
+    "@kcuf/rc-headless-button": "workspace:^",
+    "@kcuf/rc-icon": "workspace:^*",
+    "@kcuf/styled-mixin": "workspace:^*"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

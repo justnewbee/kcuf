@@ -1,10 +1,12 @@
 export { default } from './with-model';
 
 export {
-  EButtonPreset as ButtonPreset,
-  EButtonSize as ButtonSize
-} from './model';
+  ButtonPreset,
+  ButtonSize
+} from '@kcuf/rc-headless-button';
 
 export type {
-  IModelProps as ButtonProps
-} from './model';
+  ButtonIconSpacing,
+  ButtonTextAlign,
+  ButtonProps
+} from '@kcuf/rc-headless-button';
