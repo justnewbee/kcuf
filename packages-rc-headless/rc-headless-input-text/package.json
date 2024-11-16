@@ -18,6 +18,9 @@
     "name": "Jianchun Wang",
     "email": "justnewbee@gmail.com"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@babel/cli": "^7.25.9",
     "@babel/core": "^7.26.0",
