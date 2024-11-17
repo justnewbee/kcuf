@@ -46,7 +46,7 @@ export default function parseConfigClickBubble(clickBubble: IParticlesConfig['cl
   return {
     distance: distance * PIXEL_RATIO,
     diffRadius: diffRadius * PIXEL_RATIO,
-    diffOpacity: diffOpacity,
+    diffOpacity,
     duration,
     speed
   };

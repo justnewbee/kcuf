@@ -72,18 +72,18 @@ var Stats = function() {
     mode = value;
     
     switch (mode) {
-      case 0:
-        fpsDiv.style.display = 'block';
-        msDiv.style.display = 'none';
-        
-        break;
-      case 1:
-        fpsDiv.style.display = 'none';
-        msDiv.style.display = 'block';
-        
-        break;
-      default:
-        break;
+    case 0:
+      fpsDiv.style.display = 'block';
+      msDiv.style.display = 'none';
+      
+      break;
+    case 1:
+      fpsDiv.style.display = 'none';
+      msDiv.style.display = 'block';
+      
+      break;
+    default:
+      break;
     }
   }
   

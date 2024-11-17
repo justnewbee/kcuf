@@ -53,7 +53,7 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
       iconSpacing,
       iconLeft,
       iconRight,
-      preset: preset,
+      preset,
       size,
       textAlign,
       cursor,
