@@ -17,22 +17,20 @@ const ScKeyboard = styled.div`
   position: relative;
   margin: 0 auto;
   padding: ${KEYBOARD_PADDING}px;
+  box-sizing: border-box;
   width: ${KEYBOARD_WIDTH}px;
   height: ${KEYBOARD_HEIGHT}px;
-  border-radius: 10px;
   background: hsl(0 0% 95%);
-  box-shadow: 2px 0 2px hsl(0 0% 89%) inset, -2px 2px 3px hsl(0 0% 89%) inset, 1px -0px 0 hsl(0 0% 76%) inset, 0 -2px 3px hsl(0 0% 76%) inset;
-  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 2px 0 2px hsl(0 0% 89%) inset, -2px 2px 3px hsl(0 0% 89%) inset, 1px -0 0 hsl(0 0% 76%) inset, 0 -2px 3px hsl(0 0% 76%) inset;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   user-select: none;
 `;
 
 export default function KeyboardUi(): ReactElement {
   return <ScKeyboard>
-    {KEY_DATA_LIST.map(v => <KeyboardKey
-      key={v.code}
-      {...{
-        data: v
-      }} />)}
+    {KEY_DATA_LIST.map(v => <KeyboardKey key={v.code} {...{
+      data: v
+    }} />)}
   </ScKeyboard>;
 }

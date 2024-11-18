@@ -27,48 +27,36 @@ export default function StoryKeysInput(): ReactElement {
     <H1>输入键</H1>
     <H2>Number</H2>
     <GridContainer>
-      {NUMBER.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v
-        }} />)}
+      {NUMBER.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
     </GridContainer>
     <GridContainer>
-      {NUMBER_SHIFT.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v
-        }} />)}
+      {NUMBER_SHIFT.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
     </GridContainer>
     <H2>Alphabet</H2>
     <GridContainer>
-      {ALPHABET.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v.toUpperCase()
-        }} />)}
+      {ALPHABET.map(v => <Keystroke key={v} {...{
+        keystroke: v.toUpperCase()
+      }} />)}
     </GridContainer>
     <GridContainer>
-      {ALPHABET.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v.toLowerCase()
-        }} />)}
+      {ALPHABET.map(v => <Keystroke key={v} {...{
+        keystroke: v.toLowerCase()
+      }} />)}
     </GridContainer>
     <H2>Symbol</H2>
     <GridContainer>
-      {SYMBOL.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v
-        }} />)}
+      {SYMBOL.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
     </GridContainer>
     <GridContainer>
-      {SYMBOL_SHIFT.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v
-        }} />)}
+      {SYMBOL_SHIFT.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
     </GridContainer>
   </>;
 }

@@ -26,41 +26,31 @@ export default function StoryKeysExtra(): ReactElement {
     <H1>辅助键</H1>
     <H2>F1-12（F11 不行）</H2>
     <GridContainer>
-      {FN.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v.toUpperCase()
-        }} />)}
+      {FN.map(v => <Keystroke key={v} {...{
+        keystroke: v.toUpperCase()
+      }} />)}
     </GridContainer>
     <GridContainer>
-      {FN.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v.toLowerCase()
-        }} />)}
+      {FN.map(v => <Keystroke key={v} {...{
+        keystroke: v.toLowerCase()
+      }} />)}
     </GridContainer>
     <H2>功能键</H2>
     <GridContainer>
-      {FUNCTIONAL.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v
-        }} />)}
+      {FUNCTIONAL.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
     </GridContainer>
     <H2>功能键 Alias（你可以用符号表示）</H2>
     <GridContainer>
-      {FUNCTIONAL_ALIAS.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v
-        }} />)}
+      {FUNCTIONAL_ALIAS.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
     </GridContainer>
     <GridContainer>
-      {EXTRA_ALIAS.map(v => <Keystroke
-        key={v}
-        {...{
-          keystroke: v
-        }} />)}
+      {EXTRA_ALIAS.map(v => <Keystroke key={v} {...{
+        keystroke: v
+      }} />)}
     </GridContainer>
   </>;
 }

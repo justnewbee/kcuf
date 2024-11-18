@@ -18,17 +18,13 @@ export default function StoryFont(): ReactElement {
     <div style={{
       fontFamily: FONT_FAMILY_MONO
     }}>等宽字体：`const fontFamily = MONO;`</div>
-    {FONT_SIZE.map((v, i) => <div
-      key={v}
-      style={{
-        fontSize: v,
-        lineHeight: LINE_HEIGHT[i]
-      }}>font-size {v} + line-height {LINE_HEIGHT[i]}</div>)}
-    {FONT_SIZE.map((v, i) => <div
-      key={v}
-      style={{
-        fontSize: v,
-        lineHeight: LINE_HEIGHT_HEADING[i]
-      }}>font-size {v} + line-height {LINE_HEIGHT_HEADING[i]}</div>)}
+    {FONT_SIZE.map((v, i) => <div key={v} style={{
+      fontSize: v,
+      lineHeight: LINE_HEIGHT[i]
+    }}>font-size {v} + line-height {LINE_HEIGHT[i]}</div>)}
+    {FONT_SIZE.map((v, i) => <div key={v} style={{
+      fontSize: v,
+      lineHeight: LINE_HEIGHT_HEADING[i]
+    }}>font-size {v} + line-height {LINE_HEIGHT_HEADING[i]}</div>)}
   </>;
 }
