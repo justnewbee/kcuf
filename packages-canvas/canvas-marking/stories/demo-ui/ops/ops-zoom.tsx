@@ -20,15 +20,12 @@ export default function OpsZoom(): ReactElement {
   return <div>
     <Button {...{
       onClick: handleZoomOut
-    }}>zoom-
-    </Button>
+    }}>zoom-</Button>
     <Button {...{
       onClick: handleZoomIn
-    }}>zoom+
-    </Button>
+    }}>zoom+</Button>
     <Button {...{
       onClick: handleZoomReset
-    }}>zoom reset
-    </Button>
+    }}>zoom reset</Button>
   </div>;
 }

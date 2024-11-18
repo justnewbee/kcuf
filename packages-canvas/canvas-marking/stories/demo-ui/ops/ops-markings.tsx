@@ -35,47 +35,38 @@ export default function OpsMarkings(): ReactElement {
     <Button {...{
       disabled: markingStageStats?.disabled || markingStageStats?.creating,
       onClick: handleCreatingStart
-    }}>标注
-    </Button>
+    }}>标注</Button>
     <Button {...{
       disabled: markingStageStats?.disabled || markingStageStats?.creating,
       onClick: handleCreatingStartMaxPoint5
-    }}>标注（最多 5 点）
-    </Button>
+    }}>标注（最多 5 点）</Button>
     <Button {...{
       disabled: markingStageStats?.disabled || markingStageStats?.creating,
       onClick: handleCreatingStartRect
-    }}>标注（矩形）
-    </Button>
+    }}>标注（矩形）</Button>
     <Button {...{
       disabled: markingStageStats?.disabled || markingStageStats?.creating,
       onClick: handleCreatingStartRect2
-    }}>标注（矩形 II）
-    </Button>
+    }}>标注（矩形 II）</Button>
     <Button {...{
       disabled: markingStageStats?.disabled || markingStageStats?.creating,
       onClick: handleCreatingStartLine
-    }}>标注（线）
-    </Button>
+    }}>标注（线）</Button>
     <Button {...{
       disabled: !markingStageStats?.creating,
       onClick: handleCancelCreating
-    }}>取消标注
-    </Button>
+    }}>取消标注</Button>
     <Button {...{
       disabled: !markingStageStats?.creating,
       onClick: handleFinishCreating
-    }}>完成标注
-    </Button>
+    }}>完成标注</Button>
     <Button {...{
       disabled: !markingStageStats?.editing,
       onClick: handleDeleteActiveItem
-    }}>删除
-    </Button>
+    }}>删除</Button>
     <Button {...{
       disabled: !markingStageStats?.itemStatsList.length,
       onClick: handleDeleteAllItems
-    }}>删除全部
-    </Button>
+    }}>删除全部</Button>
   </div>;
 }

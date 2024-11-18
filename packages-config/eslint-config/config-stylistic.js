@@ -60,13 +60,25 @@ export default [
       '@stylistic/arrow-parens': ['error', 'as-needed'],
       '@stylistic/multiline-ternary': ['error', 'never'],
       '@stylistic/quote-props': ['error', 'as-needed'],
-      '@stylistic/jsx-wrap-multilines': 'off', // 没法 never
       '@stylistic/jsx-closing-bracket-location': ['error', 'after-props'],
-      '@stylistic/jsx-function-call-newline': 'off', // 没法 never
-      '@stylistic/jsx-closing-tag-location': ['error', 'line-aligned'], // 没法 never
       '@stylistic/jsx-one-expression-per-line': ['error', {
-        allow: 'non-jsx'
-      }]
+        allow: 'single-line'
+      }],
+      // ----- 🔞 以下禁用 🔞 -----
+      '@stylistic/jsx-wrap-multilines': 'off', // 没法 never
+      '@stylistic/jsx-function-call-newline': 'off', // 没法 never
+      /**
+       * 禁用
+       *
+       * - `@stylistic/jsx-closing-tag-location`
+       * - `@stylistic/jsx-first-prop-new-line`
+       * - `@stylistic/jsx-max-props-per-line`
+       *
+       * 对喜欢析构 props 的写法不友好
+       */
+      '@stylistic/jsx-closing-tag-location': 'off',
+      '@stylistic/jsx-first-prop-new-line': 'off',
+      '@stylistic/jsx-max-props-per-line': 'off'
     }
   }
 ];
