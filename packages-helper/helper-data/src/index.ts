@@ -1,3 +1,9 @@
+export * from './helper';
+
+export {
+  ELoadingStatus as LoadingStatus
+} from './enum';
+
 export type {
   IBaseParamsPage as BaseParamsPage,
   IBaseParamsPageWithQ as BaseParamsPageWithQ,
@@ -12,7 +18,7 @@ export type {
   IBaseDataTimes as BaseDataTimes,
   
   IPagedList as PagedList,
-  IPagedListUncertain as PagedListUncertain
+  IPagedListUncertain as PagedListUncertain,
+  
+  IDataWithLoading as DataWithLoading
 } from './types';
-
-export * from './helper';

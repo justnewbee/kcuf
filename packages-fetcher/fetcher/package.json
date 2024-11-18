@@ -60,7 +60,7 @@
     "@kcuf/fetcher-jsonp": "workspace:^",
     "@kcuf/json-stringify-ordered": "workspace:^",
     "lodash": "^4.17.21",
-    "qs": "^6.13.0"
+    "qs": "^6.13.1"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
