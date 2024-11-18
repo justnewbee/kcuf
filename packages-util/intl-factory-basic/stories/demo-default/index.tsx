@@ -1,4 +1,6 @@
-import React from 'react';
+import {
+  ReactElement
+} from 'react';
 
 import {
   H1,
@@ -10,16 +12,17 @@ import intl, {
   intlDate
 } from '../_intl';
 
-export default function DemoDefault(): JSX.Element {
+export default function DemoDefault(): ReactElement {
   return <>
     <ThemeSwitcher />
     <PkgInfo />
     <H1>不会产出 HTML</H1>
     <P>{intl('demo.op.switch_locale')}</P>
     <P>{intl('hello:world')}</P>
-    <P>{intl('hello:{user}', {
-      user: 'BoshiT'
-    })}
+    <P>
+      {intl('hello:{user}', {
+        user: 'BoshiT'
+      })}
     </P>
     <P>{intl('message!html')}</P>
     <P>{intl('message!html!lines')}</P>

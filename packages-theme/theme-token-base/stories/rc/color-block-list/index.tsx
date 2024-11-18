@@ -65,19 +65,16 @@ export default function ColorBlockList(props: IProps): ReactElement {
         justifyContent: 'flex-end',
         fontWeight: 600
       }
-    }}>{title}
-    </ScColorBlock>
-    {list.map(v => <ScColorBlock
-      key={v}
-      {...{
-        $transparent: transparent,
-        style: text ? {
-          color: v
-        } : {
-          backgroundColor: v,
-          color: readableColor(v, undefined, transparent ? 'hsl(330 100% 60%)' : undefined)
-        }
-      }}>
+    }}>{title}</ScColorBlock>
+    {list.map(v => <ScColorBlock key={v} {...{
+      $transparent: transparent,
+      style: text ? {
+        color: v
+      } : {
+        backgroundColor: v,
+        color: readableColor(v, undefined, transparent ? 'hsl(330 100% 60%)' : undefined)
+      }
+    }}>
       <div>{hslUnwrap(v)}</div>
       {transparent ? null : <ScContrast>{getContrast(v, dark ? 'hsl(0 0% 0%)' : 'hsl(0 0% 100%)')}</ScContrast>}
     </ScColorBlock>)}

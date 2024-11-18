@@ -23,8 +23,8 @@ const ScButtonA = styled.a`
   &:link,
   &:link:visited,
   &:link:hover {
-    text-decoration: none;
     color: ${COLOR_FORM_CONTROL.FGC};
+    text-decoration: none;
   }
 `;
 const ScButton = styled.button`
@@ -44,6 +44,5 @@ export default function Button({
     ...restProps as ButtonHTMLAttributes<HTMLAnchorElement>,
     href: resolvedHref,
     target: target ?? getDefaultTarget(resolvedHref)
-  }}>{children}
-  </ScButtonA> : <ScButton {...restProps} disabled={disabled}>{children}</ScButton>;
+  }}>{children}</ScButtonA> : <ScButton {...restProps} disabled={disabled}>{children}</ScButton>;
 }

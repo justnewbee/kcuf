@@ -4,7 +4,7 @@ import stylistic from '@stylistic/eslint-plugin';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  stylistic.configs.customize({
+  stylistic.configs.customize({ // eslint-disable-line import/no-named-as-default-member
     // indent: 2, // default 2
     // quotes: 'single', // default single
     // jsx: true, // default true
@@ -60,9 +60,30 @@ export default [
       '@stylistic/arrow-parens': ['error', 'as-needed'],
       '@stylistic/multiline-ternary': ['error', 'never'],
       '@stylistic/quote-props': ['error', 'as-needed'],
+      '@stylistic/member-delimiter-style': ['error', {
+        multiline: {
+          delimiter: 'semi',
+          requireLast: true
+        },
+        singleline: {
+          delimiter: 'semi',
+          requireLast: true
+        }
+      }],
       '@stylistic/jsx-closing-bracket-location': ['error', 'after-props'],
       '@stylistic/jsx-one-expression-per-line': ['error', {
         allow: 'single-line'
+      }],
+      '@stylistic/jsx-curly-brace-presence': ['error', {
+        props: 'never',
+        children: 'never'
+      }],
+      '@stylistic/jsx-curly-newline': ['error', 'never'], // 默认 'consistent'
+      '@stylistic/jsx-curly-spacing': ['error', {
+        when: 'never',
+        children: {
+          when: 'never'
+        }
       }],
       // ----- 🔞 以下禁用 🔞 -----
       '@stylistic/jsx-wrap-multilines': 'off', // 没法 never

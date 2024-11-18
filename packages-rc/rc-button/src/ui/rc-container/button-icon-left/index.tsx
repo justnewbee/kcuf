@@ -26,6 +26,5 @@ export default function ButtonIconLeft(): ReactElement | null {
   return jsxIcon ? <ButtonIconWrapper {...{
     className: iconLeftClassName,
     iconSpacing
-  }}>{jsxIcon}
-  </ButtonIconWrapper> : null;
+  }}>{jsxIcon}</ButtonIconWrapper> : null;
 }

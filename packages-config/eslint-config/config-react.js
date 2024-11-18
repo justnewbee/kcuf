@@ -19,6 +19,14 @@ export default [
   pluginReact.configs.flat.recommended,
   pluginReact.configs.flat['jsx-runtime'],
   {
+    rules: {
+      'react/jsx-filename-extension': ['error', {
+        extensions: ['.jsx', '.tsx'],
+        allow: 'as-needed'
+      }]
+    }
+  },
+  {
     plugins: {
       'react-hooks': pluginReactHooks
     },

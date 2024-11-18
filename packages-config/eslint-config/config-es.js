@@ -8,6 +8,7 @@ export default [
   {
     rules: {
       eqeqeq: 'error',
+      curly: ['error', 'all'],
       'object-shorthand': 'error',
       'no-console': 'error',
       'no-shadow': 'error',

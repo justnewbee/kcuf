@@ -1,4 +1,6 @@
-import React from 'react';
+import {
+  ReactElement
+} from 'react';
 
 import {
   PackageInfo
@@ -6,6 +8,6 @@ import {
 
 import pkgInfo from '../../package.json';
 
-export default function PkgInfo(): JSX.Element {
+export default function PkgInfo(): ReactElement {
   return <PackageInfo info={pkgInfo} />;
 }
