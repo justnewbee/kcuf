@@ -5,7 +5,7 @@ import {
 
 import {
   IModelProps,
-  IModelReducer,
+  TModelReducer,
   IModelProviderProps
 } from '../types';
 import {
@@ -19,7 +19,7 @@ export default function Provider({
   children,
   ...props
 }: IModelProviderProps): ReactElement {
-  const [state, dispatch] = useReducer<IModelReducer, IModelProps>(reducer, props, createInitialState);
+  const [state, dispatch] = useReducer<TModelReducer, IModelProps>(reducer, props, createInitialState);
   
   return <Context.Provider value={{
     props,

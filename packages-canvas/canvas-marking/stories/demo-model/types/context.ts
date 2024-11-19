@@ -3,9 +3,6 @@ import {
 } from 'react';
 
 import {
-  IModelProps
-} from './props';
-import {
   IModelState
 } from './state';
 import {
@@ -13,14 +10,13 @@ import {
   TModelDispatch
 } from './action';
 
-export type IModelReducer = (state: IModelState, action: TModelAction) => IModelState;
+export type TModelReducer = (state: IModelState, action: TModelAction) => IModelState;
 
 export interface IModelContext {
-  props: IModelProps;
   state: IModelState;
   dispatch: TModelDispatch;
 }
 
-export interface IModelProviderProps extends IModelProps {
+export interface IModelProviderProps {
   children: ReactNode;
 }

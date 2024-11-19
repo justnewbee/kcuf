@@ -9,7 +9,7 @@ import {
   TModelDispatch
 } from './action';
 
-export type IModelReducer = (state: IModelState, action: TModelAction) => IModelState;
+export type TModelReducer = (state: IModelState, action: TModelAction) => IModelState;
 
 export interface IModelValue {
   props: IModelProps;

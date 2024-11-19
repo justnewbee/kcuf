@@ -16,7 +16,7 @@ import {
   IMarkingItemStats
 } from './stats';
 import {
-  IBeforeHook
+  TBeforeHook
 } from './events';
 
 /**
@@ -148,7 +148,7 @@ export interface IMarkingItemClass<T = void> {
    */
   pushPoint(): boolean | 'close' | 'last';
   
-  finishCreating(beforeHook?: IBeforeHook<T>): boolean;
+  finishCreating(beforeHook?: TBeforeHook<T>): boolean;
   
   removePoint(): number;
   
@@ -171,7 +171,7 @@ export interface IMarkingItemClass<T = void> {
    */
   processDragging(): boolean | number;
   
-  finishDragging(beforeHook?: IBeforeHook<T>): boolean;
+  finishDragging(beforeHook?: TBeforeHook<T>): boolean;
   
   refreshStats(): IMarkingItemStats<T>;
   

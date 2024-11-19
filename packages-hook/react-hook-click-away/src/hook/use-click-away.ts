@@ -5,11 +5,11 @@ import {
   useEffect
 } from 'react';
 
-type ICallback = (e: MouseEvent) => void;
+type TCallback = (e: MouseEvent) => void;
 
-export default function useClickAway<E extends Element>(callback: ICallback): MutableRefObject<E | null> {
+export default function useClickAway<E extends Element>(callback: TCallback): MutableRefObject<E | null> {
   const refElement = useRef<E>(null);
-  const refCallback = useRef<ICallback>(callback);
+  const refCallback = useRef<TCallback>(callback);
   
   useLayoutEffect(() => {
     refCallback.current = callback;

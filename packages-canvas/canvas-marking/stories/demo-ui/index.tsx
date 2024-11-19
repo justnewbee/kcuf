@@ -20,12 +20,6 @@ interface IScContainerProps {
 const ScContainer = styled.div<IScContainerProps>`
   display: flex;
   flex-direction: column;
-  height: 960px;
-  min-height: 320px;
-  padding: 16px;
-  border: 1px double hsl(203 98% 55%);
-  resize: vertical;
-  overflow: auto;
   
   ${props => props.$fullscreen ? css`
     background-color: hsl(0 0% 100%);
@@ -33,7 +27,9 @@ const ScContainer = styled.div<IScContainerProps>`
   ` : null}
 `;
 const ScMarking = styled.div`
-  flex: 1;
+  height: 960px;
+  min-height: 320px;
+  resize: vertical;
 `;
 
 export default function StoryDefault(): ReactElement {

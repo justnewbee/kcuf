@@ -10,7 +10,7 @@ import {
   IMarkingItemConfig
 } from './marking-item-class';
 import {
-  IBeforeHook,
+  TBeforeHook,
   IOptionsEvents
 } from './events';
 import {
@@ -52,8 +52,8 @@ export interface IMarkingStageOptions<T> extends IMarkingItemConfig, IOptionsEve
   pluginFps?: boolean;
   pluginStats?: boolean;
   // --- 一些钩子方法 --- //
-  beforeCreateComplete?: IBeforeHook<T>; // 新建结束前，自动调整路径
-  beforeEditDragEnd?: IBeforeHook<T>; // 编辑拖拽结束前，自动调整路径
+  beforeCreateComplete?: TBeforeHook<T>; // 新建结束前，自动调整路径
+  beforeEditDragEnd?: TBeforeHook<T>; // 编辑拖拽结束前，自动调整路径
 }
 
 export interface IDrawBorderOptions {

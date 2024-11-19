@@ -34,7 +34,7 @@ export default function pluginStats<T>(markingStage: IMarkingStageClass<T>): IMa
     run(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void {
       showStats(stats, cause);
     },
-    cleanup() {
+    cleanup(): void {
       if (statsElement) {
         stage.removeChild(statsElement);
       }

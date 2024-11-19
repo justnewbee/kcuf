@@ -5,7 +5,7 @@ export default function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
     const img = new Image();
     
-    img.onload = () => {
+    img.onload = (): void => {
       resolve(img);
     };
     

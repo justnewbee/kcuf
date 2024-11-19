@@ -1,6 +1,6 @@
 import _merge from 'lodash/merge';
-import _clamp from 'lodash/clamp';
 import _round from 'lodash/round';
+import _clamp from 'lodash/clamp';
 import _cloneDeep from 'lodash/cloneDeep';
 
 import {
@@ -186,6 +186,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     stage.prepend(imageBg); // 作为其第一个元素，可以不需要设 z-index
     stage.appendChild(canvas);
     container.style.overflow = 'hidden';
+    container.style.position = 'relative';
     container.appendChild(stage);
     
     this.container = container;
@@ -1578,7 +1579,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
       stageSize: roundSize([rectStage.width, rectStage.height]), // 浏览器缩放会影响
       canvasSize: roundSize([rectCanvas.width, rectCanvas.height]),
       canvasCoords: roundCoords([rectCanvas.left - rectStage.left, rectCanvas.top - rectStage.top]),
-      imageStatus: (() => {
+      imageStatus: ((): EImageStatus => {
         if (!imageUrl) {
           return EImageStatus.NONE;
         }

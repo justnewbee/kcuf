@@ -5,7 +5,7 @@ import {
 
 import {
   IModelProviderProps,
-  IModelReducer
+  TModelReducer
 } from '../types';
 import {
   DEFAULT_CONTEXT_STATE
@@ -22,7 +22,7 @@ export default function Provider({
   onChange,
   ...props
 }: IModelProviderProps): ReactElement {
-  const [state, dispatch] = useReducer<IModelReducer>(reducer, DEFAULT_CONTEXT_STATE);
+  const [state, dispatch] = useReducer<TModelReducer>(reducer, DEFAULT_CONTEXT_STATE);
   
   return <Context.Provider value={{
     props,

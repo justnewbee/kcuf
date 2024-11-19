@@ -40,7 +40,7 @@ export default function pluginMove<T>(markingStage: IMarkingStageClass<T>): IMar
   const unbindDocMouseup = bindDocumentEvent('mouseup', () => markingStage.movePause(), true); // 在 document 上收鼠标
   
   return {
-    cleanup() {
+    cleanup(): void {
       unbindDocKeydown();
       unbindDocKeyup();
       unbindDocMouseup();

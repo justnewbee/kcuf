@@ -11,7 +11,7 @@ import {
   IMarkingStageStats
 } from './stats';
 
-export type IBeforeHook<T> = (stats: IMarkingItemStats<T>) => Path | null | void;
+export type TBeforeHook<T> = (stats: IMarkingItemStats<T>) => Path | null | undefined;
 
 /**
  * 所有事件
@@ -37,21 +37,22 @@ export interface IOptionsEvents<T> {
   onStatsChange?(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void;
 }
 
-export interface TSubscribableEvents<T> { // 这个不要用 interface
-  'create-start': () => void;
-  'create-cancel': () => void;
-  'create-complete': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
-  click: (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
-  'selection-change': (stats: IMarkingItemStats<T> | null, statsList: IMarkingItemStats<T>[]) => void;
-  'point-remove': (stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]) => void;
-  'point-insert': (stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]) => void;
-  'drag-end': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
-  'edit-cancel': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
-  'edit-complete': (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
-  delete: (stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]) => void;
-  'zoom-change': (zoomLevel: number, zoomLevelPrev: number) => void;
-  'move-start': () => void;
-  'move-pause': () => void;
-  'move-end': () => void;
-  'stats-change': (stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause) => void;
-}
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+export type TSubscribableEvents<T> = { // 这个不用 interface
+  'create-start'(): void;
+  'create-cancel'(): void;
+  'create-complete'(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  click(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  'selection-change'(stats: IMarkingItemStats<T> | null, statsList: IMarkingItemStats<T>[]): void;
+  'point-remove'(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
+  'point-insert'(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
+  'drag-end'(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  'edit-cancel'(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  'edit-complete'(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  delete(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  'zoom-change'(zoomLevel: number, zoomLevelPrev: number): void;
+  'move-start'(): void;
+  'move-pause'(): void;
+  'move-end'(): void;
+  'stats-change'(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void;
+};

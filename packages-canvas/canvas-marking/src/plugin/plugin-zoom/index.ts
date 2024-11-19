@@ -17,15 +17,15 @@ export default function pluginZoom<T>(markingStage: IMarkingStageClass<T>): IMar
     switch (key) {
     case '=': // +
       shift ? markingStage.zoomMax() : markingStage.zoomIn();
-        
+      
       return true;
     case '-':
       shift ? markingStage.zoomMin() : markingStage.zoomOut();
-        
+      
       return true;
     case '0':
       markingStage.zoomReset(); // TODO 是不是有个 100%
-        
+      
       return true;
     default:
       return false;
@@ -68,7 +68,7 @@ export default function pluginZoom<T>(markingStage: IMarkingStageClass<T>): IMar
     run(stats: IMarkingStageStats<T>): void {
       willZoom = !!stats.mouseInStage;
     },
-    cleanup() {
+    cleanup(): void {
       unbindDocKeydown();
       unbindDocWheel();
     }

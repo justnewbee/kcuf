@@ -54,7 +54,7 @@ export default function pluginFps<T>(markingStage: IMarkingStageClass<T>): IMark
   requestAnimationFrame(updateFps);
   
   return {
-    cleanup() {
+    cleanup(): void {
       stage.removeChild(divFps);
       
       if (rafHandle) {

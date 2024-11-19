@@ -30,7 +30,7 @@ export default function pluginSnapping<T>(markingStage: IMarkingStageClass<T>): 
     run(stats: IMarkingStageStats<T>): void {
       inCanvas = !!stats.mouseInCanvas;
     },
-    cleanup() {
+    cleanup(): void {
       unbindDocKeydown();
       unbindDocKeyup();
     }

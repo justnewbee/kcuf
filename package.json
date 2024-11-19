@@ -47,10 +47,11 @@
     "typescript": "^5.6.3"
   },
   "scripts": {
+    "fuck": "eslint packages-canvas/canvas-marking/stories/demo-ui/index.tsx",
     "prepare": "husky",
     "boot": "pnpm clean && pnpm i --force --no-lockfile --registry https://registry.npmmirror.com",
     "boot:packages": "pnpm -r prepublishOnly",
-    "clean": "rm -rf node_modules packages*/*/node_modules",
+    "clean": "rm -rf node_modules packages*/**/node_modules",
     "ncu": "ncu --registry https://registry.npmmirror.com",
     "ncu:packages": "pnpm -r exec ncu --registry https://registry.npmmirror.com",
     "depcheck": "depcheck",

@@ -13,7 +13,7 @@ import createFpsStyle from './create-fps-style';
 export default function createFpsElements(stage: HTMLDivElement): [HTMLDivElement, HTMLDivElement, HTMLDivElement] {
   const divFps = createDiv(createFpsStyle(stage));
   const divFpsText = createDiv(CLASS_FPS_TEXT, '-');
-  const divFpsGraph = createDiv(CLASS_FPS_GRAPH, (() => {
+  const divFpsGraph = createDiv(CLASS_FPS_GRAPH, ((): string => {
     const fpsBars = [];
     
     for (let i = 0; i < BAR_COUNT; i++) {

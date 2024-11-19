@@ -30,7 +30,7 @@ export default function pluginMagnet<T>(markingStage: IMarkingStageClass<T>): IM
     run(stats: IMarkingStageStats<T>): void {
       inCanvas = !!stats.mouseInCanvas;
     },
-    cleanup() {
+    cleanup(): void {
       unbindDocKeydown();
       unbindDocKeyup();
     }

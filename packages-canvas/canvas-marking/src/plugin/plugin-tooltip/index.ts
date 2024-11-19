@@ -93,7 +93,7 @@ export default function pluginTooltip<T>(markingStage: IMarkingStageClass<T>, pl
       
       showTooltip(message, stats);
     },
-    cleanup() {
+    cleanup(): void {
       if (tooltipElement) {
         stage.removeChild(tooltipElement);
       }

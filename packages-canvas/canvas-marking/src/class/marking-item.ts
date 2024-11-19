@@ -25,7 +25,7 @@ import {
   EMarkingMouseStatus
 } from '../enum';
 import {
-  IBeforeHook,
+  TBeforeHook,
   TCreatingWillFinish,
   TMarkingBorderStyleResolved,
   TMarkingFillStyleResolved,
@@ -455,7 +455,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
       case 'rect':
       case 'rect2':
         creatingWillFinish = canFinishRect(pathForDraw, imageScale); // 自由矩形只需要三个点
-          
+        
         break;
       default:
         if (hoveringPointIndex === 0 && pathForDraw.length >= min) { // 手动闭合：在第一个点上，且已有点数 >= minPoint
@@ -463,7 +463,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
         } else if (max > 0 && pathForDraw.length >= max) {
           creatingWillFinish = true;
         }
-          
+        
         break;
       }
     }
@@ -756,7 +756,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     this.pathSnapshotEditing = _cloneDeep(this.path);
   }
   
-  finishCreating(beforeCreateComplete?: IBeforeHook<T>): boolean {
+  finishCreating(beforeCreateComplete?: TBeforeHook<T>): boolean {
     if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
       return false;
     }
@@ -826,31 +826,31 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     case 'rect': // path 只可能是 0、1、4 个点
     case 'rect2': // path 只可能是 0、1、2、4 个点
       newPath = this.getPathForDraw();
-        
+      
       if (newPath.length >= 4) {
         if (canFinishRect(newPath, imageScale)) { // TODO 这里和 creatingWillFinish 有点冗余
           this.path = newPath;
-            
+          
           last = true;
         }
       } else {
         this.path = newPath;
       }
-        
+      
       break;
     default:
       last = max > 0 && this.path.length + 1 >= max;
-        
+      
       if (last && stats.crossing) { // 即将添加的是最末一个点，需避免 crossing
         return false;
       }
-        
+      
       if (isPointOnPath(imageMouse, this.path, true)) {
         return false;
       }
-        
+      
       this.path.push(imageMouse);
-        
+      
       break;
     }
     
@@ -937,7 +937,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
     return true;
   }
   
-  finishDragging(beforeEditDragEnd?: IBeforeHook<T>): boolean {
+  finishDragging(beforeEditDragEnd?: TBeforeHook<T>): boolean {
     if (!this.draggingStartCoords) {
       return false;
     }
