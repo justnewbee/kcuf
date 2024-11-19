@@ -5,7 +5,7 @@ import {
 } from 'react';
 
 import {
-  IOnChange,
+  TOnChange,
   THookReturn
 } from '../types';
 import {
@@ -18,7 +18,7 @@ import useControllable from './use-controllable';
 /**
  * 软 trim，不至于不可输入空格，但 onChange 永远得到的是 trim 后的值
  */
-export default function useControllableSoftTrim<A extends unknown[] = []>(softTrim = true, value?: string, defaultValue?: string, onChange?: IOnChange<string, A>): THookReturn<string, A> {
+export default function useControllableSoftTrim<A extends unknown[] = []>(softTrim = true, value?: string, defaultValue?: string, onChange?: TOnChange<string, A>): THookReturn<string, A> {
   const [controllableValue, setControllableValue] = useControllable('', value, defaultValue, onChange);
   const [stateValue, setStateValue] = useState(controllableValue);
   

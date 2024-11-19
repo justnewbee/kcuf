@@ -44,10 +44,10 @@ const ScSwitch = styled.span`
 
 const ScSwitchButton = styled.button<IScProps>`
   position: relative;
-  border: ${SPACING_INPUT_SWITCH_INNER}px solid transparent;
-  border-radius: ${HEIGHT_INPUT_SWITCH}px;
   width: ${WIDTH_INPUT_SWITCH}px;
   height: ${HEIGHT_INPUT_SWITCH}px;
+  border: ${SPACING_INPUT_SWITCH_INNER}px solid transparent;
+  border-radius: ${HEIGHT_INPUT_SWITCH}px;
   line-height: 2;
   cursor: pointer;
   
@@ -57,11 +57,11 @@ const ScSwitchButton = styled.button<IScProps>`
     content: '';
     position: absolute;
     top: 0;
-    border-radius: 50%;
-    box-shadow: 0 1px 2px 0 hsl(0 0% 0% / 16%);
-    background-color: hsl(0 0% 100%);
     width: ${SIZE_INPUT_SWITCH_KNOB}px;
     height: ${SIZE_INPUT_SWITCH_KNOB}px;
+    background-color: hsl(0 0% 100%);
+    border-radius: 50%;
+    box-shadow: 0 1px 2px 0 hsl(0 0% 0% / 16%);
     transition: all linear 160ms;
     ${getStyledSwitchKnobPosition}
   }

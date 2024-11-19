@@ -1,15 +1,5 @@
 import {
-  ReactElement
-} from 'react';
+  IChoiceGroupBaseProps
+} from '../../choice-group-base';
 
-import {
-  IDataSourceItem
-} from '../../../types';
-
-export interface IChoiceGroupRadioProps<T> {
-  dataSource: IDataSourceItem<T>[];
-  label?: string | ReactElement;
-  value?: T;
-  defaultValue?: T;
-  onChange?(value: T): void;
-}
+export interface IChoiceGroupRadioProps<T> extends IChoiceGroupBaseProps<T> {}

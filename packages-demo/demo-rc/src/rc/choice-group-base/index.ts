@@ -1,15 +1,11 @@
-import {
-  ReactElement
-} from 'react';
 import styled from 'styled-components';
 
 import {
   IDataSourceItem
 } from '../../types';
 
-export interface IChoiceGroupBaseProps<T, V = T | T[]> {
+export interface IChoiceGroupBaseProps<T, V extends T | T[] = T> {
   dataSource: IDataSourceItem<T>[];
-  label?: string | ReactElement;
   value?: V;
   defaultValue?: V;
   onChange?(value: V): void;
@@ -17,11 +13,6 @@ export interface IChoiceGroupBaseProps<T, V = T | T[]> {
 
 export const ScChoiceGroup = styled.div`
   line-height: 2;
-`;
-
-export const ScChoiceGroupLabel = styled.label`
-  display: inline-block;
-  margin-right: 20px;
 `;
 
 export const ScChoiceGroupItem = styled.label`

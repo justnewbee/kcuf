@@ -4,14 +4,14 @@ import {
 } from 'react';
 
 import {
-  IOnChange,
+  TOnChange,
   THookReturn
 } from '../types';
 
 /**
  * 类型明确的情况下（非泛型场景），可以使用此带最终默认值的受控 hook
  */
-export default function useControllable<T = string, A extends unknown[] = []>(finalDefault: T, value?: T, defaultValue?: T, onChange?: IOnChange<T, A>): THookReturn<T, A> {
+export default function useControllable<T = string, A extends unknown[] = []>(finalDefault: T, value?: T, defaultValue?: T, onChange?: TOnChange<T, A>): THookReturn<T, A> {
   const [stateValue, setStateValue] = useState<T>(value ?? defaultValue ?? finalDefault);
   const finalValue = value !== undefined ? value : stateValue;
   

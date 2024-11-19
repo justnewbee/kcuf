@@ -1,5 +1,6 @@
 import {
-  ReactElement
+  ReactElement,
+  useState
 } from 'react';
 
 import {
@@ -7,14 +8,30 @@ import {
 } from '../../src';
 
 export default function StoryDefault(): ReactElement {
-  return <ChoiceGroupRadio<string> {...{
-    label: 'Label',
-    dataSource: [{
-      value: 's1',
-      label: 'check 1'
-    }, {
-      value: 's2',
-      label: 'check 2'
-    }]
-  }} />;
+  const [stateValue, setStateValue] = useState('s1');
+  
+  return <>
+    <ChoiceGroupRadio<string> {...{
+      dataSource: [{
+        value: 's1',
+        label: 'check 1'
+      }, {
+        value: 's2',
+        label: 'check 2'
+      }],
+      value: stateValue,
+      onChange: setStateValue
+    }} />
+    <ChoiceGroupRadio<string> {...{
+      dataSource: [{
+        value: 's1',
+        label: 'check 1'
+      }, {
+        value: 's2',
+        label: 'check 2'
+      }],
+      value: stateValue,
+      onChange: setStateValue
+    }} />
+  </>;
 }
