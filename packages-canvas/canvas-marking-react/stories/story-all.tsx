@@ -1,6 +1,7 @@
 import {
   ReactElement
 } from 'react';
+import styled from 'styled-components';
 
 import {
   MinimalNormalize
@@ -8,12 +9,14 @@ import {
 
 import CanvasMarking from '../src';
 
-import PkgInfo from './rc/pkg-info';
+const ScCanvasMarking = styled(CanvasMarking)`
+  min-height: 800px;
+  resize: vertical;
+`;
 
 export default function DemoAll(): ReactElement {
   return <>
     <MinimalNormalize />
-    <PkgInfo />
-    <CanvasMarking />
+    <ScCanvasMarking />
   </>;
 }

@@ -7,7 +7,5 @@ import {
 } from '../../src';
 
 export default function StoryDefault(): ReactElement {
-  return <>
-    <JsonViewer o="hello string" />
-  </>;
+  return <JsonViewer o="hello string" />;
 }

@@ -12,9 +12,9 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleSetDataSexy(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((): void => {
-    markingStage?.setData(getGirlImageUrl(), DEMO_MARKINGS_GIRL);
-  }, [markingStage]);
+    markingInstance?.setData(getGirlImageUrl(), DEMO_MARKINGS_GIRL);
+  }, [markingInstance]);
 }

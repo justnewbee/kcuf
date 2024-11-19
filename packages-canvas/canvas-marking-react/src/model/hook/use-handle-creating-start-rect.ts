@@ -5,11 +5,11 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleCreatingStartRect(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((): void => {
-    markingStage?.startCreating({
+    markingInstance?.startCreating({
       type: 'rect'
     });
-  }, [markingStage]);
+  }, [markingInstance]);
 }

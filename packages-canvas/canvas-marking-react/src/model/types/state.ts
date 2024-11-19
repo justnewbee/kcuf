@@ -4,11 +4,12 @@ import {
 } from '@kcuf/canvas-marking';
 
 export interface IModelState {
-  everInit: boolean;
   domContainer: HTMLDivElement | null;
-  domMarking: HTMLDivElement | null;
-  markingStage: MarkingStageClassType | null;
-  markingStageStats: MarkingStageStats | null;
+  markingInstance: MarkingStageClassType | null;
+  
+  everInit: boolean;
+  
+  markingInstanceStats: MarkingStageStats | null;
   logEvents: boolean;
   fullscreen: boolean; // TODO use useFullscreen hook
 }

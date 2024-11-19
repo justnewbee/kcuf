@@ -5,9 +5,9 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleCreatingFinish(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((): void => {
-    markingStage?.finishCreating();
-  }, [markingStage]);
+    markingInstance?.finishCreating();
+  }, [markingInstance]);
 }

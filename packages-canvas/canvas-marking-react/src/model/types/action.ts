@@ -14,13 +14,13 @@ import {
 export type TModelAction = {
   type: EAction.SET_EVER_INIT;
 } | {
-  type: EAction.SET_DOM_CONTAINER | EAction.SET_DOM_MARKING;
+  type: EAction.SET_DOM_CONTAINER;
   payload: HTMLDivElement | null;
 } | {
-  type: EAction.SET_MARKING_STAGE;
+  type: EAction.SET_MARKING_INSTANCE;
   payload: MarkingStageClassType | null;
 } | {
-  type: EAction.SET_MARKING_STAGE_STATS;
+  type: EAction.SET_MARKING_STATS;
   payload: MarkingStageStats | null;
 } | {
   type: EAction.TOGGLE_LOG_EVENTS | EAction.TOGGLE_FULLSCREEN;

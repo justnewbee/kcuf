@@ -14,6 +14,6 @@ export default function reduceSetMarkingStage(state: IModelState, payload: Marki
   return produce(state, draft => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    draft.markingStage = payload;
+    draft.markingInstance = payload;
   });
 }

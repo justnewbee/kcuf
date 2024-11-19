@@ -1,3 +1,5 @@
+export * from './common';
+
 // import {
 //   HTMLAttributes
 // } from 'react';

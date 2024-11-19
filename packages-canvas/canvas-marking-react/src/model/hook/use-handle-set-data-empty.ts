@@ -5,9 +5,9 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleSetDataEmpty(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((): void => {
-    markingStage?.setData('', []);
-  }, [markingStage]);
+    markingInstance?.setData('', []);
+  }, [markingInstance]);
 }

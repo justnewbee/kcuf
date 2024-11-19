@@ -19,18 +19,18 @@ import useDispatchSetMarkingStageStats from './use-dispatch-set-marking-stage-st
 
 export default function useInit(): () => void {
   const {
-    domMarking,
-    markingStage
+    domContainer,
+    markingInstance
   } = useModelState();
   const dispatchSetEverInit = useDispatchSetEverInit();
   const dispatchSetMarkingStage = useDispatchSetMarkingStage();
   const dispatchSetMarkingStageStats = useDispatchSetMarkingStageStats();
   
   return useCallback(() => {
-    if (domMarking && !markingStage) {
+    if (domContainer && !markingInstance) {
       dispatchSetEverInit();
       
-      dispatchSetMarkingStage(new CanvasMarking(domMarking, {
+      dispatchSetMarkingStage(new CanvasMarking(domContainer, {
         image: IMAGE_AERIAL,
         items: DEMO_MARKINGS_AERIAL,
         pluginFps: true,
@@ -41,5 +41,5 @@ export default function useInit(): () => void {
         onStatsChange: dispatchSetMarkingStageStats
       }));
     }
-  }, [domMarking, markingStage, dispatchSetEverInit, dispatchSetMarkingStage, dispatchSetMarkingStageStats]);
+  }, [domContainer, markingInstance, dispatchSetEverInit, dispatchSetMarkingStage, dispatchSetMarkingStageStats]);
 }

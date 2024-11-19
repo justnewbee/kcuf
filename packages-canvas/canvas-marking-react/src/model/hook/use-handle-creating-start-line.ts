@@ -5,15 +5,15 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleCreatingStartLine(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((): void => {
-    markingStage?.startCreating({
+    markingInstance?.startCreating({
       pointStyle: {
         type: 'square'
       },
       pointCountMin: 2,
       pointCountMax: 2
     });
-  }, [markingStage]);
+  }, [markingInstance]);
 }

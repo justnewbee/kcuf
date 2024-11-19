@@ -5,9 +5,9 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleDebugStats(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((): void => {
-    console.info(markingStage?.getStats()); // eslint-disable-line no-console
-  }, [markingStage]);
+    console.info(markingInstance?.getStats()); // eslint-disable-line no-console
+  }, [markingInstance]);
 }

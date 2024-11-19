@@ -22,8 +22,8 @@ import {
 
 export default function OpsOverall(): ReactElement {
   const init = useInit();
-  const markingStage = useMarkingStage();
-  const markingStageStats = useMarkingStageStats();
+  const markingInstance = useMarkingStage();
+  const markingInstanceStats = useMarkingStageStats();
   const fullscreen = useFullscreen();
   const logEvents = useLogEvents();
   const handleToggleFullscreen = useHandleToggleFullscreen();
@@ -37,15 +37,15 @@ export default function OpsOverall(): ReactElement {
       onClick: handleToggleFullscreen
     }}>{fullscreen ? '退出全屏' : '进入全屏'}</Button>
     <Button {...{
-      onClick: markingStage ? handleDestroy : init
-    }}>{markingStage ? 'destroy' : 'init'}</Button>
-    {markingStage ? <>
+      onClick: markingInstance ? handleDestroy : init
+    }}>{markingInstance ? 'destroy' : 'init'}</Button>
+    {markingInstance ? <>
       <Button {...{
         onClick: handleDebugStats
       }}>stats</Button>
       <Button {...{
         onClick: handleToggleDisabled
-      }}>{markingStageStats?.disabled ? 'enable' : 'disable'}</Button>
+      }}>{markingInstanceStats?.disabled ? 'enable' : 'disable'}</Button>
       <InputSwitch {...{
         label: '打印事件',
         value: logEvents,

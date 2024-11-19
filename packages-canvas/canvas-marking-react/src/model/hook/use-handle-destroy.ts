@@ -7,14 +7,14 @@ import useDispatchSetMarkingStage from './use-dispatch-set-marking-stage';
 
 export default function useHandleDestroy(): () => void {
   const {
-    markingStage
+    markingInstance
   } = useModelState();
   const dispatchSetMarkingStage = useDispatchSetMarkingStage();
   
   return useCallback(() => {
-    if (markingStage) {
-      markingStage.destroy();
+    if (markingInstance) {
+      markingInstance.destroy();
       dispatchSetMarkingStage(null);
     }
-  }, [markingStage, dispatchSetMarkingStage]);
+  }, [markingInstance, dispatchSetMarkingStage]);
 }

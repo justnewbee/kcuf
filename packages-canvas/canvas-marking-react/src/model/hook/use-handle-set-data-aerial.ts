@@ -10,9 +10,9 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleSetDataAerial(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((): void => {
-    markingStage?.setData(IMAGE_AERIAL, DEMO_MARKINGS_AERIAL);
-  }, [markingStage]);
+    markingInstance?.setData(IMAGE_AERIAL, DEMO_MARKINGS_AERIAL);
+  }, [markingInstance]);
 }

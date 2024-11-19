@@ -19,11 +19,11 @@ const ScActions = styled.div`
 `;
 
 export default function Ops(): ReactElement {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return <ScActions>
     <OpsOverall />
-    {markingStage ? <>
+    {markingInstance ? <>
       <OpsImageData />
       <OpsMarkings />
       <OpsSelect />

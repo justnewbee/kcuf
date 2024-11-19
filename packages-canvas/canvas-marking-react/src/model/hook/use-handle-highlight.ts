@@ -9,9 +9,9 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleHighlight(): (finder: MarkingItemFinder<unknown>, borderIndex?: number) => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((finder: MarkingItemFinder<unknown>, borderIndex?: number): void => {
-    markingStage?.highlightItem(finder, borderIndex);
-  }, [markingStage]);
+    markingInstance?.highlightItem(finder, borderIndex);
+  }, [markingInstance]);
 }

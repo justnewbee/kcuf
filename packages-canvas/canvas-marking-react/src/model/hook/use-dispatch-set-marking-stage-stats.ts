@@ -16,7 +16,7 @@ export default function useDispatchSetMarkingStageStats(): (payload: MarkingStag
   const dispatch = useModelDispatch();
   
   return useCallback((payload: MarkingStageStats | null) => dispatch({
-    type: EAction.SET_MARKING_STAGE_STATS,
+    type: EAction.SET_MARKING_STATS,
     payload
   }), [dispatch]);
 }

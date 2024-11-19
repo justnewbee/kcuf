@@ -5,9 +5,9 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleZoomOut(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((): void => {
-    markingStage?.zoomOut();
-  }, [markingStage]);
+    markingInstance?.zoomOut();
+  }, [markingInstance]);
 }

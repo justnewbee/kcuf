@@ -9,9 +9,9 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleSelect(): (finder: MarkingItemFinder<unknown>) => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((finder: MarkingItemFinder<unknown>): void => {
-    markingStage?.selectItem(finder);
-  }, [markingStage]);
+    markingInstance?.selectItem(finder);
+  }, [markingInstance]);
 }

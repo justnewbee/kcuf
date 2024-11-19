@@ -43,6 +43,7 @@
     "@storybook/react": "^8.4.4",
     "@storybook/react-vite": "^8.4.4",
     "@storybook/test": "^8.4.4",
+    "@types/lodash": "^4.17.13",
     "@types/react": "^18.3.12",
     "babel-plugin-styled-components": "^2.1.4",
     "react": "^18.3.1",
@@ -52,7 +53,7 @@
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.24.8",
+    "@babel/runtime": "^7.x",
     "react": "^18.x",
     "styled-components": "^6.x"
   },
@@ -76,7 +77,8 @@
     "@kcuf/react-hook-controllable": "workspace:^",
     "@uiw/codemirror-theme-material": "^4.23.6",
     "codemirror-json5": "^1.0.3",
-    "json5": "^2.2.3"
+    "json5": "^2.2.3",
+    "lodash": "^4.17.21"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

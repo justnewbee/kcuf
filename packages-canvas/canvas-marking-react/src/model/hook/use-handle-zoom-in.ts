@@ -5,9 +5,9 @@ import {
 import useMarkingStage from './use-marking-stage';
 
 export default function useHandleZoomIn(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingStage();
   
   return useCallback((): void => {
-    markingStage?.zoomIn();
-  }, [markingStage]);
+    markingInstance?.zoomIn();
+  }, [markingInstance]);
 }
