@@ -35,7 +35,7 @@
     "commander": "^12.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.15.0",
-    "husky": "^9.1.6",
+    "husky": "^9.1.7",
     "lerna": "^8.1.9",
     "lint-staged": "^15.2.10",
     "markdownlint-cli2": "^0.15.0",
@@ -47,7 +47,6 @@
     "typescript": "^5.6.3"
   },
   "scripts": {
-    "fuck": "eslint packages-rc/rc-button/src",
     "prepare": "husky",
     "boot": "pnpm clean && pnpm i --force --no-lockfile --registry https://registry.npmmirror.com",
     "boot:packages": "pnpm -r prepublishOnly",
@@ -63,8 +62,5 @@
     "lerna:publish:patch": "lerna publish patch",
     "lerna:publish:minor": "lerna publish minor",
     "lerna:publish:canary": "lerna publish --npm-tag=canary --canary=canary"
-  },
-  "resolutions": {
-    "eslint": "9.14.0"
   }
 }
