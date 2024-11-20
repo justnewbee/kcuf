@@ -13,7 +13,7 @@ import {
 /**
  * 在 stage 左上角展示 FTP，仅用于开发时
  */
-export default function pluginFps<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginFps<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     stage
   } = markingStage;

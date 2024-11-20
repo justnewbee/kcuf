@@ -11,10 +11,10 @@ import Model, {
 
 import Ui from '../ui';
 
-function WithModel(props: CanvasMarkingProps, ref: ForwardedRef<CanvasMarkingImperativeRef>): ReactElement {
-  return <Model {...props}>
-    <Ui ref={ref} />
+function WithModel<T = unknown>(props: CanvasMarkingProps<T>, ref: ForwardedRef<CanvasMarkingImperativeRef<T>>): ReactElement {
+  return <Model {...props as CanvasMarkingProps<unknown>}>
+    <Ui ref={ref as ForwardedRef<CanvasMarkingImperativeRef>} />
   </Model>;
 }
 
-export default forwardRef(WithModel);
+export default forwardRef(WithModel) as typeof WithModel;

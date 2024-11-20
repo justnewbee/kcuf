@@ -5,11 +5,11 @@ import {
   CanvasMarkingStats
 } from '@kcuf/canvas-marking';
 
-export interface IImperativeRef {
-  startCreating(options?: MarkingConfigItem): void;
+export interface IImperativeRef<T = unknown> {
+  startCreating(options?: MarkingConfigItem<T>): void;
   cancelCreating(): void;
-  select(finder: MarkingItemFinder<unknown>): void;
-  highlight(finder: MarkingItemFinder<unknown>, borderIndex?: number | null): void;
+  select(finder: MarkingItemFinder<T>): void;
+  highlight(finder: MarkingItemFinder<T>, borderIndex?: number | null): void;
   zoom(how: ZoomHow): void;
-  getStats(): CanvasMarkingStats | null;
+  getStats(): CanvasMarkingStats<T> | null;
 }

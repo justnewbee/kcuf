@@ -66,7 +66,7 @@ import {
 
 import CanvasMarkingItem from './canvas-marking-item';
 
-export default class CanvasMarking<T = void> extends Subscribable<TSubscribableEvents<T>> implements ICanvasMarkingClass<T> {
+export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribableEvents<T>> implements ICanvasMarkingClass<T> {
   private readonly container: HTMLElement;
   readonly options: ICanvasMarkingOptions<T>;
   readonly stage: HTMLDivElement;

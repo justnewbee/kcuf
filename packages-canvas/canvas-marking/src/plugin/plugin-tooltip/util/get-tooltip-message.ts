@@ -7,7 +7,7 @@ import {
 import getTooltipMessageBasic from './get-tooltip-message-basic';
 import getTooltipMessageExtra from './get-tooltip-message-extra';
 
-export default function getTooltipMessage<T>(stats: ICanvasMarkingStats<T>, options: ICanvasMarkingOptions<T>, pluginOptions: IMarkingTooltipOptions<T>): string {
+export default function getTooltipMessage<T = unknown>(stats: ICanvasMarkingStats<T>, options: ICanvasMarkingOptions<T>, pluginOptions: IMarkingTooltipOptions<T>): string {
   if (!stats.mouseInCanvas) {
     return '';
   }

@@ -11,7 +11,7 @@ import {
   ICanvasMarkingStats
 } from './stats';
 
-export type TBeforeHook<T> = (stats: IMarkingItemStats<T>) => Path | null | undefined;
+export type TBeforeHook<T = unknown> = (stats: IMarkingItemStats<T>) => Path | null | undefined;
 
 /**
  * 所有事件

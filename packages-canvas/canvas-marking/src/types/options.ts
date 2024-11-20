@@ -24,7 +24,7 @@ export interface IMarkingZoomOptions {
   max?: number;
 }
 
-export interface IMarkingTooltipOptions<T> {
+export interface IMarkingTooltipOptions<T = unknown> {
   offsetX?: number;
   offsetY?: number;
   /**

@@ -11,6 +11,7 @@ import {
   Hr,
   Button,
   Form,
+  InputCheckbox,
   InputSwitch,
   ChoiceGroupRadio
 } from '@kcuf/demo-rc';
@@ -18,6 +19,9 @@ import {
   ZoomHow,
   MarkingConfigItem
 } from '@kcuf/canvas-marking';
+import {
+  CanvasMarkingProps
+} from '@kcuf/canvas-marking-react-headless';
 
 import CanvasMarking, {
   CanvasMarkingImperativeRef
@@ -31,7 +35,8 @@ import {
 } from './const';
 import {
   getImageUrl,
-  getMarkingItems
+  getMarkingItems,
+  getHoveringInfo
 } from './util';
 
 const ScCanvasMarking = styled(CanvasMarking)`
@@ -39,12 +44,33 @@ const ScCanvasMarking = styled(CanvasMarking)`
   resize: vertical;
 `;
 
+interface IPlugins extends Required<CanvasMarkingProps['plugins']> {
+  cursor: boolean;
+  tooltip: boolean;
+  magnet: boolean;
+  snapping: boolean;
+  zoom: boolean;
+  move: boolean;
+  stats: boolean;
+  fps: boolean;
+}
+
 export default function StoryDefault(): ReactElement {
   const ref = useRef<CanvasMarkingImperativeRef>(null);
   
   const [stateImageType, setStateImageType] = useState<EImageType>(EImageType.ARIAL);
   const [stateImageUrl, setStateImageUrl] = useState('');
   const [stateMarkingItems, setStateMarkingItems] = useState<MarkingConfigItem[]>([]);
+  const [statePlugins, setStatePlugins] = useState<IPlugins>({
+    cursor: true,
+    tooltip: true,
+    magnet: true,
+    snapping: true,
+    zoom: true,
+    move: true,
+    stats: true,
+    fps: true
+  });
   const [stateDisabled, setStateDisabled] = useState(false);
   const [stateUnmounted, setStateUnmounted] = useState(false);
   
@@ -59,13 +85,85 @@ export default function StoryDefault(): ReactElement {
       ref,
       imageUrl: stateImageUrl,
       markingItems: stateMarkingItems,
-      disabled: stateDisabled
+      disabled: stateDisabled,
+      tooltipOptions: {
+        getHoveringInfo
+      },
+      plugins: statePlugins
     }} />}
     <Hr />
     <Form {...{
       dense: true,
       items: [{
-        label: 'create',
+        label: '插件',
+        content: <>
+          <InputCheckbox {...{
+            label: 'cursor',
+            checked: statePlugins.cursor,
+            onChange: checked => setStatePlugins(prevState => ({
+              ...prevState,
+              cursor: checked
+            }))
+          }} />
+          <InputCheckbox {...{
+            label: 'tooltip',
+            checked: statePlugins.tooltip,
+            onChange: checked => setStatePlugins(prevState => ({
+              ...prevState,
+              tooltip: checked
+            }))
+          }} />
+          <InputCheckbox {...{
+            label: 'magnet',
+            checked: statePlugins.magnet,
+            onChange: checked => setStatePlugins(prevState => ({
+              ...prevState,
+              magnet: checked
+            }))
+          }} />
+          <InputCheckbox {...{
+            label: 'snapping',
+            checked: statePlugins.snapping,
+            onChange: checked => setStatePlugins(prevState => ({
+              ...prevState,
+              snapping: checked
+            }))
+          }} />
+          <InputCheckbox {...{
+            label: 'zoom',
+            checked: statePlugins.zoom,
+            onChange: checked => setStatePlugins(prevState => ({
+              ...prevState,
+              zoom: checked
+            }))
+          }} />
+          <InputCheckbox {...{
+            label: 'move',
+            checked: statePlugins.move,
+            onChange: checked => setStatePlugins(prevState => ({
+              ...prevState,
+              move: checked
+            }))
+          }} />
+          <InputCheckbox {...{
+            label: 'stats',
+            checked: statePlugins.stats,
+            onChange: checked => setStatePlugins(prevState => ({
+              ...prevState,
+              stats: checked
+            }))
+          }} />
+          <InputCheckbox {...{
+            label: 'fps',
+            checked: statePlugins.fps,
+            onChange: checked => setStatePlugins(prevState => ({
+              ...prevState,
+              fps: checked
+            }))
+          }} />
+        </>
+      }, {
+        label: 'Create',
         content: <>
           <Button {...{
             onClick: () => ref.current?.startCreating()
@@ -99,7 +197,7 @@ export default function StoryDefault(): ReactElement {
           }}>取消</Button>
         </>
       }, {
-        label: 'select',
+        label: 'Select',
         content: <>
           <Button {...{
             onClick: () => ref.current?.select('first')
@@ -118,7 +216,7 @@ export default function StoryDefault(): ReactElement {
           }}>none</Button>
         </>
       }, {
-        label: 'highlight',
+        label: 'Highlight',
         content: <>
           <Button {...{
             onClick: () => ref.current?.highlight('first')
@@ -143,7 +241,7 @@ export default function StoryDefault(): ReactElement {
           }}>next & border-all</Button>
         </>
       }, {
-        label: 'zoom',
+        label: 'Zoom',
         content: <>
           <Button {...{
             onClick: () => ref.current?.zoom(ZoomHow.IN)

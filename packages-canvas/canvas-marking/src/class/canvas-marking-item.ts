@@ -62,7 +62,7 @@ import {
   canvasDrawArea
 } from '../util';
 
-export default class CanvasMarkingItem<T> implements IMarkingItemClass<T> {
+export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass<T> {
   private readonly markingStage: ICanvasMarkingClassProtected<T>;
   
   protected options: IMarkingItemOptions<T>;

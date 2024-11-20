@@ -16,7 +16,7 @@ import {
 /**
  * 单个标记的实时统计信息（注意，并不记录创建中的）
  */
-export interface IMarkingItemStats<T = void> {
+export interface IMarkingItemStats<T = unknown> {
   data?: T; // 附加数据，可以添加你需要的任何数据
   path: Path;
   disabled: boolean;
@@ -49,7 +49,7 @@ export interface IMarkingItemStats<T = void> {
 /**
  * 整体实时统计信息
  */
-export interface ICanvasMarkingStats<T = void> {
+export interface ICanvasMarkingStats<T = unknown> {
   // 整体状态
   disabled: boolean;
   zoom: number;

@@ -15,7 +15,7 @@ import {
 /**
  * 在 stage 右侧展示当前的标注状态，开发时很有用
  */
-export default function pluginStats<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginStats<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     stage
   } = markingStage;

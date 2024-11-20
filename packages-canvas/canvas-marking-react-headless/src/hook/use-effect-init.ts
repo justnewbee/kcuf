@@ -4,14 +4,15 @@ import {
 
 import CanvasMarking from '@kcuf/canvas-marking';
 
-import {
-  getHoveringInfo
-} from '../util';
-
+import useModelProps from './_use-model-props';
 import useModelState from './_use-model-state';
 import useDispatchSetMarkingInstance from './use-dispatch-set-marking-instance';
 
 export default function useEffectInit(): void {
+  const {
+    zoomOptions,
+    tooltipOptions
+  } = useModelProps();
   const {
     domContainer,
     markingInstance
@@ -24,13 +25,10 @@ export default function useEffectInit(): void {
     }
     
     const instance = new CanvasMarking(domContainer, {
-      pluginFps: true,
-      pluginStats: true,
-      pluginTooltip: {
-        getHoveringInfo
-      }
+      zoomOptions,
+      tooltipOptions
     });
     
     dispatchSetCanvasMarking(instance);
-  }, [domContainer, markingInstance, dispatchSetCanvasMarking]);
+  }, [domContainer, markingInstance, zoomOptions, tooltipOptions, dispatchSetCanvasMarking]);
 }

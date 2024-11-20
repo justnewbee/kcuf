@@ -13,7 +13,7 @@ import {
 /**
  * 为 zoom 添加快捷键
  */
-export default function pluginZoom<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginZoom<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   let willZoom = false;
   
   function zoomOnKey(key: string, shift: boolean): boolean {

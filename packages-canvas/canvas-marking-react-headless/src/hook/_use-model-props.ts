@@ -4,6 +4,6 @@ import {
 
 import useModelContext from './_use-model-context';
 
-export default function useModelProps(): IModelProps {
-  return useModelContext().props;
+export default function useModelProps<T = unknown>(): IModelProps<T> {
+  return useModelContext().props as IModelProps<T>;
 }

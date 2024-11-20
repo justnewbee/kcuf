@@ -104,7 +104,7 @@ export interface IMarkingConfigItemBorderDiff {
   [index: number]: IMarkingBorderStyleDiff;
 }
 
-export interface IMarkingConfigItem<T = void> extends IMarkingItemConfig {
+export interface IMarkingConfigItem<T = unknown> extends IMarkingItemConfig {
   path?: Path;
   data?: T; // 附加数据，可以添加你需要的任何数据
   /**
@@ -114,9 +114,9 @@ export interface IMarkingConfigItem<T = void> extends IMarkingItemConfig {
   borderDiff?: IMarkingConfigItemBorderDiff | ((data: T | undefined) => IMarkingConfigItemBorderDiff | undefined);
 }
 
-export interface IMarkingItemOptions<T> extends IMarkingConfigItem<T> {}
+export interface IMarkingItemOptions<T = unknown> extends IMarkingConfigItem<T> {}
 
-export interface IMarkingItemClass<T = void> {
+export interface IMarkingItemClass<T = unknown> {
   getBorderColor(): string;
   
   toggleHovering(value?: boolean): void;

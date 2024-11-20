@@ -9,7 +9,7 @@ import {
 /**
  * 让画布移动，使用 transform，从而不会使内部坐标等受到影响
  */
-export default function pluginMove<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginMove<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     stage,
     canvas

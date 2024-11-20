@@ -30,7 +30,7 @@ import {
 /**
  * 共享给 MarkingItem 的属性，单独一个类型为避免 Item 越权操作
  */
-export interface ICanvasMarkingClassProtected<T = void> {
+export interface ICanvasMarkingClassProtected<T = unknown> {
   readonly options: ICanvasMarkingOptions<T>;
   readonly canvasContext: CanvasRenderingContext2D;
   
@@ -51,7 +51,7 @@ export interface ICanvasMarkingClassProtected<T = void> {
 /**
  * CanvasMarking 需实现的接口
  */
-export interface ICanvasMarkingClass<T = void> extends ICanvasMarkingClassProtected<T>, Subscribable<TSubscribableEvents<T>> {
+export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassProtected<T>, Subscribable<TSubscribableEvents<T>> {
   readonly stage: HTMLDivElement;
   readonly canvas: HTMLCanvasElement;
   

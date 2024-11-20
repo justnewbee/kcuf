@@ -12,7 +12,7 @@ const KEY = 'Alt';
 /**
  * 按住 Alt 键以临时解除磁吸效果
  */
-export default function pluginMagnet<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginMagnet<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   let inCanvas = false;
   
   const unbindDocKeydown = bindDocumentEvent('keydown', (e: KeyboardEvent): void => {

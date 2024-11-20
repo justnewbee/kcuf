@@ -3,7 +3,7 @@ import {
 } from './types';
 
 export default {
-  title: 'CanvasMarking'
+  title: 'CanvasMarkingReact'
 } satisfies TMeta;
 
 export { default as Default } from './story-default';

@@ -3,7 +3,7 @@ import {
   IMarkingTooltipOptions
 } from '../../../types';
 
-export default function getTooltipMessageExtra<T>(stats: ICanvasMarkingStats<T>, pluginOptions: IMarkingTooltipOptions<T>): string | undefined {
+export default function getTooltipMessageExtra<T = unknown>(stats: ICanvasMarkingStats<T>, pluginOptions: IMarkingTooltipOptions<T>): string | undefined {
   const {
     itemStatsCreating,
     itemStatsHovering

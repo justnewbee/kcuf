@@ -9,9 +9,9 @@ import {
   ICanvasMarkingStats
 } from './stats';
 
-export interface IMarkingPlugin<T> {
+export interface IMarkingPlugin<T = unknown> {
   run?(stats: ICanvasMarkingStats<T>, changeCause: EMarkingStatsChangeCause): void;
   cleanup?(): void;
 }
 
-export type TMarkingPluginRegister<T> = (markingStage: ICanvasMarkingClass<T>) => IMarkingPlugin<T>;
+export type TMarkingPluginRegister<T = unknown> = (markingStage: ICanvasMarkingClass<T>) => IMarkingPlugin<T>;
