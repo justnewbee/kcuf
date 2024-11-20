@@ -1,5 +1,7 @@
 export { CanvasMarking as default } from './class';
 
+export * from './plugin';
+
 export {
   EZoomHow as ZoomHow,
   EMarkingStatsChangeCause as MarkingStatsChangeCause
@@ -11,8 +13,13 @@ export type {
 
 export type {
   ICanvasMarkingClass as CanvasMarkingClassType,
+  ICanvasMarkingStats as CanvasMarkingStats,
+  
+  IMarkingItemStats as MarkingItemStats,
+  IMarkingItemConfig as MarkingItemConfig,
   TMarkingItemFinder as MarkingItemFinder,
   
+  IMarkingConfigItem as MarkingConfigItem,
   IMarkingConfigItemBorderDiff as MarkingConfigItemBorderDiff,
   
   IMarkingBorderStyle as MarkingBorderStyle,
@@ -20,11 +27,7 @@ export type {
   IMarkingFillStyle as MarkingFillStyle,
   IMarkingPointStyle as MarkingPointStyle,
   
-  ICanvasMarkingStats as CanvasMarkingStats,
-  IMarkingItemStats as MarkingItemStats,
-  
-  IMarkingConfigItem as MarkingConfigItem,
-  IMarkingItemConfig as MarkingItemConfig,
-  ICanvasMarkingOptions as CanvasMarkingOptions,
-  IMarkingPluginTooltipOptions as MarkingPluginTooltipOptions
+  IMarkingZoomOptions as MarkingZoomOptions,
+  IMarkingTooltipOptions as MarkingTooltipOptions,
+  ICanvasMarkingOptions as CanvasMarkingOptions
 } from './types';

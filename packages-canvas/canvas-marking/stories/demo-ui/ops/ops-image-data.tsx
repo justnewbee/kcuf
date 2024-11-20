@@ -19,7 +19,7 @@ export default function OpsImageData(): ReactElement {
   const handleSetDataNoImage = useHandleSetDataNoImage();
   const handleSetDataEmpty = useHandleSetDataEmpty();
   
-  return <div>
+  return <>
     <Button {...{
       onClick: handleSetDataAerial
     }}>航拍图</Button>
@@ -32,5 +32,5 @@ export default function OpsImageData(): ReactElement {
     <Button {...{
       onClick: handleSetDataEmpty
     }}>空</Button>
-  </div>;
+  </>;
 }

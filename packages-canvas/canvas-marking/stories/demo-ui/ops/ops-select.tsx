@@ -13,7 +13,7 @@ import {
 export default function OpsSelect(): ReactElement {
   const handleSelect = useHandleSelect();
   
-  return <div>
+  return <>
     <Button {...{
       onClick: () => handleSelect('first')
     }}>select(first)</Button>
@@ -29,5 +29,5 @@ export default function OpsSelect(): ReactElement {
     <Button {...{
       onClick: () => handleSelect(null)
     }}>select(none)</Button>
-  </div>;
+  </>;
 }

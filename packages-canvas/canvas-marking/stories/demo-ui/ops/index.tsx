@@ -1,7 +1,10 @@
 import {
   ReactElement
 } from 'react';
-import styled from 'styled-components';
+
+import {
+  Form
+} from '@kcuf/demo-rc';
 
 import {
   useMarkingInstance
@@ -9,26 +12,38 @@ import {
 
 import OpsOverall from './ops-overall';
 import OpsImageData from './ops-image-data';
+import OpsPlugin from './ops-plugin';
 import OpsMarkings from './ops-markings';
 import OpsSelect from './ops-select';
 import OpsHighlight from './ops-highlight';
 import OpsZoom from './ops-zoom';
 
-const ScActions = styled.div`
-  margin-top: 8px;
-`;
-
 export default function Ops(): ReactElement {
   const markingInstance = useMarkingInstance();
   
-  return <ScActions>
-    <OpsOverall />
-    {markingInstance ? <>
-      <OpsImageData />
-      <OpsMarkings />
-      <OpsSelect />
-      <OpsHighlight />
-      <OpsZoom />
-    </> : null}
-  </ScActions>;
+  return <Form {...{
+    dense: true,
+    items: [{
+      label: ' ',
+      content: <OpsOverall />
+    }, ...markingInstance ? [{
+      label: '数据',
+      content: <OpsImageData />
+    }, {
+      label: '插件',
+      content: <OpsPlugin />
+    }, {
+      label: 'Markings',
+      content: <OpsMarkings />
+    }, {
+      label: 'Select',
+      content: <OpsSelect />
+    }, {
+      label: 'Highlight',
+      content: <OpsHighlight />
+    }, {
+      label: 'Zoom',
+      content: <OpsZoom />
+    }] : []]
+  }} />;
 }

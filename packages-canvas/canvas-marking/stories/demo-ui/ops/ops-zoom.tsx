@@ -16,7 +16,7 @@ import {
 export default function OpsZoom(): ReactElement {
   const handleZoom = useHandleZoom();
   
-  return <div>
+  return <>
     <Button {...{
       onClick: () => handleZoom(ZoomHow.OUT)
     }}>zoom-</Button>
@@ -32,5 +32,5 @@ export default function OpsZoom(): ReactElement {
     <Button {...{
       onClick: () => handleZoom(ZoomHow.RESET)
     }}>zoom reset</Button>
-  </div>;
+  </>;
 }

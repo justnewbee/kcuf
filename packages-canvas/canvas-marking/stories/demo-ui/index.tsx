@@ -6,6 +6,10 @@ import styled, {
 } from 'styled-components';
 
 import {
+  Hr
+} from '@kcuf/demo-rc';
+
+import {
   useRefDomContainer,
   useRefDomCanvasMarking,
   useFullscreen
@@ -39,6 +43,7 @@ export default function StoryDefault(): ReactElement {
   
   return <ScContainer ref={refDomContainer} $fullscreen={fullscreen}>
     <ScMarking ref={refDomCanvasMarking} />
+    <Hr />
     <Ops />
   </ScContainer>;
 }

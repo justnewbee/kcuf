@@ -31,7 +31,7 @@ export default function OpsMarkings(): ReactElement {
   const handleDeleteActiveItem = useHandleDeleteActiveItem();
   const handleDeleteAllItems = useHandleDeleteAllItems();
   
-  return <div>
+  return <>
     <Button {...{
       disabled: markingStats?.disabled || markingStats?.creating,
       onClick: handleCreatingStart
@@ -68,5 +68,5 @@ export default function OpsMarkings(): ReactElement {
       disabled: !markingStats?.itemStatsList.length,
       onClick: handleDeleteAllItems
     }}>删除全部</Button>
-  </div>;
+  </>;
 }

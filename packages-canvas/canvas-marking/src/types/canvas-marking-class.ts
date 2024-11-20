@@ -23,6 +23,9 @@ import {
 import {
   ICanvasMarkingOptions
 } from './options';
+import {
+  TMarkingPluginRegister
+} from './plugin';
 
 /**
  * 共享给 MarkingItem 的属性，单独一个类型为避免 Item 越权操作
@@ -51,6 +54,16 @@ export interface ICanvasMarkingClassProtected<T = void> {
 export interface ICanvasMarkingClass<T = void> extends ICanvasMarkingClassProtected<T>, Subscribable<TSubscribableEvents<T>> {
   readonly stage: HTMLDivElement;
   readonly canvas: HTMLCanvasElement;
+  
+  /**
+   * 注册插件，返回无参的解绑方法
+   */
+  registerPlugin(pluginRegister: TMarkingPluginRegister<T>): () => void;
+  
+  /**
+   * 撤销注册的插件，一般不需要自行调用
+   */
+  deregisterPlugin(pluginRegister: TMarkingPluginRegister<T>): void;
   
   /**
    * 设置图片（用空串可清空）和数据

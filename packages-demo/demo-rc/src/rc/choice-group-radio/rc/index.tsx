@@ -1,6 +1,5 @@
 import {
   ReactElement,
-  ChangeEvent,
   useCallback
 } from 'react';
 
@@ -9,10 +8,9 @@ import {
 } from '@kcuf/react-hook-controllable';
 
 import {
-  ScChoiceGroup,
-  ScChoiceGroupItem,
-  ScChoiceGroupItemLabel
+  ScChoiceGroup
 } from '../../choice-group-base';
+import InputRadio from '../../input-radio';
 import {
   IChoiceGroupRadioProps
 } from '../types';
@@ -25,18 +23,15 @@ export default function ChoiceGroupRadio<T>({
 }: IChoiceGroupRadioProps<T>): ReactElement {
   const [controllableValue, setControllableValue] = useControllableUnprotected<T>(value, defaultValue, onChange);
   
-  const handleRadioChange = useCallback((_e: ChangeEvent<HTMLInputElement>, itemValue: T) => {
+  const handleRadioChange = useCallback((_checked: boolean, itemValue: T) => {
     setControllableValue(itemValue);
   }, [setControllableValue]);
   
   return <ScChoiceGroup>
-    {datasource.map((v, i) => <ScChoiceGroupItem key={`${v.value}-${i}`}>
-      <input {...{
-        type: 'radio',
-        checked: controllableValue === v.value,
-        onChange: e => handleRadioChange(e, v.value)
-      }} />
-      <ScChoiceGroupItemLabel>{v.label}</ScChoiceGroupItemLabel>
-    </ScChoiceGroupItem>)}
+    {datasource.map((v, i) => <InputRadio key={`${v.value}-${i}`} {...{
+      label: v.label,
+      checked: controllableValue === v.value,
+      onChange: checked => handleRadioChange(checked, v.value)
+    }} />)}
   </ScChoiceGroup>;
 }

@@ -1,8 +1,7 @@
 import {
   ICanvasMarkingClass,
   ICanvasMarkingStats,
-  IMarkingPlugin,
-  IMarkingPluginTooltipOptions
+  IMarkingPlugin
 } from '../../types';
 
 import {
@@ -15,15 +14,16 @@ const BOTTOM_SPACING = 80;
 /**
  * 根据状态在鼠标处增加用户提示
  */
-export default function pluginTooltip<T>(markingStage: ICanvasMarkingClass<T>, pluginOptions: IMarkingPluginTooltipOptions<T> = {}): IMarkingPlugin<T> {
+export default function pluginTooltip<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     options,
     stage
   } = markingStage;
-  const {
-    offsetX = 16,
-    offsetY = 4
-  } = pluginOptions;
+  const tooltipOptions = {
+    offsetX: 16,
+    offsetY: 4,
+    ...options.tooltipOptions
+  };
   let tooltipElement: HTMLDivElement | null;
   
   function showTooltip(message: string, stats: ICanvasMarkingStats<T>): void {
@@ -46,17 +46,17 @@ export default function pluginTooltip<T>(markingStage: ICanvasMarkingClass<T>, p
     
     if (mouseInStage[0] > stageSize[0] * 2 / 3) {
       tooltipElement.style.left = 'auto';
-      tooltipElement.style.right = `${stageSize[0] - mouseInStage[0] + offsetX}px`;
+      tooltipElement.style.right = `${stageSize[0] - mouseInStage[0] + tooltipOptions.offsetX}px`;
     } else {
-      tooltipElement.style.left = `${mouseInStage[0] + offsetX}px`;
+      tooltipElement.style.left = `${mouseInStage[0] + tooltipOptions.offsetX}px`;
       tooltipElement.style.right = 'auto';
     }
     
     if (mouseInStage[1] > stageSize[1] - BOTTOM_SPACING) {
       tooltipElement.style.top = 'auto';
-      tooltipElement.style.bottom = `${stageSize[1] - mouseInStage[1] + offsetY}px`;
+      tooltipElement.style.bottom = `${stageSize[1] - mouseInStage[1] + tooltipOptions.offsetY}px`;
     } else {
-      tooltipElement.style.top = `${mouseInStage[1] + offsetY}px`;
+      tooltipElement.style.top = `${mouseInStage[1] + tooltipOptions.offsetY}px`;
       tooltipElement.style.bottom = 'auto';
     }
     
@@ -83,7 +83,7 @@ export default function pluginTooltip<T>(markingStage: ICanvasMarkingClass<T>, p
   
   return {
     run(stats: ICanvasMarkingStats<T>): void {
-      const message = getTooltipMessage(stats, options, pluginOptions);
+      const message = getTooltipMessage(stats, options, tooltipOptions);
       
       if (!message) {
         hideTooltip();

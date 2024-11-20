@@ -13,7 +13,7 @@ import {
 export default function OpsHighlight(): ReactElement {
   const handleHighlight = useHandleHighlight();
   
-  return <div>
+  return <>
     <Button {...{
       onClick: () => handleHighlight('first')
     }}>highlight(first)</Button>
@@ -35,5 +35,5 @@ export default function OpsHighlight(): ReactElement {
     <Button {...{
       onClick: () => handleHighlight(null)
     }}>highlight(none)</Button>
-  </div>;
+  </>;
 }

@@ -38,7 +38,8 @@ import {
   IMarkingItemOptions,
   IMarkingItemStats,
   IMarkingPlugin,
-  IMarkingPluginZoomOptions,
+  TMarkingPluginRegister,
+  IMarkingZoomOptions,
   ICanvasMarkingClass,
   ICanvasMarkingOptions,
   ICanvasMarkingStats,
@@ -62,16 +63,6 @@ import {
   loadImage,
   canvasDrawPerpendicularMark
 } from '../util';
-import {
-  pluginCursor,
-  pluginFps,
-  pluginMagnet,
-  pluginMove,
-  pluginSnapping,
-  pluginStats,
-  pluginTooltip,
-  pluginZoom
-} from '../plugin';
 
 import CanvasMarkingItem from './canvas-marking-item';
 
@@ -116,7 +107,7 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
    */
   private justifiedRightAngle: Angle | null = null;
   
-  private plugins: IMarkingPlugin<T>[] = [];
+  private pluginMap: Map<TMarkingPluginRegister<T>, IMarkingPlugin<T>> = new Map<TMarkingPluginRegister<T>, IMarkingPlugin<T>>();
   
   /**
    * 新建中的 MarkingItem，不计入 markingItems，在最末编辑结束后才进入（因此需单独渲染）
@@ -200,7 +191,6 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
     this.statsSnapshot = this.getStats();
     
     this.setupEvents();
-    this.setupPlugins();
     this.setupScaleSizing();
     this.setupImageAndItems(safeOptions.image, safeOptions.items, EMarkingStatsChangeCause.INIT);
   }
@@ -244,25 +234,13 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
     return this.itemCreating ? null : this.getMarkingItemsOrdered().findLast(v => v.isUnderMouse()) || null;
   }
   
-  private get pluginZoomOptions(): Required<IMarkingPluginZoomOptions> | null {
-    const {
-      options
-    } = this;
-    
-    if (!options.pluginZoom) {
-      return null;
-    }
-    
-    const o: Required<IMarkingPluginZoomOptions> = {
+  private get zoomOptions(): Required<IMarkingZoomOptions> {
+    return {
       step: 0.25,
       stepWheel: 0.05,
       min: 0.2,
-      max: 4
-    };
-    
-    return options.pluginZoom === true ? o : {
-      ...o,
-      ...options.pluginZoom
+      max: 4,
+      ...this.options.zoomOptions
     };
   }
   
@@ -350,41 +328,6 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
     this.cleanups.push(bindDocumentEvent('keydown', (e: KeyboardEvent): void => this.handleKeyDownWindow(e), true));
     this.cleanups.push(() => resizeObserver.disconnect());
     this.cleanups.push(pixelRatioListen(pixelRatio => this.updatePixelRatio(pixelRatio)));
-  }
-  
-  private setupPlugins(): void {
-    const {
-      options,
-      plugins,
-      pluginZoomOptions
-    } = this;
-    
-    // 默认必需插件
-    plugins.push(pluginCursor(this));
-    
-    // 可选插件
-    if (options.pluginTooltip !== false) {
-      plugins.push(pluginTooltip(this, options.pluginTooltip === true ? undefined : options.pluginTooltip));
-    }
-    
-    if (pluginZoomOptions) {
-      plugins.push(pluginZoom(this));
-    }
-    
-    plugins.push(pluginMagnet(this));
-    plugins.push(pluginSnapping(this));
-    
-    if (options.pluginMove) {
-      plugins.push(pluginMove(this));
-    }
-    
-    if (options.pluginFps) {
-      plugins.push(pluginFps(this));
-    }
-    
-    if (options.pluginStats) {
-      plugins.push(pluginStats(this));
-    }
   }
   
   private setupImageAndItems(imageUrl = '', items: IMarkingConfigItem<T>[] = [], cause: EMarkingStatsChangeCause = EMarkingStatsChangeCause.SET_DATA): void {
@@ -812,7 +755,7 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
     const stats = this.getStats();
     
     this.statsSnapshot = stats;
-    this.plugins.forEach(v => v.run?.call(this, stats, cause)); // 每次状态更新都必须运行 plugin
+    this.pluginMap.forEach(v => v.run?.call(this, stats, cause)); // 每次状态更新都必须运行 plugin
     this.options.onStatsChange?.(this.statsSnapshot, cause);
     this.emit('stats-change', this.statsSnapshot, cause);
   }
@@ -1072,7 +1015,7 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
     
     const {
       options: {
-        PerpendicularMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
+        perpendicularMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
       },
       canvasContext,
       imageScale
@@ -1080,7 +1023,7 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
     
     canvasDrawPerpendicularMark(canvasContext, justifiedRightAngle, {
       scale: imageScale,
-      size: PerpendicularMarkSize,
+      size: perpendicularMarkSize,
       color: activeItem.getBorderColor()
     });
   }
@@ -1204,19 +1147,11 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
   
   private zoomBy(inOut: boolean, wheel?: boolean): void {
     const {
-      pluginZoomOptions
-    } = this;
-    
-    if (!pluginZoomOptions) {
-      return;
-    }
-    
-    const {
       step,
       stepWheel,
       min,
       max
-    } = pluginZoomOptions;
+    } = this.zoomOptions;
     const delta = (inOut ? 1 : -1) * (wheel ? stepWheel : step);
     const {
       zoomLevel
@@ -1259,28 +1194,36 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
   }
   
   private zoomMin(): void {
-    const {
-      pluginZoomOptions
-    } = this;
-    
-    if (pluginZoomOptions) {
-      this.zoomTo(pluginZoomOptions.min, EMarkingStatsChangeCause.ZOOM_MIN);
-    }
+    this.zoomTo(this.zoomOptions.min, EMarkingStatsChangeCause.ZOOM_MIN);
   }
   
   private zoomMax(): void {
-    const {
-      pluginZoomOptions
-    } = this;
-    
-    if (pluginZoomOptions) {
-      this.zoomTo(pluginZoomOptions.max, EMarkingStatsChangeCause.ZOOM_MAX);
-    }
+    this.zoomTo(this.zoomOptions.max, EMarkingStatsChangeCause.ZOOM_MAX);
   }
   
   private zoomReset(): void {
     this.zoomTo(1, EMarkingStatsChangeCause.ZOOM_RESET);
     this.moveTo([0, 0]);
+  }
+  
+  registerPlugin(pluginRegister: TMarkingPluginRegister<T>): () => void {
+    const {
+      pluginMap
+    } = this;
+    
+    if (!pluginMap.get(pluginRegister)) {
+      pluginMap.set(pluginRegister, pluginRegister(this));
+    }
+    
+    return () => this.deregisterPlugin(pluginRegister);
+  }
+  
+  deregisterPlugin(pluginRegister: TMarkingPluginRegister<T>): void {
+    const plugin = this.pluginMap.get(pluginRegister);
+    
+    plugin?.cleanup?.();
+    
+    this.pluginMap.delete(pluginRegister);
   }
   
   setData(imageUrl?: string, markings: IMarkingConfigItem<T>[] = []): void {
@@ -1687,8 +1630,11 @@ export default class CanvasMarking<T = void> extends Subscribable<TSubscribableE
   }
   
   destroy(): void {
-    this.plugins.forEach(v => v.cleanup?.call(this));
-    this.plugins = [];
+    this.pluginMap.forEach(v => {
+      v.cleanup?.();
+    });
+    this.pluginMap.clear();
+    
     this.cleanups.forEach(v => v());
     this.cleanups = [];
     

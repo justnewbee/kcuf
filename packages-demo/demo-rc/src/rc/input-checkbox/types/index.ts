@@ -6,6 +6,6 @@ import {
   IControllableChecked
 } from '../../../types';
 
-export interface IInputRadioProps extends IControllableChecked {
+export interface IInputCheckboxProps extends IControllableChecked {
   label?: string | ReactElement;
 }

@@ -1,5 +1,5 @@
 export { default } from './rc';
 
 export type {
-  IInputRadioProps as InputRadioProps
+  IInputCheckboxProps as InputCheckboxProps
 } from './types';

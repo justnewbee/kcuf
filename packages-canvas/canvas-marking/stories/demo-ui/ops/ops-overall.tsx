@@ -32,7 +32,7 @@ export default function OpsOverall(): ReactElement {
   const handleDestroy = useHandleDestroy();
   const handleDebugStats = useHandleDebugStats();
   
-  return <div>
+  return <>
     <Button {...{
       onClick: handleToggleFullscreen
     }}>{fullscreen ? '退出全屏' : '进入全屏'}</Button>
@@ -52,5 +52,5 @@ export default function OpsOverall(): ReactElement {
         onChange: handleToggleLogEvents
       }} />
     </> : null}
-  </div>;
+  </>;
 }

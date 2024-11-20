@@ -591,7 +591,7 @@ export default class CanvasMarkingItem<T> implements IMarkingItemClass<T> {
     const {
       markingStage: {
         options: {
-          PerpendicularMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
+          perpendicularMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
         },
         canvasContext,
         imageScale
@@ -600,7 +600,7 @@ export default class CanvasMarkingItem<T> implements IMarkingItemClass<T> {
     
     pathAngleList(this.getPathForDraw()).forEach(v => canvasDrawPerpendicularMark(canvasContext, v, {
       scale: imageScale,
-      size: PerpendicularMarkSize,
+      size: perpendicularMarkSize,
       color: borderStyle.color
     }));
   }

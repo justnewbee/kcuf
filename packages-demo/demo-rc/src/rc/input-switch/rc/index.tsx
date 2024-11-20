@@ -13,6 +13,7 @@ import {
   SPACING_INPUT_SWITCH_INNER,
   SIZE_INPUT_SWITCH_KNOB
 } from '../../../const';
+import FormControlWithLabel from '../../_form-control-with-label';
 import {
   getStyledSwitchBg,
   getStyledSwitchKnobPosition
@@ -27,28 +28,12 @@ interface IScProps {
   disabled?: boolean;
 }
 
-const ScSwitch = styled.span`
-  display: inline-flex;
-  align-items: center;
-  margin: 0 12px;
-  vertical-align: middle;
-  
-  &:first-child {
-    margin-left: 0;
-  }
-  
-  &:last-child {
-    margin-right: 0;
-  }
-`;
-
 const ScSwitchButton = styled.button<IScProps>`
   position: relative;
   width: ${WIDTH_INPUT_SWITCH}px;
   height: ${HEIGHT_INPUT_SWITCH}px;
   border: ${SPACING_INPUT_SWITCH_INNER}px solid transparent;
   border-radius: ${HEIGHT_INPUT_SWITCH}px;
-  line-height: 2;
   cursor: pointer;
   ${getStyledSwitchBg}
   
@@ -66,11 +51,6 @@ const ScSwitchButton = styled.button<IScProps>`
   }
 `;
 
-const ScSwitchLabel = styled.label`
-  margin-left: 4px;
-  color: #777;
-`;
-
 function InputSwitch({
   value,
   defaultValue = false,
@@ -82,7 +62,7 @@ function InputSwitch({
   const [controllableValue, controllableOnChange] = useControllable<boolean>(false, value, defaultValue, onChange);
   const handleClick = useCallback(() => controllableOnChange(!controllableValue), [controllableValue, controllableOnChange]);
   
-  return <ScSwitch>
+  return <FormControlWithLabel label={label}>
     <ScSwitchButton {...{
       ref,
       ...props,
@@ -91,8 +71,7 @@ function InputSwitch({
       'aria-checked': controllableValue,
       onClick: handleClick
     }} />
-    {label ? <ScSwitchLabel onClick={disabled ? undefined : handleClick}>{label}</ScSwitchLabel> : null}
-  </ScSwitch>;
+  </FormControlWithLabel>;
 }
 
 export default forwardRef(InputSwitch);

@@ -14,9 +14,28 @@ import {
   IOptionsEvents
 } from './events';
 import {
-  IMarkingPluginTooltipOptions,
-  IMarkingPluginZoomOptions
-} from './plugin';
+  IMarkingItemStats
+} from './stats';
+
+export interface IMarkingZoomOptions {
+  step?: number; // 键盘或点击要快点
+  stepWheel?: number; // 滚轮可以顺滑一些
+  min?: number;
+  max?: number;
+}
+
+export interface IMarkingTooltipOptions<T> {
+  offsetX?: number;
+  offsetY?: number;
+  /**
+   * 为新建中增加额外信息，避免误操，支持 HTML strong、em 的样式
+   */
+  getCreatingInfo?(itemStats: IMarkingItemStats<T>): string;
+  /**
+   * 可以在 hover 某路径的时候，给与更多友好的提示信息，支持 HTML strong、em 的样式
+   */
+  getHoveringInfo?(itemStats: IMarkingItemStats<T>): string;
+}
 
 export interface ICanvasMarkingOptions<T> extends IMarkingItemConfig, IOptionsEvents<T> {
   auxiliaryLine?: IMarkingAuxiliaryLine;
@@ -44,13 +63,10 @@ export interface ICanvasMarkingOptions<T> extends IMarkingItemConfig, IOptionsEv
   /**
    * 直角标记大小，若临边长度不足此值则不显示
    */
-  PerpendicularMarkSize?: number;
-  // --- 可选插件 --- //
-  pluginTooltip?: boolean | IMarkingPluginTooltipOptions<T>;
-  pluginZoom?: boolean | IMarkingPluginZoomOptions;
-  pluginMove?: boolean;
-  pluginFps?: boolean;
-  pluginStats?: boolean;
+  perpendicularMarkSize?: number;
+  // --- 共享给插件的选项 --- //
+  zoomOptions?: IMarkingZoomOptions;
+  tooltipOptions?: IMarkingTooltipOptions<T>;
   // --- 一些钩子方法 --- //
   beforeCreateComplete?: TBeforeHook<T>; // 新建结束前，自动调整路径
   beforeEditDragEnd?: TBeforeHook<T>; // 编辑拖拽结束前，自动调整路径
