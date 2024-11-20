@@ -1,14 +1,20 @@
 import {
-  ReactElement
+  ForwardedRef,
+  ReactElement,
+  forwardRef
 } from 'react';
 
 import Model, {
-  CanvasMarkingProps
-} from '../model';
+  CanvasMarkingProps,
+  CanvasMarkingImperativeRef
+} from '@kcuf/canvas-marking-react-headless';
+
 import Ui from '../ui';
 
-export default function WithModel(props: CanvasMarkingProps): ReactElement {
+function WithModel(props: CanvasMarkingProps, ref: ForwardedRef<CanvasMarkingImperativeRef>): ReactElement {
   return <Model {...props}>
-    <Ui />
+    <Ui ref={ref} />
   </Model>;
 }
+
+export default forwardRef(WithModel);

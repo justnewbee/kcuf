@@ -4,4 +4,5 @@ export { default as useProps } from './_use-model-props';
 export { default as useRefDomContainer } from './use-dispatch-set-dom-container';
 
 // getters - get specific data from state
-export { default as useMarkingStage } from './use-marking-instance';
+export { default as useMarkingInstance } from './use-marking-instance';
+export { default as useImperativeRef } from './use-imperative-ref';

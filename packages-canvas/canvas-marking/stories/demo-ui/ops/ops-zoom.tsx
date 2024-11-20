@@ -6,26 +6,29 @@ import {
   Button
 } from '@kcuf/demo-rc';
 
+import { ZoomHow } from '../../../src';
 import {
-  useHandleZoomIn,
-  useHandleZoomOut,
-  useHandleZoomReset
+  useHandleZoom
 } from '../../demo-model';
 
 export default function OpsZoom(): ReactElement {
-  const handleZoomIn = useHandleZoomIn();
-  const handleZoomOut = useHandleZoomOut();
-  const handleZoomReset = useHandleZoomReset();
+  const handleZoom = useHandleZoom();
   
   return <div>
     <Button {...{
-      onClick: handleZoomOut
+      onClick: () => handleZoom(ZoomHow.OUT)
     }}>zoom-</Button>
     <Button {...{
-      onClick: handleZoomIn
+      onClick: () => handleZoom(ZoomHow.IN)
     }}>zoom+</Button>
     <Button {...{
-      onClick: handleZoomReset
+      onClick: () => handleZoom(ZoomHow.MIN)
+    }}>zoom min</Button>
+    <Button {...{
+      onClick: () => handleZoom(ZoomHow.MAX)
+    }}>zoom max</Button>
+    <Button {...{
+      onClick: () => handleZoom(ZoomHow.RESET)
     }}>zoom reset</Button>
   </div>;
 }

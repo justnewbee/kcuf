@@ -1,6 +1,7 @@
 export { MarkingStage as default } from './class';
 
 export {
+  EZoomHow as ZoomHow,
   EMarkingStatsChangeCause as MarkingStatsChangeCause
 } from './enum';
 

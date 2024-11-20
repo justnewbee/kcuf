@@ -5,6 +5,14 @@ export enum EImageStatus {
   ERROR = 'error'
 }
 
+export enum EZoomHow {
+  IN,
+  OUT,
+  MIN,
+  MAX,
+  RESET
+}
+
 export enum EMouseJustifyStatus {
   NONE = '',
   MAGNET_VERTEX = 'magnet:v',

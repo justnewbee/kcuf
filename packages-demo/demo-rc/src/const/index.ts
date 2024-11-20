@@ -1,8 +1,5 @@
+export * from './color-base';
 export * from './color-rc';
-export * from './values';
+export * from './sizing';
 export * from './css-common';
-export * from './css-form-control-input';
-export {
-  COLOR_LIGHT,
-  COLOR_DARK
-} from './color-base';
+export * from './css-form-control';

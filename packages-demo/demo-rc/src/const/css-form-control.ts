@@ -9,7 +9,7 @@ import {
 import {
   PADDING_FORM_CONTROL_HORIZONTAL,
   HEIGHT_FORM_CONTROL
-} from './values';
+} from './sizing';
 import {
   CSS_FONT_FAMILY
 } from './css-common';
@@ -71,9 +71,9 @@ const CSS_FORM_CONTROL_OVERRIDE_BUTTON = css`
 export const CSS_FORM_CONTROL_BASE = css`
   border: 1px solid ${COLOR_FORM_CONTROL.BDC};
   box-sizing: border-box;
-  line-height: ${HEIGHT_FORM_CONTROL}px;
-  font-size: 11px;
   color: ${COLOR_FORM_CONTROL.FGC};
+  font-size: 11px;
+  line-height: ${HEIGHT_FORM_CONTROL}px;
   transition: all 0.3s ease-in-out;
   ${CSS_FONT_FAMILY}
   

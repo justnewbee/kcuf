@@ -23,7 +23,6 @@ export default [
   pluginImport.flatConfigs.react,
   {
     rules: {
-      'import/no-named-as-default': 0,
       'import/order': ['error', {
         groups: [
           'builtin',
@@ -43,7 +42,9 @@ export default [
         }],
         pathGroupsExcludedImportTypes: [],
         'newlines-between': 'always'
-      }]
+      }],
+      'import/no-named-as-default': 0,
+      'import/no-duplicates': 'error' // 默认 warn
     }
   }
 ];

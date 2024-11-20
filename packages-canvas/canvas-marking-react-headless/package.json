@@ -1,7 +1,7 @@
 {
-  "name": "@kcuf/canvas-marking-react",
+  "name": "@kcuf/canvas-marking-react-headless",
   "version": "0.0.1",
-  "description": "The React wrapping of @kcuf/canvas-marking.",
+  "description": "The React headless wrapping of @kcuf/canvas-marking.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-canvas/canvas-marking-react",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-canvas/canvas-marking-react-headless",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -29,41 +29,27 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
-    "@chromatic-com/storybook": "^1.9.0",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@storybook/addon-essentials": "^8.4.4",
-    "@storybook/addon-interactions": "^8.4.4",
-    "@storybook/addon-links": "^8.4.4",
-    "@storybook/addon-onboarding": "^8.4.4",
-    "@storybook/blocks": "^8.4.4",
-    "@storybook/react": "^8.4.4",
-    "@storybook/react-vite": "^8.4.4",
-    "@storybook/test": "^8.4.4",
     "@types/react": "^18.3.12",
-    "babel-plugin-styled-components": "^2.1.4",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
-    "storybook": "^8.4.4",
-    "styled-components": "^6.1.13",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x",
-    "react": "^18.x",
-    "styled-components": "^6.x"
+    "react": "^18.x"
   },
   "dependencies": {
     "@kcuf/canvas-marking": "workspace:^*",
-    "@kcuf/canvas-marking-react-headless": "workspace:^*"
+    "@kcuf/react-hook-is-unmounted": "workspace:^*",
+    "immer": "^10.1.1"
   },
   "scripts": {
-    "start": "storybook dev -p 6006",
     "build:clean": "rimraf dist",
     "build:esm": "ESM=1 babel src -d dist/esm --extensions .ts,.tsx --source-maps",
     "build:cjs": "ESM=0 babel src -d dist/cjs --extensions .ts,.tsx",
     "build:types": "tsc -rootDir src --outDir dist/types --declaration --noEmit false --emitDeclarationOnly --isolatedModules false",
-    "build:sb": "storybook build",
     "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
     "watch": "pnpm build:esm -w",
     "prepublishOnly": "pnpm build:clean && pnpm build"

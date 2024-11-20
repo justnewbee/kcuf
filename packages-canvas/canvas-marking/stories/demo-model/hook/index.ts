@@ -32,9 +32,7 @@ export { default as useHandleDeleteActiveItem } from './use-handle-delete-active
 export { default as useHandleDeleteAllItems } from './use-handle-delete-all-items';
 export { default as useHandleSelect } from './use-handle-select';
 export { default as useHandleHighlight } from './use-handle-highlight';
-export { default as useHandleZoomIn } from './use-handle-zoom-in';
-export { default as useHandleZoomOut } from './use-handle-zoom-out';
-export { default as useHandleZoomReset } from './use-handle-zoom-reset';
+export { default as useHandleZoom } from './use-handle-zoom';
 
 // effects - the one with all effects
 export { default as useEffects } from './use-effects';

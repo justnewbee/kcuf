@@ -4,6 +4,9 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
+  EZoomHow
+} from '../enum';
+import {
   TSize,
   TMarkingItemFinder
 } from './common';
@@ -108,11 +111,7 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
    */
   deleteAllItems(): void;
   
-  zoomIn(wheel?: boolean): void;
-  zoomOut(wheel?: boolean): void;
-  zoomMin(): void;
-  zoomMax(): void;
-  zoomReset(): void;
+  zoom(how: EZoomHow, wheel?: boolean): void;
   
   /**
    * 开启移动（当鼠标在 stage 内时按下空格，并保持按住状态）

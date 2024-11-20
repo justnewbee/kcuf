@@ -26,7 +26,8 @@ import {
   EImageStatus,
   EMouseJustifyStatus,
   EMarkingMouseStatus,
-  EMarkingStatsChangeCause
+  EMarkingStatsChangeCause,
+  EZoomHow
 } from '../enum';
 import {
   TSize,
@@ -1201,7 +1202,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.emit('selection-change', itemStats, statsList);
   }
   
-  private zoom(inOut: boolean, wheel?: boolean): void {
+  private zoomBy(inOut: boolean, wheel?: boolean): void {
     const {
       pluginZoomOptions
     } = this;
@@ -1257,6 +1258,31 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     // this.moveBy(dx / 2, dy / 2);
   }
   
+  private zoomMin(): void {
+    const {
+      pluginZoomOptions
+    } = this;
+    
+    if (pluginZoomOptions) {
+      this.zoomTo(pluginZoomOptions.min, EMarkingStatsChangeCause.ZOOM_MIN);
+    }
+  }
+  
+  private zoomMax(): void {
+    const {
+      pluginZoomOptions
+    } = this;
+    
+    if (pluginZoomOptions) {
+      this.zoomTo(pluginZoomOptions.max, EMarkingStatsChangeCause.ZOOM_MAX);
+    }
+  }
+  
+  private zoomReset(): void {
+    this.zoomTo(1, EMarkingStatsChangeCause.ZOOM_RESET);
+    this.moveTo([0, 0]);
+  }
+  
   setData(imageUrl?: string, markings: IMarkingConfigItem<T>[] = []): void {
     this.cancelCreating();
     this.setupImageAndItems(imageUrl, markings);
@@ -1301,18 +1327,19 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   
   startCreating(extraOptions?: IMarkingItemConfig): void {
     const {
-      disabled,
-      itemCreating
+      disabled
     } = this;
     
-    if (disabled || itemCreating) {
+    if (disabled) {
       return;
     }
     
-    this.moveEnd(); // 副作用 1 - 结束移动
-    this.hoverMarkingItem(null); // 副作用 2 - 取消 hover
+    this.cancelCreating(); // 副作用 - 取消正在进行的新建（有的话）
     
-    if (this.itemEditing) { // 副作用 3 - 结束编辑
+    this.moveEnd(); // 副作用 - 结束移动
+    this.hoverMarkingItem(null); // 副作用 - 取消 hover
+    
+    if (this.itemEditing) { // 副作用 - 结束编辑
       this.finishEditing();
       
       const statsList = this.getAllStats();
@@ -1415,37 +1442,31 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.updateAndDraw(EMarkingStatsChangeCause.CLEAR);
   }
   
-  zoomIn(wheel?: boolean): void {
-    this.zoom(true, wheel);
-  }
-  
-  zoomOut(wheel?: boolean): void {
-    this.zoom(false, wheel);
-  }
-  
-  zoomMin(): void {
-    const {
-      pluginZoomOptions
-    } = this;
-    
-    if (pluginZoomOptions) {
-      this.zoomTo(pluginZoomOptions.min, EMarkingStatsChangeCause.ZOOM_MIN);
+  zoom(how: EZoomHow, wheel?: boolean): void {
+    switch (how) {
+    case EZoomHow.IN:
+      this.zoomBy(true, wheel);
+      
+      break;
+    case EZoomHow.OUT:
+      this.zoomBy(false, wheel);
+      
+      break;
+    case EZoomHow.MIN:
+      this.zoomMin();
+      
+      break;
+    case EZoomHow.MAX:
+      this.zoomMax();
+      
+      break;
+    case EZoomHow.RESET:
+      this.zoomReset();
+      
+      break;
+    default:
+      break;
     }
-  }
-  
-  zoomMax(): void {
-    const {
-      pluginZoomOptions
-    } = this;
-    
-    if (pluginZoomOptions) {
-      this.zoomTo(pluginZoomOptions.max, EMarkingStatsChangeCause.ZOOM_MAX);
-    }
-  }
-  
-  zoomReset(): void {
-    this.zoomTo(1, EMarkingStatsChangeCause.ZOOM_RESET);
-    this.moveTo([0, 0]);
   }
   
   moveReady(): void {

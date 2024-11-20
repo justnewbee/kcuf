@@ -3,5 +3,6 @@ export { default } from './provider';
 export * from './hook';
 
 export type {
-  IModelProps as CanvasMarkingProps
+  IModelProps as CanvasMarkingProps,
+  IImperativeRef as CanvasMarkingImperativeRef
 } from './types';

@@ -47,7 +47,7 @@
     "typescript": "^5.6.3"
   },
   "scripts": {
-    "fuck": "stylelint packages-demo/demo-rc/src",
+    "fuck": "eslint packages-canvas/canvas-marking-react-headless/src/types/common.ts",
     "prepare": "husky",
     "boot": "pnpm clean && pnpm i --force --no-lockfile --registry https://registry.npmmirror.com",
     "boot:packages": "pnpm -r prepublishOnly",

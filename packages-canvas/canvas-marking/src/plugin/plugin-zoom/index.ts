@@ -1,4 +1,7 @@
 import {
+  EZoomHow
+} from '../../enum';
+import {
   IMarkingStageClass,
   IMarkingStageStats,
   IMarkingPlugin
@@ -16,15 +19,15 @@ export default function pluginZoom<T>(markingStage: IMarkingStageClass<T>): IMar
   function zoomOnKey(key: string, shift: boolean): boolean {
     switch (key) {
     case '=': // +
-      shift ? markingStage.zoomMax() : markingStage.zoomIn();
+      shift ? markingStage.zoom(EZoomHow.MAX) : markingStage.zoom(EZoomHow.IN);
       
       return true;
     case '-':
-      shift ? markingStage.zoomMin() : markingStage.zoomOut();
+      shift ? markingStage.zoom(EZoomHow.MIN) : markingStage.zoom(EZoomHow.OUT);
       
       return true;
     case '0':
-      markingStage.zoomReset(); // TODO 是不是有个 100%
+      markingStage.zoom(EZoomHow.RESET); // TODO 是不是有个 100%
       
       return true;
     default:
@@ -52,9 +55,9 @@ export default function pluginZoom<T>(markingStage: IMarkingStageClass<T>): IMar
     e.preventDefault();
     
     if (e.deltaY > 0) {
-      markingStage.zoomOut(true);
+      markingStage.zoom(EZoomHow.OUT, true);
     } else {
-      markingStage.zoomIn(true);
+      markingStage.zoom(EZoomHow.IN, true);
     }
   }
   
