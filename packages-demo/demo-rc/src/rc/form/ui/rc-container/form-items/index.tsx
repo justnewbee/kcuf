@@ -16,12 +16,13 @@ export default function FormItems(): ReactElement {
     items
   } = useProps();
   
-  return <>{items.map((v, i): null | ReactElement => {
-    if (!v) {
-      return null;
-    }
-    
-    return <Item {...v} key={getFormItemKey(v, i)} />;
-  })}
+  return <>
+    {items.map((v, i): null | ReactElement => {
+      if (!v) {
+        return null;
+      }
+      
+      return <Item {...v} key={getFormItemKey(v, i)} />;
+    })}
   </>;
 }

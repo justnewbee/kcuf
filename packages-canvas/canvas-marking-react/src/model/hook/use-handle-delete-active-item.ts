@@ -2,10 +2,10 @@ import {
   useCallback
 } from 'react';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleDeleteActiveItem(): () => void {
-  const markingInstance = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((): void => {
     markingInstance?.deleteActiveItem();

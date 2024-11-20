@@ -4,10 +4,10 @@ import {
 
 import useMarkingInstance from './use-marking-instance';
 
-export default function useHandleDeleteAllItems(): () => void {
+export default function useHandleFinishCreating(): () => void {
   const markingInstance = useMarkingInstance();
   
   return useCallback((): void => {
-    markingInstance?.deleteAllItems();
+    markingInstance?.finishCreating();
   }, [markingInstance]);
 }

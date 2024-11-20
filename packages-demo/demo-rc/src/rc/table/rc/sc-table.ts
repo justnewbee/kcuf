@@ -7,11 +7,11 @@ import {
 
 export default styled.table`
   display: table;
-  border-collapse: collapse;
-  border-spacing: 0;
   width: 100%;
-  word-wrap: break-word;
+  border-spacing: 0;
+  border-collapse: collapse;
   color: inherit;
+  word-wrap: break-word;
   
   &::-webkit-scrollbar {
     display: none;
@@ -22,6 +22,14 @@ export default styled.table`
     
     .theme-dark & {
       background-color: ${COLOR_TABLE_DARK.BGC_TD};
+    }
+  }
+  
+  th {
+    font-weight: 600;
+    
+    &[colspan] {
+      text-align: center;
     }
   }
   
@@ -40,27 +48,19 @@ export default styled.table`
     padding: 8px 12px;
     border-bottom: 1px solid ${COLOR_TABLE.BDC};
     font-size: 0.95em;
-    text-align: left;
     color: inherit;
+    text-align: left;
     
-    &[align=right] {
+    &[align="right"] {
       text-align: right;
     }
     
-    &[align=center] {
+    &[align="center"] {
       text-align: center;
     }
     
     .theme-dark & {
       border-color: ${COLOR_TABLE_DARK.BDC};
-    }
-  }
-  
-  th {
-    font-weight: 600;
-    
-    &[colspan] {
-      text-align: center;
     }
   }
 `;

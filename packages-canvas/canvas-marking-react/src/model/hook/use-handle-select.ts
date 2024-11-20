@@ -6,10 +6,10 @@ import {
   MarkingItemFinder
 } from '@kcuf/canvas-marking';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleSelect(): (finder: MarkingItemFinder<unknown>) => void {
-  const markingInstance = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((finder: MarkingItemFinder<unknown>): void => {
     markingInstance?.selectItem(finder);

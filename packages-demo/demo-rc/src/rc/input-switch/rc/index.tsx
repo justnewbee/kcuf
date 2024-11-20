@@ -50,7 +50,6 @@ const ScSwitchButton = styled.button<IScProps>`
   border-radius: ${HEIGHT_INPUT_SWITCH}px;
   line-height: 2;
   cursor: pointer;
-  
   ${getStyledSwitchBg}
   
   &::after {
@@ -69,6 +68,7 @@ const ScSwitchButton = styled.button<IScProps>`
 
 const ScSwitchLabel = styled.label`
   margin-left: 4px;
+  color: #777;
 `;
 
 function InputSwitch({

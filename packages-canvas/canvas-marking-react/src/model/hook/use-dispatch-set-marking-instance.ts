@@ -12,7 +12,7 @@ import {
 
 import useModelDispatch from './_use-model-dispatch';
 
-export default function useDispatchSetMarkingStage(): (payload: MarkingStageClassType | null) => void {
+export default function useDispatchSetMarkingInstance(): (payload: MarkingStageClassType | null) => void {
   const dispatch = useModelDispatch();
   
   return useCallback((payload: MarkingStageClassType | null) => dispatch({

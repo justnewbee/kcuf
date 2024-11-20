@@ -10,7 +10,7 @@ export interface IInputRadioProps<T = void> extends IInputRadioPropsBase {
 }
 
 // export interface IInputRadioGroupProps<T, V = T> {
-//   dataSource: IChoiceItem<T>[];
+//   datasource: IChoiceItem<T>[];
 //   value?: V;
 //   defaultValue?: V;
 //   onChange?(value: V): void;

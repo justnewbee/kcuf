@@ -66,10 +66,10 @@ const ScAlert = styled.div<IScProps>`
   ${CSS_BLOCK_LEVEL_ELEMENT}
   &::before {
     content: '';
+    display: block;
     position: absolute;
     top: 12px;
     left: 12px;
-    display: block;
     width: 16px;
     height: 16px;
     background-repeat: no-repeat;

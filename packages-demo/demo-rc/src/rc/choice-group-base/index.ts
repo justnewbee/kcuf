@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 import {
-  IDataSourceItem
+  IDatasourceItem
 } from '../../types';
 
 export interface IChoiceGroupBaseProps<T, V extends T | T[] = T> {
-  dataSource: IDataSourceItem<T>[];
+  datasource: IDatasourceItem<T>[];
   value?: V;
   defaultValue?: V;
   onChange?(value: V): void;
@@ -13,6 +13,11 @@ export interface IChoiceGroupBaseProps<T, V extends T | T[] = T> {
 
 export const ScChoiceGroup = styled.div`
   line-height: 2;
+  
+  form & {
+    display: inline-block;
+    vertical-align: middle;
+  }
 `;
 
 export const ScChoiceGroupItem = styled.label`

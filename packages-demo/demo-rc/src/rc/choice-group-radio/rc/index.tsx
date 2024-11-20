@@ -18,7 +18,7 @@ import {
 } from '../types';
 
 export default function ChoiceGroupRadio<T>({
-  dataSource,
+  datasource,
   value,
   defaultValue,
   onChange
@@ -30,7 +30,7 @@ export default function ChoiceGroupRadio<T>({
   }, [setControllableValue]);
   
   return <ScChoiceGroup>
-    {dataSource.map((v, i) => <ScChoiceGroupItem key={`${v.value}-${i}`}>
+    {datasource.map((v, i) => <ScChoiceGroupItem key={`${v.value}-${i}`}>
       <input {...{
         type: 'radio',
         checked: controllableValue === v.value,

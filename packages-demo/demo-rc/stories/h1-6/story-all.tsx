@@ -11,7 +11,7 @@ import {
   H6
 } from '../../src';
 
-export default function DemoDefault(): ReactElement {
+export default function StoryAll(): ReactElement {
   return <>
     <H1>H1</H1>
     <H2>H2</H2>

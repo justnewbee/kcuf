@@ -8,7 +8,7 @@ export const CSS_FONT_FAMILY = css`
 
 export const CSS_HEADING = css`
   position: relative;
-  margin: 1.5em 0 1em 0;
+  margin: 1.5em 0 1em;
   border-bottom: 1px solid hsl(0 0% 95%);
   font-weight: 400;
   line-height: 2.4;
@@ -21,8 +21,8 @@ export const CSS_HEADING = css`
     margin-right: 8px;
     width: 36px;
     font-weight: 400;
-    text-align: center;
     color: hsl(0 0% 100%);
+    text-align: center;
   }
   
   &:first-child {
@@ -45,8 +45,8 @@ export const CSS_STRONG = css`
 
 export const CSS_CODE = css`
   padding: 0 4px;
-  border-radius: 2px;
   background-color: hsl(0 0% 0% / 4%);
+  border-radius: 2px;
   color: hsl(210 100% 60%);
 `;
 
@@ -54,13 +54,13 @@ export const CSS_KBD = css`
   display: inline-block;
   margin: 0 0.1em;
   padding: 0.1em 0.6em;
+  background-color: hsl(204 13% 92%);
   border: 1px solid hsl(212 19% 81%);
   border-radius: 3px;
   box-shadow: 0 1px 0 hsl(0 8% 5% / 20%), 0 0 0 2px hsl(0 0% 100%) inset;
-  background-color: hsl(204 13% 92%);
   font: 600 11px/1.4 Arial, 'Helvetica Neue', Helvetica, sans-serif;
-  white-space: pre-wrap;
   color: hsl(0 0% 20%);
+  white-space: pre-wrap;
 `;
 
 export const CSS_INLINE_ELEMENTS_INSIDE = css`

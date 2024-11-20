@@ -2,18 +2,35 @@ import {
   useEffect
 } from 'react';
 
-import useInit from './use-init';
+import CanvasMarking from '@kcuf/canvas-marking';
+
+import {
+  getHoveringInfo
+} from '../util';
+
 import useModelState from './_use-model-state';
+import useDispatchSetMarkingInstance from './use-dispatch-set-marking-instance';
 
 export default function useEffectInit(): void {
-  const init = useInit();
   const {
-    everInit
+    domContainer,
+    markingInstance
   } = useModelState();
+  const dispatchSetMarkingStage = useDispatchSetMarkingInstance();
   
   useEffect(() => {
-    if (!everInit) {
-      init();
+    if (!domContainer || markingInstance) {
+      return;
     }
-  }, [everInit, init]);
+    
+    const instance = new CanvasMarking(domContainer, {
+      pluginFps: true,
+      pluginStats: true,
+      pluginTooltip: {
+        getHoveringInfo
+      }
+    });
+    
+    dispatchSetMarkingStage(instance);
+  }, [domContainer, markingInstance, dispatchSetMarkingStage]);
 }

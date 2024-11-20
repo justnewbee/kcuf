@@ -26,7 +26,7 @@ export default function Provider({
     state,
     dispatch
   }}>
-    {children}
     <Lifecycle />
+    {children}
   </Context.Provider>;
 }

@@ -15,7 +15,7 @@ import ScTable from './sc-table';
 
 export default function Table<T>({
   firstColumnIndex = true,
-  dataSource = [],
+  datasource = [],
   primaryKey,
   columns,
   ...props
@@ -38,7 +38,7 @@ export default function Table<T>({
       </tr>
     </thead>
     <tbody>
-      {dataSource.map((o, valueIndex) => <tr key={getTableRowKey(o, valueIndex, primaryKey)}>
+      {datasource.map((o, valueIndex) => <tr key={getTableRowKey(o, valueIndex, primaryKey)}>
         {firstColumnIndex ? <td align="right">{valueIndex + 1}</td> : null}
         {columns.map((v, columnIndex) => <td key={getTableColumnKey(v, columnIndex)} align={v.align}>{renderTableCell(o, valueIndex, v)}</td>)}
       </tr>)}

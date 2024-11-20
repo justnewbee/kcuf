@@ -6,10 +6,10 @@ import {
   MarkingItemFinder
 } from '@kcuf/canvas-marking';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleHighlight(): (finder: MarkingItemFinder<unknown>, borderIndex?: number) => void {
-  const markingInstance = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((finder: MarkingItemFinder<unknown>, borderIndex?: number): void => {
     markingInstance?.highlightItem(finder, borderIndex);

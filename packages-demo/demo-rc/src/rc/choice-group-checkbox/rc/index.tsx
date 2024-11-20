@@ -17,7 +17,7 @@ import {
 } from '../types';
 
 export default function ChoiceGroupCheckbox<T>({
-  dataSource,
+  datasource,
   value,
   defaultValue = [],
   onChange
@@ -31,7 +31,7 @@ export default function ChoiceGroupCheckbox<T>({
   }, [controllableValue, setControllableValue]);
   
   return <ScChoiceGroup>
-    {dataSource.map((v, i) => <ScChoiceGroupItem key={`${v.value}-${i}`}>
+    {datasource.map((v, i) => <ScChoiceGroupItem key={`${v.value}-${i}`}>
       <input {...{
         type: 'checkbox',
         checked: controllableValue.includes(v.value),

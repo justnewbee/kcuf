@@ -30,28 +30,25 @@ const ScInputColorWrap = styled.div`
   height: ${HEIGHT_FORM_CONTROL}px;
   ${CSS_FORM_CONTROL_BASE}
   
-  input[type=color] {
+  input[type="color"] {
     display: block;
     position: absolute;
     top: 0;
     left: 0;
-    visibility: visible;
-    opacity: 0;
     z-index: 10;
     margin: 0;
     padding: 0;
-    border: 0;
     box-sizing: border-box;
     width: 100%;
     height: ${HEIGHT_FORM_CONTROL}px;
+    visibility: visible;
+    opacity: 0;
+    border: 0;
   }
 `;
 const ScColorDisplay = styled.div`
   position: absolute;
-  top: 4px;
-  right: 4px;
-  bottom: 4px;
-  left: 4px;
+  inset: 4px;
 `;
 
 function parseColor(hexa: string): [string, number] {

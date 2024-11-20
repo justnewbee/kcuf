@@ -2,12 +2,14 @@ import {
   useEffect
 } from 'react';
 
-import useHandleDestroy from './use-handle-destroy';
+import useModelState from './_use-model-state';
 
 export default function useEffectDestroy(): void {
-  const handleDestroy = useHandleDestroy();
+  const {
+    markingInstance
+  } = useModelState();
   
   useEffect(() => {
-    return handleDestroy;
-  }, [handleDestroy]);
+    return () => markingInstance?.destroy();
+  }, [markingInstance]);
 }

@@ -26,6 +26,6 @@ export interface ITableProps<T> extends HTMLAttributes<HTMLTableElement> {
    */
   firstColumnIndex?: boolean;
   primaryKey?: keyof T;
-  dataSource: T[];
+  datasource: T[];
   columns: TTableColumnProps<T>[];
 }

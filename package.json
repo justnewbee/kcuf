@@ -23,15 +23,15 @@
     "email": "justnewbee@gmail.com"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.5.0",
-    "@commitlint/config-conventional": "^19.5.0",
+    "@commitlint/cli": "^19.6.0",
+    "@commitlint/config-conventional": "^19.6.0",
     "@kcuf/eslint-config": "workspace:^",
     "@kcuf/markdownlint-config": "workspace:^",
     "@kcuf/npm-package-json-lint-config": "workspace:^",
     "@kcuf/stylelint-config": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@tsconfig/node22": "^22.0.0",
-    "@types/node": "^22.9.0",
+    "@types/node": "^22.9.1",
     "commander": "^12.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.15.0",
@@ -47,7 +47,7 @@
     "typescript": "^5.6.3"
   },
   "scripts": {
-    "fuck": "eslint packages-canvas/canvas-marking/stories/demo-ui/index.tsx",
+    "fuck": "stylelint packages-demo/demo-rc/src",
     "prepare": "husky",
     "boot": "pnpm clean && pnpm i --force --no-lockfile --registry https://registry.npmmirror.com",
     "boot:packages": "pnpm -r prepublishOnly",

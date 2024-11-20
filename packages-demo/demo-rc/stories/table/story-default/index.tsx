@@ -28,7 +28,7 @@ const columns: TableColumnProps<IData>[] = [{
   }
 }];
 
-const dataSource: IData[] = [{
+const datasource: IData[] = [{
   id: 'ID-1',
   name: '名称 - 1'
 }, {
@@ -38,7 +38,7 @@ const dataSource: IData[] = [{
 
 export default function DemoTable(): ReactElement {
   return <Table<IData> {...{
-    dataSource,
+    datasource,
     columns
   }} />;
 }

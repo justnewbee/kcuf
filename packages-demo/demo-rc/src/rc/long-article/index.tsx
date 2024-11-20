@@ -24,7 +24,7 @@ const ScLongArticle = styled.article`
   }
   
   h1 {
-    margin: 0.24em 0 0.5em 0;
+    margin: 0.24em 0 0.5em;
     font-size: 1.6em;
   }
   

@@ -11,7 +11,7 @@ import {
   InputSwitch
 } from '../../../src';
 
-export default function DemoForm(): ReactElement {
+export default function StoryDefault(): ReactElement {
   const [stateDense, setStateDense] = useState<boolean>();
   
   return <Form {...{

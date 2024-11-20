@@ -1,11 +1,11 @@
 import useEffectInit from './use-effect-init';
-import useEffectDocumentFullscreen from './use-effect-document-fullscreen';
-import useEffectLogEvents from './use-effect-log-events';
 import useEffectDestroy from './use-effect-destroy';
+import useEffectSetData from './use-effect-set-data';
+import useEffectDisable from './use-effect-disable';
 
 export default function useEffects(): void {
   useEffectInit();
-  useEffectDocumentFullscreen();
-  useEffectLogEvents();
   useEffectDestroy();
+  useEffectSetData();
+  useEffectDisable();
 }

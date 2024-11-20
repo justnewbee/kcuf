@@ -50,7 +50,7 @@ const ScIconListItem = styled.li`
   }
 `;
 
-export default function DemoAll(): ReactElement {
+export default function StoryAll(): ReactElement {
   const [stateFilter, setStateFilter] = useState('');
   const [stateRotate, setStateRotate] = useState(0);
   const [stateColored, setStateColored] = useState(true);

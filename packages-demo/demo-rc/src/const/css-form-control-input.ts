@@ -23,9 +23,9 @@ const CSS_FORM_CONTROL_OVERRIDE_TEXTAREA = css`
 `;
 
 const CSS_FORM_CONTROL_OVERRIDE_BUTTON = css`
-  border-radius: 4px;
-  background-color: ${COLOR_FORM_CONTROL.BGC};
   min-width: 60px;
+  background-color: ${COLOR_FORM_CONTROL.BGC};
+  border-radius: 4px;
   cursor: pointer;
   
   .theme-dark & {
@@ -33,8 +33,8 @@ const CSS_FORM_CONTROL_OVERRIDE_BUTTON = css`
   }
   
   &:hover {
-    box-shadow: 0 4px 8px hsl(0 0% 0% / 10%);
     background-color: ${COLOR_FORM_CONTROL.BGC_HOVER};
+    box-shadow: 0 4px 8px hsl(0 0% 0% / 10%);
     
     .theme-dark & {
       background-color: ${COLOR_FORM_CONTROL_DARK.BGC_HOVER};
@@ -42,8 +42,8 @@ const CSS_FORM_CONTROL_OVERRIDE_BUTTON = css`
   }
   
   &:active {
-    box-shadow: none;
     background-color: ${COLOR_FORM_CONTROL.BGC_ACTIVE};
+    box-shadow: none;
     
     .theme-dark & {
       background-color: ${COLOR_FORM_CONTROL_DARK.BGC_ACTIVE};
@@ -54,15 +54,15 @@ const CSS_FORM_CONTROL_OVERRIDE_BUTTON = css`
   &[disabled]:hover,
   &[disabled]:active,
   &[disabled]:focus {
+    background-color: ${COLOR_FORM_CONTROL.BGC_DISABLED};
     border-color: ${COLOR_FORM_CONTROL.BDC_DISABLED};
     box-shadow: none;
-    background-color: ${COLOR_FORM_CONTROL.BGC_DISABLED};
-    cursor: default;
     color: ${COLOR_FORM_CONTROL.FGC_DISABLED};
+    cursor: default;
     
     .theme-dark & {
-      border-color: ${COLOR_FORM_CONTROL_DARK.BDC_DISABLED};
       background-color: ${COLOR_FORM_CONTROL_DARK.BGC_DISABLED};
+      border-color: ${COLOR_FORM_CONTROL_DARK.BDC_DISABLED};
       color: ${COLOR_FORM_CONTROL_DARK.FGC_DISABLED};
     }
   }
@@ -78,8 +78,8 @@ export const CSS_FORM_CONTROL_BASE = css`
   ${CSS_FONT_FAMILY}
   
   .theme-dark & {
-    border-color: ${COLOR_FORM_CONTROL_DARK.BDC};
     background-color: ${COLOR_FORM_CONTROL_DARK.BGC};
+    border-color: ${COLOR_FORM_CONTROL_DARK.BDC};
     color: ${COLOR_FORM_CONTROL_DARK.FGC};
   }
   
@@ -111,13 +111,13 @@ export const CSS_FORM_CONTROL_BASE = css`
   &[disabled],
   &[disabled]:hover,
   &[disabled]:focus {
-    border-color: ${COLOR_FORM_CONTROL.BDC_DISABLED};
     background-color: ${COLOR_FORM_CONTROL.BGC_DISABLED};
+    border-color: ${COLOR_FORM_CONTROL.BDC_DISABLED};
     color: ${COLOR_FORM_CONTROL.FGC_DISABLED};
     
     .theme-dark & {
-      border-color: ${COLOR_FORM_CONTROL_DARK.BDC_DISABLED};
       background-color: ${COLOR_FORM_CONTROL_DARK.BGC_DISABLED};
+      border-color: ${COLOR_FORM_CONTROL_DARK.BDC_DISABLED};
       color: ${COLOR_FORM_CONTROL_DARK.FGC_DISABLED};
     }
   }

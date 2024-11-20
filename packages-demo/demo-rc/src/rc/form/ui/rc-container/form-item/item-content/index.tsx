@@ -23,8 +23,8 @@ const ScItemContent = styled.div`
 `;
 const ScHelp = styled.div`
   margin-top: 4px;
-  line-height: 1.4;
   color: ${COLOR_LIGHT.GRAY_SECONDARY};
+  line-height: 1.4;
   
   .theme-dark & {
     color: ${COLOR_DARK.GRAY_SECONDARY};

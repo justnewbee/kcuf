@@ -30,10 +30,10 @@ const ScInfoIdle = styled.div`
   right: 0;
   z-index: 123;
   padding: 4px 8px;
+  background-color: hsl(0 0% 40%);
   font-family: Arial, sans-serif;
   font-size: 11px;
   color: hsl(0 0% 100%);
-  background-color: hsl(0 0% 40%);
   pointer-events: none;
 `;
 

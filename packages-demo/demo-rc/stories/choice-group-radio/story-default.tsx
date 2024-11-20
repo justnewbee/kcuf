@@ -12,7 +12,7 @@ export default function StoryDefault(): ReactElement {
   
   return <>
     <ChoiceGroupRadio<string> {...{
-      dataSource: [{
+      datasource: [{
         value: 's1',
         label: 'check 1'
       }, {
@@ -23,7 +23,7 @@ export default function StoryDefault(): ReactElement {
       onChange: setStateValue
     }} />
     <ChoiceGroupRadio<string> {...{
-      dataSource: [{
+      datasource: [{
         value: 's1',
         label: 'check 1'
       }, {
