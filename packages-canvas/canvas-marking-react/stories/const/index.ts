@@ -13,8 +13,11 @@ export const DATASOURCE_IMAGE: DatasourceItem<EImageType>[] = [{
   value: EImageType.RANDOM,
   label: '随机图'
 }, {
-  value: EImageType.NONE,
+  value: EImageType.NO_IMAGE,
   label: '无图'
+}, {
+  value: EImageType.NONE,
+  label: '空'
 }];
 
 export { default as MARKING_ITEMS_AERIAL } from './marking-items-aerial';

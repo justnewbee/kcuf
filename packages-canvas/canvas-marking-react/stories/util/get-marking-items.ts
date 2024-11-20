@@ -13,11 +13,13 @@ import {
 
 export default function getMarkingItems(type: EImageType): MarkingConfigItem[] {
   switch (type) {
-  case EImageType.NONE:
-    return MARKING_ITEMS_NO_IMAGE;
   case EImageType.ARIAL:
     return MARKING_ITEMS_AERIAL;
-  default:
+  case EImageType.RANDOM:
     return MARKING_ITEMS_RANDOM;
+  case EImageType.NO_IMAGE:
+    return MARKING_ITEMS_NO_IMAGE;
+  default:
+    return [];
   }
 }

@@ -20,11 +20,13 @@ const RANDOM_LIST = [
 
 export default function getImageUrl(type: EImageType): string {
   switch (type) {
-  case EImageType.NONE:
-    return '';
   case EImageType.ARIAL:
     return 'https://zjlc-public.oss-cn-hangzhou.aliyuncs.com/demo/aerial-rooftop.jpeg';
-  default:
+  case EImageType.RANDOM:
     return RANDOM_LIST[Math.floor(Math.random() * RANDOM_LIST.length)] || 'https://img.alicdn.com/bao/uploaded/i3/128940143/O1CN01g1yQbY1CvXZYGCd6T_!!128940143.jpg';
+  case EImageType.NO_IMAGE:
+    return '';
+  default:
+    return '';
   }
 }
