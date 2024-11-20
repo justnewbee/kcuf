@@ -1,6 +1,6 @@
 import {
-  IMarkingStageClass,
-  IMarkingStageStats,
+  ICanvasMarkingClass,
+  ICanvasMarkingStats,
   IMarkingPlugin
 } from '../../types';
 
@@ -9,14 +9,14 @@ import {
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
  */
-export default function pluginCursor<T>(markingStage: IMarkingStageClass<T>): IMarkingPlugin<T> {
+export default function pluginCursor<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     options,
     canvas
   } = markingStage;
   
   return {
-    run(stats: IMarkingStageStats<T>): void {
+    run(stats: ICanvasMarkingStats<T>): void {
       let cursor = 'default';
       
       if (stats.moving) {

@@ -6,12 +6,12 @@ import {
   ZoomHow
 } from '../../../src';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleZoom(): (how: ZoomHow) => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((how: ZoomHow): void => {
-    markingStage?.zoom(how);
-  }, [markingStage]);
+    markingInstance?.zoom(how);
+  }, [markingInstance]);
 }

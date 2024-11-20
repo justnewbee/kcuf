@@ -4,7 +4,7 @@ import {
 import styled from 'styled-components';
 
 import {
-  useMarkingStage
+  useMarkingInstance
 } from '../../demo-model';
 
 import OpsOverall from './ops-overall';
@@ -19,11 +19,11 @@ const ScActions = styled.div`
 `;
 
 export default function Ops(): ReactElement {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return <ScActions>
     <OpsOverall />
-    {markingStage ? <>
+    {markingInstance ? <>
       <OpsImageData />
       <OpsMarkings />
       <OpsSelect />

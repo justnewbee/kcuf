@@ -2,12 +2,12 @@ import {
   useCallback
 } from 'react';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleSetDataEmpty(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((): void => {
-    markingStage?.setData('', []);
-  }, [markingStage]);
+    markingInstance?.setData('', []);
+  }, [markingInstance]);
 }

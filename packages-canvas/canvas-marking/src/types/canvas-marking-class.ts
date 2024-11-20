@@ -6,28 +6,29 @@ import {
 import {
   EZoomHow
 } from '../enum';
+
 import {
   TSize,
   TMarkingItemFinder
 } from './common';
 import {
-  IMarkingStageStats
+  ICanvasMarkingStats
 } from './stats';
 import {
   IMarkingConfigItem
-} from './marking-item-class';
+} from './canvas-marking-item-class';
 import {
   TSubscribableEvents
 } from './events';
 import {
-  IMarkingStageOptions
+  ICanvasMarkingOptions
 } from './options';
 
 /**
  * 共享给 MarkingItem 的属性，单独一个类型为避免 Item 越权操作
  */
-export interface IMarkingStageClassProtected<T = void> {
-  readonly options: IMarkingStageOptions<T>;
+export interface ICanvasMarkingClassProtected<T = void> {
+  readonly options: ICanvasMarkingOptions<T>;
   readonly canvasContext: CanvasRenderingContext2D;
   
   /**
@@ -45,9 +46,9 @@ export interface IMarkingStageClassProtected<T = void> {
 }
 
 /**
- * MarkingStage 需实现的接口
+ * CanvasMarking 需实现的接口
  */
-export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtected<T>, Subscribable<TSubscribableEvents<T>> {
+export interface ICanvasMarkingClass<T = void> extends ICanvasMarkingClassProtected<T>, Subscribable<TSubscribableEvents<T>> {
   readonly stage: HTMLDivElement;
   readonly canvas: HTMLCanvasElement;
   
@@ -127,7 +128,7 @@ export interface IMarkingStageClass<T = void> extends IMarkingStageClassProtecte
   /**
    * 主动获取当前状态，一般不需要主动调用，建议在 options.onStatsChange 监听
    */
-  getStats(): IMarkingStageStats<T>;
+  getStats(): ICanvasMarkingStats<T>;
   
   /**
    * 根据当前 stats 进行绘画，主要用于内部调用；但也可以由使用者按需主动调用，`drawExtra` 仅供外部调用，以于画一些额外的图形

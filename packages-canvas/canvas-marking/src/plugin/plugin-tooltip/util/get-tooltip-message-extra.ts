@@ -1,9 +1,9 @@
 import {
-  IMarkingStageStats,
+  ICanvasMarkingStats,
   IMarkingPluginTooltipOptions
 } from '../../../types';
 
-export default function getTooltipMessageExtra<T>(stats: IMarkingStageStats<T>, pluginOptions: IMarkingPluginTooltipOptions<T>): string | undefined {
+export default function getTooltipMessageExtra<T>(stats: ICanvasMarkingStats<T>, pluginOptions: IMarkingPluginTooltipOptions<T>): string | undefined {
   const {
     itemStatsCreating,
     itemStatsHovering

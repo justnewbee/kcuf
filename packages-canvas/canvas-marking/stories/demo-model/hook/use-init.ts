@@ -13,23 +13,23 @@ import {
 
 import useModelState from './_use-model-state';
 import useDispatchSetEverInit from './use-dispatch-set-ever-init';
-import useDispatchSetMarkingStage from './use-dispatch-set-marking-stage';
-import useDispatchSetMarkingStageStats from './use-dispatch-set-marking-stage-stats';
+import useDispatchSetCanvasMarking from './use-dispatch-set-marking-instance';
+import useDispatchSetMarkingStats from './use-dispatch-set-marking-stats';
 
 export default function useInit(): () => void {
   const {
     domMarking,
-    markingStage
+    markingInstance
   } = useModelState();
   const dispatchSetEverInit = useDispatchSetEverInit();
-  const dispatchSetMarkingStage = useDispatchSetMarkingStage();
-  const dispatchSetMarkingStageStats = useDispatchSetMarkingStageStats();
+  const dispatchSetCanvasMarking = useDispatchSetCanvasMarking();
+  const dispatchSetCanvasMarkingStats = useDispatchSetMarkingStats();
   
   return useCallback(() => {
-    if (domMarking && !markingStage) {
+    if (domMarking && !markingInstance) {
       dispatchSetEverInit();
       
-      dispatchSetMarkingStage(new CanvasMarking(domMarking, {
+      dispatchSetCanvasMarking(new CanvasMarking(domMarking, {
         image: IMAGE_AERIAL,
         items: DEMO_MARKINGS_AERIAL,
         pluginFps: true,
@@ -37,8 +37,8 @@ export default function useInit(): () => void {
         pluginTooltip: {
           getHoveringInfo
         },
-        onStatsChange: dispatchSetMarkingStageStats
+        onStatsChange: dispatchSetCanvasMarkingStats
       }));
     }
-  }, [domMarking, markingStage, dispatchSetEverInit, dispatchSetMarkingStage, dispatchSetMarkingStageStats]);
+  }, [domMarking, markingInstance, dispatchSetEverInit, dispatchSetCanvasMarking, dispatchSetCanvasMarkingStats]);
 }

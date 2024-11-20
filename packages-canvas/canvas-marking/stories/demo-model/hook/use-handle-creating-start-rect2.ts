@@ -2,14 +2,14 @@ import {
   useCallback
 } from 'react';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleCreatingStartRect2(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((): void => {
-    markingStage?.startCreating({
+    markingInstance?.startCreating({
       type: 'rect2'
     });
-  }, [markingStage]);
+  }, [markingInstance]);
 }

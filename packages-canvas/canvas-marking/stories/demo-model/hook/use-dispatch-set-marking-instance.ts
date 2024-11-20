@@ -4,8 +4,7 @@ import {
 
 import {
   CanvasMarkingClassType
-} from '@kcuf/canvas-marking';
-
+} from '../../../src';
 import {
   EAction
 } from '../enum';

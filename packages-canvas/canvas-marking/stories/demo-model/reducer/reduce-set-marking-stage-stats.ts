@@ -3,14 +3,14 @@ import {
 } from 'immer';
 
 import {
-  MarkingStageStats
+  CanvasMarkingStats
 } from '../../../src';
 import {
   IModelState
 } from '../types';
 
-export default function reduceSetMarkingStageStats(state: IModelState, payload: MarkingStageStats | null): IModelState {
+export default function reduceSetCanvasMarkingStats(state: IModelState, payload: CanvasMarkingStats | null): IModelState {
   return produce(state, draft => {
-    draft.markingStageStats = payload;
+    draft.markingStats = payload;
   });
 }

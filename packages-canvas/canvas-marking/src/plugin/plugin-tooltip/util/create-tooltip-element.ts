@@ -1,11 +1,11 @@
 import {
-  createDiv
+  createDomDiv
 } from '../../../util';
 
 import createTooltipStyle from './create-tooltip-style';
 
 export default function createTooltipElement(stage: HTMLDivElement): HTMLDivElement {
-  const divTooltip = createDiv(createTooltipStyle(stage));
+  const divTooltip = createDomDiv(createTooltipStyle(stage));
   
   stage.appendChild(divTooltip);
   

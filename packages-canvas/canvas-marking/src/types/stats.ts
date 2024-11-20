@@ -49,7 +49,7 @@ export interface IMarkingItemStats<T = void> {
 /**
  * 整体实时统计信息
  */
-export interface IMarkingStageStats<T = void> {
+export interface ICanvasMarkingStats<T = void> {
   // 整体状态
   disabled: boolean;
   zoom: number;

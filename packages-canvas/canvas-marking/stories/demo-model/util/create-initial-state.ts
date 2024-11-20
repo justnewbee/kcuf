@@ -7,8 +7,8 @@ export default function createInitialState(): IModelState {
     everInit: false,
     domContainer: null,
     domMarking: null,
-    markingStageStats: null,
-    markingStage: null,
+    markingStats: null,
+    markingInstance: null,
     logEvents: false,
     fullscreen: false
   };

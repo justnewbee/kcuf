@@ -4,6 +4,7 @@ import {
 
 import {
   ZoomHow,
+  CanvasMarkingStats,
   MarkingConfigItem,
   MarkingItemFinder
 } from '@kcuf/canvas-marking';
@@ -32,6 +33,9 @@ export default function useImperativeRef(): IImperativeRef {
     },
     zoom(how: ZoomHow): void {
       markingInstance?.zoom(how);
+    },
+    getStats(): CanvasMarkingStats | null {
+      return markingInstance ? markingInstance.getStats() : null;
     }
   }), [markingInstance]);
 }

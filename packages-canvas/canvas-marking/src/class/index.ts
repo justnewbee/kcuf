@@ -1,1 +1,1 @@
-export { default as MarkingStage } from './marking-stage';
+export { default as CanvasMarking } from './canvas-marking';

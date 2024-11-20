@@ -1,13 +1,13 @@
 import {
-  IMarkingStageOptions,
+  ICanvasMarkingOptions,
   IMarkingPluginTooltipOptions,
-  IMarkingStageStats
+  ICanvasMarkingStats
 } from '../../../types';
 
 import getTooltipMessageBasic from './get-tooltip-message-basic';
 import getTooltipMessageExtra from './get-tooltip-message-extra';
 
-export default function getTooltipMessage<T>(stats: IMarkingStageStats<T>, options: IMarkingStageOptions<T>, pluginOptions: IMarkingPluginTooltipOptions<T>): string {
+export default function getTooltipMessage<T>(stats: ICanvasMarkingStats<T>, options: ICanvasMarkingOptions<T>, pluginOptions: IMarkingPluginTooltipOptions<T>): string {
   if (!stats.mouseInCanvas) {
     return '';
   }

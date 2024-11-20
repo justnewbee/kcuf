@@ -6,12 +6,12 @@ import {
   MarkingItemFinder
 } from '../../../src';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleSelect(): (finder: MarkingItemFinder<unknown>) => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((finder: MarkingItemFinder<unknown>): void => {
-    markingStage?.selectItem(finder);
-  }, [markingStage]);
+    markingInstance?.selectItem(finder);
+  }, [markingInstance]);
 }

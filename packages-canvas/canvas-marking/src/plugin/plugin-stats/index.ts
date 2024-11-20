@@ -2,8 +2,8 @@ import {
   EMarkingStatsChangeCause
 } from '../../enum';
 import {
-  IMarkingStageClass,
-  IMarkingStageStats,
+  ICanvasMarkingClass,
+  ICanvasMarkingStats,
   IMarkingPlugin
 } from '../../types';
 
@@ -15,14 +15,14 @@ import {
 /**
  * 在 stage 右侧展示当前的标注状态，开发时很有用
  */
-export default function pluginStats<T>(markingStage: IMarkingStageClass<T>): IMarkingPlugin<T> {
+export default function pluginStats<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     stage
   } = markingStage;
   
   let statsElement: HTMLDivElement | null;
   
-  function showStats(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void {
+  function showStats(stats: ICanvasMarkingStats<T>, cause: EMarkingStatsChangeCause): void {
     if (!statsElement) {
       statsElement = createStatsElements(stage);
     }
@@ -31,7 +31,7 @@ export default function pluginStats<T>(markingStage: IMarkingStageClass<T>): IMa
   }
   
   return {
-    run(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void {
+    run(stats: ICanvasMarkingStats<T>, cause: EMarkingStatsChangeCause): void {
       showStats(stats, cause);
     },
     cleanup(): void {

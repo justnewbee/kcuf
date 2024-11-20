@@ -1,5 +1,5 @@
 import {
-  createDiv
+  createDomDiv
 } from '../../../util';
 import {
   CLASS_FPS_TEXT,
@@ -11,9 +11,9 @@ import {
 import createFpsStyle from './create-fps-style';
 
 export default function createFpsElements(stage: HTMLDivElement): [HTMLDivElement, HTMLDivElement, HTMLDivElement] {
-  const divFps = createDiv(createFpsStyle(stage));
-  const divFpsText = createDiv(CLASS_FPS_TEXT, '-');
-  const divFpsGraph = createDiv(CLASS_FPS_GRAPH, ((): string => {
+  const divFps = createDomDiv(createFpsStyle(stage));
+  const divFpsText = createDomDiv(CLASS_FPS_TEXT, '-');
+  const divFpsGraph = createDomDiv(CLASS_FPS_GRAPH, ((): string => {
     const fpsBars = [];
     
     for (let i = 0; i < BAR_COUNT; i++) {

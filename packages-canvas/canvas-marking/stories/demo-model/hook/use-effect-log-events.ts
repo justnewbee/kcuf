@@ -10,16 +10,16 @@ import useModelState from './_use-model-state';
 
 export default function useEffectLogEvents(): void {
   const {
-    markingStage,
+    markingInstance,
     logEvents
   } = useModelState();
   
   useEffect(() => {
-    if (!markingStage || !logEvents) {
+    if (!markingInstance || !logEvents) {
       return;
     }
     
-    return markingStage.on({
+    return markingInstance.on({
       'create-start': generateCallback('create-start'),
       'create-cancel': generateCallback('create-cancel'),
       'create-complete': generateCallback('create-complete'),
@@ -36,5 +36,5 @@ export default function useEffectLogEvents(): void {
       'move-pause': generateCallback('move-pause'),
       'move-end': generateCallback('move-end')
     });
-  }, [markingStage, logEvents]);
+  }, [markingInstance, logEvents]);
 }

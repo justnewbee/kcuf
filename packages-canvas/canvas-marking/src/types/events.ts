@@ -8,7 +8,7 @@ import {
 
 import {
   IMarkingItemStats,
-  IMarkingStageStats
+  ICanvasMarkingStats
 } from './stats';
 
 export type TBeforeHook<T> = (stats: IMarkingItemStats<T>) => Path | null | undefined;
@@ -34,7 +34,7 @@ export interface IOptionsEvents<T> {
   onMoveStart?(): void;
   onMovePause?(): void;
   onMoveEnd?(): void;
-  onStatsChange?(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void;
+  onStatsChange?(stats: ICanvasMarkingStats<T>, cause: EMarkingStatsChangeCause): void;
 }
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -54,5 +54,5 @@ export type TSubscribableEvents<T> = { // 这个不用 interface
   'move-start'(): void;
   'move-pause'(): void;
   'move-end'(): void;
-  'stats-change'(stats: IMarkingStageStats<T>, cause: EMarkingStatsChangeCause): void;
+  'stats-change'(stats: ICanvasMarkingStats<T>, cause: EMarkingStatsChangeCause): void;
 };

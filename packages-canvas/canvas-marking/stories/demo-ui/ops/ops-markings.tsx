@@ -7,7 +7,7 @@ import {
 } from '@kcuf/demo-rc';
 
 import {
-  useMarkingStageStats,
+  useMarkingStats,
   useHandleCreatingStart,
   useHandleCreatingStartMaxPoint5,
   useHandleCreatingStartRect,
@@ -20,7 +20,7 @@ import {
 } from '../../demo-model';
 
 export default function OpsMarkings(): ReactElement {
-  const markingStageStats = useMarkingStageStats();
+  const markingStats = useMarkingStats();
   const handleCreatingStart = useHandleCreatingStart();
   const handleCreatingStartMaxPoint5 = useHandleCreatingStartMaxPoint5();
   const handleCreatingStartRect = useHandleCreatingStartRect();
@@ -33,39 +33,39 @@ export default function OpsMarkings(): ReactElement {
   
   return <div>
     <Button {...{
-      disabled: markingStageStats?.disabled || markingStageStats?.creating,
+      disabled: markingStats?.disabled || markingStats?.creating,
       onClick: handleCreatingStart
     }}>标注</Button>
     <Button {...{
-      disabled: markingStageStats?.disabled || markingStageStats?.creating,
+      disabled: markingStats?.disabled || markingStats?.creating,
       onClick: handleCreatingStartMaxPoint5
     }}>标注（最多 5 点）</Button>
     <Button {...{
-      disabled: markingStageStats?.disabled || markingStageStats?.creating,
+      disabled: markingStats?.disabled || markingStats?.creating,
       onClick: handleCreatingStartRect
     }}>标注（矩形）</Button>
     <Button {...{
-      disabled: markingStageStats?.disabled || markingStageStats?.creating,
+      disabled: markingStats?.disabled || markingStats?.creating,
       onClick: handleCreatingStartRect2
     }}>标注（矩形 II）</Button>
     <Button {...{
-      disabled: markingStageStats?.disabled || markingStageStats?.creating,
+      disabled: markingStats?.disabled || markingStats?.creating,
       onClick: handleCreatingStartLine
     }}>标注（线）</Button>
     <Button {...{
-      disabled: !markingStageStats?.creating,
+      disabled: !markingStats?.creating,
       onClick: handleCancelCreating
     }}>取消标注</Button>
     <Button {...{
-      disabled: !markingStageStats?.creating,
+      disabled: !markingStats?.creating,
       onClick: handleFinishCreating
     }}>完成标注</Button>
     <Button {...{
-      disabled: !markingStageStats?.editing,
+      disabled: !markingStats?.editing,
       onClick: handleDeleteActiveItem
     }}>删除</Button>
     <Button {...{
-      disabled: !markingStageStats?.itemStatsList.length,
+      disabled: !markingStats?.itemStatsList.length,
       onClick: handleDeleteAllItems
     }}>删除全部</Button>
   </div>;

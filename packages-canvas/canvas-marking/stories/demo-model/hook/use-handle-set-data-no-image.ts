@@ -6,12 +6,12 @@ import {
   DEMO_MARKINGS_NO_IMAGE
 } from '../const';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleSetDataNoImage(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((): void => {
-    markingStage?.setData('', DEMO_MARKINGS_NO_IMAGE);
-  }, [markingStage]);
+    markingInstance?.setData('', DEMO_MARKINGS_NO_IMAGE);
+  }, [markingInstance]);
 }

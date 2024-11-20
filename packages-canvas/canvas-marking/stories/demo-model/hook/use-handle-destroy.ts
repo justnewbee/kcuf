@@ -3,18 +3,18 @@ import {
 } from 'react';
 
 import useModelState from './_use-model-state';
-import useDispatchSetMarkingStage from './use-dispatch-set-marking-stage';
+import useDispatchSetCanvasMarking from './use-dispatch-set-marking-instance';
 
 export default function useHandleDestroy(): () => void {
   const {
-    markingStage
+    markingInstance
   } = useModelState();
-  const dispatchSetMarkingStage = useDispatchSetMarkingStage();
+  const dispatchSetCanvasMarking = useDispatchSetCanvasMarking();
   
   return useCallback(() => {
-    if (markingStage) {
-      markingStage.destroy();
-      dispatchSetMarkingStage(null);
+    if (markingInstance) {
+      markingInstance.destroy();
+      dispatchSetCanvasMarking(null);
     }
-  }, [markingStage, dispatchSetMarkingStage]);
+  }, [markingInstance, dispatchSetCanvasMarking]);
 }

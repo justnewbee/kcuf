@@ -10,10 +10,10 @@ export { default as fadeStyleBorder } from './fade-style-border';
 export { default as fadeStylePoint } from './fade-style-point';
 export { default as fadeStyleFill } from './fade-style-fill';
 
-export { default as createDiv } from './create-div';
-export { default as createMarkingStage } from './create-marking-stage';
-export { default as createMarkingImageBg } from './create-marking-image-bg';
-export { default as createMarkingCanvas } from './create-marking-canvas';
+export { default as createDomDiv } from './create-dom-div';
+export { default as createDomStage } from './create-dom-stage';
+export { default as createDomImageBg } from './create-dom-image-bg';
+export { default as createDomCanvas } from './create-dom-canvas';
 
 export { default as initDrawStyleBorder } from './init-draw-style-border';
 export { default as initDrawStylePoint } from './init-draw-style-point';

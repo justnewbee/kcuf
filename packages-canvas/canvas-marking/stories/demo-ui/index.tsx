@@ -7,7 +7,7 @@ import styled, {
 
 import {
   useRefDomContainer,
-  useRefDomMarkingStage,
+  useRefDomCanvasMarking,
   useFullscreen
 } from '../demo-model';
 
@@ -34,11 +34,11 @@ const ScMarking = styled.div`
 
 export default function StoryDefault(): ReactElement {
   const refDomContainer = useRefDomContainer();
-  const refDomMarkingStage = useRefDomMarkingStage();
+  const refDomCanvasMarking = useRefDomCanvasMarking();
   const fullscreen = useFullscreen();
   
   return <ScContainer ref={refDomContainer} $fullscreen={fullscreen}>
-    <ScMarking ref={refDomMarkingStage} />
+    <ScMarking ref={refDomCanvasMarking} />
     <Ops />
   </ScContainer>;
 }

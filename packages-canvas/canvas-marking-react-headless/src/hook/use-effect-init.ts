@@ -16,7 +16,7 @@ export default function useEffectInit(): void {
     domContainer,
     markingInstance
   } = useModelState();
-  const dispatchSetMarkingStage = useDispatchSetMarkingInstance();
+  const dispatchSetCanvasMarking = useDispatchSetMarkingInstance();
   
   useEffect(() => {
     if (!domContainer || markingInstance) {
@@ -31,6 +31,6 @@ export default function useEffectInit(): void {
       }
     });
     
-    dispatchSetMarkingStage(instance);
-  }, [domContainer, markingInstance, dispatchSetMarkingStage]);
+    dispatchSetCanvasMarking(instance);
+  }, [domContainer, markingInstance, dispatchSetCanvasMarking]);
 }

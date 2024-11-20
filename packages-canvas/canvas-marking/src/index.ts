@@ -1,4 +1,4 @@
-export { MarkingStage as default } from './class';
+export { CanvasMarking as default } from './class';
 
 export {
   EZoomHow as ZoomHow,
@@ -10,7 +10,7 @@ export type {
 } from '@kcuf/geometry-basic';
 
 export type {
-  IMarkingStageClass as MarkingStageClassType,
+  ICanvasMarkingClass as CanvasMarkingClassType,
   TMarkingItemFinder as MarkingItemFinder,
   
   IMarkingConfigItemBorderDiff as MarkingConfigItemBorderDiff,
@@ -20,11 +20,11 @@ export type {
   IMarkingFillStyle as MarkingFillStyle,
   IMarkingPointStyle as MarkingPointStyle,
   
-  IMarkingStageStats as MarkingStageStats,
+  ICanvasMarkingStats as CanvasMarkingStats,
   IMarkingItemStats as MarkingItemStats,
   
   IMarkingConfigItem as MarkingConfigItem,
   IMarkingItemConfig as MarkingItemConfig,
-  IMarkingStageOptions as MarkingStageOptions,
+  ICanvasMarkingOptions as CanvasMarkingOptions,
   IMarkingPluginTooltipOptions as MarkingPluginTooltipOptions
 } from './types';

@@ -2,8 +2,8 @@ import {
   EZoomHow
 } from '../../enum';
 import {
-  IMarkingStageClass,
-  IMarkingStageStats,
+  ICanvasMarkingClass,
+  ICanvasMarkingStats,
   IMarkingPlugin
 } from '../../types';
 import {
@@ -13,7 +13,7 @@ import {
 /**
  * 为 zoom 添加快捷键
  */
-export default function pluginZoom<T>(markingStage: IMarkingStageClass<T>): IMarkingPlugin<T> {
+export default function pluginZoom<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   let willZoom = false;
   
   function zoomOnKey(key: string, shift: boolean): boolean {
@@ -68,7 +68,7 @@ export default function pluginZoom<T>(markingStage: IMarkingStageClass<T>): IMar
   });
   
   return {
-    run(stats: IMarkingStageStats<T>): void {
+    run(stats: ICanvasMarkingStats<T>): void {
       willZoom = !!stats.mouseInStage;
     },
     cleanup(): void {

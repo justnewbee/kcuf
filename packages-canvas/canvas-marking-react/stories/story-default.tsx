@@ -162,6 +162,11 @@ export default function StoryDefault(): ReactElement {
           }}>zoom Reset</Button>
         </>
       }, {
+        label: '打印数据',
+        content: <Button {...{
+          onClick: () => console.info(ref.current?.getStats()) // eslint-disable-line no-console
+        }}>getStats</Button>
+      }, {
         label: '数据源',
         content: <ChoiceGroupRadio<EImageType> {...{
           datasource: DATASOURCE_IMAGE,

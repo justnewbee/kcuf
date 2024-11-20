@@ -8,7 +8,7 @@ import {
 import {
   IMarkingConfigItem,
   IMarkingItemConfig
-} from './marking-item-class';
+} from './canvas-marking-item-class';
 import {
   TBeforeHook,
   IOptionsEvents
@@ -18,7 +18,7 @@ import {
   IMarkingPluginZoomOptions
 } from './plugin';
 
-export interface IMarkingStageOptions<T> extends IMarkingItemConfig, IOptionsEvents<T> {
+export interface ICanvasMarkingOptions<T> extends IMarkingItemConfig, IOptionsEvents<T> {
   auxiliaryLine?: IMarkingAuxiliaryLine;
   // --- 数据 --- //
   image?: string;

@@ -1,5 +1,5 @@
 export default {
-  title: 'Marking'
+  title: 'CanvasMarking'
 };
 
 export { default as Default } from './story-default';

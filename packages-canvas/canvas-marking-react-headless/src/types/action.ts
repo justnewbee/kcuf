@@ -3,7 +3,7 @@ import {
 } from 'react';
 
 import {
-  MarkingStageClassType
+  CanvasMarkingClassType
 } from '@kcuf/canvas-marking';
 
 import {
@@ -15,7 +15,7 @@ export type TModelAction = {
   payload: HTMLDivElement | null;
 } | {
   type: EAction.SET_MARKING_INSTANCE;
-  payload: MarkingStageClassType | null;
+  payload: CanvasMarkingClassType | null;
 };
 
 export type TModelDispatch = Dispatch<TModelAction>;

@@ -1,6 +1,6 @@
 import {
   CanvasMarkingClassType
-} from '@kcuf/canvas-marking';
+} from '../../../src';
 
 import useModelState from './_use-model-state';
 

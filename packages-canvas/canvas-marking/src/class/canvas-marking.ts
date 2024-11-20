@@ -39,9 +39,9 @@ import {
   IMarkingItemStats,
   IMarkingPlugin,
   IMarkingPluginZoomOptions,
-  IMarkingStageClass,
-  IMarkingStageOptions,
-  IMarkingStageStats,
+  ICanvasMarkingClass,
+  ICanvasMarkingOptions,
+  ICanvasMarkingStats,
   TMarkingItemFinder
 } from '../types';
 import {
@@ -55,9 +55,9 @@ import {
   roundFloat,
   roundSize,
   bindDocumentEvent,
-  createMarkingCanvas,
-  createMarkingImageBg,
-  createMarkingStage,
+  createDomCanvas,
+  createDomImageBg,
+  createDomStage,
   getMouseJustifiedStatusMagnet,
   loadImage,
   canvasDrawPerpendicularMark
@@ -73,11 +73,11 @@ import {
   pluginZoom
 } from '../plugin';
 
-import MarkingItem from './marking-item';
+import CanvasMarkingItem from './canvas-marking-item';
 
-export default class MarkingStage<T = void> extends Subscribable<TSubscribableEvents<T>> implements IMarkingStageClass<T> {
+export default class CanvasMarking<T = void> extends Subscribable<TSubscribableEvents<T>> implements ICanvasMarkingClass<T> {
   private readonly container: HTMLElement;
-  readonly options: IMarkingStageOptions<T>;
+  readonly options: ICanvasMarkingOptions<T>;
   readonly stage: HTMLDivElement;
   readonly canvas: HTMLCanvasElement;
   readonly canvasContext: CanvasRenderingContext2D;
@@ -121,7 +121,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
   /**
    * 新建中的 MarkingItem，不计入 markingItems，在最末编辑结束后才进入（因此需单独渲染）
    */
-  private itemCreating: MarkingItem<T> | null = null;
+  private itemCreating: CanvasMarkingItem<T> | null = null;
   
   // 鼠标状态
   // 鼠标相对于组件的实时坐标（屏幕像素），null 表示在组件外
@@ -144,7 +144,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
    */
   private mouseClickTime = 0;
   
-  private statsSnapshot: IMarkingStageStats<T>;
+  private statsSnapshot: ICanvasMarkingStats<T>;
   
   /**
    * 视图放大缩小系数，每次 zoom 操作将基于 imageFitScale * zoomLevel 算出新的 scale
@@ -175,14 +175,14 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
    */
   private cleanups: (() => void)[] = [];
   
-  constructor(container: HTMLElement, options?: IMarkingStageOptions<T>) {
+  constructor(container: HTMLElement, options?: ICanvasMarkingOptions<T>) {
     super();
     
     const safeOptions = _merge({}, DEFAULT_MARKING_OPTIONS, options);
     
-    const stage = createMarkingStage();
-    const imageBg = createMarkingImageBg(safeOptions.imageBgc);
-    const canvas = createMarkingCanvas();
+    const stage = createDomStage();
+    const imageBg = createDomImageBg(safeOptions.imageBgc);
+    const canvas = createDomCanvas();
     
     stage.prepend(imageBg); // 作为其第一个元素，可以不需要设 z-index
     stage.appendChild(canvas);
@@ -487,12 +487,12 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     return Date.now() - mouseClickTime <= doubleClickInterval;
   }
   
-  private createMarkingItem(extraOptions?: IMarkingItemOptions<T>): MarkingItem<T> {
+  private createMarkingItem(extraOptions?: IMarkingItemOptions<T>): CanvasMarkingItem<T> {
     const {
       options
     } = this;
     
-    return new MarkingItem<T>(this, {
+    return new CanvasMarkingItem<T>(this, {
       // TODO 提取一个专门的属性包揽所有样式
       borderStyle: options.borderStyle,
       borderStyleHovering: options.borderStyleHovering,
@@ -1574,7 +1574,7 @@ export default class MarkingStage<T = void> extends Subscribable<TSubscribableEv
     this.updateAndDraw(EMarkingStatsChangeCause.HIGHLIGHT);
   }
   
-  getStats(): IMarkingStageStats<T> {
+  getStats(): ICanvasMarkingStats<T> {
     const {
       stage,
       canvas,

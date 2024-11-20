@@ -1,6 +1,6 @@
 import {
-  IMarkingStageClass,
-  IMarkingStageStats,
+  ICanvasMarkingClass,
+  ICanvasMarkingStats,
   IMarkingPlugin
 } from '../../types';
 import {
@@ -12,7 +12,7 @@ const KEY = 'Shift';
 /**
  * 需按住 Shift 已启用 snapping 效果
  */
-export default function pluginSnapping<T>(markingStage: IMarkingStageClass<T>): IMarkingPlugin<T> {
+export default function pluginSnapping<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   let inCanvas = false;
   
   const unbindDocKeydown = bindDocumentEvent('keydown', (e: KeyboardEvent): void => {
@@ -27,7 +27,7 @@ export default function pluginSnapping<T>(markingStage: IMarkingStageClass<T>): 
   }, true);
   
   return {
-    run(stats: IMarkingStageStats<T>): void {
+    run(stats: ICanvasMarkingStats<T>): void {
       inCanvas = !!stats.mouseInCanvas;
     },
     cleanup(): void {

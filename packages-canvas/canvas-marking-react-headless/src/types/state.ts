@@ -1,8 +1,8 @@
 import {
-  MarkingStageClassType
+  CanvasMarkingClassType
 } from '@kcuf/canvas-marking';
 
 export interface IModelState {
   domContainer: HTMLDivElement | null;
-  markingInstance: MarkingStageClassType | null;
+  markingInstance: CanvasMarkingClassType | null;
 }

@@ -1,11 +1,11 @@
 import {
-  createDiv
+  createDomDiv
 } from '../../../util';
 
 import createStatsStyle from './create-stats-style';
 
 export default function createStatsElement(stage: HTMLDivElement): HTMLDivElement {
-  const divStats = createDiv(createStatsStyle(stage));
+  const divStats = createDomDiv(createStatsStyle(stage));
   
   stage.appendChild(divStats);
   

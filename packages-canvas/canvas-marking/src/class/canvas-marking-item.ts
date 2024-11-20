@@ -30,7 +30,7 @@ import {
   TMarkingBorderStyleResolved,
   TMarkingFillStyleResolved,
   TMarkingPointStyleResolved,
-  IMarkingStageClassProtected,
+  ICanvasMarkingClassProtected,
   IMarkingItemClass,
   IMarkingItemOptions,
   IMarkingConfigItemBorderDiff,
@@ -62,8 +62,8 @@ import {
   canvasDrawArea
 } from '../util';
 
-export default class MarkingItem<T> implements IMarkingItemClass<T> {
-  private readonly markingStage: IMarkingStageClassProtected<T>;
+export default class CanvasMarkingItem<T> implements IMarkingItemClass<T> {
+  private readonly markingStage: ICanvasMarkingClassProtected<T>;
   
   protected options: IMarkingItemOptions<T>;
   
@@ -103,7 +103,7 @@ export default class MarkingItem<T> implements IMarkingItemClass<T> {
   private readonly fillStyleHighlighting: TMarkingFillStyleResolved;
   private readonly fillStyleEditing: TMarkingFillStyleResolved;
   
-  constructor(markingStage: IMarkingStageClassProtected<T>, options: IMarkingItemOptions<T> = {}) {
+  constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}) {
     this.markingStage = markingStage;
     this.options = options;
     

@@ -6,7 +6,9 @@ import {
   Button
 } from '@kcuf/demo-rc';
 
-import { ZoomHow } from '../../../src';
+import {
+  ZoomHow
+} from '../../../src';
 import {
   useHandleZoom
 } from '../../demo-model';

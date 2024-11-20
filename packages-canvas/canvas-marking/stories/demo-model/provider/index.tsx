@@ -18,8 +18,8 @@ export default function Provider({
     everInit: false,
     domContainer: null,
     domMarking: null,
-    markingStageStats: null,
-    markingStage: null,
+    markingStats: null,
+    markingInstance: null,
     logEvents: false,
     fullscreen: false
   });

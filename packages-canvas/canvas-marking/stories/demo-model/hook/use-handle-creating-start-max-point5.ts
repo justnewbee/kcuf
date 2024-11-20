@@ -2,14 +2,14 @@ import {
   useCallback
 } from 'react';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleCreatingStartMaxPoint5(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((): void => {
-    markingStage?.startCreating({
+    markingInstance?.startCreating({
       pointCountMax: 5
     });
-  }, [markingStage]);
+  }, [markingInstance]);
 }

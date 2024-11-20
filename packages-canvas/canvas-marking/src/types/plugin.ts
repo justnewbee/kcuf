@@ -4,7 +4,7 @@ import {
 
 import {
   IMarkingItemStats,
-  IMarkingStageStats
+  ICanvasMarkingStats
 } from './stats';
 
 export interface IMarkingPluginTooltipOptions<T> {
@@ -28,6 +28,6 @@ export interface IMarkingPluginZoomOptions {
 }
 
 export interface IMarkingPlugin<T> {
-  run?(stats: IMarkingStageStats<T>, changeCause: EMarkingStatsChangeCause): void;
+  run?(stats: ICanvasMarkingStats<T>, changeCause: EMarkingStatsChangeCause): void;
   cleanup?(): void;
 }

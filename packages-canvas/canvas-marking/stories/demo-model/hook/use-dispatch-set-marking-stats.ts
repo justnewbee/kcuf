@@ -3,7 +3,7 @@ import {
 } from 'react';
 
 import {
-  MarkingStageStats
+  CanvasMarkingStats
 } from '../../../src';
 import {
   EAction
@@ -11,11 +11,11 @@ import {
 
 import useModelDispatch from './_use-model-dispatch';
 
-export default function useDispatchSetMarkingStageStats(): (payload: MarkingStageStats | null) => void {
+export default function useDispatchSetMarkingStats(): (payload: CanvasMarkingStats | null) => void {
   const dispatch = useModelDispatch();
   
-  return useCallback((payload: MarkingStageStats | null) => dispatch({
-    type: EAction.SET_MARKING_STAGE_STATS,
+  return useCallback((payload: CanvasMarkingStats | null) => dispatch({
+    type: EAction.SET_MARKING_STATS,
     payload
   }), [dispatch]);
 }

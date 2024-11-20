@@ -2,12 +2,12 @@ import {
   useCallback
 } from 'react';
 
-import useMarkingStage from './use-marking-stage';
+import useMarkingInstance from './use-marking-instance';
 
 export default function useHandleDebugStats(): () => void {
-  const markingStage = useMarkingStage();
+  const markingInstance = useMarkingInstance();
   
   return useCallback((): void => {
-    console.info(markingStage?.getStats()); // eslint-disable-line no-console
-  }, [markingStage]);
+    console.info(markingInstance?.getStats()); // eslint-disable-line no-console
+  }, [markingInstance]);
 }
