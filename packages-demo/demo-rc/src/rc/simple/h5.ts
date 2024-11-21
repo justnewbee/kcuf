@@ -10,11 +10,6 @@ export default styled.h5`
   
   &::before {
     content: 'H5';
-    background-color: hsl(180 100% 50%);
-    color: hsl(0 0% 20%);
-    
-    .theme-dark & {
-      background-color: hsl(180 100% 43%);
-    }
+    background-color: hsl(0 57% 47%);
   }
 `;

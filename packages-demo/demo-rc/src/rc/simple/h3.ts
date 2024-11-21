@@ -10,11 +10,6 @@ export default styled.h3`
   
   &::before {
     content: 'H3';
-    background-color: hsl(60 100% 50%);
-    color: hsl(0 0% 20%);
-    
-    .theme-dark & {
-      background-color: hsl(60 100% 43%);
-    }
+    background-color: hsl(197 76% 32%);
   }
 `;

@@ -3,6 +3,10 @@ export { default as MinimalNormalize } from './minimal-normalize';
 export * from './package-info';
 export { default as PackageInfo } from './package-info';
 
+// media & icon
+export * from './icon';
+export { default as Icon } from './icon';
+
 // typography
 export * from './simple';
 export * from './html-text';

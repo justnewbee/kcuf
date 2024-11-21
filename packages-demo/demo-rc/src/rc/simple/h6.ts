@@ -10,6 +10,6 @@ export default styled.h6`
   
   &::before {
     content: 'H6';
-    background-color: hsl(240 100% 50%);
+    background-color: hsl(258 100% 26%);
   }
 `;

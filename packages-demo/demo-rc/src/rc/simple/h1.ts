@@ -6,15 +6,11 @@ import {
 
 export default styled.h1`
   ${CSS_HEADING};
-  line-height: 2;
   font-size: 18px;
+  line-height: 2;
   
   &::before {
     content: 'H1';
-    background-color: hsl(0 100% 50%);
-    
-    .theme-dark & {
-      background-color: hsl(0 100% 43%);
-    }
+    background-color: hsl(0 57% 47%);
   }
 `;

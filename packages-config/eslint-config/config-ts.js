@@ -6,7 +6,7 @@ import eslintTs from 'typescript-eslint';
 export default eslintTs.config(
     ...eslintTs.configs.stylistic, // eslint-disable-line import/no-named-as-default-member
     ...eslintTs.configs.strict, // eslint-disable-line import/no-named-as-default-member
-    // TODO 以下无法在 stories 下生效
+    // TODO 以下无法在非 src 下生效
     // ...eslintTs.configs.stylisticTypeChecked, // eslint-disable-line import/no-named-as-default-member
     // ...eslintTs.configs.strictTypeChecked, // eslint-disable-line import/no-named-as-default-member
     {

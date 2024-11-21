@@ -18,6 +18,7 @@ interface IScMarkingContainer {
 }
 
 const ScMarkingContainer = styled.div<IScMarkingContainer>`
+  height: 100%;
   min-height: 480px;
 `;
 

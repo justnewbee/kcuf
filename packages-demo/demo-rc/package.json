@@ -74,6 +74,7 @@
     "@codemirror/theme-one-dark": "^6.1.2",
     "@codemirror/view": "^6.34.3",
     "@kcuf/rc-headless-form": "workspace:^",
+    "@kcuf/rc-icon-base": "workspace:^*",
     "@kcuf/react-hook-controllable": "workspace:^",
     "@uiw/codemirror-theme-material": "^4.23.6",
     "codemirror-json5": "^1.0.3",
