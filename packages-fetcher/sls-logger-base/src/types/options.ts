@@ -1,7 +1,7 @@
 import {
   TDefaultParams,
   TFlattenPathTester,
-  IDontSend
+  TDontSend
 } from './common';
 
 export interface ISlsPipeOptions {
@@ -62,7 +62,7 @@ export interface ICreateLoggerOptions extends Partial<ISlsPipeOptions> {
    *
    * 在某些场景下需要禁用日志上报功能，比如可能禁止日志跨境
    */
-  dontSend?: IDontSend;
+  dontSend?: TDontSend;
 }
 
 /**
@@ -70,7 +70,7 @@ export interface ICreateLoggerOptions extends Partial<ISlsPipeOptions> {
  */
 export interface IGenerateCreateLoggerOptions {
   defaultParams?: TDefaultParams;
-  dontSend?: IDontSend;
+  dontSend?: TDontSend;
 }
 
 export interface IFlattenOptions {

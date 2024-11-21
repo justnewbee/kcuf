@@ -1,7 +1,7 @@
 import {
   IMarkingBorderStyle,
   IMarkingFillStyle,
-  IMarkingAuxiliaryLine,
+  IAuxiliaryStyle,
   ICanvasMarkingOptions
 } from '../types';
 
@@ -37,12 +37,12 @@ export const DEFAULT_FILL_STYLE: Required<IMarkingFillStyle> = {
 /**
  * 默认引导线样式
  */
-export const DEFAULT_AUXILIARY_STYLE: Required<IMarkingAuxiliaryLine> = {
+export const DEFAULT_AUXILIARY_STYLE: Required<IAuxiliaryStyle> = {
   width: 0.5,
   color: 'hsl(177 100% 50%)'
 };
 
-export const DEFAULT_MARKING_OPTIONS: ICanvasMarkingOptions<never> = {
+export const DEFAULT_MARKING_OPTIONS: ICanvasMarkingOptions = {
   imageBgc: 'hsl(0 0% 0% / 3%)', // 无图的时候，默认给一点点背景
   doubleClickInterval: 200
 };

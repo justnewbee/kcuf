@@ -14,18 +14,20 @@ import {
 export type TBeforeHook<T = unknown> = (stats: IMarkingItemStats<T>) => Path | null | undefined;
 
 /**
- * 所有事件
+ * 所有事件，及钩子方法
  *
  * 注意：为了便于查找代码，所有 onXx 都不要析构出来，而是保持 options.onXx?.() 的调用方式
  */
-export interface IOptionsEvents<T> {
+export interface IMarkingEvents<T> {
   onCreateStart?(): void;
   onCreateCancel?(): void;
+  onBeforeCreateComplete?: TBeforeHook<T>; // 新建结束前，可自动调整路径
   onCreateComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onClick?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onSelectionChange?(stats: IMarkingItemStats<T> | null, statsList: IMarkingItemStats<T>[]): void;
   onPointRemove?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
   onPointInsert?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
+  onBeforeEditDragEnd?: TBeforeHook<T>; // 编辑拖拽结束前，自动调整路径
   onDragEnd?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onEditCancel?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onEditComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;

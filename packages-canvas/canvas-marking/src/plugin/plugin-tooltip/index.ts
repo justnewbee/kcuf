@@ -14,11 +14,11 @@ const BOTTOM_SPACING = 80;
 /**
  * 根据状态在鼠标处增加用户提示
  */
-export default function pluginTooltip<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginTooltip<T = unknown>(canvasMarking: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     options,
     stage
-  } = markingStage;
+  } = canvasMarking;
   const tooltipOptions = {
     offsetX: 16,
     offsetY: 4,

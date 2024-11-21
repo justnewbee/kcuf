@@ -13,21 +13,21 @@ import {
 /**
  * 为 zoom 添加快捷键
  */
-export default function pluginZoom<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   let willZoom = false;
   
   function zoomOnKey(key: string, shift: boolean): boolean {
     switch (key) {
     case '=': // +
-      shift ? markingStage.zoom(EZoomHow.MAX) : markingStage.zoom(EZoomHow.IN);
+      shift ? canvasMarking.zoom(EZoomHow.MAX) : canvasMarking.zoom(EZoomHow.IN);
       
       return true;
     case '-':
-      shift ? markingStage.zoom(EZoomHow.MIN) : markingStage.zoom(EZoomHow.OUT);
+      shift ? canvasMarking.zoom(EZoomHow.MIN) : canvasMarking.zoom(EZoomHow.OUT);
       
       return true;
     case '0':
-      markingStage.zoom(EZoomHow.RESET); // TODO 是不是有个 100%
+      canvasMarking.zoom(EZoomHow.RESET); // TODO 是不是有个 100%
       
       return true;
     default:
@@ -55,9 +55,9 @@ export default function pluginZoom<T = unknown>(markingStage: ICanvasMarkingClas
     e.preventDefault();
     
     if (e.deltaY > 0) {
-      markingStage.zoom(EZoomHow.OUT, true);
+      canvasMarking.zoom(EZoomHow.OUT, true);
     } else {
-      markingStage.zoom(EZoomHow.IN, true);
+      canvasMarking.zoom(EZoomHow.IN, true);
     }
   }
   

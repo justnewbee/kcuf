@@ -12,7 +12,7 @@ import Model, {
 import Ui from '../ui';
 
 function WithModel<T = unknown>(props: CanvasMarkingProps<T>, ref: ForwardedRef<CanvasMarkingImperativeRef<T>>): ReactElement {
-  return <Model {...props as CanvasMarkingProps<unknown>}>
+  return <Model {...props as CanvasMarkingProps}>
     <Ui ref={ref as ForwardedRef<CanvasMarkingImperativeRef>} />
   </Model>;
 }

@@ -15,24 +15,20 @@ import {
 /**
  * 在 stage 右侧展示当前的标注状态，开发时很有用
  */
-export default function pluginStats<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginStats<T = unknown>(canvasMarking: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     stage
-  } = markingStage;
+  } = canvasMarking;
   
-  let statsElement: HTMLDivElement | null;
+  let statsElement: HTMLDivElement | null = createStatsElements(stage);
   
-  function showStats(stats: ICanvasMarkingStats<T>, cause: EMarkingStatsChangeCause): void {
-    if (!statsElement) {
-      statsElement = createStatsElements(stage);
-    }
-    
-    statsElement.innerHTML = getStatsDisplayHtml(stats, cause);
-  }
+  statsElement.innerHTML = getStatsDisplayHtml(canvasMarking.getStats());
   
   return {
     run(stats: ICanvasMarkingStats<T>, cause: EMarkingStatsChangeCause): void {
-      showStats(stats, cause);
+      if (statsElement) {
+        statsElement.innerHTML = getStatsDisplayHtml(stats, cause);
+      }
     },
     cleanup(): void {
       if (statsElement) {

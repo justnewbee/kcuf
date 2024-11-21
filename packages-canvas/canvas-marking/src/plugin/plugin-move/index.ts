@@ -9,19 +9,19 @@ import {
 /**
  * 让画布移动，使用 transform，从而不会使内部坐标等受到影响
  */
-export default function pluginMove<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginMove<T = unknown>(canvasMarking: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     stage,
     canvas
-  } = markingStage;
+  } = canvasMarking;
   
-  canvas.addEventListener('mousedown', () => markingStage.moveStart()); // 在 canvas 上落鼠标
-  stage.addEventListener('mousemove', () => markingStage.moveProcess()); // 在 stage 上移动鼠标
+  canvas.addEventListener('mousedown', () => canvasMarking.moveStart()); // 在 canvas 上落鼠标
+  stage.addEventListener('mousemove', () => canvasMarking.moveProcess()); // 在 stage 上移动鼠标
   
   const unbindDocKeydown = bindDocumentEvent('keydown', (e: KeyboardEvent): void => { // 可能会移到外部，需要能够在外部结束
     const {
       mouseInStage
-    } = markingStage.getStats();
+    } = canvasMarking.getStats();
     
     if (!mouseInStage || e.key !== ' ') {
       return;
@@ -30,14 +30,14 @@ export default function pluginMove<T = unknown>(markingStage: ICanvasMarkingClas
     e.preventDefault();
     e.stopPropagation();
     
-    markingStage.moveReady();
+    canvasMarking.moveReady();
   }, true);
   const unbindDocKeyup = bindDocumentEvent('keyup', (e: KeyboardEvent): void => {
     if (e.key === ' ') {
-      markingStage.moveEnd();
+      canvasMarking.moveEnd();
     }
   }, true);
-  const unbindDocMouseup = bindDocumentEvent('mouseup', () => markingStage.movePause(), true); // 在 document 上收鼠标
+  const unbindDocMouseup = bindDocumentEvent('mouseup', () => canvasMarking.movePause(), true); // 在 document 上收鼠标
   
   return {
     cleanup(): void {

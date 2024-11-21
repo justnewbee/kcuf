@@ -15,8 +15,10 @@ import useModelDispatch from './_use-model-dispatch';
 export default function useDispatchSetMarkingInstance(): (payload: CanvasMarkingClassType | null) => void {
   const dispatch = useModelDispatch();
   
-  return useCallback((payload: CanvasMarkingClassType | null) => dispatch({
-    type: EAction.SET_MARKING_INSTANCE,
-    payload
-  }), [dispatch]);
+  return useCallback((payload: CanvasMarkingClassType | null) => {
+    dispatch({
+      type: EAction.SET_MARKING_INSTANCE,
+      payload
+    });
+  }, [dispatch]);
 }

@@ -9,11 +9,11 @@ import {
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/cursor
  */
-export default function pluginCursor<T>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginCursor<T>(canvasMarking: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
     options,
     canvas
-  } = markingStage;
+  } = canvasMarking;
   
   return {
     run(stats: ICanvasMarkingStats<T>): void {

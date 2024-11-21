@@ -1,9 +1,9 @@
 import {
-  TMeta
-} from './types';
+  Meta
+} from '@storybook/react';
 
 export default {
   title: 'CanvasMarkingReact'
-} satisfies TMeta;
+} satisfies Meta;
 
 export { default as Default } from './story-default';

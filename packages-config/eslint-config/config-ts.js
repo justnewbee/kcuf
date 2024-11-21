@@ -4,9 +4,20 @@ import eslintTs from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default eslintTs.config(
-    ...eslintTs.configs.strict, // eslint-disable-line import/no-named-as-default-member
     ...eslintTs.configs.stylistic, // eslint-disable-line import/no-named-as-default-member
+    ...eslintTs.configs.strict, // eslint-disable-line import/no-named-as-default-member
+    // TODO 以下无法在 stories 下生效
+    // ...eslintTs.configs.stylisticTypeChecked, // eslint-disable-line import/no-named-as-default-member
+    // ...eslintTs.configs.strictTypeChecked, // eslint-disable-line import/no-named-as-default-member
     {
+      // languageOptions: {
+      //   parserOptions: {
+      //     projectService: {
+      //       allowDefaultProject: ['*.js', '*.mjs']
+      //     },
+      //     tsconfigRootDir: import.meta.dirname
+      //   }
+      // },
       rules: {
         '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
         '@typescript-eslint/naming-convention': ['error', {

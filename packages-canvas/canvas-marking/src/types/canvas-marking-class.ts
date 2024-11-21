@@ -1,4 +1,4 @@
-import type Subscribable from '@kcuf/subscribable';
+import Subscribable from '@kcuf/subscribable';
 import {
   Point
 } from '@kcuf/geometry-basic';
@@ -56,6 +56,21 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   readonly canvas: HTMLCanvasElement;
   
   /**
+   * 设置图片（用空串可清空）和数据，将重绘
+   */
+  setData(image: string, markings?: IMarkingConfigItem<T>[]): void;
+  
+  /**
+   * 更新单个配置项
+   */
+  setOption<K extends keyof ICanvasMarkingOptions>(key: K, value: ICanvasMarkingOptions<T>[K]): void;
+  
+  // /**
+  //  * 更新单个配置项，并重绘
+  //  */
+  // setOptionAndDraw<K extends keyof ICanvasMarkingOptions>(key: K, value: ICanvasMarkingOptions<T>[K]): void;
+  
+  /**
    * 注册插件，返回无参的解绑方法
    */
   registerPlugin(pluginRegister: TMarkingPluginRegister<T>): () => void;
@@ -64,11 +79,6 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
    * 撤销注册的插件，一般不需要自行调用
    */
   deregisterPlugin(pluginRegister: TMarkingPluginRegister<T>): void;
-  
-  /**
-   * 设置图片（用空串可清空）和数据
-   */
-  setData(url: string, markings?: IMarkingConfigItem<T>[]): void;
   
   /**
    * 切换 disabled 状态，处于 disabled 状态时，不可编辑

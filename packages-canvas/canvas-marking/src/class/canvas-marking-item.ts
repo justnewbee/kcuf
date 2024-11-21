@@ -28,7 +28,7 @@ import {
   TBeforeHook,
   TCreatingWillFinish,
   TMarkingBorderStyleResolved,
-  TMarkingFillStyleResolved,
+  IMarkingFillStyleResolved,
   TMarkingPointStyleResolved,
   ICanvasMarkingClassProtected,
   IMarkingItemClass,
@@ -98,10 +98,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   private readonly pointStyleHighlighting: TMarkingPointStyleResolved;
   private readonly pointStyleEditing: TMarkingPointStyleResolved;
   
-  private readonly fillStyle: TMarkingFillStyleResolved;
-  private readonly fillStyleHovering: TMarkingFillStyleResolved;
-  private readonly fillStyleHighlighting: TMarkingFillStyleResolved;
-  private readonly fillStyleEditing: TMarkingFillStyleResolved;
+  private readonly fillStyle: IMarkingFillStyleResolved;
+  private readonly fillStyleHovering: IMarkingFillStyleResolved;
+  private readonly fillStyleHighlighting: IMarkingFillStyleResolved;
+  private readonly fillStyleEditing: IMarkingFillStyleResolved;
   
   constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}) {
     this.markingStage = markingStage;
@@ -368,7 +368,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return this.faded ? fadeStylePoint(style) : style;
   }
   
-  private getDrawStyleFill(): TMarkingFillStyleResolved {
+  private getDrawStyleFill(): IMarkingFillStyleResolved {
     const {
       fillStyle,
       fillStyleHighlighting,
@@ -756,7 +756,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     this.pathSnapshotEditing = _cloneDeep(this.path);
   }
   
-  finishCreating(beforeCreateComplete?: TBeforeHook<T>): boolean {
+  finishCreating(onBeforeCreateComplete?: TBeforeHook<T>): boolean {
     if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
       return false;
     }
@@ -764,7 +764,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     this.creating = false;
     
     const stats = this.refreshStats();
-    const newPath = beforeCreateComplete?.(stats);
+    const newPath = onBeforeCreateComplete?.(stats);
     
     if (newPath) {
       this.path = newPath;
@@ -937,7 +937,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return true;
   }
   
-  finishDragging(beforeEditDragEnd?: TBeforeHook<T>): boolean {
+  finishDragging(onBeforeEditDragEnd?: TBeforeHook<T>): boolean {
     if (!this.draggingStartCoords) {
       return false;
     }
@@ -950,7 +950,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     
     if (draggingMoved) {
       const stats = this.refreshStats();
-      const newPath = beforeEditDragEnd?.(stats);
+      const newPath = onBeforeEditDragEnd?.(stats);
       
       if (newPath) {
         this.path = newPath;

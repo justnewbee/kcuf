@@ -15,6 +15,11 @@ export type {
   ICanvasMarkingClass as CanvasMarkingClassType,
   ICanvasMarkingStats as CanvasMarkingStats,
   
+  ICanvasMarkingOptions as CanvasMarkingOptions,
+  IZoomOptions as ZoomOptions,
+  ITooltipOptions as TooltipOptions,
+  IMarkingEvents as MarkingEvents,
+  
   IMarkingItemStats as MarkingItemStats,
   IMarkingItemConfig as MarkingItemConfig,
   TMarkingItemFinder as MarkingItemFinder,
@@ -25,9 +30,5 @@ export type {
   IMarkingBorderStyle as MarkingBorderStyle,
   IMarkingBorderStyleDiff as MarkingBorderStyleDiff,
   IMarkingFillStyle as MarkingFillStyle,
-  IMarkingPointStyle as MarkingPointStyle,
-  
-  IMarkingZoomOptions as MarkingZoomOptions,
-  IMarkingTooltipOptions as MarkingTooltipOptions,
-  ICanvasMarkingOptions as CanvasMarkingOptions
+  IMarkingPointStyle as MarkingPointStyle
 } from './types';

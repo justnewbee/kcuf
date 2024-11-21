@@ -1,4 +1,4 @@
-import type {
+import {
   TDefaultParams
 } from '../types';
 

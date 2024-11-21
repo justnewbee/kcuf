@@ -1,13 +1,13 @@
-export type IDefaultParams = () => Record<string, unknown>;
+export type TFnDefaultParams = () => Record<string, unknown>;
 
-export type TDefaultParams = Record<string, unknown> | IDefaultParams;
+export type TDefaultParams = Record<string, unknown> | TFnDefaultParams;
 
-export type IDontSend = () => void | boolean;
+export type TDontSend = () => undefined | boolean;
 
 /**
  * 真正发送请求的实现逻辑（以支持多平台的需求），注意必需用 POST
  */
-export type ILogSender = (trackUrl: string, body: string, headers: Record<string, string>) => void;
+export type TLogSender = (trackUrl: string, body: string, headers: Record<string, string>) => void;
 
 export type TFlattenPathTester = string | RegExp | (string | RegExp)[];
 

@@ -1,4 +1,4 @@
-import type {
+import {
   ISlsLogPayload,
   ISlsPostBody
 } from '../types';

@@ -1,7 +1,7 @@
 import {
   TLogArgs,
   ICreateLoggerOptions,
-  ILogSender,
+  TLogSender,
   ISlsLogOptions,
   ISlsLogFn
 } from '../types';
@@ -28,7 +28,7 @@ export default class SlsLogger {
   private readonly slsPipe: SlsPipe;
   private once: Record<string, 1> = {};
   
-  constructor(sender: ILogSender, options: ICreateLoggerOptions) {
+  constructor(sender: TLogSender, options: ICreateLoggerOptions) {
     this.options = options;
     this.slsPipe = new SlsPipe(sender, {
       trackUrl: `https://${options.project}.${options.endpoint}/logstores/${options.logstore}/track`,

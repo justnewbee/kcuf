@@ -3,7 +3,7 @@ import _chunk from 'lodash/chunk';
 import {
   ISlsLogPayload,
   ISlsPipeOptions,
-  ILogSender
+  TLogSender
 } from '../types';
 import {
   getSilentCountdown,
@@ -14,13 +14,13 @@ import {
  * SLS 日志管道，用于在一定的时间内积压日志，以避免造成业务请求性能问题
  */
 export default class SlsPipe {
-  private readonly sender: ILogSender;
+  private readonly sender: TLogSender;
   private readonly options: ISlsPipeOptions;
   private queue: ISlsLogPayload[] = [];
   private timer: ReturnType<typeof setTimeout> | null = null;
   private silent = false;
   
-  constructor(sender: ILogSender, options: ISlsPipeOptions) {
+  constructor(sender: TLogSender, options: ISlsPipeOptions) {
     this.sender = sender;
     this.options = options;
     

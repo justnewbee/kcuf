@@ -1,7 +1,7 @@
 import {
   IMarkingFillStyle,
   TMarkingBorderStyleResolved,
-  TMarkingFillStyleResolved
+  IMarkingFillStyleResolved
 } from '../types';
 import {
   DEFAULT_FILL_STYLE
@@ -9,7 +9,7 @@ import {
 
 import parseConfigColor from './parse-config-color';
 
-export default function initDrawStyleFill(borderStyleResolved: TMarkingBorderStyleResolved, fillStyle?: IMarkingFillStyle, extendFrom?: TMarkingFillStyleResolved): TMarkingFillStyleResolved {
+export default function initDrawStyleFill(borderStyleResolved: TMarkingBorderStyleResolved, fillStyle?: IMarkingFillStyle, extendFrom?: IMarkingFillStyleResolved): IMarkingFillStyleResolved {
   const result = {
     ...DEFAULT_FILL_STYLE,
     ...extendFrom,

@@ -39,7 +39,7 @@ import {
   IMarkingItemStats,
   IMarkingPlugin,
   TMarkingPluginRegister,
-  IMarkingZoomOptions,
+  IZoomOptions,
   ICanvasMarkingClass,
   ICanvasMarkingOptions,
   ICanvasMarkingStats,
@@ -192,7 +192,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.setupEvents();
     this.setupScaleSizing();
-    this.setupImageAndItems(safeOptions.image, safeOptions.items, EMarkingStatsChangeCause.INIT);
+    this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, EMarkingStatsChangeCause.INIT);
   }
   
   private get imageFitScale(): number {
@@ -234,7 +234,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     return this.itemCreating ? null : this.getMarkingItemsOrdered().findLast(v => v.isUnderMouse()) || null;
   }
   
-  private get zoomOptions(): Required<IMarkingZoomOptions> {
+  private get zoomOptions(): Required<IZoomOptions> {
     return {
       step: 0.25,
       stepWheel: 0.05,
@@ -330,10 +330,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.cleanups.push(pixelRatioListen(pixelRatio => this.updatePixelRatio(pixelRatio)));
   }
   
-  private setupImageAndItems(imageUrl = '', items: IMarkingConfigItem<T>[] = [], cause: EMarkingStatsChangeCause = EMarkingStatsChangeCause.SET_DATA): void {
+  private setupImageAndMarkings(imageUrl = '', markings: IMarkingConfigItem<T>[] = [], cause: EMarkingStatsChangeCause = EMarkingStatsChangeCause.SET_DATA): void {
     this.markingItems.length = 0;
     
-    items.forEach(v => {
+    markings.forEach(v => {
       this.markingItems.push(this.createMarkingItem(v));
     });
     
@@ -569,7 +569,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    if (itemEditing?.finishDragging(this.options.beforeEditDragEnd)) {
+    if (itemEditing?.finishDragging(this.options.onBeforeEditDragEnd)) {
       this.clearJustified();
       
       const statsList = this.getAllStats();
@@ -1058,14 +1058,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    const auxiliaryLineOptions = {
+    const auxiliaryOptions = {
       ...DEFAULT_AUXILIARY_STYLE,
-      ...options.auxiliaryLine
+      ...options.auxiliaryStyle
     };
     
     canvasContext.save();
-    canvasContext.strokeStyle = auxiliaryLineOptions.color;
-    canvasContext.lineWidth = this.fromCanvasPixelToImagePixel(auxiliaryLineOptions.width);
+    canvasContext.strokeStyle = auxiliaryOptions.color;
+    canvasContext.lineWidth = this.fromCanvasPixelToImagePixel(auxiliaryOptions.width);
     
     auxiliarySegmentList.forEach(v => {
       canvasContext.beginPath();
@@ -1206,6 +1206,19 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.moveTo([0, 0]);
   }
   
+  setData(image?: string, markings: IMarkingConfigItem<T>[] = []): void {
+    this.cancelCreating();
+    this.setupImageAndMarkings(image, markings);
+  }
+  
+  setOption<K extends keyof ICanvasMarkingOptions>(key: K, value: ICanvasMarkingOptions<T>[K]): void {
+    this.options[key] = value;
+  }
+  
+  // setOptionAndDraw<K extends keyof ICanvasMarkingOptions>(key: K, value: ICanvasMarkingOptions<T>[K]): void {
+  //   this.setOption(key, value);
+  // }
+  
   registerPlugin(pluginRegister: TMarkingPluginRegister<T>): () => void {
     const {
       pluginMap
@@ -1224,11 +1237,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     plugin?.cleanup?.();
     
     this.pluginMap.delete(pluginRegister);
-  }
-  
-  setData(imageUrl?: string, markings: IMarkingConfigItem<T>[] = []): void {
-    this.cancelCreating();
-    this.setupImageAndItems(imageUrl, markings);
   }
   
   toggleDisabled(disabled = !this.disabled): void {
@@ -1303,7 +1311,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       itemCreating
     } = this;
     
-    if (!itemCreating?.finishCreating(this.options.beforeCreateComplete)) {
+    if (!itemCreating?.finishCreating(this.options.onBeforeCreateComplete)) {
       return;
     }
     

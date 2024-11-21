@@ -11,9 +11,9 @@ import displaySize from './display-size';
 import displayCoords from './display-coords';
 import displayCoordsAndIndex from './display-coords-and-index';
 
-export default function getStatsDisplayHtml<T = unknown>(stats: ICanvasMarkingStats<T>, cause: EMarkingStatsChangeCause): string {
+export default function getStatsDisplayHtml<T = unknown>(stats: ICanvasMarkingStats<T>, cause?: EMarkingStatsChangeCause): string {
   return `<ul>${[
-    ['Cause', cause],
+    ['Cause', cause || ''],
     ['TimeStamp', Date.now()],
     // 禁用
     ['Disabled', displayBoolean(stats.disabled)],

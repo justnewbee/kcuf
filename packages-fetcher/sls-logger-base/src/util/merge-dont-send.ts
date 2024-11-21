@@ -1,11 +1,11 @@
-import type {
-  IDontSend
+import {
+  TDontSend
 } from '../types';
 
-export default function mergeDontSend(factoryDontSend?: IDontSend, dontSend?: IDontSend): IDontSend | undefined {
+export default function mergeDontSend(factoryDontSend?: TDontSend, dontSend?: TDontSend): TDontSend | undefined {
   if (!factoryDontSend || !dontSend) {
     return dontSend || factoryDontSend;
   }
   
-  return (): boolean | void => factoryDontSend() || dontSend();
+  return (): boolean | undefined => factoryDontSend() || dontSend();
 }

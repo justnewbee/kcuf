@@ -33,49 +33,49 @@ export default function useEffectRegisterPlugins(): void {
   
   useEffect(() => {
     if (markingInstance && cursor) {
-      return markingInstance?.registerPlugin(pluginCursor);
+      return markingInstance.registerPlugin(pluginCursor);
     }
   }, [markingInstance, cursor]);
   
   useEffect(() => {
     if (markingInstance && tooltip) {
-      return markingInstance?.registerPlugin(pluginTooltip);
+      return markingInstance.registerPlugin(pluginTooltip);
     }
   }, [markingInstance, tooltip]);
   
   useEffect(() => {
     if (markingInstance && magnet) {
-      return markingInstance?.registerPlugin(pluginMagnet);
+      return markingInstance.registerPlugin(pluginMagnet);
     }
   }, [markingInstance, magnet]);
   
   useEffect(() => {
     if (markingInstance && snapping) {
-      return markingInstance?.registerPlugin(pluginSnapping);
+      return markingInstance.registerPlugin(pluginSnapping);
     }
   }, [markingInstance, snapping]);
   
   useEffect(() => {
     if (markingInstance && zoom) {
-      return markingInstance?.registerPlugin(pluginZoom);
+      return markingInstance.registerPlugin(pluginZoom);
     }
   }, [markingInstance, zoom]);
   
   useEffect(() => {
     if (markingInstance && move) {
-      return markingInstance?.registerPlugin(pluginMove);
+      return markingInstance.registerPlugin(pluginMove);
     }
   }, [markingInstance, move]);
   
   useEffect(() => {
     if (markingInstance && stats) {
-      return markingInstance?.registerPlugin(pluginStats);
+      return markingInstance.registerPlugin(pluginStats);
     }
   }, [markingInstance, stats]);
   
   useEffect(() => {
     if (markingInstance && fps) {
-      return markingInstance?.registerPlugin(pluginFps);
+      return markingInstance.registerPlugin(pluginFps);
     }
   }, [markingInstance, fps]);
 }

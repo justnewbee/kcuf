@@ -6,6 +6,7 @@ import configTs from './config-ts.js';
 import configReact from './config-react.js';
 import configImport from './config-import.js';
 import configStylistic from './config-stylistic.js';
+import configStorybook from './config-storybook.js';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -18,5 +19,6 @@ export default [
   ...configTs,
   ...configImport,
   ...configReact,
-  ...configStylistic
+  ...configStylistic,
+  ...configStorybook
 ];

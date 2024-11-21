@@ -7,12 +7,12 @@ import useMarkingInstance from './use-marking-instance';
 
 export default function useEffectSetData(): void {
   const {
-    imageUrl,
-    markingItems
+    image,
+    markings
   } = useModelProps();
   const markingInstance = useMarkingInstance();
   
   useEffect(() => {
-    markingInstance?.setData(imageUrl, markingItems || []);
-  }, [markingInstance, imageUrl, markingItems]);
+    markingInstance?.setData(image || '', markings ?? []);
+  }, [markingInstance, image, markings]);
 }

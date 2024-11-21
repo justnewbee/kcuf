@@ -31,10 +31,8 @@ export default function useInit(): () => void {
       
       dispatchSetCanvasMarking(new CanvasMarking(domMarking, {
         image: IMAGE_AERIAL,
-        items: DEMO_MARKINGS_AERIAL,
-        pluginFps: true,
-        pluginStats: true,
-        pluginTooltip: {
+        markings: DEMO_MARKINGS_AERIAL,
+        tooltipOptions: {
           getHoveringInfo
         },
         onStatsChange: dispatchSetCanvasMarkingStats

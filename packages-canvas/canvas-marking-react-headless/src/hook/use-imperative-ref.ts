@@ -25,10 +25,10 @@ export default function useImperativeRef(): IImperativeRef {
     cancelCreating(): void {
       markingInstance?.cancelCreating();
     },
-    select(finder: MarkingItemFinder<unknown>): void {
+    select(finder: MarkingItemFinder): void {
       markingInstance?.selectItem(finder);
     },
-    highlight(finder: MarkingItemFinder<unknown>, borderIndex?: number | null): void {
+    highlight(finder: MarkingItemFinder, borderIndex?: number | null): void {
       markingInstance?.highlightItem(finder, borderIndex);
     },
     zoom(how: ZoomHow): void {

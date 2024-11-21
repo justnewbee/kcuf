@@ -12,17 +12,17 @@ const KEY = 'Shift';
 /**
  * 需按住 Shift 已启用 snapping 效果
  */
-export default function pluginSnapping<T = unknown>(markingStage: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
+export default function pluginSnapping<T = unknown>(canvasMarking: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   let inCanvas = false;
   
   const unbindDocKeydown = bindDocumentEvent('keydown', (e: KeyboardEvent): void => {
     if (inCanvas && e.key === KEY) {
-      markingStage.toggleSnap(true);
+      canvasMarking.toggleSnap(true);
     }
   }, true);
   const unbindDocKeyup = bindDocumentEvent('keyup', (e: KeyboardEvent): void => {
     if (e.key === KEY) {
-      markingStage.toggleSnap(false);
+      canvasMarking.toggleSnap(false);
     }
   }, true);
   

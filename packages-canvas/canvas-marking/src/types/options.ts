@@ -1,30 +1,28 @@
 import {
-  IMarkingAuxiliaryLine
-} from './common';
-import {
   TLineJoin,
-  TPointType
+  TPointType,
+  IAuxiliaryStyle,
+  IMarkingStyleConfig,
+  IMarkingBehaviorConfig
 } from './style';
 import {
-  IMarkingConfigItem,
-  IMarkingItemConfig
+  IMarkingConfigItem
 } from './canvas-marking-item-class';
 import {
-  TBeforeHook,
-  IOptionsEvents
+  IMarkingEvents
 } from './events';
 import {
   IMarkingItemStats
 } from './stats';
 
-export interface IMarkingZoomOptions {
+export interface IZoomOptions {
   step?: number; // 键盘或点击要快点
   stepWheel?: number; // 滚轮可以顺滑一些
   min?: number;
   max?: number;
 }
 
-export interface IMarkingTooltipOptions<T = unknown> {
+export interface ITooltipOptions<T = unknown> {
   offsetX?: number;
   offsetY?: number;
   /**
@@ -37,13 +35,17 @@ export interface IMarkingTooltipOptions<T = unknown> {
   getHoveringInfo?(itemStats: IMarkingItemStats<T>): string;
 }
 
-export interface ICanvasMarkingOptions<T> extends IMarkingItemConfig, IOptionsEvents<T> {
-  auxiliaryLine?: IMarkingAuxiliaryLine;
-  // --- 数据 --- //
+export interface ICanvasMarkingOptionsData<T = unknown> {
   image?: string;
+  markings?: IMarkingConfigItem<T>[];
+}
+
+export interface ICanvasMarkingOptions<T = unknown> extends ICanvasMarkingOptionsData<T>, IMarkingStyleConfig, IMarkingBehaviorConfig, IMarkingEvents<T> {
+  // --- 展示 --- //
   imageBgc?: string; // 没有图片的时候填充色（有助于辨别 move 后的边界）
-  items?: IMarkingConfigItem<T>[];
+  auxiliaryStyle?: IAuxiliaryStyle;
   // --- 行为 --- //
+  disabled?: boolean;
   /**
    * 磁吸距离（屏幕像素），当鼠标和任一标注的点或线距离小于此值时进行磁吸
    */
@@ -65,11 +67,8 @@ export interface ICanvasMarkingOptions<T> extends IMarkingItemConfig, IOptionsEv
    */
   perpendicularMarkSize?: number;
   // --- 共享给插件的选项 --- //
-  zoomOptions?: IMarkingZoomOptions;
-  tooltipOptions?: IMarkingTooltipOptions<T>;
-  // --- 一些钩子方法 --- //
-  beforeCreateComplete?: TBeforeHook<T>; // 新建结束前，自动调整路径
-  beforeEditDragEnd?: TBeforeHook<T>; // 编辑拖拽结束前，自动调整路径
+  zoomOptions?: IZoomOptions;
+  tooltipOptions?: ITooltipOptions<T>;
 }
 
 export interface IDrawBorderOptions {

@@ -1,5 +1,5 @@
 import {
-  ILogSender,
+  TLogSender,
   ICreateLogger,
   ICreateLoggerOptions,
   IGenerateCreateLoggerOptions
@@ -16,7 +16,7 @@ import createLogger from './create-logger';
  *
  * 一般不会在项目中直接使用，而是用来写可复用 npm 包。
  */
-export default function generateCreateLogger(sender: ILogSender, {
+export default function generateCreateLogger(sender: TLogSender, {
   defaultParams: factoryDefaultParams,
   dontSend: factoryDontSend
 }: IGenerateCreateLoggerOptions): ICreateLogger {

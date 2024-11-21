@@ -2,7 +2,7 @@ import _isEmpty from 'lodash/isEmpty';
 import _isPlainObject from 'lodash/isPlainObject';
 import _forEach from 'lodash/forEach';
 
-import type {
+import {
   IFlattenOptions
 } from '../types';
 
