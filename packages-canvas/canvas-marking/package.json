@@ -29,7 +29,7 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
-    "@chromatic-com/storybook": "^1.9.0",
+    "@chromatic-com/storybook": "^3.2.2",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/react-hook-is-unmounted": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
