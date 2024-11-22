@@ -11,7 +11,7 @@ export const DEFAULT_POINT_INSERTION_MIN_DISTANCE = 48;
 export const DEFAULT_FILL_ALPHA_EDITING = 0.21;
 export const DEFAULT_JUSTIFY_MAGNET_RADIUS = 10;
 export const DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS = 10;
-export const DEFAULT_RIGHT_ANGLE_MARK_SIZE = 16;
+export const DEFAULT_RIGHT_ANGLE_MARK_SIZE = 12;
 
 /**
  * 默认描边样式
@@ -19,7 +19,7 @@ export const DEFAULT_RIGHT_ANGLE_MARK_SIZE = 16;
 export const DEFAULT_BORDER_STYLE: Required<IMarkingBorderStyle> = {
   lineJoin: 'round',
   width: 1.5,
-  color: 'hsl(217 100% 50%)',
+  color: 'hsl(0 0% 100%)', // 'hsl(217 100% 50%)'
   outerWidth: 0,
   outerColor: 'hsl(0 0% 100%)',
   crossingColor: 'hsl(0 100% 50%)',
