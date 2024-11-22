@@ -19,9 +19,11 @@ export interface IInjectIconFontOptions {
 
 export interface IIconProps<T extends string = string> extends HTMLAttributes<HTMLElement> {
   type: T;
-  rotate?: number;
-  rotating?: boolean;
   colored?: boolean;
+  rotating?: boolean;
+  rotate?: number;
+  // rotate 的时候，图标的大小可能不令人满意，可以用它矫正
+  scale?: number;
 }
 
 export interface IIconBaseProps<T extends string = string> extends IIconProps<T> {
@@ -32,8 +34,9 @@ export interface IIconBaseProps<T extends string = string> extends IIconProps<T>
 
 export interface IScIconBaseProps {
   $fontFamily: string;
-  $rotate?: number;
-  $rotating?: boolean;
   $code: string;
   $color: string | null;
+  $rotating?: boolean;
+  $rotate?: number;
+  $scale?: number;
 }

@@ -32,7 +32,6 @@ const ScIcon = styled.i<IScIconBaseProps>`
     vertical-align: baseline;
     -webkit-text-stroke-width: 0.2px;/* stylelint-disable-line */
     transition: all linear 200ms;
-    
     ${props => getCssIconRotation(props)}
   }
 `;
@@ -43,9 +42,10 @@ const ScIcon = styled.i<IScIconBaseProps>`
 export default function IconBase<T extends string>({
   fontFamily,
   type,
-  rotate,
-  rotating,
   colored,
+  rotating,
+  rotate,
+  scale,
   getIconCode,
   getIconColor,
   ...props
@@ -55,10 +55,11 @@ export default function IconBase<T extends string>({
   
   return <ScIcon {...{
     $fontFamily: fontFamily,
-    $rotate: rotate,
-    $rotating: rotating,
     $code,
     $color,
+    $rotating: rotating,
+    $rotate: rotate,
+    $scale: scale,
     ...props
   }} />;
 }

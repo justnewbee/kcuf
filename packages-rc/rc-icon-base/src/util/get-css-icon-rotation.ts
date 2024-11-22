@@ -27,9 +27,16 @@ export default function getCssIconRotation(props: IScIconBaseProps): RuleSet | u
     `;
   }
   
-  if (props.$rotate) {
-    return css`
-      transform: rotate(${props.$rotate}deg);
+  const {
+    $rotate,
+    $scale = 0
+  } = props;
+  
+  if ($rotate) { // translateZ 可能可以抵消旋转后产生的模糊（尤其是在非 4k 屏幕下）
+    return $scale > 0 ? css`
+      transform: rotate(${$rotate}deg) scale(${$scale}) translateZ(0) translateZ(0);
+    ` : css`
+      transform: rotate(${$rotate}deg) translateZ(0);
     `;
   }
 }

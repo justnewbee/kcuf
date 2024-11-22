@@ -7,6 +7,7 @@ export default eslintTs.config(
     ...eslintTs.configs.stylistic, // eslint-disable-line import/no-named-as-default-member
     ...eslintTs.configs.strict, // eslint-disable-line import/no-named-as-default-member
     // TODO 以下无法在非 src 下生效
+    // https://typescript-eslint.io/troubleshooting/typed-linting#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file
     // ...eslintTs.configs.stylisticTypeChecked, // eslint-disable-line import/no-named-as-default-member
     // ...eslintTs.configs.strictTypeChecked, // eslint-disable-line import/no-named-as-default-member
     {
