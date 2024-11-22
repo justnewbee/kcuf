@@ -3,7 +3,7 @@ import {
 } from 'react';
 
 import {
-  ZoomHow,
+  ZoomArg,
   CanvasMarkingStats,
   MarkingConfigItem,
   MarkingItemFinder
@@ -31,7 +31,7 @@ export default function useImperativeRef(): IImperativeRef {
     highlight(finder: MarkingItemFinder, borderIndex?: number | null): void {
       markingInstance?.highlightItem(finder, borderIndex);
     },
-    zoom(how: ZoomHow): void {
+    zoom(how: ZoomArg): void {
       markingInstance?.zoom(how);
     },
     getStats(): CanvasMarkingStats | null {

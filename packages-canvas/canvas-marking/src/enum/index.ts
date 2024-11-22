@@ -6,11 +6,11 @@ export enum EImageStatus {
 }
 
 export enum EZoomHow {
-  IN,
-  OUT,
-  MIN,
-  MAX,
-  RESET
+  IN = 'in',
+  OUT = 'out',
+  MIN = 'min',
+  MAX = 'max',
+  RESET = 'reset'
 }
 
 export enum EMouseJustifyStatus {

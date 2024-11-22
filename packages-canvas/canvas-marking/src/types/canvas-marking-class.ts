@@ -4,11 +4,8 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  EZoomHow
-} from '../enum';
-
-import {
   TSize,
+  TZoomArg,
   TMarkingItemFinder
 } from './common';
 import {
@@ -135,7 +132,7 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
    */
   deleteAllItems(): void;
   
-  zoom(how: EZoomHow, wheel?: boolean): void;
+  zoom(how: TZoomArg, wheel?: boolean): void;
   
   /**
    * 开启移动（当鼠标在 stage 内时按下空格，并保持按住状态）

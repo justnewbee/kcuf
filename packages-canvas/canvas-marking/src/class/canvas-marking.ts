@@ -43,7 +43,7 @@ import {
   ICanvasMarkingClass,
   ICanvasMarkingOptions,
   ICanvasMarkingStats,
-  TMarkingItemFinder
+  TMarkingItemFinder, TZoomArg
 } from '../types';
 import {
   DEFAULT_AUXILIARY_STYLE,
@@ -1393,7 +1393,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.updateAndDraw(EMarkingStatsChangeCause.CLEAR);
   }
   
-  zoom(how: EZoomHow, wheel?: boolean): void {
+  zoom(how: TZoomArg, wheel?: boolean): void {
     switch (how) {
     case EZoomHow.IN:
       this.zoomBy(true, wheel);

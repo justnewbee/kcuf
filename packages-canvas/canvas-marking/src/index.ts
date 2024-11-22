@@ -16,6 +16,7 @@ export type {
   ICanvasMarkingStats as CanvasMarkingStats,
   
   ICanvasMarkingOptions as CanvasMarkingOptions,
+  TZoomArg as ZoomArg,
   IZoomOptions as ZoomOptions,
   ITooltipOptions as TooltipOptions,
   IMarkingEvents as MarkingEvents,
