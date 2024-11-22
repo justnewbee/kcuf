@@ -1,5 +1,5 @@
 import {
-  ZoomHow,
+  ZoomArg,
   MarkingConfigItem,
   MarkingItemFinder,
   CanvasMarkingStats
@@ -10,7 +10,7 @@ export interface IImperativeRef<T = unknown> {
   cancelCreating(): void;
   select(finder: MarkingItemFinder<T>): void;
   highlight(finder: MarkingItemFinder<T>, borderIndex?: number | null): void;
-  zoom(how: ZoomHow): void;
+  zoom(how: ZoomArg): void;
   getStats(): CanvasMarkingStats<T> | null;
 }
 
