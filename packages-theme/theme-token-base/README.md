@@ -1,4 +1,4 @@
-# theme-token-base
+# @kcuf/theme-token-base
 
 > 无语义 Design Token，在 theme-token-semantic 中进行语义化
 

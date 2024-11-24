@@ -20,6 +20,7 @@ export default function getIconColor(type: TIconType): string | null {
   case 'error-fill':
     return '#d93026';
   case 'avatar':
+  case 'avatar-fill':
     return '#ccc';
   default:
     return null;

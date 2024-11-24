@@ -2,8 +2,8 @@ import {
   injectIconFont
 } from '@kcuf/rc-icon-base';
 
-// https://at.alicdn.com/t/c/font_4720928_kk8occ6tpr9.css
-export const ICON_FONT = injectIconFont('4720928', 'kk8occ6tpr9', {
+// https://at.alicdn.com/t/c/font_4720928_if5fu1ahlcp.css
+export const ICON_FONT = injectIconFont('4720928', 'if5fu1ahlcp', {
   pathExtra: '/c'
 });
 
@@ -11,15 +11,15 @@ export const ICON_TYPE_MAPPING = {
   loading: 'e62e',
   arrowhead: 'e661',
   arrow: 'e665',
-  'arrow-to-top': 'e662',
+  'arrow-to-top': 'e681',
   triangle: 'e664',
   // 状态
   info: 'e708',
   'info-fill': 'e9cb',
   help: 'e65c',
   'help-fill': 'e65b',
-  warn: 'e84a',
-  'warn-fill': 'e849',
+  warn: 'e683',
+  'warn-fill': 'e68c',
   success: 'e653',
   'success-fill': 'e655',
   error: 'e654',
@@ -27,14 +27,17 @@ export const ICON_TYPE_MAPPING = {
   banned: 'e656',
   // 操作
   close: 'e612',
-  search: 'e63c',
   copy: 'e64c',
   refresh: 'e657',
   setting: 'e641',
   drag: 'e66d',
+  search: 'e67d',
+  'zoom-in': 'e684',
+  'zoom-out': 'e685',
   more: 'e617',
   // 杂项
-  avatar: 'e615',
+  avatar: 'e682',
+  'avatar-fill': 'e68b',
   code: 'e7da',
   external: 'e63e'
 };
