@@ -1420,6 +1420,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
   }
   
+  toggleMove(): void {
+    if (this.moving) {
+      this.moveEnd();
+    } else {
+      this.moveReady();
+    }
+  }
+  
   moveReady(): void {
     const {
       moving,

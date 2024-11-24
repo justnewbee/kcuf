@@ -137,6 +137,7 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   /**
    * 开启移动（当鼠标在 stage 内时按下空格，并保持按住状态）
    */
+  toggleMove(): void;
   moveReady(): void;
   moveStart(): void;
   moveProcess(): void;

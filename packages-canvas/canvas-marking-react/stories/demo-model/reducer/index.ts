@@ -9,7 +9,7 @@ import {
 import reduceToggleDisabled from './reduce-toggle-disabled';
 import reduceToggleDestroyed from './reduce-toggle-destroyed';
 import reduceSetDataType from './reduce-set-data-type';
-import reduceSetStats from './reduce-set-stats';
+import reduceSetMarkingStats from './reduce-set-marking-stats';
 import reduceTogglePlugin from './reduce-toggle-plugin';
 
 export default function reducer(state: IModelState, action: TModelAction): IModelState {
@@ -20,8 +20,8 @@ export default function reducer(state: IModelState, action: TModelAction): IMode
     return reduceToggleDestroyed(state);
   case EAction.SET_DATA_TYPE:
     return reduceSetDataType(state, action.payload);
-  case EAction.SET_STATS:
-    return reduceSetStats(state, action.payload);
+  case EAction.SET_MARKING_STATS:
+    return reduceSetMarkingStats(state, action.payload);
   case EAction.TOGGLE_PLUGIN:
     return reduceTogglePlugin(state, action.payload);
   default:

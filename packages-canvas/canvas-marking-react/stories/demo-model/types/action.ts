@@ -19,7 +19,7 @@ export type TModelAction = {
   type: EAction.SET_DATA_TYPE;
   payload: EDataType;
 } | {
-  type: EAction.SET_STATS;
+  type: EAction.SET_MARKING_STATS;
   payload: CanvasMarkingStats;
 } | {
   type: EAction.TOGGLE_DISABLED | EAction.TOGGLE_DESTROYED;

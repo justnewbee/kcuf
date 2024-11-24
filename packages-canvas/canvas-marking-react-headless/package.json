@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/canvas-marking-react-headless",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "The React headless wrapping of @kcuf/canvas-marking.",
   "keywords": [],
   "license": "MIT",
@@ -29,7 +29,6 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
-    "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@types/react": "^18.3.12",
     "react": "^18.3.1",

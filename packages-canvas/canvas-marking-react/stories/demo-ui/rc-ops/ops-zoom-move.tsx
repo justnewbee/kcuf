@@ -10,11 +10,13 @@ import {
 } from '@kcuf/canvas-marking-react-headless';
 
 import {
+  useMarkingStats,
   useRefImperative
 } from '../../demo-model';
 
-export default function OpsZoom(): ReactElement {
+export default function OpsZoomMove(): ReactElement {
   const ref = useRefImperative();
+  const markingStats = useMarkingStats();
   
   return <>
     <Button {...{
@@ -32,5 +34,8 @@ export default function OpsZoom(): ReactElement {
     <Button {...{
       onClick: () => ref.current?.zoom(ZoomHow.RESET)
     }}>zoom Reset</Button>
+    <Button {...{
+      onClick: () => ref.current?.toggleMove()
+    }}>{markingStats?.moving ? 'moving...' : 'move'}</Button>
   </>;
 }

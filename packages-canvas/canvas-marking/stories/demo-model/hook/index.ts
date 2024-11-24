@@ -31,6 +31,7 @@ export { default as useHandleDeleteAllItems } from './use-handle-delete-all-item
 export { default as useHandleSelect } from './use-handle-select';
 export { default as useHandleHighlight } from './use-handle-highlight';
 export { default as useHandleZoom } from './use-handle-zoom';
+export { default as useHandleToggleMove } from './use-handle-toggle-move';
 
 // effects - the one with all effects
 export { default as useEffects } from './use-effects';

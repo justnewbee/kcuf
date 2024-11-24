@@ -11,6 +11,7 @@ export interface IImperativeRef<T = unknown> {
   select(finder: MarkingItemFinder<T>): void;
   highlight(finder: MarkingItemFinder<T>, borderIndex?: number | null): void;
   zoom(how: ZoomArg): void;
+  toggleMove(): void;
   getStats(): CanvasMarkingStats<T> | null;
 }
 

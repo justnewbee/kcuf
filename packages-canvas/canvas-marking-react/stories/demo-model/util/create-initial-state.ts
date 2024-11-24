@@ -27,6 +27,6 @@ export default function createInitialState(): IModelState {
       stats: true,
       fps: true
     },
-    stats: null
+    markingStats: null
   };
 }

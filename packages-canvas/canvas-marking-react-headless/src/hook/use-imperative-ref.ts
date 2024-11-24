@@ -34,6 +34,9 @@ export default function useImperativeRef(): IImperativeRef {
     zoom(how: ZoomArg): void {
       markingInstance?.zoom(how);
     },
+    toggleMove(): void {
+      markingInstance?.toggleMove();
+    },
     getStats(): CanvasMarkingStats | null {
       return markingInstance ? markingInstance.getStats() : null;
     }

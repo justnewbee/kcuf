@@ -4,6 +4,6 @@ import {
 
 import useModelState from './_use-model-state';
 
-export default function useStats(): CanvasMarkingStats | null {
-  return useModelState().stats;
+export default function useMarkingStats(): CanvasMarkingStats | null {
+  return useModelState().markingStats;
 }

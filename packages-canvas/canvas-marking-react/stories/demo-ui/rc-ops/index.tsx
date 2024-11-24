@@ -13,7 +13,7 @@ import OpsCreate from './ops-create';
 import OpsDataType from './ops-data-type';
 import OpsSelect from './ops-select';
 import OpsHighlight from './ops-highlight';
-import OpsZoom from './ops-zoom';
+import OpsZoomMove from './ops-zoom-move';
 import OpsDebug from './ops-debug';
 
 export default function Ops(): ReactElement {
@@ -32,8 +32,8 @@ export default function Ops(): ReactElement {
       label: 'Highlight',
       content: <OpsHighlight />
     }, {
-      label: 'Zoom',
-      content: <OpsZoom />
+      label: 'Zoom / Move',
+      content: <OpsZoomMove />
     }, {
       label: '数据源',
       content: <OpsDataType />

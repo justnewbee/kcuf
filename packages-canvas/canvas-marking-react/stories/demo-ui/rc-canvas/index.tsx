@@ -10,7 +10,7 @@ import {
   useDataMarkings,
   useDisabled,
   usePlugins,
-  useHandleSetStats,
+  useHandleSetMarkingStats,
   useDestroyed
 } from '../../demo-model';
 import {
@@ -29,7 +29,7 @@ export default function TheCanvas(): ReactElement | null {
   const image = useDataImage();
   const markings = useDataMarkings();
   const plugins = usePlugins();
-  const handleSetStats = useHandleSetStats();
+  const handleSetMarkingStats = useHandleSetMarkingStats();
   
   return destroyed ? null : <ScCanvasMarking {...{
     ref,
@@ -40,6 +40,6 @@ export default function TheCanvas(): ReactElement | null {
     tooltipOptions: {
       getHoveringInfo
     },
-    onStatsChange: handleSetStats
+    onStatsChange: handleSetMarkingStats
   }} />;
 }

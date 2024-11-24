@@ -10,8 +10,8 @@ import {
   IModelState
 } from '../types';
 
-export default function reduceSetStats(state: IModelState, payload: CanvasMarkingStats): IModelState {
+export default function reduceSetMarkingStats(state: IModelState, payload: CanvasMarkingStats): IModelState {
   return produce(state, draft => {
-    draft.stats = payload;
+    draft.markingStats = payload;
   });
 }

@@ -10,11 +10,15 @@ import {
   ZoomHow
 } from '../../../src';
 import {
-  useHandleZoom
+  useMarkingStats,
+  useHandleZoom,
+  useHandleToggleMove
 } from '../../demo-model';
 
-export default function OpsZoom(): ReactElement {
+export default function OpsZoomMove(): ReactElement {
+  const markingStats = useMarkingStats();
   const handleZoom = useHandleZoom();
+  const handleToggleMove = useHandleToggleMove();
   
   return <>
     <Button {...{
@@ -32,5 +36,8 @@ export default function OpsZoom(): ReactElement {
     <Button {...{
       onClick: () => handleZoom(ZoomHow.RESET)
     }}>zoom reset</Button>
+    <Button {...{
+      onClick: handleToggleMove
+    }}>{markingStats?.moving ? 'moving...' : 'move'}</Button>
   </>;
 }

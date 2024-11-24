@@ -16,7 +16,7 @@ import OpsPlugin from './ops-plugin';
 import OpsMarkings from './ops-markings';
 import OpsSelect from './ops-select';
 import OpsHighlight from './ops-highlight';
-import OpsZoom from './ops-zoom';
+import OpsZoomMove from './ops-zoom-move';
 
 export default function Ops(): ReactElement {
   const markingInstance = useMarkingInstance();
@@ -42,8 +42,8 @@ export default function Ops(): ReactElement {
       label: 'Highlight',
       content: <OpsHighlight />
     }, {
-      label: 'Zoom',
-      content: <OpsZoom />
+      label: 'Zoom / Move',
+      content: <OpsZoomMove />
     }] : []]
   }} />;
 }

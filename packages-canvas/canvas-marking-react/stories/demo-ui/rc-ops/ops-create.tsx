@@ -8,12 +8,12 @@ import {
 
 import {
   useRefImperative,
-  useStats
+  useMarkingStats
 } from '../../demo-model';
 
 export default function OpsCreate(): ReactElement {
   const ref = useRefImperative();
-  const stats = useStats();
+  const stats = useMarkingStats();
   
   return <>
     <Button {...{

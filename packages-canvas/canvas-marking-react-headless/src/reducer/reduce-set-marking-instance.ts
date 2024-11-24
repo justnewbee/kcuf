@@ -10,7 +10,7 @@ import {
   IModelState
 } from '../types';
 
-export default function reduceSetCanvasMarking(state: IModelState, payload: CanvasMarkingClassType | null): IModelState {
+export default function reduceSetMarkingInstance(state: IModelState, payload: CanvasMarkingClassType | null): IModelState {
   return produce(state, draft => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

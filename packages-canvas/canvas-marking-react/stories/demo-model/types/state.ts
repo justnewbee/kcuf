@@ -18,5 +18,5 @@ export interface IModelState {
   image: string;
   markings: MarkingConfigItem[];
   plugins: TStatePlugins;
-  stats: CanvasMarkingStats | null;
+  markingStats: CanvasMarkingStats | null;
 }
