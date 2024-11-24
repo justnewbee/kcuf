@@ -31,7 +31,7 @@
     "@kcuf/stylelint-config": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@tsconfig/node22": "^22.0.0",
-    "@types/node": "^22.9.2",
+    "@types/node": "^22.9.3",
     "commander": "^12.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.15.0",
@@ -47,7 +47,7 @@
     "typescript": "^5.7.2"
   },
   "scripts": {
-    "fuck": "eslint packages-canvas/canvas-marking-react/src",
+    "fuck": "eslint packages-rc/rc-backdrop-headless/src",
     "prepare": "husky",
     "boot": "pnpm clean && pnpm i --force --no-lockfile --registry https://registry.npmmirror.com",
     "boot:packages": "pnpm -r prepublishOnly",

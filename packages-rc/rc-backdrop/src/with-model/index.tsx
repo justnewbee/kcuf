@@ -7,7 +7,7 @@ import {
 
 import BackdropModel, {
   BackdropProps
-} from '@kcuf/rc-headless-backdrop';
+} from '@kcuf/rc-backdrop-headless';
 
 import Ui from '../ui';
 

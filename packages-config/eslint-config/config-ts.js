@@ -24,7 +24,11 @@ export default eslintTs.config(
         '@typescript-eslint/naming-convention': ['error', {
           selector: 'function',
           format: ['strictCamelCase', 'StrictPascalCase'],
-          leadingUnderscore: 'allow'
+          leadingUnderscore: 'allow',
+          filter: { // 允许方法名中有 ZIndex，比如 getZIndex 等
+            regex: 'ZIndex',
+            match: false
+          }
         }, {
           selector: 'variable',
           format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],

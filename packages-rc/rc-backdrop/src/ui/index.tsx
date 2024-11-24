@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {
   useZIndex,
   useHandleClick
-} from '@kcuf/rc-headless-backdrop';
+} from '@kcuf/rc-backdrop-headless';
 
 const ScBackdrop = styled.div`
   position: fixed;

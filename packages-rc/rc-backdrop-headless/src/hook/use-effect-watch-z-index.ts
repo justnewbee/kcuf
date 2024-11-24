@@ -9,7 +9,7 @@ import {
 import useModelProps from './_use-model-props';
 import useDispatchRefreshVisible from './use-dispatch-refresh-visible';
 import useModelState from './_use-model-state';
- 
+
 export default function useEffectWatchZIndex(): void {
   const {
     zIndex

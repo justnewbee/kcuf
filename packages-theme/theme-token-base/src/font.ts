@@ -47,6 +47,11 @@ export const FONT_SIZE: TSizeLevels = [
   '60px'
 ];
 
+/**
+ * Line-height 规则：TODO use numbers
+ *
+ * 1. 字号大，则比例小，比如小子号取 1.5 行高，大字号取 1
+ */
 export const LINE_HEIGHT: TSizeLevels = [
   '16px',
   '20px',

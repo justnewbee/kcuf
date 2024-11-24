@@ -1,7 +1,7 @@
 {
-  "name": "@kcuf/rc-headless-backdrop",
-  "version": "0.0.2",
-  "description": "A singleton headless backdrop component.",
+  "name": "@kcuf/rc-backdrop-headless",
+  "version": "0.0.1",
+  "description": "A headless backdrop component which enables singleton power of backdrop.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-rc-headless/rc-headless-backdrop",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-rc/rc-backdrop-headless",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
