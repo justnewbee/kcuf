@@ -1,4 +1,4 @@
-export * as COLOR_LIGHT from './color-light';
+export * as COLOR from './color';
 export * as COLOR_DARK from './color-dark';
 export * from './space';
 export * from './font';

@@ -2,8 +2,8 @@ import {
   injectIconFont
 } from '@kcuf/rc-icon-base';
 
-// https://at.alicdn.com/t/c/font_4720928_xs7mdbqv3wd.css
-export const ICON_FONT = injectIconFont('4720928', 'xs7mdbqv3wd', {
+// https://at.alicdn.com/t/c/font_4720928_kk8occ6tpr9.css
+export const ICON_FONT = injectIconFont('4720928', 'kk8occ6tpr9', {
   pathExtra: '/c'
 });
 
@@ -31,6 +31,7 @@ export const ICON_TYPE_MAPPING = {
   copy: 'e64c',
   refresh: 'e657',
   setting: 'e641',
+  drag: 'e66d',
   more: 'e617',
   // 杂项
   avatar: 'e615',

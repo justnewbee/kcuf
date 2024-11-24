@@ -8,23 +8,23 @@ import styled, {
 } from 'styled-components';
 
 import {
-  COLOR_LIGHT,
+  COLOR,
   COLOR_DARK
 } from '../src';
 
 import ColorBlockList from './rc/color-block-list';
 
 const ScButton = styled.button`
-  border: none;
   background: none;
+  border: none;
   font-size: 20px;
 `;
 const ScGrayGrid = styled.div`
   display: grid;
-  grid-template-rows: auto;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  font-size: 12px;
+  grid-template-rows: auto;
   font-family: Arial, sans-serif;
+  font-size: 12px;
   text-align: center;
 `;
 const ScNumber = styled.div`
@@ -51,61 +51,61 @@ export default function StoryColor(): ReactElement {
     {stateDark ? <GlobalStyleDark /> : null}
     <ScGrayGrid>
       <ScNumber />
-      {COLOR_LIGHT.GRAY.map((v, i) => <ScNumber key={v}>{i + 1}</ScNumber>)}
+      {COLOR.GRAY.map((v, i) => <ScNumber key={v}>#{i + 1}</ScNumber>)}
       <ColorBlockList {...{
         title: 'Gray',
         dark: stateDark,
         text: stateText,
-        lists: [COLOR_LIGHT.GRAY, COLOR_DARK.GRAY]
+        lists: [COLOR.GRAY, COLOR_DARK.GRAY]
       }} />
       <ColorBlockList {...{
         title: 'Red',
         dark: stateDark,
         text: stateText,
-        lists: [COLOR_LIGHT.RED, COLOR_DARK.RED]
+        lists: [COLOR.RED, COLOR_DARK.RED]
       }} />
       <ColorBlockList {...{
         title: 'Green',
         dark: stateDark,
         text: stateText,
-        lists: [COLOR_LIGHT.GREEN, COLOR_DARK.GREEN]
+        lists: [COLOR.GREEN, COLOR_DARK.GREEN]
       }} />
       <ColorBlockList {...{
         title: 'Blue',
         dark: stateDark,
         text: stateText,
-        lists: [COLOR_LIGHT.BLUE, COLOR_DARK.BLUE]
+        lists: [COLOR.BLUE, COLOR_DARK.BLUE]
       }} />
       <ColorBlockList {...{
         title: 'Yellow',
         dark: stateDark,
         text: stateText,
-        lists: [COLOR_LIGHT.YELLOW, COLOR_DARK.YELLOW]
+        lists: [COLOR.YELLOW, COLOR_DARK.YELLOW]
       }} />
       <ColorBlockList {...{
         title: 'Orange',
         dark: stateDark,
         text: stateText,
-        lists: [COLOR_LIGHT.ORANGE, COLOR_DARK.ORANGE]
+        lists: [COLOR.ORANGE, COLOR_DARK.ORANGE]
       }} />
       <ColorBlockList {...{
         title: 'Purple',
         dark: stateDark,
         text: stateText,
-        lists: [COLOR_LIGHT.PURPLE, COLOR_DARK.PURPLE]
+        lists: [COLOR.PURPLE, COLOR_DARK.PURPLE]
       }} />
       <ColorBlockList {...{
         title: 'White Alpha',
         dark: stateDark,
         text: stateText,
-        lists: [COLOR_LIGHT.WHITE_A, COLOR_DARK.WHITE_A],
+        lists: [COLOR.WHITE_A, COLOR_DARK.WHITE_A],
         transparent: true
       }} />
       <ColorBlockList {...{
         title: 'Black Alpha',
         dark: stateDark,
         text: stateText,
-        lists: [COLOR_LIGHT.BLACK_A, COLOR_DARK.BLACK_A],
+        lists: [COLOR.BLACK_A, COLOR_DARK.BLACK_A],
         transparent: true
       }} />
     </ScGrayGrid>

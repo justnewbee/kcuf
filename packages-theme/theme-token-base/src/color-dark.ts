@@ -13,7 +13,7 @@ import {
   PURPLE as L_PURPLE,
   WHITE_A as L_WHITE_A,
   BLACK_A as L_BLACK_A
-} from './color-light';
+} from './color';
 import {
   reverseColorLevels
 } from './util';
