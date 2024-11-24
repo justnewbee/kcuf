@@ -9,7 +9,7 @@ import {
   useIsKeyActive,
   useIsKeyOn,
   useHandleKeyClick
-} from '@kcuf/rc-headless-keyboard-mac';
+} from '@kcuf/rc-keyboard-mac-headless';
 
 import {
   KEY_HEIGHT,

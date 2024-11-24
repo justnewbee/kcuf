@@ -7,7 +7,7 @@ import {
   KeyboardCode,
   KeyData,
   useKeyDetails
-} from '@kcuf/rc-headless-keyboard-mac';
+} from '@kcuf/rc-keyboard-mac-headless';
 
 import {
   getKeyboardKeyDisplayName

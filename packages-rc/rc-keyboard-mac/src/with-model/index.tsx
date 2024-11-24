@@ -4,7 +4,7 @@ import {
 
 import KeyboardModel, {
   KeyboardProps
-} from '@kcuf/rc-headless-keyboard-mac';
+} from '@kcuf/rc-keyboard-mac-headless';
 
 import Ui from '../ui';
 

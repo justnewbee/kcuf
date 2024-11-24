@@ -1,7 +1,7 @@
 import {
   KeyboardCode,
   KeyData
-} from '@kcuf/rc-headless-keyboard-mac';
+} from '@kcuf/rc-keyboard-mac-headless';
 
 /**
  * Mac 键盘每行键数有 14、13、12、9，需要保证每行左右齐平

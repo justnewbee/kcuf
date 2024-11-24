@@ -6,7 +6,7 @@
 
 ## 0.3.0 2024/10/31 @驳是
 
-* REFACTOR Split logic into `@kcuf/rc-headless-keyboard-mac`
+* REFACTOR Split logic into `@kcuf/rc-keyboard-mac-headless`
 
 ## 0.2.0 2024/10/30 @驳是
 
