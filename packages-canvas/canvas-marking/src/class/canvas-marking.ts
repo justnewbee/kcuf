@@ -1345,6 +1345,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       
       this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
     });
+    
+    this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING_WAIT);
   }
   
   cancelCreating(): void {

@@ -60,6 +60,7 @@ export enum EMarkingStatsChangeCause {
   LOADING_IMAGE = 'loading_image', // 由 SET_DATA 间接触发
   START_CREATING = 'start_creating',
   FINISH_CREATING = 'finish_creating',
+  FINISH_CREATING_WAIT = 'finish_creating_wait',
   CANCEL_CREATING = 'cancel_creating',
   DELETE = 'delete',
   CLEAR = 'clear',

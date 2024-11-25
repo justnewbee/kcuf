@@ -73,6 +73,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   private pathSnapshotDragging: Path = []; // 拖拽整体的时候，需要一个快照用于计算
   
   private creating = false; // 创建中
+  private creatingWait = false; // 即将创建完成
   private hovering = false; // 是否在鼠标下（鼠标动作触发）
   private highlighting = false; // 代码触发：高亮
   private highlightingBorderIndex: number | null = null; // 代码触发：仅高亮某一条线，需配合 highlighting，-1 表示高亮整个框
@@ -496,7 +497,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   private shouldDrawPoint(): boolean {
-    return this.creating || this.editing || this.hovering;
+    return this.creating || this.creatingWait || this.editing || this.hovering;
   }
   
   private drawArea(): void {
@@ -710,25 +711,33 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
    * 新建或编辑完成之前执行回调，若回调返回 false 则取消，可以提供 data 或修改 path
    */
   private async beforeCreateComplete(beforeHook?: TOnBeforeCreateComplete<T>): Promise<boolean> {
-    const stats = this.refreshStats();
+    this.creating = false;
     
     if (beforeHook) {
-      const result = await beforeHook(stats.path);
+      this.creatingWait = true;
       
-      if (result === false) {
-        return false;
+      try {
+        const result = await beforeHook(this.refreshStats().path);
+        
+        if (result === false) {
+          this.refreshStats();
+          
+          return false;
+        }
+        
+        if (result?.path) {
+          this.path = result.path;
+        }
+        
+        if (result?.data) {
+          this.data = result.data;
+        }
+      } finally {
+        this.creatingWait = false;
       }
-      
-      if (result?.path) {
-        this.path = result.path;
-      }
-      
-      if (result?.data) {
-        this.data = result.data;
-      }
-      
-      this.refreshStats();
     }
+    
+    this.refreshStats();
     
     return true;
   }
@@ -790,8 +799,6 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
       return false;
     }
-    
-    this.creating = false;
     
     return this.beforeCreateComplete(onBeforeCreateComplete);
   }
