@@ -12,7 +12,6 @@ const ScBackdrop = styled.div`
   position: fixed;
   inset: 0;
   background-color: hsla(0 0% 0% / 17%);
-  backdrop-filter: blur(1px);
 `;
 
 export default function Ui(): ReactElement | null {

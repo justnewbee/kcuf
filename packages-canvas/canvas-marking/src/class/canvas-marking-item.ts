@@ -709,7 +709,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   /**
    * 新建或编辑完成之前执行回调，若回调返回 false 则取消，可以提供 data 或修改 path
    */
-  private async beforeComplete(beforeHook?: TOnBeforeCreateComplete<T>): Promise<boolean> {
+  private async beforeCreateComplete(beforeHook?: TOnBeforeCreateComplete<T>): Promise<boolean> {
     const stats = this.refreshStats();
     
     if (beforeHook) {
@@ -726,9 +726,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       if (result?.data) {
         this.data = result.data;
       }
-      
-      this.refreshStats();
     }
+    
+    this.creating = false;
+    this.refreshStats();
     
     return true;
   }
@@ -791,9 +792,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       return false;
     }
     
-    this.creating = false;
-    
-    return this.beforeComplete(onBeforeCreateComplete);
+    return this.beforeCreateComplete(onBeforeCreateComplete);
   }
   
   finishEditing(cancel?: boolean): boolean {
