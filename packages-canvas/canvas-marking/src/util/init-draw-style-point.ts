@@ -5,7 +5,8 @@ import {
 } from '../types';
 import {
   DEFAULT_POINT_RADIUS,
-  DEFAULT_POINT_RADIUS_ENLARGE
+  DEFAULT_POINT_RADIUS_ENLARGE,
+  DEFAULT_POINT_ALT_COLOR
 } from '../const';
 
 export default function initDrawStylePoint(borderStyleResolved: TMarkingBorderStyleResolved, pointStyle?: IMarkingPointStyle, extendFrom?: TMarkingPointStyleResolved): TMarkingPointStyleResolved {
@@ -19,7 +20,7 @@ export default function initDrawStylePoint(borderStyleResolved: TMarkingBorderSt
     radiusEnlargeWhenClose: DEFAULT_POINT_RADIUS_ENLARGE,
     lineWidth: borderStyleResolved.width,
     lineColor: borderStyleResolved.color,
-    fillColor: 'hsl(0 0% 100%)',
+    fillColor: DEFAULT_POINT_ALT_COLOR,
     crossingLineColor: borderStyleResolved.crossingColor,
     crossingFillColor: 'hsl(0 0% 100%)',
     ...pointStyle
