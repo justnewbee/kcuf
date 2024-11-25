@@ -726,10 +726,9 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       if (result?.data) {
         this.data = result.data;
       }
+      
+      this.refreshStats();
     }
-    
-    this.creating = false;
-    this.refreshStats();
     
     return true;
   }
@@ -791,6 +790,8 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
       return false;
     }
+    
+    this.creating = false;
     
     return this.beforeCreateComplete(onBeforeCreateComplete);
   }
