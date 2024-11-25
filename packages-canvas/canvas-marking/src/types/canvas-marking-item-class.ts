@@ -7,6 +7,9 @@ import {
 } from '../enum';
 
 import {
+  TOnBeforeCreateComplete, TOnBeforeEditDragEnd
+} from './common';
+import {
   IMarkingBehaviorConfig,
   IMarkingBorderStyleDiff,
   IMarkingStyleConfig
@@ -14,9 +17,6 @@ import {
 import {
   IMarkingItemStats
 } from './stats';
-import {
-  TBeforeHook
-} from './events';
 
 /**
  * 从 Marking 对象透传到 MarkingItem 的选项，可以在 new MarkingItem 的时候有一部分覆盖
@@ -86,7 +86,7 @@ export interface IMarkingItemClass<T = unknown> {
    */
   pushPoint(): boolean | 'close' | 'last';
   
-  finishCreating(beforeHook?: TBeforeHook<T>): boolean;
+  finishCreating(onBeforeCreateComplete?: TOnBeforeCreateComplete<T>): false | Promise<boolean>;
   
   removePoint(): number;
   
@@ -109,7 +109,7 @@ export interface IMarkingItemClass<T = unknown> {
    */
   processDragging(): boolean | number;
   
-  finishDragging(beforeHook?: TBeforeHook<T>): boolean;
+  finishDragging(onBeforeEditDragEnd?: TOnBeforeEditDragEnd<T>): boolean;
   
   refreshStats(): IMarkingItemStats<T>;
   

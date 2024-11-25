@@ -25,7 +25,7 @@ import {
   EMarkingMouseStatus
 } from '../enum';
 import {
-  TBeforeHook,
+  TOnBeforeCreateComplete,
   TCreatingWillFinish,
   TMarkingBorderStyleResolved,
   IMarkingFillStyleResolved,
@@ -34,7 +34,7 @@ import {
   IMarkingItemClass,
   IMarkingItemOptions,
   IMarkingConfigItemBorderDiff,
-  IMarkingItemStats
+  IMarkingItemStats, TOnBeforeEditDragEnd
 } from '../types';
 import {
   DEFAULT_FILL_ALPHA_EDITING,
@@ -67,6 +67,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   protected options: IMarkingItemOptions<T>;
   
+  private data: T | undefined;
   private path: Path = []; // 永远是相对于图片大小的位置
   private pathSnapshotEditing: Path = []; // 编辑结束后，需要它
   private pathSnapshotDragging: Path = []; // 拖拽整体的时候，需要一个快照用于计算
@@ -125,6 +126,8 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       ...options.fillStyleEditing
     }, this.fillStyleHovering);
     
+    this.data = options.data;
+    
     if (options.path?.length) { // 传入 path 表示已成图形，不传则表示新建
       this.path = _cloneDeep(options.path); // 因为可能要改它
     } else {
@@ -159,9 +162,9 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   private get borderDiff(): IMarkingConfigItemBorderDiff | undefined {
     const {
       options: {
-        data,
         borderDiff
-      }
+      },
+      data
     } = this;
     
     if (!borderDiff) {
@@ -469,7 +472,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     }
     
     return {
-      data: options.data,
+      data: this.data,
       path: _cloneDeep(path), // 得到一个干净的，从而避免引用干扰（尤其是 immer 这种会锁对象的）
       disabled: this.options.disabled || false,
       length: pathPerimeter(pathForDraw),
@@ -703,6 +706,33 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return hoveringPointIndex;
   }
   
+  /**
+   * 新建或编辑完成之前执行回调，若回调返回 false 则取消，可以提供 data 或修改 path
+   */
+  private async beforeComplete(beforeHook?: TOnBeforeCreateComplete<T>): Promise<boolean> {
+    const stats = this.refreshStats();
+    
+    if (beforeHook) {
+      const result = await beforeHook(stats.path);
+      
+      if (result === false) {
+        return false;
+      }
+      
+      if (result?.path) {
+        this.path = result.path;
+      }
+      
+      if (result?.data) {
+        this.data = result.data;
+      }
+      
+      this.refreshStats();
+    }
+    
+    return true;
+  }
+  
   getBorderColor(): string {
     return this.borderStyle.color;
   }
@@ -756,22 +786,14 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     this.pathSnapshotEditing = _cloneDeep(this.path);
   }
   
-  finishCreating(onBeforeCreateComplete?: TBeforeHook<T>): boolean {
+  finishCreating(onBeforeCreateComplete?: TOnBeforeCreateComplete<T>): false | Promise<boolean> {
     if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
       return false;
     }
     
     this.creating = false;
     
-    const stats = this.refreshStats();
-    const newPath = onBeforeCreateComplete?.(stats);
-    
-    if (newPath) {
-      this.path = newPath;
-      this.refreshStats();
-    }
-    
-    return true;
+    return this.beforeComplete(onBeforeCreateComplete);
   }
   
   finishEditing(cancel?: boolean): boolean {
@@ -937,20 +959,16 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return true;
   }
   
-  finishDragging(onBeforeEditDragEnd?: TBeforeHook<T>): boolean {
+  finishDragging(onBeforeEditDragEnd?: TOnBeforeEditDragEnd<T>): boolean {
     if (!this.draggingStartCoords) {
       return false;
     }
     
-    const {
-      draggingMoved
-    } = this;
-    
     this.clearDragging();
     
-    if (draggingMoved) {
+    if (this.draggingMoved) {
       const stats = this.refreshStats();
-      const newPath = onBeforeEditDragEnd?.(stats);
+      const newPath = onBeforeEditDragEnd?.(stats.path, stats.data);
       
       if (newPath) {
         this.path = newPath;
@@ -958,7 +976,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       }
     }
     
-    return draggingMoved;
+    return this.draggingMoved;
   }
   
   refreshStats(): IMarkingItemStats<T> {

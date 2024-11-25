@@ -16,7 +16,7 @@ export default function useEffectSetEventHandlers(): void {
     onPointRemove,
     onPointInsert,
     onBeforeEditDragEnd,
-    onDragEnd,
+    onEditDragEnd,
     onEditCancel,
     onEditComplete,
     onDelete,
@@ -42,7 +42,7 @@ export default function useEffectSetEventHandlers(): void {
     markingInstance.setOption('onPointRemove', onPointRemove);
     markingInstance.setOption('onPointInsert', onPointInsert);
     markingInstance.setOption('onBeforeEditDragEnd', onBeforeEditDragEnd);
-    markingInstance.setOption('onDragEnd', onDragEnd);
+    markingInstance.setOption('onEditDragEnd', onEditDragEnd);
     markingInstance.setOption('onEditCancel', onEditCancel);
     markingInstance.setOption('onEditComplete', onEditComplete);
     markingInstance.setOption('onDelete', onDelete);
@@ -62,7 +62,7 @@ export default function useEffectSetEventHandlers(): void {
     onPointRemove,
     onPointInsert,
     onBeforeEditDragEnd,
-    onDragEnd,
+    onEditDragEnd,
     onEditCancel,
     onEditComplete,
     onDelete,

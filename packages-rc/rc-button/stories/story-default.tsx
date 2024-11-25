@@ -5,6 +5,7 @@ import {
 import styled from 'styled-components';
 
 import {
+  MinimalNormalize,
   H2,
   InputSwitch
 } from '@kcuf/demo-rc';
@@ -23,6 +24,7 @@ export default function DemoDefault(): ReactElement {
   const [stateDisabled, setStateDisabled] = useState(false);
   
   return <>
+    <MinimalNormalize />
     <Button preset={ButtonPreset.BRAND_PRIMARY}>FUCK</Button>
     {/* <ComponentTesting<ButtonProps> {...{ */}
     {/*   componentName: 'Button', */}

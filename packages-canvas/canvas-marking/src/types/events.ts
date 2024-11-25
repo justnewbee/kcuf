@@ -1,8 +1,4 @@
 import {
-  Path
-} from '@kcuf/geometry-basic';
-
-import {
   EMarkingStatsChangeCause
 } from '../enum';
 
@@ -10,8 +6,10 @@ import {
   IMarkingItemStats,
   ICanvasMarkingStats
 } from './stats';
-
-export type TBeforeHook<T = unknown> = (stats: IMarkingItemStats<T>) => Path | null | undefined;
+import {
+  TOnBeforeCreateComplete,
+  TOnBeforeEditDragEnd
+} from './common';
 
 /**
  * 所有事件，及钩子方法
@@ -21,14 +19,14 @@ export type TBeforeHook<T = unknown> = (stats: IMarkingItemStats<T>) => Path | n
 export interface IMarkingEvents<T> {
   onCreateStart?(): void;
   onCreateCancel?(): void;
-  onBeforeCreateComplete?: TBeforeHook<T>; // 新建结束前，可自动调整路径
+  onBeforeCreateComplete?: TOnBeforeCreateComplete<T>;
   onCreateComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onClick?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onSelectionChange?(stats: IMarkingItemStats<T> | null, statsList: IMarkingItemStats<T>[]): void;
   onPointRemove?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
   onPointInsert?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
-  onBeforeEditDragEnd?: TBeforeHook<T>; // 编辑拖拽结束前，自动调整路径
-  onDragEnd?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
+  onBeforeEditDragEnd?: TOnBeforeEditDragEnd<T>;
+  onEditDragEnd?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onEditCancel?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onEditComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onDelete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;

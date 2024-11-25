@@ -83,44 +83,44 @@ export default function OpsPlugin(): ReactElement {
   
   return <>
     <InputCheckbox {...{
-      label: 'pluginCursor',
+      label: 'cursor',
       checked: statePluginCursor,
       onChange: setStatePluginCursor
     }} />
     <InputCheckbox {...{
-      label: 'pluginFps',
-      checked: statePluginFps,
-      onChange: setStatePluginFps
-    }} />
-    <InputCheckbox {...{
-      label: 'pluginMagnet',
+      label: 'magnet',
       checked: statePluginMagnet,
       onChange: setStatePluginMagnet
     }} />
     <InputCheckbox {...{
-      label: 'pluginMove',
+      label: 'zoom',
+      checked: statePluginZoom,
+      onChange: setStatePluginZoom
+    }} />
+    <InputCheckbox {...{
+      label: 'move',
       checked: statePluginMove,
       onChange: setStatePluginMove
     }} />
     <InputCheckbox {...{
-      label: 'pluginSnapping',
+      label: 'snapping',
       checked: statePluginSnapping,
       onChange: setStatePluginSnapping
     }} />
     <InputCheckbox {...{
-      label: 'pluginStats',
-      checked: statePluginStats,
-      onChange: setStatePluginStats
-    }} />
-    <InputCheckbox {...{
-      label: 'pluginTooltip',
+      label: 'tooltip',
       checked: statePluginTooltip,
       onChange: setStatePluginTooltip
     }} />
     <InputCheckbox {...{
-      label: 'pluginZoom',
-      checked: statePluginZoom,
-      onChange: setStatePluginZoom
+      label: 'fps',
+      checked: statePluginFps,
+      onChange: setStatePluginFps
+    }} />
+    <InputCheckbox {...{
+      label: 'stats',
+      checked: statePluginStats,
+      onChange: setStatePluginStats
     }} />
   </>;
 }

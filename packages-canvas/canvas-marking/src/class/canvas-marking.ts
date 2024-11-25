@@ -555,6 +555,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private handleMouseUpWindow(): void {
     const {
+      options: {
+        onBeforeEditDragEnd,
+        onEditDragEnd
+      },
       itemEditing,
       mouseInStage,
       mouseDownMoving
@@ -569,12 +573,12 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    if (itemEditing?.finishDragging(this.options.onBeforeEditDragEnd)) {
+    if (itemEditing?.finishDragging(onBeforeEditDragEnd)) {
       this.clearJustified();
       
       const statsList = this.getAllStats();
       
-      this.options.onDragEnd?.(itemEditing.stats, statsList);
+      onEditDragEnd?.(itemEditing.stats, statsList);
       this.emit('drag-end', itemEditing.stats, statsList);
     }
     
@@ -1308,26 +1312,39 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   finishCreating(): void {
     const {
+      options: {
+        onBeforeCreateComplete,
+        onCreateComplete
+      },
       itemCreating
     } = this;
     
-    if (!itemCreating?.finishCreating(this.options.onBeforeCreateComplete)) {
+    if (!itemCreating) {
       return;
     }
     
-    this.clearJustified();
+    const completeResult = itemCreating.finishCreating(onBeforeCreateComplete);
     
-    this.itemCreating = null;
-    this.markingItems.push(itemCreating);
+    if (!completeResult) {
+      return;
+    }
     
-    const statsList = this.getAllStats();
-    
-    this.options.onCreateComplete?.(itemCreating.stats, statsList);
-    this.emit('create-complete', itemCreating.stats, statsList);
-    
-    this.select(itemCreating);
-    
-    this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
+    completeResult.then(finalResult => {
+      this.clearJustified();
+      this.itemCreating = null;
+      
+      if (finalResult) {
+        this.markingItems.push(itemCreating);
+        
+        const statsList = this.getAllStats();
+        
+        onCreateComplete?.(itemCreating.stats, statsList);
+        this.emit('create-complete', itemCreating.stats, statsList);
+        this.select(itemCreating);
+      }
+      
+      this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
+    });
   }
   
   cancelCreating(): void {

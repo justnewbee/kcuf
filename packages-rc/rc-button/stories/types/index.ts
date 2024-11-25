@@ -3,7 +3,7 @@ import {
   StoryObj
 } from '@storybook/react';
 
-import Backdrop from '../../src';
+import Button from '../../src';
 
-export type TMeta = Meta<typeof Backdrop>;
+export type TMeta = Meta<typeof Button>;
 export type TStory = StoryObj<TMeta>;
