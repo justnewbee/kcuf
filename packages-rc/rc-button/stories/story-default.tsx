@@ -25,7 +25,6 @@ export default function DemoDefault(): ReactElement {
   
   return <>
     <MinimalNormalize />
-    <Button preset={ButtonPreset.BRAND_PRIMARY}>FUCK</Button>
     {/* <ComponentTesting<ButtonProps> {...{ */}
     {/*   componentName: 'Button', */}
     {/*   componentPackageName: '@kcuf/rc-button', */}

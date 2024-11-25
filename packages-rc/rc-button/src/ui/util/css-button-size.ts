@@ -8,11 +8,11 @@ import {
   mixinButtonSizeM,
   mixinButtonSizeL,
   mixinButtonSizeXl
-} from '@alicloud/console-base-theme';
+} from '@kcuf/fork-console-base-theme';
 import {
   ButtonSize,
   ButtonPreset
-} from '@kcuf/rc-headless-button';
+} from '@kcuf/rc-button-headless';
 
 import {
   IScButtonProps

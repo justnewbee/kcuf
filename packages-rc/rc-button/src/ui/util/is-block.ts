@@ -1,6 +1,6 @@
 import {
   ButtonPreset
-} from '@kcuf/rc-headless-button';
+} from '@kcuf/rc-button-headless';
 
 import {
   IScButtonProps

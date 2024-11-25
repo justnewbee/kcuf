@@ -4,7 +4,7 @@ import {
 
 import {
   ButtonPreset
-} from '@kcuf/rc-headless-button';
+} from '@kcuf/rc-button-headless';
 import {
   mixinButtonDangerStateNormal,
   mixinButtonMenuStateNormal,
@@ -70,7 +70,7 @@ import {
   mixinButtonTextTertiary,
   mixinButtonTextBrandPrimary,
   mixinButtonTextBrandSecondary
-} from '@alicloud/console-base-theme';
+} from '@kcuf/fork-console-base-theme';
 
 import {
   IScButtonProps

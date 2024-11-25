@@ -1,7 +1,7 @@
 {
-  "name": "@kcuf/rc-button",
-  "version": "0.0.4",
-  "description": "The kcuf button component.",
+  "name": "@kcuf/fork-console-base-theme-color",
+  "version": "0.0.1",
+  "description": "A fork of @alicloud/fork-console-base-theme-color.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-rc/rc-button",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-fork/fork-console-base-theme-color",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -24,48 +24,21 @@
   "devDependencies": {
     "@babel/cli": "^7.25.9",
     "@babel/core": "^7.26.0",
-    "@babel/plugin-transform-react-jsx": "^7.25.9",
     "@babel/plugin-transform-runtime": "^7.25.9",
     "@babel/preset-env": "^7.26.0",
-    "@babel/preset-react": "^7.25.9",
     "@babel/preset-typescript": "^7.26.0",
-    "@chromatic-com/storybook": "^3.2.2",
-    "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@storybook/addon-essentials": "^8.4.5",
-    "@storybook/addon-interactions": "^8.4.5",
-    "@storybook/addon-links": "^8.4.5",
-    "@storybook/addon-onboarding": "^8.4.5",
-    "@storybook/blocks": "^8.4.5",
-    "@storybook/react": "^8.4.5",
-    "@storybook/react-vite": "^8.4.5",
-    "@storybook/test": "^8.4.5",
-    "@types/react": "^18.3.12",
-    "babel-plugin-styled-components": "^2.1.4",
-    "react": "^18.3.1",
     "rimraf": "^6.0.1",
-    "storybook": "^8.4.5",
-    "styled-components": "^6.1.13",
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.x",
-    "react": "^18.x",
-    "styled-components": "^6.x"
-  },
-  "dependencies": {
-    "@kcuf/fork-console-base-theme": "workspace:^",
-    "@kcuf/rc-button-headless": "workspace:^",
-    "@kcuf/rc-icon": "workspace:^*",
-    "@kcuf/styled-mixin": "workspace:^*"
+    "@babel/runtime": "^7.x"
   },
   "scripts": {
-    "start": "storybook dev -p 6006",
     "build:clean": "rimraf dist",
     "build:esm": "ESM=1 babel src -d dist/esm --extensions .ts,.tsx --source-maps",
     "build:cjs": "ESM=0 babel src -d dist/cjs --extensions .ts,.tsx",
     "build:types": "tsc -rootDir src --outDir dist/types --declaration --noEmit false --emitDeclarationOnly --isolatedModules false",
-    "build:sb": "storybook build",
     "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
     "watch": "pnpm build:esm -w",
     "prepublishOnly": "pnpm build:clean && pnpm build"

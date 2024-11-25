@@ -5,7 +5,7 @@ import {
 import Icon from '@kcuf/rc-icon';
 import {
   usePropsCustom
-} from '@kcuf/rc-headless-button';
+} from '@kcuf/rc-button-headless';
 
 import {
   renderIcon

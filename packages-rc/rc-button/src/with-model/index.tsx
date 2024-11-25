@@ -6,7 +6,7 @@ import {
 
 import Model, {
   ButtonProps
-} from '@kcuf/rc-headless-button';
+} from '@kcuf/rc-button-headless';
 
 import Ui from '../ui';
 

@@ -1,6 +1,6 @@
 import {
   ButtonIconSpacing
-} from '@kcuf/rc-headless-button';
+} from '@kcuf/rc-button-headless';
 
 export default function getStyleIconSpacing(iconSpacing?: ButtonIconSpacing): number {
   switch (iconSpacing) {

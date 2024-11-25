@@ -1,6 +1,6 @@
 import {
   ButtonProps
-} from '@kcuf/rc-headless-button';
+} from '@kcuf/rc-button-headless';
 
 export interface IScButtonProps {
   $preset?: ButtonProps['preset'];

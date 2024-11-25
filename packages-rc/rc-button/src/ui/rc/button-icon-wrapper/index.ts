@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import {
   ButtonIconSpacing
-} from '@kcuf/rc-headless-button';
+} from '@kcuf/rc-button-headless';
 
 import {
   getStyleIconSpacing
