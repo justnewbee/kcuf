@@ -1314,7 +1314,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const {
       options: {
         onBeforeCreateComplete,
-        onCreateComplete
+        onCreateComplete,
+        onCreateCancel
       },
       itemCreating
     } = this;
@@ -1325,7 +1326,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     const completeResult = itemCreating.finishCreating(onBeforeCreateComplete);
     
-    if (!completeResult) {
+    if (!completeResult) { // 不符合完成新建的标准
       return;
     }
     
@@ -1341,9 +1342,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         onCreateComplete?.(itemCreating.stats, statsList);
         this.emit('create-complete', itemCreating.stats, statsList);
         this.select(itemCreating);
+        
+        this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
+      } else { // 相当于取消
+        onCreateCancel?.();
+        this.emit('create-cancel');
+        this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
       }
-      
-      this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
     });
     
     this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING_WAIT);
@@ -1352,11 +1357,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   cancelCreating(): void {
     if (this.itemCreating) {
       this.clearJustified();
-      
       this.itemCreating = null;
-      this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
+      
       this.options.onCreateCancel?.();
       this.emit('create-cancel');
+      this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
     }
   }
   
