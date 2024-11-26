@@ -3,7 +3,7 @@ import {
 } from './types';
 
 export default {
-  title: 'rc/input-text'
+  title: 'InputText'
 } satisfies TMeta;
 
-export { default as All } from './story-all';
+export { default as Default } from './story-default';

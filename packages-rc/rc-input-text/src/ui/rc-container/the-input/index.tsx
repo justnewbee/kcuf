@@ -5,7 +5,7 @@ import {
 import {
   useRefInput,
   usePropsForInputElement
-} from '@kcuf/rc-headless-input-text';
+} from '@kcuf/rc-input-text-headless';
 
 import {
   ScInputWrapper,

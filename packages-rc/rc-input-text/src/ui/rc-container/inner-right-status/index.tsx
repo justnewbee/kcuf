@@ -1,30 +1,18 @@
 import {
   ReactElement
 } from 'react';
-import styled from 'styled-components';
 
-import {
-  mixinTextSuccess,
-  mixinTextError
-} from '@alicloud/console-base-theme';
 import Icon from '@kcuf/rc-icon';
 import {
   useProps,
   useValue,
   useHandleClear
-} from '@kcuf/rc-headless-input-text';
+} from '@kcuf/rc-input-text-headless';
 
 import {
   ScInputInnerRight,
   ScInputClearButton
 } from '../../sc';
-
-const ScIconSuccess = styled(Icon)`
-  ${mixinTextSuccess}
-`;
-const ScIconError = styled(Icon)`
-  ${mixinTextError}
-`;
 
 export default function InnerRightStatus(): ReactElement | null {
   const {
@@ -41,21 +29,21 @@ export default function InnerRightStatus(): ReactElement | null {
   
   switch (status) {
   case 'loading':
-    jsx = <Icon type="loading" />;
+    jsx = <Icon type="loading" colored />;
     
     break;
   case 'success':
-    jsx = <ScIconSuccess type="success-circle" />;
+    jsx = <Icon type="success" colored />;
     
     break;
   case 'error':
-    jsx = <ScIconError type="error-circle" />;
+    jsx = <Icon type="error" colored />;
     
     break;
   default:
     if (hasClear) {
       jsx = <ScInputClearButton onClick={handleClear}>
-        <Icon type="error-circle-fill" />
+        <Icon type="clear" />
       </ScInputClearButton>;
     }
     

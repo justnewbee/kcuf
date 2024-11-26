@@ -1,35 +1,34 @@
 import {
-  FlattenInterpolation,
-  ThemedStyledProps,
+  RuleSet,
   css
 } from 'styled-components';
 
 import {
   mixinInputBg,
-  mixinInputBgHover,
+  // mixinInputBgHover,
   mixinInputBgFocus,
   mixinInputBgDisabled,
   mixinInputBorder,
-  mixinInputBorderHover,
+  // mixinInputBorderHover,
   mixinInputBorderFocus,
   mixinInputBorderFocusBrand,
   mixinInputBorderDisabled
-} from '@alicloud/console-base-theme';
+} from '@kcuf/fork-console-base-theme';
 import {
-  IPropsScInput
-} from '@kcuf/rc-headless-input-text';
+  InputTextProps
+} from '@kcuf/rc-input-text-headless';
 
-const cssNormal = css<IPropsScInput>`
+const cssNormal = css<InputTextProps>`
   ${mixinInputBg}
-  ${props => (props.borderless ? null : mixinInputBorder)}
+  ${props => props.borderless ? null : mixinInputBorder}
 `;
 
-const cssHover = css<IPropsScInput>`
-  ${mixinInputBgHover}
-  ${props => (props.borderless ? null : mixinInputBorderHover)}
-`;
+// const cssHover = css<InputTextProps>`
+//   ${mixinInputBgHover}
+//   ${props => (props.borderless ? null : mixinInputBorderHover)}
+// `;
 
-const cssFocus = css<IPropsScInput>`
+const cssFocus = css<InputTextProps>`
   ${mixinInputBgFocus}
   ${props => {
     if (props.borderless) {
@@ -40,13 +39,12 @@ const cssFocus = css<IPropsScInput>`
   }}
 `;
 
-const cssDisabled = css<IPropsScInput>`
+const cssDisabled = css<InputTextProps>`
   ${mixinInputBgDisabled}
-  ${props => (props.borderless ? null : mixinInputBorderDisabled)}
+  ${props => props.borderless ? null : mixinInputBorderDisabled}
 `;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function getStyledBorder(props: IPropsScInput): FlattenInterpolation<ThemedStyledProps<IPropsScInput, any>> {
+export default function getStyledBorder(props: InputTextProps): RuleSet<InputTextProps> {
   if (props.disabled) {
     return cssDisabled;
   }
@@ -55,9 +53,9 @@ export default function getStyledBorder(props: IPropsScInput): FlattenInterpolat
     return cssFocus;
   }
   
-  if (props.hovered) {
-    return cssHover;
-  }
+  // if (props.hovered) {
+  //   return cssHover;
+  // }
   
   return cssNormal;
 }

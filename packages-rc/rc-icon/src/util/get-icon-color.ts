@@ -4,9 +4,11 @@ import {
 
 export default function getIconColor(type: TIconType): string | null {
   switch (type) { // TODO use theme package for hardcoded colors
+  case 'loading':
+    return '#aaa';
   case 'help':
   case 'help-fill':
-    return '#888';
+    return '#999';
   case 'info':
   case 'info-fill':
     return '#0064c8';

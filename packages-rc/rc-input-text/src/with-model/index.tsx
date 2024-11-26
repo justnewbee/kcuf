@@ -7,7 +7,7 @@ import {
 } from '@kcuf/react-hook-controllable';
 import Model, {
   InputTextProps
-} from '@kcuf/rc-headless-input-text';
+} from '@kcuf/rc-input-text-headless';
 
 import Ui from '../ui';
 

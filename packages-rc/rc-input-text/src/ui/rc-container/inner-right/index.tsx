@@ -5,7 +5,7 @@ import {
 import {
   useProps,
   useFocused
-} from '@kcuf/rc-headless-input-text';
+} from '@kcuf/rc-input-text-headless';
 
 import {
   ScInputInnerRight

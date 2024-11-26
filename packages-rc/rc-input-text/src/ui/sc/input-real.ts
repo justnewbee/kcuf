@@ -4,25 +4,25 @@ import {
   SIZE,
   mixinInputTextDisabled,
   mixinInputText,
-  mixinInputTextHover,
+  // mixinInputTextHover,
   mixinInputTextFocus
-} from '@alicloud/console-base-theme';
+} from '@kcuf/fork-console-base-theme';
 import {
-  InputBase
-} from '@alicloud/console-base-theme-sc-base';
+  ScBaseInputText
+} from '@kcuf/styled-mixin';
 import {
-  IPropsScInput
-} from '@kcuf/rc-headless-input-text';
+  InputTextProps
+} from '@kcuf/rc-input-text-headless';
 
 import {
   INNER_HEIGHT_PX
 } from '../const';
 
-export default styled(InputBase)<IPropsScInput>`
+export default styled(ScBaseInputText)<InputTextProps>`
   padding: 0 ${SIZE.PADDING_X_FORM_CONTROL_M - 2}px;
-  border: 0;
   width: 100%;
   height: ${INNER_HEIGHT_PX};
+  border: 0;
   line-height: ${INNER_HEIGHT_PX};
   
   ${props => {
@@ -34,9 +34,9 @@ export default styled(InputBase)<IPropsScInput>`
       return mixinInputTextFocus;
     }
     
-    if (props.hovered) {
-      return mixinInputTextHover;
-    }
+    // if (props.hovered) {
+    //   return mixinInputTextHover;
+    // }
     
     return mixinInputText;
   }}

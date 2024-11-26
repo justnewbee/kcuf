@@ -8,7 +8,7 @@ import {
   useFocused,
   useHandleMouseEnter,
   useHandleMouseLeave
-} from '@kcuf/rc-headless-input-text';
+} from '@kcuf/rc-input-text-headless';
 
 import {
   ScInput

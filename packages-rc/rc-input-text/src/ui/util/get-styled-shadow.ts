@@ -1,14 +1,14 @@
 import {
-  FlattenSimpleInterpolation
+  RuleSet
 } from 'styled-components';
 
 import {
   mixinShadowMDown
-} from '@alicloud/console-base-theme';
+} from '@kcuf/fork-console-base-theme';
 import {
-  IPropsScInput
-} from '@kcuf/rc-headless-input-text';
+  InputTextProps
+} from '@kcuf/rc-input-text-headless';
 
-export default function getStyledShadow(props: IPropsScInput): FlattenSimpleInterpolation | null {
+export default function getStyledShadow(props: InputTextProps): RuleSet | null {
   return !props.disabled && !props.borderless && (props.focused || props.hovered) ? mixinShadowMDown : null;
 }

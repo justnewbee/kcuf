@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 import {
-  ButtonBase
-} from '@alicloud/console-base-theme-sc-base';
+  ScBaseButton
+} from '@kcuf/styled-mixin';
 
-export default styled(ButtonBase)`
+export default styled(ScBaseButton)`
   opacity: 0.6;
   border: 0;
   
