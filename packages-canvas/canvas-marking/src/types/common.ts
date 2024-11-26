@@ -18,7 +18,7 @@ export type TMarkingItemFinder<T = unknown> = null | 'first' | 'last' | number |
 export type TZoomArg = EZoomHow | `${EZoomHow}`;
 
 export interface IBeforeCreateCompleteResult<T = unknown> {
-  path: Path;
+  path?: Path;
   data?: T;
 }
 
