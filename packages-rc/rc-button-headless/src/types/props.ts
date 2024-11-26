@@ -20,10 +20,10 @@ export interface IPropsDom extends ButtonHTMLAttributes<HTMLElement> {
   [dataName: `data-${string}`]: unknown;
 }
 
-export interface IPropsCustom {
+export interface IButtonPropsCustom {
   component?: 'button' | 'a' | 'span' | 'div'; // 理论上 button 不能包含 button 和 a，a 不能包含 a，当视觉上有这样的场景的时候，可以用该属性（无法搞成 as..）
   /**
-   * or you can use `children` instead, but i prefer this way
+   * or you can use `children` instead, but prefer this way
    */
   label?: string | ReactElement;
   /**
@@ -80,4 +80,4 @@ export interface IPropsCustom {
   active?: boolean;
 }
 
-export interface IModelProps extends Omit<IPropsDom, 'title'>, IPropsCustom {}
+export interface IModelProps extends Omit<IPropsDom, 'title'>, IButtonPropsCustom {}

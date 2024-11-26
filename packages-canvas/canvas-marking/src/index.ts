@@ -15,15 +15,17 @@ export type {
   ICanvasMarkingClass as CanvasMarkingClassType,
   ICanvasMarkingStats as CanvasMarkingStats,
   
+  IMarkingEvents as MarkingEvents,
+  IMarkingItemStats as MarkingItemStats,
+  IMarkingItemConfig as MarkingItemConfig,
+  TMarkingItemFinder as MarkingItemFinder,
+  
   ICanvasMarkingOptions as CanvasMarkingOptions,
   TZoomArg as ZoomArg,
   IZoomOptions as ZoomOptions,
   ITooltipOptions as TooltipOptions,
-  IMarkingEvents as MarkingEvents,
   
-  IMarkingItemStats as MarkingItemStats,
-  IMarkingItemConfig as MarkingItemConfig,
-  TMarkingItemFinder as MarkingItemFinder,
+  IBeforeCreateCompleteResult as BeforeCreateCompleteResult,
   
   IMarkingConfigItem as MarkingConfigItem,
   IMarkingConfigItemBorderDiff as MarkingConfigItemBorderDiff,

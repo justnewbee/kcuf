@@ -6,7 +6,7 @@ import {
   EButtonPreset
 } from '../enum';
 import {
-  IPropsCustom,
+  IButtonPropsCustom,
   IPropsDom
 } from '../types';
 import {
@@ -17,12 +17,12 @@ import {
 
 import useModelContext from './_use-model-context';
 
-export default function useModelProps(): [IPropsCustom, IPropsDom] {
+export default function useModelProps(): [IButtonPropsCustom, IPropsDom] {
   const {
     props
   } = useModelContext();
   
-  return useMemo((): [IPropsCustom, IPropsDom] => {
+  return useMemo((): [IButtonPropsCustom, IPropsDom] => {
     const {
       children,
       component,
@@ -45,9 +45,9 @@ export default function useModelProps(): [IPropsCustom, IPropsDom] {
       ...rest
     } = props;
     
-    const propsCustom: IPropsCustom = {
+    const propsCustom: IButtonPropsCustom = {
       component,
-      label: label || children as IPropsCustom['label'],
+      label: label || children as IButtonPropsCustom['label'],
       title,
       loading,
       iconSpacing,
