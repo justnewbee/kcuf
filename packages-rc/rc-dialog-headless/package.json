@@ -44,7 +44,8 @@
     "@kcuf/rc-button-headless": "workspace:^",
     "@kcuf/react-hook-is-unmounted": "workspace:^",
     "@kcuf/ts-missing-helpers": "workspace:^",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "immer": "^10.1.1"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
