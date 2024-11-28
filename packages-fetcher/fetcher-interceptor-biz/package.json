@@ -39,7 +39,7 @@
     "@storybook/react-vite": "^8.4.5",
     "@storybook/test": "^8.4.5",
     "@types/react": "^18.3.12",
-    "@vitest/coverage-v8": "^2.1.5",
+    "@vitest/coverage-v8": "^2.1.6",
     "fetch-mock": "^12.2.0",
     "jsdom": "^25.0.1",
     "react": "^18.3.1",
@@ -47,7 +47,7 @@
     "storybook": "^8.4.5",
     "styled-components": "^6.1.13",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.5"
+    "vitest": "^2.1.6"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"

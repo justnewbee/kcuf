@@ -19,7 +19,7 @@ interface IScMarkingContainer {
 
 const ScMarkingContainer = styled.div<IScMarkingContainer>`
   height: 100%;
-  min-height: 480px;
+  min-height: 120px;
 `;
 
 function Ui(_props: unknown, ref: ForwardedRef<CanvasMarkingImperativeRef>): ReactElement {
