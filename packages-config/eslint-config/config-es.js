@@ -17,7 +17,13 @@ export default [
       'no-else-return': ['error', {
         allowElseIf: false
       }],
+      'no-promise-executor-return': 'error',
+      'no-alert': 'error',
+      'no-use-before-define': 'error',
+      'no-useless-assignment': 'warn',
       'no-return-assign': 'error',
+      'prefer-const': 'error',
+      'prefer-destructuring': 'error',
       'prefer-numeric-literals': 'error',
       'prefer-object-spread': 'error',
       'prefer-regex-literals': 'error',
