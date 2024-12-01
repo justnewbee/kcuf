@@ -7,6 +7,7 @@ export default [
   eslintJs.configs.recommended,
   {
     rules: {
+      // 以下在 recommend 里没有，但很重要
       eqeqeq: 'error',
       curly: ['error', 'all'],
       'object-shorthand': 'error',
@@ -16,6 +17,7 @@ export default [
       'no-else-return': ['error', {
         allowElseIf: false
       }],
+      'no-return-assign': 'error',
       'prefer-numeric-literals': 'error',
       'prefer-object-spread': 'error',
       'prefer-regex-literals': 'error',

@@ -13,6 +13,6 @@ import {
  * - 所有变量统一前缀（1-4 个字符），默认为 `kf`，如 `color light gray` → `--kf-color--light-gray`
  * - 前缀后一个 `-`，不需要两个
  */
-export default function nameCssVar(path: string[], prefix?: string): string {
-  return `--${(prefix || PREFIX_CSS_VAR).toLowerCase()}-${path.map(_kebabCase).join('--')}`;
+export default function nameCssVar(path: string[], prefix = PREFIX_CSS_VAR): string {
+  return `--${prefix.toLowerCase()}-${path.map(_kebabCase).join('--')}`;
 }

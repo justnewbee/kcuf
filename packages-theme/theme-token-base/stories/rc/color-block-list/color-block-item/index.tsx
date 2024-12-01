@@ -3,7 +3,9 @@ import {
 } from 'react';
 import styled from 'styled-components';
 import {
-  readableColor
+  readableColor,
+  parseToRgb,
+  toColorString
 } from 'polished';
 
 import {
@@ -45,6 +47,7 @@ export default function ColorBlockItem({
     }
   }}>
     <div>{hslUnwrap(color)}</div>
+    <div>{toColorString(parseToRgb(color))}</div>
     {transparent ? null : <ScContrast>{getContrastLabel(color, dark)}</ScContrast>}
   </ScColorBlock>;
 }

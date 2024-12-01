@@ -21,7 +21,7 @@ export default function StoryFont(): ReactElement {
     {FONT_SIZE.map((v, i) => <div key={v} style={{
       fontSize: v,
       lineHeight: LINE_HEIGHT[i]
-    }}>#${i + 1} font-size {v} + line-height {LINE_HEIGHT[i]}</div>)}
+    }}>#{i + 1} font-size {v} + line-height {LINE_HEIGHT[i]}</div>)}
     {FONT_SIZE.map((v, i) => <div key={v} style={{
       fontSize: v,
       lineHeight: LINE_HEIGHT_HEADING[i]

@@ -21,7 +21,10 @@ export interface IPropsDom extends ButtonHTMLAttributes<HTMLElement> {
 }
 
 export interface IButtonPropsCustom {
-  component?: 'button' | 'a' | 'span' | 'div'; // 理论上 button 不能包含 button 和 a，a 不能包含 a，当视觉上有这样的场景的时候，可以用该属性（无法搞成 as..）
+  /**
+   * 理论上 button 不能包含 button 和 a，a 不能包含 a，若视觉上有这样的场景，可用该属性
+   */
+  component?: 'button' | 'a' | 'span' | 'div';
   /**
    * or you can use `children` instead, but prefer this way
    */

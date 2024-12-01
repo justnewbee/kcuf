@@ -3,6 +3,8 @@ import {
   TColorLevels
 } from './types';
 import {
+  WHITE_A as L_WHITE_A,
+  BLACK_A as L_BLACK_A,
   GRAY_0 as L_GRAY_0,
   GRAY_12 as L_GRAY_12,
   RED as L_RED,
@@ -11,8 +13,10 @@ import {
   YELLOW as L_YELLOW,
   ORANGE as L_ORANGE,
   PURPLE as L_PURPLE,
-  WHITE_A as L_WHITE_A,
-  BLACK_A as L_BLACK_A
+  GRAY_SLATE as L_GRAY_SLATE,
+  GRAY_ZINC as L_GRAY_ZINC,
+  GRAY_OLIVE as L_GRAY_OLIVE,
+  GRAY_STONE as L_GRAY_STONE
 } from './color';
 import {
   reverseColorLevels
@@ -35,6 +39,11 @@ export const GRAY: TColorLevels = [
   'hsl(0 0% 71%)',
   'hsl(0 0% 93%)'
 ];
+export const GRAY_SLATE = reverseColorLevels(L_GRAY_SLATE);
+export const GRAY_ZINC = reverseColorLevels(L_GRAY_ZINC);
+export const GRAY_OLIVE = reverseColorLevels(L_GRAY_OLIVE);
+export const GRAY_STONE = reverseColorLevels(L_GRAY_STONE);
+
 export const RED = reverseColorLevels(L_RED);
 export const GREEN = reverseColorLevels(L_GREEN);
 export const BLUE = reverseColorLevels(L_BLUE);

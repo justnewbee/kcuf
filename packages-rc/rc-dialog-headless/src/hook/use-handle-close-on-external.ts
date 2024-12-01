@@ -16,7 +16,7 @@ export default function useHandleCloseOnExternal(): () => void {
   const handleClose = useHandleClose();
   
   return useCallback(() => {
-    if (externalClose === -1 || (closable && externalClose)) {
+    if (externalClose === 'always' || (closable && externalClose)) {
       handleClose();
     }
   }, [externalClose, closable, handleClose]);

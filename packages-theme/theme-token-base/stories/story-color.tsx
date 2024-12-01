@@ -59,6 +59,30 @@ export default function StoryColor(): ReactElement {
         lists: [COLOR.GRAY, COLOR_DARK.GRAY]
       }} />
       <ColorBlockList {...{
+        title: 'Gray Slate',
+        dark: stateDark,
+        text: stateText,
+        lists: [COLOR.GRAY_SLATE, COLOR_DARK.GRAY_SLATE]
+      }} />
+      <ColorBlockList {...{
+        title: 'Gray Zinc',
+        dark: stateDark,
+        text: stateText,
+        lists: [COLOR.GRAY_ZINC, COLOR_DARK.GRAY_ZINC]
+      }} />
+      <ColorBlockList {...{
+        title: 'Gray Olive',
+        dark: stateDark,
+        text: stateText,
+        lists: [COLOR.GRAY_OLIVE, COLOR_DARK.GRAY_OLIVE]
+      }} />
+      <ColorBlockList {...{
+        title: 'Gray Stone',
+        dark: stateDark,
+        text: stateText,
+        lists: [COLOR.GRAY_STONE, COLOR_DARK.GRAY_STONE]
+      }} />
+      <ColorBlockList {...{
         title: 'Red',
         dark: stateDark,
         text: stateText,

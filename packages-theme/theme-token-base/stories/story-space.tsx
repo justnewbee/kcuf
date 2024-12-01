@@ -2,9 +2,6 @@ import {
   ReactElement
 } from 'react';
 import styled from 'styled-components';
-import {
-  random
-} from 'colord';
 
 import {
   COLOR,
@@ -17,6 +14,7 @@ const ScSpace = styled.div`
 `;
 const ScBlock = styled.div`
   height: ${SPACE[4]};
+  background: hsla(0 0% 0% / 5%);
 `;
 const ScInfo = styled.div`
   margin-left: ${SPACE[3]};
@@ -27,8 +25,7 @@ export default function StorySpace(): ReactElement {
   return <>
     {SPACE.map((v, i) => <ScSpace key={v}>
       <ScBlock style={{
-        width: v,
-        backgroundColor: random().toHslString()
+        width: v
       }} />
       <ScInfo>{`#${i + 1}`} = {v}</ScInfo>
     </ScSpace>)}

@@ -12,7 +12,7 @@ import useHandleClose from './use-handle-close';
 /**
  * 处理 ESC 事件
  *
- * 注意会经常变，引用用到了 dispatchCloseWithValue
+ * 注意会经常变，引用用到了 useHandleClose
  */
 export default function useHandleCloseOnEsc(): () => void {
   const {
@@ -20,16 +20,16 @@ export default function useHandleCloseOnEsc(): () => void {
     closable
   } = useModelProps();
   
-  const dispatchClose = useHandleClose();
+  const handleClose = useHandleClose();
   
-  return useCallback((): boolean | void => {
+  return useCallback((): boolean | undefined => {
+    // ESC 的时候优先关闭 fusion 的 overlay，如果有 fusion 的，则这边先不关
     if (detectFusionOverlay()) {
       return false;
     }
     
-    // ESC 的时候优先关闭 fusion 的 overlay，如果有 fusion 的，则这边先不关
-    if (esc === -1 || (closable && esc)) {
-      dispatchClose();
+    if (esc === 'always' || (closable && esc)) {
+      handleClose();
     }
-  }, [esc, closable, dispatchClose]);
+  }, [esc, closable, handleClose]);
 }
