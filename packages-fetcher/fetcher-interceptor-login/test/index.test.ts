@@ -75,7 +75,10 @@ const doLogin = vi.fn().mockImplementation(() => {
   });
 });
 
-interceptLogin(fetcher, needLogin, doLogin);
+interceptLogin(fetcher, {
+  needLogin,
+  doLogin
+});
 
 describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
   beforeEach(() => {

@@ -16,10 +16,14 @@ import interceptLogin from '@kcuf/fetcher-interceptor-login';
 import needLogin from './need-login';
 import doLogin from './do-login';
 
-interceptLogin(fetcher, needLogin, doLogin);
+interceptLogin(fetcher, {
+  needLogin,
+  doLogin,
+  headerKeys
+});
 ```
 
-由于业务的特殊性，你需要自定义 `needLogin` 和 `doLogin`。
+由于业务的特殊性，你需要自定义 `needLogin`、`doLogin` 以及可选的 `headerKeys`。
 
 ### needLogin
 
@@ -39,6 +43,16 @@ function doLogin(): Promise<void>;
 ```
 
 这是一个无参的返回 `Promise<void>` 的方法，一般来说对弹窗登录的 `Promise` 封装。
+
+### headerKeys
+
+> 使用 Cookie 的情况不需要。
+
+注意：如果登录用的 **不是** Cookie，而用的是 Header 的话，需要在重试请求前将原请求 `config.headers` 中对应的值清掉。
+
+这是由于 Fetcher 拦截器放的 header、params、body 等优先级不能比传入值高，而前一次由拦截器混入的 `headers` 在重试的二次 请求中，地位变成了传入值。
+
+解决的办法是，使用 fetcher 提供的帮助方法 `deleteConfigHeaders` 在二次调用前清除相应的 header（可能有多个），这里提供了简便的配置属性 `headerKeys`。
 
 ## FAQ
 

@@ -1,2 +1,5 @@
-export type TNeedLogin = (code: string) => boolean;
-export type TDoLogin = () => Promise<void>;
+export interface ICreateInterceptorOptions {
+  needLogin(code: string): boolean;
+  doLogin(): Promise<void>;
+  headerKeys?: string[];
+}

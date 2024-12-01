@@ -3,8 +3,7 @@ import {
 } from '@kcuf/fetcher';
 
 import {
-  TDoLogin,
-  TNeedLogin
+  ICreateInterceptorOptions
 } from '../types';
 
 import createInterceptorResponseRejected from './create-interceptor-response-rejected';
@@ -17,6 +16,6 @@ import createInterceptorResponseRejected from './create-interceptor-response-rej
  * 1. 多个请求时，只有第一个可以（要求优先级比 merging 高）
  * 2. 出错后，登录，成功，然无法成功（要求优先级比 merging 低）
  */
-export default function intercept(fetcher: Fetcher, needLogin: TNeedLogin, doLogin: TDoLogin, priority = 40): () => void {
-  return fetcher.interceptResponse(undefined, createInterceptorResponseRejected(needLogin, doLogin), priority);
+export default function intercept(fetcher: Fetcher, createInterceptorOptions: ICreateInterceptorOptions, priority = 40): () => void {
+  return fetcher.interceptResponse(undefined, createInterceptorResponseRejected(createInterceptorOptions), priority);
 }
