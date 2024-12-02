@@ -23,7 +23,7 @@ export default [
       'no-useless-assignment': 'warn',
       'no-return-assign': 'error',
       'prefer-const': 'error',
-      'prefer-destructuring': 'error',
+      // 'prefer-destructuring': 'error',
       'prefer-numeric-literals': 'error',
       'prefer-object-spread': 'error',
       'prefer-regex-literals': 'error',
