@@ -41,8 +41,8 @@
     "@types/jsdom": "^21.1.7",
     "@types/lodash": "^4.17.13",
     "@types/qs": "^6.9.17",
-    "@types/react": "^18.3.12",
-    "@vitest/coverage-v8": "^2.1.6",
+    "@types/react": "^18.3.13",
+    "@vitest/coverage-v8": "^2.1.8",
     "fetch-mock": "^12.2.0",
     "jsdom": "^25.0.1",
     "react": "^18.3.1",
@@ -50,7 +50,7 @@
     "storybook": "^8.4.6",
     "styled-components": "^6.1.13",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.6"
+    "vitest": "^2.1.8"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"

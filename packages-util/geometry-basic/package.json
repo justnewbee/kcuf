@@ -29,10 +29,10 @@
     "@babel/preset-typescript": "^7.26.0",
     "@kcuf/ts-config": "workspace:^",
     "@types/lodash": "^4.17.13",
-    "@vitest/coverage-v8": "^2.1.6",
+    "@vitest/coverage-v8": "^2.1.8",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.6"
+    "vitest": "^2.1.8"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"
