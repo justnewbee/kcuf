@@ -35,7 +35,7 @@ export default function useInit(): () => void {
         tooltipOptions: {
           getHoveringInfo
         },
-        // onBeforeCreateComplete: () => new Promise<false>(resolve => {
+        // onCreateCompletePre: () => new Promise<false>(resolve => {
         //   setTimeout(() => resolve(false), 4000);
         // }),
         onStatsChange: dispatchSetCanvasMarkingStats

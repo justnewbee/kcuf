@@ -27,9 +27,9 @@ export type TBeforeCreateCompleteResult<T = unknown> = IBeforeCreateCompleteResu
 /**
  * 新建完成前，供调整路径、填补数据或取消操作（返回值 `false` 或 `Promise<false>`）的回调
  */
-export type TOnBeforeCreateComplete<T = unknown> = (path: Path, data?: T) => TBeforeCreateCompleteResult<T>;
+export type TOnCreateCompletePre<T = unknown> = (path: Path, data?: T) => TBeforeCreateCompleteResult<T>;
 
 /**
  * 修改路径完成前，调整路径
  */
-export type TOnBeforeEditDragEnd<T = unknown> = (path: Path, data?: T) => Path | undefined;
+export type TOnEditDragEndPre<T = unknown> = (path: Path, data?: T) => Path | undefined;

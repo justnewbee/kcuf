@@ -7,8 +7,8 @@ import {
   ICanvasMarkingStats
 } from './stats';
 import {
-  TOnBeforeCreateComplete,
-  TOnBeforeEditDragEnd
+  TOnCreateCompletePre,
+  TOnEditDragEndPre
 } from './common';
 
 /**
@@ -19,13 +19,13 @@ import {
 export interface IMarkingEvents<T> {
   onCreateStart?(): void;
   onCreateCancel?(): void;
-  onBeforeCreateComplete?: TOnBeforeCreateComplete<T>;
+  onCreateCompletePre?: TOnCreateCompletePre<T>;
   onCreateComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onClick?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onSelectionChange?(stats: IMarkingItemStats<T> | null, statsList: IMarkingItemStats<T>[]): void;
   onPointRemove?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
   onPointInsert?(stats: IMarkingItemStats<T>, index: number, statsList: IMarkingItemStats<T>[]): void;
-  onBeforeEditDragEnd?: TOnBeforeEditDragEnd<T>;
+  onEditDragEndPre?: TOnEditDragEndPre<T>;
   onEditDragEnd?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onEditCancel?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;
   onEditComplete?(stats: IMarkingItemStats<T>, statsList: IMarkingItemStats<T>[]): void;

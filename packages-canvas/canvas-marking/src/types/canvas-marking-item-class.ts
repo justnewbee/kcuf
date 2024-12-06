@@ -7,7 +7,7 @@ import {
 } from '../enum';
 
 import {
-  TOnBeforeCreateComplete, TOnBeforeEditDragEnd
+  TOnCreateCompletePre, TOnEditDragEndPre
 } from './common';
 import {
   IMarkingBehaviorConfig,
@@ -86,7 +86,7 @@ export interface IMarkingItemClass<T = unknown> {
    */
   pushPoint(): boolean | 'close' | 'last';
   
-  finishCreating(onBeforeCreateComplete?: TOnBeforeCreateComplete<T>): false | Promise<boolean>;
+  finishCreating(onCreateCompletePre?: TOnCreateCompletePre<T>): false | Promise<boolean>;
   
   removePoint(): number;
   
@@ -109,7 +109,7 @@ export interface IMarkingItemClass<T = unknown> {
    */
   processDragging(): boolean | number;
   
-  finishDragging(onBeforeEditDragEnd?: TOnBeforeEditDragEnd<T>): boolean;
+  finishDragging(onBeforeEditDragEnd?: TOnEditDragEndPre<T>): boolean;
   
   refreshStats(): IMarkingItemStats<T>;
   

@@ -25,7 +25,7 @@ import {
   EMarkingMouseStatus
 } from '../enum';
 import {
-  TOnBeforeCreateComplete,
+  TOnCreateCompletePre,
   TCreatingWillFinish,
   TMarkingBorderStyleResolved,
   IMarkingFillStyleResolved,
@@ -34,7 +34,7 @@ import {
   IMarkingItemClass,
   IMarkingItemOptions,
   IMarkingConfigItemBorderDiff,
-  IMarkingItemStats, TOnBeforeEditDragEnd
+  IMarkingItemStats, TOnEditDragEndPre
 } from '../types';
 import {
   DEFAULT_FILL_ALPHA_EDITING,
@@ -710,7 +710,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   /**
    * 新建或编辑完成之前执行回调，若回调返回 false 则取消，可以提供 data 或修改 path
    */
-  private async beforeCreateComplete(beforeHook?: TOnBeforeCreateComplete<T>): Promise<boolean> {
+  private async beforeCreateComplete(beforeHook?: TOnCreateCompletePre<T>): Promise<boolean> {
     this.creating = false;
     
     if (beforeHook) {
@@ -795,12 +795,12 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     this.pathSnapshotEditing = _cloneDeep(this.path);
   }
   
-  finishCreating(onBeforeCreateComplete?: TOnBeforeCreateComplete<T>): false | Promise<boolean> {
+  finishCreating(onCreateCompletePre?: TOnCreateCompletePre<T>): false | Promise<boolean> {
     if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
       return false;
     }
     
-    return this.beforeCreateComplete(onBeforeCreateComplete);
+    return this.beforeCreateComplete(onCreateCompletePre);
   }
   
   finishEditing(cancel?: boolean): boolean {
@@ -966,7 +966,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return true;
   }
   
-  finishDragging(onBeforeEditDragEnd?: TOnBeforeEditDragEnd<T>): boolean {
+  finishDragging(onBeforeEditDragEnd?: TOnEditDragEndPre<T>): boolean {
     if (!this.draggingStartCoords) {
       return false;
     }

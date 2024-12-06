@@ -9,7 +9,7 @@ export default function useEffectSetEventHandlers(): void {
   const {
     onCreateStart,
     onCreateCancel,
-    onBeforeCreateComplete,
+    onCreateCompletePre,
     onCreateComplete,
     onClick,
     onSelectionChange,
@@ -35,7 +35,7 @@ export default function useEffectSetEventHandlers(): void {
     
     markingInstance.setOption('onCreateStart', onCreateStart);
     markingInstance.setOption('onCreateCancel', onCreateCancel);
-    markingInstance.setOption('onBeforeCreateComplete', onBeforeCreateComplete);
+    markingInstance.setOption('onCreateCompletePre', onCreateCompletePre);
     markingInstance.setOption('onCreateComplete', onCreateComplete);
     markingInstance.setOption('onClick', onClick);
     markingInstance.setOption('onSelectionChange', onSelectionChange);
@@ -55,7 +55,7 @@ export default function useEffectSetEventHandlers(): void {
     markingInstance,
     onCreateStart,
     onCreateCancel,
-    onBeforeCreateComplete,
+    onCreateCompletePre,
     onCreateComplete,
     onClick,
     onSelectionChange,

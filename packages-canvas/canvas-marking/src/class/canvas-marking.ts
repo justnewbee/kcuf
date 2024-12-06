@@ -556,7 +556,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private handleMouseUpWindow(): void {
     const {
       options: {
-        onBeforeEditDragEnd,
+        onEditDragEndPre,
         onEditDragEnd
       },
       itemEditing,
@@ -573,7 +573,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    if (itemEditing?.finishDragging(onBeforeEditDragEnd)) {
+    if (itemEditing?.finishDragging(onEditDragEndPre)) {
       this.clearJustified();
       
       const statsList = this.getAllStats();
@@ -1313,7 +1313,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   finishCreating(): void {
     const {
       options: {
-        onBeforeCreateComplete,
+        onCreateCompletePre,
         onCreateComplete,
         onCreateCancel
       },
@@ -1324,7 +1324,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    const completeResult = itemCreating.finishCreating(onBeforeCreateComplete);
+    const completeResult = itemCreating.finishCreating(onCreateCompletePre);
     
     if (!completeResult) { // 不符合完成新建的标准
       return;
