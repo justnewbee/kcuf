@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/helper-data",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Data normalizer helpers and loading stuff to make all frontend data processing sane.",
   "keywords": [],
   "license": "MIT",

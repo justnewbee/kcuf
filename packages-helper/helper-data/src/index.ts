@@ -16,6 +16,8 @@ export type {
   IBaseDataTimeCreated as BaseDataTimeCreated,
   IBaseDataTimeModified as BaseDataTimeModified,
   IBaseDataTimes as BaseDataTimes,
+  IBaseDataWhoCreated as BaseDataWhoCreated,
+  IBaseDataWhoModified as BaseDataWhoModified,
   
   IPagedList as PagedList,
   IPagedListUncertain as PagedListUncertain,

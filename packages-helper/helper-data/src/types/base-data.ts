@@ -51,3 +51,17 @@ export interface IBaseDataTimeModified {
  * timeCreated + timeModified
  */
 export interface IBaseDataTimes extends IBaseDataTimeCreated, IBaseDataTimeModified {}
+
+/**
+ * 「谁创建」标准化
+ */
+export interface IBaseDataWhoCreated {
+  whoCreated: IBaseDataIdName;
+}
+
+/**
+ * 「谁更新」标准化
+ */
+export interface IBaseDataWhoModified {
+  whoModified: IBaseDataIdName;
+}

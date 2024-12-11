@@ -1,4 +1,4 @@
-# @/pkg/data-normalizer
+# @kcuf/helper-data
 
 将千奇百怪、随心所欲、虚头巴脑的后端数据中的字段、类型进行标准化的帮助类型及方法。
 
