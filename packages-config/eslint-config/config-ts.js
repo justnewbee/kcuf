@@ -33,7 +33,7 @@ export default eslintTs.config(
           selector: 'variable',
           format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
           filter: {
-            regex: '[A-Z\\d]__[A-Z\\d]',
+            regex: '[A-Z\\d\\$]__[\\$A-Z\\d]',
             match: false
           }
         }, {
@@ -65,7 +65,7 @@ export default eslintTs.config(
           format: ['StrictPascalCase', 'UPPER_CASE'],
           leadingUnderscore: 'allow',
           filter: {
-            regex: '[A-Z\\d]__[A-Z\\d]',
+            regex: '[A-Z\\d\\$]__[\\$A-Z\\d]',
             match: false
           }
         }, { // allow anything in destructured properties

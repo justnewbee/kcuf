@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/react-hook-is-unmounted",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React hook - useIsUnmounted.",
   "keywords": [
     "react",

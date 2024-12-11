@@ -4,3 +4,7 @@ format: group
 timeout: 120000
 reject:
   - 'unfetch' # 5.0 输出的是 .mjs 对构建有要求...
+  - '@types/react' # react 先维持 18 一段时间
+  - '@types/react-dom'
+  - 'react'
+  - 'react-dom'
