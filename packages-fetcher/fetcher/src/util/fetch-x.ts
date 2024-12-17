@@ -24,8 +24,7 @@ export default async function fetchX<T = unknown>(config: IFetcherConfig): Promi
     return buildResponseX<T>(await fetcherJsonp<T>(fetchUrl, buildOptionsForJsonp(config)), config);
   }
   
-  // 支持进度上传
-  if (/^POST$/i.test(config.method || '') || config.onProgress) {
+  if (/^POST$/i.test(config.method || '') && config.onProgress) { // 支持进度上传
     return buildResponseX(await fetcherXhr(fetchUrl, buildOptionsForXhr(config)), config);
   }
   
