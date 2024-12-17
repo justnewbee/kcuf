@@ -2,11 +2,19 @@ import {
   IXhrResponse
 } from '../types';
 
-export default function createResponse<T>(responseStatus: number, responseText: string, url: string): IXhrResponse<T> {
+import parseResponseHeaders from './parse-xhr-response-headers';
+
+export default function createResponse<T>(xhr: XMLHttpRequest, url: string): IXhrResponse<T> {
+  const {
+    status,
+    responseText
+  } = xhr;
+  
   return {
-    ok: responseStatus >= 200 && responseStatus < 300,
+    ok: status >= 200 && status < 300,
     url,
-    status: responseStatus,
+    status,
+    headers: parseResponseHeaders(xhr.getAllResponseHeaders()),
     json: (): Promise<T> => {
       return Promise.resolve(JSON.parse(responseText) as T);
     },

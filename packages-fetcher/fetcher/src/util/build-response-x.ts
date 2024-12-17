@@ -1,6 +1,9 @@
 import {
   JsonpResponse
 } from '@kcuf/fetcher-jsonp';
+import {
+  XhrResponse
+} from '@kcuf/fetcher-xhr';
 
 import {
   EFetcherErrorName
@@ -12,11 +15,26 @@ import {
 
 import createFetcherError from './create-fetcher-error';
 
-export default async function buildResponseX<T>(response: JsonpResponse<T> | Response, responseHeaders: Record<string, string>, config: IFetcherConfig): Promise<IFetcherResponse<T>> {
+export default async function buildResponseX<T>(response: JsonpResponse<T> | XhrResponse<T> | Response, config: IFetcherConfig): Promise<IFetcherResponse<T>> {
+  if (!response.ok) { // 如 400 500 系列错误，此时也可能有 response.json()
+    let responseData: unknown | undefined;
+    
+    try {
+      responseData = await response.json();
+    } catch (_err) {
+      // ignore
+    }
+    
+    throw createFetcherError(config, EFetcherErrorName.RESPONSE_STATUS, `Response status ${response.status}.`, {
+      code: `${response.status}`,
+      responseData
+    });
+  }
+  
   try {
     return {
       url: response.url,
-      headers: responseHeaders,
+      headers: response.headers || new Headers(),
       data: (config.responseType === 'text' ? await response.text() : await response.json()) as T
     };
   } catch (err) {

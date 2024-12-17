@@ -7,6 +7,7 @@ export default function createResponse<T>(result: unknown, url: string): IJsonpR
     ok: true,
     status: 200,
     url,
+    headers: null,
     json: (): Promise<T> => {
       if (typeof result === 'string') {
         return Promise.resolve(JSON.parse(result) as T);

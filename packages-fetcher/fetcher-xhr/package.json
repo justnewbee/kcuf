@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/fetcher-xhr",
-  "version": "0.0.1",
-  "description": "An xhr similar to fetch.",
+  "version": "0.1.0",
+  "description": "An xhr wrapping to mimic similar behavior of fetch.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,

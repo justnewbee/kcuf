@@ -6,6 +6,9 @@ import {
 import {
   JsonpErrorName
 } from '@kcuf/fetcher-jsonp';
+import {
+  XhrErrorName
+} from '@kcuf/fetcher-xhr';
 
 import {
   EFetcherErrorName
@@ -32,11 +35,13 @@ export default function convertError(err: unknown, config: IFetcherConfig): IFet
   switch (error.name) {
   case FetchErrorName.NETWORK:
   case JsonpErrorName.NETWORK:
+  case XhrErrorName.NETWORK:
     error.name = EFetcherErrorName.NETWORK;
     
     break;
   case FetchErrorName.TIMEOUT:
   case JsonpErrorName.TIMEOUT:
+  case XhrErrorName.TIMEOUT:
     error.name = EFetcherErrorName.TIMEOUT;
     
     break;

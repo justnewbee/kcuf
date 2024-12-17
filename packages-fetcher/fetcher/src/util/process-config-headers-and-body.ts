@@ -1,8 +1,4 @@
 import {
-  FetchOptions
-} from '@kcuf/fetcher-fetch';
-
-import {
   IFetcherConfig
 } from '../types';
 
@@ -11,7 +7,7 @@ import serializeBody from './serialize-body';
 import cloneTypeHeaders from './clone-type-headers';
 
 /**
- * 主要处理 headers 和 body 信息。
+ * 处理 headers 和 body
  *
  * 如果 fetch 对 GET/HEAD 请求传入 body，哪怕只是一个空字符串，
  * 浏览器就会直接拒绝并报错「HEAD or GET Request cannot have a body.」
@@ -62,47 +58,33 @@ import cloneTypeHeaders from './clone-type-headers';
  * });
  * ```
  */
-export default function buildFetchOptions(config: IFetcherConfig): FetchOptions {
-  const {
-    // 剔除 JSONP 参数
-    charset,
-    jsonpCallback,
-    jsonpCallbackFunction,
-    // 剔除需要进一步处理的
-    body,
-    ...options
-  } = config;
-  const fetchOptions: FetchOptions = {
-    ...options
-  };
-  
+export default function processConfigHeadersAndBody(config: IFetcherConfig): [Headers, null | string | URLSearchParams | FormData | Blob] {
   const headers = cloneTypeHeaders(config.headers || {});
+  const body = config.body;
   
   if (body && canHaveBody(config)) {
     if (typeof body === 'string') {
-      fetchOptions.body = body;
-      
       if (!headers.get('Content-Type')) {
         headers.set('Content-Type', 'application/x-www-form-urlencoded');
       }
-    } else if (body instanceof URLSearchParams) {
-      fetchOptions.body = body;
-      headers.delete('Content-Type');
-    } else if (body instanceof FormData) {
-      fetchOptions.body = body;
-      headers.delete('Content-Type');
-    } else if (body instanceof Blob) {
-      fetchOptions.body = body;
-      headers.delete('Content-Type');
-    } else if (headers.get('Content-Type') === 'application/json') {
-      fetchOptions.body = JSON.stringify(body);
-    } else {
-      headers.set('Content-Type', 'application/x-www-form-urlencoded');
-      fetchOptions.body = serializeBody(body, config.serializeBody);
+      
+      return [headers, body];
     }
+    
+    if (body instanceof URLSearchParams || body instanceof FormData || body instanceof Blob) {
+      headers.delete('Content-Type');
+      
+      return [headers, body];
+    }
+    
+    if (headers.get('Content-Type') === 'application/json') {
+      return [headers, JSON.stringify(body)];
+    }
+    
+    headers.set('Content-Type', 'application/x-www-form-urlencoded');
+    
+    return [headers, serializeBody(body, config.serializeBody)];
   }
   
-  fetchOptions.headers = headers;
-  
-  return fetchOptions;
+  return [headers, null];
 }

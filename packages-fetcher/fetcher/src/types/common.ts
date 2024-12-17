@@ -2,7 +2,7 @@ import {
   IStringifyOptions
 } from 'qs';
 
-export type IInterceptorEject = () => void;
+export type TInterceptorEject = () => void;
 
 export interface IBuildUrlOptions {
   urlBase?: string;
@@ -56,6 +56,6 @@ export type TFetcherResponseType = 'json' | 'text';
  */
 export interface IFetcherResponse<T = unknown> {
   readonly url: string;
-  readonly headers: Record<string, string>;
+  readonly headers: Headers;
   readonly data: T;
 }

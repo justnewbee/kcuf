@@ -6,7 +6,7 @@ import {
   IFetcherConfig
 } from '../types';
 
-export default function buildJsonpOptions(config: IFetcherConfig): JsonpOptions {
+export default function buildOptionsForJsonp(config: IFetcherConfig): JsonpOptions {
   return {
     timeout: config.timeout,
     charset: config.charset,

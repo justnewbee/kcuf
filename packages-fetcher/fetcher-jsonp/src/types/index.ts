@@ -24,7 +24,6 @@ export interface IJsonpOptions {
  *
  * - body: ReadableStream;
  * - bodyUsed: boolean;
- * - headers: Headers; // JSONP 无法有 headers
  * - redirected: boolean;
  * - statusText: string;
  * - type: string; // basic
@@ -32,6 +31,7 @@ export interface IJsonpOptions {
 export interface IJsonpResponse<T = unknown> {
   ok: true; // 跟 status 有关，对应 status 在 200-299 范围内，所以 status 和 statusText 就直接忽略了
   status: 200; // Jsonp 只能 200
+  headers: null; // JSONP 无法有 headers
   url: string;
   json(): Promise<T>;
   text(): Promise<string>;

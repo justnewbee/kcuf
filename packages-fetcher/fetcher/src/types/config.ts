@@ -86,6 +86,10 @@ export interface IFetcherConfig extends IFetcherConfigDefault {
    * POST/PUT 等请求体
    */
   body?: TFetcherBody;
+  /**
+   * 上传文件的情况，底层只能用 xhr
+   */
+  onProgress?(progress: number): void; // progress 范围 [0, 1]
 }
 
 /**

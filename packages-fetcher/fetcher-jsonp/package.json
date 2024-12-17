@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-jsonp",
-  "version": "0.1.3",
+  "version": "0.2.0",
   "description": "The jsonp implementation, can be used alone.",
   "keywords": [],
   "license": "MIT",

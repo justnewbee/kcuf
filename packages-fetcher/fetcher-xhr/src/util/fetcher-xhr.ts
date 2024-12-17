@@ -46,8 +46,15 @@ export default function fetcherXhr<T = unknown>(url: string, options: IXhrOption
       signal.addEventListener('abort', () => xhr.abort());
     }
     
-    xhr.upload.onprogress = onProgress;
-    xhr.onload = () => resolve(createResponse(xhr.status, xhr.responseText, url));
+    if (onProgress) {
+      xhr.upload.onprogress = e => {
+        if (e.lengthComputable) {
+          onProgress(e.loaded / e.total);
+        }
+      };
+    }
+    
+    xhr.onload = () => resolve(createResponse(xhr, url));
     xhr.onerror = () => reject(createErrorNetwork(url));
     xhr.ontimeout = () => reject(createErrorTimeout(url, timeout));
     xhr.onabort = () => reject(createErrorAbort(url));

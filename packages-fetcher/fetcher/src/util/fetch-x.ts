@@ -1,5 +1,6 @@
 import fetcherFetch from '@kcuf/fetcher-fetch';
-import jsonp from '@kcuf/fetcher-jsonp';
+import fetcherXhr from '@kcuf/fetcher-xhr';
+import fetcherJsonp from '@kcuf/fetcher-jsonp';
 
 import {
   IFetcherConfig,
@@ -8,10 +9,10 @@ import {
 
 import isJsonp from './is-jsonp';
 import buildUrl from './build-url';
-import buildResponseForFetch from './build-response-for-fetch';
-import buildResponseForJsonp from './build-response-for-jsonp';
-import buildFetchOptions from './build-fetch-options';
-import buildJsonpOptions from './build-jsonp-options';
+import buildOptionsForFetch from './build-options-for-fetch';
+import buildOptionsForJsonp from './build-options-for-jsonp';
+import buildOptionsForXhr from './build-options-for-xhr';
+import buildResponseX from './build-response-x';
 
 /**
  * 将 fetch 和 jsonp 整合在一起（即当 method 为 'JSONP' 的时候会发送 JSONP 请求）
@@ -20,8 +21,13 @@ export default async function fetchX<T = unknown>(config: IFetcherConfig): Promi
   const fetchUrl = buildUrl(config);
   
   if (isJsonp(config)) {
-    return buildResponseForJsonp<T>(await jsonp<T>(fetchUrl, buildJsonpOptions(config)), config);
+    return buildResponseX<T>(await fetcherJsonp<T>(fetchUrl, buildOptionsForJsonp(config)), config);
   }
   
-  return buildResponseForFetch<T>(await fetcherFetch(fetchUrl, buildFetchOptions(config)), config);
+  // 支持进度上传
+  if (/^POST$/i.test(config.method || '') || config.onProgress) {
+    return buildResponseX(await fetcherXhr(fetchUrl, buildOptionsForXhr(config)), config);
+  }
+  
+  return buildResponseX<T>(await fetcherFetch(fetchUrl, buildOptionsForFetch(config)), config);
 }

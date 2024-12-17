@@ -1,5 +1,5 @@
 import {
-  IInterceptorEject,
+  TInterceptorEject,
   IInterceptorQueueItemRequest,
   IInterceptorQueueItemResponse,
   IFetcherConfigDefault,
@@ -144,7 +144,7 @@ export default class Fetcher implements IFetcherClass {
     return promise;
   }
   
-  interceptRequest(onFulfilled: IFetcherInterceptRequest, priority?: number): IInterceptorEject {
+  interceptRequest(onFulfilled: IFetcherInterceptRequest, priority?: number): TInterceptorEject {
     if (this.interceptorRequestSealed) {
       throw new Error('[Fetcher#interceptRequest] Interceptor request is sealed. You need to unseal it first.');
     }
@@ -158,7 +158,7 @@ export default class Fetcher implements IFetcherClass {
   /**
    * 添加「预设」响应拦截器，返回解除拦截的无参方法
    */
-  interceptResponse(onFulfilled?: IFetcherInterceptResponseFulfilled, onRejected?: IFetcherInterceptResponseRejected, priority?: number): IInterceptorEject {
+  interceptResponse(onFulfilled?: IFetcherInterceptResponseFulfilled, onRejected?: IFetcherInterceptResponseRejected, priority?: number): TInterceptorEject {
     if (this.interceptorResponseSealed) {
       throw new Error('[Fetcher#interceptResponse] Interceptor response is sealed. You need to unseal it first.');
     }

@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-biz",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Fetcher interceptor to extract biz data and throw error.",
   "keywords": [],
   "license": "MIT",
