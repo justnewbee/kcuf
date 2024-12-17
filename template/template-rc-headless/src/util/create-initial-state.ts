@@ -3,7 +3,7 @@ import {
   IModelState
 } from '../types';
 
-export default function createInitialState(props: IModelProps): IModelState {
+export default function createInitialState(_props: IModelProps): IModelState {
   return {
     xx: 1,
     yy: 'default'

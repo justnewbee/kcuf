@@ -76,7 +76,7 @@
     "@kcuf/rc-headless-form": "workspace:^",
     "@kcuf/rc-icon-base": "workspace:^*",
     "@kcuf/react-hook-controllable": "workspace:^",
-    "@uiw/codemirror-theme-material": "^4.23.6",
+    "@uiw/codemirror-theme-material": "^4.23.7",
     "codemirror-json5": "^1.0.3",
     "json5": "^2.2.3",
     "lodash": "^4.17.21"

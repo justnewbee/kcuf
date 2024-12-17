@@ -1,14 +1,14 @@
 import {
-  EJsonpErrorName
-} from '../enum';
-import {
   IJsonpOptions,
   IJsonpResponse
 } from '../types';
 
-import createError from './create-error';
 import generateCallbackName from './generate-callback-name';
 import clearCallbackFn from './clear-callback-fn';
+import createResponse from './create-response';
+import createErrorTimeout from './create-error-timeout';
+import createErrorAbort from './create-error-abort';
+import createErrorNetwork from './create-error-network';
 
 /**
  * 一个「纯」的 Promise 封装的 JSONP
@@ -17,10 +17,10 @@ import clearCallbackFn from './clear-callback-fn';
  */
 export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): Promise<IJsonpResponse<T>> {
   const {
-    timeout = 5000,
-    charset,
     jsonpCallback = 'callback', // 多数的实现是 ?callback=fn_name
     jsonpCallbackFunction = generateCallbackName(),
+    charset,
+    timeout = 5000,
     signal
   } = options;
   const scriptElement = document.createElement('script');
@@ -72,24 +72,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
       
       returned = true;
       
-      resolve({
-        ok: true,
-        url,
-        json: (): Promise<T> => {
-          if (typeof result === 'string') {
-            return Promise.resolve(JSON.parse(result) as T);
-          }
-          
-          return Promise.resolve(result as T);
-        },
-        text: (): Promise<string> => {
-          if (result && typeof result === 'object') {
-            return Promise.resolve(JSON.stringify(result));
-          }
-          
-          return Promise.resolve(result as string);
-        }
-      });
+      resolve(createResponse(result, url));
       cleanup();
     };
     
@@ -101,7 +84,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
         }
         
         returned = true;
-        reject(createError(EJsonpErrorName.TIMEOUT, `fetcherJsonp(${url}) timeout after ${timeout}ms`));
+        reject(createErrorTimeout(url, timeout));
         cleanupPrematurely();
       }, timeout);
     }
@@ -115,7 +98,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
         }
         
         returned = true;
-        reject(createError('AbortError', `JSONP aborted, url = ${url}`));
+        reject(createErrorAbort(url));
         cleanupPrematurely();
       });
     }
@@ -127,7 +110,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
       }
       
       returned = true;
-      reject(createError(EJsonpErrorName.NETWORK, `JSONP failed, url = ${url}`));
+      reject(createErrorNetwork(url));
       cleanup();
     };
   });
