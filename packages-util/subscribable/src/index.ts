@@ -2,7 +2,7 @@ import _forEach from 'lodash/forEach';
 import _map from 'lodash/map';
 
 import {
-  IFnOff,
+  TFnOff,
   TNamedListeners,
   TSubscribedListeners
 } from './types';
@@ -16,28 +16,25 @@ export default class Subscribable<O extends TNamedListeners = TNamedListeners> {
   private subscribedInc = 0;
   private subscribedListeners: TSubscribedListeners<O> = {}; // 订阅的集合
   
+  beforeEmit<K extends keyof O>(_topic: K, _args: unknown[]): void {
+    // 供继承使用，可用于接入 debug，一定不要在这里调用 emit
+  }
+  
   /**
    * 发事件，将对绑定的时间逐个进行调用
    */
   emit<T extends keyof O>(topic: T, ...args: Parameters<O[T]>): void {
-    const listeners = this.subscribedListeners[topic];
-    
-    if (!listeners?.length) {
-      return;
-    }
-    
-    for (let i = 0; i < listeners.length; i++) {
-      listeners[i]?.fn(...args);
-    }
+    this.beforeEmit(topic, args);
+    this.subscribedListeners[topic]?.forEach(v => v.fn(...args));
   }
   
-  on(o: Partial<O>): IFnOff;
-  on<T extends keyof O>(topic: T, fn: O[T]): IFnOff;
+  on(o: Partial<O>): TFnOff;
+  on<T extends keyof O>(topic: T, fn: O[T]): TFnOff;
   
   /**
    * 绑定事件，返回解绑用的无参方法
    */
-  on<T extends keyof O>(...args: [Partial<O>] | [T, O[T]]): IFnOff {
+  on<T extends keyof O>(...args: [Partial<O>] | [T, O[T]]): TFnOff {
     if (typeof args[0] === 'string') {
       const [key, fn] = args;
       const token = this.add(key, fn!); // eslint-disable-line @typescript-eslint/no-non-null-assertion

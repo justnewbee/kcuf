@@ -58,7 +58,7 @@
     "styled-components": "^6.x"
   },
   "dependencies": {
-    "@codemirror/autocomplete": "^6.18.3",
+    "@codemirror/autocomplete": "^6.18.4",
     "@codemirror/commands": "^6.7.1",
     "@codemirror/lang-css": "^6.3.1",
     "@codemirror/lang-html": "^6.4.9",
@@ -67,12 +67,12 @@
     "@codemirror/lang-less": "^6.0.2",
     "@codemirror/lang-markdown": "^6.3.1",
     "@codemirror/lang-sass": "^6.0.2",
-    "@codemirror/language": "^6.10.6",
+    "@codemirror/language": "^6.10.7",
     "@codemirror/lint": "^6.8.4",
     "@codemirror/search": "^6.5.8",
     "@codemirror/state": "^6.5.0",
     "@codemirror/theme-one-dark": "^6.1.2",
-    "@codemirror/view": "^6.35.3",
+    "@codemirror/view": "^6.36.0",
     "@kcuf/rc-headless-form": "workspace:^",
     "@kcuf/rc-icon-base": "workspace:^*",
     "@kcuf/react-hook-controllable": "workspace:^",

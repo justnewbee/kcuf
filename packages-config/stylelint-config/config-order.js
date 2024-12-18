@@ -58,7 +58,10 @@ const GROUPS = [
     'break-after',
     'container',
     'container-name',
-    'container-type'
+    'container-type',
+    'order',
+    'gap',
+    'row-gap'
   ],
   [ // positioning
     'position',
@@ -116,10 +119,7 @@ const GROUPS = [
     'max-inline-size',
     'aspect-ratio'
   ], [ // extra-layout
-    'order',
     'orphans',
-    'row-gap',
-    'gap',
     'size',
     'direction',
     'unicode-bidi',
