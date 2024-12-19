@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/eslint-config",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "type": "module",
   "description": "Shareable eslint config.",
   "keywords": [
@@ -37,7 +37,7 @@
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-storybook": "^0.11.1",
-    "globals": "^15.13.0",
+    "globals": "^15.14.0",
     "typescript-eslint": "^8.18.1"
   }
 }
