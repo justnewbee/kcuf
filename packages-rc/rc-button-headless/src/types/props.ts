@@ -17,6 +17,7 @@ import {
 export interface IPropsDom extends ButtonHTMLAttributes<HTMLElement> {
   href?: string;
   target?: HTMLAttributeAnchorTarget;
+  download?: boolean | string;
   [dataName: `data-${string}`]: unknown;
 }
 

@@ -75,6 +75,7 @@ export default function useModelProps(): [IButtonPropsCustom, IPropsDom] {
     if (propsDom.disabled || loading) {
       delete propsDom.href;
       delete propsDom.target;
+      delete propsDom.download;
       delete propsDom.onClick;
     }
     
