@@ -21,6 +21,7 @@ export default function createResponse<T>(result: unknown, url: string): IJsonpR
       }
       
       return Promise.resolve(result as string);
-    }
+    },
+    blob: (): Promise<null> => Promise.resolve(null)
   };
 }

@@ -10,9 +10,9 @@ import {
   IFetcherCallPostAlike
 } from './fn';
 import {
-  IFetcherInterceptRequest,
-  IFetcherInterceptResponseFulfilled,
-  IFetcherInterceptResponseRejected
+  TFetcherInterceptRequest,
+  TFetcherInterceptResponseFulfilled,
+  TFetcherInterceptResponseRejected
 } from './interceptor';
 
 export interface IFetcherClass {
@@ -24,12 +24,12 @@ export interface IFetcherClass {
   /**
    * 添加「预设」请求拦截器，返回解除拦截的无参方法
    */
-  interceptRequest(onFulfilled: IFetcherInterceptRequest, priority?: number): TInterceptorEject;
+  interceptRequest(onFulfilled: TFetcherInterceptRequest, priority?: number): TInterceptorEject;
   
   /**
    * 添加「预设」响应拦截器，返回解除拦截的无参方法
    */
-  interceptResponse(onFulfilled?: IFetcherInterceptResponseFulfilled, onRejected?: IFetcherInterceptResponseRejected, priority?: number): TInterceptorEject;
+  interceptResponse(onFulfilled?: TFetcherInterceptResponseFulfilled, onRejected?: TFetcherInterceptResponseRejected, priority?: number): TInterceptorEject;
   
   /**
    * 对于「开箱即用」的 fetcher，因为它是会被复用的单例，所以一般不希望它的拦截器被扩展，如果还是坚持要扩展，需要手动解除

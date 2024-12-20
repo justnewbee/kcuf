@@ -22,6 +22,10 @@ import getErrorMessage from './get-error-message';
  */
 export default function createInterceptorResponseFulfilled(options?: IFetcherInterceptBizOptions): FetcherInterceptResponseFulfilled {
   return (o: unknown, config: FetcherConfig): unknown => {
+    if (config.responseType && config.responseType !== 'json') {
+      return o;
+    }
+    
     const result = o as TResponseResult;
     const success = isResponseSuccess(result, config.isSuccess ?? options?.isSuccess);
     

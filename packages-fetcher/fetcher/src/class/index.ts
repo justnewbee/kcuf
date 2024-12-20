@@ -1,5 +1,8 @@
 import {
   TInterceptorEject,
+  TFetcherInterceptRequest,
+  TFetcherInterceptResponseFulfilled,
+  TFetcherInterceptResponseRejected,
   IInterceptorQueueItemRequest,
   IInterceptorQueueItemResponse,
   IFetcherConfigDefault,
@@ -7,10 +10,7 @@ import {
   IFetcherResponse,
   IFetcherError,
   IFetcherErrorSkipNetwork,
-  IFetcherClass,
-  IFetcherInterceptRequest,
-  IFetcherInterceptResponseFulfilled,
-  IFetcherInterceptResponseRejected
+  IFetcherClass
 } from '../types';
 import {
   fetchX,
@@ -20,8 +20,9 @@ import {
   sortInterceptors
 } from '../util';
 import {
-  interceptRequestFirst,
-  interceptRequestFinal
+  interceptorRequestFirst,
+  interceptorRequestFinal,
+  interceptorResponseDownload
 } from '../interceptor';
 
 /**
@@ -61,15 +62,11 @@ export default class Fetcher implements IFetcherClass {
    * 获取此次调用需要用到的所有请求拦截器，且拦截器的顺序按指定顺序
    */
   private getInterceptorRequestQueue(): IInterceptorQueueItemRequest[] {
-    return [{
-      onFulfilled: interceptRequestFirst
-    }, ...sortInterceptors(this.interceptorQueueRequest), {
-      onFulfilled: interceptRequestFinal
-    }];
+    return [interceptorRequestFirst, ...sortInterceptors(this.interceptorQueueRequest), interceptorRequestFinal];
   }
   
   private getInterceptorResponseQueue(): IInterceptorQueueItemResponse[] {
-    return sortInterceptors(this.interceptorQueueResponse);
+    return [...sortInterceptors(this.interceptorQueueResponse), interceptorResponseDownload];
   }
   
   /**
@@ -144,7 +141,7 @@ export default class Fetcher implements IFetcherClass {
     return promise;
   }
   
-  interceptRequest(onFulfilled: IFetcherInterceptRequest, priority?: number): TInterceptorEject {
+  interceptRequest(onFulfilled: TFetcherInterceptRequest, priority?: number): TInterceptorEject {
     if (this.interceptorRequestSealed) {
       throw new Error('[Fetcher#interceptRequest] Interceptor request is sealed. You need to unseal it first.');
     }
@@ -158,7 +155,7 @@ export default class Fetcher implements IFetcherClass {
   /**
    * 添加「预设」响应拦截器，返回解除拦截的无参方法
    */
-  interceptResponse(onFulfilled?: IFetcherInterceptResponseFulfilled, onRejected?: IFetcherInterceptResponseRejected, priority?: number): TInterceptorEject {
+  interceptResponse(onFulfilled?: TFetcherInterceptResponseFulfilled, onRejected?: TFetcherInterceptResponseRejected, priority?: number): TInterceptorEject {
     if (this.interceptorResponseSealed) {
       throw new Error('[Fetcher#interceptResponse] Interceptor response is sealed. You need to unseal it first.');
     }

@@ -15,11 +15,8 @@ export default function createResponse<T>(xhr: XMLHttpRequest, url: string): IXh
     url,
     status,
     headers: parseResponseHeaders(xhr.getAllResponseHeaders()),
-    json: (): Promise<T> => {
-      return Promise.resolve(JSON.parse(responseText) as T);
-    },
-    text: (): Promise<string> => {
-      return Promise.resolve(responseText);
-    }
+    json: (): Promise<T> => Promise.resolve(JSON.parse(responseText) as T),
+    text: (): Promise<string> => Promise.resolve(responseText),
+    blob: (): Promise<null> => Promise.resolve(null)
   };
 }

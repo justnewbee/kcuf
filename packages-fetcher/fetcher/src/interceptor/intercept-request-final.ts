@@ -7,7 +7,7 @@ import {
 } from '../util';
 
 /**
- * request 最后一个拦截器，发送请求前一刻执行
+ * Request 最后一个拦截器，发送请求前一刻执行
  */
 export default function interceptRequestFinal(config: IFetcherConfig): Partial<IFetcherConfig> {
   const configMix: IFetcherConfig = {

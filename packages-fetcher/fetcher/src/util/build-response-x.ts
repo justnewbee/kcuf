@@ -31,11 +31,23 @@ export default async function buildResponseX<T>(response: JsonpResponse<T> | Xhr
     });
   }
   
+  function getData(): Promise<unknown> {
+    switch (config.responseType) {
+    case 'blob':
+    case 'download':
+      return response.blob();
+    case 'text':
+      return response.text();
+    default:
+      return response.json();
+    }
+  }
+  
   try {
     return {
       url: response.url,
       headers: response.headers || new Headers(),
-      data: (config.responseType === 'text' ? await response.text() : await response.json()) as T
+      data: await getData() as T
     };
   } catch (err) {
     throw createFetcherError(config, EFetcherErrorName.RESPONSE_PARSE, (err as Error | undefined)?.message);

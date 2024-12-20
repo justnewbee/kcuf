@@ -35,4 +35,5 @@ export interface IJsonpResponse<T = unknown> {
   url: string;
   json(): Promise<T>;
   text(): Promise<string>;
+  blob(): Promise<null>;
 }
