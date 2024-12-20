@@ -20,11 +20,11 @@ export default function interceptResponseDownload(o: unknown, config: IFetcherCo
   }
   
   if (o instanceof Blob && config.responseType === EResponseType.BLOB_DOWNLOAD) {
-    downloadBlob(o, parseFilenameFromResponseHeaders(fetcherResponse?.headers));
+    downloadBlob(o, config.downloadName || parseFilenameFromResponseHeaders(fetcherResponse?.headers));
   }
   
   if (o instanceof ArrayBuffer && config.responseType === EResponseType.ARRAY_BUFFER_DOWNLOAD) {
-    downloadArrayBuffer(o, parseFilenameFromResponseHeaders(fetcherResponse?.headers));
+    downloadArrayBuffer(o, config.downloadName || parseFilenameFromResponseHeaders(fetcherResponse?.headers));
   }
   
   return o;

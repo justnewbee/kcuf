@@ -90,6 +90,10 @@ export interface IFetcherConfig extends IFetcherConfigDefault {
    */
   body?: TFetcherBody;
   /**
+   * 当 responseType 为 `blob-download`、`array-buffer-download` 时，可用它指定下载的文件名（无后缀）
+   */
+  downloadName?: string;
+  /**
    * 上传文件的情况，底层只能用 xhr
    */
   onProgress?(progress: number): void; // progress 范围 [0, 1]
