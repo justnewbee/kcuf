@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Fetcher with more reasonable interceptors.",
   "keywords": [],
   "license": "MIT",
