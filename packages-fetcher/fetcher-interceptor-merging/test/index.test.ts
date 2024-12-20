@@ -1,7 +1,6 @@
 /**
  * @vitest-environment jsdom
  */
-import _noop from 'lodash/noop';
 import {
   describe,
   expect,
@@ -71,7 +70,9 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
       fetcher.delete('/api/error'),
       fetcher.delete('/api/error'),
       fetcher.delete('/api/error')
-    ]).catch(_noop);
+    ]).catch(() => {
+      // ignore
+    });
     expect(fetchMock.callHistory.calls().length).toBe(6);
     
     expect((global as Record<string, unknown>).__fetcher_merging__).toBeTruthy();

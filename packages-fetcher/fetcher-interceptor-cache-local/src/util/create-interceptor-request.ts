@@ -1,10 +1,9 @@
-import _cloneDeep from 'lodash/cloneDeep';
-
 import {
   FetcherConfig,
   FetcherInterceptRequest,
   FetcherInterceptRequestReturn,
-  createFetcherErrorSkipNetwork
+  createFetcherErrorSkipNetwork,
+  cloneResponseData
 } from '@kcuf/fetcher';
 
 import parseCacheLocalOptions from './parse-cache-local-options';
@@ -39,10 +38,12 @@ export default function createInterceptorRequest(): FetcherInterceptRequest {
     
     // 1. 第 0 个请求还在请求中，则附之
     if (queue) {
-      const promise = new Promise((resolve, reject) => queue.push({
-        resolve,
-        reject
-      }));
+      const promise = new Promise((resolve, reject) => {
+        queue.push({
+          resolve,
+          reject
+        });
+      });
       
       throw createFetcherErrorSkipNetwork(promise, config);
     }
@@ -57,6 +58,6 @@ export default function createInterceptorRequest(): FetcherInterceptRequest {
     }
     
     // 命中缓存
-    throw createFetcherErrorSkipNetwork(_cloneDeep(data), config); // 返回 clone 后的数据避免副作用
+    throw createFetcherErrorSkipNetwork(cloneResponseData(data), config); // 返回 clone 后的数据避免副作用
   };
 }

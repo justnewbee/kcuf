@@ -1,4 +1,6 @@
-import _cloneDeep from 'lodash/cloneDeep';
+import {
+  cloneResponseData
+} from '@kcuf/fetcher';
 
 import cacheGet from './cache-get';
 
@@ -16,10 +18,10 @@ export default function cacheResolve(key: string, data: unknown, ttl: number): v
   cache.time = Date.now();
   cache.queue = null; // 标识已经完成
   cache.ttl = ttl;
-  cache.data = _cloneDeep(data);
+  cache.data = cloneResponseData(data);
   
   // setTimeout 以第 0 个请求最先 resolve
   setTimeout(() => queue?.forEach(({
     resolve: promiseResolve
-  }) => promiseResolve(_cloneDeep(data))), 0);
+  }) => promiseResolve(cloneResponseData(data))), 0);
 }

@@ -4,6 +4,7 @@
 export { default as preventEscCancelling } from './prevent-esc-cancelling';
 export { default as createFetcherErrorSkipNetwork } from './create-fetcher-error-skip-network';
 export { default as deleteConfigHeaders } from './delete-config-headers';
+export { default as cloneResponseData } from './clone-response-data';
 export { // 这些也当 helper
   // url
   isCors,

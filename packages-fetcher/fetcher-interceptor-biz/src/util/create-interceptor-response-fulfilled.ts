@@ -1,3 +1,5 @@
+import _isPlainObject from 'lodash/isPlainObject';
+
 import {
   FetcherErrorName,
   FetcherConfig,
@@ -22,7 +24,7 @@ import getErrorMessage from './get-error-message';
  */
 export default function createInterceptorResponseFulfilled(options?: IFetcherInterceptBizOptions): FetcherInterceptResponseFulfilled {
   return (o: unknown, config: FetcherConfig): unknown => {
-    if (config.responseType && config.responseType !== 'json') {
+    if (!_isPlainObject(o)) { // 绕过非对象，比如 Blob、ArrayBuffer 等
       return o;
     }
     

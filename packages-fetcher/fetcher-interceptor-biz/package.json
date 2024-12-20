@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-biz",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Fetcher interceptor to extract biz data and throw error.",
   "keywords": [],
   "license": "MIT",
@@ -38,6 +38,7 @@
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
     "@storybook/test": "^8.4.7",
+    "@types/lodash": "^4.17.13",
     "@types/react": "^18.3.14",
     "@vitest/coverage-v8": "^2.1.8",
     "fetch-mock": "^12.2.0",
@@ -53,7 +54,8 @@
     "@babel/runtime": "^7.x"
   },
   "dependencies": {
-    "@kcuf/fetcher": "workspace:^"
+    "@kcuf/fetcher": "workspace:^",
+    "lodash": "^4.17.21"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

@@ -1,8 +1,7 @@
-import _cloneDeep from 'lodash/cloneDeep';
-
 import {
   FetcherConfig,
-  FetcherInterceptResponseFulfilled
+  FetcherInterceptResponseFulfilled,
+  cloneResponseData
 } from '@kcuf/fetcher';
 
 import parseCacheLocalOptions from './parse-cache-local-options';
@@ -21,6 +20,6 @@ export default function createInterceptorResponseFulfilled(): FetcherInterceptRe
       cacheResolve(cacheLocal.key, data, cacheLocal.ttl);
     }
     
-    return _cloneDeep(data); // 避免第一个请求对 data 做了 mutation 而影响到后续的结果
+    return cloneResponseData(data); // 避免第一个请求对 data 做了 mutation 而影响到后续的结果
   };
 }

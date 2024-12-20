@@ -28,7 +28,6 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-typescript": "^7.26.0",
     "@kcuf/ts-config": "workspace:^",
-    "@types/lodash": "^4.17.13",
     "@vitest/coverage-v8": "^2.1.8",
     "fetch-mock": "^12.2.0",
     "jsdom": "^25.0.1",
@@ -40,8 +39,7 @@
     "@babel/runtime": "^7.x"
   },
   "dependencies": {
-    "@kcuf/fetcher": "workspace:^",
-    "lodash": "^4.17.21"
+    "@kcuf/fetcher": "workspace:^"
   },
   "scripts": {
     "build:clean": "rimraf dist",

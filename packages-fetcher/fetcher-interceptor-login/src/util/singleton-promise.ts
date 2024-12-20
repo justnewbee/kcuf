@@ -1,4 +1,6 @@
-import _cloneDeep from 'lodash/cloneDeep';
+import {
+  cloneResponseData
+} from '@kcuf/fetcher';
 
 interface IPromiseQueueItem<T = void, E extends Error = Error> {
   resolve(data: T): void;
@@ -11,7 +13,7 @@ export default function singletonPromise<T>(fn: () => Promise<T>): () => Promise
   function resolveQueue(data: T): void {
     if (queue) {
       queue.forEach(v => {
-        v.resolve(data ? _cloneDeep(data) : data);
+        v.resolve(cloneResponseData(data));
       });
       
       queue = null;
@@ -33,10 +35,12 @@ export default function singletonPromise<T>(fn: () => Promise<T>): () => Promise
       queue = [];
     }
     
-    const promise = new Promise<T>((resolve, reject) => queue?.push({
-      resolve,
-      reject
-    }));
+    const promise = new Promise<T>((resolve, reject) => {
+      queue?.push({
+        resolve,
+        reject
+      });
+    });
     
     if (queue.length === 1) {
       fn().then(data => resolveQueue(data), err => rejectQueue(err));

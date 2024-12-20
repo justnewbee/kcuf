@@ -33,6 +33,10 @@ export default async function buildResponseX<T>(response: JsonpResponse<T> | Xhr
   }
   
   function getData(): Promise<unknown> {
+    if (/^application\/json/i.test(response.headers?.get('Content-Type') || '')) {
+      return response.json();
+    }
+    
     switch (config.responseType) {
     case EResponseType.ARRAY_BUFFER:
     case EResponseType.ARRAY_BUFFER_DOWNLOAD:
