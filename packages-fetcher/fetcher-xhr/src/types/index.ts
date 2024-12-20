@@ -24,4 +24,5 @@ export interface IXhrResponse<T = unknown> {
   json(): Promise<T>;
   text(): Promise<string>;
   blob(): Promise<null>;
+  arrayBuffer(): Promise<null>;
 }

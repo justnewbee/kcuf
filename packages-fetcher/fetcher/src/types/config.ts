@@ -6,12 +6,15 @@ import {
 } from '@kcuf/fetcher-jsonp';
 
 import {
+  EResponseType
+} from '../enum';
+
+import {
   ISerializeParamsOptions,
   ISerializeBodyOptions,
   TFetcherHeaders,
   TFetcherParams,
-  TFetcherBody,
-  TFetcherResponseType
+  TFetcherBody
 } from './common';
 
 /**
@@ -55,7 +58,7 @@ export interface IFetcherConfigDefault extends Omit<FetchOptions, 'method' | 'he
   /**
    * 对返回数据的处理，默认 `'json'`
    */
-  responseType?: TFetcherResponseType;
+  responseType?: EResponseType | `${EResponseType}`;
 }
 
 /**

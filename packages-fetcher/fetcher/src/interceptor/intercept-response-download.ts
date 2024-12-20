@@ -1,15 +1,30 @@
 import {
+  downloadBlob,
+  downloadArrayBuffer
+} from '@kcuf/fetcher-helper-file';
+
+import {
+  EResponseType
+} from '../enum';
+import {
   IFetcherConfig,
   IFetcherResponse
 } from '../types';
 import {
-  downloadBlob,
   parseFilenameFromResponseHeaders
 } from '../util';
 
 export default function interceptResponseDownload(o: unknown, config: IFetcherConfig, fetcherResponse?: IFetcherResponse): unknown {
-  if (o && o instanceof Blob && config.responseType === 'download') {
-    downloadBlob(o, parseFilenameFromResponseHeaders(fetcherResponse?.headers) || 'download');
+  if (!o) {
+    return o;
+  }
+  
+  if (o instanceof Blob && config.responseType === EResponseType.BLOB_DOWNLOAD) {
+    downloadBlob(o, parseFilenameFromResponseHeaders(fetcherResponse?.headers));
+  }
+  
+  if (o instanceof ArrayBuffer && config.responseType === EResponseType.ARRAY_BUFFER_DOWNLOAD) {
+    downloadArrayBuffer(o, parseFilenameFromResponseHeaders(fetcherResponse?.headers));
   }
   
   return o;

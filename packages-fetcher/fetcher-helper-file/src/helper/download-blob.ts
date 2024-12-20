@@ -1,5 +1,5 @@
 /**
- * 下载 Fetch 得到的 Blob
+ * 下载 Blob
  */
 export default function downloadBlob(blob: Blob, filename = 'download'): void {
   const url = URL.createObjectURL(blob);

@@ -11,5 +11,4 @@ export { default as convertError } from './convert-error';
 export { default as queueInterceptor } from './queue-interceptor';
 export { default as sortInterceptors } from './sort-interceptors';
 
-export { default as downloadBlob } from './download-blob';
 export { default as parseFilenameFromResponseHeaders } from './parse-filename-from-response-headers';

@@ -57,6 +57,7 @@
   },
   "dependencies": {
     "@kcuf/fetcher-fetch": "workspace:^",
+    "@kcuf/fetcher-helper-file": "workspace:^",
     "@kcuf/fetcher-jsonp": "workspace:^",
     "@kcuf/fetcher-xhr": "workspace:^",
     "@kcuf/json-stringify-ordered": "workspace:^",

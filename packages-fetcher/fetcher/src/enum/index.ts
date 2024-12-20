@@ -32,3 +32,27 @@ export enum EFetcherErrorName {
    */
   LOGIN_CANCELLED = 'FetcherError.LoginCancelled'
 }
+
+/**
+ * 响应数据类型
+ *
+ * - `json`: 默认，返回 JSON 对象
+ * - `text`: 返回纯文本
+ * - `blob`: 返回 `Blob` 对象，用于处理大型二进制数据，如文件下载
+ * - `array-buffer`: 返回 `ArrayBuffer` 对象，用于文件下载，音视频处理等
+ * - `blob-download`: 启用下载逻辑
+ * - `array-buffer-download`: 启用下载逻辑
+ *
+ * // 以下尚未支持
+ * - `bytes`
+ * - `document`: 返回 `Document` 对象，用于 HTML 或 XML 文档
+ * - `stream`: 返回 `Stream` 对象
+ */
+export enum EResponseType {
+  JSON = 'json',
+  TEXT = 'text',
+  BLOB = 'blob',
+  BLOB_DOWNLOAD = 'blob-download',
+  ARRAY_BUFFER = 'array-buffer',
+  ARRAY_BUFFER_DOWNLOAD = 'array-buffer-download'
+}

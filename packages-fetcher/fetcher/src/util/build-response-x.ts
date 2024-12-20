@@ -6,7 +6,8 @@ import {
 } from '@kcuf/fetcher-xhr';
 
 import {
-  EFetcherErrorName
+  EFetcherErrorName,
+  EResponseType
 } from '../enum';
 import {
   IFetcherConfig,
@@ -33,10 +34,13 @@ export default async function buildResponseX<T>(response: JsonpResponse<T> | Xhr
   
   function getData(): Promise<unknown> {
     switch (config.responseType) {
-    case 'blob':
-    case 'download':
+    case EResponseType.ARRAY_BUFFER:
+    case EResponseType.ARRAY_BUFFER_DOWNLOAD:
+      return response.arrayBuffer();
+    case EResponseType.BLOB:
+    case EResponseType.BLOB_DOWNLOAD:
       return response.blob();
-    case 'text':
+    case EResponseType.TEXT:
       return response.text();
     default:
       return response.json();
