@@ -1,7 +1,7 @@
 // refs - if any
 export { default as useRefImperative } from './use-ref-imperative';
 
-// getters - get specific data from state
+// computed values
 export { default as useDisabled } from './use-disabled';
 export { default as useDestroyed } from './use-destroyed';
 export { default as usePlugins } from './use-plugins';
@@ -16,6 +16,3 @@ export { default as useHandleToggleDestroyed } from './use-dispatch-toggle-destr
 export { default as useHandleSetDataType } from './use-dispatch-set-data-type';
 export { default as useHandleSetMarkingStats } from './use-dispatch-set-marking-stats';
 export { default as useHandleTogglePlugin } from './use-dispatch-toggle-plugin';
-
-// effects - the one with all effects
-export { default as useEffects } from './use-effects';

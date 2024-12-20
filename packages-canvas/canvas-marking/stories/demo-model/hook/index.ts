@@ -2,7 +2,7 @@
 export { default as useRefDomContainer } from './use-dispatch-set-dom-container';
 export { default as useRefDomCanvasMarking } from './use-dispatch-set-dom-marking';
 
-// getters - get specific data from state
+// computed values
 export { default as useMarkingInstance } from './use-marking-instance';
 export { default as useMarkingStats } from './use-marking-stats';
 export { default as useLogEvents } from './use-log-events';
@@ -32,6 +32,3 @@ export { default as useHandleSelect } from './use-handle-select';
 export { default as useHandleHighlight } from './use-handle-highlight';
 export { default as useHandleZoom } from './use-handle-zoom';
 export { default as useHandleToggleMove } from './use-handle-toggle-move';
-
-// effects - the one with all effects
-export { default as useEffects } from './use-effects';

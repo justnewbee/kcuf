@@ -7,6 +7,3 @@ export { default as useKeyDetails } from './use-key-details';
 export { default as useIsKeyActive } from './use-is-key-active';
 export { default as useIsKeyOn } from './use-is-key-on';
 export { default as useHandleKeyClick } from './use-handle-key-click';
-
-// effects - the one with all effects
-export { default as useEffects } from './use-effects';
