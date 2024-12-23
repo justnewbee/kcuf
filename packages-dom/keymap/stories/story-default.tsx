@@ -11,7 +11,7 @@ import {
 import Keyboard, {
   KeyboardModifiers,
   KeyboardCode
-} from '@kcuf/rc-keyboard-mac';
+} from '@kcuf-ui/rc-keyboard-mac';
 
 import {
   getModifierNamesAndSymbols

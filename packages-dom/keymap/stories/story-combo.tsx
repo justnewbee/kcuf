@@ -7,7 +7,7 @@ import {
   H1,
   H2
 } from '@kcuf/demo-rc';
-import KeyboardMac from '@kcuf/rc-keyboard-mac';
+import KeyboardMac from '@kcuf-ui/rc-keyboard-mac';
 
 import {
   throwConfetti

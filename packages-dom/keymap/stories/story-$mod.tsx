@@ -6,7 +6,7 @@ import {
   MinimalNormalize,
   H1
 } from '@kcuf/demo-rc';
-import Keyboard from '@kcuf/rc-keyboard-mac';
+import Keyboard from '@kcuf-ui/rc-keyboard-mac';
 
 import {
   Keystroke

@@ -1,6 +1,6 @@
 import {
   KeyboardModifiers
-} from '@kcuf/rc-keyboard-mac';
+} from '@kcuf-ui/rc-keyboard-mac';
 
 export default function getModifierNamesAndSymbolsOld(modifiers: KeyboardModifiers): [string[], string[]] {
   const names: string[] = [];
