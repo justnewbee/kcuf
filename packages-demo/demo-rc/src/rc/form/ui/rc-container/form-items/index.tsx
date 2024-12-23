@@ -4,7 +4,7 @@ import {
 
 import {
   useProps
-} from '@kcuf/rc-headless-form';
+} from '@kcuf-ui/rc-form-headless';
 
 import {
   getFormItemKey

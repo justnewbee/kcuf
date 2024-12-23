@@ -39,8 +39,8 @@
     "react": "^18.x"
   },
   "dependencies": {
-    "@kcuf/react-hook-controllable": "workspace:^",
-    "@kcuf/react-hook-is-unmounted": "workspace:^",
+    "@kcuf-hook/use-controllable": "workspace:^",
+    "@kcuf-hook/use-is-unmounted": "workspace:^",
     "immer": "^10.1.1"
   },
   "scripts": {

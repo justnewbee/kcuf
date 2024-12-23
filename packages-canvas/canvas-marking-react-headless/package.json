@@ -40,8 +40,8 @@
     "react": "^18.x"
   },
   "dependencies": {
+    "@kcuf-hook/use-is-unmounted": "workspace:^",
     "@kcuf/canvas-marking": "workspace:^",
-    "@kcuf/react-hook-is-unmounted": "workspace:^",
     "immer": "^10.1.1"
   },
   "scripts": {

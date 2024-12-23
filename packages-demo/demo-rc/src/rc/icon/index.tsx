@@ -2,7 +2,7 @@ import {
   ReactElement
 } from 'react';
 
-import IconBase from '@kcuf/rc-icon-base';
+import IconBase from '@kcuf-ui/rc-icon-base';
 
 import {
   TIconType,

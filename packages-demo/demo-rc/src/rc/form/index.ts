@@ -3,4 +3,4 @@ export { default } from './with-model';
 export type {
   FormProps,
   FormItemProps
-} from '@kcuf/rc-headless-form';
+} from '@kcuf-ui/rc-form-headless';

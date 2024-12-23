@@ -4,7 +4,7 @@ import {
 
 import {
   useControllableSoftTrim
-} from '@kcuf/react-hook-controllable';
+} from '@kcuf-hook/use-controllable';
 import Model, {
   InputTextProps
 } from '@kcuf-ui/rc-input-text-headless';

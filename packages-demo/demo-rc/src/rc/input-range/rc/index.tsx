@@ -6,7 +6,7 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import useControllable from '@kcuf/react-hook-controllable';
+import useControllable from '@kcuf-hook/use-controllable';
 
 import {
   fromNumberToString,

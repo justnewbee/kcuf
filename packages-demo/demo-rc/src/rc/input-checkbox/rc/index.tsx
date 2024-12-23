@@ -2,7 +2,7 @@ import {
   ReactElement
 } from 'react';
 
-import useControllable from '@kcuf/react-hook-controllable';
+import useControllable from '@kcuf-hook/use-controllable';
 
 import FormControlWithLabel from '../../_form-control-with-label';
 import {

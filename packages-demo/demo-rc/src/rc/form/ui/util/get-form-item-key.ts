@@ -1,6 +1,6 @@
 import {
   FormItemProps
-} from '@kcuf/rc-headless-form';
+} from '@kcuf-ui/rc-form-headless';
 
 export default function getFormItemKey(props: FormItemProps, index: number): string {
   if (props.key) {

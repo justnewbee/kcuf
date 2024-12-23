@@ -5,7 +5,7 @@ import {
 
 import {
   useControllableUnprotected
-} from '@kcuf/react-hook-controllable';
+} from '@kcuf-hook/use-controllable';
 
 import {
   ScChoiceGroup

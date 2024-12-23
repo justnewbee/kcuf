@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import {
   FormItemProps
-} from '@kcuf/rc-headless-form';
+} from '@kcuf-ui/rc-form-headless';
 
 import {
   COLOR_LIGHT,

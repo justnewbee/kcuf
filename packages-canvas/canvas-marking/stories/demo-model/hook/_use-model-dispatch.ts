@@ -2,7 +2,7 @@ import {
   useCallback
 } from 'react';
 
-import useIsUnmounted from '@kcuf/react-hook-is-unmounted';
+import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
 
 import {
   TModelAction,

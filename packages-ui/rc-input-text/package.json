@@ -54,10 +54,10 @@
     "styled-components": "^6.x"
   },
   "dependencies": {
+    "@kcuf-hook/use-controllable": "workspace:^",
     "@kcuf-ui/rc-icon": "workspace:^",
     "@kcuf-ui/rc-input-text-headless": "workspace:^",
     "@kcuf/fork-console-base-theme": "workspace:^",
-    "@kcuf/react-hook-controllable": "workspace:^",
     "@kcuf/styled-mixin": "workspace:^"
   },
   "scripts": {
