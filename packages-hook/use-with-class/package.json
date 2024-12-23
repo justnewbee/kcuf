@@ -1,7 +1,7 @@
 {
   "name": "@kcuf-hook/use-with-class",
   "version": "0.0.0",
-  "description": "React headless form component.",
+  "description": "React hook - useWithClass.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/react-hook-with-class",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/use-with-class",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",

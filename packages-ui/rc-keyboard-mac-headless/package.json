@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-ui/rc-keyboard-mac-headless",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "description": "A headless mac book keyboard react component.",
   "keywords": [
     "headless",

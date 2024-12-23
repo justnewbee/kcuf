@@ -1,7 +1,7 @@
 {
   "name": "@kcuf-ui/rc-button",
-  "version": "0.0.4",
-  "description": "The kcuf button component.",
+  "version": "0.0.0",
+  "description": "The kcuf Button component.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,

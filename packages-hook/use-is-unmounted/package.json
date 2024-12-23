@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-hook/use-is-unmounted",
-  "version": "0.1.1",
+  "version": "0.0.0",
   "description": "React hook - useIsUnmounted.",
   "keywords": [
     "react",
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/react-hook-is-unmounted",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/use-is-unmounted",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",

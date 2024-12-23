@@ -13,8 +13,8 @@ import {
 } from '../../sc';
 
 export default function TheInput(): ReactElement {
-  const propsForInputElement = usePropsForInputElement();
   const refInput = useRefInput();
+  const propsForInputElement = usePropsForInputElement();
   
   return <ScInputWrapper>
     <ScInputReal ref={refInput} {...propsForInputElement} />

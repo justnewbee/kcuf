@@ -1,7 +1,10 @@
 import {
-  InputHTMLAttributes,
   useMemo
 } from 'react';
+
+import {
+  IInputElementProps
+} from '../types';
 
 import useModelProps from './_use-model-props';
 import useValue from './use-value';
@@ -13,7 +16,7 @@ import useHandleCompositionStart from './use-handle-composition-start';
 import useHandleCompositionEnd from './use-handle-composition-end';
 import useHandleChange from './use-handle-change';
 
-export default function usePropsForInputElement(): InputHTMLAttributes<HTMLInputElement> {
+export default function usePropsForInputElement(): IInputElementProps {
   const props = useModelProps();
   const value = useValue();
   const hovered = useHovered();

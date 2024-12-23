@@ -29,18 +29,21 @@ export interface IPropsLook {
   hasClear?: boolean;
 }
 
-export interface IModelProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'onMouseEnter' | 'onMouseLeave' | 'onChange'>, IPropsLook {
+export interface IInputElementProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue'> {
   value?: string;
   defaultValue?: string;
+}
+
+export interface IModelProps extends Omit<IInputElementProps, 'onChange' | 'onMouseEnter' | 'onMouseLeave'>, IPropsLook {
   innerLeft?: string | ReactElement;
   innerRight?: string | ReactElement;
   /**
    * 是否执行软 trim，默认开启
    */
   trim?: boolean;
+  onChange?(value: string, e?: ChangeEvent<HTMLInputElement>): void;
   onMouseEnter?(e: MouseEvent): void;
   onMouseLeave?(e: MouseEvent): void;
-  onChange?(value: string, e?: ChangeEvent<HTMLInputElement>): void;
   /**
    * 可代替 onFocus/onBlur
    */

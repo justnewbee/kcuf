@@ -10,15 +10,16 @@ import {
 import {
   ScBaseInputText
 } from '@kcuf/styled-mixin';
-import {
-  InputTextProps
-} from '@kcuf-ui/rc-input-text-headless';
 
 import {
   INNER_HEIGHT_PX
 } from '../const';
 
-export default styled(ScBaseInputText)<InputTextProps>`
+interface IScProps {
+  $focused?: boolean;
+}
+
+export default styled(ScBaseInputText)<IScProps>`
   padding: 0 ${SIZE.PADDING_X_FORM_CONTROL_M - 2}px;
   width: 100%;
   height: ${INNER_HEIGHT_PX};
@@ -30,7 +31,7 @@ export default styled(ScBaseInputText)<InputTextProps>`
       return mixinInputTextDisabled;
     }
     
-    if (props.focused) {
+    if (props.$focused) {
       return mixinInputTextFocus;
     }
     

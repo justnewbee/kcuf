@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-hook/use-controllable",
-  "version": "0.1.2",
+  "version": "0.0.0",
   "description": "React hook - useControllable.",
   "keywords": [],
   "license": "MIT",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/react-hook-controllable",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/use-controllable",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",

@@ -12,28 +12,28 @@ import {
   Alert
 } from '@kcuf/demo-rc';
 
-import pkgInfo from '../../package.json';
-import useMouseHover from '../../src';
+import pkgInfo from '../package.json';
+import useMouseHover from '../src';
 
 const ScSpan = styled.span`
   display: inline-block;
   margin: 1px 2px;
   width: 120px;
   height: 32px;
-  font-size: 14px;
   color: #fff;
+  font-size: 14px;
   text-align: center;
   line-height: 32px;
 `;
 const ScActiveButton = styled.button`
   width: 32px;
   height: 32px;
-  color: #fff;
   border: 0;
+  color: #fff;
   transition: all ease-in-out 300ms;
 `;
 
-export default function DemoDefault(): ReactElement {
+export default function StoryDefault(): ReactElement {
   const [stateInProtected, setStateInProtected] = useState(false);
   const [stateInUnprotected, setStateInUnprotected] = useState(false);
   const [statePlaying, setStatePlaying] = useState(false);

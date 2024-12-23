@@ -966,7 +966,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return true;
   }
   
-  finishDragging(onBeforeEditDragEnd?: TOnEditDragEndPre<T>): boolean {
+  finishDragging(onEditDragEndPre?: TOnEditDragEndPre<T>): boolean {
     if (!this.draggingStartCoords) {
       return false;
     }
@@ -975,7 +975,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     
     if (this.draggingMoved) {
       const stats = this.refreshStats();
-      const newPath = onBeforeEditDragEnd?.(stats.path, stats.data);
+      const newPath = onEditDragEndPre?.(stats.path, stats.data);
       
       if (newPath) {
         this.path = newPath;

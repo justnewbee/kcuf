@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-ui/rc-backdrop",
-  "version": "0.0.4",
+  "version": "0.0.0",
   "description": "A singleton backdrop component.",
   "keywords": [],
   "license": "MIT",

@@ -109,7 +109,7 @@ export interface IMarkingItemClass<T = unknown> {
    */
   processDragging(): boolean | number;
   
-  finishDragging(onBeforeEditDragEnd?: TOnEditDragEndPre<T>): boolean;
+  finishDragging(onEditDragEndPre?: TOnEditDragEndPre<T>): boolean;
   
   refreshStats(): IMarkingItemStats<T>;
   

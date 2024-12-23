@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/react-hook-click-away",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/use-click-away",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",

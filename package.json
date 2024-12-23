@@ -56,7 +56,7 @@
     "ncu:packages": "pnpm -r exec ncu --registry https://registry.npmmirror.com",
     "depcheck": "depcheck",
     "depcheck:packages": "pnpm -r --no-bail exec depcheck",
-    "lint": "eslint packages*/**/src/ --ext js,ts,tsx",
+    "lint": "eslint packages*/*/src/ --ext js,ts,tsx",
     "lint:style": "stylelint \"**/src/**/*.{css,less,ts,tsx}\"",
     "lint:md": "markdownlint-cli2 **/*.md !node_modules",
     "lerna:publish": "lerna publish",

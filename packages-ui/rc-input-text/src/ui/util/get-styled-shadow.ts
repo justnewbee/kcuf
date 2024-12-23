@@ -10,5 +10,5 @@ import {
 } from '@kcuf-ui/rc-input-text-headless';
 
 export default function getStyledShadow(props: InputTextProps): RuleSet | null {
-  return !props.disabled && !props.borderless && (props.focused || props.hovered) ? mixinShadowMDown : null;
+  return !props.disabled && !props.borderless && props.focused/*  || props.hovered */ ? mixinShadowMDown : null;
 }
