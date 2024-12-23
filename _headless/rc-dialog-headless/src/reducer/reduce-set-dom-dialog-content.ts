@@ -8,7 +8,6 @@ import {
 
 export default function reduceSetDomDialogContent(state: IModelState, payload: HTMLDivElement | null): IModelState {
   return produce(state, draft => {
-    // @ts-ignore
-    draft.domDialogContent = payload;
+    (draft as IModelState).domDialogContent = payload;
   });
 }

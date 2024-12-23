@@ -8,7 +8,6 @@ import {
 
 export default function reduceSetDomDrop(state: IModelState, payload: HTMLDivElement | null): IModelState {
   return produce(state, draft => {
-    // @ts-ignore
-    draft.domDrop = payload;
+    (draft as IModelState).domDrop = payload;
   });
 }

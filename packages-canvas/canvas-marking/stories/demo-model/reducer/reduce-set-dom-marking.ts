@@ -8,8 +8,6 @@ import {
 
 export default function reduceSetDomMarking(state: IModelState, payload: HTMLDivElement | null): IModelState {
   return produce(state, draft => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    draft.domMarking = payload;
+    (draft as IModelState).domMarking = payload;
   });
 }

@@ -5,9 +5,6 @@ import {
 import {
   RequiredSelected
 } from '@kcuf/ts-missing-helpers';
-import {
-  Z_INDEX
-} from '@alicloud/console-base-theme';
 
 import {
   IModelProps
@@ -25,7 +22,7 @@ export default function useProps(): TModelProps {
   return useMemo((): TModelProps => {
     const {
       dropContainer = 'inside',
-      zIndex = Z_INDEX.POPUP,
+      zIndex = 10,
       offset = [0, 0],
       bodyPadding = 'both',
       ...rest

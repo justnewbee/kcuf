@@ -72,7 +72,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     }).then(response => response.json());
     
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     expect(global.window[callbackFn]).toBeTruthy();
     expect(global.document.querySelector(scriptQuery)).toBeTruthy();
     expect(global.document.querySelector(scriptQuery)?.getAttribute('charset')).toEqual('gb2312');
@@ -81,7 +81,7 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     expect(await promise).toEqual(JSONP_RESULT);
     
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     expect(global.window[callbackFn]).toBeFalsy(); // cleared
     expect(global.document.querySelector(scriptQuery)).toBeFalsy(); // cleared
   });
@@ -95,14 +95,14 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     }).then(response => response.json());
     
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     expect(global.window[callbackFn]).toBeTruthy();
     expect(global.document.querySelector(scriptQuery)).toBeTruthy();
     
     expect(await promise.catch(error => error)).toHaveProperty('name', 'JsonpError.Timeout');
     
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     expect(global.window[callbackFn]).toBeTruthy(); // by design, NOT cleared yet
     expect(global.document.querySelector(scriptQuery)).toBeFalsy(); // cleared
   });
