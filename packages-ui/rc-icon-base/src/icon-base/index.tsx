@@ -15,6 +15,7 @@ import {
 
 const ScIcon = styled.i<IScIconBaseProps>`
   font-family: ${props => props.$fontFamily} !important;
+  cursor: ${props => props.$cursor || 'default'};
   ${props => props.$color ? css`
     color: ${props.$color} !important;
   ` : null}
@@ -34,6 +35,10 @@ const ScIcon = styled.i<IScIconBaseProps>`
     transition: all linear 200ms;
     ${props => getCssIconRotation(props)}
   }
+  
+  &[aria-disabled='true'] {
+    opacity: 0.7;
+  }
 `;
 
 /**
@@ -42,12 +47,15 @@ const ScIcon = styled.i<IScIconBaseProps>`
 export default function IconBase<T extends string>({
   fontFamily,
   type,
+  disabled,
   colored,
   rotating,
   rotate,
   scale,
   getIconCode,
   getIconColor,
+  role,
+  onClick,
   ...props
 }: IIconBaseProps<T>): ReactElement {
   const $code = getIconCode(type);
@@ -56,10 +64,14 @@ export default function IconBase<T extends string>({
   return <ScIcon {...{
     $fontFamily: fontFamily,
     $code,
+    $cursor: disabled ? 'disabled' : onClick ? 'pointer' : '',
     $color,
     $rotating: rotating,
     $rotate: rotate,
     $scale: scale,
-    ...props
+    ...props,
+    'aria-disabled': disabled ? 'true' : undefined,
+    role: onClick && !role ? 'button' : role,
+    onClick: disabled ? undefined : onClick
   }} />;
 }

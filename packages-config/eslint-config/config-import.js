@@ -43,7 +43,7 @@ export default [
         pathGroupsExcludedImportTypes: [],
         'newlines-between': 'always'
       }],
-      'import/no-named-as-default': 0,
+      'import/no-named-as-default': 'off',
       'import/no-duplicates': 'error' // 默认 warn
     }
   }

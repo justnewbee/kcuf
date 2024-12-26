@@ -19,6 +19,7 @@ export interface IInjectIconFontOptions {
 
 export interface IIconProps<T extends string = string> extends HTMLAttributes<HTMLElement> {
   type: T;
+  disabled?: boolean;
   colored?: boolean;
   rotating?: boolean;
   rotate?: number;
@@ -39,4 +40,5 @@ export interface IScIconBaseProps {
   $rotating?: boolean;
   $rotate?: number;
   $scale?: number;
+  $cursor?: string;
 }
