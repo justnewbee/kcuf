@@ -1,8 +1,11 @@
 import {
-  ReactElement
+  ReactElement,
+  forwardRef
 } from 'react';
 
-import IconBase from '@kcuf-ui/rc-icon-base';
+import IconBase, {
+  IconRef
+} from '@kcuf-ui/rc-icon-base';
 
 import {
   TIconType,
@@ -19,12 +22,13 @@ import {
 /**
  * ConsoleBase 项目自用的图标组件
  */
-export default function Icon({
+function Icon({
   type,
   ...props
-}: IIconProps): ReactElement {
+}: IIconProps, ref: IconRef): ReactElement {
   return <IconBase<TIconType> {...{
     ...props,
+    ref,
     type,
     rotating: type === 'loading',
     fontFamily: ICON_FONT,
@@ -32,6 +36,8 @@ export default function Icon({
     getIconColor
   }} />;
 }
+
+export default forwardRef(Icon);
 
 export type {
   TIconType as IconType,

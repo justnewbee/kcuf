@@ -79,4 +79,4 @@ function IconBase<T extends string>({
   }} />;
 }
 
-export default forwardRef(IconBase);
+export default forwardRef(IconBase) as typeof IconBase;
