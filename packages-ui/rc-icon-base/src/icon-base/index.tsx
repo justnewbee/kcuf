@@ -1,5 +1,6 @@
 import {
-  ReactElement
+  ReactElement,
+  forwardRef
 } from 'react';
 import styled, {
   css
@@ -7,7 +8,8 @@ import styled, {
 
 import {
   IIconBaseProps,
-  IScIconBaseProps
+  IScIconBaseProps,
+  TIconRef
 } from '../types';
 import {
   getCssIconRotation
@@ -44,7 +46,7 @@ const ScIcon = styled.i<IScIconBaseProps>`
 /**
  * ConsoleBase 项目自用的图标组件
  */
-export default function IconBase<T extends string>({
+function IconBase<T extends string>({
   fontFamily,
   type,
   disabled,
@@ -57,11 +59,12 @@ export default function IconBase<T extends string>({
   role,
   onClick,
   ...props
-}: IIconBaseProps<T>): ReactElement {
+}: IIconBaseProps<T>, ref: TIconRef): ReactElement {
   const $code = getIconCode(type);
   const $color = colored && getIconColor ? getIconColor(type) : null;
   
   return <ScIcon {...{
+    ref,
     $fontFamily: fontFamily,
     $code,
     $cursor: disabled ? 'disabled' : onClick ? 'pointer' : '',
@@ -75,3 +78,5 @@ export default function IconBase<T extends string>({
     onClick: disabled ? undefined : onClick
   }} />;
 }
+
+export default forwardRef(IconBase);

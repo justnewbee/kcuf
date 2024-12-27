@@ -1,4 +1,4 @@
-# @kcuf-ui/rc-icon-base
+# @kcuf/rc-icon-base
 
 > <https://www.iconfont.cn> 辅助，用于注入 iconfont 或 webfont 并返回对应的 font 名，是写组件的好帮手，同时提供了 `IconBase` 以助理快速写组件。
 
@@ -14,14 +14,16 @@
 
 ```tsx
 import {
-  ReactElement
+  ReactElement,
+  forwardRef
 } from 'react';
 import styled from 'styled-components';
 
 import IconBase, {
+  IconRef,
   IconProps,
   injectIconFont
-} from '@kcuf-ui/rc-icon-base';
+} from '@kcuf/rc-icon-base';
 
 // 为 demo 完整，直接写这里，实际场景建议提出去
 const ICON_TYPE_MAPPING = {
@@ -49,11 +51,12 @@ function getIconColor(type: TIconType): string | null {
 /**
  * ConsoleBase 项目自用的图标组件
  */
-export default function Icon({
+function Icon({
   type,
   ...props
-}: IIconProps): ReactElement {
+}: IIconProps, ref: IconRef): ReactElement {
   return <IconBase<TIconType> {...{
+    ref,
     type,
     rotating: type === 'loading',
     ...props,
@@ -62,6 +65,8 @@ export default function Icon({
     getIconColor
   }} />;
 }
+
+export default forwardRef(Icon);
 
 export type {
   TIconType as IconType,
@@ -108,7 +113,7 @@ import styled from 'styled-components';
 
 import {
   injectWebFont
-} from '@kcuf-ui/rc-icon-base';
+} from '@kcuf/rc-icon-base';
 
 const fontFamily = injectWebFont('kygag0sd8g');
 

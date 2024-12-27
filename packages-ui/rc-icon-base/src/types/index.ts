@@ -1,5 +1,6 @@
 import {
-  HTMLAttributes
+  HTMLAttributes,
+  Ref
 } from 'react';
 
 export interface IInjectIconFontOptions {
@@ -16,6 +17,8 @@ export interface IInjectIconFontOptions {
    */
   base64Data?: string;
 }
+
+export type TIconRef = Ref<HTMLSpanElement>;
 
 export interface IIconProps<T extends string = string> extends HTMLAttributes<HTMLElement> {
   type: T;
