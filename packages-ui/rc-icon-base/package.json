@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/rc-icon-base",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "An IconBase to be filled with types, and IconFont/WebFont helper.",
   "keywords": [],
   "license": "MIT",

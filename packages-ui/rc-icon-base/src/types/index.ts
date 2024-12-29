@@ -43,5 +43,4 @@ export interface IScIconBaseProps {
   $rotating?: boolean;
   $rotate?: number;
   $scale?: number;
-  $cursor?: string;
 }

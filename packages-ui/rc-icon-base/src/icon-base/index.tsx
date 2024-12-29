@@ -17,9 +17,11 @@ import {
 
 const ScIcon = styled.i<IScIconBaseProps>`
   font-family: ${props => props.$fontFamily} !important;
-  cursor: ${props => props.$cursor || 'default'};
   ${props => props.$color ? css`
     color: ${props.$color} !important;
+  ` : null}
+  ${props => props.onClick ? css`
+    cursor: pointer;
   ` : null}
   
   &::before {
@@ -33,13 +35,14 @@ const ScIcon = styled.i<IScIconBaseProps>`
     text-rendering: auto;
     line-height: 1;
     vertical-align: baseline;
-    -webkit-text-stroke-width: 0.2px;/* stylelint-disable-line */
+    -webkit-text-stroke-width: 0.2px; /* stylelint-disable-line */
     transition: all linear 200ms;
     ${props => getCssIconRotation(props)}
   }
   
   &[aria-disabled='true'] {
     opacity: 0.7;
+    cursor: not-allowed;
   }
 `;
 
@@ -67,7 +70,6 @@ function IconBase<T extends string>({
     ref,
     $fontFamily: fontFamily,
     $code,
-    $cursor: disabled ? 'disabled' : onClick ? 'pointer' : '',
     $color,
     $rotating: rotating,
     $rotate: rotate,
