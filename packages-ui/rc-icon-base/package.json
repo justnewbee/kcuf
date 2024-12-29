@@ -1,5 +1,5 @@
 {
-  "name": "@kcuf/rc-icon-base",
+  "name": "@kcuf-ui/rc-icon-base",
   "version": "0.3.3",
   "description": "An IconBase to be filled with types, and IconFont/WebFont helper.",
   "keywords": [],
