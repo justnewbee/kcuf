@@ -82,8 +82,7 @@ export default eslintTs.config(
         '@typescript-eslint/no-empty-object-type': ['error', {
           allowInterfaces: 'with-single-extends'
         }],
-        // 只能禁用，因为它会阻止 `Xx | void`（无法配置去掉限制）
-        '@typescript-eslint/no-invalid-void-type': 'off',
+        '@typescript-eslint/no-invalid-void-type': 'off', // 只能禁用，因为它会阻止 `Xx | void`（无法配置去掉限制）
         '@typescript-eslint/no-unused-vars': ['error', {
           vars: 'all',
           args: 'after-used',
