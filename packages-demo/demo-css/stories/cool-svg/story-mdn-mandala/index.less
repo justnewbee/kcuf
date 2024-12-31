@@ -1,0 +1,151 @@
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes mandala-color-change {
+  0% {
+    fill: var(--mandala-primary);
+  }
+  
+  10% {
+    fill: var(--mandala-primary);
+  }
+  
+  15% {
+    fill: var(--mandala-accent-1);
+  }
+  
+  20% {
+    fill: var(--mandala-primary);
+  }
+  
+  25% {
+    fill: var(--mandala-primary);
+  }
+  
+  30% {
+    fill: var(--mandala-accent-2);
+  }
+  
+  35% {
+    fill: var(--mandala-primary);
+  }
+  
+  40% {
+    fill: var(--mandala-primary);
+  }
+  
+  50% {
+    fill: var(--mandala-accent-3);
+  }
+  
+  55% {
+    fill: var(--mandala-primary);
+  }
+  
+  60% {
+    fill: var(--mandala-primary);
+  }
+  
+  65% {
+    fill: var(--mandala-accent-4);
+  }
+  
+  70% {
+    fill: var(--mandala-primary);
+  }
+  
+  100% {
+    fill: var(--mandala-primary);
+  }
+}
+
+.mandala-container {
+  --mandala-primary: #52525e;
+  --mandala-accent-1: #c689ff;
+  --mandala-accent-2: #ffd567;
+  --mandala-accent-3: #88ffd1;
+  --mandala-accent-4: #ff9aa2;
+  --mandala-accent-5: #e0e0e6;
+  
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #000;
+  
+  svg {
+    font-size: 1.5rem;
+    font-weight: 300;
+    user-select: none;
+    
+    > text {
+      fill: var(--mandala-primary);
+      
+      > textPath > tspan {
+        fill: var(--mandala-primary);
+        animation: mandala-color-change 50s infinite;
+        animation-timing-function: ease-in-out;
+      }
+    }
+    
+    .mandala-ring {
+      transform-origin: 50% 50%;
+      
+      &.accent-1 {
+        font-size: 1.5rem;
+        animation: rotation 505s linear infinite;
+        
+        > textPath > tspan {
+          fill: var(--mandala-accent-1);
+          animation-delay: -15s;
+        }
+      }
+      
+      &.accent-2 {
+        font-size: 1.3rem;
+        animation: rotation 480s linear infinite reverse;
+        
+        > textPath > tspan {
+          fill: var(--mandala-accent-2);
+          animation-delay: -20s;
+        }
+      }
+      
+      &.accent-3 {
+        font-size: 1.2rem;
+        animation: rotation 515s linear infinite;
+        
+        > textPath > tspan {
+          fill: var(--mandala-accent-3);
+          animation-delay: -30s;
+        }
+      }
+      
+      &.accent-4 {
+        font-size: 1.1rem;
+        animation: rotation 425s linear infinite reverse;
+        
+        > textPath > tspan {
+          fill: var(--mandala-accent-4);
+          animation-delay: -5s;
+        }
+      }
+      
+      &.accent-5 {
+        font-size: 1rem;
+        animation: rotation 415s linear infinite;
+        
+        > textPath > tspan {
+          fill: var(--mandala-accent-4);
+          animation-delay: -40s;
+        }
+      }
+    }
+  }
+}
