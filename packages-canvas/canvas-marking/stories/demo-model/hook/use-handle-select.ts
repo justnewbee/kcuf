@@ -12,6 +12,6 @@ export default function useHandleSelect(): (finder: MarkingItemFinder<unknown>) 
   const markingInstance = useMarkingInstance();
   
   return useCallback((finder: MarkingItemFinder<unknown>): void => {
-    markingInstance?.selectItem(finder);
+    markingInstance?.select(finder);
   }, [markingInstance]);
 }

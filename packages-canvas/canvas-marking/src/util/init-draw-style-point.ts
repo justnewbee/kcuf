@@ -1,7 +1,7 @@
 import {
-  IMarkingPointStyle,
-  TMarkingBorderStyleResolved,
-  TMarkingPointStyleResolved
+  IMarkingStylePoint,
+  TMarkingStyleBorderResolved,
+  TMarkingStylePointResolved
 } from '../types';
 import {
   DEFAULT_POINT_RADIUS,
@@ -9,7 +9,7 @@ import {
   DEFAULT_POINT_ALT_COLOR
 } from '../const';
 
-export default function initDrawStylePoint(borderStyleResolved: TMarkingBorderStyleResolved, pointStyle?: IMarkingPointStyle, extendFrom?: TMarkingPointStyleResolved): TMarkingPointStyleResolved {
+export default function initDrawStylePoint(borderStyleResolved: TMarkingStyleBorderResolved, pointStyle?: IMarkingStylePoint, extendFrom?: TMarkingStylePointResolved): TMarkingStylePointResolved {
   return extendFrom ? {
     ...extendFrom,
     ...pointStyle

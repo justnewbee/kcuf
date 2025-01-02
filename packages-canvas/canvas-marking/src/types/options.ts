@@ -1,7 +1,7 @@
 import {
   TLineJoin,
   TPointType,
-  IAuxiliaryStyle,
+  IMarkingStyleAuxiliary,
   IMarkingStyleConfig,
   IMarkingBehaviorConfig
 } from './style';
@@ -40,12 +40,20 @@ export interface ICanvasMarkingOptionsData<T = unknown> {
   markings?: IMarkingConfigItem<T>[];
 }
 
-export interface ICanvasMarkingOptions<T = unknown> extends ICanvasMarkingOptionsData<T>, IMarkingStyleConfig, IMarkingBehaviorConfig, IMarkingEvents<T> {
+export interface ICanvasMarkingOptions<T = unknown> extends ICanvasMarkingOptionsData<T>, IMarkingBehaviorConfig, IMarkingEvents<T> {
   // --- 展示 --- //
   imageBgc?: string; // 没有图片的时候填充色（有助于辨别 move 后的边界）
-  auxiliaryStyle?: IAuxiliaryStyle;
+  auxiliaryStyle?: IMarkingStyleAuxiliary;
+  styleConfig?: IMarkingStyleConfig;
   // --- 行为 --- //
-  disabled?: boolean;
+  /**
+   * 利用 debug 库将所有的事件打印出来，需设置 `localStorage.debug = 'canvas-marking'`
+   */
+  debugEvents?: boolean;
+  /**
+   * 是否可编辑，默认 true
+   */
+  editable?: boolean;
   /**
    * 磁吸距离（屏幕像素），当鼠标和任一标注的点或线距离小于此值时进行磁吸
    */

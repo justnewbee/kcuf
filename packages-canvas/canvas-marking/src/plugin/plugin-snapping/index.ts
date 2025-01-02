@@ -1,6 +1,6 @@
 import {
   ICanvasMarkingClass,
-  ICanvasMarkingStats,
+  IMarkingStats,
   IMarkingPlugin
 } from '../../types';
 import {
@@ -27,7 +27,7 @@ export default function pluginSnapping<T = unknown>(canvasMarking: ICanvasMarkin
   }, true);
   
   return {
-    run(stats: ICanvasMarkingStats<T>): void {
+    run(stats: IMarkingStats<T>): void {
       inCanvas = !!stats.mouseInCanvas;
     },
     cleanup(): void {

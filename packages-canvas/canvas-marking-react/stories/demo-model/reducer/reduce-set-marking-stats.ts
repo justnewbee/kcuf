@@ -3,14 +3,14 @@ import {
 } from 'immer';
 
 import {
-  CanvasMarkingStats
+  MarkingStats
 } from '@kcuf/canvas-marking-react-headless';
 
 import {
   IModelState
 } from '../types';
 
-export default function reduceSetMarkingStats(state: IModelState, payload: CanvasMarkingStats): IModelState {
+export default function reduceSetMarkingStats(state: IModelState, payload: MarkingStats): IModelState {
   return produce(state, draft => {
     draft.markingStats = payload;
   });

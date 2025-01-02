@@ -8,7 +8,7 @@ export type TLineJoin = 'round' | 'bevel' | 'miter'; // 默认 round
 /**
  * 边框样式
  */
-export interface IMarkingBorderStyle {
+export interface IMarkingStyleBorder {
   lineJoin?: TLineJoin;
   /**
    * 连线宽度
@@ -33,19 +33,20 @@ export interface IMarkingBorderStyle {
 }
 
 /**
- * 标注区域填充样式
- *
- * 色值若为 number 表示根据 border 颜色走，取值范围 [0, 1]
+ * 如果有特殊的边需要特殊的样式，可以用这个
  */
-export interface IMarkingFillStyle {
-  color?: number | string;
-  crossingColor?: number | string;
+export interface IMarkingStyleBorderDiff {
+  color?: string;
+  width?: number;
+  outerColor?: string;
+  outerWidth?: number;
+  noInsertion?: boolean;
 }
 
 /**
  * 标注端点的样式
  */
-export interface IMarkingPointStyle {
+export interface IMarkingStylePoint {
   /**
    * 端点类型，默认 square，不建议改
    */
@@ -79,33 +80,32 @@ export interface IMarkingPointStyle {
   crossingFillColor?: string;
 }
 
-export type TMarkingBorderStyleResolved = Required<Omit<IMarkingBorderStyle, 'outerColor' | 'crossingOuterColor'>> & {
+/**
+ * 标注区域填充样式
+ *
+ * 色值若为 number 表示根据 border 颜色走，取值范围 [0, 1]
+ */
+export interface IMarkingStyleFill {
+  color?: number | string;
+  crossingColor?: number | string;
+}
+
+export type TMarkingStyleBorderResolved = Required<Omit<IMarkingStyleBorder, 'outerColor' | 'crossingOuterColor'>> & {
   outerColor: string;
   crossingOuterColor: string;
 };
 
-export type TMarkingPointStyleResolved = Required<IMarkingPointStyle>;
-
-export interface IMarkingFillStyleResolved {
+export interface IMarkingStyleFillResolved {
   color: string;
   crossingColor: string;
 }
 
-/**
- * 如果有特殊的边需要特殊的样式，可以用这个
- */
-export interface IMarkingBorderStyleDiff {
-  color?: string;
-  width?: number;
-  outerColor?: string;
-  outerWidth?: number;
-  noInsertion?: boolean;
-}
+export type TMarkingStylePointResolved = Required<IMarkingStylePoint>;
 
 /**
  * 辅助线样式
  */
-export interface IAuxiliaryStyle {
+export interface IMarkingStyleAuxiliary {
   /**
    * 辅助线宽度
    */
@@ -116,22 +116,51 @@ export interface IAuxiliaryStyle {
   color?: string;
 }
 
+export interface IMarkingStyleConfigBorderDiff {
+  all?: IMarkingStyleBorderDiff;
+  hover?: IMarkingStyleBorderDiff; // 复用于 highlight
+  [index: number]: IMarkingStyleBorderDiff;
+}
+
 /**
- * 各种状态下的样式
+ * 样式配置
  */
 export interface IMarkingStyleConfig {
-  borderStyle?: IMarkingBorderStyle;
-  borderStyleHovering?: IMarkingBorderStyle;
-  borderStyleHighlighting?: IMarkingBorderStyle;
-  borderStyleEditing?: IMarkingBorderStyle;
-  pointStyle?: IMarkingPointStyle;
-  pointStyleHovering?: IMarkingPointStyle;
-  pointStyleHighlighting?: IMarkingPointStyle;
-  pointStyleEditing?: IMarkingPointStyle;
-  fillStyle?: IMarkingFillStyle;
-  fillStyleHovering?: IMarkingFillStyle;
-  fillStyleHighlighting?: IMarkingFillStyle;
-  fillStyleEditing?: IMarkingFillStyle;
+  border?: IMarkingStyleBorder;
+  borderHovering?: IMarkingStyleBorder;
+  borderHighlighting?: IMarkingStyleBorder;
+  borderEditing?: IMarkingStyleBorder;
+  point?: IMarkingStylePoint;
+  pointHovering?: IMarkingStylePoint;
+  pointHighlighting?: IMarkingStylePoint;
+  pointEditing?: IMarkingStylePoint;
+  fill?: IMarkingStyleFill;
+  fillHovering?: IMarkingStyleFill;
+  fillHighlighting?: IMarkingStyleFill;
+  fillEditing?: IMarkingStyleFill;
+  /**
+   * 针对第 n 边（起点为第 n 个点）做特定的设置
+   */
+  borderDiff?: IMarkingStyleConfigBorderDiff;
+}
+
+export interface IMarkingStyleConfigResolved {
+  border: TMarkingStyleBorderResolved;
+  borderHovering: TMarkingStyleBorderResolved;
+  borderHighlighting: TMarkingStyleBorderResolved;
+  borderEditing: TMarkingStyleBorderResolved;
+  
+  point: TMarkingStylePointResolved;
+  pointHovering: TMarkingStylePointResolved;
+  pointHighlighting: TMarkingStylePointResolved;
+  pointEditing: TMarkingStylePointResolved;
+  
+  fill: IMarkingStyleFillResolved;
+  fillHovering: IMarkingStyleFillResolved;
+  fillHighlighting: IMarkingStyleFillResolved;
+  fillEditing: IMarkingStyleFillResolved;
+  
+  borderDiff?: IMarkingStyleConfigBorderDiff;
 }
 
 export interface IMarkingBehaviorConfig {

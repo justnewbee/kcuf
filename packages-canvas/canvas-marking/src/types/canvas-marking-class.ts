@@ -9,10 +9,11 @@ import {
   TMarkingItemFinder
 } from './common';
 import {
-  ICanvasMarkingStats
+  IMarkingStats
 } from './stats';
 import {
-  IMarkingConfigItem
+  IMarkingConfigItem,
+  IMarkingItemConfig
 } from './canvas-marking-item-class';
 import {
   TSubscribableEvents
@@ -43,6 +44,10 @@ export interface ICanvasMarkingClassProtected<T = unknown> {
    * 鼠标相对于图片的坐标，鼠标移出后不会清空
    */
   imageMouse: Point;
+  /**
+   * 当前状态之快照
+   */
+  statsSnapshot: IMarkingStats<T>;
 }
 
 /**
@@ -58,14 +63,9 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   setData(image: string, markings?: IMarkingConfigItem<T>[]): void;
   
   /**
-   * 更新单个配置项
+   * 更新配置项
    */
-  setOption<K extends keyof ICanvasMarkingOptions>(key: K, value: ICanvasMarkingOptions<T>[K]): void;
-  
-  // /**
-  //  * 更新单个配置项，并重绘
-  //  */
-  // setOptionAndDraw<K extends keyof ICanvasMarkingOptions>(key: K, value: ICanvasMarkingOptions<T>[K]): void;
+  updateOptions(updates: Partial<ICanvasMarkingOptions<T>>): void;
   
   /**
    * 注册插件，返回无参的解绑方法
@@ -76,11 +76,6 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
    * 撤销注册的插件，一般不需要自行调用
    */
   deregisterPlugin(pluginRegister: TMarkingPluginRegister<T>): void;
-  
-  /**
-   * 切换 disabled 状态，处于 disabled 状态时，不可编辑
-   */
-  toggleDisabled(disabled?: boolean): void;
   
   /**
    * 切换是否自动矫正（磁吸、正交）
@@ -95,7 +90,7 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   /**
    * 开始新建
    */
-  startCreating(extraOptions?: IMarkingConfigItem<T>): void;
+  startCreating(config?: IMarkingItemConfig): void;
   
   /**
    * 取消新建
@@ -115,12 +110,12 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   /**
    * 选中或取消选中，会触发 `onSelectionChange`，可能
    */
-  selectItem(finder: TMarkingItemFinder<T>): void;
+  select(finder: TMarkingItemFinder<T>): void;
   
   /**
    * 高亮或取消高亮
    */
-  highlightItem(finder: TMarkingItemFinder<T>, borderIndex?: number | null): void;
+  highlight(finder: TMarkingItemFinder<T>, borderIndex?: number | null): void;
   
   /**
    * 删除激活的标记（可用于在新建后删除刚刚新建的那个）
@@ -149,7 +144,7 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   /**
    * 主动获取当前状态，一般不需要主动调用，建议在 options.onStatsChange 监听
    */
-  getStats(): ICanvasMarkingStats<T>;
+  getStats(): IMarkingStats<T>;
   
   /**
    * 根据当前 stats 进行绘画，主要用于内部调用；但也可以由使用者按需主动调用，`drawExtra` 仅供外部调用，以于画一些额外的图形

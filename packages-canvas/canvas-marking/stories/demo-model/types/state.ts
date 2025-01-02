@@ -1,14 +1,15 @@
 import {
-  CanvasMarkingStats,
+  MarkingStats,
   CanvasMarkingClassType
 } from '../../../src';
 
 export interface IModelState {
-  everInit: boolean;
   domContainer: HTMLDivElement | null;
   domMarking: HTMLDivElement | null;
+  everInit: boolean;
+  optionEditable: boolean;
+  optionDebugEvents: boolean;
   markingInstance: CanvasMarkingClassType | null;
-  markingStats: CanvasMarkingStats | null;
-  logEvents: boolean;
+  markingStats: MarkingStats | null;
   fullscreen: boolean; // TODO use useFullscreen hook
 }

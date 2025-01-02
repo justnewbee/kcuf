@@ -4,12 +4,13 @@ import {
 
 export default function createInitialState(): IModelState {
   return {
-    everInit: false,
     domContainer: null,
     domMarking: null,
+    everInit: false,
+    optionEditable: true,
+    optionDebugEvents: false,
     markingStats: null,
     markingInstance: null,
-    logEvents: false,
     fullscreen: false
   };
 }

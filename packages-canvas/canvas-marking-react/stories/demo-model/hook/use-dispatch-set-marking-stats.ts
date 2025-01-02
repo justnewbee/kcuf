@@ -3,7 +3,7 @@ import {
 } from 'react';
 
 import {
-  CanvasMarkingStats
+  MarkingStats
 } from '@kcuf/canvas-marking-react-headless';
 
 import {
@@ -12,10 +12,10 @@ import {
 
 import useModelDispatch from './_use-model-dispatch';
 
-export default function useDispatchSetMarkingStats(): (payload: CanvasMarkingStats) => void {
+export default function useDispatchSetMarkingStats(): (payload: MarkingStats) => void {
   const dispatch = useModelDispatch();
   
-  return useCallback((payload: CanvasMarkingStats) => dispatch({
+  return useCallback((payload: MarkingStats) => dispatch({
     type: EAction.SET_MARKING_STATS,
     payload
   }), [dispatch]);

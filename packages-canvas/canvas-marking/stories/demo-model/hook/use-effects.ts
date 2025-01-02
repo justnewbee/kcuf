@@ -1,11 +1,13 @@
 import useEffectInit from './use-effect-init';
+import useEffectOptionEditable from './use-effect-option-editable';
+import useEffectOptionDebugEvents from './use-effect-option-debug-events';
 import useEffectDocumentFullscreen from './use-effect-document-fullscreen';
-import useEffectLogEvents from './use-effect-log-events';
 import useEffectDestroy from './use-effect-destroy';
 
 export default function useEffects(): void {
   useEffectInit();
+  useEffectOptionEditable();
+  useEffectOptionDebugEvents();
   useEffectDocumentFullscreen();
-  useEffectLogEvents();
   useEffectDestroy();
 }

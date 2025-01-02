@@ -3,7 +3,7 @@ import {
 } from '../../enum';
 import {
   ICanvasMarkingClass,
-  ICanvasMarkingStats,
+  IMarkingStats,
   IMarkingPlugin
 } from '../../types';
 
@@ -25,7 +25,7 @@ export default function pluginStats<T = unknown>(canvasMarking: ICanvasMarkingCl
   statsElement.innerHTML = getStatsDisplayHtml(canvasMarking.getStats());
   
   return {
-    run(stats: ICanvasMarkingStats<T>, cause: EMarkingStatsChangeCause): void {
+    run(stats: IMarkingStats<T>, cause: EMarkingStatsChangeCause): void {
       if (statsElement) {
         statsElement.innerHTML = getStatsDisplayHtml(stats, cause);
       }

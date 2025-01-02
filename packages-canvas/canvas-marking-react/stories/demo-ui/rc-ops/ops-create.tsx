@@ -10,6 +10,13 @@ import {
   useRefImperative,
   useMarkingStats
 } from '../../demo-model';
+import {
+  CREATE_CONFIG_LINE,
+  CREATE_CONFIG_POINT1,
+  CREATE_CONFIG_POINT5,
+  CREATE_CONFIG_RECT,
+  CREATE_CONFIG_RECT2
+} from '../const';
 
 export default function OpsCreate(): ReactElement {
   const ref = useRefImperative();
@@ -20,28 +27,19 @@ export default function OpsCreate(): ReactElement {
       onClick: () => ref.current?.startCreating()
     }}>默认</Button>
     <Button {...{
-      onClick: () => ref.current?.startCreating({
-        pointCountMax: 5
-      })
+      onClick: () => ref.current?.startCreating(CREATE_CONFIG_POINT1)
+    }}>单点</Button>
+    <Button {...{
+      onClick: () => ref.current?.startCreating(CREATE_CONFIG_POINT5)
     }}>最多 5 点</Button>
     <Button {...{
-      onClick: () => ref.current?.startCreating({
-        type: 'rect'
-      })
+      onClick: () => ref.current?.startCreating(CREATE_CONFIG_RECT)
     }}>矩形</Button>
     <Button {...{
-      onClick: () => ref.current?.startCreating({
-        type: 'rect2'
-      })
+      onClick: () => ref.current?.startCreating(CREATE_CONFIG_RECT2)
     }}>矩形 II</Button>
     <Button {...{
-      onClick: () => ref.current?.startCreating({
-        pointStyle: {
-          type: 'square'
-        },
-        pointCountMin: 2,
-        pointCountMax: 2
-      })
+      onClick: () => ref.current?.startCreating(CREATE_CONFIG_LINE)
     }}>线</Button>
     <Button {...{
       disabled: !stats?.creating,

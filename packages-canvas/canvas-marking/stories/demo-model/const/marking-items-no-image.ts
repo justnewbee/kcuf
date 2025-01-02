@@ -15,16 +15,18 @@ export default [{
     [265, 271],
     [234, 178]
   ],
-  pointStyle: {
-    type: 'square',
-    lineColor: 'hsl(48 100% 50%)',
-    fillColor: 'hsl(48 100% 50%)'
-  },
-  borderStyle: {
-    color: 'hsl(0 36% 50%)'
-  },
-  fillStyle: {
-    color: 'hsla(320 95% 59% / 30%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(0 36% 50%)'
+    },
+    point: {
+      type: 'square',
+      lineColor: 'hsl(48 100% 50%)',
+      fillColor: 'hsl(48 100% 50%)'
+    },
+    fill: {
+      color: 'hsla(320 95% 59% / 30%)'
+    }
   }
 }, {
   path: [
@@ -37,8 +39,10 @@ export default [{
     [221, 577],
     [223, 473]
   ],
-  borderStyle: {
-    color: 'hsl(288 100% 50%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(288 100% 50%)'
+    }
   }
 }, {
   path: [
@@ -51,11 +55,13 @@ export default [{
     [480, 491],
     [487, 450]
   ],
-  fillStyle: {
-    color: 'hsl(50 100% 63% / 80%)'
-  },
-  borderStyle: {
-    color: 'hsl(48 100% 50%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(48 100% 50%)'
+    },
+    fill: {
+      color: 'hsl(50 100% 63% / 80%)'
+    }
   }
 }, {
   path: [

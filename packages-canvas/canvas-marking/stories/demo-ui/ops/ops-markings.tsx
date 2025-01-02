@@ -8,50 +8,56 @@ import {
 
 import {
   useMarkingStats,
-  useHandleCreatingStart,
-  useHandleCreatingStartMaxPoint5,
-  useHandleCreatingStartRect,
-  useHandleCreatingStartRect2,
-  useHandleCreatingStartLine,
-  useHandleCreatingCancel,
-  useHandleCreatingFinish,
+  useHandleCreate,
+  useHandleCreateMaxPoint1,
+  useHandleCreateMaxPoint5,
+  useHandleCreateRect,
+  useHandleCreateRect2,
+  useHandleCreateLine,
+  useHandleCancelCreating,
+  useHandleFinishCreating,
   useHandleDeleteActiveItem,
   useHandleDeleteAllItems
 } from '../../demo-model';
 
 export default function OpsMarkings(): ReactElement {
   const markingStats = useMarkingStats();
-  const handleCreatingStart = useHandleCreatingStart();
-  const handleCreatingStartMaxPoint5 = useHandleCreatingStartMaxPoint5();
-  const handleCreatingStartRect = useHandleCreatingStartRect();
-  const handleCreatingStartRect2 = useHandleCreatingStartRect2();
-  const handleCreatingStartLine = useHandleCreatingStartLine();
-  const handleCancelCreating = useHandleCreatingCancel();
-  const handleFinishCreating = useHandleCreatingFinish();
+  const handleCreate = useHandleCreate();
+  const handleCreateMaxPoint1 = useHandleCreateMaxPoint1();
+  const handleCreateMaxPoint5 = useHandleCreateMaxPoint5();
+  const handleCreateRect = useHandleCreateRect();
+  const handleCreateRect2 = useHandleCreateRect2();
+  const handleCreateLine = useHandleCreateLine();
+  const handleCancelCreating = useHandleCancelCreating();
+  const handleFinishCreating = useHandleFinishCreating();
   const handleDeleteActiveItem = useHandleDeleteActiveItem();
   const handleDeleteAllItems = useHandleDeleteAllItems();
   
   return <>
     <Button {...{
-      disabled: markingStats?.disabled || markingStats?.creating,
-      onClick: handleCreatingStart
-    }}>标注</Button>
+      disabled: !markingStats?.editable,
+      onClick: handleCreate
+    }}>自由</Button>
     <Button {...{
-      disabled: markingStats?.disabled || markingStats?.creating,
-      onClick: handleCreatingStartMaxPoint5
-    }}>标注（最多 5 点）</Button>
+      disabled: !markingStats?.editable,
+      onClick: handleCreateMaxPoint1
+    }}>单点</Button>
     <Button {...{
-      disabled: markingStats?.disabled || markingStats?.creating,
-      onClick: handleCreatingStartRect
-    }}>标注（矩形）</Button>
+      disabled: !markingStats?.editable,
+      onClick: handleCreateLine
+    }}>线（两点）</Button>
     <Button {...{
-      disabled: markingStats?.disabled || markingStats?.creating,
-      onClick: handleCreatingStartRect2
-    }}>标注（矩形 II）</Button>
+      disabled: !markingStats?.editable,
+      onClick: handleCreateMaxPoint5
+    }}>最多 5 点</Button>
     <Button {...{
-      disabled: markingStats?.disabled || markingStats?.creating,
-      onClick: handleCreatingStartLine
-    }}>标注（线）</Button>
+      disabled: !markingStats?.editable,
+      onClick: handleCreateRect
+    }}>矩形</Button>
+    <Button {...{
+      disabled: !markingStats?.editable,
+      onClick: handleCreateRect2
+    }}>矩形 II</Button>
     <Button {...{
       disabled: !markingStats?.creating,
       onClick: handleCancelCreating

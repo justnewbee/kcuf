@@ -13,7 +13,6 @@ export default function createTooltipStyle(stage: HTMLDivElement): string {
   color: hsl(0 0% 100%);
   line-height: 1.6;
   font-size: 11px;
-  font-weight: 200;
   white-space: pre-wrap;
   user-select: none;
   z-index: 10;

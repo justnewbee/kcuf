@@ -8,6 +8,8 @@ import {
 
 export default function reduceSetDomContainer(state: IModelState, payload: HTMLDivElement | null): IModelState {
   return produce(state, draft => {
-    (draft as IModelState).domContainer = payload;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    draft.domContainer = payload;
   });
 }

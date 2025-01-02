@@ -6,16 +6,9 @@ import styled from 'styled-components';
 import CanvasMarking from '../../../src';
 import {
   useRefImperative,
-  useDataImage,
-  useDataMarkings,
-  useDisabled,
-  usePlugins,
-  useHandleSetMarkingStats,
-  useDestroyed
+  useDestroyed,
+  useCanvasMarkingProps
 } from '../../demo-model';
-import {
-  getHoveringInfo
-} from '../util';
 
 const ScCanvasMarking = styled(CanvasMarking)`
   min-height: 800px;
@@ -24,22 +17,10 @@ const ScCanvasMarking = styled(CanvasMarking)`
 
 export default function TheCanvas(): ReactElement | null {
   const ref = useRefImperative();
-  const disabled = useDisabled();
   const destroyed = useDestroyed();
-  const image = useDataImage();
-  const markings = useDataMarkings();
-  const plugins = usePlugins();
-  const handleSetMarkingStats = useHandleSetMarkingStats();
+  const canvasMarkingProps = useCanvasMarkingProps();
   
-  return destroyed ? null : <ScCanvasMarking {...{
-    ref,
-    image,
-    markings,
-    plugins,
-    disabled,
-    tooltipOptions: {
-      getHoveringInfo
-    },
-    onStatsChange: handleSetMarkingStats
-  }} />;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  return destroyed ? null : <ScCanvasMarking ref={ref} {...canvasMarkingProps} />;
 }

@@ -30,7 +30,8 @@
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
     "@kcuf/ts-config": "workspace:^",
-    "@types/react": "^18.3.14",
+    "@types/lodash": "^4.17.13",
+    "@types/react": "^18.3.18",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.2"
@@ -42,7 +43,8 @@
   "dependencies": {
     "@kcuf-hook/use-is-unmounted": "workspace:^",
     "@kcuf/canvas-marking": "workspace:^",
-    "immer": "^10.1.1"
+    "immer": "^10.1.1",
+    "lodash": "^4.17.21"
   },
   "scripts": {
     "build:clean": "rimraf dist",

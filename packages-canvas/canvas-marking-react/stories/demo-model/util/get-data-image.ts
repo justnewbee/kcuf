@@ -21,7 +21,7 @@ const RANDOM_LIST = [
 export default function getDataImage(type: EDataType): string {
   switch (type) {
   case EDataType.ARIAL:
-    return 'https://zjlc-public.oss-cn-hangzhou.aliyuncs.com/demo/aerial-rooftop.jpeg';
+    return 'https://static.liangceai.net/demo/aerial-rooftop.jpeg';
   case EDataType.RANDOM:
     return RANDOM_LIST[Math.floor(Math.random() * RANDOM_LIST.length)] || 'https://img.alicdn.com/bao/uploaded/i3/128940143/O1CN01g1yQbY1CvXZYGCd6T_!!128940143.jpg';
   case EDataType.NO_IMAGE:

@@ -12,15 +12,19 @@ import {
   TSize,
   TCreatingWillFinish
 } from './common';
+import {
+  IMarkingStyleConfig
+} from './style';
 
 /**
  * 单个标记的实时统计信息（注意，并不记录创建中的）
  */
 export interface IMarkingItemStats<T = unknown> {
+  id: string;
   data?: T; // 附加数据，可以添加你需要的任何数据
   path: Path;
-  disabled: boolean;
-  length: number; // 所有边总长 px
+  styleConfig: IMarkingStyleConfig | null;
+  perimeter: number; // 所有边总长 px
   area: number; // 面积，px²
   areaPercentage: number; // 面积占比，取值范围 [0, 100]，可直接拼 % 展示
   /**
@@ -49,9 +53,8 @@ export interface IMarkingItemStats<T = unknown> {
 /**
  * 整体实时统计信息
  */
-export interface ICanvasMarkingStats<T = unknown> {
-  // 整体状态
-  disabled: boolean;
+export interface IMarkingStats<T = unknown> {
+  editable: boolean;
   zoom: number;
   stageSize: TSize;
   canvasSize: TSize;

@@ -1,7 +1,7 @@
 import {
-  IMarkingBorderStyle,
-  IMarkingFillStyle,
-  IAuxiliaryStyle,
+  IMarkingStyleBorder,
+  IMarkingStyleFill,
+  IMarkingStyleAuxiliary,
   ICanvasMarkingOptions
 } from '../types';
 
@@ -17,7 +17,7 @@ export const DEFAULT_RIGHT_ANGLE_MARK_SIZE = 12;
 /**
  * 默认描边样式
  */
-export const DEFAULT_BORDER_STYLE: Required<IMarkingBorderStyle> = {
+export const DEFAULT_BORDER_STYLE: Required<IMarkingStyleBorder> = {
   lineJoin: 'round',
   width: 1.5,
   color: 'hsl(0 0% 100%)', // 'hsl(217 100% 50%)'
@@ -30,7 +30,7 @@ export const DEFAULT_BORDER_STYLE: Required<IMarkingBorderStyle> = {
 /**
  * 默认填充样式
  */
-export const DEFAULT_FILL_STYLE: Required<IMarkingFillStyle> = {
+export const DEFAULT_FILL_STYLE: Required<IMarkingStyleFill> = {
   color: 0.17,
   crossingColor: 0.17
 };
@@ -38,7 +38,7 @@ export const DEFAULT_FILL_STYLE: Required<IMarkingFillStyle> = {
 /**
  * 默认引导线样式
  */
-export const DEFAULT_AUXILIARY_STYLE: Required<IAuxiliaryStyle> = {
+export const DEFAULT_AUXILIARY_STYLE: Required<IMarkingStyleAuxiliary> = {
   width: 0.5,
   color: 'hsl(177 100% 50%)'
 };

@@ -7,6 +7,6 @@ import {
 } from './common';
 
 export interface IModelProps<T = unknown> extends CanvasMarkingOptions<T> {
-  className?: string; // 有限的样式自定义
+  className?: string; // 提供有限的样式自定义
   plugins?: IPlugins;
 }

@@ -1,5 +1,5 @@
 import {
-  CanvasMarkingStats,
+  MarkingStats,
   MarkingConfigItem
 } from '@kcuf/canvas-marking-react-headless';
 
@@ -12,11 +12,12 @@ import {
 } from './common';
 
 export interface IModelState {
-  disabled: boolean;
   destroyed: boolean;
+  editable: boolean;
+  debugEvents: boolean;
   dataType: EDataType;
   image: string;
   markings: MarkingConfigItem[];
   plugins: TStatePlugins;
-  markingStats: CanvasMarkingStats | null;
+  markingStats: MarkingStats | null;
 }

@@ -7,7 +7,7 @@ import {
 } from '../enum';
 import {
   CanvasMarkingClassType,
-  CanvasMarkingStats
+  MarkingStats
 } from '../../../src';
 
 export type TModelAction = {
@@ -20,9 +20,11 @@ export type TModelAction = {
   payload: CanvasMarkingClassType | null;
 } | {
   type: EAction.SET_MARKING_STATS;
-  payload: CanvasMarkingStats | null;
+  payload: MarkingStats | null;
 } | {
-  type: EAction.TOGGLE_LOG_EVENTS | EAction.TOGGLE_FULLSCREEN;
+  type: EAction.TOGGLE_OPTION_EDITABLE | EAction.TOGGLE_OPTION_DEBUG_EVENTS;
+} | {
+  type: EAction.TOGGLE_FULLSCREEN;
   payload?: boolean;
 };
 

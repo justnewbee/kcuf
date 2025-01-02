@@ -18,17 +18,17 @@ import {
  * 从线段列表找距 point 最近的磁吸点
  */
 export default function justifyMagnetSegments(point: TPoint, segments: TSegment[], magnetRadius: number, order: EJustifyMagnetType): IJustifyMagnetResult | null {
-  let pointM: TPoint | undefined;
   let distance = Infinity;
+  let pointM: TPoint | undefined;
   
-  segments.forEach(v => {
-    const verticalIntersectionPoint = perpendicularFootThroughPointToSegment(point, v);
+  segments.forEach(segment => {
+    const foot = perpendicularFootThroughPointToSegment(point, segment);
     
-    if (isPointOnSegment(verticalIntersectionPoint, v)) {
-      const d = pointDistance(point, verticalIntersectionPoint);
+    if (isPointOnSegment(foot, segment)) {
+      const d = pointDistance(point, foot);
       
       if (d <= magnetRadius && d < distance) {
-        pointM = verticalIntersectionPoint;
+        pointM = foot;
         distance = d;
       }
     }

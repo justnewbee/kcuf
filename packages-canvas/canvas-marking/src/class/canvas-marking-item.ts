@@ -25,27 +25,22 @@ import {
   EMarkingMouseStatus
 } from '../enum';
 import {
-  TOnCreateCompletePre,
   TCreatingWillFinish,
-  TMarkingBorderStyleResolved,
-  IMarkingFillStyleResolved,
-  TMarkingPointStyleResolved,
+  TMarkingStyleBorderResolved,
+  IMarkingStyleFillResolved,
+  TMarkingStylePointResolved,
   ICanvasMarkingClassProtected,
   IMarkingItemClass,
   IMarkingItemOptions,
-  IMarkingConfigItemBorderDiff,
-  IMarkingItemStats, TOnEditDragEndPre
+  IMarkingItemStats,
+  IMarkingEvents,
+  IMarkingStyleConfigResolved
 } from '../types';
 import {
-  DEFAULT_FILL_ALPHA_EDITING,
   DEFAULT_POINT_INSERTION_MIN_DISTANCE,
   DEFAULT_RIGHT_ANGLE_MARK_SIZE
 } from '../const';
 import {
-  roundFloat,
-  initDrawStyleBorder,
-  initDrawStylePoint,
-  initDrawStyleFill,
   canFinishRect,
   fadeStyleBorder,
   fadeStylePoint,
@@ -61,9 +56,11 @@ import {
   canvasDrawShape,
   canvasDrawArea
 } from '../util';
+import resolveMarkingStyleConfig from '../util/resolve-marking-style-config';
 
 export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass<T> {
-  private readonly markingStage: ICanvasMarkingClassProtected<T>;
+  private readonly canvasMarking: ICanvasMarkingClassProtected<T>;
+  private readonly style: IMarkingStyleConfigResolved;
   
   protected options: IMarkingItemOptions<T>;
   
@@ -90,43 +87,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   private faded = false;
   
-  private readonly borderStyle: TMarkingBorderStyleResolved;
-  private readonly borderStyleHovering: TMarkingBorderStyleResolved;
-  private readonly borderStyleHighlighting: TMarkingBorderStyleResolved;
-  private readonly borderStyleEditing: TMarkingBorderStyleResolved;
-  
-  private readonly pointStyle: TMarkingPointStyleResolved;
-  private readonly pointStyleHovering: TMarkingPointStyleResolved;
-  private readonly pointStyleHighlighting: TMarkingPointStyleResolved;
-  private readonly pointStyleEditing: TMarkingPointStyleResolved;
-  
-  private readonly fillStyle: IMarkingFillStyleResolved;
-  private readonly fillStyleHovering: IMarkingFillStyleResolved;
-  private readonly fillStyleHighlighting: IMarkingFillStyleResolved;
-  private readonly fillStyleEditing: IMarkingFillStyleResolved;
-  
   constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}) {
-    this.markingStage = markingStage;
+    this.canvasMarking = markingStage;
     this.options = options;
-    
-    this.borderStyle = initDrawStyleBorder(options.borderStyle);
-    this.borderStyleHovering = initDrawStyleBorder(options.borderStyleHovering, this.borderStyle);
-    this.borderStyleHighlighting = initDrawStyleBorder(options.borderStyleHighlighting, this.borderStyleHovering);
-    this.borderStyleEditing = initDrawStyleBorder(options.borderStyleEditing, this.borderStyleHovering);
-    
-    this.pointStyle = initDrawStylePoint(this.borderStyle, options.pointStyle);
-    this.pointStyleHovering = initDrawStylePoint(this.borderStyleHovering, options.pointStyleHovering, this.pointStyle);
-    this.pointStyleHighlighting = initDrawStylePoint(this.borderStyleHighlighting, options.pointStyleHighlighting, this.pointStyleHovering);
-    this.pointStyleEditing = initDrawStylePoint(this.borderStyleEditing, options.pointStyleEditing, this.pointStyleHovering);
-    
-    this.fillStyle = initDrawStyleFill(this.borderStyle, options.fillStyle);
-    this.fillStyleHovering = initDrawStyleFill(this.borderStyleHovering, options.fillStyleHovering, this.fillStyle);
-    this.fillStyleHighlighting = initDrawStyleFill(this.borderStyleHighlighting, options.fillStyleHighlighting, this.fillStyleHovering);
-    this.fillStyleEditing = initDrawStyleFill(this.borderStyleEditing, {
-      color: DEFAULT_FILL_ALPHA_EDITING,
-      ...options.fillStyleEditing
-    }, this.fillStyleHovering);
-    
+    this.style = resolveMarkingStyleConfig(options.styleConfig);
     this.data = options.data;
     
     if (options.path?.length) { // 传入 path 表示已成图形，不传则表示新建
@@ -139,7 +103,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   /**
-   * 默认最少必须 3 个点（区域），若指定 2 则允许线段
+   * 默认最少必须 3 个点（区域），若指定 2 则允许线段，1 则只画一个点
    */
   private get pointCountRange(): [number, number] {
     let {
@@ -149,8 +113,8 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       }
     } = this;
     
-    if (min < 2) {
-      min = 3;
+    if (min < 1) {
+      min = 1;
     }
     
     if (max > 0 && max < min) {
@@ -160,41 +124,24 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return [min, max];
   }
   
-  private get borderDiff(): IMarkingConfigItemBorderDiff | undefined {
-    const {
-      options: {
-        borderDiff
-      },
-      data
-    } = this;
-    
-    if (!borderDiff) {
-      return;
-    }
-    
-    if (typeof borderDiff === 'function') {
-      return borderDiff(data);
-    }
-    
-    return borderDiff;
-  }
-  
   /**
    * 编辑中，且允许在虚点上脱出新增时，需要渲染虚点
    */
   private get insertionPoints(): (Point | null)[] {
     const {
-      markingStage: {
+      canvasMarking: {
         imageScale
       },
       options: {
         pointInsertionMinDistance = DEFAULT_POINT_INSERTION_MIN_DISTANCE,
         noPointInsertion
       },
+      style: {
+        borderDiff
+      },
       path,
       editing,
-      pointCountRange: [, max],
-      borderDiff
+      pointCountRange: [, max]
     } = this;
     
     if (noPointInsertion || !editing || (max > 0 && path.length >= max)) {
@@ -230,16 +177,16 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     }
     
     const {
-      markingStage: {
+      canvasMarking: {
         canvasContext,
         imageScale,
         imageMouse
       },
-      pointStyle
+      style
     } = this;
     
     return this.path.findIndex(v => {
-      canvasPathPointShape(canvasContext, v, pointStyle.radius / imageScale, pointStyle.type);
+      canvasPathPointShape(canvasContext, v, style.point.radius / imageScale, style.point.type);
       
       return canvasContext.isPointInPath(imageMouse[0], imageMouse[1]);
     });
@@ -250,18 +197,18 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
    */
   private get hoveringInsertionPointIndex(): number {
     const {
-      markingStage: {
+      style,
+      canvasMarking: {
         canvasContext,
         imageScale,
         imageMouse
       },
-      insertionPoints,
-      pointStyle
+      insertionPoints
     } = this;
     
     return insertionPoints.findIndex(v => {
       if (v) {
-        canvasPathPointShape(canvasContext, v, pointStyle.radius / imageScale, pointStyle.typeMiddle);
+        canvasPathPointShape(canvasContext, v, style.point.radius / imageScale, style.point.typeMiddle);
         
         return canvasContext.isPointInPath(imageMouse[0], imageMouse[1]);
       }
@@ -272,14 +219,16 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   private get hoveringBorderIndex(): number {
     const {
-      markingStage: {
+      canvasMarking: {
         canvasContext,
         imageScale,
         imageMouse
       },
-      borderDiff
+      style: {
+        borderDiff
+      }
     } = this;
-    const borderStyle = mergeBorderStyleWithDiff(this.borderStyleHovering, borderDiff?.hover, this.faded);
+    const borderStyle = mergeBorderStyleWithDiff(this.style.borderHovering, borderDiff?.hover, this.faded);
     const lineWidth = (borderStyle.width + borderStyle.outerWidth * 2) / imageScale; // 考虑边的外框
     
     return pathSegmentList(this.path).findIndex(v => {
@@ -304,12 +253,9 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   /**
    * 根据状态返回对应的样式
    */
-  private getDrawStyleBorder(): TMarkingBorderStyleResolved {
+  private getDrawStyleBorder(): TMarkingStyleBorderResolved {
     const {
-      borderStyle,
-      borderStyleHighlighting,
-      borderStyleHovering,
-      borderStyleEditing,
+      style,
       stats: {
         highlighting,
         hovering,
@@ -317,33 +263,30 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         crossing
       }
     } = this;
-    let style = borderStyle;
+    let borderStyle = style.border;
     
     if (editing) {
-      style = borderStyleEditing;
+      borderStyle = style.borderEditing;
     } else if (hovering) {
-      style = borderStyleHovering;
+      borderStyle = style.borderHovering;
     } else if (highlighting) {
-      style = borderStyleHighlighting;
+      borderStyle = style.borderHighlighting;
     }
     
     if (crossing) {
       return {
-        ...style,
-        color: style.crossingColor || style.color,
-        outerColor: style.crossingOuterColor || style.outerColor
+        ...borderStyle,
+        color: borderStyle.crossingColor || borderStyle.color,
+        outerColor: borderStyle.crossingOuterColor || borderStyle.outerColor
       };
     }
     
-    return this.faded ? fadeStyleBorder(style) : style;
+    return this.faded ? fadeStyleBorder(borderStyle) : borderStyle;
   }
   
-  private getDrawStylePoint(): TMarkingPointStyleResolved {
+  private getDrawStylePoint(): TMarkingStylePointResolved {
     const {
-      pointStyle,
-      pointStyleHighlighting,
-      pointStyleHovering,
-      pointStyleEditing,
+      style,
       stats: {
         highlighting,
         hovering,
@@ -351,33 +294,30 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         crossing
       }
     } = this;
-    let style = pointStyle;
+    let pointStyle = style.point;
     
     if (editing) {
-      style = pointStyleEditing;
+      pointStyle = style.pointEditing;
     } else if (hovering) {
-      style = pointStyleHovering;
+      pointStyle = style.pointHovering;
     } else if (highlighting) {
-      style = pointStyleHighlighting;
+      pointStyle = style.pointHighlighting;
     }
     
     if (crossing) {
       return {
-        ...style,
-        lineColor: style.crossingLineColor,
-        fillColor: style.crossingFillColor
+        ...pointStyle,
+        lineColor: pointStyle.crossingLineColor,
+        fillColor: pointStyle.crossingFillColor
       };
     }
     
-    return this.faded ? fadeStylePoint(style) : style;
+    return this.faded ? fadeStylePoint(pointStyle) : pointStyle;
   }
   
-  private getDrawStyleFill(): IMarkingFillStyleResolved {
+  private getDrawStyleFill(): IMarkingStyleFillResolved {
     const {
-      fillStyle,
-      fillStyleHighlighting,
-      fillStyleHovering,
-      fillStyleEditing,
+      style,
       stats: {
         highlighting,
         hovering,
@@ -385,24 +325,24 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         crossing
       }
     } = this;
-    let style = fillStyle;
+    let fillStyle = style.fill;
     
     if (editing) {
-      style = fillStyleEditing;
+      fillStyle = style.fillEditing;
     } else if (hovering) {
-      style = fillStyleHovering;
+      fillStyle = style.fillHovering;
     } else if (highlighting) {
-      style = fillStyleHighlighting;
+      fillStyle = style.fillHighlighting;
     }
     
     if (crossing) {
       return {
-        ...style,
-        color: style.crossingColor
+        ...fillStyle,
+        color: fillStyle.crossingColor
       };
     }
     
-    return this.faded ? fadeStyleFill(style) : style;
+    return this.faded ? fadeStyleFill(fillStyle) : fillStyle;
   }
   
   /**
@@ -411,7 +351,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   private getPathForDraw(): Path {
     const {
       options,
-      markingStage: {
+      canvasMarking: {
         imageSize,
         imageMouse
       },
@@ -436,7 +376,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   private generateStats(): IMarkingItemStats<T> {
     const {
-      markingStage: {
+      canvasMarking: {
         imageSize,
         imageScale
       },
@@ -450,7 +390,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     } = this;
     const pathForDraw = this.getPathForDraw();
     const crossing = this.detectCrossingAndOverlap();
-    const area = roundFloat(pathArea(pathForDraw), 2);
+    const area = pathArea(pathForDraw);
     let creatingWillFinish: TCreatingWillFinish = false;
     
     // 针对新建，是否下一个点击将自动完成新建
@@ -473,12 +413,13 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     }
     
     return {
+      id: options.id ?? '',
       data: this.data,
       path: _cloneDeep(path), // 得到一个干净的，从而避免引用干扰（尤其是 immer 这种会锁对象的）
-      disabled: this.options.disabled || false,
-      length: pathPerimeter(pathForDraw),
+      styleConfig: options.styleConfig || null,
+      perimeter: pathPerimeter(pathForDraw),
       area,
-      areaPercentage: roundFloat(area * 100 / (imageSize[0] * imageSize[1]), 2),
+      areaPercentage: area * 100 / (imageSize[0] * imageSize[1]),
       creatingWillFinish,
       hovering,
       hoveringPointIndex,
@@ -497,11 +438,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   private shouldDrawPoint(): boolean {
-    return this.creating || this.creatingWait || this.editing || this.hovering;
+    return this.creating || this.creatingWait || this.editing || this.hovering || this.path.length === 1;
   }
   
   private drawArea(): void {
-    canvasDrawArea(this.markingStage.canvasContext, this.getPathForDraw(), {
+    canvasDrawArea(this.canvasMarking.canvasContext, this.getPathForDraw(), {
       color: this.getDrawStyleFill().color
     });
   }
@@ -511,7 +452,9 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       options: {
         type
       },
-      borderDiff,
+      style: {
+        borderDiff
+      },
       faded,
       stats: {
         hoveringBorderIndex,
@@ -560,9 +503,9 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     }
   }
   
-  private drawBorderPartial(path: Path, borderStyle: TMarkingBorderStyleResolved, close?: boolean): void {
+  private drawBorderPartial(path: Path, borderStyle: TMarkingStyleBorderResolved, close?: boolean): void {
     const {
-      markingStage: {
+      canvasMarking: {
         canvasContext,
         imageScale
       }
@@ -587,13 +530,13 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     });
   }
   
-  private drawPerpendicularMarks(borderStyle: TMarkingBorderStyleResolved): void {
+  private drawPerpendicularMarks(borderStyle: TMarkingStyleBorderResolved): void {
     if (!this.creating && !(this.draggingPointIndex >= 0 && this.draggingMoved)) {
       return;
     }
     
     const {
-      markingStage: {
+      canvasMarking: {
         options: {
           perpendicularMarkSize = DEFAULT_RIGHT_ANGLE_MARK_SIZE
         },
@@ -620,9 +563,9 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     this.drawVertexPoints(pointStyle);
   }
   
-  private drawInsertionPoints(pointStyle: TMarkingPointStyleResolved): void {
+  private drawInsertionPoints(pointStyle: TMarkingStylePointResolved): void {
     const {
-      markingStage: {
+      canvasMarking: {
         canvasContext,
         imageScale
       }
@@ -645,9 +588,9 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     });
   }
   
-  private drawVertexPoints(pointStyle: TMarkingPointStyleResolved): void {
+  private drawVertexPoints(pointStyle: TMarkingStylePointResolved): void {
     const {
-      markingStage: {
+      canvasMarking: {
         canvasContext,
         imageScale
       },
@@ -710,14 +653,14 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   /**
    * 新建或编辑完成之前执行回调，若回调返回 false 则取消，可以提供 data 或修改 path
    */
-  private async beforeCreateComplete(beforeHook?: TOnCreateCompletePre<T>): Promise<boolean> {
+  private async beforeCreateComplete(onCreateCompletePre?: IMarkingEvents<T>['onCreateCompletePre']): Promise<boolean> {
     this.creating = false;
     
-    if (beforeHook) {
+    if (onCreateCompletePre) {
       this.creatingWait = true;
       
       try {
-        const result = await beforeHook(this.refreshStats().path);
+        const result = await onCreateCompletePre(this.refreshStats(), this.canvasMarking.statsSnapshot);
         
         if (result === false) {
           this.refreshStats();
@@ -743,7 +686,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   getBorderColor(): string {
-    return this.borderStyle.color;
+    return this.style.border.color;
   }
   
   toggleHovering(value = true): void {
@@ -757,7 +700,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   checkMouse(): EMarkingMouseStatus {
     const {
-      markingStage: {
+      canvasMarking: {
         imageMouse
       },
       path
@@ -795,7 +738,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     this.pathSnapshotEditing = _cloneDeep(this.path);
   }
   
-  finishCreating(onCreateCompletePre?: TOnCreateCompletePre<T>): false | Promise<boolean> {
+  finishCreating(onCreateCompletePre?: IMarkingEvents<T>['onCreateCompletePre']): false | Promise<boolean> {
     if (!this.creating || this.path.length < this.pointCountRange[0] || this.stats.crossing) {
       return false;
     }
@@ -825,29 +768,30 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return cancel || stats.dirty;
   }
   
-  pushPoint(): boolean | 'close' | 'last' {
+  pushPoint(onPointPushPre?: IMarkingEvents<T>['onPointPushPre']): false | number | 'close' | 'last' {
     if (!this.creating) {
       return false;
     }
     
     const {
-      hoveringPointIndex,
-      pointCountRange: [, max],
-      statsSnapshot
-    } = this;
-    
-    if (hoveringPointIndex >= 0) { // 在已有的点上
-      return statsSnapshot.creatingWillFinish === 'close' ? 'close' : false;
-    }
-    
-    const {
-      markingStage: {
+      canvasMarking: {
         imageMouse,
         imageScale
       },
       options,
+      hoveringPointIndex,
+      pointCountRange: [, max],
       stats
     } = this;
+    
+    if (onPointPushPre?.(imageMouse, stats, this.canvasMarking.statsSnapshot) === false) {
+      return false;
+    }
+    
+    if (hoveringPointIndex >= 0) { // 在已有的点上
+      return stats.creatingWillFinish === 'close' ? 'close' : false;
+    }
+    
     let newPath: Path | undefined;
     let last = false;
     
@@ -883,7 +827,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       break;
     }
     
-    return last ? 'last' : true;
+    return last ? 'last' : this.path.length;
   }
   
   removePoint(): number {
@@ -892,7 +836,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   startDragging(): boolean {
     const {
-      markingStage: {
+      canvasMarking: {
         imageMouse
       },
       hoveringPointIndex,
@@ -922,7 +866,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     }
     
     const {
-      markingStage: {
+      canvasMarking: {
         imageSize,
         imageMouse
       },
@@ -933,17 +877,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     
     this.draggingMoved = true;
     
-    if (draggingPointIndex >= 0) { // 拖动单个顶点，直接改
-      const p = this.path[draggingPointIndex];
+    if (draggingPointIndex >= 0) { // 拖动单个顶点
+      this.path.splice(draggingPointIndex, 1, [imageMouse[0], imageMouse[1]]);
       
-      if (p) { // 理论不会有空的情况
-        p[0] = imageMouse[0];
-        p[1] = imageMouse[1];
-        
-        return true;
-      }
-      
-      return false;
+      return true;
     }
     
     if (draggingInsertionPointIndex >= 0) { // 拖动的是虚拟点，转正
@@ -966,24 +903,39 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return true;
   }
   
-  finishDragging(onEditDragEndPre?: TOnEditDragEndPre<T>): boolean {
+  finishDragging(onEditDragEndPre?: IMarkingEvents<T>['onEditDragEndPre']): boolean {
     if (!this.draggingStartCoords) {
       return false;
     }
     
+    const {
+      draggingMoved,
+      pathSnapshotEditing
+    } = this;
+    
     this.clearDragging();
     
-    if (this.draggingMoved) {
-      const stats = this.refreshStats();
-      const newPath = onEditDragEndPre?.(stats.path, stats.data);
+    if (draggingMoved) {
+      const result = onEditDragEndPre?.(this.refreshStats(), this.canvasMarking.statsSnapshot);
       
-      if (newPath) {
-        this.path = newPath;
+      if (result === false) {
+        this.path = _cloneDeep(pathSnapshotEditing);
+        
+        this.refreshStats();
+      } else if (result) {
+        if (result?.path) {
+          this.path = result.path;
+        }
+        
+        if (result?.data) {
+          this.data = result.data;
+        }
+        
         this.refreshStats();
       }
     }
     
-    return this.draggingMoved;
+    return draggingMoved;
   }
   
   refreshStats(): IMarkingItemStats<T> {

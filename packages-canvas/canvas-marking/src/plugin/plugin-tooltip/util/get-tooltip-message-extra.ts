@@ -1,9 +1,9 @@
 import {
-  ICanvasMarkingStats,
-  ITooltipOptions
+  ICanvasMarkingOptions,
+  IMarkingStats
 } from '../../../types';
 
-export default function getTooltipMessageExtra<T = unknown>(stats: ICanvasMarkingStats<T>, pluginOptions: ITooltipOptions<T>): string | undefined {
+export default function getTooltipMessageExtra<T = unknown>(stats: IMarkingStats<T>, options: ICanvasMarkingOptions<T>): string | undefined {
   const {
     itemStatsCreating,
     itemStatsHovering
@@ -18,10 +18,10 @@ export default function getTooltipMessageExtra<T = unknown>(stats: ICanvasMarkin
   }
   
   if (itemStatsCreating) {
-    return pluginOptions.getCreatingInfo?.(itemStatsCreating);
+    return options.tooltipOptions?.getCreatingInfo?.(itemStatsCreating);
   }
   
   if (itemStatsHovering) {
-    return pluginOptions.getHoveringInfo?.(itemStatsHovering);
+    return options.tooltipOptions?.getHoveringInfo?.(itemStatsHovering);
   }
 }

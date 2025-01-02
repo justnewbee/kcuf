@@ -11,8 +11,9 @@ import {
 } from '../../demo-model';
 
 import OpsOverall from './ops-overall';
+import OpsOptions from './ops-options';
+import OpsPlugins from './ops-plugins';
 import OpsImageData from './ops-image-data';
-import OpsPlugin from './ops-plugin';
 import OpsMarkings from './ops-markings';
 import OpsSelect from './ops-select';
 import OpsHighlight from './ops-highlight';
@@ -26,12 +27,15 @@ export default function Ops(): ReactElement {
     items: [{
       label: ' ',
       content: <OpsOverall />
+    }, {
+      label: 'Options',
+      content: <OpsOptions />
+    }, {
+      label: '插件',
+      content: <OpsPlugins />
     }, ...markingInstance ? [{
       label: '数据',
       content: <OpsImageData />
-    }, {
-      label: '插件',
-      content: <OpsPlugin />
     }, {
       label: 'Markings',
       content: <OpsMarkings />

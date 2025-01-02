@@ -19,14 +19,15 @@ export default [{
     [103, 355],
     [132, 361]
   ],
-  fillStyle: {
-    color: 'hsl(50 100% 63% / 80%)'
-  },
-  borderStyle: {
-    color: 'hsl(48 100% 50%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(48 100% 50%)'
+    },
+    fill: {
+      color: 'hsl(50 100% 63% / 80%)'
+    }
   }
 }, {
-  disabled: true,
   path: [
     [163, 383],
     [263, 367],
@@ -41,15 +42,17 @@ export default [{
     [277, 530],
     [171, 529]
   ],
-  pointStyle: {
-    type: 'square',
-    lineColor: 'hsl(48 100% 50%)'
-  },
-  borderStyle: {
-    color: 'hsl(333 100% 64%)'
-  },
-  fillStyle: {
-    color: 'hsl(320 95% 59% / 30%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(333 100% 64%)'
+    },
+    point: {
+      type: 'square',
+      lineColor: 'hsl(48 100% 50%)'
+    },
+    fill: {
+      color: 'hsl(320 95% 59% / 30%)'
+    }
   }
 }, {
   path: [

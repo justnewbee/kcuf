@@ -51,8 +51,7 @@ export enum EMarkingStatsChangeCause {
   KEYBOARD_CANCEL_EDITING = 'keyboard:cancel_editing',
   // 调用 API 触发
   SET_DATA = 'set_data',
-  TOGGLE_DISABLED_TRUE = 'toggle_disabled:true',
-  TOGGLE_DISABLED_FALSE = 'toggle_disabled:false',
+  UPDATE_OPTIONS = 'update_options',
   TOGGLE_JUSTIFY_TRUE = 'toggle_justify:true',
   TOGGLE_JUSTIFY_FALSE = 'toggle_justify:false',
   TOGGLE_SNAP_TRUE = 'toggle_snap:true',

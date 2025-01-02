@@ -1,18 +1,18 @@
 import {
   MarkingConfigItem,
-  MarkingBorderStyleDiff
+  MarkingStyleBorderDiff
 } from '../../../src';
 
-const DIFF_HOVER: MarkingBorderStyleDiff = {
+const DIFF_HOVER: MarkingStyleBorderDiff = {
   outerColor: 'hsl(177 100% 50%)',
   outerWidth: 2
 };
-const DIFF_FULL: MarkingBorderStyleDiff = {
+const DIFF_FULL: MarkingStyleBorderDiff = {
   color: 'hsl(0 50% 48%)',
   outerColor: 'hsl(48 100% 50%)',
   outerWidth: 2
 };
-const DIFF_ONE: MarkingBorderStyleDiff = {
+const DIFF_ONE: MarkingStyleBorderDiff = {
   ...DIFF_FULL,
   noInsertion: true
 };
@@ -31,13 +31,15 @@ export default [{
     [3741, 920],
     [3745, 647]
   ],
-  fillStyle: {
-    color: 0.03
-  },
-  borderDiff: {
-    hover: DIFF_HOVER,
-    [1 as number]: DIFF_ONE,
-    [4 as number]: DIFF_ONE
+  styleConfig: {
+    fill: {
+      color: 0.03
+    },
+    borderDiff: {
+      hover: DIFF_HOVER,
+      [1 as number]: DIFF_ONE,
+      [4 as number]: DIFF_ONE
+    }
   }
 }, {
   path: [
@@ -46,12 +48,14 @@ export default [{
     [1010, 2444],
     [211, 2436]
   ],
-  fillStyle: {
-    color: 0.03
-  },
-  borderDiff: {
-    hover: DIFF_HOVER,
-    all: DIFF_FULL
+  styleConfig: {
+    fill: {
+      color: 0.03
+    },
+    borderDiff: {
+      hover: DIFF_HOVER,
+      all: DIFF_FULL
+    }
   }
 }, {
   path: [
@@ -62,18 +66,22 @@ export default [{
     [2136, 2116],
     [2133, 1888]
   ],
-  fillStyle: {
-    color: 0.03
+  styleConfig: {
+    fill: {
+      color: 0.03
+    }
   }
-}, { // 以上屋顶，以下障碍物
+}, { // 以上场地，以下障碍物
   path: [
     [1489, 750],
     [1489, 798],
     [2424, 795],
     [2424, 754]
   ],
-  borderStyle: {
-    color: 'hsl(20 100% 70%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(20 100% 70%)'
+    }
   }
 }, {
   path: [
@@ -82,8 +90,10 @@ export default [{
     [1489, 1413],
     [1481, 872]
   ],
-  borderStyle: {
-    color: 'hsl(120 100% 50%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(120 100% 50%)'
+    }
   }
 }, {
   path: [
@@ -92,8 +102,10 @@ export default [{
     [3200, 868],
     [3197, 725]
   ],
-  borderStyle: {
-    color: 'hsl(240 100% 50%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(240 100% 50%)'
+    }
   }
 }, {
   path: [
@@ -102,8 +114,10 @@ export default [{
     [3546, 865],
     [3543, 736]
   ],
-  borderStyle: {
-    color: 'hsl(60 100% 50%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(60 100% 50%)'
+    }
   }
 }, {
   path: [
@@ -112,8 +126,10 @@ export default [{
     [664, 1656],
     [528, 1652]
   ],
-  borderStyle: {
-    color: 'hsl(279 100% 50%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(279 100% 50%)'
+    }
   }
 }, {
   path: [
@@ -122,8 +138,10 @@ export default [{
     [1231, 1884],
     [1448, 1888]
   ],
-  borderStyle: {
-    color: 'hsl(200 100% 50%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(200 100% 50%)'
+    }
   }
 }, {
   path: [
@@ -132,8 +150,10 @@ export default [{
     [793, 2348],
     [793, 1969]
   ],
-  borderStyle: {
-    color: 'hsl(330 100% 60%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(330 100% 60%)'
+    }
   }
 }, {
   path: [
@@ -142,15 +162,19 @@ export default [{
     [1805, 2006],
     [1809, 1888]
   ],
-  borderStyle: {
-    color: 'hsl(210 100% 60%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(210 100% 60%)'
+    }
   }
 }, {
   path: [
     [1925, 2734],
     [2726, 2182]
   ],
-  borderStyle: {
-    color: 'hsl(0 100% 50%)'
+  styleConfig: {
+    border: {
+      color: 'hsl(0 100% 50%)'
+    }
   }
 }] satisfies MarkingConfigItem<void>[];

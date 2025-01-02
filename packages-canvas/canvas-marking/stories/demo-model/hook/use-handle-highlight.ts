@@ -12,6 +12,6 @@ export default function useHandleHighlight(): (finder: MarkingItemFinder<unknown
   const markingInstance = useMarkingInstance();
   
   return useCallback((finder: MarkingItemFinder<unknown>, borderIndex?: number): void => {
-    markingInstance?.highlightItem(finder, borderIndex);
+    markingInstance?.highlight(finder, borderIndex);
   }, [markingInstance]);
 }

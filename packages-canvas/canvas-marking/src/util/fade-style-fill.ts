@@ -1,10 +1,10 @@
 import {
-  IMarkingFillStyleResolved
+  IMarkingStyleFillResolved
 } from '../types';
 
 import fadeColor from './fade-color';
 
-export default function fadeStyleFill(style: IMarkingFillStyleResolved): IMarkingFillStyleResolved {
+export default function fadeStyleFill(style: IMarkingStyleFillResolved): IMarkingStyleFillResolved {
   return {
     ...style,
     color: fadeColor(style.color)

@@ -1,6 +1,6 @@
 import {
   ICanvasMarkingClass,
-  ICanvasMarkingStats,
+  IMarkingStats,
   IMarkingPlugin
 } from '../../types';
 
@@ -16,7 +16,7 @@ export default function pluginCursor<T>(canvasMarking: ICanvasMarkingClass<T>): 
   } = canvasMarking;
   
   return {
-    run(stats: ICanvasMarkingStats<T>): void {
+    run(stats: IMarkingStats<T>): void {
       let cursor = 'default';
       
       if (stats.moving) {

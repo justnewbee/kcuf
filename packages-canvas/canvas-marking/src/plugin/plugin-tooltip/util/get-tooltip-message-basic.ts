@@ -1,15 +1,15 @@
 import {
   ICanvasMarkingOptions,
-  ICanvasMarkingStats
+  IMarkingStats
 } from '../../../types';
 
-export default function getTooltipMessageBasic<T = unknown>(stats: ICanvasMarkingStats<T>, options: ICanvasMarkingOptions<T>): string {
+export default function getTooltipMessageBasic<T = unknown>(stats: IMarkingStats<T>, options: ICanvasMarkingOptions<T>): string {
   if (stats.moving) {
     return `<strong>拖拽：</strong>移动画布
 <strong>空格：</strong>取消移动`;
   }
   
-  if (stats.disabled) {
+  if (!stats.editable) {
     return '';
   }
   

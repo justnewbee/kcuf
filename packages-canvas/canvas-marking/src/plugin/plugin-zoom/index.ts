@@ -3,7 +3,7 @@ import {
 } from '../../enum';
 import {
   ICanvasMarkingClass,
-  ICanvasMarkingStats,
+  IMarkingStats,
   IMarkingPlugin
 } from '../../types';
 import {
@@ -68,7 +68,7 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
   });
   
   return {
-    run(stats: ICanvasMarkingStats<T>): void {
+    run(stats: IMarkingStats<T>): void {
       willZoom = !!stats.mouseInStage;
     },
     cleanup(): void {

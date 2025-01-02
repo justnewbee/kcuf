@@ -14,11 +14,11 @@ export default function canvasPathPointShape(canvasContext: CanvasRenderingConte
   switch (type) {
   case 'circle':
     pathCircle(canvasContext, center, radius);
-      
+    
     return true;
   case 'square':
     pathSquare(canvasContext, center, radius);
-      
+    
     return true;
   default:
     return false;

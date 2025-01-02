@@ -17,7 +17,7 @@ export default function useModelDispatch(): TModelDispatch {
     dispatch
   } = useModelContext();
   
-  return useCallback((action: TModelAction) => {
+  return useCallback((action: TModelAction) => { // 不必再担心异步回调 dispatch 可能发生的错误
     if (isUnmounted()) {
       return;
     }

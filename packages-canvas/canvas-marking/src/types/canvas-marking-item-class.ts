@@ -7,21 +7,20 @@ import {
 } from '../enum';
 
 import {
-  TOnCreateCompletePre, TOnEditDragEndPre
-} from './common';
-import {
-  IMarkingBehaviorConfig,
-  IMarkingBorderStyleDiff,
-  IMarkingStyleConfig
+  IMarkingStyleConfig,
+  IMarkingBehaviorConfig
 } from './style';
 import {
   IMarkingItemStats
 } from './stats';
+import {
+  IMarkingEvents
+} from './events';
 
 /**
  * 从 Marking 对象透传到 MarkingItem 的选项，可以在 new MarkingItem 的时候有一部分覆盖
  */
-export interface IMarkingItemConfig extends IMarkingStyleConfig, IMarkingBehaviorConfig {
+export interface IMarkingItemConfig extends IMarkingBehaviorConfig {
   /**
    * 默认自由形状，设置 rect 可以画矩形
    *
@@ -31,25 +30,15 @@ export interface IMarkingItemConfig extends IMarkingStyleConfig, IMarkingBehavio
    */
   type?: 'free' | 'rect' | 'rect2';
   /**
-   * 可以单点禁止编辑
+   * 样式配置
    */
-  disabled?: boolean;
-}
-
-export interface IMarkingConfigItemBorderDiff {
-  all?: IMarkingBorderStyleDiff;
-  hover?: IMarkingBorderStyleDiff; // 复用于 highlight
-  [index: number]: IMarkingBorderStyleDiff;
+  styleConfig?: IMarkingStyleConfig;
 }
 
 export interface IMarkingConfigItem<T = unknown> extends IMarkingItemConfig {
   path?: Path;
+  id?: string; // 唯一性标识
   data?: T; // 附加数据，可以添加你需要的任何数据
-  /**
-   * 针对第 n 边（起点为第 n 个点）做特定的设置；由于点可以动态添加或删除，因此静态
-   * 属性无法胜任，可以传入 callback
-   */
-  borderDiff?: IMarkingConfigItemBorderDiff | ((data: T | undefined) => IMarkingConfigItemBorderDiff | undefined);
 }
 
 export interface IMarkingItemOptions<T = unknown> extends IMarkingConfigItem<T> {}
@@ -82,11 +71,16 @@ export interface IMarkingItemClass<T = unknown> {
   finishEditing(cancel?: boolean): boolean;
   
   /**
-   * 添加节点
+   * 新建时添加节点
+   *
+   * - false - 不加，继续
+   * - number - 成功，返回其 index，继续
+   * - close - 成功，闭合路径，完成新建
+   * - last - 成功，添加的最末一个，完成新建
    */
-  pushPoint(): boolean | 'close' | 'last';
+  pushPoint(onPushPointPre?: IMarkingEvents<T>['onPointPushPre']): false | number | 'close' | 'last';
   
-  finishCreating(onCreateCompletePre?: TOnCreateCompletePre<T>): false | Promise<boolean>;
+  finishCreating(onCreateCompletePre?: IMarkingEvents<T>['onCreateCompletePre']): false | Promise<boolean>;
   
   removePoint(): number;
   
@@ -109,7 +103,7 @@ export interface IMarkingItemClass<T = unknown> {
    */
   processDragging(): boolean | number;
   
-  finishDragging(onEditDragEndPre?: TOnEditDragEndPre<T>): boolean;
+  finishDragging(onEditDragEndPre?: IMarkingEvents<T>['onEditDragEndPre']): boolean;
   
   refreshStats(): IMarkingItemStats<T>;
   

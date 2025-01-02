@@ -38,6 +38,7 @@ export default function useInit(): () => void {
         // onCreateCompletePre: () => new Promise<false>(resolve => {
         //   setTimeout(() => resolve(false), 4000);
         // }),
+        // onEditDragEndPre: () => false,
         onStatsChange: dispatchSetCanvasMarkingStats
       }));
     }

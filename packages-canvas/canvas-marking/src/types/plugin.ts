@@ -6,11 +6,11 @@ import {
   ICanvasMarkingClass
 } from './canvas-marking-class';
 import {
-  ICanvasMarkingStats
+  IMarkingStats
 } from './stats';
 
 export interface IMarkingPlugin<T = unknown> {
-  run?(stats: ICanvasMarkingStats<T>, changeCause: EMarkingStatsChangeCause): void;
+  run?(stats: IMarkingStats<T>, changeCause: EMarkingStatsChangeCause): void;
   cleanup?(): void;
 }
 

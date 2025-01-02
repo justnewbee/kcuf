@@ -3,8 +3,7 @@ import {
 } from 'react';
 
 import {
-  Button,
-  InputSwitch
+  Button
 } from '@kcuf/demo-rc';
 
 import {
@@ -12,12 +11,9 @@ import {
   useMarkingInstance,
   useMarkingStats,
   useFullscreen,
-  useLogEvents,
   useHandleDestroy,
   useHandleToggleFullscreen,
-  useHandleToggleDisabled,
-  useHandleDebugStats,
-  useHandleToggleLogEvents
+  useHandleDebugStats
 } from '../../demo-model';
 
 export default function OpsOverall(): ReactElement {
@@ -25,10 +21,7 @@ export default function OpsOverall(): ReactElement {
   const markingInstance = useMarkingInstance();
   const markingStats = useMarkingStats();
   const fullscreen = useFullscreen();
-  const logEvents = useLogEvents();
   const handleToggleFullscreen = useHandleToggleFullscreen();
-  const handleToggleLogEvents = useHandleToggleLogEvents();
-  const handleToggleDisabled = useHandleToggleDisabled();
   const handleDestroy = useHandleDestroy();
   const handleDebugStats = useHandleDebugStats();
   
@@ -42,15 +35,7 @@ export default function OpsOverall(): ReactElement {
     {markingInstance ? <>
       <Button {...{
         onClick: handleDebugStats
-      }}>stats</Button>
-      <Button {...{
-        onClick: handleToggleDisabled
-      }}>{markingStats?.disabled ? 'enable' : 'disable'}</Button>
-      <InputSwitch {...{
-        label: '打印事件',
-        value: logEvents,
-        onChange: handleToggleLogEvents
-      }} />
+      }}>stats ({markingStats?.itemStatsList.length ?? 0})</Button>
     </> : null}
   </>;
 }

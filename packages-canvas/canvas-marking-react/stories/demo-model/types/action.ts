@@ -3,7 +3,7 @@ import {
 } from 'react';
 
 import {
-  CanvasMarkingStats
+  MarkingStats
 } from '@kcuf/canvas-marking-react-headless';
 
 import {
@@ -16,13 +16,13 @@ import {
 } from './common';
 
 export type TModelAction = {
+  type: EAction.TOGGLE_DESTROYED | EAction.TOGGLE_EDITABLE | EAction.TOGGLE_DEBUG_EVENTS;
+} | {
   type: EAction.SET_DATA_TYPE;
   payload: EDataType;
 } | {
   type: EAction.SET_MARKING_STATS;
-  payload: CanvasMarkingStats;
-} | {
-  type: EAction.TOGGLE_DISABLED | EAction.TOGGLE_DESTROYED;
+  payload: MarkingStats;
 } | {
   type: EAction.TOGGLE_PLUGIN;
   payload: TTogglePluginPayload;

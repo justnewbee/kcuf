@@ -13,25 +13,29 @@ export type {
 
 export type {
   ICanvasMarkingClass as CanvasMarkingClassType,
-  ICanvasMarkingStats as CanvasMarkingStats,
   
-  IMarkingEvents as MarkingEvents,
+  IMarkingStats as MarkingStats,
   IMarkingItemStats as MarkingItemStats,
+  IMarkingEvents as MarkingEvents,
   IMarkingItemConfig as MarkingItemConfig,
   TMarkingItemFinder as MarkingItemFinder,
+  
+  TSubscribableEvents as SubscribableEvents,
   
   ICanvasMarkingOptions as CanvasMarkingOptions,
   TZoomArg as ZoomArg,
   IZoomOptions as ZoomOptions,
   ITooltipOptions as TooltipOptions,
   
-  IBeforeCreateCompleteResult as BeforeCreateCompleteResult,
+  ICreateCompletePreResult as CreateCompletePreResult,
+  IEditDragEndPreResult as EditDragEndPreResult,
   
   IMarkingConfigItem as MarkingConfigItem,
-  IMarkingConfigItemBorderDiff as MarkingConfigItemBorderDiff,
+  IMarkingStyleConfigBorderDiff as MarkingConfigItemBorderDiff,
   
-  IMarkingBorderStyle as MarkingBorderStyle,
-  IMarkingBorderStyleDiff as MarkingBorderStyleDiff,
-  IMarkingFillStyle as MarkingFillStyle,
-  IMarkingPointStyle as MarkingPointStyle
+  IMarkingStyleConfig as MarkingStyleConfig,
+  IMarkingStyleBorder as MarkingStyleBorder,
+  IMarkingStyleBorderDiff as MarkingStyleBorderDiff,
+  IMarkingStylePoint as MarkingStylePoint,
+  IMarkingStyleFill as MarkingStyleFill
 } from './types';

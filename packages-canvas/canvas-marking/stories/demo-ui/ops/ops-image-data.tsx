@@ -9,6 +9,7 @@ import {
 import {
   useHandleSetDataAerial,
   useHandleSetDataSexy,
+  useHandleSetDataBadImage,
   useHandleSetDataNoImage,
   useHandleSetDataEmpty
 } from '../../demo-model';
@@ -16,6 +17,7 @@ import {
 export default function OpsImageData(): ReactElement {
   const handleSetDataAerial = useHandleSetDataAerial();
   const handleSetDataSexy = useHandleSetDataSexy();
+  const handleSetDataBadImage = useHandleSetDataBadImage();
   const handleSetDataNoImage = useHandleSetDataNoImage();
   const handleSetDataEmpty = useHandleSetDataEmpty();
   
@@ -26,6 +28,9 @@ export default function OpsImageData(): ReactElement {
     <Button {...{
       onClick: handleSetDataSexy
     }}>性感图</Button>
+    <Button {...{
+      onClick: handleSetDataBadImage
+    }}>坏图</Button>
     <Button {...{
       onClick: handleSetDataNoImage
     }}>无图</Button>

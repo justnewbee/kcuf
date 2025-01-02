@@ -1,7 +1,6 @@
-export { default as canvasCheckPointInStroke } from './canvas-check-point-in-stroke';
+export { default as myDebug } from './my-debug';
 
-export { default as roundFloat } from './round-float';
-export { default as roundSize } from './round-size';
+export { default as canvasCheckPointInStroke } from './canvas-check-point-in-stroke';
 
 export { default as bindDocumentEvent } from './bind-document-event';
 export { default as loadImage } from './load-image';
@@ -15,9 +14,6 @@ export { default as createDomStage } from './create-dom-stage';
 export { default as createDomImageBg } from './create-dom-image-bg';
 export { default as createDomCanvas } from './create-dom-canvas';
 
-export { default as initDrawStyleBorder } from './init-draw-style-border';
-export { default as initDrawStylePoint } from './init-draw-style-point';
-export { default as initDrawStyleFill } from './init-draw-style-fill';
 export { default as mergeBorderStyleWithDiff } from './merge-border-style-with-diff';
 
 export { default as getPathCreatingFree } from './get-path-creating-free';

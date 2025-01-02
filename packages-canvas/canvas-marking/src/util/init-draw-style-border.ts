@@ -1,6 +1,6 @@
 import {
-  TMarkingBorderStyleResolved,
-  IMarkingBorderStyle
+  TMarkingStyleBorderResolved,
+  IMarkingStyleBorder
 } from '../types';
 import {
   DEFAULT_BORDER_STYLE
@@ -8,7 +8,7 @@ import {
 
 import parseConfigColor from './parse-config-color';
 
-export default function initDrawStyleBorder(borderStyle?: IMarkingBorderStyle, extendFrom?: TMarkingBorderStyleResolved): TMarkingBorderStyleResolved {
+export default function initDrawStyleBorder(borderStyle?: IMarkingStyleBorder, extendFrom?: TMarkingStyleBorderResolved): TMarkingStyleBorderResolved {
   const result = {
     ...DEFAULT_BORDER_STYLE,
     ...extendFrom,

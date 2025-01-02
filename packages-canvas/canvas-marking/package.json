@@ -41,8 +41,9 @@
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
     "@storybook/test": "^8.4.7",
+    "@types/debug": "^4.1.12",
     "@types/lodash": "^4.17.13",
-    "@types/react": "^18.3.14",
+    "@types/react": "^18.3.18",
     "immer": "^10.1.1",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
@@ -58,6 +59,7 @@
     "@kcuf/geometry-basic": "workspace:^",
     "@kcuf/subscribable": "workspace:^",
     "colord": "^2.9.3",
+    "debug": "^4.4.0",
     "lodash": "^4.17.21"
   },
   "scripts": {

@@ -1,7 +1,8 @@
+import _isEqual from 'lodash/isEqual';
 import _merge from 'lodash/merge';
-import _round from 'lodash/round';
 import _clamp from 'lodash/clamp';
 import _cloneDeep from 'lodash/cloneDeep';
+import _throttle from 'lodash/throttle';
 
 import {
   Path,
@@ -32,6 +33,8 @@ import {
 import {
   TSize,
   TSubscribableEvents,
+  TZoomArg,
+  IZoomOptions,
   IMarkingConfigItem,
   IMarkingItemClass,
   IMarkingItemConfig,
@@ -39,11 +42,10 @@ import {
   IMarkingItemStats,
   IMarkingPlugin,
   TMarkingPluginRegister,
-  IZoomOptions,
   ICanvasMarkingClass,
   ICanvasMarkingOptions,
-  ICanvasMarkingStats,
-  TMarkingItemFinder, TZoomArg
+  IMarkingStats,
+  TMarkingItemFinder
 } from '../types';
 import {
   DEFAULT_AUXILIARY_STYLE,
@@ -53,15 +55,14 @@ import {
   DEFAULT_RIGHT_ANGLE_MARK_SIZE
 } from '../const';
 import {
-  roundFloat,
-  roundSize,
+  myDebug,
   bindDocumentEvent,
   createDomCanvas,
   createDomImageBg,
   createDomStage,
-  getMouseJustifiedStatusMagnet,
   loadImage,
-  canvasDrawPerpendicularMark
+  canvasDrawPerpendicularMark,
+  getMouseJustifiedStatusMagnet
 } from '../util';
 
 import CanvasMarkingItem from './canvas-marking-item';
@@ -76,6 +77,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   imageSize: TSize = [200, 200];
   imageScale = 1;
   imageMouse: Point = [-1, -1]; // 鼠标在图片上的坐标（图片像素），即使鼠标移出，也能够保证之前画的图形不会消失
+  statsSnapshot: IMarkingStats<T>;
   
   private readonly markingItems: IMarkingItemClass<T>[] = [];
   
@@ -87,7 +89,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private imageLoading = false;
   private imageLoader: HTMLImageElement | null = null;
   
-  private disabled = false;
   private pixelRatio = pixelRatioGet();
   
   /**
@@ -135,8 +136,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    */
   private mouseClickTime = 0;
   
-  private statsSnapshot: ICanvasMarkingStats<T>;
-  
   /**
    * 视图放大缩小系数，每次 zoom 操作将基于 imageFitScale * zoomLevel 算出新的 scale
    */
@@ -183,7 +182,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.container = container;
     this.options = safeOptions;
-    this.disabled = safeOptions.disabled ?? false;
     this.stage = stage;
     this.imageBg = imageBg;
     this.canvas = canvas;
@@ -193,6 +191,17 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.setupEvents();
     this.setupScaleSizing();
     this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, EMarkingStatsChangeCause.INIT);
+  }
+  
+  // Subscribable beforeEmit
+  beforeEmit(topic: keyof TSubscribableEvents, args: unknown[]): void {
+    if (this.options.debugEvents && topic !== 'stats-change') {
+      myDebug(topic, args);
+    }
+  }
+  
+  private get editable(): boolean {
+    return this.options.editable ?? true;
   }
   
   private get imageFitScale(): number {
@@ -215,7 +224,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     // 宽比大于高比，则定高，宽度自适应；否则定宽，高度自适应
-    return roundFloat(imageScaleW > imageScaleH ? imageScaleH : imageScaleW);
+    return imageScaleW > imageScaleH ? imageScaleH : imageScaleW;
   }
   
   private get itemHovering(): IMarkingItemClass<T> | null {
@@ -231,7 +240,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private get itemUnderMouse(): IMarkingItemClass<T> | null {
-    return this.itemCreating ? null : this.getMarkingItemsOrdered().findLast(v => v.isUnderMouse()) || null;
+    // findLast 还比较新，先不用
+    return this.itemCreating ? null : this.getMarkingItemsOrdered().reverse().find(v => v.isUnderMouse()) || null;
   }
   
   private get zoomOptions(): Required<IZoomOptions> {
@@ -255,7 +265,15 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   /**
-   * 返回根据面积降序的 MarkingItem 列表（注意不会影响 this.markingItems）
+   * 排好序的 MarkingItem 列表（不影响 this.markingItems），如下排序：
+   *
+   * 数组尾，顶层
+   * 1. 点
+   * 2. 线
+   * 3. 编辑中
+   * 4. 面积小
+   * 5. 面积大
+   * 数组头，底部
    */
   private getMarkingItemsOrdered(): IMarkingItemClass<T>[] {
     const {
@@ -265,12 +283,30 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const list = [...markingItems];
     
     return list.sort((v1, v2) => {
-      // 保证编辑未完成（dirty 状态）的一定在最末一个
-      if (v2 === itemEditing && v2.stats.dirty) {
+      const v1Points = v1.stats.path.length;
+      const v2Points = v2.stats.path.length;
+      
+      if (v2Points === 1 && v1Points > 1) {
         return -1;
       }
       
-      if (v1 === itemEditing && v1.stats.dirty) {
+      if (v1Points === 1 && v2Points > 1) {
+        return 1;
+      }
+      
+      if (v2Points === 2 && v1Points > 2) {
+        return -1;
+      }
+      
+      if (v1Points === 2 && v2Points > 2) {
+        return 1;
+      }
+      
+      if (v2 === itemEditing) {
+        return -1;
+      }
+      
+      if (v1 === itemEditing) {
         return 1;
       }
       
@@ -330,14 +366,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.cleanups.push(pixelRatioListen(pixelRatio => this.updatePixelRatio(pixelRatio)));
   }
   
-  private setupImageAndMarkings(imageUrl = '', markings: IMarkingConfigItem<T>[] = [], cause: EMarkingStatsChangeCause = EMarkingStatsChangeCause.SET_DATA): void {
+  private setupImageAndMarkings(imageUrl = '', markings: IMarkingConfigItem<T>[] = [], cause: EMarkingStatsChangeCause = EMarkingStatsChangeCause.SET_DATA): Promise<void> {
     this.markingItems.length = 0;
     
     markings.forEach(v => {
       this.markingItems.push(this.createMarkingItem(v));
     });
     
-    this.setupImage(imageUrl).then(() => this.updateAndDraw(cause)); // 保证图片加载完成再渲染 MarkingItem
+    return this.setupImage(imageUrl).then(() => this.updateAndDraw(cause)); // 保证图片加载完成再渲染 MarkingItem
   }
   
   private async setupImage(imageUrl: string): Promise<void> {
@@ -358,23 +394,40 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.imageLoader = null;
     this.setupScaleSizing();
     
-    if (imageUrl) {
-      this.imageLoading = true;
-      
-      this.updateAndDraw(EMarkingStatsChangeCause.LOADING_IMAGE);
-      
-      try {
-        this.imageLoader = await loadImage(imageUrl);
-        
-        imageBg.style.transition = 'opacity 200ms ease-in-out';
-        imageBg.style.opacity = '1';
-      } catch (_err) {
-        this.imageUrl = ''; // 再次设置，可以重新加载
-      }
-      
-      this.setupScaleSizing();
-      this.imageLoading = false;
+    if (!imageUrl) {
+      return;
     }
+    
+    this.imageLoading = true;
+    this.updateAndDraw(EMarkingStatsChangeCause.LOADING_IMAGE);
+    this.options.onImageLoadStart?.(imageUrl);
+    this.emit('image-load-start', imageUrl);
+    
+    const start = Date.now();
+    
+    try {
+      const imageLoader = await loadImage(imageUrl);
+      const duration = Date.now() - start;
+      
+      this.imageLoader = imageLoader;
+      
+      imageBg.style.transition = 'opacity 200ms ease-in-out';
+      imageBg.style.opacity = '1';
+      
+      this.options.onImageLoadSuccess?.(imageUrl, [imageLoader.naturalWidth, imageLoader.naturalHeight], duration);
+      this.emit('image-load-success', imageUrl, [imageLoader.naturalWidth, imageLoader.naturalHeight], duration);
+    } catch (_err) {
+      const duration = Date.now() - start;
+      
+      this.imageLoader = null;
+      this.imageUrl = ''; // 再次设置，可以重新加载
+      
+      this.options.onImageLoadError?.(imageUrl, duration);
+      this.emit('image-load-error', imageUrl, duration);
+    }
+    
+    this.setupScaleSizing();
+    this.imageLoading = false;
   }
   
   /**
@@ -388,8 +441,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       pixelRatio
     } = this;
     
-    this.zoomLevel = roundFloat(zoomLevel);
-    this.imageScale = roundFloat(this.imageFitScale * zoomLevel);
+    this.zoomLevel = zoomLevel;
+    this.imageScale = this.imageFitScale * zoomLevel;
     
     const rect = this.stage.getBoundingClientRect();
     const width = Math.round((imageLoader?.naturalWidth || rect.width) * this.imageScale);
@@ -436,19 +489,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     } = this;
     
     return new CanvasMarkingItem<T>(this, {
-      // TODO 提取一个专门的属性包揽所有样式
-      borderStyle: options.borderStyle,
-      borderStyleHovering: options.borderStyleHovering,
-      borderStyleHighlighting: options.borderStyleHighlighting,
-      borderStyleEditing: options.borderStyleEditing,
-      pointStyle: options.pointStyle,
-      pointStyleHovering: options.pointStyleHovering,
-      pointStyleHighlighting: options.pointStyleHighlighting,
-      pointStyleEditing: options.pointStyleEditing,
-      fillStyle: options.fillStyle,
-      fillStyleHovering: options.fillStyleHovering,
-      fillStyleHighlighting: options.fillStyleHighlighting,
-      fillStyleEditing: options.fillStyleEditing,
+      styleConfig: options.styleConfig,
       pointCountMin: options.pointCountMin,
       pointCountMax: options.pointCountMax,
       ...extraOptions,
@@ -460,11 +501,25 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private creatingPushPoint(): void {
-    if (!this.mouseInCanvas || !this.itemCreating) {
+    const {
+      mouseInCanvas,
+      itemCreating
+    } = this;
+    
+    if (!mouseInCanvas || !itemCreating) {
       return;
     }
     
-    switch (this.itemCreating.pushPoint()) {
+    const result = itemCreating.pushPoint(this.options.onPointPushPre);
+    
+    if (result !== false) {
+      const statsList = this.getAllStats();
+      
+      this.options.onPointPush?.(itemCreating.stats, statsList);
+      this.emit('point-push', itemCreating.stats, statsList);
+    }
+    
+    switch (result) {
     case 'close':
     case 'last':
       this.finishCreating();
@@ -555,11 +610,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private handleMouseUpWindow(): void {
     const {
-      options: {
-        onEditDragEndPre,
-        onEditDragEnd
-      },
-      itemEditing,
       mouseInStage,
       mouseDownMoving
     } = this;
@@ -567,20 +617,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.mouseDownCanvas = false;
     this.mouseDownMoving = false;
     
-    this.creatingPushPoint();
-    
     if (this.moving) {
       return;
     }
     
-    if (itemEditing?.finishDragging(onEditDragEndPre)) {
-      this.clearJustified();
-      
-      const statsList = this.getAllStats();
-      
-      onEditDragEnd?.(itemEditing.stats, statsList);
-      this.emit('drag-end', itemEditing.stats, statsList);
-    }
+    this.finishEditDragging();
     
     if (mouseDownMoving) {
       this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_UP_WINDOW);
@@ -689,7 +730,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     if (!itemCreating) {
-      this.select(itemUnderMouse);
+      this.selectItem(itemUnderMouse);
     }
   }
   
@@ -711,7 +752,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     switch (itemEditing.checkMouse()) {
     case EMarkingMouseStatus.OUT:
-      this.select(null);
+      this.selectItem(null);
       
       break;
     case EMarkingMouseStatus.IN_POINT: {
@@ -720,8 +761,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       if (pointRemovedIndex >= 0) {
         const statsList = this.getAllStats();
         
-        this.options.onPointRemove?.(itemEditing.stats, pointRemovedIndex, statsList);
-        this.emit('point-remove', itemEditing.stats, pointRemovedIndex, statsList);
+        this.options.onPointDelete?.(itemEditing.stats, pointRemovedIndex, statsList);
+        this.emit('point-delete', itemEditing.stats, pointRemovedIndex, statsList);
       }
       
       break;
@@ -729,7 +770,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     case EMarkingMouseStatus.IN_POINT_INSERTION: // 点中点不做任何事情
       return;
     default:
-      this.select(null);
+      this.selectItem(null);
       
       break;
     }
@@ -746,8 +787,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const rectCanvas = canvas.getBoundingClientRect();
     
     this.imageSize = [
-      roundFloat(imageLoader?.naturalWidth || rectCanvas.width, 1),
-      roundFloat(imageLoader?.naturalHeight || rectCanvas.height, 1)
+      imageLoader?.naturalWidth || rectCanvas.width,
+      imageLoader?.naturalHeight || rectCanvas.height
     ];
     
     // 先更新所有 MarkingItem 的 stats
@@ -760,9 +801,23 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.statsSnapshot = stats;
     this.pluginMap.forEach(v => v.run?.call(this, stats, cause)); // 每次状态更新都必须运行 plugin
-    this.options.onStatsChange?.(this.statsSnapshot, cause);
-    this.emit('stats-change', this.statsSnapshot, cause);
+    
+    // MOVE 太频繁
+    if ([EMarkingStatsChangeCause.MOUSE_MOVE_STAGE, EMarkingStatsChangeCause.MOUSE_MOVE_CANVAS].includes(cause)) {
+      this.throttledFireStatsChange(stats, cause);
+    } else {
+      this.fireStatsChange(stats, cause);
+    }
   }
+  
+  private fireStatsChange(stats: IMarkingStats<T>, cause: EMarkingStatsChangeCause): void {
+    this.options.onStatsChange?.(stats, cause);
+    this.emit('stats-change', stats, cause);
+  }
+  
+  private throttledFireStatsChange = _throttle((stats: IMarkingStats<T>, cause: EMarkingStatsChangeCause) => {
+    this.fireStatsChange(stats, cause);
+  }, 300);
   
   /**
    * 更新 stats 并渲染
@@ -1048,7 +1103,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     if (itemCreating) {
       activePath = [imageMouse];
-    } else if (itemEditing) {
+    } else if (itemEditing && itemEditing.stats.draggingMoved) {
       activePath = itemEditing.stats.path;
     }
     
@@ -1126,16 +1181,16 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return markingItems[nextIndex] || null;
     }
     
-    return this.markingItems.find(v => v.stats.data && finder(v.stats.data)) || null;
+    return this.markingItems.find(v => finder(v.stats.id, v.stats.data)) || null;
   }
   
-  private select(item: IMarkingItemClass<T> | null): void {
+  private selectItem(item: IMarkingItemClass<T> | null): void {
     const {
-      disabled,
+      editable,
       itemEditing
     } = this;
     
-    if (disabled || item === itemEditing) {
+    if (!editable || item === itemEditing) {
       return;
     }
     
@@ -1160,7 +1215,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const {
       zoomLevel
     } = this;
-    let zoomLevelNext = _round(zoomLevel + delta, 4);
+    let zoomLevelNext = zoomLevel + delta;
     
     if (zoomLevelNext > max) {
       zoomLevelNext = max;
@@ -1185,8 +1240,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.setupScaleSizing(zoomLevelNext);
     this.updateAndDraw(cause);
     this.refreshMouseCoordsInCanvas();
-    this.options.onZoomChange?.(zoomLevelNext, zoomLevel);
-    this.emit('zoom-change', zoomLevelNext, zoomLevel);
+    this.throttledFireZoomChange(zoomLevelNext, zoomLevel);
+    // this.options.onZoomChange?.(zoomLevelNext, zoomLevel);
+    // this.emit('zoom-change', zoomLevelNext, zoomLevel);
     
     // TODO 要做这个事情
     // // 根据缩放前后鼠标在 canvas 上的相对位置变化（后 - 前）
@@ -1196,6 +1252,18 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     //
     // this.moveBy(dx / 2, dy / 2);
   }
+  
+  private fireZoomChange(zoomLevelNext: number, zoomLevel: number): void {
+    this.options.onZoomChange?.(zoomLevelNext, zoomLevel);
+    this.emit('zoom-change', zoomLevelNext, zoomLevel);
+  }
+  
+  /**
+   * zoom-change 会频繁触发，压一下
+   */
+  private throttledFireZoomChange = _throttle((zoomLevelNext: number, zoomLevel: number) => {
+    this.fireZoomChange(zoomLevelNext, zoomLevel);
+  }, 300);
   
   private zoomMin(): void {
     this.zoomTo(this.zoomOptions.min, EMarkingStatsChangeCause.ZOOM_MIN);
@@ -1210,18 +1278,76 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.moveTo([0, 0]);
   }
   
+  private cleanupBeforeSetData(): void {
+    this.clearJustified();
+    this.itemCreating = null;
+  }
+  
+  private finishEditDragging(): void {
+    const {
+      options: {
+        onEditDragEndPre,
+        onEditDragEnd
+      },
+      itemEditing
+    } = this;
+    
+    if (itemEditing?.finishDragging(onEditDragEndPre)) {
+      this.clearJustified();
+      
+      const statsList = this.getAllStats();
+      
+      onEditDragEnd?.(itemEditing.stats, statsList);
+      this.emit('edit-drag-end', itemEditing.stats, statsList);
+    }
+  }
+  
   setData(image?: string, markings: IMarkingConfigItem<T>[] = []): void {
-    this.cancelCreating();
-    this.setupImageAndMarkings(image, markings);
+    // 确保只有在变化时（路径或样式）才进行设置，以保证拖拽结束（但编辑未结束）时，不中断编辑
+    if (image === this.imageUrl && _isEqual(markings.map(v => ({
+      id: v.id,
+      p: v.path,
+      s: v.styleConfig
+    })), this.statsSnapshot.itemStatsList.map(v => ({
+      id: v.id,
+      p: v.path,
+      s: v.styleConfig
+    })))) {
+      return;
+    }
+    
+    const lastSelectedId = this.itemEditing?.stats.id;
+    
+    this.cleanupBeforeSetData();
+    this.setupImageAndMarkings(image, markings).then(() => {
+      if (lastSelectedId) {
+        this.select(id => id === lastSelectedId);
+      }
+    });
   }
   
-  setOption<K extends keyof ICanvasMarkingOptions>(key: K, value: ICanvasMarkingOptions<T>[K]): void {
-    this.options[key] = value;
+  updateOptions(updates: Partial<ICanvasMarkingOptions<T>>): void {
+    const updatedKeys = Object.keys(updates).reduce((result: string[], v) => {
+      const key = v as keyof ICanvasMarkingOptions;
+      
+      if (!_isEqual(this.options[key], updates[key])) {
+        this.options[key] = updates[key] as never;
+        
+        result.push(key);
+      }
+      
+      return result;
+    }, []);
+    
+    if (updatedKeys.includes('editable')) {
+      if (!this.editable) {
+        this.cancelCreating();
+        this.finishEditing();
+      }
+      
+      this.updateAndDraw(EMarkingStatsChangeCause.UPDATE_OPTIONS);
+    }
   }
-  
-  // setOptionAndDraw<K extends keyof ICanvasMarkingOptions>(key: K, value: ICanvasMarkingOptions<T>[K]): void {
-  //   this.setOption(key, value);
-  // }
   
   registerPlugin(pluginRegister: TMarkingPluginRegister<T>): () => void {
     const {
@@ -1241,21 +1367,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     plugin?.cleanup?.();
     
     this.pluginMap.delete(pluginRegister);
-  }
-  
-  toggleDisabled(disabled = !this.disabled): void {
-    if (this.disabled === disabled) {
-      return;
-    }
-    
-    this.disabled = disabled;
-    
-    if (this.disabled) {
-      this.cancelCreating();
-      this.finishEditing();
-    }
-    
-    this.updateAndDraw(disabled ? EMarkingStatsChangeCause.TOGGLE_DISABLED_TRUE : EMarkingStatsChangeCause.TOGGLE_DISABLED_FALSE);
   }
   
   toggleJustify(enabled = true): void {
@@ -1280,16 +1391,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_SNAP_TRUE : EMarkingStatsChangeCause.TOGGLE_SNAP_FALSE);
   }
   
-  startCreating(extraOptions?: IMarkingItemConfig): void {
-    const {
-      disabled
-    } = this;
-    
-    if (disabled) {
+  startCreating(config?: IMarkingItemConfig): void {
+    if (!this.editable) {
       return;
     }
-    
-    this.cancelCreating(); // 副作用 - 取消正在进行的新建（有的话）
     
     this.moveEnd(); // 副作用 - 结束移动
     this.hoverMarkingItem(null); // 副作用 - 取消 hover
@@ -1303,11 +1408,23 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       this.emit('selection-change', null, statsList);
     }
     
-    this.itemCreating = this.createMarkingItem(extraOptions);
+    this.itemCreating = this.createMarkingItem(config); // 副作用 - 替换正在进行的新建（有的话），但不触发 onCreateCancel
     this.updateAndDraw(EMarkingStatsChangeCause.START_CREATING);
     
     this.options.onCreateStart?.();
     this.emit('create-start');
+  }
+  
+  cancelCreating(): void {
+    if (!this.itemCreating) {
+      return;
+    }
+    
+    this.clearJustified();
+    this.itemCreating = null;
+    this.options.onCreateCancel?.();
+    this.emit('create-cancel');
+    this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
   }
   
   finishCreating(): void {
@@ -1341,7 +1458,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         
         onCreateComplete?.(itemCreating.stats, statsList);
         this.emit('create-complete', itemCreating.stats, statsList);
-        this.select(itemCreating);
+        this.selectItem(itemCreating);
         
         this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
       } else { // 相当于取消
@@ -1354,23 +1471,18 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING_WAIT);
   }
   
-  cancelCreating(): void {
-    if (this.itemCreating) {
-      this.clearJustified();
-      this.itemCreating = null;
-      
-      this.options.onCreateCancel?.();
-      this.emit('create-cancel');
-      this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
-    }
-  }
-  
   finishEditing(cancel?: boolean): void {
     const {
       itemEditing
     } = this;
     
-    if (itemEditing?.finishEditing(cancel)) {
+    if (!itemEditing) {
+      return;
+    }
+    
+    this.finishEditDragging();
+    
+    if (itemEditing.finishEditing(cancel)) {
       this.clearJustified();
       
       const statsList = this.getAllStats();
@@ -1539,16 +1651,16 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.moveTo([this.movingCoords[0] + dx, this.movingCoords[1] + dy]);
   }
   
-  selectItem(finder: TMarkingItemFinder<T>): void {
+  select(finder: TMarkingItemFinder<T>): void {
     this.itemHighlighting?.toggleHighlighting(false);
     
     const markingItem = finder === null ? null : this.findItem(finder, this.itemEditing);
     
-    this.select(markingItem || null);
+    this.selectItem(markingItem || null);
     this.updateAndDraw(EMarkingStatsChangeCause.SELECT);
   }
   
-  highlightItem(finder: TMarkingItemFinder<T>, borderIndex: number | null = null): void {
+  highlight(finder: TMarkingItemFinder<T>, borderIndex: number | null = null): void {
     const markingItem = finder === null ? null : this.findItem(finder, this.itemHighlighting || this.itemEditing);
     
     this.markingItems.forEach(v => {
@@ -1557,7 +1669,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.updateAndDraw(EMarkingStatsChangeCause.HIGHLIGHT);
   }
   
-  getStats(): ICanvasMarkingStats<T> {
+  getStats(): IMarkingStats<T> {
     const {
       stage,
       canvas,
@@ -1577,11 +1689,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const itemStatsEditing = itemEditing?.stats || null;
     
     return {
-      disabled: this.disabled,
+      editable: this.editable,
       // 大小
       zoom: this.zoomLevel,
-      stageSize: roundSize([rectStage.width, rectStage.height]), // 浏览器缩放会影响
-      canvasSize: roundSize([rectCanvas.width, rectCanvas.height]),
+      stageSize: [rectStage.width, rectStage.height], // 浏览器缩放会影响
+      canvasSize: [rectCanvas.width, rectCanvas.height],
       canvasCoords: roundCoords([rectCanvas.left - rectStage.left, rectCanvas.top - rectStage.top]),
       imageStatus: ((): EImageStatus => {
         if (!imageUrl) {

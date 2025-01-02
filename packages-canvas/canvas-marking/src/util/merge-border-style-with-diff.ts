@@ -1,16 +1,16 @@
 import {
-  IMarkingBorderStyleDiff,
-  TMarkingBorderStyleResolved
+  IMarkingStyleBorderDiff,
+  TMarkingStyleBorderResolved
 } from '../types';
 
 import fadeColor from './fade-color';
 
-function desaturateDiff(diff: IMarkingBorderStyleDiff, faded: boolean): IMarkingBorderStyleDiff {
+function desaturateDiff(diff: IMarkingStyleBorderDiff, faded: boolean): IMarkingStyleBorderDiff {
   if (!faded) {
     return diff;
   }
   
-  const diffClone: IMarkingBorderStyleDiff = {
+  const diffClone: IMarkingStyleBorderDiff = {
     ...diff
   };
   
@@ -25,7 +25,7 @@ function desaturateDiff(diff: IMarkingBorderStyleDiff, faded: boolean): IMarking
   return diffClone;
 }
 
-export default function mergeBorderStyleWithDiff(borderStyle: TMarkingBorderStyleResolved, diff: IMarkingBorderStyleDiff | undefined, faded: boolean): TMarkingBorderStyleResolved {
+export default function mergeBorderStyleWithDiff(borderStyle: TMarkingStyleBorderResolved, diff: IMarkingStyleBorderDiff | undefined, faded: boolean): TMarkingStyleBorderResolved {
   if (!diff) {
     return borderStyle;
   }

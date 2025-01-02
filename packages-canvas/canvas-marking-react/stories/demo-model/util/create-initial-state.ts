@@ -12,8 +12,9 @@ const defaultDataType = EDataType.ARIAL;
 
 export default function createInitialState(): IModelState {
   return {
-    disabled: false,
     destroyed: false,
+    editable: true,
+    debugEvents: true,
     dataType: defaultDataType,
     image: getDataImage(defaultDataType),
     markings: getDataMarkings(defaultDataType),
