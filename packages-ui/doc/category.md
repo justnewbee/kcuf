@@ -29,13 +29,13 @@
 * [MeltUI]
 
 [AntD]: https://ant.design
+[Fusion]: https://fusion.design
 [DaisyUI]: https://daisyui.com
 [MaterialUI]: https://mui.com
 [ChakraUI]: https://www.chakra-ui.com
 [InstructureUI]: https://instructure.design
 [Shadcn]: https://ui.shadcn.com
 [Mantine]: https://mantine.dev
-[Fusion]: https://fusion.design
 [DotUI]: https://dotui.org
 [FrankenUI]: https://franken-ui.dev
 [ThemeUI]: https://theme-ui.com

@@ -35,14 +35,14 @@ const ScIconListItem = styled.li`
   flex-direction: column;
   justify-content: space-between;
   padding: 10px;
-  min-width: 50px;
   height: 50px;
+  min-width: 50px;
   color: hsl(0 0% 73%);
   text-align: center;
   
   i {
-    font-size: 20px;
     color: hsl(0 0% 20%);
+    font-size: 20px;
   }
   
   &:hover {

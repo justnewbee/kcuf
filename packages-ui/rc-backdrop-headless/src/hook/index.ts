@@ -1,7 +1,5 @@
 export { default as useProps } from './_use-model-props';
 
-// refs - if any
-
 // computed values
 export { default as useZIndex } from './use-z-index';
 
