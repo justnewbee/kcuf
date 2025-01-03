@@ -2,6 +2,7 @@ import {
   ReactElement,
   useRef
 } from 'react';
+import styled from 'styled-components';
 
 import {
   Transition
@@ -12,11 +13,6 @@ interface IProps {
 }
 
 const duration = 300;
-
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0
-};
 
 const transitionStyles = {
   entering: {
@@ -33,17 +29,21 @@ const transitionStyles = {
   }
 };
 
+const ScFade = styled.div`
+  padding: 12px;
+  opacity: 0;
+  background-color: hsl(71 100% 50%);
+  transition: opacity ${duration}ms ease-in-out;
+`;
+
 export default function Fade({
   in: inProp
 }: IProps): ReactElement {
   const nodeRef = useRef(null);
   
   return <Transition nodeRef={nodeRef} in={inProp} timeout={duration}>
-    {state => <div ref={nodeRef} style={{
-      ...defaultStyle,
-      ...transitionStyles[state]
-    }}>
+    {state => <ScFade ref={nodeRef} style={transitionStyles[state]}>
       I a fade Transition!
-    </div>}
+    </ScFade>}
   </Transition>;
 }

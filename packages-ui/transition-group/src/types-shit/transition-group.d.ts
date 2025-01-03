@@ -30,7 +30,7 @@ export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", 
  * automatically by the `<TransitionGroup>`. You can use _any_ `<Transition>`
  * component in a `<TransitionGroup>`, not just css.
  *
- * ```jsx
+ * ```tsx
  * import TransitionGroup from 'react-transition-group/TransitionGroup';
  *
  * class TodoList extends React.Component {
@@ -50,23 +50,19 @@ export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", 
  *     this.setState({items: newItems});
  *   }
  *   render() {
- *     return (
- *       <div>
- *         <button onClick={() => this.handleAdd()}>Add Item</button>
- *         <TransitionGroup>
- *           {this.state.items.map((item, i) => (
- *             <FadeTransition key={item}>
- *               <div>
- *                 {item}{' '}
- *                 <button onClick={() => this.handleRemove(i)}>
- *                   remove
- *                 </button>
- *               </div>
- *             </FadeTransition>
- *           ))}
- *         </TransitionGroup>
- *       </div>
- *     );
+ *     return <div>
+ *       <button onClick={() => this.handleAdd()}>Add Item</button>
+ *       <TransitionGroup>
+ *         {this.state.items.map((item, i) => <FadeTransition key={item}>
+ *           <div>
+ *             {item}{' '}
+ *             <button onClick={() => this.handleRemove(i)}>
+ *               remove
+ *             </button>
+ *           </div>
+ *         </FadeTransition>)}
+ *       </TransitionGroup>
+ *     </div>;
  *   }
  * }
  * ```

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import config from './config';
 import TransitionGroupContext from './TransitionGroupContext';
-import { forceReflow } from './utils/reflow';
+import { forceReflow } from './util';
 
 export const UNMOUNTED = 'unmounted';
 export const EXITED = 'exited';
@@ -33,7 +33,7 @@ export const EXITING = 'exiting';
  * components. It's up to you to give meaning and effect to those states. For
  * example we can add styles to a component when it enters or exits:
  *
- * ```jsx
+ * ```tsx
  * import { Transition } from 'react-transition-group';
  * import { useRef } from 'react';
  *
@@ -53,18 +53,15 @@ export const EXITING = 'exiting';
  *
  * function Fade({ in: inProp }) {
  *   const nodeRef = useRef(null);
- *   return (
- *     <Transition nodeRef={nodeRef} in={inProp} timeout={duration}>
- *       {state => (
- *         <div ref={nodeRef} style={{
- *           ...defaultStyle,
- *           ...transitionStyles[state]
- *         }}>
- *           I'm a fade Transition!
- *         </div>
- *       )}
- *     </Transition>
- *   );
+ *
+ *   return <Transition nodeRef={nodeRef} in={inProp} timeout={duration}>
+ *     {state => <div ref={nodeRef} style={{
+ *       ...defaultStyle,
+ *       ...transitionStyles[state]
+ *     }}>
+ *       I'm a fade Transition!
+ *     </div>}
+ *   </Transition>;
  * }
  * ```
  *
@@ -81,25 +78,22 @@ export const EXITING = 'exiting';
  * the following example (we'll use the
  * [useState](https://reactjs.org/docs/hooks-reference.html#usestate) hook):
  *
- * ```jsx
+ * ```tsx
  * import { Transition } from 'react-transition-group';
  * import { useState, useRef } from 'react';
  *
  * function App() {
  *   const [inProp, setInProp] = useState(false);
  *   const nodeRef = useRef(null);
- *   return (
- *     <div>
- *       <Transition nodeRef={nodeRef} in={inProp} timeout={500}>
- *         {state => (
- *           // ...
- *         )}
- *       </Transition>
- *       <button onClick={() => setInProp(true)}>
- *         Click to Enter
- *       </button>
- *     </div>
- *   );
+ *
+ *   return <div>
+ *     <Transition nodeRef={nodeRef} in={inProp} timeout={500}>
+ *       {state => ...}
+ *     </Transition>
+ *     <button onClick={() => setInProp(true)}>
+ *       Click to Enter
+ *     </button>
+ *   </div>;
  * }
  * ```
  *
@@ -314,7 +308,7 @@ export default class Transition extends React.Component {
   setNextCallback(callback) {
     let active = true;
 
-    this.nextCallback = (event) => {
+    this.nextCallback = event => {
       if (active) {
         active = false;
         this.nextCallback = null;
@@ -382,239 +376,12 @@ export default class Transition extends React.Component {
       nodeRef: _nodeRef,
       ...childProps
     } = this.props;
-
-    return (
-      // allows for nested Transitions
-      <TransitionGroupContext.Provider value={null}>
-        {typeof children === 'function'
-          ? children(status, childProps)
-          : React.cloneElement(React.Children.only(children), childProps)}
-      </TransitionGroupContext.Provider>
-    );
+    
+    // allows for nested Transitions
+    return <TransitionGroupContext.Provider value={null}>
+      {typeof children === 'function' ? children(status, childProps) : React.cloneElement(React.Children.only(children), childProps)}
+    </TransitionGroupContext.Provider>;
   }
 }
-
-// Transition.propTypes = {
-//   /**
-//    * A React reference to the DOM element that needs to transition:
-//    * https://stackoverflow.com/a/51127130/4671932
-//    *
-//    *   - This prop is optional, but recommended in order to avoid defaulting to
-//    *      [`ReactDOM.findDOMNode`](https://reactjs.org/docs/react-dom.html#finddomnode),
-//    *      which is deprecated in `StrictMode`
-//    *   - When `nodeRef` prop is used, `node` is not passed to callback functions
-//    *      (e.g. `onEnter`) because user already has direct access to the node.
-//    *   - When changing `key` prop of `Transition` in a `TransitionGroup` a new
-//    *     `nodeRef` need to be provided to `Transition` with changed `key` prop
-//    *     (see
-//    *     [test/CSSTransition-test.js](https://github.com/reactjs/react-transition-group/blob/13435f897b3ab71f6e19d724f145596f5910581c/test/CSSTransition-test.js#L362-L437)).
-//    */
-//   nodeRef: PropTypes.shape({
-//     current:
-//       typeof Element === 'undefined'
-//         ? PropTypes.any
-//         : (propValue, key, componentName, location, propFullName, secret) => {
-//             const value = propValue[key];
-//
-//             return PropTypes.instanceOf(
-//               value && 'ownerDocument' in value
-//                 ? value.ownerDocument.defaultView.Element
-//                 : Element
-//             )(propValue, key, componentName, location, propFullName, secret);
-//           },
-//   }),
-//
-//   /**
-//    * A `function` child can be used instead of a React element. This function is
-//    * called with the current transition status (`'entering'`, `'entered'`,
-//    * `'exiting'`, `'exited'`), which can be used to apply context
-//    * specific props to a component.
-//    *
-//    * ```jsx
-//    * <Transition nodeRef={nodeRef} in={this.state.in} timeout={150}>
-//    *   {state => (
-//    *     <MyComponent ref={nodeRef} className={`fade fade-${state}`} />
-//    *   )}
-//    * </Transition>
-//    * ```
-//    */
-//   children: PropTypes.oneOfType([
-//     PropTypes.func.isRequired,
-//     PropTypes.element.isRequired,
-//   ]).isRequired,
-//
-//   /**
-//    * Show the component; triggers the enter or exit states
-//    */
-//   in: PropTypes.bool,
-//
-//   /**
-//    * By default the child component is mounted immediately along with
-//    * the parent `Transition` component. If you want to "lazy mount" the component on the
-//    * first `in={true}` you can set `mountOnEnter`. After the first enter transition the component will stay
-//    * mounted, even on "exited", unless you also specify `unmountOnExit`.
-//    */
-//   mountOnEnter: PropTypes.bool,
-//
-//   /**
-//    * By default the child component stays mounted after it reaches the `'exited'` state.
-//    * Set `unmountOnExit` if you'd prefer to unmount the component after it finishes exiting.
-//    */
-//   unmountOnExit: PropTypes.bool,
-//
-//   /**
-//    * By default the child component does not perform the enter transition when
-//    * it first mounts, regardless of the value of `in`. If you want this
-//    * behavior, set both `appear` and `in` to `true`.
-//    *
-//    * > **Note**: there are no special appear states like `appearing`/`appeared`, this prop
-//    * > only adds an additional enter transition. However, in the
-//    * > `<CSSTransition>` component that first enter transition does result in
-//    * > additional `.appear-*` classes, that way you can choose to style it
-//    * > differently.
-//    */
-//   appear: PropTypes.bool,
-//
-//   /**
-//    * Enable or disable enter transitions.
-//    */
-//   enter: PropTypes.bool,
-//
-//   /**
-//    * Enable or disable exit transitions.
-//    */
-//   exit: PropTypes.bool,
-//
-//   /**
-//    * The duration of the transition, in milliseconds.
-//    * Required unless `addEndListener` is provided.
-//    *
-//    * You may specify a single timeout for all transitions:
-//    *
-//    * ```jsx
-//    * timeout={500}
-//    * ```
-//    *
-//    * or individually:
-//    *
-//    * ```jsx
-//    * timeout={{
-//    *  appear: 500,
-//    *  enter: 300,
-//    *  exit: 500,
-//    * }}
-//    * ```
-//    *
-//    * - `appear` defaults to the value of `enter`
-//    * - `enter` defaults to `0`
-//    * - `exit` defaults to `0`
-//    *
-//    * @type {number | { enter?: number, exit?: number, appear?: number }}
-//    */
-//   timeout: (props, ...args) => {
-//     let pt = timeoutsShape;
-//     if (!props.addEndListener) pt = pt.isRequired;
-//     return pt(props, ...args);
-//   },
-//
-//   /**
-//    * Add a custom transition end trigger. Called with the transitioning
-//    * DOM node and a `done` callback. Allows for more fine grained transition end
-//    * logic. Timeouts are still used as a fallback if provided.
-//    *
-//    * **Note**: when `nodeRef` prop is passed, `node` is not passed, so `done` is being passed as the first argument.
-//    *
-//    * ```jsx
-//    * addEndListener={(node, done) => {
-//    *   // use the css transitionend event to mark the finish of a transition
-//    *   node.addEventListener('transitionend', done, false);
-//    * }}
-//    * ```
-//    */
-//   addEndListener: PropTypes.func,
-//
-//   /**
-//    * Callback fired before the "entering" status is applied. An extra parameter
-//    * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
-//    *
-//    * **Note**: when `nodeRef` prop is passed, `node` is not passed, so `isAppearing` is being passed as the first argument.
-//    *
-//    * @type Function(node: HtmlElement, isAppearing: bool) -> void
-//    */
-//   onEnter: PropTypes.func,
-//
-//   /**
-//    * Callback fired after the "entering" status is applied. An extra parameter
-//    * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
-//    *
-//    * **Note**: when `nodeRef` prop is passed, `node` is not passed, so `isAppearing` is being passed as the first argument.
-//    *
-//    * @type Function(node: HtmlElement, isAppearing: bool)
-//    */
-//   onEntering: PropTypes.func,
-//
-//   /**
-//    * Callback fired after the "entered" status is applied. An extra parameter
-//    * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
-//    *
-//    * **Note**: when `nodeRef` prop is passed, `node` is not passed, so `isAppearing` is being passed as the first argument.
-//    *
-//    * @type Function(node: HtmlElement, isAppearing: bool) -> void
-//    */
-//   onEntered: PropTypes.func,
-//
-//   /**
-//    * Callback fired before the "exiting" status is applied.
-//    *
-//    * **Note**: when `nodeRef` prop is passed, `node` is not passed.
-//    *
-//    * @type Function(node: HtmlElement) -> void
-//    */
-//   onExit: PropTypes.func,
-//
-//   /**
-//    * Callback fired after the "exiting" status is applied.
-//    *
-//    * **Note**: when `nodeRef` prop is passed, `node` is not passed.
-//    *
-//    * @type Function(node: HtmlElement) -> void
-//    */
-//   onExiting: PropTypes.func,
-//
-//   /**
-//    * Callback fired after the "exited" status is applied.
-//    *
-//    * **Note**: when `nodeRef` prop is passed, `node` is not passed
-//    *
-//    * @type Function(node: HtmlElement) -> void
-//    */
-//   onExited: PropTypes.func,
-// };
-
-// Name the function so it is clearer in the documentation
-// function noop() {}
-
-// Transition.defaultProps = {
-//   in: false,
-//   mountOnEnter: false,
-//   unmountOnExit: false,
-//   appear: false,
-//   enter: true,
-//   exit: true,
-//
-//   onEnter: noop,
-//   onEntering: noop,
-//   onEntered: noop,
-//
-//   onExit: noop,
-//   onExiting: noop,
-//   onExited: noop,
-// };
-
-// Transition.UNMOUNTED = UNMOUNTED;
-// Transition.EXITED = EXITED;
-// Transition.ENTERING = ENTERING;
-// Transition.ENTERED = ENTERED;
-// Transition.EXITING = EXITING;
 
 // export default Transition;

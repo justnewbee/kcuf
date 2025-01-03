@@ -8,12 +8,7 @@ function areChildrenDifferent(oldChildren, newChildren) {
     return false;
   }
   
-  if (
-    React.isValidElement(oldChildren) &&
-    React.isValidElement(newChildren) &&
-    oldChildren.key != null &&
-    oldChildren.key === newChildren.key
-  ) {
+  if (React.isValidElement(oldChildren) && React.isValidElement(newChildren) && oldChildren.key != null && oldChildren.key === newChildren.key) {
     return false;
   }
   
@@ -26,54 +21,68 @@ function areChildrenDifferent(oldChildren, newChildren) {
  */
 export const modes = {
   out: 'out-in',
-  in: 'in-out',
+  in: 'in-out'
 };
 
 const callHook =
   (element, name, cb) =>
-  (...args) => {
-    element.props[name] && element.props[name](...args);
-    cb();
-  };
+    (...args) => {
+      element.props[name] && element.props[name](...args);
+      cb();
+    };
 
 const leaveRenders = {
-  [modes.out]: ({ current, changeState }) =>
+  [modes.out]: ({
+    current,
+    changeState
+  }) =>
     React.cloneElement(current, {
       in: false,
       onExited: callHook(current, 'onExited', () => {
         changeState(ENTERING, null);
-      }),
+      })
     }),
-  [modes.in]: ({ current, changeState, children }) => [
+  [modes.in]: ({
+    current,
+    changeState,
+    children
+  }) => [
     current,
     React.cloneElement(children, {
       in: true,
       onEntered: callHook(children, 'onEntered', () => {
         changeState(ENTERING);
-      }),
-    }),
-  ],
+      })
+    })
+  ]
 };
 
 const enterRenders = {
-  [modes.out]: ({ children, changeState }) =>
+  [modes.out]: ({
+    children,
+    changeState
+  }) =>
     React.cloneElement(children, {
       in: true,
       onEntered: callHook(children, 'onEntered', () => {
-        changeState(ENTERED, React.cloneElement(children, { in: true }));
-      }),
+        changeState(ENTERED, React.cloneElement(children, {in: true}));
+      })
     }),
-  [modes.in]: ({ current, children, changeState }) => [
+  [modes.in]: ({
+    current,
+    children,
+    changeState
+  }) => [
     React.cloneElement(current, {
       in: false,
       onExited: callHook(current, 'onExited', () => {
-        changeState(ENTERED, React.cloneElement(children, { in: true }));
-      }),
+        changeState(ENTERED, React.cloneElement(children, {in: true}));
+      })
     }),
     React.cloneElement(children, {
-      in: true,
-    }),
-  ],
+      in: true
+    })
+  ]
 };
 
 /**
@@ -90,26 +99,25 @@ const enterRenders = {
  * [`TransitionGroup`](https://reactcommunity.org/react-transition-group/transition-group)
  * instead.
  *
- * ```jsx
+ * ```tsx
  * function App() {
  *  const [state, setState] = useState(false);
  *  const helloRef = useRef(null);
  *  const goodbyeRef = useRef(null);
  *  const nodeRef = state ? goodbyeRef : helloRef;
- *  return (
- *    <SwitchTransition>
- *      <CSSTransition
- *        key={state ? "Goodbye, world!" : "Hello, world!"}
- *        nodeRef={nodeRef}
- *        addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}
- *        classNames='fade'
- *      >
- *        <button ref={nodeRef} onClick={() => setState(state => !state)}>
- *          {state ? "Goodbye, world!" : "Hello, world!"}
- *        </button>
- *      </CSSTransition>
- *    </SwitchTransition>
- *  );
+ *  
+ *  return <SwitchTransition>
+ *    <CSSTransition
+ *      key={state ? "Goodbye, world!" : "Hello, world!"}
+ *      nodeRef={nodeRef}
+ *      addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}
+ *      classNames='fade'
+ *    >
+ *      <button ref={nodeRef} onClick={() => setState(state => !state)}>
+ *        {state ? "Goodbye, world!" : "Hello, world!"}
+ *      </button>
+ *    </CSSTransition>
+ *  </SwitchTransition>;
  * }
  * ```
  *
@@ -135,72 +143,84 @@ const enterRenders = {
 class SwitchTransition extends React.Component {
   state = {
     status: ENTERED,
-    current: null,
+    current: null
   };
-
+  
   appeared = false;
-
+  
   componentDidMount() {
     this.appeared = true;
   }
-
+  
   static getDerivedStateFromProps(props, state) {
     if (props.children == null) {
       return {
-        current: null,
+        current: null
       };
     }
-
+    
     if (state.status === ENTERING && props.mode === modes.in) {
       return {
-        status: ENTERING,
+        status: ENTERING
       };
     }
-
+    
     if (state.current && areChildrenDifferent(state.current, props.children)) {
       return {
-        status: EXITING,
+        status: EXITING
       };
     }
-
+    
     return {
       current: React.cloneElement(props.children, {
-        in: true,
-      }),
+        in: true
+      })
     };
   }
-
+  
   changeState = (status, current = this.state.current) => {
     this.setState({
       status,
-      current,
+      current
     });
   };
-
+  
   render() {
     const {
-      props: { children, mode },
-      state: { status, current },
+      props: {
+        children,
+        mode
+      },
+      state: {
+        status,
+        current
+      }
     } = this;
-
-    const data = { children, current, changeState: this.changeState, status };
+    
+    const data = {
+      children,
+      current,
+      changeState: this.changeState,
+      status
+    };
     let component;
     switch (status) {
-      case ENTERING:
-        component = enterRenders[mode](data);
-        break;
-      case EXITING:
-        component = leaveRenders[mode](data);
-        break;
-      case ENTERED:
-        component = current;
+    case ENTERING:
+      component = enterRenders[mode](data);
+      break;
+    case EXITING:
+      component = leaveRenders[mode](data);
+      
+      break;
+    case ENTERED:
+      component = current;
+      
+      break;
     }
-
-    return (
-      <TransitionGroupContext.Provider value={{ isMounting: !this.appeared }}>
-        {component}
-      </TransitionGroupContext.Provider>
-    );
+    
+    return <TransitionGroupContext.Provider value={{isMounting: !this.appeared}}>
+      {component}
+    </TransitionGroupContext.Provider>;
   }
 }
 

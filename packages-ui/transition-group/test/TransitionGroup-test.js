@@ -32,11 +32,9 @@ describe('TransitionGroup', () => {
 
     const nodeRef = React.createRef();
     Child = function Child(props) {
-      return (
-        <Transition nodeRef={nodeRef} timeout={0} {...props} {...events}>
-          <span ref={nodeRef} />
-        </Transition>
-      );
+      return <Transition nodeRef={nodeRef} timeout={0} {...props} {...events}>
+        <span ref={nodeRef} />
+      </Transition>;
     };
   });
 
@@ -78,12 +76,13 @@ describe('TransitionGroup', () => {
   it('should handle transitioning correctly', () => {
     function Parent({ count = 1 }) {
       let children = [];
-      for (let i = 0; i < count; i++) children.push(<Child key={i} />);
-      return (
-        <TransitionGroup appear enter exit>
-          {children}
-        </TransitionGroup>
-      );
+      for (let i = 0; i < count; i++) {
+        children.push(<Child key={i} />);
+      }
+      
+      return <TransitionGroup appear enter exit>
+        {children}
+      </TransitionGroup>;
     }
 
     jest.useFakeTimers();

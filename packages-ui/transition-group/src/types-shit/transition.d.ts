@@ -113,12 +113,11 @@ interface BaseTransitionProps<RefElement extends undefined | HTMLElement> extend
    * called with the current transition status ('entering', 'entered',
    * 'exiting',  'exited', 'unmounted'), which can be used to apply context
    * specific props to a component.
-   * ```jsx
-   *    <Transition in={this.state.in} timeout={150}>
-   *        {state => (
-   *            <MyComponent className={`fade fade-${state}`} />
-   *        )}
-   *    </Transition>
+   *
+   * ```tsx
+   * <Transition in={this.state.in} timeout={150}>
+   *   {state => <MyComponent className={`fade fade-${state}`} />}
+   * </Transition>
    * ```
    */
   children?: TransitionChildren | undefined;
@@ -216,7 +215,7 @@ export type TransitionProps<RefElement extends undefined | HTMLElement = undefin
  * It's up to you to give meaning and effect to those states. For example we can
  * add styles to a component when it enters or exits:
  *
- * ```jsx
+ * ```tsx
  * import Transition from 'react-transition-group/Transition';
  *
  * const duration = 300;
@@ -231,18 +230,14 @@ export type TransitionProps<RefElement extends undefined | HTMLElement = undefin
  *   entered:  { opacity: 1 },
  * };
  *
- * const Fade = ({ in: inProp }) => (
- *   <Transition in={inProp} timeout={duration}>
- *     {(state) => (
- *       <div style={{
- *         ...defaultStyle,
- *         ...transitionStyles[state]
- *       }}>
- *         I'm A fade Transition!
- *       </div>
- *     )}
- *   </Transition>
- * );
+ * const Fade = ({ in: inProp }) => <Transition in={inProp} timeout={duration}>
+ *   {state => <div style={{
+ *     ...defaultStyle,
+ *     ...transitionStyles[state]
+ *   }}>
+ *     I'm A fade Transition!
+ *   </div>}
+ * </Transition>;
  * ```
  */
 declare class Transition<RefElement extends HTMLElement | undefined> extends Component<TransitionProps<RefElement>> {}

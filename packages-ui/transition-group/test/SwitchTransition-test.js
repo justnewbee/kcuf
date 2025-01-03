@@ -20,20 +20,16 @@ describe('SwitchTransition', () => {
 
     const nodeRef = React.createRef();
     Parent = function Parent({ on, rendered = true }) {
-      return (
-        <SwitchTransition>
-          {rendered ? (
-            <TransitionClass
-              nodeRef={nodeRef}
-              timeout={0}
-              key={on ? 'first' : 'second'}
-              {...events}
-            >
-              <span ref={nodeRef}>{on ? 'first' : 'second'}</span>
-            </TransitionClass>
-          ) : null}
-        </SwitchTransition>
-      );
+      return <SwitchTransition>
+        {rendered ? <TransitionClass
+          nodeRef={nodeRef}
+          timeout={0}
+          key={on ? 'first' : 'second'}
+          {...events}
+        >
+          <span ref={nodeRef}>{on ? 'first' : 'second'}</span>
+        </TransitionClass> : null}
+      </SwitchTransition>;
     };
 
     jest.useFakeTimers();

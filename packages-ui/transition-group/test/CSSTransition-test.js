@@ -418,25 +418,23 @@ describe('CSSTransition', () => {
         render() {
           const { direction, text, nodeRef, ...props } = this.props;
 
-          return (
-            <TransitionGroup
-              component={null}
-              childFactory={(child) =>
-                React.cloneElement(child, {
-                  classNames: direction,
-                })
-              }
+          return <TransitionGroup
+            component={null}
+            childFactory={(child) =>
+              React.cloneElement(child, {
+                classNames: direction,
+              })
+            }
+          >
+            <CSSTransition
+              key={text}
+              timeout={100}
+              nodeRef={nodeRef}
+              {...props}
             >
-              <CSSTransition
-                key={text}
-                timeout={100}
-                nodeRef={nodeRef}
-                {...props}
-              >
-                <span ref={nodeRef}>{text}</span>
-              </CSSTransition>
-            </TransitionGroup>
-          );
+              <span ref={nodeRef}>{text}</span>
+            </CSSTransition>
+          </TransitionGroup>;
         }
       }
 

@@ -15,11 +15,10 @@ describe('CSSTransitionGroup', () => {
 
   function YoloTransition({ id, ...props }) {
     const nodeRef = React.useRef();
-    return (
-      <CSSTransition nodeRef={nodeRef} classNames="yolo" timeout={0} {...props}>
-        <span ref={nodeRef} id={id} />
-      </CSSTransition>
-    );
+    
+    return <CSSTransition nodeRef={nodeRef} classNames="yolo" timeout={0} {...props}>
+      <span ref={nodeRef} id={id} />
+    </CSSTransition>;
   }
 
   beforeEach(() => {
@@ -239,11 +238,9 @@ describe('CSSTransitionGroup', () => {
       }
 
       render() {
-        return (
-          <TransitionGroup appear={true}>
-            <Child show={this.state.showChild} />
-          </TransitionGroup>
-        );
+        return <TransitionGroup appear={true}>
+          <Child show={this.state.showChild} />
+        </TransitionGroup>;
       }
     }
 
@@ -259,13 +256,11 @@ describe('CSSTransitionGroup', () => {
     const extraClassNameProp = 'wrapper-item';
     class Wrapper extends React.Component {
       render() {
-        return (
-          <div>
-            {React.Children.map(this.props.children, (child) =>
-              React.cloneElement(child, { className: extraClassNameProp })
-            )}
-          </div>
-        );
+        return <div>
+          {React.Children.map(this.props.children, (child) =>
+            React.cloneElement(child, { className: extraClassNameProp })
+          )}
+        </div>;
       }
     }
 
@@ -277,11 +272,9 @@ describe('CSSTransitionGroup', () => {
 
     class Component extends React.Component {
       render() {
-        return (
-          <TransitionGroup component={Wrapper}>
-            <Child />
-          </TransitionGroup>
-        );
+        return <TransitionGroup component={Wrapper}>
+          <Child />
+        </TransitionGroup>;
       }
     }
 

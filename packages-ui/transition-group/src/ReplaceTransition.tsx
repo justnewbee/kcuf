@@ -7,7 +7,7 @@ import TransitionGroup from './TransitionGroup';
  * The `<ReplaceTransition>` component is a specialized `Transition` component
  * that animates between two children.
  *
- * ```jsx
+ * ```tsx
  * <ReplaceTransition in>
  *   <Fade><div>I appear first</div></Fade>
  *   <Fade><div>I replace the above</div></Fade>
@@ -48,23 +48,19 @@ class ReplaceTransition extends React.Component {
     delete props.onExiting;
     delete props.onExited;
 
-    return (
-      <TransitionGroup {...props}>
-        {inProp
-          ? React.cloneElement(first, {
-              key: 'first',
-              onEnter: this.handleEnter,
-              onEntering: this.handleEntering,
-              onEntered: this.handleEntered,
-            })
-          : React.cloneElement(second, {
-              key: 'second',
-              onEnter: this.handleExit,
-              onEntering: this.handleExiting,
-              onEntered: this.handleExited,
-            })}
-      </TransitionGroup>
-    );
+    return <TransitionGroup {...props}>
+      {inProp ? React.cloneElement(first, {
+        key: 'first',
+        onEnter: this.handleEnter,
+        onEntering: this.handleEntering,
+        onEntered: this.handleEntered,
+      }) : React.cloneElement(second, {
+        key: 'second',
+        onEnter: this.handleExit,
+        onEntering: this.handleExiting,
+        onEntered: this.handleExited,
+      })}
+    </TransitionGroup>;
   }
 }
 
