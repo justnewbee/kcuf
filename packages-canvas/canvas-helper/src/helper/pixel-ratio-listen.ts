@@ -7,7 +7,5 @@ export default function pixelRatioListen(fn: (pixelRatio: number) => void): () =
   
   mediaQuery.addEventListener('change', callback);
   
-  return () => {
-    mediaQuery.removeEventListener('change', callback);
-  };
+  return () => mediaQuery.removeEventListener('change', callback);
 }

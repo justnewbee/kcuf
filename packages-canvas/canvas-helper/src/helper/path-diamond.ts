@@ -1,9 +1,15 @@
 import {
-  TCoords
+  IPathOptions
 } from '../types';
 
 import pathPolygon from './path-polygon';
 
-export default function pathDiamond(canvasContext: CanvasRenderingContext2D, center: TCoords, radius: number): void {
-  pathPolygon(canvasContext, 4, center, radius);
+/**
+ * 菱形
+ */
+export default function pathDiamond(canvasContext: CanvasRenderingContext2D, options: IPathOptions): void {
+  pathPolygon(canvasContext, {
+    ...options,
+    vertices: 4
+  });
 }

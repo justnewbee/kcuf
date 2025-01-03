@@ -1,5 +1,5 @@
 import {
-  TCoords
+  IPathOptions
 } from '../types';
 
 import pathPolygon from './path-polygon';
@@ -7,6 +7,9 @@ import pathPolygon from './path-polygon';
 /**
  * 五边形
  */
-export default function pathPentagon(canvasContext: CanvasRenderingContext2D, center: TCoords, radius: number): void {
-  pathPolygon(canvasContext, 5, center, radius);
+export default function pathPentagon(canvasContext: CanvasRenderingContext2D, options: IPathOptions): void {
+  pathPolygon(canvasContext, {
+    ...options,
+    vertices: 5
+  });
 }

@@ -22,6 +22,7 @@ const ScInputColor = styled.div`
   display: inline-flex;
   align-items: center;
   position: relative;
+  vertical-align: middle;
 `;
 const ScInputColorWrap = styled.div`
   position: relative;
@@ -38,12 +39,12 @@ const ScInputColorWrap = styled.div`
     z-index: 10;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     width: 100%;
     height: ${HEIGHT_FORM_CONTROL}px;
     visibility: visible;
     opacity: 0;
     border: 0;
+    box-sizing: border-box;
   }
 `;
 const ScColorDisplay = styled.div`
@@ -89,14 +90,12 @@ function InputColor({
           backgroundColor: controllableValue
         }
       }} />
-      <input
-        {...{
-          ...props,
-          value: hex,
-          type: 'color',
-          onChange: handleHexChange
-        }}
-        ref={ref} />
+      <input {...{
+        ...props,
+        value: hex,
+        type: 'color',
+        onChange: handleHexChange
+      }} ref={ref} />
     </ScInputColorWrap>
     <InputRange {...{
       min: 0,

@@ -412,35 +412,58 @@ export default class Particle implements IParticleClassType {
     switch (shape) {
     case EParticleShape.IMAGE:
       canvasDrawShapeImage(canvasContext, image, coords, radius, imageAspectRatio);
-        
+      
       return; // 不需要往下走
     case EParticleShape.TRIANGLE:
-      pathTriangle(canvasContext, coords, radius);
-        
+      pathTriangle(canvasContext, {
+        center: coords,
+        radius
+      });
+      
       break;
     case EParticleShape.SQUARE:
-      pathSquare(canvasContext, coords, radius);
-        
+      pathSquare(canvasContext, {
+        center: coords,
+        radius
+      });
+      
       break;
     case EParticleShape.PENTAGON:
-      pathPentagon(canvasContext, coords, radius);
-        
+      pathPentagon(canvasContext, {
+        center: coords,
+        radius
+      });
+      
       break;
     case EParticleShape.HEXAGON:
-      pathHexagon(canvasContext, coords, radius);
-        
+      pathHexagon(canvasContext, {
+        center: coords,
+        radius
+      });
+      
       break;
     case EParticleShape.STAR:
-      pathStar(canvasContext, 5, coords, radius);
-        
+      pathStar(canvasContext, {
+        center: coords,
+        radius,
+        vertices: 5
+      });
+      
       break;
     case EParticleShape.STAR_7:
-      pathStar(canvasContext, 7, coords, radius);
-        
+      pathStar(canvasContext, {
+        center: coords,
+        radius,
+        vertices: 7
+      });
+      
       break;
     default:
-      pathCircle(canvasContext, coords, radius);
-        
+      pathCircle(canvasContext, {
+        center: coords,
+        radius
+      });
+      
       break;
     }
     

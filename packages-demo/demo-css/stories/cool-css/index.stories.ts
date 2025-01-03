@@ -16,6 +16,7 @@ export { default as EmojiCursor } from './story-emoji-cursor';
 export { default as LongPress } from './story-long-press';
 export { default as GradientBorder } from './story-gradient-border';
 export { default as StorySunBeam } from './story-sun-beam';
+export { default as GlowingBorderAni } from './story-glowing-border-ani';
 
 export default {
   title: 'Cool CSS'

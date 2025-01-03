@@ -1,15 +1,24 @@
 import {
-  TCoords
+  IPathPolygonOptions
 } from '../types';
+import {
+  createPathFn
+} from '../util';
 
 /**
- * 多边形
+ * 凸多边形
  */
-export default function pathPolygon(canvasContext: CanvasRenderingContext2D, sides: number, center: TCoords, radius: number, rotation = 0): void {
+function pathPolygon(canvasContext: CanvasRenderingContext2D, options: IPathPolygonOptions): void {
+  const {
+    center,
+    radius,
+    vertices
+  } = options;
+  
   canvasContext.beginPath();
   
-  const radianStep = 2 * Math.PI / sides; // 每个角的弧度
-  let angle = -Math.PI / 2 + rotation; // 起始角度，默认从正上方的顶点开始绘制
+  const radianStep = 2 * Math.PI / vertices; // 每个角的弧度
+  let angle = -Math.PI / 2 + (vertices > 4 && vertices % 2 === 0 ? radianStep / 2 : 0); // 除菱形外，保证底部水平
   
   function getX(): number {
     return center[0] + radius * Math.cos(angle);
@@ -21,7 +30,7 @@ export default function pathPolygon(canvasContext: CanvasRenderingContext2D, sid
   
   canvasContext.moveTo(getX(), getY());
   
-  for (let i = 1; i <= sides; i++) {
+  for (let i = 1; i <= vertices; i++) {
     angle += radianStep;
     
     canvasContext.lineTo(getX(), getY());
@@ -29,3 +38,5 @@ export default function pathPolygon(canvasContext: CanvasRenderingContext2D, sid
   
   canvasContext.closePath();
 }
+
+export default createPathFn(pathPolygon);

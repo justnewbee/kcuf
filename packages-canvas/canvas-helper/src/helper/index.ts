@@ -1,3 +1,5 @@
+export { default as pathCross } from './path-cross';
+
 export { default as pathCircle } from './path-circle';
 export { default as pathTriangle } from './path-triangle';
 export { default as pathSquare } from './path-square';
