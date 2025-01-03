@@ -2,7 +2,7 @@ import { css } from 'astroturf';
 import React, { useRef } from 'react';
 
 import {
-  CSSTransition
+  TransitionCss
 } from '../../src';
 
 export const FADE_TIMEOUT = 1000;
@@ -42,11 +42,11 @@ const defaultProps = {
 function Fade(props) {
   const nodeRef = useRef();
   return (
-    <CSSTransition {...props} classNames={styles} nodeRef={nodeRef}>
+    <TransitionCss {...props} classNames={styles} nodeRef={nodeRef}>
       <div ref={nodeRef} className={styles.default}>
         {props.children}
       </div>
-    </CSSTransition>
+    </TransitionCss>
   );
 }
 

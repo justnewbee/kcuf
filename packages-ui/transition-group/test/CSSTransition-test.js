@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from './utils';
 
-import CSSTransition from '../src/css-transition';
+import CSSTransition from '../src/transition-css';
 import TransitionGroup from '../src/TransitionGroup';
 
 describe('CSSTransition', () => {

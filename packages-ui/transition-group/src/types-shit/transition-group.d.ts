@@ -33,7 +33,7 @@ export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", 
  * ```tsx
  * import TransitionGroup from 'react-transition-group/TransitionGroup';
  *
- * class TodoList extends React.Component {
+ * class TodoList extends Component {
  *   constructor(props) {
  *     super(props)
  *     this.state = {items: ['hello', 'world', 'click', 'me']}

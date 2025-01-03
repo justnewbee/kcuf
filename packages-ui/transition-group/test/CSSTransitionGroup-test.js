@@ -1,5 +1,5 @@
 import hasClass from 'dom-helpers/hasClass';
-import CSSTransition from '../src/css-transition';
+import CSSTransition from '../src/transition-css';
 
 let React;
 let ReactDOM;

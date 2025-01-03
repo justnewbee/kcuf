@@ -1,11 +1,13 @@
-import React from 'react';
+import {
+  Component
+} from 'react';
 
-import TransitionGroupContext from './TransitionGroupContext';
 import {
   getChildMapping,
   getInitialChildMapping,
   getNextChildMapping
 } from './util';
+import TransitionGroupContext from './transition-group-context';
 
 import {
   ITransitionGroupProps
@@ -27,7 +29,7 @@ const values = Object.values || (obj => Object.keys(obj).map(k => obj[k]));
  * component. This means you can mix and match animations across different list
  * items.
  */
-class TransitionGroup extends React.Component<ITransitionGroupProps> {
+export default class TransitionGroup extends Component<ITransitionGroupProps> {
   constructor(props, context) {
     super(props, context);
     
@@ -35,7 +37,9 @@ class TransitionGroup extends React.Component<ITransitionGroupProps> {
     
     // Initial children should all be entering, dependent on appear
     this.state = {
-      contextValue: {isMounting: true},
+      contextValue: {
+        isMounting: true
+      },
       handleExited,
       firstRender: true
     };
@@ -112,11 +116,3 @@ class TransitionGroup extends React.Component<ITransitionGroupProps> {
     </TransitionGroupContext.Provider>;
   }
 }
-
-// TransitionGroup.propTypes = {
-//
-// };
-//
-// TransitionGroup.defaultProps = defaultProps;
-
-export default TransitionGroup;

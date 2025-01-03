@@ -5,3 +5,8 @@ export enum ETransactionStatus {
   EXITED = 'exited',
   UNMOUNTED = 'unmounted'
 }
+
+export enum ETransactionMode {
+  OUT = 'out-in',
+  IN = 'in-out'
+}

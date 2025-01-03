@@ -1,20 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import {
+  Component,
+  cloneElement,
+  Children
+} from 'react';
+import {
+  findDOMNode
+} from 'react-dom';
 
-import TransitionGroup from './TransitionGroup';
+import {
+  ITransitionReplaceProps
+} from './types';
+import TransitionGroup from './transition-group';
 
 /**
- * The `<ReplaceTransition>` component is a specialized `Transition` component
+ * The `<TransitionReplace>` component is a specialized `Transition` component
  * that animates between two children.
  *
  * ```tsx
- * <ReplaceTransition in>
+ * <TransitionReplace in>
  *   <Fade><div>I appear first</div></Fade>
  *   <Fade><div>I replace the above</div></Fade>
- * </ReplaceTransition>
+ * </TransitionReplace>
  * ```
  */
-class ReplaceTransition extends React.Component {
+export default class TransitionReplace extends Component<ITransitionReplaceProps> {
   handleEnter = (...args) => this.handleLifecycle('onEnter', 0, args);
   handleEntering = (...args) => this.handleLifecycle('onEntering', 0, args);
   handleEntered = (...args) => this.handleLifecycle('onEntered', 0, args);
@@ -25,13 +34,14 @@ class ReplaceTransition extends React.Component {
 
   handleLifecycle(handler, idx, originalArgs) {
     const { children } = this.props;
-    const child = React.Children.toArray(children)[idx];
+    const child = Children.toArray(children)[idx];
 
-    if (child.props[handler]) child.props[handler](...originalArgs);
+    if (child.props[handler]) {
+      child.props[handler](...originalArgs);
+    }
+    
     if (this.props[handler]) {
-      const maybeNode = child.props.nodeRef
-        ? undefined
-        : ReactDOM.findDOMNode(this);
+      const maybeNode = child.props.nodeRef ? undefined : findDOMNode(this);
 
       this.props[handler](maybeNode);
     }
@@ -39,7 +49,7 @@ class ReplaceTransition extends React.Component {
 
   render() {
     const { children, in: inProp, ...props } = this.props;
-    const [first, second] = React.Children.toArray(children);
+    const [first, second] = Children.toArray(children);
 
     delete props.onEnter;
     delete props.onEntering;
@@ -49,31 +59,17 @@ class ReplaceTransition extends React.Component {
     delete props.onExited;
 
     return <TransitionGroup {...props}>
-      {inProp ? React.cloneElement(first, {
+      {inProp ? cloneElement(first, {
         key: 'first',
         onEnter: this.handleEnter,
         onEntering: this.handleEntering,
         onEntered: this.handleEntered,
-      }) : React.cloneElement(second, {
+      }) : cloneElement(second, {
         key: 'second',
         onEnter: this.handleExit,
         onEntering: this.handleExiting,
-        onEntered: this.handleExited,
+        onEntered: this.handleExited
       })}
     </TransitionGroup>;
   }
 }
-
-// ReplaceTransition.propTypes = {
-//   in: PropTypes.bool.isRequired,
-//   children(props, propName) {
-//     if (React.Children.count(props[propName]) !== 2)
-//       return new Error(
-//         `"${propName}" must be exactly two transition components.`
-//       );
-//
-//     return null;
-//   },
-// };
-
-export default ReplaceTransition;

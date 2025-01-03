@@ -1,8 +1,8 @@
-export { default as CSSTransition } from './CSSTransition';
-export { default as ReplaceTransition } from './ReplaceTransition';
-export { default as SwitchTransition } from './SwitchTransition';
-export { default as TransitionGroup } from './TransitionGroup';
 export { default as Transition } from './transition';
+export { default as TransitionCss } from './transition-css';
+export { default as TransitionReplace } from './transition-replace';
+export { default as TransitionSwitch } from './transition-switch';
+export { default as TransitionGroup } from './transition-group';
 export { default as config } from './config';
 
 export {

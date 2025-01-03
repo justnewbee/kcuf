@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 
 import {
-  CSSTransition,
-  ReplaceTransition
+  TransitionCss,
+  TransitionReplace
 } from '../src';
 
 const FADE_TIMEOUT = 1000;
@@ -48,7 +48,7 @@ const defaultProps = {
 
 function Fade(props) {
   return (
-    <CSSTransition {...props} className={styles.box} classNames={styles} />
+    <TransitionCss {...props} className={styles.box} classNames={styles} />
   );
 }
 
@@ -76,7 +76,7 @@ storiesOf('Replace Transition', module).add('Animates on all', () => {
   const secondNodeRef = React.createRef();
   return (
     <Example>
-      <ReplaceTransition
+      <TransitionReplace
         in={false} // `Example` is overriding this prop
         className={styles.container}
         onEnter={() => console.log('onEnter')}
@@ -92,7 +92,7 @@ storiesOf('Replace Transition', module).add('Animates on all', () => {
         <Fade nodeRef={secondNodeRef}>
           <div ref={secondNodeRef}>in False</div>
         </Fade>
-      </ReplaceTransition>
+      </TransitionReplace>
     </Example>
   );
 });

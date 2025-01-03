@@ -1,10 +1,12 @@
 import addOneClass from 'dom-helpers/addClass';
 import removeOneClass from 'dom-helpers/removeClass';
-import React from 'react';
+import {
+  Component
+} from 'react';
 
 import { forceReflow } from './util';
-import { ICssTransitionProps } from './types';
-import TransitionClass from './transition-class';
+import { ITransitionCssProps } from './types';
+import Transition from './transition';
 
 const addClass = (node, classes) =>
   node && classes && classes.split(' ').forEach(c => addOneClass(node, c));
@@ -80,7 +82,7 @@ const removeClass = (node, classes) =>
  * [`appear`](http://reactcommunity.org/react-transition-group/transition#Transition-prop-appear)
  * prop, make sure to define styles for `.appear-*` classes as well.
  */
-export default class CSSTransition extends React.Component<ICssTransitionProps> {
+export default class TransitionCss extends Component<ITransitionCssProps> {
   appliedClasses = {
     appear: {},
     enter: {},
@@ -211,7 +213,7 @@ export default class CSSTransition extends React.Component<ICssTransitionProps> 
       ...props
     } = this.props;
     
-    return <TransitionClass {...{
+    return <Transition {...{
       ...props,
       onEnter: this.onEnter,
       onEntered: this.onEntered,

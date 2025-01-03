@@ -3,9 +3,9 @@ import React from 'react';
 import { act, render } from './utils';
 
 import TransitionClass, { ENTERED } from '../src/transition-class';
-import SwitchTransition from '../src/SwitchTransition';
+import TransitionSwitch from '../src/transition-switch';
 
-describe('SwitchTransition', () => {
+describe('TransitionSwitch', () => {
   let log, Parent;
   beforeEach(() => {
     log = [];
@@ -20,7 +20,7 @@ describe('SwitchTransition', () => {
 
     const nodeRef = React.createRef();
     Parent = function Parent({ on, rendered = true }) {
-      return <SwitchTransition>
+      return <TransitionSwitch>
         {rendered ? <TransitionClass
           nodeRef={nodeRef}
           timeout={0}
@@ -29,7 +29,7 @@ describe('SwitchTransition', () => {
         >
           <span ref={nodeRef}>{on ? 'first' : 'second'}</span>
         </TransitionClass> : null}
-      </SwitchTransition>;
+      </TransitionSwitch>;
     };
 
     jest.useFakeTimers();
@@ -42,13 +42,13 @@ describe('SwitchTransition', () => {
   it('should have default status ENTERED', () => {
     const nodeRef = React.createRef();
     render(
-      <SwitchTransition>
+      <TransitionSwitch>
         <TransitionClass nodeRef={nodeRef} timeout={0} key="first">
           {(status) => {
             return <span ref={nodeRef}>status: {status}</span>;
           }}
         </TransitionClass>
-      </SwitchTransition>
+      </TransitionSwitch>
     );
 
     expect(nodeRef.current.textContent).toBe(`status: ${ENTERED}`);
@@ -58,22 +58,22 @@ describe('SwitchTransition', () => {
     const firstNodeRef = React.createRef();
     const secondNodeRef = React.createRef();
     const { rerender } = render(
-      <SwitchTransition>
+      <TransitionSwitch>
         <TransitionClass nodeRef={firstNodeRef} timeout={0} key="first">
           {(status) => {
             return <span ref={firstNodeRef}>first status: {status}</span>;
           }}
         </TransitionClass>
-      </SwitchTransition>
+      </TransitionSwitch>
     );
     rerender(
-      <SwitchTransition>
+      <TransitionSwitch>
         <TransitionClass nodeRef={secondNodeRef} timeout={0} key="second">
           {(status) => {
             return <span ref={secondNodeRef}>second status: {status}</span>;
           }}
         </TransitionClass>
-      </SwitchTransition>
+      </TransitionSwitch>
     );
 
     expect(firstNodeRef.current.textContent).toBe('first status: exiting');
@@ -84,11 +84,11 @@ describe('SwitchTransition', () => {
     const nodeRef = React.createRef();
     expect(() => {
       render(
-        <SwitchTransition>
+        <TransitionSwitch>
           <TransitionClass nodeRef={nodeRef} timeout={0} key="first">
             <span ref={nodeRef} />
           </TransitionClass>
-        </SwitchTransition>
+        </TransitionSwitch>
       );
     }).not.toThrow();
   });

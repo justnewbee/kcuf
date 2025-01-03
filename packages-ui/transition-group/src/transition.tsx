@@ -1,8 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import {
+  Component,
+  Children,
+  cloneElement
+} from 'react';
+import {
+  findDOMNode
+} from 'react-dom';
 
 import config from './config';
-import TransitionGroupContext from './TransitionGroupContext';
+import TransitionGroupContext from './transition-group-context';
 import { forceReflow } from './util';
 import { ITransitionProps } from './types';
 import { ETransactionStatus } from './enum';
@@ -104,7 +110,7 @@ interface IState {
  * When `in` is `false` the same thing happens except the state moves from
  * `'exiting'` to `'exited'`.
  */
-export default class Transition extends React.Component<ITransitionProps, IState> {
+export default class Transition extends Component<ITransitionProps, IState> {
   constructor(props: ITransitionProps, context) {
     super(props, context);
     
@@ -207,7 +213,7 @@ export default class Transition extends React.Component<ITransitionProps, IState
       
       if (nextStatus === ETransactionStatus.ENTERING) {
         if (this.props.unmountOnExit || this.props.mountOnEnter) {
-          const node = this.props.nodeRef ? this.props.nodeRef.current : ReactDOM.findDOMNode(this);
+          const node = this.props.nodeRef ? this.props.nodeRef.current : findDOMNode(this);
           
           // https://github.com/reactjs/react-transition-group/pull/749
           // With unmountOnExit or mountOnEnter, the enter animation should happen at the transition between `exited` and `entering`.
@@ -233,7 +239,7 @@ export default class Transition extends React.Component<ITransitionProps, IState
       enter
     } = this.props;
     const appearing = this.context ? this.context.isMounting : mounting;
-    const [maybeNode, maybeAppearing] = this.props.nodeRef ? [appearing] : [ReactDOM.findDOMNode(this), appearing];
+    const [maybeNode, maybeAppearing] = this.props.nodeRef ? [appearing] : [findDOMNode(this), appearing];
     
     const timeouts = this.getTimeouts();
     const enterTimeout = appearing ? timeouts.appear : timeouts.enter;
@@ -264,7 +270,7 @@ export default class Transition extends React.Component<ITransitionProps, IState
   performExit() {
     const {exit} = this.props;
     const timeouts = this.getTimeouts();
-    const maybeNode = this.props.nodeRef ? undefined : ReactDOM.findDOMNode(this);
+    const maybeNode = this.props.nodeRef ? undefined : findDOMNode(this);
     
     // no exit animation skip right to ETransactionStatus.EXITED
     if (!exit || config.disabled) {
@@ -324,7 +330,7 @@ export default class Transition extends React.Component<ITransitionProps, IState
   
   onTransitionEnd(timeout, handler) {
     this.setNextCallback(handler);
-    const node = this.props.nodeRef ? this.props.nodeRef.current : ReactDOM.findDOMNode(this);
+    const node = this.props.nodeRef ? this.props.nodeRef.current : findDOMNode(this);
     const doesNotHaveTimeoutOrListener = timeout == null && !this.props.addEndListener;
     
     if (!node || doesNotHaveTimeoutOrListener) {
@@ -374,7 +380,7 @@ export default class Transition extends React.Component<ITransitionProps, IState
     
     // allows for nested Transitions
     return <TransitionGroupContext.Provider value={null}>
-      {typeof children === 'function' ? children(status, childProps) : React.cloneElement(React.Children.only(children), childProps)}
+      {typeof children === 'function' ? children(status, childProps) : cloneElement(Children.only(children), childProps)}
     </TransitionGroupContext.Provider>;
   }
 }
