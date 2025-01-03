@@ -7,11 +7,10 @@ import {
   getInitialChildMapping,
   getNextChildMapping
 } from './util';
-import TransitionGroupContext from './transition-group-context';
-
 import {
   ITransitionGroupProps
 } from './types';
+import TransitionGroupContext from './transition-group-context';
 
 const values = Object.values || (obj => Object.keys(obj).map(k => obj[k]));
 
@@ -48,7 +47,9 @@ export default class TransitionGroup extends Component<ITransitionGroupProps> {
   componentDidMount() {
     this.mounted = true;
     this.setState({
-      contextValue: {isMounting: false}
+      contextValue: {
+        isMounting: false
+      }
     });
   }
   

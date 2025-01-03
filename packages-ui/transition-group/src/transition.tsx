@@ -7,11 +7,10 @@ import {
   findDOMNode
 } from 'react-dom';
 
-import config from './config';
-import TransitionGroupContext from './transition-group-context';
 import { forceReflow } from './util';
 import { ITransitionProps } from './types';
 import { ETransactionStatus } from './enum';
+import TransitionGroupContext from './transition-group-context';
 
 interface IState {
   status: ETransactionStatus;
@@ -246,8 +245,10 @@ export default class Transition extends Component<ITransitionProps, IState> {
     
     // no enter animation skip right to ETransactionStatus.ENTERED
     // if we are mounting and running this it means appear _must_ be set
-    if ((!mounting && !enter) || config.disabled) {
-      this.safeSetState({status: ETransactionStatus.ENTERED}, () => {
+    if (!mounting && !enter) {
+      this.safeSetState({
+        status: ETransactionStatus.ENTERED
+      }, () => {
         this.props.onEntered?.(maybeNode);
       });
       
@@ -268,12 +269,14 @@ export default class Transition extends Component<ITransitionProps, IState> {
   }
   
   performExit() {
-    const {exit} = this.props;
+    const {
+      exit
+    } = this.props;
     const timeouts = this.getTimeouts();
     const maybeNode = this.props.nodeRef ? undefined : findDOMNode(this);
     
     // no exit animation skip right to ETransactionStatus.EXITED
-    if (!exit || config.disabled) {
+    if (!exit) {
       this.safeSetState({status: ETransactionStatus.EXITED}, () => {
         this.props.onExited?.(maybeNode);
       });
