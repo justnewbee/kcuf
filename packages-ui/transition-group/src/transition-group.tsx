@@ -23,7 +23,7 @@ const values = Object.values || (obj => Object.keys(obj).map(k => obj[k]));
  * Consider the example below. As items are removed or added to the TodoList the
  * `in` prop is toggled automatically by the `<TransitionGroup>`.
  *
- * Note that `<TransitionGroup>`  does not define any animation behavior!
+ * Note that `<TransitionGroup>` does not define any animation behavior!
  * Exactly _how_ a list item animates is up to the individual transition
  * component. This means you can mix and match animations across different list
  * items.
@@ -82,10 +82,15 @@ export default class TransitionGroup extends Component<ITransitionGroupProps> {
     
     if (this.mounted) {
       this.setState(state => {
-        let children = {...state.children};
+        let children = {
+          ...state.children
+        };
         
         delete children[child.key];
-        return {children};
+        
+        return {
+          children
+        };
       });
     }
   }

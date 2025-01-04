@@ -7,7 +7,7 @@ export interface ITransitionProps {
   /**
    * A React reference to the DOM element that needs to transition.
    */
-  nodeRef?: MutableRefObject<ReactElement>;
+  nodeRef: MutableRefObject<ReactElement>;
   
   /**
    * A `function` child can be used instead of a React element. This function is
@@ -65,7 +65,6 @@ export interface ITransitionProps {
   
   /**
    * The duration of the transition, in milliseconds.
-   * Required unless `addEndListener` is provided.
    *
    * You may specify a single timeout for all transitions:
    *
@@ -82,35 +81,12 @@ export interface ITransitionProps {
    *  exit: 500,
    * }}
    * ```
-   *
-   * - `appear` defaults to the value of `enter`
-   * - `enter` defaults to `0`
-   * - `exit` defaults to `0`
-   *
-   * @type {number | { enter?: number, exit?: number, appear?: number }}
    */
-  timeout?: number;
-  // (props, ...args) => {
-  //   let pt = timeoutsShape;
-  //   if (!props.addEndListener) pt = pt.isRequired;
-  //   return pt(props, ...args);
-  // }
-  
-  // /**
-  //  * Add a custom transition end trigger. Called with the transitioning
-  //  * DOM node and a `done` callback. Allows for more fine grained transition end
-  //  * logic. Timeouts are still used as a fallback if provided.
-  //  *
-  //  * **Note**: when `nodeRef` prop is passed, `node` is not passed, so `done` is being passed as the first argument.
-  //  *
-  //  * ```tsx
-  //  * addEndListener={(node, done) => {
-  //  *   // use the css transitionend event to mark the finish of a transition
-  //  *   node.addEventListener('transitionend', done, false);
-  //  * }}
-  //  * ```
-  //  */
-  // addEndListener?(): void;
+  timeout?: number | {
+    enter?: number;
+    exit?: number;
+    appear?: number;
+  };
   
   /**
    * Callback fired before the "entering" status is applied. An extra parameter

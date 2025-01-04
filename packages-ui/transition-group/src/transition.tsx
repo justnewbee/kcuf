@@ -8,9 +8,6 @@ import {
   useCallback,
   useEffect
 } from 'react';
-import {
-  findDOMNode
-} from 'react-dom';
 
 import {
   ETransactionStatus
@@ -25,6 +22,7 @@ import TransitionGroupContext from './transition-group-context';
 
 export default function Transition(props: ITransitionProps): ReactElement | null {
   const {
+    nodeRef,
     children,
     in: inProp,
     mountOnEnter,
@@ -33,22 +31,17 @@ export default function Transition(props: ITransitionProps): ReactElement | null
     enter,
     exit,
     timeout,
-    addEndListener,
     onEnter,
     onEntering,
     onEntered,
     onExit,
     onExiting,
     onExited,
-    nodeRef,
     ...childProps
   } = props;
   
   const parentGroup = useContext(TransitionGroupContext);
-  
   const nextCallbackRef = useRef<null | (() => void)>(null);
-  const nodeRefInternal = useRef(null);
-  const appearStatusRef = useRef<ETransactionStatus | null>(null);
   
   const [stateStatus, setStateStatus] = useState<ETransactionStatus>(() => {
     let initialStatus;
@@ -103,8 +96,8 @@ export default function Transition(props: ITransitionProps): ReactElement | null
   }, [timeout]);
   
   const onTransitionEnd = useCallback((timeout: number, handler: () => void) => {
-    const node = nodeRef ? nodeRef.current : findDOMNode(nodeRefInternal.current);
-    const doesNotHaveTimeoutOrListener = timeout == null && !addEndListener;
+    const node = nodeRef.current;
+    const doesNotHaveTimeoutOrListener = timeout == null;
     
     if (!node || doesNotHaveTimeoutOrListener) {
       setTimeout(handler, 0);
@@ -112,19 +105,14 @@ export default function Transition(props: ITransitionProps): ReactElement | null
       return;
     }
     
-    if (addEndListener) {
-      const [maybeNode, maybeNextCallback] = nodeRef ? [handler] : [node, handler];
-      addEndListener(maybeNode, maybeNextCallback);
-    }
-    
     if (timeout !== null) {
       setTimeout(handler, timeout);
     }
-  }, [nodeRef, addEndListener]);
+  }, [nodeRef]);
   
   const performExit = useCallback(() => {
     const timeouts = getTimeouts();
-    const maybeNode = nodeRef ? undefined : findDOMNode(nodeRefInternal.current);
+    const maybeNode = nodeRef.current;
     
     if (!exit) {
       safeSetState(ETransactionStatus.EXITED, () => {
@@ -149,7 +137,7 @@ export default function Transition(props: ITransitionProps): ReactElement | null
   
   const performEnter = useCallback((mounting: boolean) => {
     const appearing = parentGroup ? parentGroup.isMounting : mounting;
-    const [maybeNode, maybeAppearing] = nodeRef ? [appearing] : [findDOMNode(nodeRefInternal.current), appearing];
+    const maybeNode = nodeRef.current;
     
     const timeouts = getTimeouts();
     const enterTimeout = appearing ? timeouts.appear : timeouts.enter;
@@ -162,14 +150,14 @@ export default function Transition(props: ITransitionProps): ReactElement | null
       return;
     }
     
-    onEnter?.(maybeNode, maybeAppearing);
+    onEnter?.(maybeNode, appearing);
     
     safeSetState(ETransactionStatus.ENTERING, () => {
-      onEntering?.(maybeNode, maybeAppearing);
+      onEntering?.(maybeNode, appearing);
       
       onTransitionEnd(enterTimeout, () => {
         safeSetState(ETransactionStatus.ENTERED, () => {
-          onEntered?.(maybeNode, maybeAppearing);
+          onEntered?.(maybeNode, appearing);
         });
       });
     });
@@ -181,11 +169,13 @@ export default function Transition(props: ITransitionProps): ReactElement | null
       
       if (nextStatus === ETransactionStatus.ENTERING) {
         if (unmountOnExit || mountOnEnter) {
-          const node = nodeRef ? nodeRef.current : findDOMNode(nodeRefInternal.current);
+          const node = nodeRef.current;
+          
           if (node) {
             forceReflow(node);
           }
         }
+        
         performEnter(mounting);
       } else {
         performExit();
