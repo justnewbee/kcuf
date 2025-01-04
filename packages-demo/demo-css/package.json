@@ -37,7 +37,7 @@
     "@storybook/react": "^8.4.7",
     "@storybook/react-vite": "^8.4.7",
     "@storybook/test": "^8.4.7",
-    "@types/lodash": "^4.17.13",
+    "@types/lodash": "^4.17.14",
     "@types/react": "^18.3.18",
     "babel-plugin-styled-components": "^2.1.4",
     "less": "^4.2.1",
@@ -47,7 +47,7 @@
   "dependencies": {
     "@kcuf/demo-rc": "workspace:^",
     "react": "^18.3.1",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.14"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
