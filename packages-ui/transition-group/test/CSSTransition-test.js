@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, waitFor } from './utils';
 
-import CSSTransition from '../src/transition-css';
+import TransitionCss from '../src/transition-css';
 import TransitionGroup from '../src/TransitionGroup';
 
-describe('CSSTransition', () => {
+describe('TransitionCss', () => {
   it('should flush new props to the DOM before initiating a transition', (done) => {
     const nodeRef = React.createRef();
     const { setProps } = render(
-      <CSSTransition
+      <TransitionCss
         in={false}
         nodeRef={nodeRef}
         timeout={0}
@@ -24,7 +24,7 @@ describe('CSSTransition', () => {
         }}
       >
         <div ref={nodeRef} />
-      </CSSTransition>
+      </TransitionCss>
     );
 
     expect(nodeRef.current.classList.contains('test-class')).toEqual(false);
@@ -41,9 +41,9 @@ describe('CSSTransition', () => {
       let done = false;
       const nodeRef = React.createRef();
       const { setProps } = render(
-        <CSSTransition nodeRef={nodeRef} timeout={10} classNames="test">
+        <TransitionCss nodeRef={nodeRef} timeout={10} classNames="test">
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       );
 
       setProps({
@@ -77,7 +77,7 @@ describe('CSSTransition', () => {
       let count = 0;
       const nodeRef = React.createRef();
       const { setProps } = render(
-        <CSSTransition
+        <TransitionCss
           timeout={10}
           nodeRef={nodeRef}
           classNames={{
@@ -87,7 +87,7 @@ describe('CSSTransition', () => {
           }}
         >
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       );
 
       setProps({
@@ -121,7 +121,7 @@ describe('CSSTransition', () => {
       let count = 0;
       const nodeRef = React.createRef();
       render(
-        <CSSTransition
+        <TransitionCss
           timeout={10}
           nodeRef={nodeRef}
           classNames="appear-test"
@@ -147,7 +147,7 @@ describe('CSSTransition', () => {
           }}
         >
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       );
 
       await waitFor(() => {
@@ -160,7 +160,7 @@ describe('CSSTransition', () => {
       let entered = false;
       let exited = false;
       const { setProps } = render(
-        <CSSTransition
+        <TransitionCss
           timeout={10}
           nodeRef={nodeRef}
           classNames="appear-test"
@@ -171,7 +171,7 @@ describe('CSSTransition', () => {
           }}
         >
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       );
 
       await waitFor(() => {
@@ -207,7 +207,7 @@ describe('CSSTransition', () => {
       const nodeRef = React.createRef();
       let done = false;
       render(
-        <CSSTransition
+        <TransitionCss
           timeout={10}
           nodeRef={nodeRef}
           classNames={{ appear: 'appear-test' }}
@@ -224,7 +224,7 @@ describe('CSSTransition', () => {
           }}
         >
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       );
 
       await waitFor(() => {
@@ -236,14 +236,14 @@ describe('CSSTransition', () => {
       let count = 0;
       const nodeRef = React.createRef();
       render(
-        <CSSTransition
+        <TransitionCss
           timeout={10}
           nodeRef={nodeRef}
           classNames="not-appear-test"
           appear={true}
         >
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       ).setProps({
         in: true,
 
@@ -277,7 +277,7 @@ describe('CSSTransition', () => {
     it('should not enter the transition states when appear=false', () => {
       const nodeRef = React.createRef();
       render(
-        <CSSTransition
+        <TransitionCss
           timeout={10}
           nodeRef={nodeRef}
           classNames="appear-fail-test"
@@ -294,7 +294,7 @@ describe('CSSTransition', () => {
           }}
         >
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       );
     });
   });
@@ -304,9 +304,9 @@ describe('CSSTransition', () => {
       let count = 0;
       const nodeRef = React.createRef();
       const { setProps } = render(
-        <CSSTransition in nodeRef={nodeRef} timeout={10} classNames="test">
+        <TransitionCss in nodeRef={nodeRef} timeout={10} classNames="test">
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       );
 
       setProps({
@@ -338,7 +338,7 @@ describe('CSSTransition', () => {
       let count = 0;
       const nodeRef = React.createRef();
       const { setProps } = render(
-        <CSSTransition
+        <TransitionCss
           in
           nodeRef={nodeRef}
           timeout={10}
@@ -349,7 +349,7 @@ describe('CSSTransition', () => {
           }}
         >
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       );
 
       setProps({
@@ -382,9 +382,9 @@ describe('CSSTransition', () => {
 
       const nodeRef = React.createRef();
       const { setProps } = render(
-        <CSSTransition in nodeRef={nodeRef} timeout={10}>
+        <TransitionCss in nodeRef={nodeRef} timeout={10}>
           <div ref={nodeRef} />
-        </CSSTransition>
+        </TransitionCss>
       );
 
       setProps({
@@ -426,14 +426,14 @@ describe('CSSTransition', () => {
               })
             }
           >
-            <CSSTransition
+            <TransitionCss
               key={text}
               timeout={100}
               nodeRef={nodeRef}
               {...props}
             >
               <span ref={nodeRef}>{text}</span>
-            </CSSTransition>
+            </TransitionCss>
           </TransitionGroup>;
         }
       }

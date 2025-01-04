@@ -126,7 +126,7 @@ interface BaseTransitionProps<RefElement extends undefined | HTMLElement> extend
    * A React reference to DOM element that need to transition: https://stackoverflow.com/a/51127130/4671932
    * When `nodeRef` prop is used, node is not passed to callback functions (e.g. onEnter) because user already has direct access to the node.
    * When changing `key` prop of `Transition` in a `TransitionGroup` a new `nodeRef` need to be provided to `Transition` with changed `key`
-   * prop (@see https://github.com/reactjs/react-transition-group/blob/master/test/Transition-test.js).
+   * prop (@see https://github.com/reactjs/@kcuf-ui/transition-group/blob/master/test/Transition-test.js).
    */
   nodeRef?: React.Ref<RefElement> | undefined;
   
@@ -216,7 +216,7 @@ export type TransitionProps<RefElement extends undefined | HTMLElement = undefin
  * add styles to a component when it enters or exits:
  *
  * ```tsx
- * import Transition from 'react-transition-group/Transition';
+ * import Transition from '@kcuf-ui/transition-group/Transition';
  *
  * const duration = 300;
  *

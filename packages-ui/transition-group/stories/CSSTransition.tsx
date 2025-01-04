@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import ToggleFixture from './rc/toggle-fixture';
 import Fade from './transitions/CSSFade';
 
-storiesOf('CSSTransition', module)
+storiesOf('TransitionCss', module)
   .add('Fade', () => (
     <ToggleFixture>
       <Fade>asaghasg asgasg</Fade>

@@ -4,8 +4,12 @@ import {
   Component
 } from 'react';
 
-import { forceReflow } from './util';
-import { ITransitionCssProps } from './types';
+import {
+  forceReflow
+} from './util';
+import {
+  ITransitionCssProps
+} from './types';
 import Transition from './transition';
 
 const addClass = (node, classes) =>
@@ -17,10 +21,10 @@ const removeClass = (node, classes) =>
  * A transition component inspired by the excellent
  * [ng-animate](https://docs.angularjs.org/api/ngAnimate) library, you should
  * use it if you're using CSS transitions or animations. It's built upon the
- * [`Transition`](https://reactcommunity.org/react-transition-group/transition)
+ * [`Transition`](https://reactcommunity.org/@kcuf-ui/transition-group/transition)
  * component, so it inherits all of its props.
  *
- * `CSSTransition` applies a pair of class names during the `appear`, `enter`,
+ * `TransitionCss` applies a pair of class names during the `appear`, `enter`,
  * and `exit` states of the transition. The first class is applied and then a
  * second `*-active` class in order to activate the CSS transition. After the
  * transition, matching `*-done` class names are applied to persist the
@@ -32,11 +36,11 @@ const removeClass = (node, classes) =>
  *   const nodeRef = useRef(null);
  *
  *   return <div>
- *     <CSSTransition nodeRef={nodeRef} in={inProp} timeout={200} classNames="my-node">
+ *     <TransitionCss nodeRef={nodeRef} in={inProp} timeout={200} classNames="my-node">
  *       <div ref={nodeRef}>
  *         {"I'll receive my-node-* classes"}
  *       </div>
- *     </CSSTransition>
+ *     </TransitionCss>
  *     <button type="button" onClick={() => setInProp(true)}>
  *       Click to Enter
  *     </button>
@@ -46,8 +50,8 @@ const removeClass = (node, classes) =>
  *
  * When the `in` prop is set to `true`, the child component will first receive
  * the class `example-enter`, then the `example-enter-active` will be added in
- * the next tick. `CSSTransition` [forces a
- * reflow](https://github.com/reactjs/react-transition-group/blob/5007303e729a74be66a21c3e2205e4916821524b/src/CSSTransition.js#L208-L215)
+ * the next tick. `TransitionCss` [forces a
+ * reflow](https://github.com/reactjs/@kcuf-ui/transition-group/blob/5007303e729a74be66a21c3e2205e4916821524b/src/TransitionCss.js#L208-L215)
  * between before adding the `example-enter-active`. This is an important trick
  * because it allows us to transition between `example-enter` and
  * `example-enter-active` even though they were added immediately one after
@@ -79,7 +83,7 @@ const removeClass = (node, classes) =>
  * complex transitions.
  *
  * **Note**: If you're using the
- * [`appear`](http://reactcommunity.org/react-transition-group/transition#Transition-prop-appear)
+ * [`appear`](http://reactcommunity.org/@kcuf-ui/transition-group/transition#Transition-prop-appear)
  * prop, make sure to define styles for `.appear-*` classes as well.
  */
 export default class TransitionCss extends Component<ITransitionCssProps> {

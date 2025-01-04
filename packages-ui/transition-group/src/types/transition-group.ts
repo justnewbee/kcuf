@@ -10,14 +10,14 @@ export interface ITransitionGroupProps {
    * you can pass in `component={null}`. This is useful if the wrapping div
    * borks your css styles.
    */
-  component: string | null;
+  wrapChildren?: boolean; // original `component`
   /**
    * A set of `<Transition>` components, that are toggled `in` and out as they
    * leave. the `<TransitionGroup>` will inject specific transition props, so
    * remember to spread them through if you are wrapping the `<Transition>` as
    * with our `<Fade>` example.
    *
-   * While this component is meant for multiple `Transition` or `CSSTransition`
+   * While this component is meant for multiple `Transition` or `TransitionCss`
    * children, sometimes you may want to have a single transition child with
    * content that you want to be transitioned out and in when you change it
    * (e.g. routes, images etc.) In that case you can change the `key` prop of

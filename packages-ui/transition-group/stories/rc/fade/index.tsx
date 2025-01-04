@@ -5,7 +5,7 @@ import {
 import styled from 'styled-components';
 
 import {
-  Transition
+  Transition2
 } from '../../../src';
 
 interface IProps {
@@ -41,9 +41,9 @@ export default function Fade({
 }: IProps): ReactElement {
   const nodeRef = useRef(null);
   
-  return <Transition nodeRef={nodeRef} in={inProp} timeout={duration}>
+  return <Transition2 nodeRef={nodeRef} in={inProp} timeout={duration}>
     {state => <ScFade ref={nodeRef} style={transitionStyles[state]}>
       I a fade Transition!
     </ScFade>}
-  </Transition>;
+  </Transition2>;
 }

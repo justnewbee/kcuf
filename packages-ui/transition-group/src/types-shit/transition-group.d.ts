@@ -31,7 +31,7 @@ export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", 
  * component in a `<TransitionGroup>`, not just css.
  *
  * ```tsx
- * import TransitionGroup from 'react-transition-group/TransitionGroup';
+ * import TransitionGroup from '@kcuf-ui/transition-group/TransitionGroup';
  *
  * class TodoList extends Component {
  *   constructor(props) {

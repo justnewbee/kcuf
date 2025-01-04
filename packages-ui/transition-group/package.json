@@ -1,7 +1,7 @@
 {
   "name": "@kcuf-ui/transition-group",
   "version": "0.0.0",
-  "description": "A fork and TS re-written of react-transition-group.",
+  "description": "A fork and TS re-written of @kcuf-ui/transition-group.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,

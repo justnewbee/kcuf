@@ -87,7 +87,7 @@ const enterRenders = {
 /**
  * A transition component inspired by the [vue transition modes](https://vuejs.org/v2/guide/transitions.html#Transition-Modes).
  * You can use it when you want to control the render between state transitions.
- * Based on the selected mode and the child's key which is the `Transition` or `CSSTransition` component, the `TransitionSwitch` makes a consistent transition between them.
+ * Based on the selected mode and the child's key which is the `Transition` or `TransitionCss` component, the `TransitionSwitch` makes a consistent transition between them.
  *
  * If the `out-in` mode is selected, the `TransitionSwitch` waits until the old child leaves and then inserts a new child.
  * If the `in-out` mode is selected, the `TransitionSwitch` inserts a new child first, waits for the new child to enter and then removes the old child.
@@ -95,7 +95,7 @@ const enterRenders = {
  * **Note**: If you want the animation to happen simultaneously
  * (that is, to have the old child removed and a new child inserted **at the same time**),
  * you should use
- * [`TransitionGroup`](https://reactcommunity.org/react-transition-group/transition-group)
+ * [`TransitionGroup`](https://reactcommunity.org/@kcuf-ui/transition-group/transition-group)
  * instead.
  *
  * ```tsx
@@ -106,7 +106,7 @@ const enterRenders = {
  *  const nodeRef = state ? goodbyeRef : helloRef;
  *
  *  return <TransitionSwitch>
- *    <CSSTransition
+ *    <TransitionCss
  *      key={state ? "Goodbye, world!" : "Hello, world!"}
  *      nodeRef={nodeRef}
  *      addEndListener={(node, done) => node.addEventListener("transitionend", done, false)}
@@ -115,7 +115,7 @@ const enterRenders = {
  *      <button ref={nodeRef} onClick={() => setState(state => !state)}>
  *        {state ? "Goodbye, world!" : "Hello, world!"}
  *      </button>
- *    </CSSTransition>
+ *    </TransitionCss>
  *  </TransitionSwitch>;
  * }
  * ```
@@ -222,7 +222,9 @@ export default class TransitionSwitch extends Component<ITransitionSwitchProps> 
       break;
     }
     
-    return <TransitionGroupContext.Provider value={{isMounting: !this.appeared}}>
+    return <TransitionGroupContext.Provider value={{
+      isMounting: !this.appeared
+    }}>
       {component}
     </TransitionGroupContext.Provider>;
   }

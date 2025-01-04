@@ -47,7 +47,7 @@ export interface ITransitionProps {
    *
    * > **Note**: there are no special appear states like `appearing`/`appeared`, this prop
    * > only adds an additional enter transition. However, in the
-   * > `<CSSTransition>` component that first enter transition does result in
+   * > `<TransitionCss>` component that first enter transition does result in
    * > additional `.appear-*` classes, that way you can choose to style it
    * > differently.
    */

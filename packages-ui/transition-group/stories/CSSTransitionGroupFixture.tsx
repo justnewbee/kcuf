@@ -47,7 +47,7 @@ class CSSTransitionGroupFixture extends React.Component {
           <button onClick={this.handleAddItem}>Add Item</button>{' '}
           <button onClick={this.handleRemoveItems}>Remove a few</button>
         </div>
-        <TransitionGroup component="div" {...rest}>
+        <TransitionGroup wrapChildren="div" {...rest}>
           {this.state.items.map((item) => (
             <TransitionType {...transitionTypeProps} key={item}>
               {item}

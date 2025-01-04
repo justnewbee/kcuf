@@ -15,7 +15,7 @@ export interface ITransitionSwitchProps {
   mode?: `${ETransactionMode}` | undefined;
   
   /**
-   * Any `Transition` or `CSSTransition` component
+   * Any `Transition` or `TransitionCss` component
    */
   children: ReactElement;
 }

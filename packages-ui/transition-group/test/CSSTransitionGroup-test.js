@@ -1,5 +1,5 @@
 import hasClass from 'dom-helpers/hasClass';
-import CSSTransition from '../src/transition-css';
+import TransitionCss from '../src/transition-css';
 
 let React;
 let ReactDOM;
@@ -16,9 +16,9 @@ describe('CSSTransitionGroup', () => {
   function YoloTransition({ id, ...props }) {
     const nodeRef = React.useRef();
     
-    return <CSSTransition nodeRef={nodeRef} classNames="yolo" timeout={0} {...props}>
+    return <TransitionCss nodeRef={nodeRef} classNames="yolo" timeout={0} {...props}>
       <span ref={nodeRef} id={id} />
-    </CSSTransition>;
+    </TransitionCss>;
   }
 
   beforeEach(() => {
@@ -152,9 +152,9 @@ describe('CSSTransitionGroup', () => {
     render(<TransitionGroup />, container);
     render(
       <TransitionGroup>
-        <CSSTransition classNames="yolo" timeout={0}>
+        <TransitionCss classNames="yolo" timeout={0}>
           <NullComponent />
-        </CSSTransition>
+        </TransitionCss>
       </TransitionGroup>,
       container
     );

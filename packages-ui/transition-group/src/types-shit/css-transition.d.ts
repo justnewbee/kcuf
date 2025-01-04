@@ -40,6 +40,6 @@ export type TransitionCssProps<Ref extends undefined | HTMLElement = undefined> 
   classNames?: string | CSSTransitionClassNames | undefined;
 };
 
-declare class CSSTransition<Ref extends undefined | HTMLElement> extends Component<TransitionCssProps<Ref>> {}
+declare class TransitionCss<Ref extends undefined | HTMLElement> extends Component<TransitionCssProps<Ref>> {}
 
-export default CSSTransition;
+export default TransitionCss;

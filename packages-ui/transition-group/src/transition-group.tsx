@@ -16,7 +16,7 @@ const values = Object.values || (obj => Object.keys(obj).map(k => obj[k]));
 
 /**
  * The `<TransitionGroup>` component manages a set of transition components
- * (`<Transition>` and `<CSSTransition>`) in a list. Like with the transition
+ * (`<Transition>` and `<TransitionCss>`) in a list. Like with the transition
  * components, `<TransitionGroup>` is a state machine for managing the mounting
  * and unmounting of components over time.
  *
@@ -92,8 +92,11 @@ export default class TransitionGroup extends Component<ITransitionGroupProps> {
   
   render() {
     const {
-      component: Component,
+      wrapChildren,
       childFactory,
+      appear,
+      enter,
+      exit,
       ...props
     } = this.props;
     const {
@@ -106,14 +109,8 @@ export default class TransitionGroup extends Component<ITransitionGroupProps> {
     delete props.enter;
     delete props.exit;
     
-    if (Component === null) {
-      return <TransitionGroupContext.Provider value={contextValue}>
-        {children}
-      </TransitionGroupContext.Provider>;
-    }
-    
     return <TransitionGroupContext.Provider value={contextValue}>
-      <Component {...props}>{children}</Component>
+      {wrapChildren ? <div {...props}>{children}</div> : children}
     </TransitionGroupContext.Provider>;
   }
 }
