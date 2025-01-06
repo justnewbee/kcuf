@@ -12,7 +12,7 @@ import {
 import {
   forceReflow
 } from './util';
-import Transition from './transition';
+import TransitionFucked from './transition-fucked';
 
 const addClass = (node, classes) =>
   node && classes && classes.split(' ').forEach(c => addOneClass(node, c));
@@ -159,7 +159,7 @@ export default function TransitionCss(props: ITransitionCssProps): ReactElement 
   } = props;
   
   return (
-    <Transition
+    <TransitionFucked
       {...otherProps}
       onEnter={onEnter}
       onEntered={onEntered}

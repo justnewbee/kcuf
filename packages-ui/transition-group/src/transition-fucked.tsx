@@ -2,7 +2,6 @@ import {
   ReactElement,
   Children,
   cloneElement,
-  useContext,
   useRef,
   useState,
   useCallback,
@@ -20,7 +19,8 @@ import {
 import {
   forceReflow
 } from './util';
-import TransitionGroupContext from './transition-group-context';
+
+import ModelTransition from './model-transition';
 
 /**
  * The Transition component lets you describe a transition from one component
@@ -83,10 +83,10 @@ import TransitionGroupContext from './transition-group-context';
  *
  * There are 4 main states a Transition can be in:
  *
- *  - `'entering'`
- *  - `'entered'`
- *  - `'exiting'`
- *  - `'exited'`
+ *  - `entering`
+ *  - `entered`
+ *  - `exiting`
+ *  - `exited`
  *
  * Transition state is toggled via the `in` prop. When `true` the component
  * begins the "Enter" stage. During this stage, the component will shift from
@@ -126,7 +126,7 @@ import TransitionGroupContext from './transition-group-context';
  * When `in` is `false` the same thing happens except the state moves from
  * `'exiting'` to `'exited'`.
  */
-export default function Transition(props: ITransitionProps): ReactElement | null {
+export default function TransitionFucked(props: ITransitionProps): ReactElement | null {
   const {
     nodeRef,
     children,
@@ -134,7 +134,7 @@ export default function Transition(props: ITransitionProps): ReactElement | null
     mountOnEnter,
     unmountOnExit,
     appear,
-    enter,
+    enter = true,
     exit,
     duration = 500,
     onEnter,
@@ -142,11 +142,9 @@ export default function Transition(props: ITransitionProps): ReactElement | null
     onEntered,
     onExit,
     onExiting,
-    onExited,
-    ...childProps
+    onExited
   } = props;
   
-  const parentGroup = useContext(TransitionGroupContext);
   const nextCallbackRef = useRef<null | (() => void)>(null);
   
   const [stateStatus, setStateStatus] = useState<ETransactionStatus>(() => {
@@ -244,7 +242,7 @@ export default function Transition(props: ITransitionProps): ReactElement | null
   }, [durations, exit, onExit, handleSafeSetState, onExited, onExiting, handleTransitionEnd]);
   
   const handlePerformEnter = useCallback((mounting: boolean) => {
-    const appearing = parentGroup ? parentGroup.isMounting : mounting;
+    const appearing = mounting;
     
     const enterTimeout = appearing ? durations.appear : durations.enter;
     
@@ -267,7 +265,7 @@ export default function Transition(props: ITransitionProps): ReactElement | null
         });
       });
     });
-  }, [parentGroup, durations, enter, onEnter, handleSafeSetState, onEntered, onEntering, handleTransitionEnd]);
+  }, [durations, enter, onEnter, handleSafeSetState, onEntered, onEntering, handleTransitionEnd]);
   
   const handleUpdateStatus = useCallback((mounting = false, nextStatus: ETransactionStatus | null) => {
     if (nextStatus !== null) {
@@ -298,9 +296,7 @@ export default function Transition(props: ITransitionProps): ReactElement | null
   }, [inProp, stateStatus]);
   
   useEffect(() => {
-    const appearStatus = parentGroup && !parentGroup.isMounting ? enter : appear;
-    
-    handleUpdateStatus(true, appearStatus ? ETransactionStatus.ENTERING : null);
+    handleUpdateStatus(true, appear ? ETransactionStatus.ENTERING : null);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   
   useEffect(() => {
@@ -319,11 +315,9 @@ export default function Transition(props: ITransitionProps): ReactElement | null
     handleUpdateStatus(false, nextStatus);
   }, [inProp, stateStatus, handleUpdateStatus]);
   
-  console.info(parentGroup?.isMounting)
-  
   if (stateStatus === ETransactionStatus.UNMOUNTED) {
     return null;
   }
   
-  return typeof children === 'function' ? children(stateStatus, childProps) : cloneElement(Children.only(children), childProps);
+  return typeof children === 'function' ? children(stateStatus) : cloneElement(Children.only(children));
 }

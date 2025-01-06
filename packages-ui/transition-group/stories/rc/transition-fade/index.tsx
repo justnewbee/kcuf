@@ -36,12 +36,12 @@ const ScFade = styled.div`
   transition: opacity ${duration}ms ease-in-out;
 `;
 
-export default function Fade({
+export default function TransitionFade({
   in: inProp
 }: IProps): ReactElement {
   const nodeRef = useRef<HTMLDivElement | null>(null);
   
-  return <Transition nodeRef={nodeRef} in={inProp} duration={duration}>
+  return <Transition nodeRef={nodeRef} in={inProp} duration={duration} mountOnEnter>
     {status => <ScFade ref={nodeRef} style={transitionStyles[status]}>
       I am a fade Transition!
     </ScFade>}

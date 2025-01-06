@@ -1,42 +1,68 @@
 import {
-  ReactElement
+  ReactElement,
+  useRef,
+  useState
 } from 'react';
+import styled from 'styled-components';
 
-import ToggleFixture from './rc/toggle-fixture';
 import {
-  Fade
-} from './transitions/Bootstrap';
+  InputSwitch
+} from '@kcuf/demo-rc';
 
-// storiesOf('Transition', module).add('Bootstrap Fade', () => <ToggleFixture>
-//   <Fade>asaghasg asgasg</Fade>
-// </ToggleFixture>).add('Bootstrap Collapse', () => <ToggleFixture>
-//   <Collapse>
-//     asaghasg asgasg
-//     <div>foo</div>
-//     <div>bar</div>
-//   </Collapse>
-// </ToggleFixture>).add('Fade using React.forwardRef', () => {
-//   const nodeRef = createRef();
-//
-//   return <ToggleFixture>
-//     <FadeForwardRef ref={nodeRef}>
-//       Fade using React.forwardRef
-//     </FadeForwardRef>
-//   </ToggleFixture>;
-// }).add('Fade using innerRef', () => {
-//   const nodeRef = createRef();
-//
-//   return <ToggleFixture>
-//     <FadeInnerRef innerRef={nodeRef}>Fade using innerRef</FadeInnerRef>
-//   </ToggleFixture>;
-// }).add('Fade with mountOnEnter', () => <ToggleFixture>
-//   <Fade mountOnEnter>Fade with mountOnEnter</Fade>
-// </ToggleFixture>).add('Fade with unmountOnExit', () => <ToggleFixture>
-//   <Fade unmountOnExit>Fade with unmountOnExit</Fade>
-// </ToggleFixture>);
+import {
+  Transition
+} from '../src';
+
+const duration = 300;
+
+const transitionStyles = {
+  entering: {
+    opacity: 1
+  },
+  entered: {
+    opacity: 1
+  },
+  exiting: {
+    opacity: 0
+  },
+  exited: {
+    opacity: 0
+  }
+};
+
+const ScFade = styled.div`
+  padding: 12px;
+  opacity: 0;
+  background-color: hsl(71 100% 50%);
+  transition: opacity ${duration}ms ease-in-out;
+`;
 
 export default function StoryTransition(): ReactElement {
-  return <ToggleFixture>
-    <Fade>asaghasg asgasg</Fade>
-  </ToggleFixture>;
+  const [stateIn, setStateIn] = useState(false);
+  
+  const nodeRef = useRef<HTMLDivElement | null>(null);
+  
+  return <>
+    <InputSwitch {...{
+      label: 'in',
+      value: stateIn,
+      onChange: setStateIn
+    }} />
+    <Transition {...{
+      nodeRef,
+      in: stateIn,
+      duration,
+      appear: true,
+      enter: false,
+      mountOnEnter: true
+    }}>
+      {status => {
+        console.info(status);
+        
+        return <ScFade ref={nodeRef} style={transitionStyles[status]}>
+          I am a fade Transition!
+        </ScFade>;
+      }}
+    </Transition>
+  </>;
 }

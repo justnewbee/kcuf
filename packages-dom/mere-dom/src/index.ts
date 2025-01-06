@@ -1,4 +1,4 @@
-export * from './util';
+export * from './helper';
 
 export type {
   IViewport as MereDomViewport,

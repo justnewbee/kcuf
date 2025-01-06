@@ -54,7 +54,9 @@
     "styled-components": "^6.x"
   },
   "dependencies": {
-    "dom-helpers": "^5.2.1"
+    "@kcuf-hook/use-is-unmounted": "workspace:^",
+    "dom-helpers": "^5.2.1",
+    "immer": "^10.1.1"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

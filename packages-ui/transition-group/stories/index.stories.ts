@@ -6,4 +6,4 @@ export default {
   title: 'TransitionGroup'
 } satisfies Meta;
 
-export { default as Fade } from './story-fade';
+export { default as Transition } from './story-transition';

@@ -25,6 +25,14 @@ This is designed to be almost drop-in replacement of `react-transition-group`, w
 
 #### TransitionProps
 
+**Removed**
+
+* `appear`
+* `enter` → `duration.enter = 0`
+* `exit` → `duration.exit = 0`
+
+**Renamed**
+
 * `timeout` → `duration`
 * `addEventListener` is removed (replaced with `onTransitionEnd`、`onTransitionCancel`)
 * `ref` is a must now as `findDOMNode` is deprecated and cannot be used in functional components
