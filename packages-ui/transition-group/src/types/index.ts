@@ -1,3 +1,4 @@
+export * from './common';
 export * from './transition';
 export * from './transition-css';
 export * from './transition-group';

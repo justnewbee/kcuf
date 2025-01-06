@@ -10,7 +10,7 @@ import {
 import Fade from './rc/fade';
 
 export default function StoryFade(): ReactElement {
-  const [stateIn, setStateIn] = useState(false);
+  const [stateIn, setStateIn] = useState(true);
   
   return <>
     <InputSwitch {...{

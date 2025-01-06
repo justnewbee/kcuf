@@ -3,11 +3,16 @@ import {
   ReactElement
 } from 'react';
 
+import {
+  ITransitionDurations,
+  TRenderChildren
+} from './common';
+
 export interface ITransitionProps {
   /**
    * A React reference to the DOM element that needs to transition.
    */
-  nodeRef: MutableRefObject<ReactElement>;
+  nodeRef: MutableRefObject<HTMLElement | null>;
   
   /**
    * A `function` child can be used instead of a React element. This function is
@@ -21,7 +26,7 @@ export interface ITransitionProps {
    * </Transition>
    * ```
    */
-  children: ReactElement;
+  children: ReactElement | TRenderChildren;
   
   /**
    * Show the component; triggers the enter or exit states
@@ -46,7 +51,7 @@ export interface ITransitionProps {
    * regardless of the value of `in`. If you want this behavior, set both `appear` and `in` to `true`.
    *
    * > **Note**: there are no special appear states like `appearing`/`appeared`, this prop
-   * > only adds an additional enter transition. However, in the
+   * > only adds additional enter transition. However, in the
    * > `<TransitionCss>` component that first enter transition does result in
    * > additional `.appear-*` classes, that way you can choose to style it
    * > differently.
@@ -69,79 +74,55 @@ export interface ITransitionProps {
    * You may specify a single timeout for all transitions:
    *
    * ```tsx
-   * timeout={500}
+   * duration: 500
    * ```
    *
    * or individually:
    *
    * ```tsx
-   * timeout={{
+   * duration: {
    *  appear: 500,
    *  enter: 300,
-   *  exit: 500,
-   * }}
+   *  exit: 500
+   * }
    * ```
+   *
+   * - `appear` defaults to the value of `enter`
+   * - `enter` defaults to `0`
+   * - `exit` defaults to `0`
    */
-  timeout?: number | {
-    enter?: number;
-    exit?: number;
-    appear?: number;
-  };
+  duration?: number | ITransitionDurations;
   
   /**
    * Callback fired before the "entering" status is applied. An extra parameter
-   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
-   *
-   * **Note**: when `nodeRef` prop is passed, `node` is not passed, so `isAppearing` is being passed as the first argument.
-   *
-   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   * `appearing` is supplied to indicate if the enter stage is occurring on the initial mount
    */
-  onEnter?(): void;
+  onEnter?(appearing: boolean): void;
   
   /**
    * Callback fired after the "entering" status is applied. An extra parameter
-   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
-   *
-   * **Note**: when `nodeRef` prop is passed, `node` is not passed, so `isAppearing` is being passed as the first argument.
-   *
-   * @type Function(node: HtmlElement, isAppearing: bool)
+   * `appearing` is supplied to indicate if the enter stage is occurring on the initial mount
    */
-  onEntering?(): void;
+  onEntering?(appearing: boolean): void;
   
   /**
    * Callback fired after the "entered" status is applied. An extra parameter
-   * `isAppearing` is supplied to indicate if the enter stage is occurring on the initial mount
-   *
-   * **Note**: when `nodeRef` prop is passed, `node` is not passed, so `isAppearing` is being passed as the first argument.
-   *
-   * @type Function(node: HtmlElement, isAppearing: bool) -> void
+   * `appearing` is supplied to indicate if the enter stage is occurring on the initial mount
    */
-  onEntered?(): void;
+  onEntered?(appearing: boolean): void;
   
   /**
    * Callback fired before the "exiting" status is applied.
-   *
-   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
-   *
-   * @type Function(node: HtmlElement) -> void
    */
   onExit?(): void;
   
   /**
    * Callback fired after the "exiting" status is applied.
-   *
-   * **Note**: when `nodeRef` prop is passed, `node` is not passed.
-   *
-   * @type Function(node: HtmlElement) -> void
    */
   onExiting?(): void;
   
   /**
    * Callback fired after the "exited" status is applied.
-   *
-   * **Note**: when `nodeRef` prop is passed, `node` is not passed
-   *
-   * @type Function(node: HtmlElement) -> void
    */
   onExited?(): void;
 }

@@ -21,6 +21,7 @@ import TransitionGroupContext from './transition-group-context';
 interface IState {
   status: ETransactionStatus;
 }
+
 /**
  * The Transition component lets you describe a transition from one component
  * state to another _over time_ with a simple declarative API. Most commonly
@@ -125,7 +126,6 @@ interface IState {
  * When `in` is `false` the same thing happens except the state moves from
  * `'exiting'` to `'exited'`.
  */
-
 export default class Transition extends Component<ITransitionProps, IState> {
   constructor(props: ITransitionProps, context) {
     super(props, context);
@@ -202,17 +202,17 @@ export default class Transition extends Component<ITransitionProps, IState> {
   
   getTimeouts() {
     const {
-      timeout
+      duration
     } = this.props;
     let exit, enter, appear;
     
-    exit = enter = appear = timeout;
+    exit = enter = appear = duration;
     
-    if (timeout !== null && typeof timeout !== 'number') {
-      exit = timeout.exit;
-      enter = timeout.enter;
+    if (duration !== null && typeof duration !== 'number') {
+      exit = duration.exit;
+      enter = duration.enter;
       // TODO: remove fallback for next major
-      appear = timeout.appear !== undefined ? timeout.appear : enter;
+      appear = duration.appear !== undefined ? duration.appear : enter;
     }
     
     return {
@@ -421,7 +421,7 @@ export default class Transition extends Component<ITransitionProps, IState> {
       appear: _appear,
       enter: _enter,
       exit: _exit,
-      timeout: _timeout,
+      duration: _timeout,
       addEndListener: _addEndListener,
       onEnter: _onEnter,
       onEntering: _onEntering,

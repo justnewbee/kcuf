@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
   useCallback,
+  useMemo,
   useEffect
 } from 'react';
 
@@ -13,6 +14,7 @@ import {
   ETransactionStatus
 } from './enum';
 import {
+  ITransitionDurations,
   ITransitionProps
 } from './types';
 import {
@@ -20,6 +22,110 @@ import {
 } from './util';
 import TransitionGroupContext from './transition-group-context';
 
+/**
+ * The Transition component lets you describe a transition from one component
+ * state to another _over time_ with a simple declarative API. Most commonly
+ * it's used to animate the mounting and unmounting of a component, but can also
+ * be used to describe in-place transition states as well.
+ *
+ * ---
+ *
+ * **Note**: `Transition` is a platform-agnostic base component. If you're using
+ * transitions in CSS, you'll probably want to use `TransitionCss`
+ * instead. It inherits all the features of `Transition`, but contains
+ * additional features necessary to play nice with CSS transitions (hence the
+ * name of the component).
+ *
+ * ---
+ *
+ * By default, the `Transition` component does not alter the behavior of the
+ * component it renders, it only tracks "enter" and "exit" states for the
+ * components. It's up to you to give meaning and effect to those states. For
+ * example, we can add styles to a component when it enters or exits:
+ *
+ * ```tsx
+ * import {
+ *   useRef
+ * } from 'react';
+ * import {
+ *   Transition
+ * } from '@kcuf-ui/transition-group';
+ *
+ * const duration = 300;
+ *
+ * const defaultStyle = {
+ *   transition: `opacity ${duration}ms ease-in-out`,
+ *   opacity: 0,
+ * }
+ *
+ * const transitionStyles = {
+ *   entering: { opacity: 1 },
+ *   entered:  { opacity: 1 },
+ *   exiting:  { opacity: 0 },
+ *   exited:  { opacity: 0 },
+ * };
+ *
+ * function Fade({
+ *   in: inProp
+ * }) {
+ *   const nodeRef = useRef(null);
+ *
+ *   return <Transition nodeRef={nodeRef} in={inProp} timeout={duration}>
+ *     {state => <div ref={nodeRef} style={{
+ *       ...defaultStyle,
+ *       ...transitionStyles[state]
+ *     }}>
+ *       I am a fade Transition!
+ *     </div>}
+ *   </Transition>;
+ * }
+ * ```
+ *
+ * There are 4 main states a Transition can be in:
+ *
+ *  - `'entering'`
+ *  - `'entered'`
+ *  - `'exiting'`
+ *  - `'exited'`
+ *
+ * Transition state is toggled via the `in` prop. When `true` the component
+ * begins the "Enter" stage. During this stage, the component will shift from
+ * its current transition state, to `'entering'` for the duration of the
+ * transition and then to the `'entered'` stage once it's complete. Let's take
+ * the following example with `useState` hook:
+ *
+ * ```tsx
+ * import {
+ *   ReactElement,
+ *   useRef,
+ *   useState,
+ *   useCallback
+ * } from 'react';
+ * import {
+ *   Transition
+ * } from '@kcuf-ui/transition-group';
+ *
+ * function App(): ReactElement {
+ *   const refNode = useRef(null);
+ *   const [stateIn, setStateIn] = useState(false);
+ *   const handleToggleIn = useCallback(() => setStateIn(prevState => !prevState), [setStateIn]);
+ *
+ *   return <>
+ *     <Transition nodeRef={refNode} in={stateIn} duration={500}>
+ *       {state => ...}
+ *     </Transition>
+ *     <button onClick={handleToggleIn}>Toggle</button>
+ *   </>;
+ * }
+ * ```
+ *
+ * When the button is clicked the component will shift to the `'entering'` state
+ * and stay there for 500ms (the value of `duration`) before it finally switches
+ * to `'entered'`.
+ *
+ * When `in` is `false` the same thing happens except the state moves from
+ * `'exiting'` to `'exited'`.
+ */
 export default function Transition(props: ITransitionProps): ReactElement | null {
   const {
     nodeRef,
@@ -30,7 +136,7 @@ export default function Transition(props: ITransitionProps): ReactElement | null
     appear,
     enter,
     exit,
-    timeout,
+    duration = 500,
     onEnter,
     onEntering,
     onEntered,
@@ -63,6 +169,28 @@ export default function Transition(props: ITransitionProps): ReactElement | null
     return initialStatus;
   });
   
+  const durations: Required<ITransitionDurations> = useMemo((): Required<ITransitionDurations> => {
+    let durationAppear: number;
+    let durationEnter: number;
+    let durationExit: number;
+    
+    if (typeof duration === 'number') {
+      durationAppear = duration;
+      durationEnter = duration;
+      durationExit = duration;
+    } else {
+      durationExit = duration.exit ?? 0;
+      durationEnter = duration.enter ?? 0;
+      durationAppear = duration.appear ?? durationEnter;
+    }
+    
+    return {
+      appear: durationAppear,
+      enter: durationEnter,
+      exit: durationExit
+    };
+  }, [duration]);
+  
   const cancelNextCallback = useCallback(() => {
     if (nextCallbackRef.current !== null) {
       nextCallbackRef.current();
@@ -70,7 +198,7 @@ export default function Transition(props: ITransitionProps): ReactElement | null
     }
   }, []);
   
-  const safeSetState = useCallback((nextState: ETransactionStatus, callback?: () => void) => {
+  const handleSafeSetState = useCallback((nextState: ETransactionStatus, callback?: () => void) => {
     setStateStatus(nextState);
     
     if (callback) {
@@ -78,26 +206,9 @@ export default function Transition(props: ITransitionProps): ReactElement | null
     }
   }, []);
   
-  const getTimeouts = useCallback(() => {
-    let exit, enter, appear;
-    exit = enter = appear = timeout;
-    
-    if (timeout !== null && typeof timeout !== 'number') {
-      exit = timeout.exit;
-      enter = timeout.enter;
-      appear = timeout.appear !== undefined ? timeout.appear : enter;
-    }
-    
-    return {
-      exit,
-      enter,
-      appear
-    };
-  }, [timeout]);
-  
-  const onTransitionEnd = useCallback((timeout: number, handler: () => void) => {
+  const handleTransitionEnd = useCallback((timeout: number, handler: () => void) => {
     const node = nodeRef.current;
-    const doesNotHaveTimeoutOrListener = timeout == null;
+    const doesNotHaveTimeoutOrListener = timeout === null;
     
     if (!node || doesNotHaveTimeoutOrListener) {
       setTimeout(handler, 0);
@@ -110,60 +221,55 @@ export default function Transition(props: ITransitionProps): ReactElement | null
     }
   }, [nodeRef]);
   
-  const performExit = useCallback(() => {
-    const timeouts = getTimeouts();
-    const maybeNode = nodeRef.current;
-    
+  const handlePerformExit = useCallback(() => {
     if (!exit) {
-      safeSetState(ETransactionStatus.EXITED, () => {
-        onExited?.(maybeNode);
+      handleSafeSetState(ETransactionStatus.EXITED, () => {
+        onExited?.();
       });
       
       return;
     }
     
-    onExit?.(maybeNode);
+    onExit?.();
     
-    safeSetState(ETransactionStatus.EXITING, () => {
-      onExiting?.(maybeNode);
+    handleSafeSetState(ETransactionStatus.EXITING, () => {
+      onExiting?.();
       
-      onTransitionEnd(timeouts.exit, () => {
-        safeSetState(ETransactionStatus.EXITED, () => {
-          onExited?.(maybeNode);
+      handleTransitionEnd(durations.exit, () => {
+        handleSafeSetState(ETransactionStatus.EXITED, () => {
+          onExited?.();
         });
       });
     });
-  }, [getTimeouts, nodeRef, exit, onExit, safeSetState, onExited, onExiting, onTransitionEnd]);
+  }, [durations, exit, onExit, handleSafeSetState, onExited, onExiting, handleTransitionEnd]);
   
-  const performEnter = useCallback((mounting: boolean) => {
+  const handlePerformEnter = useCallback((mounting: boolean) => {
     const appearing = parentGroup ? parentGroup.isMounting : mounting;
-    const maybeNode = nodeRef.current;
     
-    const timeouts = getTimeouts();
-    const enterTimeout = appearing ? timeouts.appear : timeouts.enter;
+    const enterTimeout = appearing ? durations.appear : durations.enter;
     
     if (!mounting && !enter) {
-      safeSetState(ETransactionStatus.ENTERED, () => {
-        onEntered?.(maybeNode);
+      handleSafeSetState(ETransactionStatus.ENTERED, () => {
+        onEntered?.();
       });
       
       return;
     }
     
-    onEnter?.(maybeNode, appearing);
+    onEnter?.(appearing);
     
-    safeSetState(ETransactionStatus.ENTERING, () => {
-      onEntering?.(maybeNode, appearing);
+    handleSafeSetState(ETransactionStatus.ENTERING, () => {
+      onEntering?.(appearing);
       
-      onTransitionEnd(enterTimeout, () => {
-        safeSetState(ETransactionStatus.ENTERED, () => {
-          onEntered?.(maybeNode, appearing);
+      handleTransitionEnd(enterTimeout, () => {
+        handleSafeSetState(ETransactionStatus.ENTERED, () => {
+          onEntered?.(appearing);
         });
       });
     });
-  }, [parentGroup, nodeRef, getTimeouts, enter, onEnter, safeSetState, onEntered, onEntering, onTransitionEnd]);
+  }, [parentGroup, durations, enter, onEnter, handleSafeSetState, onEntered, onEntering, handleTransitionEnd]);
   
-  const updateStatus = useCallback((mounting = false, nextStatus: ETransactionStatus | null) => {
+  const handleUpdateStatus = useCallback((mounting = false, nextStatus: ETransactionStatus | null) => {
     if (nextStatus !== null) {
       cancelNextCallback();
       
@@ -176,14 +282,14 @@ export default function Transition(props: ITransitionProps): ReactElement | null
           }
         }
         
-        performEnter(mounting);
+        handlePerformEnter(mounting);
       } else {
-        performExit();
+        handlePerformExit();
       }
     } else if (unmountOnExit && stateStatus === ETransactionStatus.EXITED) {
       setStateStatus(ETransactionStatus.UNMOUNTED);
     }
-  }, [unmountOnExit, stateStatus, cancelNextCallback, mountOnEnter, performEnter, nodeRef, performExit]);
+  }, [unmountOnExit, stateStatus, cancelNextCallback, mountOnEnter, handlePerformEnter, nodeRef, handlePerformExit]);
   
   useEffect(() => {
     if (inProp && stateStatus === ETransactionStatus.UNMOUNTED) {
@@ -194,7 +300,7 @@ export default function Transition(props: ITransitionProps): ReactElement | null
   useEffect(() => {
     const appearStatus = parentGroup && !parentGroup.isMounting ? enter : appear;
     
-    updateStatus(true, appearStatus ? ETransactionStatus.ENTERING : null);
+    handleUpdateStatus(true, appearStatus ? ETransactionStatus.ENTERING : null);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   
   useEffect(() => {
@@ -210,14 +316,14 @@ export default function Transition(props: ITransitionProps): ReactElement | null
       }
     }
     
-    updateStatus(false, nextStatus);
-  }, [inProp, stateStatus, updateStatus]);
+    handleUpdateStatus(false, nextStatus);
+  }, [inProp, stateStatus, handleUpdateStatus]);
+  
+  console.info(parentGroup?.isMounting)
   
   if (stateStatus === ETransactionStatus.UNMOUNTED) {
     return null;
   }
   
-  return <TransitionGroupContext.Provider value={null}>
-    {typeof children === 'function' ? children(stateStatus, childProps) : cloneElement(Children.only(children), childProps)}
-  </TransitionGroupContext.Provider>;
+  return typeof children === 'function' ? children(stateStatus, childProps) : cloneElement(Children.only(children), childProps);
 }

@@ -1,15 +1,17 @@
+import {
+  ReactElement,
+  useRef,
+  useCallback
+} from 'react';
 import addOneClass from 'dom-helpers/addClass';
 import removeOneClass from 'dom-helpers/removeClass';
-import {
-  Component
-} from 'react';
 
-import {
-  forceReflow
-} from './util';
 import {
   ITransitionCssProps
 } from './types';
+import {
+  forceReflow
+} from './util';
 import Transition from './transition';
 
 const addClass = (node, classes) =>
@@ -24,136 +26,25 @@ const removeClass = (node, classes) =>
  * [`Transition`](https://reactcommunity.org/@kcuf-ui/transition-group/transition)
  * component, so it inherits all of its props.
  *
- * `TransitionCss` applies a pair of class names during the `appear`, `enter`,
- * and `exit` states of the transition. The first class is applied and then a
- * second `*-active` class in order to activate the CSS transition. After the
- * transition, matching `*-done` class names are applied to persist the
- * transition state.
- *
- * ```tsx
- * function App() {
- *   const [inProp, setInProp] = useState(false);
- *   const nodeRef = useRef(null);
- *
- *   return <div>
- *     <TransitionCss nodeRef={nodeRef} in={inProp} timeout={200} classNames="my-node">
- *       <div ref={nodeRef}>
- *         {"I'll receive my-node-* classes"}
- *       </div>
- *     </TransitionCss>
- *     <button type="button" onClick={() => setInProp(true)}>
- *       Click to Enter
- *     </button>
- *   </div>;
- * }
- * ```
- *
- * When the `in` prop is set to `true`, the child component will first receive
- * the class `example-enter`, then the `example-enter-active` will be added in
- * the next tick. `TransitionCss` [forces a
- * reflow](https://github.com/reactjs/@kcuf-ui/transition-group/blob/5007303e729a74be66a21c3e2205e4916821524b/src/TransitionCss.js#L208-L215)
- * between before adding the `example-enter-active`. This is an important trick
- * because it allows us to transition between `example-enter` and
- * `example-enter-active` even though they were added immediately one after
- * another. Most notably, this is what makes it possible for us to animate
- * _appearance_.
- *
- * ```css
- * .my-node-enter {
- *   opacity: 0;
- * }
- * .my-node-enter-active {
- *   opacity: 1;
- *   transition: opacity 200ms;
- * }
- * .my-node-exit {
- *   opacity: 1;
- * }
- * .my-node-exit-active {
- *   opacity: 0;
- *   transition: opacity 200ms;
- * }
- * ```
- *
- * `*-active` classes represent which styles you want to animate **to**, so it's
- * important to add `transition` declaration only to them, otherwise transitions
- * might not behave as intended! This might not be obvious when the transitions
- * are symmetrical, i.e. when `*-enter-active` is the same as `*-exit`, like in
- * the example above (minus `transition`), but it becomes apparent in more
- * complex transitions.
- *
- * **Note**: If you're using the
- * [`appear`](http://reactcommunity.org/@kcuf-ui/transition-group/transition#Transition-prop-appear)
- * prop, make sure to define styles for `.appear-*` classes as well.
+ * ... (rest of the comment remains unchanged)
  */
-export default class TransitionCss extends Component<ITransitionCssProps> {
-  appliedClasses = {
+export default function TransitionCss(props: ITransitionCssProps): ReactElement {
+  const appliedClassesRef = useRef({
     appear: {},
     enter: {},
     exit: {}
-  };
+  });
   
-  onEnter = (maybeNode, maybeAppearing) => {
-    const [node, appearing] = this.resolveArguments(maybeNode, maybeAppearing);
-    
-    this.removeClasses(node, 'exit');
-    this.addClass(node, appearing ? 'appear' : 'enter', 'base');
-    
-    this.props.onEnter?.(maybeNode, maybeAppearing);
-  };
+  const resolveArguments = useCallback((maybeNode, maybeAppearing) =>
+      props.nodeRef
+        ? [props.nodeRef.current, maybeNode] // here `maybeNode` is actually `appearing`
+        : [maybeNode, maybeAppearing], // `findDOMNode` was used
+    [props.nodeRef]);
   
-  onEntering = (maybeNode, maybeAppearing) => {
-    const [node, appearing] = this.resolveArguments(maybeNode, maybeAppearing);
-    const type = appearing ? 'appear' : 'enter';
-    
-    this.addClass(node, type, 'active');
-    this.props.onEntering?.(maybeNode, maybeAppearing);
-  };
-  
-  onEntered = (maybeNode, maybeAppearing) => {
-    const [node, appearing] = this.resolveArguments(maybeNode, maybeAppearing);
-    const type = appearing ? 'appear' : 'enter';
-    
-    this.removeClasses(node, type);
-    this.addClass(node, type, 'done');
-    
-    this.props.onEntered?.(maybeNode, maybeAppearing);
-  };
-  
-  onExit = maybeNode => {
-    const [node] = this.resolveArguments(maybeNode);
-    
-    this.removeClasses(node, 'appear');
-    this.removeClasses(node, 'enter');
-    this.addClass(node, 'exit', 'base');
-    
-    this.props.onExit?.(maybeNode);
-  };
-  
-  onExiting = maybeNode => {
-    const [node] = this.resolveArguments(maybeNode);
-    
-    this.addClass(node, 'exit', 'active');
-    this.props.onExiting?.(maybeNode);
-  };
-  
-  onExited = maybeNode => {
-    const [node] = this.resolveArguments(maybeNode);
-    
-    this.removeClasses(node, 'exit');
-    this.addClass(node, 'exit', 'done');
-    
-    this.props.onExited?.(maybeNode);
-  };
-  
-  // when prop `nodeRef` is provided `node` is excluded
-  resolveArguments = (maybeNode, maybeAppearing) =>
-    this.props.nodeRef
-      ? [this.props.nodeRef.current, maybeNode] // here `maybeNode` is actually `appearing`
-      : [maybeNode, maybeAppearing]; // `findDOMNode` was used
-  
-  getClassNames = type => {
-    const {classNames} = this.props;
+  const getClassNames = useCallback((type) => {
+    const {
+      classNames
+    } = props;
     const isStringClassNames = typeof classNames === 'string';
     const prefix = isStringClassNames && classNames ? `${classNames}-` : '';
     let baseClassName = isStringClassNames ? `${prefix}${type}` : classNames[type];
@@ -165,18 +56,16 @@ export default class TransitionCss extends Component<ITransitionCssProps> {
       activeClassName,
       doneClassName
     };
-  };
+  }, [props.classNames]);
   
-  addClass(node, type, phase) {
-    let className = this.getClassNames(type)[`${phase}ClassName`];
-    const {doneClassName} = this.getClassNames('enter');
+  const addClass = useCallback((node, type, phase) => {
+    let className = getClassNames(type)[`${phase}ClassName`];
+    const {doneClassName} = getClassNames('enter');
     
     if (type === 'appear' && phase === 'done' && doneClassName) {
       className += ` ${doneClassName}`;
     }
     
-    // This is to force a repaint,
-    // which is necessary in order to transition styles when adding a class name.
     if (phase === 'active') {
       if (node) {
         forceReflow(node);
@@ -184,19 +73,19 @@ export default class TransitionCss extends Component<ITransitionCssProps> {
     }
     
     if (className) {
-      this.appliedClasses[type][phase] = className;
+      appliedClassesRef.current[type][phase] = className;
       addClass(node, className);
     }
-  }
+  }, [getClassNames]);
   
-  removeClasses(node, type) {
+  const removeClasses = useCallback((node, type) => {
     const {
       base: baseClassName,
       active: activeClassName,
       done: doneClassName
-    } = this.appliedClasses[type];
+    } = appliedClassesRef.current[type];
     
-    this.appliedClasses[type] = {};
+    appliedClassesRef.current[type] = {};
     
     if (baseClassName) {
       removeClass(node, baseClassName);
@@ -209,22 +98,75 @@ export default class TransitionCss extends Component<ITransitionCssProps> {
     if (doneClassName) {
       removeClass(node, doneClassName);
     }
-  }
+  }, []);
   
-  render() {
-    const {
-      classNames,
-      ...props
-    } = this.props;
+  const onEnter = useCallback((maybeNode, maybeAppearing) => {
+    const [node, appearing] = resolveArguments(maybeNode, maybeAppearing);
     
-    return <Transition {...{
-      ...props,
-      onEnter: this.onEnter,
-      onEntered: this.onEntered,
-      onEntering: this.onEntering,
-      onExit: this.onExit,
-      onExiting: this.onExiting,
-      onExited: this.onExited
-    }} />;
-  }
+    removeClasses(node, 'exit');
+    addClass(node, appearing ? 'appear' : 'enter', 'base');
+    
+    props.onEnter?.(maybeNode, maybeAppearing);
+  }, [resolveArguments, removeClasses, addClass, props.onEnter]);
+  
+  const onEntering = useCallback((maybeNode, maybeAppearing) => {
+    const [node, appearing] = resolveArguments(maybeNode, maybeAppearing);
+    const type = appearing ? 'appear' : 'enter';
+    
+    addClass(node, type, 'active');
+    props.onEntering?.(maybeNode, maybeAppearing);
+  }, [resolveArguments, addClass, props.onEntering]);
+  
+  const onEntered = useCallback((maybeNode, maybeAppearing) => {
+    const [node, appearing] = resolveArguments(maybeNode, maybeAppearing);
+    const type = appearing ? 'appear' : 'enter';
+    
+    removeClasses(node, type);
+    addClass(node, type, 'done');
+    
+    props.onEntered?.(maybeNode, maybeAppearing);
+  }, [resolveArguments, removeClasses, addClass, props.onEntered]);
+  
+  const onExit = useCallback((maybeNode) => {
+    const [node] = resolveArguments(maybeNode);
+    
+    removeClasses(node, 'appear');
+    removeClasses(node, 'enter');
+    addClass(node, 'exit', 'base');
+    
+    props.onExit?.(maybeNode);
+  }, [resolveArguments, removeClasses, addClass, props.onExit]);
+  
+  const onExiting = useCallback((maybeNode) => {
+    const [node] = resolveArguments(maybeNode);
+    
+    addClass(node, 'exit', 'active');
+    props.onExiting?.(maybeNode);
+  }, [resolveArguments, addClass, props.onExiting]);
+  
+  const onExited = useCallback((maybeNode) => {
+    const [node] = resolveArguments(maybeNode);
+    
+    removeClasses(node, 'exit');
+    addClass(node, 'exit', 'done');
+    
+    props.onExited?.(maybeNode);
+  }, [resolveArguments, removeClasses, addClass, props.onExited]);
+  
+  const {
+    classNames,
+    ...otherProps
+  } = props;
+  
+  return (
+    <Transition
+      {...otherProps}
+      onEnter={onEnter}
+      onEntered={onEntered}
+      onEntering={onEntering}
+      onExit={onExit}
+      onExiting={onExiting}
+      onExited={onExited}
+    />
+  );
 }

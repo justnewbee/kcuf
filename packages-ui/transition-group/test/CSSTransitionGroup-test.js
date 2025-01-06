@@ -16,7 +16,7 @@ describe('CSSTransitionGroup', () => {
   function YoloTransition({ id, ...props }) {
     const nodeRef = React.useRef();
     
-    return <TransitionCss nodeRef={nodeRef} classNames="yolo" timeout={0} {...props}>
+    return <TransitionCss nodeRef={nodeRef} classNames="yolo" duration={0} {...props}>
       <span ref={nodeRef} id={id} />
     </TransitionCss>;
   }
@@ -152,7 +152,7 @@ describe('CSSTransitionGroup', () => {
     render(<TransitionGroup />, container);
     render(
       <TransitionGroup>
-        <TransitionCss classNames="yolo" timeout={0}>
+        <TransitionCss classNames="yolo" duration={0}>
           <NullComponent />
         </TransitionCss>
       </TransitionGroup>,

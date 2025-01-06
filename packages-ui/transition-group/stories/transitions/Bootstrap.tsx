@@ -48,7 +48,7 @@ export function Fade(props) {
       {...props}
       nodeRef={nodeRef}
       className={styles.fade}
-      timeout={500}
+      duration={500}
     >
       {(status) => (
         <div
@@ -112,7 +112,7 @@ export class Collapse extends React.Component {
       <Transition
         {...rest}
         nodeRef={this.nodeRef}
-        timeout={350}
+        duration={350}
         onEnter={this.handleEnter}
         onEntering={this.handleEntering}
         onEntered={this.handleEntered}
@@ -137,7 +137,7 @@ export function FadeInnerRef(props) {
       {...props}
       nodeRef={nodeRef}
       className={styles.fade}
-      timeout={150}
+      duration={150}
     >
       {(status) => (
         <div

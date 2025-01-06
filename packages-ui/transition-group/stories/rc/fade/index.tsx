@@ -39,11 +39,11 @@ const ScFade = styled.div`
 export default function Fade({
   in: inProp
 }: IProps): ReactElement {
-  const nodeRef = useRef(null);
+  const nodeRef = useRef<HTMLDivElement | null>(null);
   
-  return <Transition nodeRef={nodeRef} in={inProp} timeout={duration}>
-    {state => <ScFade ref={nodeRef} style={transitionStyles[state]}>
-      I a fade Transition!
+  return <Transition nodeRef={nodeRef} in={inProp} duration={duration}>
+    {status => <ScFade ref={nodeRef} style={transitionStyles[status]}>
+      I am a fade Transition!
     </ScFade>}
   </Transition>;
 }

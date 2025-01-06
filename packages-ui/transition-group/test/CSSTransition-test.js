@@ -11,7 +11,7 @@ describe('TransitionCss', () => {
       <TransitionCss
         in={false}
         nodeRef={nodeRef}
-        timeout={0}
+        duration={0}
         classNames="test"
         onEnter={() => {
           expect(nodeRef.current.classList.contains('test-class')).toEqual(
@@ -41,7 +41,7 @@ describe('TransitionCss', () => {
       let done = false;
       const nodeRef = React.createRef();
       const { setProps } = render(
-        <TransitionCss nodeRef={nodeRef} timeout={10} classNames="test">
+        <TransitionCss nodeRef={nodeRef} duration={10} classNames="test">
           <div ref={nodeRef} />
         </TransitionCss>
       );
@@ -78,7 +78,7 @@ describe('TransitionCss', () => {
       const nodeRef = React.createRef();
       const { setProps } = render(
         <TransitionCss
-          timeout={10}
+          duration={10}
           nodeRef={nodeRef}
           classNames={{
             enter: 'custom',
@@ -122,7 +122,7 @@ describe('TransitionCss', () => {
       const nodeRef = React.createRef();
       render(
         <TransitionCss
-          timeout={10}
+          duration={10}
           nodeRef={nodeRef}
           classNames="appear-test"
           in={true}
@@ -161,7 +161,7 @@ describe('TransitionCss', () => {
       let exited = false;
       const { setProps } = render(
         <TransitionCss
-          timeout={10}
+          duration={10}
           nodeRef={nodeRef}
           classNames="appear-test"
           in={true}
@@ -208,7 +208,7 @@ describe('TransitionCss', () => {
       let done = false;
       render(
         <TransitionCss
-          timeout={10}
+          duration={10}
           nodeRef={nodeRef}
           classNames={{ appear: 'appear-test' }}
           in={true}
@@ -237,7 +237,7 @@ describe('TransitionCss', () => {
       const nodeRef = React.createRef();
       render(
         <TransitionCss
-          timeout={10}
+          duration={10}
           nodeRef={nodeRef}
           classNames="not-appear-test"
           appear={true}
@@ -278,7 +278,7 @@ describe('TransitionCss', () => {
       const nodeRef = React.createRef();
       render(
         <TransitionCss
-          timeout={10}
+          duration={10}
           nodeRef={nodeRef}
           classNames="appear-fail-test"
           in={true}
@@ -304,7 +304,7 @@ describe('TransitionCss', () => {
       let count = 0;
       const nodeRef = React.createRef();
       const { setProps } = render(
-        <TransitionCss in nodeRef={nodeRef} timeout={10} classNames="test">
+        <TransitionCss in nodeRef={nodeRef} duration={10} classNames="test">
           <div ref={nodeRef} />
         </TransitionCss>
       );
@@ -341,7 +341,7 @@ describe('TransitionCss', () => {
         <TransitionCss
           in
           nodeRef={nodeRef}
-          timeout={10}
+          duration={10}
           classNames={{
             exit: 'custom',
             exitActive: 'custom-super-active',
@@ -382,7 +382,7 @@ describe('TransitionCss', () => {
 
       const nodeRef = React.createRef();
       const { setProps } = render(
-        <TransitionCss in nodeRef={nodeRef} timeout={10}>
+        <TransitionCss in nodeRef={nodeRef} duration={10}>
           <div ref={nodeRef} />
         </TransitionCss>
       );
@@ -428,7 +428,7 @@ describe('TransitionCss', () => {
           >
             <TransitionCss
               key={text}
-              timeout={100}
+              duration={100}
               nodeRef={nodeRef}
               {...props}
             >
