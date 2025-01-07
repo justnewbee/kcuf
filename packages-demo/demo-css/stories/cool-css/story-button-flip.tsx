@@ -21,7 +21,7 @@ const ScButtonFlip = styled.span`
   }
   
   &::before {
-    content: attr(data-front);
+    content: attr(data-flip-normal);
     position: relative;
     padding: 0 30px;
     opacity: 1;
@@ -31,7 +31,7 @@ const ScButtonFlip = styled.span`
   }
   
   &::after {
-    content: attr(data-back);
+    content: attr(data-flip-flipped);
     position: absolute;
     width: 100%;
     opacity: 0;
@@ -55,5 +55,5 @@ const ScButtonFlip = styled.span`
 
 // 参考 https://codepen.io/MoorLex/pen/NBwNZa
 export default function StoryButtonFlip(): ReactElement {
-  return <ScButtonFlip data-back="Back" data-front="Front" />;
+  return <ScButtonFlip data-flip-normal="Normal" data-flip-flipped="Flipped" />;
 }

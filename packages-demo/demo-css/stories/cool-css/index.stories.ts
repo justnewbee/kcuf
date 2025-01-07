@@ -6,6 +6,7 @@ import {
 export { default as ButtonGlowOnHover } from './story-button-glow-on-hover';
 export { default as ButtonFlip } from './story-button-flip';
 export { default as ButtonAdd } from './story-button-add';
+export { default as ButtonMortar } from './story-button-mortar';
 
 export { default as LinkStyle } from './story-link-style';
 export { default as Radar } from './story-radar';
