@@ -1,0 +1,20 @@
+import {
+  cloneElement
+} from 'react';
+
+import {
+  render as baseRender
+} from '@testing-library/react/pure';
+
+export * from '@testing-library/react';
+
+export function render(element, options) {
+  const result = baseRender(element, options);
+  
+  return {
+    ...result,
+    setProps(props) {
+      result.rerender(cloneElement(element, props));
+    }
+  };
+}
