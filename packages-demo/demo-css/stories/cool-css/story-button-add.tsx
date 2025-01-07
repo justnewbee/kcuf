@@ -3,7 +3,7 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-const ScLeftTopCross = styled.i`
+const ScCrossCorner = styled.i`
   display: block;
   position: absolute;
   top: 1px;
@@ -95,7 +95,7 @@ const ScButtonAdd = styled.span`
     height: 2px;
   }
   
-  &:hover ${ScLeftTopCross}::after {
+  &:hover ${ScCrossCorner}::after {
     content: '';
     display: block;
     position: absolute;
@@ -107,7 +107,7 @@ const ScButtonAdd = styled.span`
     background: #503af6;
   }
   
-  &:hover ${ScLeftTopCross}::before {
+  &:hover ${ScCrossCorner}::before {
     content: '';
     display: block;
     position: absolute;
@@ -138,37 +138,6 @@ const ScButtonAdd = styled.span`
     height: 18px;
   }
   
-  .cross::before {
-    top: 8px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    transform: translateX(50px) scaleX(0);
-  }
-  
-  &:hover .cross::before,
-  .cross::before {
-    transition-duration: 0.5s;
-  }
-  
-  &:hover .cross::after,
-  &:hover .cross::before,
-  .cross::after,
-  .cross::before {
-    opacity: 1;
-    transform: none;
-    transition-delay: 0.2s;
-  }
-  
-  .cross::after {
-    top: 0;
-    left: 8px;
-    width: 2px;
-    height: 100%;
-    transform: translateY(20px) scaleY(0);
-    transition-duration: 0.4s;
-  }
-  
   .cross::before,
   .cross::after {
     content: '';
@@ -179,6 +148,24 @@ const ScButtonAdd = styled.span`
     transition-delay: 0s;
     transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
     transition-duration: 0.3s;
+  }
+  
+  .cross::before {
+    top: 8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateX(50px) scaleX(0);
+    transition-duration: 0.5s;
+  }
+  
+  .cross::after {
+    top: 0;
+    left: 8px;
+    width: 2px;
+    height: 100%;
+    transform: translateY(20px) scaleY(0);
+    transition-duration: 0.4s;
   }
   
   &:hover .cross::after,
@@ -196,7 +183,7 @@ const ScButtonAdd = styled.span`
 // 参考 https://codepen.io/Danil89/pen/KvKRyG
 export default function StoryButtonAdd(): ReactElement {
   return <ScButtonAdd className="bt more-bt">
-    <ScLeftTopCross />
+    <ScCrossCorner />
     <ScHoverLayer1 />
     <ScHoverLayer2 />
     <span className="cross" />
