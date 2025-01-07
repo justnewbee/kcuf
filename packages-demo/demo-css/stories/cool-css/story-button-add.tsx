@@ -30,7 +30,9 @@ const ScLeftTopCross = styled.i`
   }
 `;
 
-const ScCrossHover = styled.i``;
+const ScCrossHover = styled.i`
+  
+`;
 
 const ScButtonAdd = styled.span`
   display: inline-flex;
@@ -130,9 +132,7 @@ const ScButtonAdd = styled.span`
   }
   
   &:hover .fl,
-  &:hover .sfl,
-  .fl,
-  .sfl {
+  &:hover .sfl {
     width: 100%;
     transition-delay: 0s;
   }
@@ -150,8 +150,7 @@ const ScButtonAdd = styled.span`
     transition-delay: 0.1s;
   }
   
-  &:hover .sfl,
-  &. .sfl {
+  &:hover .sfl {
     transition: 0.5s;
   }
   
@@ -163,7 +162,7 @@ const ScButtonAdd = styled.span`
   
   .sfl {
     z-index: 1;
-    background: #4431D1;
+    background: #4431d1;
     transition: 0.7s;
   }
   
