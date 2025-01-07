@@ -44,6 +44,7 @@ const ScButtonAdd = styled.span`
   border-bottom: 2px solid #503af6;
   outline: none;
   color: #503af6;
+  font-size: 14px;
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
@@ -75,62 +76,6 @@ const ScButtonAdd = styled.span`
     height: 2px;
   }
   
-  p {
-    margin: 0;
-    font-size: 14px;
-  }
-  
-  ::selection {
-    background: #503af6;
-    color: #FFF;
-    text-shadow: none;
-  }
-  
-  .fl,
-  .sfl {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    width: 0;
-    height: 100%;
-    background: #503af6;
-    transition: 0.5s;
-    transition-delay: 0.1s;
-  }
-  
-  .sfl {
-    z-index: 1;
-    background: #4431D1;
-    transition: 0.7s;
-  }
-  
-  .cross {
-    position: absolute;
-    top: calc(50% - 8px);
-    left: calc(50% - 8px);
-    z-index: 15;
-    width: 18px;
-    height: 18px;
-  }
-  
-  .cross::before {
-    top: 8px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    transform: translateX(50px) scaleX(0);
-  }
-  
-  .cross::after {
-    top: 0;
-    left: 8px;
-    width: 2px;
-    height: 100%;
-    transform: translateY(20px) scaleY(0);
-    transition-duration: 0.4s;
-  }
-  
   &:hover ${ScLeftTopCross}::after {
     content: '';
     display: block;
@@ -155,10 +100,23 @@ const ScButtonAdd = styled.span`
     background: #503af6;
   }
   
-  p {
-    position: relative;
-    z-index: 1;
+  .fl,
+  .sfl {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    width: 0;
+    height: 100%;
+    background: #503af6;
     transition: 0.5s;
+    transition-delay: 0.1s;
+  }
+  
+  .sfl {
+    z-index: 1;
+    background: #4431D1;
+    transition: 0.7s;
   }
   
   &::before,
@@ -198,9 +156,7 @@ const ScButtonAdd = styled.span`
   }
   
   &:hover .fl,
-  &:hover .sfl,
-  &.hvd .fl,
-  &.hvd .sfl {
+  &:hover .sfl {
     width: 100%;
     transition-delay: 0s;
   }
@@ -220,6 +176,14 @@ const ScButtonAdd = styled.span`
     height: 18px;
   }
   
+  .cross::before {
+    top: 8px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: translateX(50px) scaleX(0);
+  }
+  
   &:hover .cross::before,
   .cross::before {
     transition-duration: 0.5s;
@@ -229,8 +193,8 @@ const ScButtonAdd = styled.span`
   &:hover .cross::before,
   .cross::after,
   .cross::before {
-    transform: none;
     opacity: 1;
+    transform: none;
     transition-delay: 0.2s;
   }
   
@@ -256,16 +220,13 @@ const ScButtonAdd = styled.span`
   }
   
   &:hover .cross::after,
-  &:hover .cross::before,
-  &.hvd .cross::after,
-  &.hvd .cross::before {
+  &:hover .cross::before {
     opacity: 1;
     transform: none;
     transition-delay: 0.2s;
   }
   
-  &:hover .cross::after,
-  &.hvd .cross::after {
+  &:hover .cross::after {
     transition-duration: 0.6s;
   }
 `;
@@ -277,6 +238,6 @@ export default function StoryButtonAdd(): ReactElement {
     <span className="fl" />
     <span className="sfl" />
     <span className="cross" />
-    <p>add</p>
+    <span>add</span>
   </ScButtonAdd>;
 }
