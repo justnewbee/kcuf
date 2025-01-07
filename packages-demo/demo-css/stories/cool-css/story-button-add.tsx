@@ -29,9 +29,26 @@ const ScLeftTopCross = styled.i`
     transition: 0.3s;
   }
 `;
-
+const ScHoverLayer = styled.span`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+  width: 0;
+  height: 100%;
+  background: #503af6;
+  transition-delay: 0.1s;
+`;
+const ScHoverLayer1 = styled(ScHoverLayer)`
+  transition: 0.7s;
+`;
+const ScHoverLayer2 = styled(ScHoverLayer)`
+  z-index: 1;
+  background: #4431D1;
+  transition: 0.5s;
+`;
 const ScCrossHover = styled.i`
-  
+
 `;
 
 const ScButtonAdd = styled.span`
@@ -102,68 +119,14 @@ const ScButtonAdd = styled.span`
     background: #503af6;
   }
   
-  .fl,
-  .sfl {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    width: 0;
-    height: 100%;
-    background: #503af6;
-    transition: 0.5s;
-    transition-delay: 0.1s;
-  }
-  
-  .sfl {
-    z-index: 1;
-    background: #4431D1;
-    transition: 0.7s;
-  }
-  
   &::before,
   &:hover::before {
     height: 100%;
   }
   
-  &:hover .fl,
-  .fl {
-    transition: 0.7s;
-  }
-  
-  &:hover .fl,
-  &:hover .sfl {
+  &:hover ${ScHoverLayer} {
     width: 100%;
     transition-delay: 0s;
-  }
-  
-  .fl,
-  .sfl {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    width: 0;
-    height: 100%;
-    background: #503af6;
-    transition: 0.5s;
-    transition-delay: 0.1s;
-  }
-  
-  &:hover .sfl {
-    transition: 0.5s;
-  }
-  
-  &:hover .fl,
-  &:hover .sfl {
-    width: 100%;
-    transition-delay: 0s;
-  }
-  
-  .sfl {
-    z-index: 1;
-    background: #4431d1;
-    transition: 0.7s;
   }
   
   .cross {
@@ -234,8 +197,8 @@ const ScButtonAdd = styled.span`
 export default function StoryButtonAdd(): ReactElement {
   return <ScButtonAdd className="bt more-bt">
     <ScLeftTopCross />
-    <span className="fl" />
-    <span className="sfl" />
+    <ScHoverLayer1 />
+    <ScHoverLayer2 />
     <span className="cross" />
     <span>add</span>
   </ScButtonAdd>;
