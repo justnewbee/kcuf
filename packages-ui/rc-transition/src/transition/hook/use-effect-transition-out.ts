@@ -8,7 +8,7 @@ import {
 
 import useModelProps from './_use-model-props';
 import useModelState from './_use-model-state';
-import useHandleTransitionOut from './use-handle-transition-out';
+import useHandleTransitionExit from './use-handle-transition-exit';
 
 export default function useEffectTransitionOut(): void {
   const {
@@ -19,7 +19,7 @@ export default function useEffectTransitionOut(): void {
     status,
     timer
   } = useModelState();
-  const handleTransitionOut = useHandleTransitionOut();
+  const handleTransitionOut = useHandleTransitionExit();
   
   useEffect(() => {
     if (inProp || !mounted || status === ETransitionStatus.EXITING || status === ETransitionStatus.EXITED) {

@@ -17,7 +17,7 @@ export default function useHandleForceReflow(): () => void {
   
   return useCallback(() => {
     if (unmountOnExit || mountOnEnter) {
-      const node = nodeRef.current;
+      const node = nodeRef?.current;
       
       if (node) {
         forceReflow(node);

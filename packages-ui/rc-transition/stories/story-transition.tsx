@@ -71,6 +71,9 @@ const HookChild = forwardRef((_props: unknown, ref: Ref<HTMLDivElement>): ReactE
 
 export default function StoryTransitionClone(): ReactElement {
   const [stateIn, setStateIn] = useState(false);
+  const [stateMountOnEnter, setStateMountOnEnter] = useState(true);
+  const [stateUnmountOnExit, setStateUnmountOnExit] = useState(true);
+  const [stateUseNodeRef, setStateUseNodeRef] = useState(true);
   
   const nodeRef1 = useRef<HTMLDivElement | null>(null);
   const nodeRef2 = useRef<HTMLDivElement | null>(null);
@@ -82,29 +85,44 @@ export default function StoryTransitionClone(): ReactElement {
       value: stateIn,
       onChange: setStateIn
     }} />
+    <InputSwitch {...{
+      label: 'mountOnEnter',
+      value: stateMountOnEnter,
+      onChange: setStateMountOnEnter
+    }} />
+    <InputSwitch {...{
+      label: 'unmountOnExit',
+      value: stateUnmountOnExit,
+      onChange: setStateUnmountOnExit
+    }} />
+    <InputSwitch {...{
+      label: 'use nodeRef',
+      value: stateUseNodeRef,
+      onChange: setStateUseNodeRef
+    }} />
     <Transition {...{
-      nodeRef: nodeRef1,
       in: stateIn,
-      mountOnEnter: true,
-      unmountOnExit: true
+      nodeRef: stateUseNodeRef ? nodeRef1 : undefined,
+      mountOnEnter: stateMountOnEnter,
+      unmountOnExit: stateUnmountOnExit
     }}>
       <ScChild ref={nodeRef1}>I use data-transition as CSS hook.</ScChild>
     </Transition>
     <Transition {...{
-      nodeRef: nodeRef2,
       in: stateIn,
-      mountOnEnter: true,
-      unmountOnExit: true
+      nodeRef: stateUseNodeRef ? nodeRef2 : undefined,
+      mountOnEnter: stateMountOnEnter,
+      unmountOnExit: stateUnmountOnExit
     }}>
       {status => <ScFade ref={nodeRef2} style={transitionStyles[status]}>
         I use render function as child.
       </ScFade>}
     </Transition>
     <Transition {...{
-      nodeRef: nodeRef3,
       in: stateIn,
-      mountOnEnter: true,
-      unmountOnExit: true
+      nodeRef: stateUseNodeRef ? nodeRef3 : undefined,
+      mountOnEnter: stateMountOnEnter,
+      unmountOnExit: stateUnmountOnExit
     }}>
       <HookChild ref={nodeRef3} />
     </Transition>

@@ -2,8 +2,7 @@ import {
   ReactElement,
   Children,
   cloneElement,
-  useReducer,
-  useRef
+  useReducer
 } from 'react';
 
 import {
@@ -23,7 +22,6 @@ export default function Provider({
   ...props
 }: IModelProviderProps): ReactElement {
   const [state, dispatch] = useReducer<TModelReducer, IModelProps>(reducer, props, createInitialState);
-  const nextCallbackRef = useRef<null | (() => void)>(null);
   
   let resolvedChildren: ReactElement | null = null;
   
@@ -37,10 +35,7 @@ export default function Provider({
     }
   }
   
-  console.info(state.mounted, state.status)
-  
   return <Context.Provider value={{
-    nextCallbackRef,
     props,
     state,
     dispatch

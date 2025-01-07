@@ -56,7 +56,8 @@
     "styled-components": "^6.x"
   },
   "dependencies": {
-    "@kcuf-ui/rc-backdrop-headless": "workspace:^"
+    "@kcuf-ui/rc-backdrop-headless": "workspace:^",
+    "@kcuf-ui/rc-transition": "workspace:^"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

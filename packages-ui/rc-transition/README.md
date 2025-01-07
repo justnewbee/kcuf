@@ -94,7 +94,7 @@ function Child(): ReactElement {
 </Transition>
 ```
 
-## API Diff with `react-transition-group`
+## APIs
 
 ### Exports
 
@@ -111,15 +111,21 @@ function Child(): ReactElement {
 
 | prop | Description |
 | :---: | :---: |
-| `nodeRef` | A must now as `findDOMNode` is deprecated and cannot be used in functional components. |
-| `appear` | There is no `appear` now, treated the same as `enter`. |
-| `enter` | `durationEnter: 0` |
-| `exit` | `durationExit: 0` |
-| `timeout?: number \| { apear?: number; enter?: number; exit: number; }` | `durationEnter?: number` + `durationExit?: number` |
-| `addEventListener` | Removed |
+| `nodeRef` | Needed when `mountOnEnter \|\| unmountOnExit` to force reflow. |
+| `in` | Same as `react-transition-grpup`. |
+| `durationEnter?: number` | Default 400ms |
+| `durationExit?: number` | Default to `durationEnter` |
 | `onEnter()` | No parameters. |
-| `onEntering()` | Removed |
 | `onEntered()` | No parameters. |
 | `onExit()` | No parameters. |
-| `onExiting()` | Removed |
 | `onExited()` | No parameters. |
+
+These props are removed:
+
+* ~~`onEntering()`~~
+* ~~`onExiting()`~~
+* ~~`appear`~~ → There is no `appear` now, treated the same as `enter`.
+* ~~`enter`~~ → `durationEnter: 0`
+* ~~`exit`~~ → `durationExit: 0`
+* ~~`timeout?: number \| { apear?: number; enter?: number; exit: number; }`~~ → `durationEnter?: number` + `durationExit?: number`
+* ~~`addEventListener`~~

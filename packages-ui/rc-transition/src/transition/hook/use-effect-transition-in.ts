@@ -8,7 +8,7 @@ import {
 
 import useModelProps from './_use-model-props';
 import useModelState from './_use-model-state';
-import useHandleTransitionIn from './use-handle-transition-in';
+import useHandleTransitionEnter from './use-handle-transition-enter';
 
 export default function useEffectTransitionIn(): void {
   const {
@@ -19,7 +19,7 @@ export default function useEffectTransitionIn(): void {
     status,
     timer
   } = useModelState();
-  const handleTransitionIn = useHandleTransitionIn();
+  const handleTransitionIn = useHandleTransitionEnter();
   
   useEffect(() => {
     if (!inProp || !mounted || status === ETransitionStatus.ENTERING || status === ETransitionStatus.ENTERED) {

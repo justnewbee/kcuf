@@ -25,7 +25,7 @@ describe('TransitionCss', () => {
     } = render(<TransitionCss {...{
       nodeRef,
       in: false,
-      durationIn: 0,
+      durationEnter: 0,
       durationOut: 0,
       classNames: 'test',
       onEnter: () => {
@@ -122,7 +122,7 @@ describe('TransitionCss', () => {
       render(<TransitionCss {...{
         nodeRef,
         in: true,
-        durationIn: 10,
+        durationEnter: 10,
         durationOut: 10,
         classNames: 'appear-test',
         onEnter: (isAppearing) => {

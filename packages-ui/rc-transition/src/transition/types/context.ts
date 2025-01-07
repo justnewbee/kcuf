@@ -1,5 +1,4 @@
 import {
-  MutableRefObject,
   ReactElement
 } from 'react';
 
@@ -20,7 +19,6 @@ import {
 export type TModelReducer = (state: IModelState, action: TModelAction) => IModelState;
 
 export interface IModelContext {
-  nextCallbackRef: MutableRefObject<null | (() => void)>;
   props: IModelProps;
   state: IModelState;
   dispatch: TModelDispatch;
