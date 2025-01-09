@@ -1,6 +1,17 @@
-const path = require('path');
-const fs = require('fs');
-const { withCustomConfig } = require('react-docgen-typescript');
+import path, {
+  dirname
+} from 'node:path';
+import fs from 'node:fs';
+import {
+  fileURLToPath
+} from 'node:url';
+
+import {
+  withCustomConfig
+} from 'react-docgen-typescript';
+
+const __filename = fileURLToPath(import.meta.url); // eslint-disable-line @typescript-eslint/naming-convention
+const __dirname = dirname(__filename); // eslint-disable-line @typescript-eslint/naming-convention
 
 const parser = withCustomConfig('./tsconfig.json', {
   propFilter: (prop) => {
@@ -27,6 +38,8 @@ fs.readdirSync(componentDir).forEach((file) => {
     const component = componentDocs[0];
     const markdownContent = generateMarkdownTable(component);
     const outputFilePath = path.join(outputDir, `${path.basename(file, '.ts')}.md`);
+    
+    console.info(markdownContent)
     
     fs.writeFileSync(outputFilePath, markdownContent);
   }
