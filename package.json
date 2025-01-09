@@ -49,7 +49,7 @@
     "prepare": "husky",
     "boot": "pnpm clean && pnpm i --registry https://registry.npmmirror.com",
     "boot:packages": "pnpm -r prepublishOnly",
-    "clean": "rm -rf node_modules packages*/**/node_modules",
+    "clean": "rm -rf node_modules packages*/*/node_modules",
     "ncu": "pnpm ncu:main && pnpm ncu:packages",
     "ncu:main": "ncu --registry https://registry.npmmirror.com",
     "ncu:packages": "pnpm -r exec ncu --registry https://registry.npmmirror.com",

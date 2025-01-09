@@ -1,6 +1,14 @@
-import { themes as prismThemes } from 'prism-react-renderer';
-import { Config } from '@docusaurus/types';
-import { Options, ThemeConfig } from '@docusaurus/preset-classic';
+import {
+  themes as prismThemes
+} from 'prism-react-renderer';
+
+import {
+  Config
+} from '@docusaurus/types';
+import {
+  Options,
+  ThemeConfig
+} from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -20,12 +28,7 @@ export default {
   
   plugins: [
     'docusaurus-plugin-sass',
-    'docusaurus-lunr-search',
-    ['docusaurus-plugin-typedoc', {
-      entryPoints: [
-        '../packages-ui/rc-backdrop-headless/src/index.ts'
-      ]
-    }]
+    'docusaurus-lunr-search'
   ],
   themes: ['@docusaurus/theme-live-codeblock'],
   

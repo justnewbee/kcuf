@@ -1,9 +1,13 @@
 import {
+  ReactElement,
   ReactNode
 } from 'react';
 import styled from 'styled-components';
 
 import Heading from '@theme/Heading';
+import Svg1 from '@site/static/img/undraw_docusaurus_mountain.svg';
+import Svg2 from '@site/static/img/undraw_docusaurus_tree.svg';
+import Svg3 from '@site/static/img/undraw_docusaurus_react.svg';
 
 interface IFeatureItem {
   title: string;
@@ -13,21 +17,21 @@ interface IFeatureItem {
 
 const FEATURE_LIST: IFeatureItem[] = [{
   title: 'Easy to Use',
-  Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+  Svg: Svg1,
   description: <>
     Docusaurus was designed from the ground up to be easily installed and
     used to get your website up and running quickly.
   </>
 }, {
   title: 'Focus on What Matters',
-  Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+  Svg: Svg2,
   description: <>
     Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
     ahead and move your docs into the <code>docs</code> directory.
   </>
 }, {
   title: 'Powered by React',
-  Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+  Svg: Svg3,
   description: <>
     Extend or customize your website layout by reusing React. Docusaurus can
     be extended while reusing the same header and footer.
@@ -50,7 +54,7 @@ function Feature({
   title,
   Svg,
   description
-}: IFeatureItem) {
+}: IFeatureItem): ReactElement {
   return <div className="col col--4">
     <div className="text--center">
       <Svg role="img" />
@@ -62,7 +66,7 @@ function Feature({
   </div>;
 }
 
-export default function HomepageFeatures(): ReactNode {
+export default function HomepageFeatures(): ReactElement {
   return <ScSection>
     <div className="container">
       <div className="row">

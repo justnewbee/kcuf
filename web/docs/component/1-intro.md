@@ -4,14 +4,14 @@ sidebar_position: 1
 
 # Component
 
-### WJ
+## WJ
 
 ★★★★★
 
-### LP
+## LP
 
 ★★★★
 
-### MF
+## MF
 
 ★★★

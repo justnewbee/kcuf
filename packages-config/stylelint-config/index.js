@@ -7,7 +7,7 @@ export default {
     files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
     customSyntax: 'postcss-styled-syntax',
     rules: {
-      'no-invalid-double-slash-comments': false
+      'no-invalid-double-slash-comments': null
     }
   }]
 };
