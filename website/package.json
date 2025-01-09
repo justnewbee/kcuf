@@ -1,7 +1,26 @@
 {
-  "name": "website",
-  "version": "0.0.0",
+  "name": "web",
+  "version": "0.1.0",
+  "description": "The documentation site for @kcuf-ui.",
+  "keywords": [
+    "react",
+    "lerna",
+    "babel",
+    "storybook",
+    "vitest"
+  ],
+  "license": "MIT",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnewbee/kcuf.git"
+  },
+  "homepage": "https://github.com/justnewbee/kcuf",
+  "bugs": "https://github.com/justnewbee/kcuf/issues",
+  "author": {
+    "name": "Jianchun Wang",
+    "email": "justnewbee@gmail.com"
+  },
   "browserslist": {
     "production": [
       ">0.5%",
@@ -15,7 +34,7 @@
     ]
   },
   "engines": {
-    "node": ">=18.0"
+    "node": ">=20.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.7.0",
@@ -24,9 +43,12 @@
     "@docusaurus/types": "^3.7.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "commander": "^13.0.0",
     "react-docgen": "^7.1.0",
     "react-docgen-typescript": "^2.2.2",
     "sass": "^1.83.1",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.3"
   },
   "dependencies": {
@@ -44,7 +66,6 @@
     "styled-components": "^6.1.14"
   },
   "scripts": {
-    "generate:props-md": "node generate-props-md.js",
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
@@ -53,6 +74,6 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "generate:props-md": "ts-node-dev script/generate-props-md.ts -p"
   }
 }
