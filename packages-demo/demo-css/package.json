@@ -42,7 +42,7 @@
     "babel-plugin-styled-components": "^2.1.4",
     "less": "^4.2.1",
     "storybook": "^8.4.7",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "@kcuf/demo-rc": "workspace:^",

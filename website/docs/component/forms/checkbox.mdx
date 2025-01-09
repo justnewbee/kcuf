@@ -1,0 +1,267 @@
+---
+sidebar_position: 5
+title: CheckBox
+---
+
+```tsx
+<div style={{ display: "flex" }}>
+  <SourceButton
+    label="Source"
+    href="https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/checkbox/checkbox.tsx"
+    style={{ marginRight: "10px" }}
+  />
+  <SourceButton
+    label="Theme Source"
+    href="https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/checkbox/checkbox.config.ts"
+  />
+</div>
+```
+
+The `CheckBox` component is a versatile and customizable input control that allows users to select one or more options from a set. It is commonly used in forms and surveys.
+
+## Import
+
+Pearl UI provides two checkbox-related components for different use cases:
+
+1. `CheckBox`: This is a single checkbox that can be toggled between checked and unchecked states.
+2. `CheckBoxGroup`: This is a container for multiple `CheckBox` components. It manages the state of its child checkboxes and allows you to apply shared styles to them.
+
+```tsx
+import { CheckBox, CheckBoxGroup } from "pearl-ui";
+```
+
+## Usage
+
+```tsx
+const [checked, setIsChecked] = React.useState(false)
+
+<CheckBox isChecked={checked} onPress={() => setIsChecked(!checked)}>Check Me!</CheckBox>
+```
+
+### Using CheckBoxGroup
+
+The `CheckBoxGroup` component is useful when you need to manage the state of multiple checkboxes at once. It also allows you to apply shared styles to all child checkboxes.
+
+```tsx
+const [checkedGroupValue, setCheckedGroupValue] = React.useState([])
+
+<CheckBoxGroup
+  size="s"
+  colorScheme="secondary"
+  shape="circle"
+  defaultValue={["1", "2"]}
+  value={checkedGroupValue}
+  onChange={(value) => {
+    setCheckedGroupValue(value);
+  }}
+>
+  <Stack direction="vertical" spacing="1.5">
+    <CheckBox value="1">Value 1</CheckBox>
+    <CheckBox value="2">Value 2</CheckBox>
+    <CheckBox value="3">Value 3</CheckBox>
+    <CheckBox value="4">Value 4</CheckBox>
+  </Stack>
+</CheckBoxGroup>
+```
+
+### Checkbox sizes
+
+The `size` prop allows you to adjust the size of the checkbox. You can use any of the keys available in PearlTheme.components.CheckBox["sizes"], which are "xs", "s", "m", and "l" in the [default component configuration](https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/checkbox/checkbox.config.ts).
+
+```tsx
+<CheckBox size="xs">Small Checkbox</CheckBox>
+<CheckBox size="s">Regular Checkbox</CheckBox>
+<CheckBox size="m">Large Checkbox</CheckBox>
+<CheckBox size="l">Extra Large Checkbox</CheckBox>
+```
+
+### Checkbox variants
+
+The `variant` prop allows you to change the visual style of the checkbox. You can use any of the keys available in PearlTheme.components.CheckBox["variants"], which are "filled" and "outline" in the [default component configuration](https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/checkbox/checkbox.config.ts).
+
+```tsx
+<CheckBox variant="filled">Filled Checkbox</CheckBox>
+
+<CheckBox variant="outline">Outline Checkbox</CheckBox>
+```
+
+### Checkbox color scheme
+
+The `colorScheme` prop allows you to change the color palette of the checkbox. This is more powerful than simply passing a `backgroundColor` style prop, as the `colorScheme` prop changes all the color values in a palette through a single prop.
+
+You can use any of the keys available in PearlTheme.palette that contain a palette of colors represented as an object, which are "primary", "secondary", "neutral", etc in the `default Pearl theme`.
+
+```tsx
+<CheckBox colorScheme="primary">Primary Checkbox</CheckBox>
+
+<CheckBox colorScheme="secondary">Secondary Checkbox</CheckBox>
+```
+
+### Checkbox shape
+
+The `shape` prop allows you to change the shape of the checkbox to "square" or "circle". By default, this value is set to "square".
+
+```tsx
+<CheckBox shape="square">Square Checkbox</CheckBox>
+
+<CheckBox shape="circle">Circle Checkbox</CheckBox>
+```
+
+### Checkbox checked state
+
+The checkbox is in a `checked` state when it is pressed once and the checkmark icon becomes visible. The `isChecked` prop is used to define whether the checkbox is in a checked state.
+
+`Checkbox` also allows you to update the visual style of the checkbox when it is checked using `_checked` prop.
+
+```tsx
+<CheckBox
+  isChecked
+  _checked={{
+    bgColor: "cyan",
+    borderColor: "violet",
+  }}
+>
+  I am checked!
+</CheckBox>
+```
+
+### Checkbox indeterminate state
+
+In some cases, you might need to display a partial checked state (also called an `Indeterminate` state) by displaying an alternate icon to the user. The `isIndeterminate` prop is used to define whether the checkbox is in an indeterminate state.
+
+```tsx
+<CheckBox
+  isChecked
+  isIndeterminate
+  _checked={{
+    bgColor: "cyan",
+    borderColor: "violet",
+  }}
+>
+  I am not completely checked!
+</CheckBox>
+```
+
+### Checkbox error state
+
+You can add an error state to the checkbox based on any validation criteria you use. You can also apply special visual styles to it by using the `_invalid` prop. The `isInvalid` prop is used to define whether the checkbox has an error.
+
+```tsx
+<CheckBox
+  isInvalid
+  _invalid={{
+    bgColor: "pink",
+    borderColor: "red",
+  }}
+>
+  Error Checkbox
+</CheckBox>
+```
+
+### Checkbox spacing
+
+You can use the `spacing` prop to customize the spacing between the checkbox and label text. You can use any of the keys available in PearlTheme.spacing, which are "xs", "s", "l", etc. in the `default Pearl theme`. By default, this value is set to `"xs"`.
+
+```tsx
+<CheckBox spacing="5">Checkbox with lots of spacing</CheckBox>
+
+<CheckBox spacing="1.5">Checkbox with less spacing</CheckBox>
+```
+
+### Checkbox icons
+
+You can customize the icons used in the checkbox using the following props:
+
+- `checkedIconFamily`
+- `checkedIconName`
+- `indeterminateIconFamily`
+- `indeterminateIconName`
+
+```tsx
+<CheckBox
+  isChecked
+  checkedIconFamily="AntDesign"
+  checkedIconName="plus"
+  indeterminateIconFamily="MaterialCommunityIcons"
+  indeterminateIconName="music-note-half"
+>
+  Custom Checkbox
+</CheckBox>
+```
+
+### Overriding Styles
+
+The `CheckBox` component supports a supported-style-props which can be used to override the pre-defined variant style in the theme. Manual style props passed into the component have a higher precedence than the [default component configuration](https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/checkbox/checkbox.config.ts).
+
+```tsx
+// passing style prop marginTop="3" adds a top margin to the checkbox
+<CheckBox variant="filled" marginTop="3" borderWidth={2} borderColor="green">
+  Check Me!
+</CheckBox>
+```
+
+## Example
+
+```tsx
+import Snack from "../../../src/components/ExpoSnack";
+
+<Snack snackId="@agrawal-rohit/checkbox" />
+```
+
+## Accessibility
+
+- `CheckBox` has the `role` of `checkbox`.
+- When `CheckBox` is disabled or checked, it is reflected as `disabled` and `checked` respectively in screen readers.
+- `CheckBox` has the default accessibility label set as the label text passed into it. A custom label can be specified using the `accessibilityLabel` prop.
+
+## CheckBox Component Properties
+
+### Supported Style Properties
+
+The `CheckBox` component is composed of the `Stack` component, which means you can pass all `Stack` properties to it.
+
+### Additional Properties
+
+Here is a list of additional properties that the `CheckBox` component supports:
+
+| Name                      | Required | Type                                                                                                                                                                                                                                    | Default             | Description                                                                  |
+| ------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ---------------------------------------------------------------------------- |
+| `size`                    | No       | `PearlTheme.components.CheckBox["sizes"]`                                                                                                                                                                                          | `"m"`               | Determines the size of the checkbox.                                         |
+| `variant`                 | No       | `PearlTheme.components.CheckBox["variants"]`                                                                                                                                                                                       | `"filled"`          | Determines the variant of the checkbox.                                      |
+| `value`                   | No       | `string \| number \| undefined`                                                                                                                                                                                                    |                     | Sets the value of the checkbox if it is part of a group.                     |
+| `isDisabled`              | No       | `boolean`                                                                                                                                                                                                                          | `false`             | If true, the checkbox is disabled.                                           |
+| `isChecked`               | No       | `boolean`                                                                                                                                                                                                                          | `false`             | If true, the checkbox is in a checked state.                                 |
+| `isIndeterminate`         | No       | `boolean`                                                                                                                                                                                                                          | `false`             | If true, the checkbox is in an indeterminate state.                          |
+| `isInvalid`               | No       | `boolean`                                                                                                                                                                                                                          | `false`             | If true, the checkbox is in an error state.                                  |
+| `colorScheme`             | No       | `PearlTheme["palette"]`                                                                                                                                                                                                            | `"primary"`         | Sets the active color palette of the checkbox.                               |
+| `spacing`                 | No       | `PearlTheme["spacing"]`                                                                                                                                                                                                            | `"xs"`              | Sets the spacing between the checkbox and the label text.                    |
+| `shape`                   | No       | `"square" \| "circle"`                                                                                                                                                                                                             | `"square"`          | Determines the shape of the checkbox.                                        |
+| `checkedIconFamily`       | No       | `"AntDesign" \| "Entypo" \| "EvilIcons" \| "Feather" \| "FontAwesome" \| "FontAwesome5" \| "Fontisto" \| "Foundation" \| "Ionicons" \| "MaterialCommunityIcons" \| "MaterialIcons" \| "Octicons" \| "SimpleLineIcons" \| "Zocial"` | `"Ionicons"`        | Sets the family of the icon when the checkbox is in checked state.           |
+| `checkedIconName`         | No       | `string`                                                                                                                                                                                                                           | `"checkmark-sharp"` | Sets the name of the icon when the checkbox is in checked state.             |
+| `indeterminateIconFamily` | No       | `"AntDesign" \| "Entypo" \| "EvilIcons" \| "Feather" \| "FontAwesome" \| "FontAwesome5" \| "Fontisto" \| "Foundation" \| "Ionicons" \| "MaterialCommunityIcons" \| "MaterialIcons" \| "Octicons" \| "SimpleLineIcons" \| "Zocial"` | `"Ionicons"`        | Sets the family of the icon when the checkbox is in indeterminate state.     |
+| `indeterminateIconName`   | No       | `string`                                                                                                                                                                                                                           | `"remove-outline"`  | Sets the name of the icon when the checkbox is in indeterminate state.       |
+| `_checked`                | No       | `object`                                                                                                                                                                                                                           | `{}`                | Style properties that are applied when the component is in a checked state.  |
+| `_invalid`                | No       | `object`                                                                                                                                                                                                                           | `{}`                | Style properties that are applied when the component is in an invalid state. |
+| `_disabled`               | No       | `object`                                                                                                                                                                                                                           | `{}`                | Style properties that are applied when the component is in a disabled state. |
+
+## CheckBoxGroup Component Properties
+
+### Supported Style Properties
+
+The `CheckBoxGroup` component is composed of the `Stack` component, which means you can pass all `Stack` properties to it.
+
+### Additional Properties
+
+Here is a list of additional properties that the `CheckBoxGroup` component supports:
+
+| Name           | Required | Type                                              | Default     | Description                                                              |
+| -------------- | -------- | ------------------------------------------------- | ----------- | ------------------------------------------------------------------------ |
+| `size`         | No       | `PearlTheme.components.CheckBox["sizes"]`    | `"m"`       | Determines the size of all the children checkbox in the group.           |
+| `variant`      | No       | `PearlTheme.components.CheckBox["variants"]` | `"filled"`  | Determines the variant of all the children checkbox in the group.        |
+| `spacing`      | No       | `PearlTheme["spacing"]`                      | `2`         | Sets the spacing between the children checkboxes in the group.           |
+| `value`        | No       | `Array<string \| number>`                    |             | Sets the active value of the checkbox group.                             |
+| `defaultValue` | No       | `Array<string \| number>`                    | `[]`        | Sets the default active value of the checkbox group.                     |
+| `onChange`     | No       | `(value: Array<string \| number>) => void`   |             | Method that gets invoked when the value of the checkbox group changes.   |
+| `isDisabled`   | No       | `boolean`                                    | `false`     | If true, the checkbox group is disabled.                                 |
+| `colorScheme`  | No       | `PearlTheme.palette`                         | `"primary"` | Sets the active color palette of all the children checkbox in the group. |
+| `shape`        | No       | `"square" \| "circle"`                       | `"square"`  | Determines the shape of all the children checkbox in the group.          |

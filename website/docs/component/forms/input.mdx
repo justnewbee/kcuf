@@ -1,0 +1,202 @@
+---
+sidebar_position: 4
+title: Input
+---
+
+```tsx
+<div style={{ display: "flex" }}>
+  <SourceButton
+    label="Source"
+    href="https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/input/input.tsx"
+    style={{ marginRight: "10px" }}
+  />
+  <SourceButton
+    label="Theme Source"
+    href="https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/input/input.config.ts"
+  />
+</div>
+```
+
+The `Input` component in Pearl UI is a versatile and customizable element used to gather user input in a text field. It supports various sizes, variants, color schemes, and additional features like icons and clear buttons. By default, it renders a text field with a medium size and filled variant.
+
+## Import
+
+```tsx
+import { Input } from "pearl-ui";
+```
+
+## Usage
+
+```tsx
+<Input
+  placeholder="Enter text here"
+  onChangeText={(newValue) => console.log(newValue)}
+/>
+```
+
+### Input sizes
+
+Use the `size` prop to change the size of the input field. You can set the value to the keys available in PearlTheme.components.Input["sizes"], which are "xs", "s", "m", and "l" in the [default component configuration](https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/input/input.config.ts).
+
+```tsx
+<Input
+  size="xs"
+  placeholder="Extra small input"
+/>
+
+<Input
+  size="s"
+  placeholder="Small input"
+/>
+
+<Input
+  size="m"
+  placeholder="Medium input"
+/>
+
+<Input
+  size="l"
+  placeholder="Large input"
+/>
+```
+
+### Input variants
+
+The `variant` prop allows you to change the visual style of the input field. The available variants are "filled" and "outline" as defined in the [default component configuration](https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/input/input.config.ts).
+
+```tsx
+<Input
+  variant="filled"
+  placeholder="Filled variant"
+/>
+
+<Input
+  variant="outline"
+  placeholder="Outlined variant"
+/>
+```
+
+### Input Color Schemes
+
+The `colorScheme` prop allows you to change the color palette of the input field. The available color schemes are "primary", "secondary", "neutral", etc as defined in the `default Pearl theme`.
+
+```tsx
+<Input
+  colorScheme="primary"
+  placeholder="Primary color scheme"
+/>
+
+<Input
+  colorScheme="secondary"
+  placeholder="Secondary color scheme"
+/>
+```
+
+### Input with Icons
+
+You can add icons to the left or right of the `Input` component using the `leftIcon` and `rightIcon` props respectively.
+
+:::info
+The `leftIcon` and `rightIcon` prop values should be React elements, **NOT** strings.
+:::
+
+```tsx
+import { Icon } from "pearl-ui";
+
+<Input
+  placeholder="Input with left icon"
+  leftIcon={<Icon iconFamily="Ionicons" iconName="md-lock-closed" />}
+/>
+
+<Input
+  placeholder="Input with right icon"
+  rightIcon={<Icon iconFamily="Ionicons" iconName="ios-eye" />}
+/>
+```
+
+### Input with Clear Button
+
+The `hasClearButton` prop allows you to add a clear button to the `Input` component, providing users with an easy way to clear the input field.
+
+```tsx
+<Input placeholder="Input with clear button" hasClearButton />
+```
+
+### Input Focus State
+
+The `Input` component supports a `focus` state, which is activated when the text inside the field can be edited. You can customize the visual style of the input field when it is focused using the `_focus` prop.
+
+```tsx
+<Input
+  _focus={{
+    bgColor: "cyan",
+    borderColor: "violet",
+  }}
+  onFocus={() => console.log("Field was focused!")}
+/>
+```
+
+### Input Error State
+
+The `Input` component supports an `error` state, which can be activated based on your validation criteria. You can customize the visual style of the input field when it is in an error state using the `_invalid` prop. The `isInvalid` prop is used to define whether the input field has an error or not.
+
+```tsx
+<Input
+  isInvalid={true}
+  _invalid_={{
+    bgColor: "pink",
+    borderColor: "red",
+  }}
+/>
+```
+
+### Overriding Styles
+
+The `Input` component supports a variety of style props which can be used to override the pre-defined variant style in the theme. Manual style props passed into the component have a higher precedence than the [default component configuration](https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/input/input.config.ts).
+
+```tsx
+// The marginTop prop adds a top margin to the input field
+// The backgroundColor prop overrides the default component config value of backgroundColor="neutral.200"
+<Input variant="filled" marginTop="3" backgroundColor="green" />
+```
+
+## Example
+
+```tsx
+import Snack from "../../../src/components/ExpoSnack";
+
+<Snack snackId="@agrawal-rohit/input" />
+```
+
+## Accessibility
+
+- `Input` has the `role` of `text field`.
+- When `Input` is disabled, it is reflected as `disabled` in screen readers.
+- `Input` has the default accessibility label set as the placeholder value passed into it. A custom label can be specified using the `accessibilityLabel` prop.
+
+## Component Properties
+
+### Supported Style Properties
+
+The `Input` component is a composition of the `Box` component, which means all `Box` props can be passed to it.
+
+### Additional Properties
+
+The `Input` component also composes the [TextInput](https://reactnative.dev/docs/textinput) component from React Native. This means that all the [TextInput](https://reactnative.dev/docs/textinput) props are supported, in addition to the following extra props:
+
+| Name                   | Required | Type                                           | Default         | Description                                                                    |
+| ---------------------- | -------- | ---------------------------------------------- | --------------- | ------------------------------------------------------------------------------ |
+| `size`                 | No       | PearlTheme.components.Input["sizes"]    | `"m"`           | Determines the size of the input field.                                        |
+| `variant`              | No       | PearlTheme.components.Input["variants"] | `"filled"`      | Defines the variant of the input field.                                        |
+| `isDisabled`           | No       | boolean                                 | `false`         | If set to `true`, the input field will be disabled.                            |
+| `isFullWidth`          | No       | boolean                                 | `false`         | If set to `true`, the input field will occupy the full width of its container. |
+| `isInvalid`            | No       | boolean                                 | `false`         | If set to `true`, the input field will be in an error state.                   |
+| `colorScheme`          | No       | PearlTheme["palette"]                   | `"primary"`     | Determines the active color palette of the input field.                        |
+| `hasClearButton`       | No       | boolean                                 | `false`         | If set to `true`, a clear button will be displayed in the input field.         |
+| `leftIcon`             | No       | React.ReactElement                      | `null`          | Specifies an icon to be displayed on the left side of the input field.         |
+| `rightIcon`            | No       | React.ReactElement                      | `null`          | Specifies an icon to be displayed on the right side of the input field.        |
+| `placeholderTextColor` | No       | PearlTheme["palette"]                   | `"neutral.500"` | Determines the color of the placeholder text.                                  |
+| `selectionColor`       | No       | PearlTheme["palette"]                   | `"primary.500"` | Determines the color of the highlight and cursor.                              |
+| `_focused`             | No       | object                                  | `{}`            | Style properties that are applied when the component is in a focused state.    |
+| `_disabled`            | No       | object                                  | `{}`            | Style properties that are applied when the component is in a disabled state.   |
+| `_invalid`             | No       | object                                  | `{}`            | Style properties that are applied when the component is in an invalid state.   |
