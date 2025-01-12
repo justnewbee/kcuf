@@ -15,7 +15,7 @@ import {
 export default {
   title: '@kcuf-ui',
   tagline: 'A very easy to use React UI library',
-  favicon: 'img/favicon.png',
+  favicon: 'img/favicon.ico',
   url: 'https://your-docusaurus-site.example.com', // Set the production url of your site here
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
@@ -28,9 +28,13 @@ export default {
   
   plugins: [
     'docusaurus-plugin-sass',
-    'docusaurus-lunr-search'
+    'docusaurus-lunr-search',
+    'docusaurus-plugin-image-zoom'
   ],
-  themes: ['@docusaurus/theme-live-codeblock'],
+  themes: [
+    '@docusaurus/theme-live-codeblock',
+    '@docusaurus/theme-mermaid'
+  ],
   
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -46,7 +50,9 @@ export default {
         sidebarPath: './sidebars.ts',
         // Please change this to your repo.
         // Remove this to remove the "edit this page" links.
-        editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/'
+        editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+        showLastUpdateAuthor: true,
+        showLastUpdateTime: true
       },
       blog: {
         showReadingTime: true,
@@ -73,18 +79,18 @@ export default {
   
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    // image: 'img/docusaurus-social-card.jpg',
     navbar: {
       title: '@kcuf-ui',
       logo: {
         alt: '@kcuf-ui',
-        src: 'img/logo.svg'
+        src: 'img/logo.png'
       },
       items: [{
         type: 'docSidebar',
-        sidebarId: 'tutor',
+        sidebarId: 'guide',
         position: 'left',
-        label: 'Tutorial'
+        label: 'Guide'
       }, {
         type: 'docSidebar',
         sidebarId: 'component',
@@ -95,6 +101,11 @@ export default {
         label: 'Blog',
         position: 'left'
       }, {
+        type: 'docSidebar',
+        sidebarId: 'tutor',
+        position: 'left',
+        label: 'Tutorial'
+      }, {
         href: 'https://github.com/agrawal-rohit/pearl-ui',
         position: 'right',
         className: 'header-github-link',
@@ -102,41 +113,59 @@ export default {
       }]
     },
     footer: {
-      style: 'dark',
-      links: [{
-        title: 'Docs',
-        items: [{
-          label: 'Tutorial',
-          to: '/docs/tutor/intro'
-        }]
-      }, {
-        title: 'Community',
-        items: [{
-          label: 'Stack Overflow',
-          href: 'https://stackoverflow.com/questions/tagged/docusaurus'
-        }, {
-          label: 'Discord',
-          href: 'https://discordapp.com/invite/docusaurus'
-        }, {
-          label: 'X',
-          href: 'https://x.com/docusaurus'
-        }]
-      }, {
-        title: 'More',
-        items: [{
-          label: 'Blog',
-          to: '/blog'
-        }, {
-          label: 'GitHub',
-          href: 'https://github.com/facebook/docusaurus'
-        }]
-      }],
+      // links: [{
+      //   title: 'Docs',
+      //   items: [{
+      //     label: 'Tutorial',
+      //     to: '/docs/tutor/intro'
+      //   }]
+      // }, {
+      //   title: 'Community',
+      //   items: [{
+      //     label: 'Stack Overflow',
+      //     href: 'https://stackoverflow.com/questions/tagged/docusaurus'
+      //   }, {
+      //     label: 'Discord',
+      //     href: 'https://discordapp.com/invite/docusaurus'
+      //   }, {
+      //     label: 'X',
+      //     href: 'https://x.com/docusaurus'
+      //   }]
+      // }, {
+      //   title: 'More',
+      //   items: [{
+      //     label: 'Blog',
+      //     to: '/blog'
+      //   }, {
+      //     label: 'GitHub',
+      //     href: 'https://github.com/facebook/docusaurus'
+      //   }]
+      // }],
       copyright: `Copyright &copy; ${new Date().getFullYear()} NB, Inc. Built with Docusaurus.`
     },
     
     prism: {
       theme: prismThemes.shadesOfPurple,
       darkTheme: prismThemes.shadesOfPurple
+    },
+    
+    liveCodeBlock: {
+      playgroundPosition: 'top' // or 'bottom'
+    },
+    
+    zoom: {
+      selector: '.markdown img',
+      background: {
+        light: 'hsl(0 0% 100% / 75%)',
+        dark: 'hsl(0 0% 20% / 75%)'
+      },
+      config: {
+        // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
+      }
+    },
+    
+    markdown: {
+      mermaid: true
     },
     
     onBrokenLinks: 'throw',

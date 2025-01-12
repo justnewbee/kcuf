@@ -22,12 +22,14 @@ import {
 /**
  * ConsoleBase 项目自用的图标组件
  */
-function Icon({
-  type,
-  ...props
-}: IIconProps, ref: IconRef): ReactElement {
+function Icon(props: IIconProps, ref: IconRef): ReactElement {
+  const {
+    type,
+    ...restProps
+  } = props;
+  
   return <IconBase<TIconType> {...{
-    ...props,
+    ...restProps,
     ref,
     type,
     rotating: type === 'loading',

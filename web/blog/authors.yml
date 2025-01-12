@@ -1,12 +1,12 @@
-yangshun:
-  name: Yangshun Tay
+jianchun:
+  name: Jianchun Wang
   title: Front End Engineer @ Facebook
-  url: https://github.com/yangshun
-  image_url: https://github.com/yangshun.png
+  url: https://github.com/jianchun
+  image_url: https://github.com/jianchun.png
   page: true
   socials:
-    x: yangshunz
-    github: yangshun
+    x: jianchunz
+    github: justnewbee
 
 slorber:
   name: Sébastien Lorber

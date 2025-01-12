@@ -7,6 +7,7 @@
  */
 
 :root {
+  --ifm-hover-overlay: none;
   --ifm-color-primary: hsl(245 73% 62%);
   --ifm-color-primary-dark: hsl(245 73% 56%);
   --ifm-color-primary-darker: hsl(245 74% 53%);
@@ -21,6 +22,7 @@
   --ifm-alert-border-radius: 4px;
   --ifm-breadcrumb-item-background-active: none;
   --ifm-breadcrumb-padding-horizontal: 0;
+  --ifm-tabs-padding-vertical: 0.25rem;
   --prop-name-background: hsl(245 73% 62% / 15%);
   --prop-name-text-color: hsl(246 74% 43%);
   --props-divider-color: hsl(0 0% 0% / 10%);

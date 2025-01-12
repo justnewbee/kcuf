@@ -49,20 +49,21 @@ const ScIcon = styled.i<IScIconBaseProps>`
 /**
  * ConsoleBase 项目自用的图标组件
  */
-function IconBase<T extends string>({
-  fontFamily,
-  type,
-  disabled,
-  colored,
-  rotating,
-  rotate,
-  scale,
-  getIconCode,
-  getIconColor,
-  role,
-  onClick,
-  ...props
-}: IIconBaseProps<T>, ref: TIconRef): ReactElement {
+function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconRef): ReactElement {
+  const {
+    fontFamily,
+    type,
+    disabled,
+    colored,
+    rotating,
+    rotate,
+    scale,
+    getIconCode,
+    getIconColor,
+    role,
+    onClick,
+    ...restProps
+  } = props;
   const $code = getIconCode(type);
   const $color = colored && getIconColor ? getIconColor(type) : null;
   
@@ -74,7 +75,7 @@ function IconBase<T extends string>({
     $rotating: rotating,
     $rotate: rotate,
     $scale: scale,
-    ...props,
+    ...restProps,
     'aria-disabled': disabled ? 'true' : undefined,
     role: onClick && !role ? 'button' : role,
     onClick: disabled ? undefined : onClick

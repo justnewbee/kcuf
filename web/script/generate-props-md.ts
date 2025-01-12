@@ -27,22 +27,29 @@ const parser = withCustomConfig('./tsconfig.json', {
   }
 });
 
+function codify(content: string): string {
+  return `\`${content}\``;
+}
+
 function safeCellContent(content?: string): string {
   return content.replaceAll('|', '\\|').replaceAll('\n', '<br />') || '';
+}
+
+function processType(type: string): string {
+  return codify(safeCellContent(type.replaceAll('ReactElement<any, string | JSXElementConstructor<any>>', 'ReactElement')));
 }
 
 function generateMarkdownTable(component: ComponentDoc): string {
   const props: Record<string, PropItem> = component.props || {};
   const markdownLines = [
-    '| Prop | Type | Required | Default | Description |',
-    '| --- | --- | --- | --- | --- |'
+    '| Prop | Type | Default | Description |',
+    '| --- | --- | --- | --- |'
   ];
   
   for (const [propName, prop] of Object.entries(props)) {
     markdownLines.push(`| ${[
-      propName,
-      safeCellContent(prop.type.name),
-      prop.required ? 'Yes' : 'No',
+      prop.required ? `${codify(propName)} <Required />` : codify(propName),
+      processType(prop.type.name),
       prop.defaultValue ? prop.defaultValue.value : '-',
       safeCellContent(prop.description)
     ].join(' | ')} |`);
@@ -62,8 +69,8 @@ function generateOnFilePath(filePath: string): void {
 }
 
 function readAndGenerate(options: ICommandArgs): void {
-  const entryFilePathTs = path.join(process.cwd(), options.pkg, 'src/index.ts');
-  const entryFilePathTsx = path.join(process.cwd(), options.pkg, 'src/index.tsx');
+  const entryFilePathTs = path.join(process.cwd(), '..', options.pkg, 'src/index.ts');
+  const entryFilePathTsx = path.join(process.cwd(), '..', options.pkg, 'src/index.tsx');
   
   if (existsSync(entryFilePathTs)) {
     generateOnFilePath(entryFilePathTs);
@@ -77,7 +84,7 @@ function readAndGenerate(options: ICommandArgs): void {
     return;
   }
   
-  console.warn(`No src/index.tsx? under ${options.pkg}`); // eslint-disable-line no-console
+  console.warn(`File ${entryFilePathTsx}? not found.`); // eslint-disable-line no-console
 }
 
 /**
