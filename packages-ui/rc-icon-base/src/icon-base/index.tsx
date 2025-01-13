@@ -9,7 +9,7 @@ import styled, {
 import {
   IIconBaseProps,
   IScIconBaseProps,
-  TIconRef
+  TIconBaseRef
 } from '../types';
 import {
   getCssIconRotation
@@ -22,6 +22,12 @@ const ScIcon = styled.i<IScIconBaseProps>`
   ` : null}
   ${props => props.onClick ? css`
     cursor: pointer;
+  ` : null}
+  
+  ${props => props.$darkThemePrefix && props.$colorDark ? css`
+    ${props.$darkThemePrefix} & {
+      color: ${props.$colorDark} !important;
+    }
   ` : null}
   
   &::before {
@@ -47,11 +53,12 @@ const ScIcon = styled.i<IScIconBaseProps>`
 `;
 
 /**
- * ConsoleBase 项目自用的图标组件
+ * IconFont 图标基础组件，不是具体的图标组件，封装了写一个 Icon 组件需要的大部分逻辑
  */
-function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconRef): ReactElement {
+function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconBaseRef): ReactElement {
   const {
     fontFamily,
+    darkThemePrefix,
     type,
     disabled,
     colored,
@@ -60,22 +67,28 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconRef): Re
     scale,
     getIconCode,
     getIconColor,
+    getIconColorDark,
     role,
+    tabIndex,
     onClick,
     ...restProps
   } = props;
   const $code = getIconCode(type);
   const $color = colored && getIconColor ? getIconColor(type) : null;
+  const $colorDark = colored && getIconColorDark ? getIconColorDark(type) : null;
   
   return <ScIcon {...{
     ref,
     $fontFamily: fontFamily,
     $code,
+    $darkThemePrefix: darkThemePrefix,
     $color,
+    $colorDark,
     $rotating: rotating,
     $rotate: rotate,
     $scale: scale,
     ...restProps,
+    tabIndex: tabIndex ?? (onClick ? 0 : undefined),
     'aria-disabled': disabled ? 'true' : undefined,
     role: onClick && !role ? 'button' : role,
     onClick: disabled ? undefined : onClick

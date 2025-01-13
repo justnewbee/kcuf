@@ -5,22 +5,16 @@ title: Xxx
 
 [//]: # (参考 https://mantine.dev https://ant.design 结构化简介)
 
-import {
-  Button
-} from '@kcuf-ui/button';
+<ComponentBrief name="Xx">
+  一句话描述，支持 Markdown。
+</ComponentBrief>
 
-```tsx
-<div style={{ display: "flex" }}>
-  <SourceButton
-    label="Source"
-    href="https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/button/button.tsx"
-    style={{ marginRight: "10px" }}
-  />
-  <SourceButton
-    label="Theme Source"
-    href="https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/button/button.config.ts"
-  />
-</div>
+## Live Demo
+
+```tsx live
+<>
+  一个简单的 Live Demo，需在 `src/theme/ReactLiveScope` 添加相应的组件。
+</>
 ```
 
 ## 何时使用
@@ -35,19 +29,47 @@ import {
 
 [//]: # (参考 https://www.chakra-ui.com)
 
-## Accessibility
+## Example1
 
-[//]: # (参考 https://docs.pearl-ui.dev https://zagjs.com https://dotui.org https://fusion.design https://www.melt-ui.com https://primereact.org https://nextui.org https://reka-ui.com)
+## Example2
 
-## Props
+## API Reference
 
 [//]: # (https://www.radix-ui.com https://nextui.org info icon for description and enum 等)
 
-通用属性参考：通用属性
+### Props
 
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
+| Name | Type | Default | Description |
+| --- | --- | :-: | --- |
 | `target` <Required /> | `HTMLAttributeAnchorTarget` | - | - |
+
+### Events
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `onXx` | `HTMLAttributeAnchorTarget` | - |
+
+### Hooks
+
+| Name | Description |
+| --- | --- |
+| `useXx` | ... |
+
+### Data Attributes
+
+| Name | Description |
+| --- | --- |
+| `[data-xx]` <Readonly /> | ... |
+
+## Accessibility
+
+遵循  [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal)。
+
+### Screen Reader
+
+### Keyboard Support
+
+[//]: # (参考 https://docs.pearl-ui.dev https://zagjs.com https://dotui.org https://fusion.design https://www.melt-ui.com https://primereact.org https://nextui.org https://reka-ui.com)
 
 # FAQ
 

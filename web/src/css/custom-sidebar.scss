@@ -1,0 +1,41 @@
+.theme-doc-sidebar-item-category:not(:first-child) {
+  margin-top: 24px;
+}
+
+/* --- Menu --- */
+.menu {
+  font-weight: 400;
+}
+
+.menu__caret {
+  opacity: 0.75;
+  
+  &::before {
+    background: var(--ifm-menu-link-sublist-icon) 50% / 1.2rem 1.2rem;
+  }
+  
+  &:hover {
+    opacity: 1;
+    background: none;
+  }
+}
+
+.menu__link {
+  font-size: 15px;
+  
+  &:not([href]) {
+    margin: 10px 0;
+    color: var(--ifm-color-primary-contrast-foreground);
+    font-size: 12px;
+    font-weight: bolder;
+    text-transform: uppercase;
+  }
+  
+  &--active {
+    font-weight: var(--ifm-font-weight-semibold);
+  }
+}
+
+.menu__list-item-collapsible:hover {
+  background: none;
+}

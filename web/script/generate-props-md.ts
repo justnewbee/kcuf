@@ -35,23 +35,45 @@ function safeCellContent(content?: string): string {
   return content.replaceAll('|', '\\|').replaceAll('\n', '<br />') || '';
 }
 
-function processType(type: string): string {
-  return codify(safeCellContent(type.replaceAll('ReactElement<any, string | JSXElementConstructor<any>>', 'ReactElement')));
+function printPropName(prop: PropItem): string {
+  return prop.required ? `${codify(prop.name)} <Required />` : codify(prop.name);
+}
+
+function printPropType(prop: PropItem): string {
+  return codify(safeCellContent(prop.type.name.replaceAll('ReactElement<any, string | JSXElementConstructor<any>>', 'ReactElement')));
+}
+
+function printPropDescription(prop: PropItem): string {
+  return safeCellContent(prop.description);
+}
+
+/**
+ * JSDoc 中添加 `@default`，默认对类型为 `boolean` 的使用 `false` 做默认值
+ */
+function printPropDefault(prop: PropItem): string {
+  if (prop.defaultValue) {
+    return codify(prop.defaultValue.value);
+  }
+  
+  if (prop.type.name === 'boolean') {
+    return codify('false');
+  }
+  
+  return '-';
 }
 
 function generateMarkdownTable(component: ComponentDoc): string {
-  const props: Record<string, PropItem> = component.props || {};
   const markdownLines = [
-    '| Prop | Type | Default | Description |',
-    '| --- | --- | --- | --- |'
+    '| Name | Type | Default | Description |',
+    '| --- | --- | :-: | --- |'
   ];
   
-  for (const [propName, prop] of Object.entries(props)) {
+  for (const [, prop] of Object.entries(component.props)) {
     markdownLines.push(`| ${[
-      prop.required ? `${codify(propName)} <Required />` : codify(propName),
-      processType(prop.type.name),
-      prop.defaultValue ? prop.defaultValue.value : '-',
-      safeCellContent(prop.description)
+      printPropName(prop),
+      printPropType(prop),
+      printPropDefault(prop),
+      printPropDescription(prop)
     ].join(' | ')} |`);
   }
   

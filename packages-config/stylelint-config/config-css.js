@@ -5,6 +5,7 @@ export default {
     './config-order'
   ],
   rules: {
-    'hue-degree-notation': 'number'
+    'hue-degree-notation': 'number',
+    'import-notation': 'string'
   }
 };

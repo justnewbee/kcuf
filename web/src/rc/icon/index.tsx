@@ -2,10 +2,10 @@ import {
   ReactElement,
   forwardRef
 } from 'react';
-
-import IconBase, {
+import {
+  IconBase,
   IconBaseRef
-} from '@kcuf-ui/rc-icon-base';
+} from 'kcuf-ui';
 
 import {
   TIconType,
@@ -16,7 +16,8 @@ import {
 } from './const';
 import {
   getIconCode,
-  getIconColor
+  getIconColor,
+  getIconColorDark
 } from './util';
 
 /**
@@ -32,10 +33,11 @@ function Icon(props: IIconProps, ref: IconBaseRef): ReactElement {
     ...restProps,
     ref,
     type,
-    rotating: type === 'loading',
     fontFamily: ICON_FONT,
+    darkThemePrefix: 'html[data-theme="dark"]',
     getIconCode,
-    getIconColor
+    getIconColor,
+    getIconColorDark
   }} />;
 }
 

@@ -13,9 +13,9 @@ import {
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 export default {
-  title: '@kcuf-ui',
+  title: 'kcuf-ui',
   tagline: 'A very easy to use React UI library',
-  favicon: 'img/favicon.ico',
+  favicon: 'favicon.ico',
   url: 'https://your-docusaurus-site.example.com', // Set the production url of your site here
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
@@ -24,7 +24,7 @@ export default {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'justnewbee', // Usually your GitHub org / username.
-  projectName: '@kcuf-ui', // Usually your repo name.
+  projectName: 'kcuf-ui', // Usually your repo name.
   
   plugins: [
     'docusaurus-plugin-sass',
@@ -71,7 +71,13 @@ export default {
       theme: {
         customCss: [
           './src/css/var.scss',
-          './src/css/custom.scss'
+          './src/css/custom-common.scss',
+          './src/css/custom-markdown.scss',
+          './src/css/custom-site-header.scss',
+          './src/css/custom-site-footer.scss',
+          './src/css/custom-sidebar.scss',
+          './src/css/custom-toc.scss',
+          './src/css/custom-live-editor.scss'
         ]
       }
     } satisfies Options]
@@ -81,9 +87,9 @@ export default {
     // Replace with your project's social card
     // image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: '@kcuf-ui',
+      title: 'kcuf-ui',
       logo: {
-        alt: '@kcuf-ui',
+        alt: 'kcuf-ui',
         src: 'img/logo.png'
       },
       items: [{

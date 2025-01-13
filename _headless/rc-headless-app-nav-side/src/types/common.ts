@@ -1,6 +1,6 @@
 import {
   ButtonProps
-} from '@kcuf/rc-button';
+} from '@kcuf-ui/rc-button';
 
 export type TNavItemMark = 'external' | 'new' | 'beta-public' | 'beta' | 'alpha';
 
@@ -8,7 +8,7 @@ export type TUnfoldMode = boolean | 'first-level';
 
 export interface INavItemPropsBase extends Omit<ButtonProps, 'iconLeft' | 'iconRight'> {
   key: string;
-  icon?: ReactElement;
+  icon?: string;
   mark?: TNavItemMark;
 }
 

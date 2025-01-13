@@ -3,8 +3,8 @@ export * from './helper';
 export { default } from './icon-base';
 
 export type {
-  TIconRef as IconRef,
-  IIconProps as IconProps,
+  TIconBaseRef as IconBaseRef,
+  IIconPropsGeneric as IconPropsGeneric,
   
   IInjectIconFontOptions as InjectIconFontOptions
 } from './types';

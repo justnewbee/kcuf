@@ -5,7 +5,6 @@
  * - https://docusaurus.io/docs/styling-layout#styling-your-site-with-infima
  * - https://infima.dev
  */
-
 :root {
   --ifm-hover-overlay: none;
   --ifm-color-primary: hsl(245 73% 62%);
@@ -17,37 +16,37 @@
   --ifm-color-primary-lightest: hsl(246 74% 80%);
   --ifm-code-font-size: 85%;
   --ifm-code-border-radius: 4px;
+  --ifm-code-padding-horizontal: 0.4rem;
+  --ifm-code-padding-vertical: 0.2rem;
+  --ifm-blockquote-border-left-width: 4px;
+  --ifm-blockquote-padding-horizontal: 0.6rem;
+  --ifm-blockquote-font-size: 0.9em;
+  --ifm-pre-background: transparent;
   --ifm-pre-padding: 0.75rem;
   --ifm-alert-border-left-width: 3px;
   --ifm-alert-border-radius: 4px;
   --ifm-breadcrumb-item-background-active: none;
   --ifm-breadcrumb-padding-horizontal: 0;
   --ifm-tabs-padding-vertical: 0.25rem;
-  --prop-name-background: hsl(245 73% 62% / 15%);
-  --prop-name-text-color: hsl(246 74% 43%);
-  --props-divider-color: hsl(0 0% 0% / 10%);
-  --sidebar-title-color: hsl(0 0% 0% / 80%);
-  --hero-description-text-color: hsl(0 0% 0% / 50%);
-  --feature-card-background: hsl(204 45% 98%);
-  --table-header-bgcolor: hsl(204 45% 98%);
-  --table-row-separator-color: hsl(214 32% 91%);
-  --code-text-bgcolor: hsl(245 73% 62% / 10%);
-  --code-text-color: var(--ifm-color-primary);
-  --variable-type-color: hsl(77 95% 37%);
+  --ifm-table-head-background: hsl(204 45% 98%);
+  --ifm-table-border-color: hsl(214 32% 91%);
+  --ifm-table-cell-padding: 0.4rem 0.75rem;
+  --ifm-table-stripe-background: none;
+  
+  /* 一些专属自定义，以 --k- 打头 */
+  --k-color-keyword: hsl(255 67% 55%);
+  --k-color-string: hsl(209 75% 38%);
+  --k-color-compoent: hsl(17 87% 45%);
 }
 
 html[data-theme="dark"] {
   --ifm-background-color: hsl(220 26% 14%);
   --ifm-background-surface-color: hsl(220 26% 14%);
-  --sidebar-title-color: hsl(0 0% 100%);
-  --prop-name-background: hsla(245 73% 62% / 15%);
-  --prop-name-text-color: hsl(245 73% 81%);
-  --props-divider-color: hsla(0 0% 100% / 10%);
-  --hero-description-text-color: hsla(0 0% 100% / 50%);
-  --feature-card-background: hsl(218 23% 23%);
-  --table-header-bgcolor: hsla(0 0% 100% / 4%);
-  --table-row-separator-color: hsla(0 0% 100% / 16%);
-  --code-text-bgcolor: hsla(245 73% 62% / 20%);
-  --code-text-color: var(--ifm-color-primary-lightest);
-  --variable-type-color: hsl(75 93% 44%);
+  --ifm-table-head-background: hsl(0 0% 100% / 7%);
+  --ifm-table-stripe-background: none;
+  
+  /* 一些专属自定义，以 --k- 打头 */
+  --k-color-keyword: hsl(255 94% 79%);
+  --k-color-string: hsl(131 50% 50%);
+  --k-color-compoent: hsl(29 100% 58%);
 }

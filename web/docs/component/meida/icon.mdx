@@ -1,0 +1,148 @@
+---
+sidebar_position: 1
+title: Icon 图标
+tags:
+  - component
+---
+
+<ComponentBrief name="Icon">
+  **kcuf-ui** 内部使用的图标，基于 [IconBase](./icon-base) 封装。如果项目自己需要图标，也可使用 IconBase 自行封装。
+</ComponentBrief>
+
+## Live Demo
+
+```tsx live
+function Demo(): ReactElement {
+  const ICONS = [
+    '_invalid_type_',
+    'loading',
+    'arrowhead', 'arrow', 'arrow-to-top', 'triangle',
+    'info', 'info-fill', 'help', 'help-fill', 'warn', 'warn-fill', 'success', 'success-fill', 'error', 'error-fill',
+    'banned', 'empty', 'close', 'clear', 'copy', 'refresh', 'setting', 'drag', 'search', 'zoom-in', 'zoom-out', 'more',
+    'avatar', 'avatar-fill', 'code', 'external'
+  ];
+  const [stateColored, setCStateColored] = useState<boolean>(true);
+  const handleToggleColored = useCallback(() => setCStateColored(prev => !prev), [setCStateColored]);
+  
+  return <>
+    <div>
+      {ICONS.map(v => <Icon key={v} type={v} colored={stateColored} />)}
+    </div>
+    <button onClick={handleToggleColored}>{stateColored ? '✅' : '❌'} colored</button>
+  </>;
+}
+```
+
+## 如何使用
+
+```tsx
+import {
+  Icon
+} from 'kcuf-ui';
+
+<Icon type="..." />
+```
+
+## 何时使用
+
+> 仅在 **kcuf-ui** 内部使用。
+
+作装饰，亦可作按钮（有 `onClick` 时）。
+
+## Examples
+
+### 基本
+
+最简单的使用。
+
+```tsx live
+<Icon type="setting" />
+```
+
+### 无效类型
+
+如果用 JS 而非 TS 的话，你极有可能漏写或写错 `type`，无效的 `type` 会渲染一个带斜线的方块，以助你尽快在 **运行时** 发现问题。
+
+然而，你用 TS，可以在写代码的时候就发现问题，IDE 会标红，编译会不通过，因此，请写 TS。
+
+```tsx live
+<Icon type="l0ading" />
+```
+
+### 加载中 loading
+
+Loading 会自动旋转。
+
+```tsx live
+<Icon type="loading" />
+```
+
+### 旋转 rotate
+
+旋转图标，适用于箭头等，变化有动效。单位为 °，e.g. `rotate: 90` 表示顺时针旋转 90°，`rotate: -90` 表示逆时针旋转 90°
+
+```tsx live
+function DemoRotate(): ReactElement {
+  const [stateRotate, setCStateRotate] = useState<number>(90);
+  
+  return <>
+    <Icon type="arrowhead" rotate={stateRotate} />
+    <div>
+      <input {...{
+        type: 'number',
+        step: 45,
+        value: stateRotate,
+        onChange: e => setCStateRotate(Number(e.target.value))
+      }} />
+    </div>
+  </>;
+}
+```
+
+### 预设颜色 colored
+
+部分按钮有预设颜色，设置 `colored: true` 启用。
+
+```tsx live
+<Icon type="info" colored />
+```
+
+### 点击 onClick
+
+`Icon` 除做装饰之外，也常用来做一些常用操作按钮的展示。赋值 `props.onClick` 且 `!props.disabled` 的情况下，`Icon` 的样式会有默认的 `cursor: pointer`。
+
+使用 `props.rotate` 进行旋转，适用于箭头等，有动画效果。
+
+```tsx live
+<Icon type="close" onClick={() => {
+  /* do something */
+}} />
+```
+
+## Accessibility
+
+作 Button 用，遵循 [ARIA Button Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button)。
+
+### ARIA
+
+* 作按钮时，`role` 默认为 `Button`，需设置 `aria-label` 或 `title`
+* `disabled` 时，自动 [aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled) 为 `"true"`
+
+### 键盘
+
+
+
+### 鼠标
+
+* 作按钮时，自动 `cursor: pointer`
+
+## Props
+
+| Name | Type | Default | Description |
+| --- | --- | :-: | --- |
+| `type` <Required /> | `"search" \| "loading" \| "arrowhead" \| "arrow" \| "arrow-to-top" \| "triangle" \| "info" \| "info-fill" \| "help" \| "help-fill" \| "warn" \| "warn-fill" \| "success" \| "success-fill" \| ... 16 more ... \| "external"` | - |  |
+| `disabled` | `boolean` | `false` |  |
+| `colored` | `boolean` | `false` |  |
+| `rotating` | `boolean` | - |  |
+| `rotate` | `number` | - |  |
+| `scale` | `number` | - |  |

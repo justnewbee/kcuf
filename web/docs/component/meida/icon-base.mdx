@@ -1,9 +1,11 @@
 ---
 sidebar_position: 2
-title: IconBase
+title: IconBase 图标基础
 ---
 
-> https://www.iconfont.cn 辅助，用于注入 iconfont 或 webfont 并返回对应的 font 名，是写组件的好帮手，同时提供了 `IconBase` 以助理快速写组件。
+<ComponentBrief name="IconBase">
+  https://www.iconfont.cn 辅助，用于注入 iconfont 或 webfont 并返回对应的 font 名，是写组件的好帮手，同时提供了 `IconBase` 以助理快速写组件。
+</ComponentBrief>
 
 ## 使用 injectIconFont
 
@@ -26,7 +28,7 @@ import IconBase, {
   IconRef,
   IconProps,
   injectIconFont
-} from '@kcuf-ui/rc-icon-base';
+} from 'kcuf-ui';
 
 // 为 demo 完整，直接写这里，实际场景建议提出去
 const ICON_TYPE_MAPPING = {
@@ -116,7 +118,7 @@ import styled from 'styled-components';
 
 import {
   injectWebFont
-} from '@kcuf-ui/rc-icon-base';
+} from 'kcuf-ui';
 
 const fontFamily = injectWebFont('kygag0sd8g');
 
@@ -140,3 +142,19 @@ import MengziKongzi from 'path/to/mengzi-kongzi'; // 一般在引用内部，没
 // 任何需要此组件的地方
 <MengziKongzi />
 ```
+
+## Props
+
+| Name | Type | Default | Description |
+| --- | --- | :-: | --- |
+| `fontFamily` <Required /> | `string` | - | 图标字体名称，由 `generateFontFamilyForIcon` 生成 |
+| `rotating` | `boolean` | `false` | 是否让图标一直旋转，一般只用在 Loading 等图标上<br />@defaultValue false |
+| `darkThemePrefix` | `string` | - |  |
+| `type` <Required /> | `string` | - | 类型名，决定图标长什么样。尽量使用语义化的名称，比如 `close` 等。一般来说，一个 `type` 对应一个图标的 code，<br />但出于语义化的考量，不同的 `type` 可以对应到同一个 `code`，比如 ✔ 这样的图标，其 `type` 可以是 `success` 和 `check` |
+| `disabled` | `boolean` | `false` | 是否为禁用状态，一般和 `onClick` 一起用，`disabled: true` 时，不会触发 `onClick` |
+| `colored` | `boolean` | `false` | 是否展示预设的颜色 |
+| `rotate` | `number` | - | 旋转图标，单位为 °，`rotate: 90` 表示顺时针旋转 90°，`rotate: -90` 表示逆时针旋转 90° |
+| `scale` | `number` | - | 若 rotate 后图标的大小可能不令人满意，可以用它矫正，一般情况下不要用 |
+| `getIconCode` <Required /> | `(type: T) => string` | - |  |
+| `getIconColor` | `(type: T) => string` | - |  |
+| `getIconColorDark` | `(type: T) => string` | - |  |

@@ -1,6 +1,6 @@
 # Web
 
-This is the documentation website for `@kcuf-ui`. It is built using [Docusaurus](https://docusaurus.io/).
+This is the documentation website for `kcuf-ui`. It is built using [Docusaurus](https://docusaurus.io/).
 
 ## Installation
 

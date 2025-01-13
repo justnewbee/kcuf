@@ -1,28 +1,29 @@
 ---
-sidebar_position: 2
+sidebar_position: 1
+title: Button 按钮
 tags:
   - component
 ---
 
-# Button
+<ComponentBrief name="Button">
+  原生 `button`、`a` 的封装。
+</ComponentBrief>
 
-原生 `button`、`a` 的封装。
+```tsx live
+<>
+  <Button>default</Button>
+  <Button preset="primary">primary</Button>
+  <Button preset="secondary">secondary</Button>
+  <Button preset="tertiary">tertiary</Button>
+  <Button preset="text">text</Button>
+  <Button preset="text-primary">text-primary</Button>
+  <Button preset="text-secondary">text-secondary</Button>
+</>
+```
 
-<ComponentBrief {...{
-  description: '原生 `button`、`a` 的封装。',
-  name: 'button'
-}} />
+## 何时使用
 
-import Button from '@kcuf-ui/rc-button';
-
-<Button>Hello Button</Button>
-<Button>Hello Button</Button>
-<Button>Hello Button</Button>
-<Button>Hello Button</Button>
-<Button>Hello Button</Button>
-<Button>Hello Button</Button>
-
-The `Button` component in Pearl UI is a versatile and customizable element used to trigger various actions or events within your application. These actions could range from submitting a form, opening a dialog, canceling an action, or performing a delete operation. By default, the `Button` component renders the [Pressable](./pressable) component.
+The `Button` component in Pearl UI is a versatile and customizable element used to trigger various actions or events within your application. These actions could range from submitting a form, opening a dialog, canceling an action, or performing a delete operation. By default, the `Button` component renders the Pressable component.
 
 ```mermaid
 graph TD;
@@ -202,13 +203,13 @@ import Snack from "../../../src/components/ExpoSnack";
 - `Button` has the `role` of `button`.
 - `Button` has the default accessibility label set as the text value passed into it. When the button is in a loading state, the accessibility label is set as "Loading". A custom label can be specified using the `accessibilityLabel` prop.
 - When the `Button` is disabled or loading, it is reflected as `disabled` and `busy` respectively in screen readers.
-- Similar to [Pressable](./pressable), Button expects an `actionDescription` prop to specify the intented outcome of interacting with the component eg. 'Closes modal', 'Go to the homepage', etc.
+- Similar to Pressable, Button expects an `actionDescription` prop to specify the intented outcome of interacting with the component eg. 'Closes modal', 'Go to the homepage', etc.
 
 ## Button Component Properties
 
 ### Supported Style Properties
 
-The `Button` component is a composition of the [Pressable](./pressable) component. Therefore, all properties related to the [Pressable](./pressable) component can be passed to the `Button` component, in addition to the properties listed below.
+The `Button` component is a composition of the Pressable component. Therefore, all properties related to the Pressable component can be passed to the `Button` component, in addition to the properties listed below.
 
 ### Additional Properties
 

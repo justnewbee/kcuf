@@ -1,0 +1,41 @@
+.markdown {
+  table {
+    font-size: 14px;
+    
+    tr {
+      border-top: 0;
+    }
+    
+    tbody {
+      tr {
+        border-bottom: 1px solid var(--ifm-table-border-color);
+      }
+    }
+    
+    th,
+    td {
+      border: 0;
+      text-align: left;
+    }
+  }
+  
+  h1 {
+    font-size: xx-large;
+  }
+
+  h2 {
+    font-size: x-large;
+  }
+
+  h3 {
+    font-size: large;
+  }
+
+  h4 {
+    font-size: 14px;
+  }
+  
+  code {
+    border: none;
+  }
+}
