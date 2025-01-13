@@ -109,7 +109,7 @@ function DemoRotate(): ReactElement {
 
 ### 点击 onClick
 
-`Icon` 除做装饰之外，也常用来做一些常用操作按钮的展示。赋值 `props.onClick` 且 `!props.disabled` 的情况下，`Icon` 的样式会有默认的 `cursor: pointer`。
+对 `Icon` 传入 `onClick` 且非 `disabled` 时将自动添加 `role="button"`，并有默认样式 `cursor: pointer`。
 
 使用 `props.rotate` 进行旋转，适用于箭头等，有动画效果。
 
@@ -118,6 +118,27 @@ function DemoRotate(): ReactElement {
   /* do something */
 }} />
 ```
+
+## API Reference
+
+### Props
+
+| Name | Type | Default | Description |
+| --- | --- | :-: | --- |
+| `type` <Required /> | `"search" \| "loading" \| "arrowhead" \| "arrow" \| "arrow-to-top" \| "triangle" \| "info" \| "info-fill" \| "help" \| "help-fill" \| "warn" \| "warn-fill" \| "success" \| "success-fill" \| ... 16 more ... \| "external"` | - |  |
+| `disabled` | `boolean` | `false` |  |
+| `colored` | `boolean` | `false` |  |
+| `rotating` | `boolean` | - |  |
+| `rotate` | `number` | - |  |
+| `scale` | `number` | - |  |
+
+### Events
+
+`Icon` 的底层 DOM 元素是 `<i>`，支持其所有 DOM 事件，常用事件如下：
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `onClick` | `(e: MouseEvent<HTMLSpanElement>) => void` | 为 `Icon` 赋予 `role="button"`、`tabIndex=0` 等额外的按钮特性 |
 
 ## Accessibility
 
@@ -128,21 +149,12 @@ function DemoRotate(): ReactElement {
 * 作按钮时，`role` 默认为 `Button`，需设置 `aria-label` 或 `title`
 * `disabled` 时，自动 [aria-disabled](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-disabled) 为 `"true"`
 
-### 键盘
-
-
-
 ### 鼠标
 
 * 作按钮时，自动 `cursor: pointer`
 
-## Props
+### 键盘
 
-| Name | Type | Default | Description |
-| --- | --- | :-: | --- |
-| `type` <Required /> | `"search" \| "loading" \| "arrowhead" \| "arrow" \| "arrow-to-top" \| "triangle" \| "info" \| "info-fill" \| "help" \| "help-fill" \| "warn" \| "warn-fill" \| "success" \| "success-fill" \| ... 16 more ... \| "external"` | - |  |
-| `disabled` | `boolean` | `false` |  |
-| `colored` | `boolean` | `false` |  |
-| `rotating` | `boolean` | - |  |
-| `rotate` | `number` | - |  |
-| `scale` | `number` | - |  |
+| Key | Description |
+| --- | --- |
+| <kbd>Tab</kbd> | `role="button"` 时，自动添加 `tabIndex=0`，使其能够自动响应键盘 <kbd>Tab</kbd> 事件 |

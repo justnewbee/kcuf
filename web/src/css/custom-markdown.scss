@@ -19,23 +19,26 @@
     }
   }
   
-  h1 {
-    font-size: xx-large;
-  }
-
-  h2 {
-    font-size: x-large;
-  }
-
-  h3 {
-    font-size: large;
-  }
-
-  h4 {
-    font-size: 14px;
-  }
-  
   code {
     border: none;
+  }
+  
+  > h1 {
+    font-size: xx-large;
+  }
+  
+  > h2 {
+    /* 修改 --ifm-h2-vertical-rhythm-top 无效 */
+    margin-top: 4rem;
+    font-size: x-large;
+  }
+  
+  > h3 {
+    margin-top: 2.5rem;
+    font-size: large;
+  }
+  
+  > h4 {
+    font-size: 14px;
   }
 }
