@@ -30,7 +30,7 @@ export interface IIconPropsGeneric<T extends string = string> extends HTMLAttrib
    */
   type: T;
   /**
-   * 是否为禁用状态，一般和 `onClick` 一起用，`disabled: true` 时，不会触发 `onClick`
+   * 是否为禁用状态
    */
   disabled?: boolean;
   /**
@@ -54,14 +54,23 @@ export interface IIconBaseProps<T extends string = string> extends IIconPropsGen
   fontFamily: string;
   /**
    * 是否让图标一直旋转，一般只用在 Loading 等图标上
-   *
-   * @default
-   * @defaultValue false
    */
   rotating?: boolean;
+  /**
+   * `getIconColorDark` 需要用它决定当前项目（或组件库）用的是什么方式判断的暗色主题
+   */
   darkThemePrefix?: string;
+  /**
+   * 获取 `type` 对应图标的 Unicode 值，e.g. `e600`，建议定义一个 `type-code` 的映射常量
+   */
   getIconCode(type: T): string;
+  /**
+   * 获取 `type` 对应图标的预设颜色，方便实现一致的视觉效果
+   */
   getIconColor?(type: T): string | null;
+  /**
+   * 有暗色主题时（必须搭配 `darkThemePrefix` 使用），在 `getIconColor` 的基础上，某些对比度不够的颜色可用它修正
+   */
   getIconColorDark?(type: T): string | null;
 }
 

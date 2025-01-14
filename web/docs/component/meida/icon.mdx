@@ -33,21 +33,11 @@ function Demo(): ReactElement {
 }
 ```
 
-## 如何使用
-
-```tsx
-import {
-  Icon
-} from 'kcuf-ui';
-
-<Icon type="..." />
-```
-
 ## 何时使用
 
 > 仅在 **kcuf-ui** 内部使用。
 
-作装饰，亦可作按钮（有 `onClick` 时）。
+作装饰，亦可作按钮（有 `onClick` 时，不需 `button` 包裹，已处理相关 A11Y 的需求）。
 
 ## Examples
 
@@ -57,16 +47,6 @@ import {
 
 ```tsx live
 <Icon type="setting" />
-```
-
-### 无效类型
-
-如果用 JS 而非 TS 的话，你极有可能漏写或写错 `type`，无效的 `type` 会渲染一个带斜线的方块，以助你尽快在 **运行时** 发现问题。
-
-然而，你用 TS，可以在写代码的时候就发现问题，IDE 会标红，编译会不通过，因此，请写 TS。
-
-```tsx live
-<Icon type="l0ading" />
 ```
 
 ### 加载中 loading
@@ -115,26 +95,60 @@ function DemoRotate(): ReactElement {
 
 ```tsx live
 <Icon type="close" onClick={() => {
-  /* do something */
+  console.info('💥 close clicked');
 }} />
+```
+
+### 无效类型
+
+如果用 JS 而非 TS 的话，你极有可能漏写或写错 `type`，无效的 `type` 会渲染一个带斜线的方块，以助你尽快在 **运行时** 发现问题。
+
+然而，你用 TS，可以在写代码的时候就发现问题，IDE 会标红，编译会不通过，因此，请写 TS。
+
+```tsx live
+<Icon type="l0ading" />
 ```
 
 ## API Reference
 
+### import
+
+```tsx
+import {
+  Icon,
+  IconRef,
+  IconProps,
+  IconType
+} from 'kcuf-ui';
+
+// 也可单包引入
+import Icon, {
+  IconRef,
+  IconProps,
+  IconType
+} from '@kcuf-ui/rc-icon';
+```
+
+| Name | Description |
+| --- | --- |
+| `Icon` | 组件 |
+| `IconRef` | `Ref` 类型，指向底层的 `<i>` 元素，二次封装时传递给 `forwardRef` 的类型 |
+| `IconProps` | 组件 `props` 类型，一般用于二次封装 |
+| `IconType` | 组件 `type` 的类型<br />`"search" \| "loading" \| "arrowhead" \| "arrow" \| "arrow-to-top" \| "triangle" \| "info" \| "info-fill" \| "help" \| "help-fill" \| "warn" \| "warn-fill" \| "success" \| "success-fill" \| ... 16 more ... \| "external"` |
+
 ### Props
 
-| Name | Type | Default | Description |
-| --- | --- | :-: | --- |
-| `type` <Required /> | `"search" \| "loading" \| "arrowhead" \| "arrow" \| "arrow-to-top" \| "triangle" \| "info" \| "info-fill" \| "help" \| "help-fill" \| "warn" \| "warn-fill" \| "success" \| "success-fill" \| ... 16 more ... \| "external"` | - |  |
-| `disabled` | `boolean` | `false` |  |
-| `colored` | `boolean` | `false` |  |
-| `rotating` | `boolean` | - |  |
-| `rotate` | `number` | - |  |
-| `scale` | `number` | - |  |
+| Name | Type | Description |
+| --- | --- | --- |
+| `type` <TagRequired /> | `IconType` | 类型名，决定图标长什么样。尽量使用语义化的名称，比如 `close` 等。一般来说，一个 `type` 对应一个图标的 code，<br />但出于语义化的考量，不同的 `type` 可以对应到同一个 `code`，比如 ✔ 这样的图标，其 `type` 可以是 `success` 和 `check` |
+| `disabled` <TagDefault>false</TagDefault> | `boolean` | 是否为禁用状态 |
+| `colored` <TagDefault>false</TagDefault> | `boolean` | 是否展示预设的颜色 |
+| `rotate` | `number` | 旋转图标，单位为 °，`rotate: 90` 表示顺时针旋转 90°，`rotate: -90` 表示逆时针旋转 90° |
+| `scale` | `number` | 若 rotate 后图标的大小可能不令人满意，可以用它矫正，一般情况下不要用 |
 
 ### Events
 
-`Icon` 的底层 DOM 元素是 `<i>`，支持其所有 DOM 事件，常用事件如下：
+`Icon` 的底层 DOM 元素是 `<i>`，支持其所有 DOM 事件，常用事件为 `onClick`：
 
 | Name | Type | Description |
 | --- | --- | --- |
@@ -157,4 +171,30 @@ function DemoRotate(): ReactElement {
 
 | Key | Description |
 | --- | --- |
-| <kbd>Tab</kbd> | `role="button"` 时，自动添加 `tabIndex=0`，使其能够自动响应键盘 <kbd>Tab</kbd> 事件 |
+| <kbd>Enter</kbd> | `role="button"` 时，触发点击 <TagTodo /> |
+| <kbd>Space</kbd> | `role="button"` 时，触发点击 <TagTodo /> |
+| <kbd>Tab</kbd> | `role="button"` 时，自动添加 `tabIndex=0`，使其能够被 <kbd>Tab</kbd> focus 到 |
+
+## FAQ
+
+### 如何设置图标大小？
+
+有两种方式：
+
+1. 图标大小默认继承其所在容器的字体大小
+2. 为图标单独增加样式
+
+若为图标单独增加样式，方法有很多，以使用 `styled-components` 为例。
+
+```tsx
+import styled from 'styled-components';
+import {
+  Icon
+} from 'kcuf-ui';
+
+const ScIcon = styled(Icon)`
+  font-size: 16px;
+`;
+
+<ScIcon type="..." />
+```

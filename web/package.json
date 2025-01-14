@@ -45,7 +45,7 @@
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "commander": "^13.0.0",
-    "inquirer": "^12.3.1",
+    "inquirer": "^12.3.2",
     "react-docgen": "^7.1.0",
     "react-docgen-typescript": "^2.2.2",
     "sass": "^1.83.1",
@@ -79,6 +79,6 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "generate:props-md": "ts-node-dev script/generate-props-md.ts -p"
+    "generate:md-api": "ts-node-dev script/generate-md-api-ref.ts -p"
   }
 }

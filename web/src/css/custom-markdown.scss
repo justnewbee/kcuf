@@ -16,6 +16,10 @@
     td {
       border: 0;
       text-align: left;
+      
+      &:first-child {
+        min-width: 150px;
+      }
     }
   }
   

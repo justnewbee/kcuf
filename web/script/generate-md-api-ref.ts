@@ -36,7 +36,20 @@ function safeCellContent(content?: string): string {
 }
 
 function printPropName(prop: PropItem): string {
-  return prop.required ? `${codify(prop.name)} <Required />` : codify(prop.name);
+  const parts: string[] = [codify(prop.name)];
+  
+  // JSDoc 中添加 `@default`，默认对类型为 `boolean` 的使用 `false` 做默认值
+  if (prop.required) {
+    parts.push('<TagRequired />');
+  } else {
+    if (prop.defaultValue) {
+      parts.push(`<TagDefault>${prop.defaultValue.value}</TagDefault>`);
+    } else if (prop.type.name === 'boolean') {
+      parts.push('<TagDefault>false</TagDefault>');
+    }
+  }
+  
+  return parts.join(' ');
 }
 
 function printPropType(prop: PropItem): string {
@@ -47,37 +60,21 @@ function printPropDescription(prop: PropItem): string {
   return safeCellContent(prop.description);
 }
 
-/**
- * JSDoc 中添加 `@default`，默认对类型为 `boolean` 的使用 `false` 做默认值
- */
-function printPropDefault(prop: PropItem): string {
-  if (prop.defaultValue) {
-    return codify(prop.defaultValue.value);
-  }
-  
-  if (prop.type.name === 'boolean') {
-    return codify('false');
-  }
-  
-  return '-';
-}
-
 function generateMarkdownTable(component: ComponentDoc): string {
-  const markdownLines = [
-    '| Name | Type | Default | Description |',
-    '| --- | --- | :-: | --- |'
+  const markdownPropsLines = [
+    '| Name | Type | Description |',
+    '| --- | --- | --- |'
   ];
   
   for (const [, prop] of Object.entries(component.props)) {
-    markdownLines.push(`| ${[
+    markdownPropsLines.push(`| ${[
       printPropName(prop),
       printPropType(prop),
-      printPropDefault(prop),
       printPropDescription(prop)
     ].join(' | ')} |`);
   }
   
-  return markdownLines.join('\n');
+  return markdownPropsLines.join('\n');
 }
 
 function generateOnFilePath(filePath: string): void {
@@ -112,7 +109,7 @@ function readAndGenerate(options: ICommandArgs): void {
 /**
  * How to use:
  *
- * > ts-node-dev ./script/generate-props-md -p <pkg>
+ * > ts-node-dev ./script/generate-md-api-pref.ts -p <pkg>
  */
 program.requiredOption('-p, --pkg <pkg>').parse();
 

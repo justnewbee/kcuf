@@ -1,10 +1,8 @@
-export * from './helper';
-
 export { default } from './icon-base';
+
+export * from './helper';
 
 export type {
   TIconBaseRef as IconBaseRef,
-  IIconPropsGeneric as IconPropsGeneric,
-  
-  IInjectIconFontOptions as InjectIconFontOptions
+  IIconPropsGeneric as IconPropsGeneric
 } from './types';

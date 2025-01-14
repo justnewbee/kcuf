@@ -2,13 +2,17 @@ import MDXComponents from '@theme-original/MDXComponents';
 
 import {
   Highlight,
-  Required,
+  TagRequired,
+  TagDefault,
+  TagTodo,
   ComponentBrief
 } from '../../rc';
 
 export default {
   ...MDXComponents,
   Highlight,
-  Required,
+  TagRequired,
+  TagTodo,
+  TagDefault,
   ComponentBrief
 };
