@@ -190,7 +190,7 @@ import IconBase, {
 } from '@kcuf-ui/rc-icon-base';
 ```
 
-| Name | Category | Description |
+| Export | 类型 | 说明 |
 | --- | :-: | --- |
 | `IconBase` | 组件 | 待补充 `type` |
 | `IconBaseRef` | 类型 | `Ref` 类型，指向底层的 `<i>` 元素，二次封装时传递给 `forwardRef` 的类型 |
@@ -200,7 +200,7 @@ import IconBase, {
 
 ### Props
 
-| Name | Type | Description |
+| 属性 | 类型 | 说明 |
 | --- | --- | --- |
 | `fontFamily` <TagRequired /> | `string` | 图标字体名称，由 `generateFontFamilyForIcon` 生成 |
 | `rotating` <TagDefault>false</TagDefault> | `boolean` | 是否让图标一直旋转，一般只用在 Loading 等图标上 |
@@ -218,6 +218,6 @@ import IconBase, {
 
 `IconBase` 的底层 DOM 元素是 `<i>`，支持其所有 DOM 事件，常用事件为 `onClick`：
 
-| Name | Type | Description |
+| Name | 类型 | 说明 |
 | --- | --- | --- |
 | `onClick` | `(e: MouseEvent<HTMLSpanElement>) => void` | 为 `Icon` 赋予 `role="button"`、`tabIndex=0` 等额外的按钮特性 |

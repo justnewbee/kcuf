@@ -17,5 +17,5 @@ export default function InnerRight(): ReactElement | null {
   } = useProps();
   const focused = useFocused();
   
-  return innerRight ? <ScInputInnerRight focused={focused}>{innerRight}</ScInputInnerRight> : null;
+  return innerRight ? <ScInputInnerRight $focused={focused}>{innerRight}</ScInputInnerRight> : null;
 }

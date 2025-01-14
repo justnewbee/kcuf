@@ -129,16 +129,16 @@ import Icon, {
 } from '@kcuf-ui/rc-icon';
 ```
 
-| Name | Description |
-| --- | --- |
-| `Icon` | 组件 |
-| `IconRef` | `Ref` 类型，指向底层的 `<i>` 元素，二次封装时传递给 `forwardRef` 的类型 |
-| `IconProps` | 组件 `props` 类型，一般用于二次封装 |
-| `IconType` | 组件 `type` 的类型<br />`"search" \| "loading" \| "arrowhead" \| "arrow" \| "arrow-to-top" \| "triangle" \| "info" \| "info-fill" \| "help" \| "help-fill" \| "warn" \| "warn-fill" \| "success" \| "success-fill" \| ... 16 more ... \| "external"` |
+| Export | 类型 | 说明 |
+| --- | :-: | --- |
+| `Icon` | 组件 | |
+| `IconRef` | 类型 | `Ref` 类型，指向底层的 `<i>` 元素，二次封装时传递给 `forwardRef` 的类型 |
+| `IconProps` | 类型 | 组件 `props` 类型，一般用于二次封装 |
+| `IconType` | 类型 | 组件 `type` 的类型<br />`"search" \| "loading" \| "arrowhead" \| "arrow" \| "arrow-to-top" \| "triangle" \| "info" \| "info-fill" \| "help" \| "help-fill" \| "warn" \| "warn-fill" \| "success" \| "success-fill" \| ... 16 more ... \| "external"` |
 
 ### Props
 
-| Name | Type | Description |
+| 属性 | 类型 | 说明 |
 | --- | --- | --- |
 | `type` <TagRequired /> | `IconType` | 类型名，决定图标长什么样。尽量使用语义化的名称，比如 `close` 等。一般来说，一个 `type` 对应一个图标的 code，<br />但出于语义化的考量，不同的 `type` 可以对应到同一个 `code`，比如 ✔ 这样的图标，其 `type` 可以是 `success` 和 `check` |
 | `disabled` <TagDefault>false</TagDefault> | `boolean` | 是否为禁用状态 |
@@ -150,7 +150,7 @@ import Icon, {
 
 `Icon` 的底层 DOM 元素是 `<i>`，支持其所有 DOM 事件，常用事件为 `onClick`：
 
-| Name | Type | Description |
+| 事件 | 类型 | 说明 |
 | --- | --- | --- |
 | `onClick` | `(e: MouseEvent<HTMLSpanElement>) => void` | 为 `Icon` 赋予 `role="button"`、`tabIndex=0` 等额外的按钮特性 |
 
@@ -169,7 +169,7 @@ import Icon, {
 
 ### 键盘
 
-| Key | Description |
+| Key | 说明 |
 | --- | --- |
 | <kbd>Enter</kbd> | `role="button"` 时，触发点击 <TagTodo /> |
 | <kbd>Space</kbd> | `role="button"` 时，触发点击 <TagTodo /> |

@@ -11,13 +11,13 @@ import {
 } from '../const';
 
 interface IScProps {
-  focused?: boolean;
+  $focused?: boolean;
 }
 
 const ScInputInnerBase = styled.span<IScProps>`
   height: ${INNER_HEIGHT_PX};
   line-height: ${INNER_HEIGHT_PX};
-  ${props => props.focused ? mixinTextPrimary : mixinTextTertiary}
+  ${props => props.$focused ? mixinTextPrimary : mixinTextTertiary}
   
   i {
     vertical-align: middle;

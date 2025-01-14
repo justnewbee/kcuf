@@ -12,6 +12,10 @@ import {
   getStyledShadow
 } from '../util';
 
+interface IScInputProps {
+
+}
+
 export default styled.div<InputTextProps>`
   display: ${props => props.block ? 'flex' : 'inline-flex'};
   align-items: center;

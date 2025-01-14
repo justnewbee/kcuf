@@ -4,6 +4,10 @@ import {
 } from 'react';
 
 import {
+  useControllableSoftTrim
+} from '@kcuf-hook/use-controllable';
+
+import {
   IModelProviderProps,
   TModelReducer
 } from '../types';
@@ -22,6 +26,7 @@ export default function Provider({
   onChange,
   ...props
 }: IModelProviderProps): ReactElement {
+  const [controllableValue, controllableOnChange] = useControllableSoftTrim(trim, value, defaultValue, onChange);
   const [state, dispatch] = useReducer<TModelReducer>(reducer, DEFAULT_CONTEXT_STATE);
   
   return <Context.Provider value={{

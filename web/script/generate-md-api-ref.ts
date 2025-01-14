@@ -62,7 +62,7 @@ function printPropDescription(prop: PropItem): string {
 
 function generateMarkdownTable(component: ComponentDoc): string {
   const markdownPropsLines = [
-    '| Name | Type | Description |',
+    '| 属性 | 类型 | 说明 |',
     '| --- | --- | --- |'
   ];
   

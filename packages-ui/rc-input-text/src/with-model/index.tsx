@@ -5,7 +5,7 @@ import {
 import {
   useControllableSoftTrim
 } from '@kcuf-hook/use-controllable';
-import Model, {
+import InputTextHeadless, {
   InputTextProps
 } from '@kcuf-ui/rc-input-text-headless';
 
@@ -20,11 +20,11 @@ export default function WithProvider({
 }: InputTextProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllableSoftTrim(trim, value, defaultValue, onChange);
   
-  return <Model {...{
+  return <InputTextHeadless {...{
     ...props,
     value: controllableValue,
     onChange: controllableOnChange
   }}>
     <Ui />
-  </Model>;
+  </InputTextHeadless>;
 }
