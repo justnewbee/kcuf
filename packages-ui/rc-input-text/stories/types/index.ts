@@ -3,7 +3,7 @@ import {
   StoryObj
 } from '@storybook/react';
 
-import InputText from '../../src';
+import InputSwitch from '../../src';
 
-export type TMeta = Meta<typeof InputText>;
+export type TMeta = Meta<typeof InputSwitch>;
 export type TStory = StoryObj<TMeta>;

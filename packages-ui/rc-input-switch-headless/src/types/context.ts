@@ -3,6 +3,10 @@ import {
 } from 'react';
 
 import {
+  RequiredSelected
+} from '@kcuf/ts-missing-helpers';
+
+import {
   IModelProps
 } from './props';
 import {
@@ -16,7 +20,7 @@ import {
 export type TModelReducer = (state: IModelState, action: TModelAction) => IModelState;
 
 export interface IModelContext {
-  props: IModelProps;
+  props: RequiredSelected<Omit<IModelProps, 'defaultValue'>, 'value' | 'onChange'>;
   state: IModelState;
   dispatch: TModelDispatch;
 }

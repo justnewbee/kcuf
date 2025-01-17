@@ -3,8 +3,9 @@ import {
   useReducer
 } from 'react';
 
+import useControllable from '@kcuf-hook/use-controllable';
+
 import {
-  IModelProps,
   IModelProviderProps,
   TModelReducer
 } from '../types';
@@ -13,20 +14,26 @@ import {
 } from '../util';
 import reducer from '../reducer';
 import Context from '../context';
-import Lifecycle from '../lifecycle';
 
 export default function Provider({
+  value,
+  defaultValue,
+  onChange,
   children,
   ...props
 }: IModelProviderProps): ReactElement {
-  const [state, dispatch] = useReducer<TModelReducer, IModelProps>(reducer, props, createInitialState);
+  const [controllableValue, controllableOnChange] = useControllable(false, value, defaultValue, onChange);
+  const [state, dispatch] = useReducer<TModelReducer, boolean>(reducer, controllableValue, createInitialState);
   
   return <Context.Provider value={{
-    props,
+    props: {
+      ...props,
+      value: controllableValue,
+      onChange: controllableOnChange
+    },
     state,
     dispatch
   }}>
-    <Lifecycle />
     {children}
   </Context.Provider>;
 }

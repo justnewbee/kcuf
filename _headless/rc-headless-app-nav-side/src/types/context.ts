@@ -11,7 +11,7 @@ import {
 
 export type TModelReducer = (state: IModelState, action: TModelAction) => IModelState;
 
-export interface IModelValue {
+export interface IModelContext {
   props: IModelProps;
   state: IModelState;
   dispatch: TModelDispatch;

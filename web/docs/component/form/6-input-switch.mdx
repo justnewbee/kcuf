@@ -1,3 +1,185 @@
 ---
-title: InputSwitch
+title: InputSwitch 开关
+tags:
+  - element
+  - atomic
 ---
+
+<ComponentBrief name="InputSwitch">
+  切换 `true/false` 状态，可以认为是 `<input type="checkbox" />` 的变体。
+</ComponentBrief>
+
+## Live Demo
+
+```tsx live
+<InputSwitch defaultValue={true} />
+```
+
+## 何时使用
+
+* 在两种状态之间切换时
+
+## 组件构成
+
+```text
+<InputSwitch> --- +
+| [knob] [label?] |
++ -- </InputSwitch>
+```
+
+## 代码演示
+
+### 最简使用
+
+```tsx live
+<InputSwitch />
+```
+
+### 禁用
+
+```tsx live
+<InputSwitch label="disabled" disabled />
+```
+
+### 受控
+
+```tsx live
+function DemoControllable(): ReactElement {
+  const [stateValue, setStateValue] = useState(true);
+  const handleNativeInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setStateValue(e.target.checked);
+  }, [setStateValue]);
+  
+  return <>
+    <InputSwitch {...{
+      label: '非受控',
+      onChange: setStateValue
+    }} />
+    <InputSwitch {...{
+      label: '受控 1',
+      value: stateValue,
+      onChange: setStateValue
+    }} />
+    <InputSwitch {...{
+      label: '受控 2',
+      value: stateValue,
+      onChange: setStateValue
+    }} />
+    <input {...{
+      type: 'checkbox',
+      checked: stateValue,
+      onChange: handleNativeInputChange
+    }} />
+    <input {...{
+      type: 'radio',
+      checked: stateValue,
+      onChange: handleNativeInputChange
+    }} />
+  </>;
+}
+```
+
+## API Reference
+
+### import
+
+```tsx
+import {
+  InputSwitch,
+  InputSwitchRef,
+  InputSwitchProps,
+  InputSwitchType
+} from 'kcuf-ui';
+
+// 也可单包引入
+import InputSwitch, {
+  InputSwitchRef,
+  InputSwitchProps,
+  InputSwitchType
+} from '@kcuf-ui/rc-input-text';
+```
+
+### Props
+
+支持其所有 [input props](https://react.dev/reference/react-dom/components/input#props)，除了：
+
+* `type`，固定为 `'text'`
+
+| 属性 | 类型 | 说明 |
+| --- | --- | --- |
+| `value` | `boolean` | 受控值 |
+| `defaultValue` <TagDefault>false</TagDefault> | `boolean` | 默认值 |
+| `disabled` <TagDefault>false</TagDefault> | `boolean` | 是否禁用 |
+| `label` | `string \| ReactElement` | 显示 Label |
+| `onChange` | `(value: boolean) => void` | 用户操作引起的值变化时的回调 |
+
+### Events
+
+| 事件 | 类型 | 说明 |
+| --- | --- | --- |
+| `onChange` | `(value: boolean) => void` | `value` 变化时的回调 |
+
+### Data Attributes
+
+| 属性 | 说明 |
+| --- | --- |
+| `[data-active]` | Present when active or pressed |
+| `[data-focus]` | Present when focused |
+| `[data-focus-visible]` | Present when focused with keyboard |
+| `[data-readonly]` | Present when read-only |
+| `[data-hover]` | Present when hovered |
+| `[data-disabled]` | Present when disabled |
+| `[data-checked]` | |
+
+Keyboard Interactions
+Key	Description
+Space
+
+Toggles the component's state.
+Enter
+
+Toggles the component's state.
+
+## FAQ
+
+### 名字为什么是 InputSwitch？
+
+多数 UI 库的命名为 `Switch`，只有 [primereact](https://primereact.org/inputswitch) 的命名是 `InputSwitch`。
+
+## 参考
+
+| Lib | 参考值 | 名称 | 归类 | 备注 |
+| --- | --- | --- | --- | --- |
+| [antd](https://ant.design/components/switch) | ★★★☆ | `Switch` | `Data Entry` | |
+| [ark](https://ark-ui.com/react/docs/components/switch) | ★★★☆ | `Switch` | - | |
+| [atlassian](https://atlassian.design/components/toggle/code) | ★★☆ | `Toggle` | `Forms & input` | |
+| [baklava](https://baklava.design/?path=/docs/components-switch--documentation) | ★☆ | `Switch` | - | |
+| [chakra](https://www.chakra-ui.com/docs/components/switch) | ★★★☆ | `Switch` | | |
+| [choco](https://choco-ui.com/components/switch) | ★☆ | `Switch` | - | |
+| [cuicui](https://cuicui.day/common-ui/toggle) | ☆ | `Toggle` | - | |
+| [dotui](https://dotui.org/docs/components/inputs/switch) | ★★★ | `Switch` | `Inputs` | |
+| [element+](https://element-plus.org/zh-CN/component/switch.html) | ★★☆ | `Switch` | `Form` | |
+| [fluent](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/switch) | ★☆ | `Switch` | - | |
+| [franken](https://franken-ui.dev/docs/form#toggle-switch) | ★★★☆ | `ToggleSwitch` | - | 底层用的 `input[type=checkbox]` |
+| [fusion](https://fusion.design/pc/component/switch) | ★★★☆ | `Switch` | `Data Entry` | 有 Loading 状态 |
+| [headless](https://headlessui.com/react/switch) | ★☆ | `Switch` | `Forms` | |
+| [hyper](https://www.hyperui.dev/components/application-ui/toggles) | ★☆ | `Toggle` | - | 多个样式 |
+| [instructure](https://instructure.design/#Checkbox) | ★★★ | `Checkbox` | - |  `Checkbox` 的 `toggle` 变体 |
+| [ionic](https://ionicframework.com/docs/api/toggle) | ★★★ | `Toggle` | - | |
+| [justd](https://getjustd.com/docs/2.x/components/controls/switch) | ★★★☆ | `Switch` | `Controls` | |
+| [mantine](https://mantine.dev/core/switch) | ★★★ | `Switch` | `Inputs` | |
+| [melt](https://www.melt-ui.com/docs/builders/switch) | ★ | `Switch` | - | |
+| [mui](https://mui.com/material-ui/react-switch) | ★★★ | `Switch` | `Inputs` | |
+| [next](https://nextui.org/docs/components/switch) | ★★★☆ | `Switch` | - | |
+| [pearl](https://docs.pearl-ui.dev/docs/components/forms/Switch) | ★★☆ | `Switch` | `Forms` | |
+| [primereact](https://primereact.org/inputswitch) | ★★ | `InputSwitch` | `Form` | |
+| [radix](https://www.radix-ui.com/themes/docs/components/switch) | ★★★★ | `Switch` | | |
+| [reakit](https://reakit.io/docs/switch) | ★★★☆ | `Switch` | - | |
+| [reka](https://reka-ui.com/docs/components/switch) | ★★★☆ | `Switch` | - | |
+| [semantic](https://semantic-ui.com/modules/checkbox.html) | ★☆ | `Checkbox` | `Elements` | `Checkbox` 的 `toggle` 变体 |
+| [shadcn](https://ui.shadcn.com/docs/components/switch) | ★ | `Switch` | `Elements` | |
+| [spectrum](https://spectrum.adobe.com/page/switch) | ★★★ | `Switch` | `Inputs` | |
+| [tallstack](https://tallstackui.com/docs/form/toggle) | ★☆ | `Toggle` | `Form` | 外圈光环怎么出来的 |
+| [theme](https://theme-ui.com/components/switch) | ☆ | `Switch` | - | |
+| [tremor](https://tremor.so/docs/inputs/switch) | ★★ | `Switch` | `Inputs` | |
+| [zag](https://zagjs.com/components/react/switch) | ★☆ | `Switch` | - | |

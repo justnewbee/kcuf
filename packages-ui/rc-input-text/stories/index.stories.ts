@@ -1,4 +1,4 @@
-import InputText from '../src';
+import InputSwitch from '../src';
 
 import {
   TMeta,
@@ -6,8 +6,8 @@ import {
 } from './types';
 
 const meta = {
-  title: 'InputText',
-  component: InputText,
+  title: 'InputSwitch',
+  component: InputSwitch,
   parameters: {
     layout: 'padded'
   },

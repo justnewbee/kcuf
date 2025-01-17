@@ -41,6 +41,7 @@
   "dependencies": {
     "@kcuf-hook/use-controllable": "workspace:^",
     "@kcuf-hook/use-is-unmounted": "workspace:^",
+    "@kcuf/ts-missing-helpers": "workspace:^",
     "immer": "^10.1.1"
   },
   "scripts": {

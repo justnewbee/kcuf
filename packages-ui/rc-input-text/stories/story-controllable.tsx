@@ -5,7 +5,7 @@ import {
   useState
 } from 'react';
 
-import InputText from '../src';
+import InputSwitch from '../src';
 
 export default function StoryControllable(): ReactElement {
   const [stateValue, setStateValue] = useState('');
@@ -14,11 +14,11 @@ export default function StoryControllable(): ReactElement {
   }, [setStateValue]);
   
   return <>
-    <InputText {...{
+    <InputSwitch {...{
       value: stateValue,
       onChange: setStateValue
     }} />
-    <InputText {...{
+    <InputSwitch {...{
       value: stateValue,
       onChange: setStateValue
     }} />

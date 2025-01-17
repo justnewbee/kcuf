@@ -1,6 +1,5 @@
 import {
-  ReactElement,
-  useCallback
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
@@ -11,21 +10,21 @@ import {
 import {
   ScBaseButton
 } from '@kcuf/styled-mixin';
-import useControllable from '@kcuf-hook/use-controllable';
-
 import {
-  IPropsInputSwitch
-} from '../../types';
+  useProps,
+  useHandleToggleSwitch
+} from '@kcuf-ui/rc-input-switch-headless';
+
 import {
   WIDTH_SWITCH,
   HEIGHT_SWITCH,
   SPACING_INNER,
   SIZE_KNOB
-} from '../../const';
+} from '../const';
 import {
   getStyledBg,
   getStyledKnobPosition
-} from '../../util';
+} from '../util';
 
 interface IScProps {
   'aria-checked': boolean;
@@ -64,24 +63,23 @@ const ScInputSwitchLabel = styled.label`
   margin-left: 8px;
 `;
 
-export default function InputSwitch({
-  label,
-  value,
-  defaultValue,
-  disabled,
-  onChange,
-  ...props
-}: IPropsInputSwitch): ReactElement {
-  const [controllableValue, setControllableValue] = useControllable(false, value, defaultValue, onChange);
-  const handleClick = useCallback(() => setControllableValue(!controllableValue), [controllableValue, setControllableValue]);
+export default function Ui(): ReactElement {
+  const {
+    value,
+    label,
+    disabled,
+    onChange,
+    ...props
+  } = useProps();
+  const handleToggleSwitch = useHandleToggleSwitch();
   
   return <ScInputSwitchWrap {...props}>
     <ScInputSwitch {...{
       disabled,
       role: 'switch',
-      'aria-checked': controllableValue,
-      onClick: handleClick
+      'aria-checked': value,
+      onClick: handleToggleSwitch
     }} />
-    {label ? <ScInputSwitchLabel onClick={disabled ? undefined : handleClick}>{label}</ScInputSwitchLabel> : null}
+    {label ? <ScInputSwitchLabel onClick={handleToggleSwitch}>{label}</ScInputSwitchLabel> : null}
   </ScInputSwitchWrap>;
 }

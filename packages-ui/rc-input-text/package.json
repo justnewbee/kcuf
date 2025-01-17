@@ -1,7 +1,7 @@
 {
   "name": "@kcuf-ui/rc-input-text",
   "version": "0.0.0",
-  "description": "The InputText component.",
+  "description": "The InputSwitch component.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,

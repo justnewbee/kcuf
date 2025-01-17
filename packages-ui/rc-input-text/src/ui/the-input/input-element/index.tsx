@@ -5,13 +5,13 @@ import styled from 'styled-components';
 
 import {
   SIZE,
-  mixinInputTextDisabled,
-  mixinInputText,
-  // mixinInputTextHover,
-  mixinInputTextFocus
+  mixinInputSwitchDisabled,
+  mixinInputSwitch,
+  // mixinInputSwitchHover,
+  mixinInputSwitchFocus
 } from '@kcuf/fork-console-base-theme';
 import {
-  ScBaseInputText
+  ScBaseInputSwitch
 } from '@kcuf/styled-mixin';
 import {
   useRefInput,
@@ -26,7 +26,7 @@ interface IScProps {
   $focused?: boolean;
 }
 
-const ScInputElement = styled(ScBaseInputText)<IScProps>`
+const ScInputElement = styled(ScBaseInputSwitch)<IScProps>`
   padding: 0 ${SIZE.PADDING_X_FORM_CONTROL_M - 2}px;
   width: 100%;
   height: ${INNER_HEIGHT_PX};
@@ -35,18 +35,18 @@ const ScInputElement = styled(ScBaseInputText)<IScProps>`
   
   ${props => {
     if (props.disabled) {
-      return mixinInputTextDisabled;
+      return mixinInputSwitchDisabled;
     }
     
     if (props.$focused) {
-      return mixinInputTextFocus;
+      return mixinInputSwitchFocus;
     }
     
     // if (props.hovered) {
-    //   return mixinInputTextHover;
+    //   return mixinInputSwitchHover;
     // }
     
-    return mixinInputText;
+    return mixinInputSwitch;
   }}
 `;
 

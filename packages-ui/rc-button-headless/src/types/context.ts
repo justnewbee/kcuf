@@ -6,7 +6,7 @@ import {
   IModelProps
 } from './props';
 
-export interface IModelValue {
+export interface IModelContext {
   props: IModelProps;
 }
 

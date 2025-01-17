@@ -17,6 +17,11 @@ interface ICommandArgs {
   pkg: string;
 }
 
+const NO_AUTO_DEFAULT_NAMES = [
+  'value',
+  'checked'
+];
+
 const parser = withCustomConfig('./tsconfig.json', {
   propFilter: (prop: PropItem) => {
     if (prop.parent) {
@@ -44,7 +49,7 @@ function printPropName(prop: PropItem): string {
   } else {
     if (prop.defaultValue) {
       parts.push(`<TagDefault>${prop.defaultValue.value}</TagDefault>`);
-    } else if (prop.type.name === 'boolean') {
+    } else if (prop.type.name === 'boolean' && !NO_AUTO_DEFAULT_NAMES.includes(prop.name)) {
       parts.push('<TagDefault>false</TagDefault>');
     }
   }

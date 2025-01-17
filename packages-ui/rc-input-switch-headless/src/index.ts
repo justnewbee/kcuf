@@ -3,5 +3,5 @@ export { default } from './provider';
 export * from './hook';
 
 export type {
-  IModelProps as XxModelProps
+  IModelProps as InputSwitchProps
 } from './types';

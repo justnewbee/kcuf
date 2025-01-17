@@ -1,7 +1,7 @@
 import {
+  InputHTMLAttributes,
   ReactNode,
-  ReactElement,
-  InputHTMLAttributes
+  ReactElement
 } from 'react';
 
 import {

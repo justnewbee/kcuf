@@ -17,3 +17,5 @@ const meta = {
 export default meta;
 
 export const Primary: TStory = {};
+
+export { default as Controllable } from './story-controllable';

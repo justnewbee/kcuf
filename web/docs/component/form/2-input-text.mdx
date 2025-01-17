@@ -5,8 +5,6 @@ tags:
   - atomic
 ---
 
-[//]: # (参考 https://mantine.dev https://ant.design 结构化简介)
-
 <ComponentBrief name="InputText">
   最基础的表单输入域，基于 HTML `<input type="text" />` 的封装。
 </ComponentBrief>
@@ -29,7 +27,7 @@ tags:
 + -------------------------------------------------------------------------- </div>
 ```
 
-## Examples / 代码演示
+## 代码演示
 
 ### 最简使用
 
@@ -57,6 +55,12 @@ tags:
   <InputText placeholder="fluid: false" fluid={false} />
   <InputText placeholder="using style" style={{ width: '50%' }} />
 </>
+```
+
+### 禁用
+
+```tsx live
+<InputText defaultValue="disabled" disabled />
 ```
 
 ### 状态
@@ -315,7 +319,7 @@ import InputText, {
 
 ### 名字为什么是 InputText？
 
-是的，多数 UI 库都管此组件叫 `Input`，也有叫 `TextField` 的，目前看到只有 [primereact](https://primereact.org/inputtext) 的命名是 `InputText`。
+多数 UI 库的命名为 `Input`，也有 `TextField`，目前看到只有 [primereact](https://primereact.org/inputtext) 的命名是 `InputText`。
 
 我从来没有借鉴过，很开心看到有人用同样的命名方式。
 
@@ -323,28 +327,29 @@ import InputText, {
 
 ## 参考
 
-| Lib | 名称 | 归类 | 长相 |
-| --- | :-: | :-: | --- |
-| [antd](https://ant.design/components/input) | `Input` | `Data Entry` | `variant: outlined \| borderless \| filled` |
-| [ark](https://ark-ui.com/react/docs/components/field#input) | `Field.Input` | - | - |
-| [atlassian](https://atlassian.design/components/textfield/code) | `TextField` | `Forms & input` | `appearance: subtle \| standard \| none` |
-| [chakra](https://www.chakra-ui.com/docs/components/input) | `Input` | | `variant: subtle \| outline \| flushed` |
-| [dotui](https://dotui.org/docs/components/inputs/text-field) | `TextField` | `Inputs` | - |
-| [element+](https://element-plus.org/zh-CN/component/input.html) | `Input` | `Form` | - |
-| [fluent](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/text-field) | `TextField` | - | - |
-| [fusion](https://fusion.design/pc/component/input) | `Input` | `Data Entry` | - |
-| [headless](https://headlessui.com/react/input) | `Input` | `Forms` | - |
-| [instructure](https://instructure.design/#TextInput) | `TextInput` | - | - |
-| [mantine](https://mantine.dev/core/text-input) | `TextInput` | `Inputs` | `variant: defult \| filled \| unstyled` |
-| [mui](https://mui.com/material-ui/react-text-field) | `TextField` | `Inputs` | `variant: outlined \| filled \| standard` |
-| [next](https://nextui.org/docs/components/input) | `Input` | - | `variant: flat \| bordered \| underlined \| faded` |
-| [pearl](https://docs.pearl-ui.dev/docs/components/forms/Input) | `Input` | `Forms` | `variant: filled \| outline` |
-| [primereact](https://primereact.org/inputtext) | `InputText` | `Form` | - |
-| [radix](https://www.radix-ui.com/themes/docs/components/text-field) | `TextField` | | `variant: classic \| surface \| soft` |
-| [reakit](https://reakit.io/docs/input) | `Input` | - | - |
-| [semantic](https://semantic-ui.com/elements/input.html) | `Input` | `Elements` | - |
-| [shadcn](https://ui.shadcn.com/docs/components/input) | `Input` | `Elements` | - |
-| [spectrum](https://spectrum.adobe.com/page/text-field) | `TextField` | `Inputs` | `quiet: boolean` |
-| [tallstack](https://tallstackui.com/docs/form/input) | `Input` | `Form` | - |
-| [theme](https://theme-ui.com/components/input) | `Input` | - | - |
-| [tremor](https://tremor.so/docs/inputs/input) | `Input` | `Inputs` | - |
+| Lib | 参考值 | 名称 | 归类 | 备注 |
+| --- | --- | --- | --- | --- |
+| [antd](https://ant.design/components/input) | ★★★☆ | `Input` | `Data Entry` | `variant: outlined \| borderless \| filled` |
+| [ark](https://ark-ui.com/react/docs/components/field#input) | ★★☆ | `Field.Input` | - | - |
+| [atlassian](https://atlassian.design/components/textfield/code) | ★★★☆ | `TextField` | `Forms & input` | `appearance: subtle \| standard \| none` |
+| [baklava](https://baklava.design/?path=/docs/components-input--documentation) | ★★☆ | `Input` | - |
+| [chakra](https://www.chakra-ui.com/docs/components/input) | ★★★★☆ | `Input` | | `variant: subtle \| outline \| flushed` |
+| [dotui](https://dotui.org/docs/components/inputs/text-field) | ★★☆ | `TextField` | `Inputs` | - |
+| [element+](https://element-plus.org/zh-CN/component/input.html) | ★☆ | `Input` | `Form` | - |
+| [fluent](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/text-field) | ★ | `TextField` | - | - |
+| [fusion](https://fusion.design/pc/component/input) | ★★★☆ | `Input` | `Data Entry` | - |
+| [headless](https://headlessui.com/react/input) | ★★★☆ | `Input` | `Forms` | - |
+| [instructure](https://instructure.design/#TextInput) | ★★☆ | `TextInput` | - | - |
+| [mantine](https://mantine.dev/core/text-input) | ★★★☆ | `TextInput` | `Inputs` | `variant: defult \| filled \| unstyled` |
+| [mui](https://mui.com/material-ui/react-text-field) | ★★★☆ | `TextField` | `Inputs` | `variant: outlined \| filled \| standard` |
+| [next](https://nextui.org/docs/components/input) | ★★★☆ | `Input` | - | `variant: flat \| bordered \| underlined \| faded` |
+| [pearl](https://docs.pearl-ui.dev/docs/components/forms/Input) | ★★☆ | `Input` | `Forms` | `variant: filled \| outline` |
+| [primereact](https://primereact.org/inputtext) | ★☆ | `InputText` | `Form` | - |
+| [radix](https://www.radix-ui.com/themes/docs/components/text-field) | ★★★☆ | `TextField` | | `variant: classic \| surface \| soft` |
+| [reakit](https://reakit.io/docs/input) | ☆ | `Input` | - | - |
+| [semantic](https://semantic-ui.com/elements/input.html) | ★★★ | `Input` | `Elements` | - |
+| [shadcn](https://ui.shadcn.com/docs/components/input) | ★★ | `Input` | `Elements` | - |
+| [spectrum](https://spectrum.adobe.com/page/text-field) | ★★★☆ | `TextField` | `Inputs` | `quiet: boolean` |
+| [tallstack](https://tallstackui.com/docs/form/input) | ★★ | `Input` | `Form` | - |
+| [theme](https://theme-ui.com/components/input) | ☆ | `Input` | - | - |
+| [tremor](https://tremor.so/docs/inputs/input) | ★☆ | `Input` | `Inputs` | - |

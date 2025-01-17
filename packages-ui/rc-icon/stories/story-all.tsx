@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import {
   MinimalNormalize,
-  InputText,
+  InputSwitch,
   InputNumber,
   InputSwitch
 } from '@kcuf/demo-rc';
@@ -60,7 +60,7 @@ export default function StoryAll(): ReactElement {
   return <>
     <MinimalNormalize />
     <PkgInfo />
-    <InputText {...{
+    <InputSwitch {...{
       placeholder: 'filter',
       value: stateFilter,
       onChange: setStateFilter

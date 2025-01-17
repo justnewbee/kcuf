@@ -15,7 +15,7 @@ import {
   useFocused,
   useHandleMouseEnter,
   useHandleMouseLeave, useImperativeRef,
-  InputTextImperativeRef
+  InputSwitchImperativeRef
 } from '@kcuf-ui/rc-input-text-headless';
 
 import {
@@ -47,7 +47,7 @@ const ScUi = styled.div<IScInputProps>`
   ${getStyledShadow}
 `;
 
-function Ui(_props: unknown, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
+function Ui(_props: unknown, ref: ForwardedRef<InputSwitchImperativeRef>): ReactElement {
   const {
     fluid,
     round,
