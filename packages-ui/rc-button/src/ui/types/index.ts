@@ -10,7 +10,7 @@ export interface IScButtonProps {
   $textAlign?: ButtonProps['textAlign'];
   $cursor?: ButtonProps['cursor'];
   $borderRadius?: ButtonProps['borderRadius'];
-  $block?: ButtonProps['block'];
+  $fluid?: ButtonProps['fluid'];
   $active?: ButtonProps['active'];
   disabled?: boolean;
 }

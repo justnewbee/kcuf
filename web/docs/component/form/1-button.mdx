@@ -12,8 +12,28 @@ tags:
 ## Live Demo
 
 ```tsx live
+<Button>default</Button>
+```
+
+## 何时使用
+
+需要用户关注的操作点，用于触发一定的业务逻辑。
+
+## 代码演示
+
+### 最简使用
+
+```tsx live
+<Button {...{
+  label: 'Button Label',
+  onClick: () => alert('should work')
+}} />
+```
+
+### 变体
+
+```tsx live
 <>
-  <Button>default</Button>
   <Button preset="primary">primary</Button>
   <Button preset="secondary">secondary</Button>
   <Button preset="tertiary">tertiary</Button>
@@ -23,62 +43,33 @@ tags:
 </>
 ```
 
-## 何时使用
+### 禁用状态
 
-需要用户关注的操作点，用于触发一定的业务逻辑。
-
-## Examples
-
-### Button sizes
-
-The `size` prop allows you to adjust the size of the button. The value for this prop should be one of the keys available in PearlTheme.components.Button["sizes"], which are "xs", "s", "m", and "l" in the [default component configuration](https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/button/button.config.ts).
-
-```tsx
-<Button size="xs">Tiny Button</Button>
-
-<Button size="s">Small Button</Button>
-
-<Button size="m">Regular Button</Button>
-
-<Button size="l">Large Button</Button>
+```tsx live
+<Button {...{
+  label: 'disabled button',
+  disabled: true,
+  onClick: () => alert('should not work')
+}} />
 ```
 
-### Button variants
+### 加载状态
 
-The `variant` prop allows you to change the visual style of the button. The value for this prop should be one of the keys available in PearlTheme.components.Button["variants"], which are "solid", "outline", and "ghost" in the [default component configuration](https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/molecules/button/button.config.ts).
-
-```tsx
-<Button variant="solid">Solid Button</Button>
-
-<Button variant="outline">Outline Button</Button>
-
-<Button variant="ghost">Ghost Button</Button>
+```tsx live
+<Button {...{
+  label: 'loading button',
+  loading: true,
+  onClick: () => alert('should not work')
+}} />
 ```
 
-### Button with Icon
+### 全宽按钮
 
-The `Button` component supports the addition of icons on either side of the button text. This can be achieved using the `leftIcon` and `rightIcon` props for left and right icons respectively.
-
-:::info
-The `leftIcon` and `rightIcon` prop values should be React elements, **NOT** strings.
-:::
-
-### Loading State of Button
-
-The `isLoading` prop can be used to display a loading state on the button. By default, `Button` will show a spinner and maintain the button's width. The `loadingText` prop can be used to display a spinner and the loading text. When a `loadingText` is present, the placement of the spinner element can be adjusted to either start or end using the `spinnerPlacement` prop. It is start by default.
-
-```tsx
-<Button isLoading>Basic loading button</Button>
-
-<Button isLoading loadingText="Loading">Button with loading text</Button>
-
-<Button
-  isLoading
-  loadingText="Loading"
-  spinnerPlacement="end"
->
-  Button with spinner at the end
-</Button>
+```tsx live
+<Button {...{
+  label: 'fluid button',
+  fluid: true
+}} />
 ```
 
 ## API Reference
@@ -122,9 +113,15 @@ import Icon, {
 | `textAlign` | `TButtonTextAlign` | a button is by default center aligned (`align` is a deprecated HTML attribute) |
 | `cursor` | `string` |  |
 | `borderRadius` | `boolean \| "full"` | 在有边框的时候，按钮默认会有个很小的圆角（2px），可以设置<br />- true 默认<br />- false 没有圆角<br />- 'full' 两头圆角 |
-| `noShadow` <TagDefault>false</TagDefault> | `boolean` | 去掉 hover 及 active 时的 shadow（对非 tertiary 和 text） |
-| `block` <TagDefault>false</TagDefault> | `boolean` | whether to display as a block level dom |
-| `active` <TagDefault>false</TagDefault> | `boolean` | 将状态锁定在 active |
+| `noShadow` <TagDefault>false</TagDefault> | `boolean` | 是否去掉 `hover` 及 `active` 时的阴影（对非 tertiary 和 text） |
+| `fluid` <TagDefault>false</TagDefault> | `boolean` | 是否显示全宽按钮 |
+| `active` <TagDefault>false</TagDefault> | `boolean` | 是否将状态锁定在 `active` 状态 |
+
+### Events
+
+| 事件 | 类型 | 说明 |
+| --- | --- | --- |
+| `onClick` | `(e: MouseEvent<HTMLButtonElement>) => void` | 点击回调 |
 
 ## Accessibility
 
@@ -132,3 +129,39 @@ import Icon, {
 - `Button` has the default accessibility label set as the text value passed into it. When the button is in a loading state, the accessibility label is set as "Loading". A custom label can be specified using the `accessibilityLabel` prop.
 - When the `Button` is disabled or loading, it is reflected as `disabled` and `busy` respectively in screen readers.
 - Similar to Pressable, Button expects an `actionDescription` prop to specify the intented outcome of interacting with the component eg. 'Closes modal', 'Go to the homepage', etc.
+
+## FAQ
+
+## 参考
+
+| Lib | 参考值 | 名称 | 归类 | 备注 |
+| --- | --- | --- | --- | --- |
+| [antd](https://ant.design/components/button) | ★★★☆ | `Button` | `Gernal` | |
+| [atlassian](https://atlassian.design/components/button/examples) | ★★★ | `Button` | `Forms and input` | |
+| [baklava](https://baklava.design/?path=/docs/components-button--documentation) | ★★★☆ | `Button` | - | |
+| [chakra](https://www.chakra-ui.com/docs/components/button) | ★★★ | `Button` | - | |
+| [cuicui](https://cuicui.day/common-ui/buttons) | ★★ | `Button` | - | |
+| [dotui](https://dotui.org/docs/components/buttons/button) | ★★★ | `Button` | `Buttons` | |
+| [element+](https://element-plus.org/en-US/component/button.html) | ★★★☆ | `Button` | - | |
+| [fluent](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/button) | ★ | `Button` | - | |
+| [franken](https://franken-ui.dev/docs/button) | ★ | `Button` | - | |
+| [fusion](https://fusion.design) | ★★★☆ | `Button` | `General` | |
+| [headless](https://headlessui.com/react/button) | ★ | `Button` | `Forms` | |
+| [hero](https://www.heroui.com/docs/components/button) | ★★★☆ | `Button` | - | |
+| [hyper](https://www.hyperui.dev/components/marketing/buttons) | ★★ | `Button` | - | |
+| [instructure](https://instructure.design/#Button) | ★★★ | `Button` | - | |
+| [ionic](https://ionicframework.com/docs/api/buttons) | ★★ | `Button` | - | |
+| [justd](https://getjustd.com/docs/2.x/components/buttons/button) | ★☆ | `Button` | `Buttons` | |
+| [mantine](https://mantine.dev/core/button) | ★★ | `Button` | `Buttons` | |
+| [materialize](https://materializecss.com/buttons.html) | ☆ | `Button` | - | |
+| [mui](https://mui.com/material-ui/react-button) | ★★★☆ | `Button` | `Inputs` | Unstyled 概念 |
+| [pearl](https://docs.pearl-ui.dev/docs/components/forms/Button) | ★★☆ | `Button` | `Forms` | |
+| [primereact](https://primereact.org/button) | ★★★ | `Button` | `Button` | |
+| [radix](https://www.radix-ui.com/themes/docs/components/button) | ★★★ | `Button` | - | |
+| [reakit](https://reakit.io/docs/button) | ☆ | `Button` | - | |
+| [semantic](https://semantic-ui.com/elements/button.html) | ★★ | `Button` | - | 有个 `Conditionals` 组合挺有意思 |
+| [shadcn](https://ui.shadcn.com/docs/components/button) | ★ | `Button` | - | |
+| [spectrum](https://spectrum.adobe.com/page/button) | ★★ | `Button` | `Buttons` | |
+| [tallstack](https://tallstackui.com/docs/ui/button) | ★★☆ | `Button` | `UI` | |
+| [theme](https://theme-ui.com/components/button) | ☆ | `Button` | - | |
+| [tremor](https://tremor.so/docs/ui/button) | ★★☆ | `Button` | `UI` | |

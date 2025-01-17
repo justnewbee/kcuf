@@ -38,7 +38,7 @@ export default function useModelProps(): [IButtonPropsCustom, IPropsDom] {
       cursor,
       borderRadius = true,
       noShadow,
-      block,
+      fluid,
       active,
       iconLeftClassName,
       iconRightClassName,
@@ -59,7 +59,7 @@ export default function useModelProps(): [IButtonPropsCustom, IPropsDom] {
       cursor,
       borderRadius,
       noShadow,
-      block,
+      fluid,
       active,
       iconLeftClassName,
       iconRightClassName

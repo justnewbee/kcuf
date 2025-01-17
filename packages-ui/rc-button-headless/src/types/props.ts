@@ -71,15 +71,15 @@ export interface IButtonPropsCustom {
    */
   borderRadius?: boolean | 'full';
   /**
-   * 去掉 hover 及 active 时的 shadow（对非 tertiary 和 text）
+   * 去掉 `hover` 及 `active` 时的阴影（对非 tertiary 和 text）
    */
   noShadow?: boolean;
   /**
-   * whether to display as a block level dom
+   * 是否显示全宽按钮
    */
-  block?: boolean;
+  fluid?: boolean;
   /**
-   * 将状态锁定在 active
+   * 是否将状态锁定在 `active` 状态
    */
   active?: boolean;
 }

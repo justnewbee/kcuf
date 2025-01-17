@@ -72,7 +72,7 @@ title: 简介
 | [reka](https://reka-ui.com) | Vue | |
 | [semantic](https://semantic-ui.com) | - | |
 | [shadcn](https://ui.shadcn.com) | React | |
-| [spectrum](https://react-spectrum.adobe.com/index.html) | React | |
+| [spectrum](https://react-spectrum.adobe.com) | React | |
 | [tallstack](https://tallstackui.com) | Web Component | Tailwind |
 | [theme](https://theme-ui.com) | React | Tailwind |
 | [tremor](https://tremor.so) | React | Tailwind |

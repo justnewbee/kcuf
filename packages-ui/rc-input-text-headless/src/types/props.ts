@@ -28,7 +28,7 @@ export interface IButtonCustomProps {
   addonSuffix?: string | ReactElement;
   // -------- 长相 -------- //
   /**
-   * 形态变体
+   * 变体
    */
   variant?: 'subtle' | 'underline' | 'transparent';
   /**

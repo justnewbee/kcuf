@@ -19,7 +19,7 @@ import {
   IScButtonProps
 } from './types';
 import {
-  isBlock,
+  isFluid,
   isBorderless,
   getStyleTextAlign,
   cssButtonPreset,
@@ -63,14 +63,14 @@ function getStyleCursor(props: IScButtonProps): string {
 }
 
 const ScButton = styled(ScBaseButton)<Partial<ButtonProps>>`
-  display: ${props => isBlock(props) ? 'block' : 'inline-block'};
-  overflow: hidden;
-  width: ${props => isBlock(props) ? '100%' : 'auto'};
+  display: ${props => isFluid(props) ? 'block' : 'inline-block'};
+  width: ${props => isFluid(props) ? '100%' : 'auto'};
   max-width: 100%;
-  text-align: ${getStyleTextAlign};
-  vertical-align: middle;
+  overflow: hidden;
   border: ${props => isBorderless(props) ? 'none' : '1px solid transparent'};
   border-radius: ${getStyleBorderRadius};
+  text-align: ${getStyleTextAlign};
+  vertical-align: middle;
   cursor: ${getStyleCursor};
   ${mixinTypoEllipsis}
   ${cssButtonPreset}
@@ -91,7 +91,7 @@ function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
     textAlign,
     cursor,
     borderRadius,
-    block,
+    fluid,
     active
   } = usePropsCustom();
   const {
@@ -111,7 +111,7 @@ function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
       $textAlign: textAlign,
       $cursor: cursor,
       $borderRadius: borderRadius,
-      $block: block,
+      $fluid: fluid,
       $active: active,
       ...propsDom
     }}>
