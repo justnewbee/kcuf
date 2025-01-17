@@ -1,3 +1,3 @@
 # @kcuf-ui/rc-input-text-headless
 
-TODO
+> Headless InputText with only logic.

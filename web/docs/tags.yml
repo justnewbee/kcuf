@@ -1,4 +1,12 @@
-component:
-  label: Component
-  permalink: /component
-  description: Component
+base:
+  label: 抽象
+  permalink: /base
+  description: 抽象的基础组件，不直接使用，需要经过二次封装
+element:
+  label: 原生扩展
+  permalink: /element
+  description: 对原生 HTML Element 的封装及扩展
+atomic:
+  label: 原子组件
+  permalink: /atomic
+  description: 原子化组件，是构建其他组件和应用的最小单元

@@ -151,8 +151,7 @@ export default {
     },
     
     prism: {
-      theme: prismThemes.shadesOfPurple,
-      darkTheme: prismThemes.shadesOfPurple
+      theme: prismThemes.nightOwl
     },
     
     liveCodeBlock: {

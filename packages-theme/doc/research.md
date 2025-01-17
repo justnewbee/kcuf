@@ -110,8 +110,6 @@
 1. `theme-light` 和 `theme-dark` 都已加载
 2. 根据选择的 theme 值修改两个 CSS `<link>` 元素的对应属性 `media` 和 `disabled`（`data-media` 应该是默认的 media 值）
 
-theme-base（默认，跟随系统）
-
 ```html
 <link rel="stylesheet" data-theme="light" href="/css/theme-light.css" media="all" />
 <link rel="stylesheet" data-theme="dark" href="/css/theme-dark.css" media="(prefers-color-scheme: dark)" />

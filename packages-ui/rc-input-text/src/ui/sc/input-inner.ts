@@ -1,37 +1,13 @@
 import styled from 'styled-components';
 
 import {
-  SIZE,
-  mixinTextPrimary,
-  mixinTextTertiary
+  SIZE
 } from '@kcuf/fork-console-base-theme';
 
-import {
-  INNER_HEIGHT_PX
-} from '../const';
-
-interface IScProps {
-  $focused?: boolean;
-}
-
-const ScInputInnerBase = styled.span<IScProps>`
-  height: ${INNER_HEIGHT_PX};
-  line-height: ${INNER_HEIGHT_PX};
-  ${props => props.$focused ? mixinTextPrimary : mixinTextTertiary}
-  
-  i {
-    vertical-align: middle;
-  }
-`;
-
-export const ScInputInnerLeft = styled(ScInputInnerBase)`
+export const ScAddonPrefix = styled.span`
   padding-left: ${SIZE.PADDING_X_FORM_CONTROL_M - 1}px;
 `;
 
-export const ScInputInnerRight = styled(ScInputInnerBase)`
-  padding-right: 4px;
-  
-  &:last-child {
-    padding-right: ${SIZE.PADDING_X_FORM_CONTROL_M - 1}px;
-  }
+export const ScAddonSuffix = styled.span`
+  padding-right: ${SIZE.PADDING_X_FORM_CONTROL_M - 1}px;
 `;

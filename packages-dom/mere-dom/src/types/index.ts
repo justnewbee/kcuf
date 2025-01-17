@@ -16,3 +16,14 @@ export interface IRect {
   width: number;
   height: number;
 }
+
+export interface ITriggerFocusOptions extends FocusOptions {
+  /**
+   * 目前尚处于实验阶段，`FocusOptions` 中尚未定义
+   */
+  focusVisible?: boolean;
+  /**
+   * focus 后是否改变光标位置，默认保持不变
+   */
+  cursor?: 'start' | 'end';
+}

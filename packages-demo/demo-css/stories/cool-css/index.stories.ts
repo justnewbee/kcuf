@@ -21,8 +21,10 @@ export { default as RunningBorder } from './story-running-border';
 export { default as EmojiCursor } from './story-emoji-cursor';
 export { default as LongPress } from './story-long-press';
 export { default as GradientBorder } from './story-gradient-border';
-export { default as StorySunBeam } from './story-sun-beam';
+export { default as SunBeam } from './story-sun-beam';
 export { default as GlowingBorderAni } from './story-glowing-border-ani';
+
+export { default as TextShadowStripe } from './story-text-shadow-stripe';
 
 export default {
   title: 'Cool CSS'

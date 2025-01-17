@@ -14,5 +14,6 @@ ignores: [
   "@vitest/coverage-v8"
 ]
 ignorePatterns: [
-  "build"
+  "build",
+  "dist"
 ]

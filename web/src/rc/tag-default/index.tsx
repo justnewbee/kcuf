@@ -3,13 +3,13 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import TabBase from '../tab-base';
+import TagBase from '../tag-base';
 
 interface IProps {
   children: string;
 }
 
-const ScDefault = styled(TabBase)`
+const ScDefault = styled(TagBase)`
   background: hsl(224 76% 48% / 7%);
   color: hsl(224 76% 48%);
   

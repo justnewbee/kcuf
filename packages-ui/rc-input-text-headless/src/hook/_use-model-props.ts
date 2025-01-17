@@ -1,19 +1,9 @@
 import {
-  useMemo
-} from 'react';
-
-import {
-  IModelProps
+  IModelValue
 } from '../types';
 
 import useModelContext from './_use-model-context';
 
-export default function useModelProps(): IModelProps {
-  const {
-    props
-  } = useModelContext();
-  
-  return useMemo((): IModelProps => {
-    return props;
-  }, [props]);
+export default function useModelProps(): IModelValue['props'] {
+  return useModelContext().props;
 }

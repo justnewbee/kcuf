@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import TabBase from '../tab-base';
+import TagBase from '../tag-base';
 
-export default styled(TabBase)`
+export default styled(TagBase)`
   background: hsl(325 74% 44% / 7%);
   color: hsl(325 74% 44%);
   

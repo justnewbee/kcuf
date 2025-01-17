@@ -14,11 +14,12 @@
   --ifm-color-primary-light: hsl(245 73% 68%);
   --ifm-color-primary-lighter: hsl(246 73% 71%);
   --ifm-color-primary-lightest: hsl(246 74% 80%);
-  --ifm-code-font-size: 85%;
+  --ifm-code-font-size: 0.77rem;
   --ifm-code-border-radius: 4px;
   --ifm-code-padding-horizontal: 0.4rem;
   --ifm-code-padding-vertical: 0.2rem;
   --ifm-blockquote-border-left-width: 4px;
+  --ifm-blockquote-border-color: var(--ifm-color-emphasis-200);
   --ifm-blockquote-padding-horizontal: 0.6rem;
   --ifm-blockquote-font-size: 0.9em;
   --ifm-pre-background: transparent;

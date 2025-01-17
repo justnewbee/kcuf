@@ -34,4 +34,5 @@ export { default as traverseDfs } from './traverse-dfs';
 export { default as loadAssets } from './load-assets';
 
 export { default as forceReflow } from './force-reflow';
+export { default as triggerFocus } from './trigger-focus';
 export { default as triggerWindowResize } from './trigger-window-resize';

@@ -42,7 +42,8 @@
   "dependencies": {
     "@kcuf-ui/rc-button": "workspace:^",
     "@kcuf-ui/rc-icon": "workspace:^",
-    "@kcuf-ui/rc-icon-base": "workspace:^"
+    "@kcuf-ui/rc-icon-base": "workspace:^",
+    "@kcuf-ui/rc-input-text": "workspace:^"
   },
   "scripts": {
     "build:clean": "rimraf dist",

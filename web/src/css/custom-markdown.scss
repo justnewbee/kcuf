@@ -1,5 +1,7 @@
 .markdown {
   table {
+    display: table;
+    width: 100%;
     font-size: 14px;
     
     tr {
@@ -14,6 +16,7 @@
     
     th,
     td {
+      min-width: 60px;
       border: 0;
       text-align: left;
       
@@ -24,7 +27,7 @@
   }
   
   code {
-    border: none;
+    border: 0;
   }
   
   del {

@@ -8,33 +8,37 @@ import {
 } from '@kcuf-hook/use-controllable';
 
 import {
-  IModelProviderProps,
+  IModelProviderProps, TChangeReason,
   TModelReducer
 } from '../types';
 import {
-  DEFAULT_CONTEXT_STATE
-} from '../const';
+  createInitialState
+} from '../util';
 import reducer from '../reducer';
 import Context from '../context';
-import Lifecycle from '../lifecycle';
 
 export default function Provider({
   children,
-  trim,
+  trim = true,
+  fluid = true,
   value,
   defaultValue,
   onChange,
   ...props
 }: IModelProviderProps): ReactElement {
-  const [controllableValue, controllableOnChange] = useControllableSoftTrim(trim, value, defaultValue, onChange);
-  const [state, dispatch] = useReducer<TModelReducer>(reducer, DEFAULT_CONTEXT_STATE);
+  const [controllableValue, controllableOnChange] = useControllableSoftTrim<[TChangeReason]>(trim, value, defaultValue, onChange);
+  const [state, dispatch] = useReducer<TModelReducer, string>(reducer, controllableValue, createInitialState);
   
   return <Context.Provider value={{
-    props,
+    props: {
+      ...props,
+      fluid
+    },
     state,
-    dispatch
+    dispatch,
+    controllableValue,
+    controllableOnChange
   }}>
-    <Lifecycle />
     {children}
   </Context.Provider>;
 }

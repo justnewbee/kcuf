@@ -6,14 +6,14 @@ import {
 import useModelProps from './_use-model-props';
 import useDispatchSetHovered from './use-dispatch-set-hovered';
 
-export default function useHandleMouseEnter(): (e: MouseEvent) => void {
+export default function useHandleMouseEnter(): (e: MouseEvent<HTMLInputElement>) => void {
   const {
     onMouseEnter,
     onHoveredChange
   } = useModelProps();
   const dispatchSetHovered = useDispatchSetHovered();
   
-  return useCallback((e: MouseEvent) => {
+  return useCallback((e: MouseEvent<HTMLInputElement>) => {
     dispatchSetHovered(true);
     onMouseEnter?.(e);
     onHoveredChange?.(true);

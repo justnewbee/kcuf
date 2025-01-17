@@ -2,14 +2,12 @@ import {
   useCallback
 } from 'react';
 
-import useModelProps from './_use-model-props';
 import useModelState from './_use-model-state';
 import useDispatchSetValue from './use-dispatch-set-value';
+import useControllableOnChange from './use-controllable-on-change';
 
 export default function useHandleClear(): () => void {
-  const {
-    onChange
-  } = useModelProps();
+  const controllableOnChange = useControllableOnChange();
   const {
     domInput
   } = useModelState();
@@ -17,7 +15,7 @@ export default function useHandleClear(): () => void {
   
   return useCallback((): void => {
     dispatchSetValue('');
-    onChange?.('');
+    controllableOnChange('', 'clear');
     
     if (domInput) {
       try {
@@ -26,5 +24,5 @@ export default function useHandleClear(): () => void {
         // ignore
       }
     }
-  }, [onChange, domInput, dispatchSetValue]);
+  }, [controllableOnChange, domInput, dispatchSetValue]);
 }
