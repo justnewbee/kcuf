@@ -1,11 +1,12 @@
 import {
-  ReactElement,
-  forwardRef,
-  useCallback
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
-import useControllable from '@kcuf-hook/use-controllable';
+import {
+  useProps,
+  useHandleToggleSwitch
+} from '@kcuf-ui/rc-input-switch-headless';
 
 import {
   HEIGHT_INPUT_SWITCH,
@@ -18,10 +19,6 @@ import {
   getStyledSwitchBg,
   getStyledSwitchKnobPosition
 } from '../util';
-import {
-  TInputSwitchRef,
-  IInputSwitchProps
-} from '../types';
 
 interface IScProps {
   'aria-checked': boolean;
@@ -51,27 +48,23 @@ const ScSwitchButton = styled.button<IScProps>`
   }
 `;
 
-function InputSwitch({
-  value,
-  defaultValue = false,
-  label,
-  disabled,
-  onChange,
-  ...props
-}: IInputSwitchProps, ref: TInputSwitchRef): ReactElement {
-  const [controllableValue, controllableOnChange] = useControllable<boolean>(false, value, defaultValue, onChange);
-  const handleClick = useCallback(() => controllableOnChange(!controllableValue), [controllableValue, controllableOnChange]);
+export default function Ui(): ReactElement {
+  const {
+    value,
+    label,
+    disabled,
+    onChange,
+    ...props
+  } = useProps();
+  const handleToggleSwitch = useHandleToggleSwitch();
   
   return <FormControlWithLabel label={label}>
     <ScSwitchButton {...{
-      ref,
       ...props,
       disabled,
       role: 'switch',
-      'aria-checked': controllableValue,
-      onClick: handleClick
+      'aria-checked': value,
+      onClick: handleToggleSwitch
     }} />
   </FormControlWithLabel>;
 }
-
-export default forwardRef(InputSwitch);

@@ -76,6 +76,7 @@
     "@kcuf-hook/use-controllable": "workspace:^",
     "@kcuf-ui/rc-form-headless": "workspace:^",
     "@kcuf-ui/rc-icon-base": "workspace:^",
+    "@kcuf-ui/rc-input-switch-headless": "workspace:^",
     "@uiw/codemirror-theme-material": "^4.23.7",
     "codemirror-json5": "^1.0.3",
     "json5": "^2.2.3",

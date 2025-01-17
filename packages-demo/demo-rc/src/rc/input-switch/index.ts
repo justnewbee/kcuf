@@ -1,6 +1,5 @@
-export { default } from './rc';
+export { default } from './with-model';
 
 export type {
-  TInputSwitchRef as InputSwitchRef,
-  IInputSwitchProps as InputSwitchProps
-} from './types';
+  InputSwitchProps
+} from '@kcuf-ui/rc-input-switch-headless';
