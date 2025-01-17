@@ -54,6 +54,7 @@ title: 简介
 | [franken](https://franken-ui.dev) | - | Tailwind |
 | [fusion](https://fusion.design) | React | |
 | [headless](https://headlessui.com) | React / Vue | Tailwind |
+| [hero](https://www.heroui.com) | React | Tailwind |
 | [hyper](https://www.hyperui.dev) | - | Tailwind |
 | [instructure](https://instructure.design) | React | |
 | [ionic](https://ionicframework.com) | Web Component | |
@@ -63,7 +64,6 @@ title: 简介
 | [materialize](https://materializecss.com) | - | CSS |
 | [melt](https://www.melt-ui.com) | Svelte | |
 | [mui](https://mui.com) | React | |
-| [next](https://nextui.org) | React | Tailwind |
 | [pearl](https://docs.pearl-ui.dev) | React | |
 | [primereact](https://primereact.org) | React | |
 | [radix](https://www.radix-ui.com) | React | |

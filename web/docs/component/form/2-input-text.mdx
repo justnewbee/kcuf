@@ -317,13 +317,18 @@ import InputText, {
 
 ## FAQ
 
-### 名字为什么是 InputText？
+### 关于命名
 
-多数 UI 库的命名为 `Input`，也有 `TextField`，目前看到只有 [primereact](https://primereact.org/inputtext) 的命名是 `InputText`。
+> 作为输入器的一种，利用 **前缀命名法** 能够天然集合在一起。
 
-我从来没有借鉴过，很开心看到有人用同样的命名方式。
+有以下几种命名：
 
-如此命名的考量，是因为 **前缀命名法** 能够把相关联的物件天然地聚集在一起，从而提升代码的可读性。因为原生的 [HTML input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) 实际上有很多类型，`"text"` 仅仅是最常用的一个。
+* `Input` 多数选择
+* `TextField` 少部分
+* `TextInput` 少部分
+* `InputText` 只有 [primereact](https://primereact.org/inputswitch) 和 `kcuf-ui`
+
+原生的 [HTML input](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) 实际上有很多类型，`"text"` 仅仅是最常用的一个。
 
 ## 参考
 
@@ -339,10 +344,10 @@ import InputText, {
 | [fluent](https://learn.microsoft.com/en-us/fluent-ui/web-components/components/text-field) | ★ | `TextField` | - | - |
 | [fusion](https://fusion.design/pc/component/input) | ★★★☆ | `Input` | `Data Entry` | - |
 | [headless](https://headlessui.com/react/input) | ★★★☆ | `Input` | `Forms` | - |
+| [hero](https://www.heroui.com/docs/components/input) | ★★★☆ | `Input` | - | `variant: flat \| bordered \| underlined \| faded` |
 | [instructure](https://instructure.design/#TextInput) | ★★☆ | `TextInput` | - | - |
 | [mantine](https://mantine.dev/core/text-input) | ★★★☆ | `TextInput` | `Inputs` | `variant: defult \| filled \| unstyled` |
 | [mui](https://mui.com/material-ui/react-text-field) | ★★★☆ | `TextField` | `Inputs` | `variant: outlined \| filled \| standard` |
-| [next](https://nextui.org/docs/components/input) | ★★★☆ | `Input` | - | `variant: flat \| bordered \| underlined \| faded` |
 | [pearl](https://docs.pearl-ui.dev/docs/components/forms/Input) | ★★☆ | `Input` | `Forms` | `variant: filled \| outline` |
 | [primereact](https://primereact.org/inputtext) | ★☆ | `InputText` | `Form` | - |
 | [radix](https://www.radix-ui.com/themes/docs/components/text-field) | ★★★☆ | `TextField` | | `variant: classic \| surface \| soft` |

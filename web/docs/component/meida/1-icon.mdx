@@ -21,14 +21,17 @@ function Demo(): ReactElement {
     'banned', 'empty', 'close', 'clear', 'copy', 'refresh', 'setting', 'drag', 'search', 'zoom-in', 'zoom-out', 'more',
     'avatar', 'avatar-fill', 'code', 'external'
   ];
-  const [stateColored, setCStateColored] = useState<boolean>(true);
-  const handleToggleColored = useCallback(() => setCStateColored(prev => !prev), [setCStateColored]);
+  const [stateColored, setStateColored] = useState<boolean>(true);
   
   return <>
+    <InputSwitch {...{
+      label: 'colored',
+      value: stateColored,
+      onChange: setStateColored
+    }} />
     <div>
       {ICONS.map(v => <Icon key={v} type={v} colored={stateColored} />)}
     </div>
-    <button onClick={handleToggleColored}>{stateColored ? '✅' : '❌'} colored</button>
   </>;
 }
 ```

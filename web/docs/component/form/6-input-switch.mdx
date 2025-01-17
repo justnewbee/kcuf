@@ -131,20 +131,34 @@ import InputSwitch, {
 | `[data-disabled]` | Present when disabled |
 | `[data-checked]` | |
 
-Keyboard Interactions
-Key	Description
-Space
+## Accessibility
 
-Toggles the component's state.
-Enter
+### ARIA
 
-Toggles the component's state.
+TODO
+
+### 鼠标
+
+TODO
+
+### 键盘
+
+| Key | 说明 |
+| --- | --- |
+| <kbd>Space</kbd> | Toggles the component's state. |
+| <kbd>Enter</kbd> | Toggles the component's state. |
 
 ## FAQ
 
-### 名字为什么是 InputSwitch？
+### 关于命名
 
-多数 UI 库的命名为 `Switch`，只有 [primereact](https://primereact.org/inputswitch) 的命名是 `InputSwitch`。
+> 作为输入器的一种，利用 **前缀命名法** 能够天然集合在一起。
+
+有以下几种命名：
+
+* `Switch` 多数选择
+* `Toggle` 也有不少
+* `InputSwitch` 只有 [primereact](https://primereact.org/inputswitch) 和 `kcuf-ui`
 
 ## 参考
 
@@ -163,6 +177,7 @@ Toggles the component's state.
 | [franken](https://franken-ui.dev/docs/form#toggle-switch) | ★★★☆ | `ToggleSwitch` | - | 底层用的 `input[type=checkbox]` |
 | [fusion](https://fusion.design/pc/component/switch) | ★★★☆ | `Switch` | `Data Entry` | 有 Loading 状态 |
 | [headless](https://headlessui.com/react/switch) | ★☆ | `Switch` | `Forms` | |
+| [hero](https://www.heroui.com/docs/components/switch) | ★★★☆ | `Switch` | - | |
 | [hyper](https://www.hyperui.dev/components/application-ui/toggles) | ★☆ | `Toggle` | - | 多个样式 |
 | [instructure](https://instructure.design/#Checkbox) | ★★★ | `Checkbox` | - |  `Checkbox` 的 `toggle` 变体 |
 | [ionic](https://ionicframework.com/docs/api/toggle) | ★★★ | `Toggle` | - | |
@@ -170,7 +185,6 @@ Toggles the component's state.
 | [mantine](https://mantine.dev/core/switch) | ★★★ | `Switch` | `Inputs` | |
 | [melt](https://www.melt-ui.com/docs/builders/switch) | ★ | `Switch` | - | |
 | [mui](https://mui.com/material-ui/react-switch) | ★★★ | `Switch` | `Inputs` | |
-| [next](https://nextui.org/docs/components/switch) | ★★★☆ | `Switch` | - | |
 | [pearl](https://docs.pearl-ui.dev/docs/components/forms/Switch) | ★★☆ | `Switch` | `Forms` | |
 | [primereact](https://primereact.org/inputswitch) | ★★ | `InputSwitch` | `Form` | |
 | [radix](https://www.radix-ui.com/themes/docs/components/switch) | ★★★★ | `Switch` | | |

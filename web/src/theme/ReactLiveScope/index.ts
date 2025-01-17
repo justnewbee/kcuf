@@ -1,18 +1,20 @@
 import React from 'react';
 import {
+  Backdrop,
   Button,
-  InputText,
-  InputSwitch,
   Icon,
-  IconBase
+  IconBase,
+  InputSwitch,
+  InputText
 } from 'kcuf-ui';
 
 export default {
   React,
   ...React,
+  Backdrop,
   Button,
-  InputText,
-  InputSwitch,
   Icon,
-  IconBase
+  IconBase,
+  InputSwitch,
+  InputText
 };
