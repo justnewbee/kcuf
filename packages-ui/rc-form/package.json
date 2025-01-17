@@ -1,14 +1,8 @@
 {
-  "name": "@kcuf-ui/rc-keyboard-mac",
+  "name": "@kcuf-ui/rc-button",
   "version": "0.0.0",
-  "description": "A mac book keyboard react component.",
-  "keywords": [
-    "mac",
-    "mac-keyboard",
-    "macbook",
-    "keyboard",
-    "键盘"
-  ],
+  "description": "The kcuf Button component.",
+  "keywords": [],
   "license": "MIT",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
@@ -18,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-ui/rc-keyboard-mac",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-ui/rc-button",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -60,7 +54,8 @@
     "styled-components": "^6.x"
   },
   "dependencies": {
-    "@kcuf-ui/rc-keyboard-mac-headless": "workspace:^"
+    "@kcuf-ui/rc-form-headless": "workspace:^",
+    "@kcuf/fork-console-base-theme": "workspace:^"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

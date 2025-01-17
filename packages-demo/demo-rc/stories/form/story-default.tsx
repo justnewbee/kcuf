@@ -9,7 +9,7 @@ import {
   InputTextarea,
   InputNumber,
   InputSwitch
-} from '../../../src';
+} from '../../src';
 
 export default function StoryDefault(): ReactElement {
   const [stateDense, setStateDense] = useState<boolean>();

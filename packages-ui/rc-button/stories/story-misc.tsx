@@ -5,7 +5,6 @@ import {
 import styled from 'styled-components';
 
 import {
-  MinimalNormalize,
   H2,
   InputSwitch
 } from '@kcuf/demo-rc';
@@ -24,7 +23,6 @@ export default function DemoDefault(): ReactElement {
   const [stateDisabled, setStateDisabled] = useState(false);
   
   return <>
-    <MinimalNormalize />
     {/* <ComponentTesting<ButtonProps> {...{ */}
     {/*   componentName: 'Button', */}
     {/*   componentPackageName: '@kcuf-ui/rc-button', */}
@@ -57,20 +55,20 @@ export default function DemoDefault(): ReactElement {
     <H2>垂直对齐 IconLeft / IconRight</H2>
     <Button {...{
       iconLeft: ' ',
-      textAlign: 'left',
+      textAlign: 'l',
       label: 'icon left NONE'
     }} />
     <br />
     <Button {...{
       iconLeft: <Icon type="search" />,
-      textAlign: 'left',
+      textAlign: 'l',
       label: 'icon left search'
     }} />
     <br />
     <Button {...{
       iconLeft: ' ',
       iconRight: <Icon type="arrowhead" />,
-      textAlign: 'left',
+      textAlign: 'l',
       label: 'icon right arrowhead'
     }} />
     <H2>Loading</H2>

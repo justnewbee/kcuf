@@ -1,5 +1,5 @@
 import {
-  IconProps
+  IconPropsGeneric
 } from '@kcuf-ui/rc-icon-base';
 
 import {
@@ -8,4 +8,4 @@ import {
 
 export type TIconType = keyof typeof ICON_TYPE_MAPPING;
 
-export interface IIconProps extends IconProps<TIconType> {}
+export interface IIconProps extends IconPropsGeneric<TIconType> {}

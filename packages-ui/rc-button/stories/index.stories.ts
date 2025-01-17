@@ -1,7 +1,8 @@
 import Button from '../src';
 
 import {
-  TMeta
+  TMeta,
+  TStory
 } from './types';
 
 export default {
@@ -13,4 +14,10 @@ export default {
   tags: ['autodocs']
 } satisfies TMeta;
 
-export { default as Default } from './story-default';
+export const Default = {
+  args: {
+    label: 'button label instead of children'
+  }
+} satisfies TStory;
+
+export { default as Misc } from './story-misc';

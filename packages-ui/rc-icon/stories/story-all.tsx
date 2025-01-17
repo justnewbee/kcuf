@@ -5,8 +5,7 @@ import {
 import styled from 'styled-components';
 
 import {
-  MinimalNormalize,
-  InputSwitch,
+  InputText,
   InputNumber,
   InputSwitch
 } from '@kcuf/demo-rc';
@@ -17,8 +16,6 @@ import Icon, {
 import {
   ICON_TYPE_MAPPING
 } from '../src/const';
-
-import PkgInfo from './rc/pkg-info';
 
 const TYPES: IconType[] = Object.keys(ICON_TYPE_MAPPING) as IconType[];
 
@@ -58,9 +55,7 @@ export default function StoryAll(): ReactElement {
   const filteredTypes = filterTrimmed ? TYPES.filter(v => v.includes(filterTrimmed)) : TYPES;
   
   return <>
-    <MinimalNormalize />
-    <PkgInfo />
-    <InputSwitch {...{
+    <InputText {...{
       placeholder: 'filter',
       value: stateFilter,
       onChange: setStateFilter
