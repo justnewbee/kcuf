@@ -1,4 +1,6 @@
 // ------- Form ------- //
+export * from '@kcuf-ui/rc-form';
+export { default as Form } from '@kcuf-ui/rc-form';
 export * from '@kcuf-ui/rc-button';
 export { default as Button } from '@kcuf-ui/rc-button';
 export * from '@kcuf-ui/rc-input-text';

@@ -61,7 +61,7 @@
     "docusaurus-lunr-search": "^3.6.0",
     "docusaurus-plugin-image-zoom": "^2.0.0",
     "docusaurus-plugin-sass": "^0.2.6",
-    "docusaurus-plugin-typedoc": "^1.2.1",
+    "docusaurus-plugin-typedoc": "^1.2.2",
     "kcuf-ui": "workspace:^",
     "lodash": "^4.17.21",
     "lunr": "^2.3.9",

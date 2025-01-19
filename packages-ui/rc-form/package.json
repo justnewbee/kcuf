@@ -1,7 +1,7 @@
 {
-  "name": "@kcuf-ui/rc-button",
+  "name": "@kcuf-ui/rc-form",
   "version": "0.0.0",
-  "description": "The kcuf Button component.",
+  "description": "The kcuf Form component.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-ui/rc-button",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-ui/rc-form",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -29,7 +29,7 @@
     "@babel/preset-env": "^7.26.0",
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
-    "@chromatic-com/storybook": "^3.2.3",
+    "@chromatic-com/storybook": "^3.2.4",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-essentials": "^8.5.0",
