@@ -8,7 +8,7 @@ import trapFocus from './trap-focus';
 /**
  * 全局 tab 管控
  */
-export default function handleMouseDownTrapTab(e: KeyboardEvent): void {
+export default function handleKeyDownTrapTab(e: KeyboardEvent): void {
   if (e.key !== 'Tab') {
     return;
   }

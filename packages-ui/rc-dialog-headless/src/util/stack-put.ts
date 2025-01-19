@@ -4,7 +4,7 @@ import {
 
 import stackGet from './stack-get';
 import handleKeydownEsc from './handle-keydown-esc';
-import handleMouseDownTrapTab from './handle-mousedown-trap-tab';
+import handleKeyDownTrapTab from './handle-key-down-trap-tab';
 import doBackdropAndZIndex from './do-backdrop-and-z-index';
 
 export default function stackPut(dialogId: string, o: IStackItem): void {
@@ -18,6 +18,6 @@ export default function stackPut(dialogId: string, o: IStackItem): void {
   
   if (n === 1) {
     document.addEventListener('keydown', handleKeydownEsc, true);
-    document.addEventListener('keydown', handleMouseDownTrapTab, true);
+    document.addEventListener('keydown', handleKeyDownTrapTab, true);
   }
 }
