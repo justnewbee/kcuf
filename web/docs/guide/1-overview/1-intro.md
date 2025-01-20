@@ -51,9 +51,11 @@ title: 简介
 | [cuicui](https://cuicui.day) | React | Tailwind |
 | [dotui](https://dotui.org) | React | |
 | [element+](https://element-plus.org) | Vue | |
-| [fluent](https://learn.microsoft.com/en-us/fluent-ui/web-components) | Web Component | |
+| [eui](https://eui.elastic.co) | React | CSS module |
+| [fluent](https://fluent2.microsoft.design) | React / Web Component | |
 | [franken](https://franken-ui.dev) | - | Tailwind |
 | [fusion](https://fusion.design) | React | |
+| [garden](https://garden.zendesk.com) | React | styled-components |
 | [headless](https://headlessui.com) | React / Vue | Tailwind |
 | [hero](https://www.heroui.com) | React | Tailwind |
 | [hyper](https://www.hyperui.dev) | - | Tailwind |
@@ -66,6 +68,8 @@ title: 简介
 | [melt](https://www.melt-ui.com) | Svelte | |
 | [mui](https://mui.com) | React | |
 | [pearl](https://docs.pearl-ui.dev) | React | |
+| [pluralsight](https://design-system.pluralsight.com) | React | |
+| [primer](https://primer.style) | React | |
 | [primereact](https://primereact.org) | React | |
 | [radix](https://www.radix-ui.com) | React | |
 | [reakit](https://reakit.io) | React | |
@@ -76,4 +80,5 @@ title: 简介
 | [tallstack](https://tallstackui.com) | Web Component | Tailwind |
 | [theme](https://theme-ui.com) | React | Tailwind |
 | [tremor](https://tremor.so) | React | Tailwind |
+| [vuetify](https://vuetifyjs.com) | Vue | |
 | [zag](https://zagjs.com) | React / Vue / Svelte / Solid | Tailwind |

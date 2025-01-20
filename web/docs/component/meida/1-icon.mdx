@@ -168,7 +168,11 @@ import Icon, {
 
 ## Accessibility
 
-作 Button 用，遵循 [ARIA Button Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/button)。
+:::warning
+For better accessibility it's always recommended to give a descriptive title based on the icon use.
+
+If no `title` is provided the icon is going to be purely decorative and it will get by default an `aria-hidden=true`.
+:::
 
 ### ARIA
 
@@ -218,8 +222,11 @@ const ScIcon = styled(Icon)`
 | [antd](https://ant.design/components/icon) | ★★★☆ | `Icon` | `General` | |
 | [atlassian](https://atlassian.design/components/icon/icon-explorer) | ★★★ | `Icon` | - | |
 | [baklava](https://baklava.design/?path=/docs/components-icon--documentation) | ★★★☆ | `Icon` | - | |
+| [blueprint](https://blueprintjs.com/docs/#core/components/icon) | ★★☆ | `Icon` | - | |
 | [chakra](https://www.chakra-ui.com/docs/components/icon) | ★☆ | `Icon` | - | |
 | [element+](https://element-plus.org/en-US/component/icon.html) | ★☆ | `Icon` | `Basic` | |
+| [eui](https://eui.elastic.co/#/display/icons) | ★☆ | `Icon` | `Display` | |
+| [fluent](https://fluent2.microsoft.design/components/web/react/icon/usage) | ★ | `Icon` | - | |
 | [franken](https://franken-ui.dev/docs/icon) | ★ | `Icon` | - | [Lucide](https://lucide.dev) |
 | [fusion](https://fusion.design/pc/component/icon) | ★★ | `Icon` | - | |
 | [hyper](https://www.hyperui.dev/components/marketing/icon) | ★★★☆ | `Icon` | - | |
@@ -228,6 +235,8 @@ const ScIcon = styled(Icon)`
 | [justd](https://getjustd.com/icons) | ☆ | - | - | `justd-icons` |
 | [mui](https://mui.com/material-ui/icons) | ★☆ | `Icon` | `Data Display` | |
 | [pearl](https://docs.pearl-ui.dev/docs/components/media/Icon) | ★★☆ | `Icon` | `Media` | |
+| [pluralsight](https://design-system.pluralsight.com/components/icon) | ★☆ | `Icon` | `Content Display` | |
+| [primer](https://primer.style/components/icon) | ★★★ | `Icon` | - | |
 | [primereact](https://primereact.org/icons) | ★★★ | `Icon` | - | |
 | [radix](https://www.radix-ui.com/primitives/docs/utilities/accessible-icon) | ☆ | `Icon` | - | A11Y |
 | [semantic](https://semantic-ui.com/elements/icon.html) | ★★ | `Icon` | `Elements` | |
