@@ -11,6 +11,8 @@ export { default as InputSwitch } from '@kcuf-ui/rc-input-switch';
 // ------- Feedback ------- //
 export * from '@kcuf-ui/rc-backdrop';
 export { default as Backdrop } from '@kcuf-ui/rc-backdrop';
+export * from '@kcuf-ui/rc-dialog';
+export { default as Dialog } from '@kcuf-ui/rc-dialog';
 
 // ------- Media ------- //
 export * from '@kcuf-ui/rc-icon';

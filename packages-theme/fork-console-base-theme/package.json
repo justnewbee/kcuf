@@ -1,7 +1,7 @@
 {
-  "name": "@kcuf/fork-console-base-theme-color",
+  "name": "@kcuf/fork-console-base-theme",
   "version": "0.0.1",
-  "description": "A fork of @alicloud/fork-console-base-theme-color.",
+  "description": "A fork of @alicloud/console-base-theme.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-fork/fork-console-base-theme-color",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-theme/fork-console-base-theme",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -26,13 +26,24 @@
     "@babel/core": "^7.26.0",
     "@babel/plugin-transform-runtime": "^7.25.9",
     "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
     "@kcuf/ts-config": "workspace:^",
+    "@types/react": "^18.3.18",
+    "babel-plugin-styled-components": "^2.1.4",
+    "react": "^18.3.1",
     "rimraf": "^6.0.1",
+    "styled-components": "^6.1.14",
     "typescript": "^5.7.3"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.x"
+    "@babel/runtime": "^7.x",
+    "react": "^18.x",
+    "styled-components": "^6.x"
+  },
+  "dependencies": {
+    "@kcuf/fork-console-base-theme-color": "workspace:^",
+    "@kcuf/mere-dom": "workspace:^"
   },
   "scripts": {
     "build:clean": "rimraf dist",
@@ -42,5 +53,6 @@
     "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
     "watch": "pnpm build:esm -w",
     "prepublishOnly": "pnpm build:clean && pnpm build"
-  }
+  },
+  "gitHead": "47d06ec920788833715ae32d958483b68b6c7702"
 }

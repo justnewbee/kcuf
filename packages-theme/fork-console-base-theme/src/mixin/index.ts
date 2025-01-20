@@ -8,7 +8,7 @@ export * from './bg';
 export * from './border';
 export * from './border-radius';
 export * from './shadow';
-export * from './typo';
+export * from './typography';
 export * from './input';
 export * from './link';
 export * from './button';

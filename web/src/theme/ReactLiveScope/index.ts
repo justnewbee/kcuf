@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Backdrop,
   Button,
+  Dialog,
   Form,
   Icon,
   IconBase,
@@ -14,6 +15,7 @@ export default {
   ...React,
   Backdrop,
   Button,
+  Dialog,
   Form,
   Icon,
   IconBase,

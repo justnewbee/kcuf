@@ -5,9 +5,6 @@ import {
 } from 'styled-components';
 
 import {
-  IPropsEllipsisLines
-} from '../types';
-import {
   TYPO,
   COLOR
 } from '../var';
@@ -33,14 +30,12 @@ import {
 
 // 日文专属
 export const mixinTypoFontFamilyBaseJa = css`
-  font-family: ${TYPO.FONT_FAMILY_BASE_JA};
-  font-family: var(--cb-typo-font-family-base-ja, ${TYPO.FONT_FAMILY_BASE_JA});
+  font-family: var(--kcuf-typo-font-family-base-ja, ${TYPO.FONT_FAMILY_BASE_JA});
 `;
 
 // lang-ja 是 console-base 注入到 body 的 className，虽然有些耦合，但比较实用
 export const mixinTypoFontFamilyBase = css`
-  font-family: ${TYPO.FONT_FAMILY_BASE};
-  font-family: var(--cb-typo-font-family-base, ${TYPO.FONT_FAMILY_BASE});
+  font-family: var(--kcuf-typo-font-family-base, ${TYPO.FONT_FAMILY_BASE});
   
   body.lang-ja & {
     ${mixinTypoFontFamilyBaseJa}
@@ -48,14 +43,13 @@ export const mixinTypoFontFamilyBase = css`
 `;
 
 export const mixinTypoFontFamilyMono = css`
-  font-family: ${TYPO.FONT_FAMILY_MONOSPACE};
-  font-family: var(--cb-typo-font-family-monospace, ${TYPO.FONT_FAMILY_MONOSPACE});
+  font-family: var(--kcuf-typo-font-family-monospace, ${TYPO.FONT_FAMILY_MONOSPACE});
 `;
 
 export const mixinTypoFontBase = css`
-  line-height: 1.5;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
   ${mixinTypoFontFamilyBase}
 `;
 
@@ -87,7 +81,7 @@ export const mixinTypoKbd = css`
   padding: 0.1em 0.6em;
   border-radius: 3px;
   box-shadow: 0 1px 0 ${COLOR.SHADOW}, 0 0 0 2px ${COLOR.TEXT_INVERSE} inset;
-  box-shadow: 0 1px 0 var(--cb-color-shadow, ${COLOR.SHADOW}), 0 0 0 2px var(--cb-color-text-inverse, ${COLOR.TEXT_INVERSE}) inset;
+  box-shadow: 0 1px 0 var(--kcuf-color-shadow, ${COLOR.SHADOW}), 0 0 0 2px var(--kcuf-color-text-inverse, ${COLOR.TEXT_INVERSE}) inset;
   font: 600 12px/1.4 Arial, 'Helvetica Neue', Helvetica, sans-serif;
   white-space: nowrap;
   ${mixinTextSecondary}
@@ -108,7 +102,10 @@ export const mixinTypoLineWrap = css`
   white-space: normal;
 `;
 
-export const mixinTypoNoWrap = css`
+// 你需要为之设定一个宽度
+export const mixinTypoEllipsis = css`
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 `;
 
@@ -162,8 +159,8 @@ export const mixinTypoElementsList = css`
   dl {
     margin: 1em 0 1em 2em;
     padding: 0;
-    font-size: inherit;
     color: inherit;
+    font-size: inherit;
     line-height: 1.5 !important;
     
     &:first-child {

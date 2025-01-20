@@ -42,6 +42,7 @@
   "dependencies": {
     "@kcuf-ui/rc-backdrop": "workspace:^",
     "@kcuf-ui/rc-button": "workspace:^",
+    "@kcuf-ui/rc-dialog": "workspace:^",
     "@kcuf-ui/rc-form": "workspace:^",
     "@kcuf-ui/rc-icon": "workspace:^",
     "@kcuf-ui/rc-icon-base": "workspace:^",

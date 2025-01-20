@@ -28,20 +28,18 @@ export default {
   
   plugins: [
     'docusaurus-plugin-sass',
-    'docusaurus-lunr-search',
-    'docusaurus-plugin-image-zoom'
+    'docusaurus-plugin-image-zoom',
+    'docusaurus-lunr-search'
   ],
+  
   themes: [
     '@docusaurus/theme-live-codeblock',
     '@docusaurus/theme-mermaid'
   ],
   
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en']
+    defaultLocale: 'zh',
+    locales: ['en', 'zh']
   },
   
   presets: [

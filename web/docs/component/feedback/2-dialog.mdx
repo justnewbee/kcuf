@@ -2,18 +2,30 @@
 title: Dialog 弹窗
 ---
 
-```tsx
-import SourceButton from "../../../src/components/SourceButton/SourceButton";
+<ComponentBrief name="Dialog">
+  可能是最好用的弹窗，推荐 **函数式** 调用。
+</ComponentBrief>
 
-<div style={{ display: "flex" }}>
-  <SourceButton
-      label="Source"
-      href="https://github.com/agrawal-rohit/pearl-ui/blob/main/src/components/atoms/pressable/pressable.tsx"
-  />
-</div>
+```tsx live
+function DialogDemo(): ReactElement | null {
+  const [stateOpen, setStateOpen] = useState(false);
+  const handleDialogClose = useCallback(() => setStateOpen(false), [setStateOpen]);
+  
+  return <>
+    <InputSwitch {...{
+      label: '打开 Dialog（组件模式）',
+      value: stateOpen,
+      onChange: setStateOpen
+    }} />
+    {stateOpen ? <Dialog {...{
+      title: '标题可选',
+      content: '内容 content 必需，支持 JSX / string',
+      buttons: ['关闭'],
+      onClose: handleDialogClose
+    }} /> : null}
+  </>;
+}
 ```
-
-The `Pressable` is a functional component use to make interactive elements such as buttons, links, and more.
 
 ## Importing the Component
 
@@ -118,6 +130,7 @@ import Snack from "../../../src/components/ExpoSnack";
 | [base](https://base.uber.com/6d2425e9f/p/775209-dialog) | ★☆ | `Dialog` | `Messaging` | |
 | [blueprint](https://blueprintjs.com/docs/#core/components/dialog) | ★★★☆ | `Dialog` | `Overlays` | 它解释了 `Modal` 的不恰当性 |
 | [chakra](https://www.chakra-ui.com/docs/components/dialog) | ★★★☆ | `Dialog` | - | Outside/Inside scroll |
+| [daisy](https://daisyui.com/components/modal) | ★☆ | `Modal` | `Actions` | |
 | [dotui](https://dotui.org/docs/components/overlay/dialog) | ★★★☆ | `Dialog` | `Overlay` | |
 | [element+](https://element-plus.org/en-US/component/dialog.html) | ★★★☆ | `Dialog` | - | |
 | [eui](https://eui.elastic.co/#/layout/modal) | ★☆ | `Modal` | `Layout` | |
