@@ -25,8 +25,8 @@ title: Design Token
 以上，可以得出 Design Token 有以下特征：
 
 1. 形式为键值对
-2. 是存储设计决策的最小单元
-3. 是唯一可信源
+2. 设计决策的最小单元
+3. 唯一可信源
 
 概括来说，Design Token 是在设计、编码码中能够复用的一组常量，记录可重复使用的设计决策，如颜色、字体、阴影、留白、甚至动画等，作用是保障一致性。
 
@@ -34,15 +34,17 @@ title: Design Token
 
 ## 需要哪些 Token
 
-* `color`
-* `font`
-* `radius`
-* `height`
-* `motion`
-* `shadow`
-* `spacing`
-* `breakpoint`
-* `z-index`
+| Token | | 黑白 |
+| --- | --- | :-: |
+| `color` | `-text`、`-bg`、`-bd` | ✅ |
+| `font` | `-size`、`–family`、`-weight` | |
+| `shadow` | | ✅ |
+| `spacing` | | |
+| `radius` | | |
+| `height` | | |
+| `motion` | | |
+| `breakpoint` | | |
+| `z-index` | | |
 
 ## Categories
 
