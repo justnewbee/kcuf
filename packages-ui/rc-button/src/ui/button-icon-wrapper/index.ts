@@ -20,10 +20,10 @@ export default styled.span<IProps>`
   text-align: left;
   
   &:first-child {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
   
   &:last-child {
-    margin-right: 0;
+    margin-inline-end: 0;
   }
 `;

@@ -16,7 +16,11 @@ export default {
 
 export const Default = {
   args: {
-    label: 'button label instead of children'
+    label: 'button label instead of children',
+    href: '',
+    fluid: false,
+    disabled: false,
+    loading: false
   }
 } satisfies TStory;
 

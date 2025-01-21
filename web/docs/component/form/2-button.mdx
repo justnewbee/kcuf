@@ -6,7 +6,7 @@ tags:
 ---
 
 <ComponentBrief name="Button">
-  原生 `button`、`a` 的封装。
+  原生 `button`<br />`a` 的封装。
 </ComponentBrief>
 
 ## Live Demo
@@ -99,20 +99,18 @@ import Icon, {
 | `href` | `string` |  |
 | `target` | `HTMLAttributeAnchorTarget` |  |
 | `download` | `string \| boolean` |  |
-| `component` | `"button" \| "a" \| "span" \| "div"` | 理论上 button 不能包含 button 和 a，a 不能包含 a，若视觉上有这样的场景，可用该属性 |
+| `component` | `a \| span \| div"` | 理论上 `button` 不能包含 `button` 和 `a`，`a` 不能包含 `a`，若视觉上有这样的场景，可用该属性 |
 | `label` | `string \| ReactElement` | or you can use `children` instead, but prefer this way |
 | `title` | `string \| boolean` | 为 `true` 时，使用 label（如果它是 string 的话）作为 title |
-| `loading` <TagDefault>false</TagDefault> | `boolean` | 在按钮左侧展示 loading 图标，比 iconLeft 优先级高 |
-| `iconSpacing` | `TButtonIconSpacing` | 定义 iconLeft、iconRight 与 label 之间的间距，默认 8，small 为 4，no 为 0 |
-| `iconLeft` | `ReactElement \| " "` | 左侧 Icon<br /><br />1. 如果 loading 中，渲染 Loading 图标<br />2. 如果是一个空格，则渲染一个占位（为保持图标在视觉上的垂直对齐）<br />3. 否则渲染组件 |
-| `iconLeftClassName` | `string` |  |
-| `iconRight` | `ReactElement` | 右侧 Icon，类上 |
-| `iconRightClassName` | `string` |  |
-| `preset` | `"none" \| "menu" \| EButtonPreset \| "danger" \| "primary" \| "secondary" \| "secondary-alt" \| "tertiary" \| "tertiary-alt" \| "brand-primary" \| "brand-secondary" \| ... 6 more ... \| "text-brand-secondary"` |  |
-| `size` | `"none" \| EButtonSize \| "xs" \| "s" \| "m" \| "l" \| "xl"` |  |
+| `loading` <TagDefault>false</TagDefault> | `boolean` | 在按钮左侧展示 loading 图标，比 iconStart 优先级高 |
+| `iconSpacing` | `TButtonIconSpacing` | 定义 `iconStart`、`iconEnd` 与 `label` 之间的间距，默认 8，`small` 为 4，`no` 为 0 |
+| `iconStart` | `ReactElement \| " "` | 左侧图标<br /><br />1. 如果 loading 中，渲染 Loading 图标<br />2. 如果是一个空格，则渲染一个占位（为保持图标在视觉上的垂直对齐）<br />3. 否则渲染组件 |
+| `iconEnd` | `ReactElement` | 右侧图标，类上 |
+| `preset` | `none \| danger \| primary \| secondary \| secondary-alt \| tertiary \| tertiary-alt \| brand-primary \| brand-secondary \| ... 6 more ... \| text-brand-secondary` |  |
+| `size` | `none \| xs \| s \| m \| l \| xl"` |  |
 | `textAlign` | `TButtonTextAlign` | a button is by default center aligned (`align` is a deprecated HTML attribute) |
 | `cursor` | `string` |  |
-| `borderRadius` | `boolean \| "full"` | 在有边框的时候，按钮默认会有个很小的圆角（2px），可以设置<br />- true 默认<br />- false 没有圆角<br />- 'full' 两头圆角 |
+| `borderRadius` | `boolean \| full` | 在有边框的时候，按钮默认会有个很小的圆角（2px），可以设置<br />- true 默认<br />- false 没有圆角<br />- 'full' 两头圆角 |
 | `noShadow` <TagDefault>false</TagDefault> | `boolean` | 是否去掉 `hover` 及 `active` 时的阴影（对非 tertiary 和 text） |
 | `fluid` <TagDefault>false</TagDefault> | `boolean` | 是否显示全宽按钮 |
 | `active` <TagDefault>false</TagDefault> | `boolean` | 是否将状态锁定在 `active` 状态 |
@@ -128,7 +126,7 @@ import Icon, {
 - `Button` has the `role` of `button`.
 - `Button` has the default accessibility label set as the text value passed into it. When the button is in a loading state, the accessibility label is set as "Loading". A custom label can be specified using the `accessibilityLabel` prop.
 - When the `Button` is disabled or loading, it is reflected as `disabled` and `busy` respectively in screen readers.
-- Similar to Pressable, Button expects an `actionDescription` prop to specify the intented outcome of interacting with the component eg. 'Closes modal', 'Go to the homepage', etc.
+- Similar to Pressable, Button expects an `actionDescription` prop to specify the intended outcome of interacting with the component e.g. 'Closes modal', 'Go to the homepage', etc.
 
 ## FAQ
 
@@ -136,40 +134,40 @@ import Icon, {
 
 | Lib | 参考值 | 名称 | 归类 | 备注 |
 | --- | --- | --- | --- | --- |
-| [align](https://www.alignui.com/docs/ui/button) | ★★★☆ | `Button` | `Actions` | `variant` 颜色，`mode` 形状 |
-| [antd](https://ant.design/components/button) | ★★★☆ | `Button` | `Gernal` | `type` 语法糖、`color`、`variant` 形状 |
-| [atlassian](https://atlassian.design/components/button/examples) | ★★★ | `Button` | `Forms and input` | `appearance` |
-| [baklava](https://baklava.design/?path=/docs/components-button--documentation) | ★★★☆ | `Button` | - | `variant` 形状，`kind` 颜色 |
+| [align](https://www.alignui.com/docs/ui/button) | ★★★☆ | `Button` | `Actions` | `variant: primary\| neutral \| error"`<br />`mode: filled\| stroke \| lighter \| ghost` |
+| [antd](https://ant.design/components/button) | ★★★☆ | Button | `General` | `variant: outlined \| dashed \| solid \| filled \| text \| link`<br />`type: primary \| dashed \| link \| text \| default`<br />`color: default \| primary \| danger \| PresetColors` |
+| [atlassian](https://atlassian.design/components/button/examples) | ★★★ | `Button` | `Forms and input` | `appearance: default \| danger \| primary \| subtle \| warning \| discovery` |
+| [baklava](https://baklava.design/?path=/docs/components-button--documentation) | ★★★☆ | `Button` | - | `variant: primary \| secondary \| tertiary`<br />`kind: default \| neutral \| success \| danger` |
 | [base](https://base.uber.com/6d2425e9f/p/756216-button) | ★☆ | `Button` | `Buttons` | |
-| [blueprint](https://blueprintjs.com/docs/#core/components/buttons) | ★★☆ | `Button` | - | `intent` 颜色 |
-| [chakra](https://www.chakra-ui.com/docs/components/button) | ★★★ | `Button` | - | `variant` 形状，`colorPalette` 颜色 |
+| [blueprint](https://blueprintjs.com/docs/#core/components/buttons) | ★★☆ | `Button` | - | `intent: primary \| success \| warning \| danger`<br />`minimal: boolean`<br />`outlined: boolean` |
+| [chakra](https://www.chakra-ui.com/docs/components/button) | ★★★ | `Button` | - | `variant: solid \| subtle \| surface \| outline \| ghost \| plain`<br />`colorPalette: gray \| blue \| cyan \| green \| orange \| pink \| purple \| red \| teal \| yellow` |
 | [cuicui](https://cuicui.day/common-ui/buttons) | ★☆ | `Button` | - | |
 | [daisy](https://daisyui.com/components/button) | ★☆ | `Button` | `Actions` | |
-| [dotui](https://dotui.org/docs/components/buttons/button) | ★★★ | `Button` | `Buttons` | `variant` |
-| [element+](https://element-plus.org/en-US/component/button.html) | ★★★☆ | `Button` | `Basic` | `type` |
-| [eui](https://eui.elastic.co/#/navigation/button) | ★☆ | `Button` | `Navigation` | |
+| [dotui](https://dotui.org/docs/components/buttons/button) | ★★★ | `Button` | `Buttons` | `variant: default \| primary \| outline \| quiet \| success \| warning \| danger \| accent` |
+| [element+](https://element-plus.org/en-US/component/button.html) | ★★★☆ | `Button` | `Basic` | `type: primary \| success \| warning \| danger \| info \| text` |
+| [eui](https://eui.elastic.co/#/navigation/button) | ★☆ | `Button` | `Navigation` | `color: text \| accent \| primary \| success \| warning \| danger`<br />`fill: boolean` |
 | [fluent](https://fluent2.microsoft.design/components/web/react/button/usage) | ★ | `Button` | - | |
 | [franken](https://franken-ui.dev/docs/button) | ★ | `Button` | - | 使用 `className` |
-| [fusion](https://fusion.design/pc/component/button) | ★★★☆ | `Button` | `General` | `type`、`ghost`、`text` |
-| [garden](https://garden.zendesk.com/components/button) | ★☆ | `Button` | - | |
+| [fusion](https://fusion.design/pc/component/button) | ★★★☆ | `Button` | `General` | `type: primary \| secondary \| normal`<br />`ghost: boolean`<br />`text: boolean` |
+| [garden](https://garden.zendesk.com/components/button) | ★☆ | `Button` | - | `type: default \| primary \| basic`<br />`danger: boolean` |
 | [headless](https://headlessui.com/react/button) | ★ | `Button` | `Forms` | |
-| [hero](https://www.heroui.com/docs/components/button) | ★★★☆ | `Button` | - | `color`、`variant` |
+| [hero](https://www.heroui.com/docs/components/button) | ★★★☆ | `Button` | - | `color: default \| primary \| secondary \| success \| warning \| danger`<br />`variant: solid \| bordered \| light \| flat \| faded \| shadow \| ghost` |
 | [hyper](https://www.hyperui.dev/components/marketing/buttons) | ★★ | `Button` | - | |
 | [instructure](https://instructure.design/#Button) | ★★★ | `Button` | - | `color` |
 | [ionic](https://ionicframework.com/docs/api/buttons) | ★★ | `Button` | - | |
-| [justd](https://getjustd.com/docs/2.x/components/buttons/button) | ★☆ | `Button` | `Buttons` | `appearance`、`intent` |
-| [mantine](https://mantine.dev/core/button) | ★★ | `Button` | `Buttons` | `variant` |
+| [justd](https://getjustd.com/docs/2.x/components/buttons/button) | ★☆ | `Button` | `Buttons` | `appearance: solid \| outline \| plain`<br />`intent: primary \| secondary \| warning \| danger` |
+| [mantine](https://mantine.dev/core/button) | ★★ | `Button` | `Buttons` | |
 | [materialize](https://materializecss.com/buttons.html) | ☆ | `Button` | - | |
-| [mui](https://mui.com/material-ui/react-button) | ★★★☆ | `Button` | `Inputs` | `color`、Unstyled 概念、Ripple |
-| [pearl](https://docs.pearl-ui.dev/docs/components/forms/Button) | ★★☆ | `Button` | `Forms` | `variant` |
+| [mui](https://mui.com/material-ui/react-button) | ★★★☆ | `Button` | `Inputs` | `variant: text \| contained \| outlined`<br />`color` |
+| [pearl](https://docs.pearl-ui.dev/docs/components/forms/Button) | ★★☆ | `Button` | `Forms` | `variant: solid \| outline \| ghost`<br />`colorScheme: primary \| secondary \| neutral \| danger` |
 | [pluralsight](https://design-system.pluralsight.com/components/button) | ★★☆ | `Button` | `Inputs` | `appearance` |
-| [primer](https://primer.style/components/button) | ★★★ | `Button` | - | Best practices |
-| [primereact](https://primereact.org/button) | ★★★ | `Button` | `Button` | `severity`、`text`、`raised`、`outlined`、`:focus`、Ripple |
-| [radix](https://www.radix-ui.com/themes/docs/components/button) | ★★★ | `Button` | - | `color`、`variant` |
+| [primer](https://primer.style/components/button) | ★★★ | `Button` | - | `variant: default \| primary \| danger \| invisible \| link` |
+| [primereact](https://primereact.org/button) | ★★★ | `Button` | `Button` | `severity: primary \| secondary \| help \| info \| warning \| success \| danger`<br />`text: boolean`<br />`raised: boolean`<br />`outlined: boolean`<br />`:focus` |
+| [radix](https://www.radix-ui.com/themes/docs/components/button) | ★★★ | `Button` | - | `variant: classic \| solid \| soft \| surface \| outline \| ghost`<br />`color` |
 | [reakit](https://reakit.io/docs/button) | ☆ | `Button` | - | |
 | [semantic](https://semantic-ui.com/elements/button.html) | ★★ | `Button` | - | 有个 `Conditionals` 组合挺有意思 |
 | [shadcn](https://ui.shadcn.com/docs/components/button) | ★ | `Button` | - | |
-| [spectrum](https://opensource.adobe.com/spectrum-web-components/components/button) | ★★ | `Button` | | `variant`、`treatment` |
+| [spectrum](https://opensource.adobe.com/spectrum-web-components/components/button) | ★★ | `Button` | | `variant: accent \| primary \| secondary \| negative \| white \| black`<br />`treatment: fill \| outline` |
 | [tallstack](https://tallstackui.com/docs/ui/button) | ★★☆ | `Button` | `UI` | |
-| [theme](https://theme-ui.com/components/button) | ☆ | `Button` | - | |
-| [tremor](https://tremor.so/docs/ui/button) | ★★☆ | `Button` | `UI` | |
+| [theme](https://theme-ui.com/components/button) | ☆ | `Button` | - | `variant: primary \| secondary` |
+| [tremor](https://tremor.so/docs/ui/button) | ★★☆ | `Button` | `UI` | `variant: primary \| secondary \| light \| ghost \| destructive` |

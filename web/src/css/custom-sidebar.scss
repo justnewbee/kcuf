@@ -7,7 +7,6 @@
   }
 }
 
-/* --- Menu --- */
 .menu {
   font-weight: 400;
 }
@@ -26,21 +25,20 @@
 }
 
 .menu__link {
-  font-size: 15px;
+  font-size: 0.95rem;
   
   &:not([href]) {
     color: var(--ifm-color-primary-contrast-foreground);
-    font-size: 12px;
     font-weight: bolder;
     text-transform: uppercase;
   }
   
-  &:hover {
+  &[href]:hover {
     color: var(--ifm-menu-color-active);
   }
   
   &--active {
-    font-weight: var(--ifm-font-weight-semibold);
+    font-weight: var(--ifm-font-weight-bold);
   }
 }
 

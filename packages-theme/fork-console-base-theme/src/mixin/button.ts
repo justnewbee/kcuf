@@ -24,34 +24,29 @@ export const mixinButtonShadow = css`
 
 // size mixins
 export const mixinButtonSizeXs = css`
-  padding: 0 ${SIZE.PADDING_X_FORM_CONTROL_XS}px;
+  padding-inline: ${SIZE.PADDING_X_FORM_CONTROL_XS}px;
   height: ${SIZE.HEIGHT_FORM_CONTROL_XS}px;
   font-size: ${SIZE.FONT_SIZE_FORM_CONTROL_XS}px;
-  line-height: ${SIZE.HEIGHT_FORM_CONTROL_XS - 2}px;
 `;
 export const mixinButtonSizeS = css`
-  padding: 0 ${SIZE.PADDING_X_FORM_CONTROL_S}px;
+  padding-inline: ${SIZE.PADDING_X_FORM_CONTROL_S}px;
   height: ${SIZE.HEIGHT_FORM_CONTROL_S}px;
   font-size: ${SIZE.FONT_SIZE_FORM_CONTROL_S}px;
-  line-height: ${SIZE.HEIGHT_FORM_CONTROL_S - 2}px;
 `;
 export const mixinButtonSizeM = css`
-  padding: 0 ${SIZE.PADDING_X_FORM_CONTROL_M}px;
+  padding-inline: ${SIZE.PADDING_X_FORM_CONTROL_M}px;
   height: ${SIZE.HEIGHT_FORM_CONTROL_M}px;
   font-size: ${SIZE.FONT_SIZE_FORM_CONTROL_M}px;
-  line-height: ${SIZE.HEIGHT_FORM_CONTROL_M - 2}px;
 `;
 export const mixinButtonSizeL = css`
-  padding: 0 ${SIZE.PADDING_X_FORM_CONTROL_L}px;
+  padding-inline: ${SIZE.PADDING_X_FORM_CONTROL_L}px;
   height: ${SIZE.HEIGHT_FORM_CONTROL_L}px;
   font-size: ${SIZE.FONT_SIZE_FORM_CONTROL_L}px;
-  line-height: ${SIZE.HEIGHT_FORM_CONTROL_L - 2}px;
 `;
 export const mixinButtonSizeXl = css`
-  padding: 0 ${SIZE.PADDING_X_FORM_CONTROL_XL}px;
+  padding-inline: ${SIZE.PADDING_X_FORM_CONTROL_XL}px;
   height: ${SIZE.HEIGHT_FORM_CONTROL_XL}px;
   font-size: ${SIZE.FONT_SIZE_FORM_CONTROL_XL}px;
-  line-height: ${SIZE.HEIGHT_FORM_CONTROL_XL - 2}px;
 `;
 
 // theme mixins
@@ -129,82 +124,6 @@ export const mixinButtonDanger = css`
   
   &:disabled {
     ${mixinButtonDangerStateDisabled}
-  }
-`;
-export const mixinButtonMenuColorStateNormal = css`
-  color: var(--kcuf-color-button-menu-text, ${COLOR.BUTTON_MENU_TEXT});
-`;
-export const mixinButtonMenuBgStateNormal = css`
-  background-color: var(--kcuf-color-button-menu-bg, ${COLOR.BUTTON_MENU_BG});
-`;
-export const mixinButtonMenuBorderStateNormal = css`
-  border-color: var(--kcuf-color-button-menu-border, ${COLOR.BUTTON_MENU_BORDER});
-`;
-export const mixinButtonMenuStateNormal = css`
-  ${mixinButtonMenuColorStateNormal}
-  ${mixinButtonMenuBgStateNormal}
-  ${mixinButtonMenuBorderStateNormal}
-`;
-export const mixinButtonMenuColorStateHover = css`
-  color: var(--kcuf-color-button-menu-text-hover, ${COLOR.BUTTON_MENU_TEXT_HOVER});
-`;
-export const mixinButtonMenuBgStateHover = css`
-  background-color: var(--kcuf-color-button-menu-bg-hover, ${COLOR.BUTTON_MENU_BG_HOVER});
-`;
-export const mixinButtonMenuBorderStateHover = css`
-  border-color: var(--kcuf-color-button-menu-border-hover, ${COLOR.BUTTON_MENU_BORDER_HOVER});
-`;
-export const mixinButtonMenuStateHover = css`
-  ${mixinButtonMenuColorStateHover}
-  ${mixinButtonMenuBgStateHover}
-  ${mixinButtonMenuBorderStateHover}
-`;
-export const mixinButtonMenuColorStateActive = css`
-  color: var(--kcuf-color-button-menu-text-active, ${COLOR.BUTTON_MENU_TEXT_ACTIVE});
-`;
-export const mixinButtonMenuBgStateActive = css`
-  background-color: var(--kcuf-color-button-menu-bg-active, ${COLOR.BUTTON_MENU_BG_ACTIVE});
-`;
-export const mixinButtonMenuBorderStateActive = css`
-  border-color: var(--kcuf-color-button-menu-border-active, ${COLOR.BUTTON_MENU_BORDER_ACTIVE});
-`;
-export const mixinButtonMenuStateActive = css`
-  ${mixinButtonMenuColorStateActive}
-  ${mixinButtonMenuBgStateActive}
-  ${mixinButtonMenuBorderStateActive}
-`;
-export const mixinButtonMenuColorStateDisabled = css`
-  color: var(--kcuf-color-button-menu-text-disabled, ${COLOR.BUTTON_MENU_TEXT_DISABLED});
-`;
-export const mixinButtonMenuBgStateDisabled = css`
-  background-color: var(--kcuf-color-button-menu-bg-disabled, ${COLOR.BUTTON_MENU_BG_DISABLED});
-`;
-export const mixinButtonMenuBorderStateDisabled = css`
-  border-color: var(--kcuf-color-button-menu-border-disabled, ${COLOR.BUTTON_MENU_BORDER_DISABLED});
-`;
-export const mixinButtonMenuStateDisabled = css`
-  ${mixinButtonMenuColorStateDisabled}
-  ${mixinButtonMenuBgStateDisabled}
-  ${mixinButtonMenuBorderStateDisabled}
-`;
-export const mixinButtonMenu = css`
-  ${mixinButtonMenuStateNormal}
-  
-  &:link,
-  &:visited {
-    ${mixinButtonMenuColorStateNormal}
-  }
-  
-  &:hover {
-    ${mixinButtonMenuStateHover}
-  }
-  
-  &:active {
-    ${mixinButtonMenuStateActive}
-  }
-  
-  &:disabled {
-    ${mixinButtonMenuStateDisabled}
   }
 `;
 export const mixinButtonPrimaryColorStateNormal = css`

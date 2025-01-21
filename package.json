@@ -32,7 +32,7 @@
     "@kcuf/ts-config": "workspace:^",
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.10.7",
-    "commander": "^13.0.0",
+    "commander": "^13.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.18.0",
     "husky": "^9.1.7",

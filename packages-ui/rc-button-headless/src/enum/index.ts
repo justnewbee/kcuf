@@ -14,7 +14,6 @@ export enum EButtonSize {
 export enum EButtonPreset {
   NONE = 'none',
   DANGER = 'danger',
-  MENU = 'menu',
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
   SECONDARY_ALT = 'secondary-alt', // 空心

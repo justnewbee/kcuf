@@ -10,7 +10,7 @@ import {
  * * 文字色
  * * 背景色
  * * 边框色
- * 
+ *
  * 每种色需要定义如下状态：
  * * 正常
  * * `:hover` + `:focus`
@@ -20,31 +20,8 @@ import {
 export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd: IColorBorder): IColorButton {
   return {
     /**
-     * 菜单栏一整条的按钮
-     * 
-     * 态\色 | 字 | 底 | 边
-     * :-- | :-- | :-- | :--
-     * 正常 | 黑字2 | 透明浅灰底 | 无边
-     * HOVER | 黑字2 | 透明浅灰底 | 无边
-     * ACTIVE | 黑字2 | 透明浅灰底 | 无边
-     * 禁用 | 灰字 | 无底 | 灰边
-     */
-    BUTTON_MENU_TEXT: fg.TEXT_SECONDARY,
-    BUTTON_MENU_BG: bg.BG_TRANSPARENT,
-    BUTTON_MENU_BORDER: bd.BORDER_TRANSPARENT,
-    BUTTON_MENU_TEXT_HOVER: fg.TEXT_SECONDARY,
-    BUTTON_MENU_BG_HOVER: bg.BG_SECONDARY_FADE,
-    BUTTON_MENU_BORDER_HOVER: bd.BORDER_TRANSPARENT,
-    BUTTON_MENU_TEXT_ACTIVE: fg.TEXT_SECONDARY,
-    BUTTON_MENU_BG_ACTIVE: bg.BG_SECONDARY_FADE,
-    BUTTON_MENU_BORDER_ACTIVE: bd.BORDER_TRANSPARENT,
-    BUTTON_MENU_TEXT_DISABLED: fg.TEXT_DISABLED,
-    BUTTON_MENU_BG_DISABLED: bg.BG_TRANSPARENT,
-    BUTTON_MENU_BORDER_DISABLED: bd.BORDER_TRANSPARENT,
-    
-    /**
      * 危险警告按钮
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 白字 | 红底 | 红边
@@ -67,7 +44,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 主按钮
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 白字 | 蓝底 | 蓝边
@@ -89,7 +66,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 次按钮
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 黑字 | 白底 | 灰边
@@ -111,7 +88,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 次按钮 Alt - 空心
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 黑字 | 白底 | 灰边
@@ -133,7 +110,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 三级按钮
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 黑字 | 无底 | 无边
@@ -155,7 +132,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 三级按钮 Alt
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 黑字 | 灰底 | 无边
@@ -177,7 +154,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 主 Brand 按钮
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 白字 | 橙底 | 橙边
@@ -199,7 +176,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 次 Brand 按钮
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 橙字 | 无底 | 橙边
@@ -221,7 +198,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 次 Brand 按钮 Alt - 空心
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 橙字 | 无底 | 橙边
@@ -243,7 +220,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 三级按钮（Brand 变种）
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 橙字 | 无底 | 无边
@@ -265,7 +242,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 主文字按钮
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 蓝字 | 无底 | 无边
@@ -287,7 +264,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 次文字按钮
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 黑字 | 无底 | 无边
@@ -309,7 +286,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 三级文字按钮
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 黑字 | 无底 | 无边
@@ -331,7 +308,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 主文字按钮（Brand 变种）
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 橙字 | 无底 | 无边
@@ -353,7 +330,7 @@ export default function createConstColorButton(fg: IColorText, bg: IColorBg, bd:
     
     /**
      * 次文字按钮（Brand 变种）
-     * 
+     *
      * 态\色 | 字 | 底 | 边
      * :-- | :-- | :-- | :--
      * 正常 | 黑字 | 无底 | 无边

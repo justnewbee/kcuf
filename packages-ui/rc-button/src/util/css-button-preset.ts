@@ -7,7 +7,6 @@ import {
 } from '@kcuf-ui/rc-button-headless';
 import {
   mixinButtonDangerStateNormal,
-  mixinButtonMenuStateNormal,
   mixinButtonPrimaryStateNormal,
   mixinButtonSecondaryStateNormal,
   mixinButtonSecondaryAltStateNormal,
@@ -23,7 +22,6 @@ import {
   mixinButtonTextBrandPrimaryStateNormal,
   mixinButtonTextBrandSecondaryStateNormal,
   mixinButtonDangerStateActive,
-  mixinButtonMenuStateActive,
   mixinButtonPrimaryStateActive,
   mixinButtonSecondaryStateActive,
   mixinButtonSecondaryAltStateActive,
@@ -39,7 +37,6 @@ import {
   mixinButtonTextBrandPrimaryStateActive,
   mixinButtonTextBrandSecondaryStateActive,
   mixinButtonDangerStateDisabled,
-  mixinButtonMenuStateDisabled,
   mixinButtonPrimaryStateDisabled,
   mixinButtonSecondaryStateDisabled,
   mixinButtonSecondaryAltStateDisabled,
@@ -55,7 +52,6 @@ import {
   mixinButtonTextBrandPrimaryStateDisabled,
   mixinButtonTextBrandSecondaryStateDisabled,
   mixinButtonDanger,
-  mixinButtonMenu,
   mixinButtonPrimary,
   mixinButtonSecondary,
   mixinButtonSecondaryAlt,
@@ -79,7 +75,6 @@ import {
 const MAPPING_DISABLED: Record<ButtonPreset, RuleSet | null> = {
   [ButtonPreset.NONE]: null,
   [ButtonPreset.DANGER]: mixinButtonDangerStateDisabled,
-  [ButtonPreset.MENU]: mixinButtonMenuStateDisabled,
   [ButtonPreset.PRIMARY]: mixinButtonPrimaryStateDisabled,
   [ButtonPreset.SECONDARY]: mixinButtonSecondaryStateDisabled,
   [ButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAltStateDisabled,
@@ -99,7 +94,6 @@ const MAPPING_DISABLED: Record<ButtonPreset, RuleSet | null> = {
 const MAPPING_NORMAL: Record<ButtonPreset, RuleSet | null> = {
   [ButtonPreset.NONE]: null,
   [ButtonPreset.DANGER]: mixinButtonDangerStateNormal,
-  [ButtonPreset.MENU]: mixinButtonMenuStateNormal,
   [ButtonPreset.PRIMARY]: mixinButtonPrimaryStateNormal,
   [ButtonPreset.SECONDARY]: mixinButtonSecondaryStateNormal,
   [ButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAltStateNormal,
@@ -119,7 +113,6 @@ const MAPPING_NORMAL: Record<ButtonPreset, RuleSet | null> = {
 const MAPPING_ACTIVE: Record<ButtonPreset, RuleSet | null> = {
   [ButtonPreset.NONE]: null,
   [ButtonPreset.DANGER]: mixinButtonDangerStateActive,
-  [ButtonPreset.MENU]: mixinButtonMenuStateActive,
   [ButtonPreset.PRIMARY]: mixinButtonPrimaryStateActive,
   [ButtonPreset.SECONDARY]: mixinButtonSecondaryStateActive,
   [ButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAltStateActive,
@@ -139,7 +132,6 @@ const MAPPING_ACTIVE: Record<ButtonPreset, RuleSet | null> = {
 const MAPPING: Record<ButtonPreset, RuleSet | null> = {
   [ButtonPreset.NONE]: null,
   [ButtonPreset.DANGER]: mixinButtonDanger,
-  [ButtonPreset.MENU]: mixinButtonMenu,
   [ButtonPreset.PRIMARY]: mixinButtonPrimary,
   [ButtonPreset.SECONDARY]: mixinButtonSecondary,
   [ButtonPreset.SECONDARY_ALT]: mixinButtonSecondaryAlt,
@@ -165,7 +157,7 @@ export default function cssButtonPreset(props: IScButtonProps): RuleSet | null {
     return props.$preset ? MAPPING_ACTIVE[props.$preset] : null;
   }
   
-  if (props.$loading) { // loading 的时候没有 hover 样式
+  if (props['data-button-loading'] !== undefined) { // loading 的时候没有 hover 样式
     return props.$preset ? MAPPING_NORMAL[props.$preset] : null;
   }
   

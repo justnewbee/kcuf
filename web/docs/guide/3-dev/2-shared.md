@@ -10,10 +10,15 @@ title: 通用属性
 
 ## `variant`
 
-## `fluid` - 全宽
+## 全宽
 
-可选项有：
+> `kcuf-ui` 采用 `fluid`。
 
-* `fluid` ✔
-* `fullWidth`
-* `block`
+| prop | libs |
+| --- | --- |
+| `fluid` | |
+| `fullWidth` | [eui](https://eui.elastic.co/#/navigation/button)、[mantine](https://mantine.dev/core/button/#full-width)、[mui](https://mui.com/material-ui/react-button) |
+| `block` | |
+| `fill` | [blueprint](https://blueprintjs.com/docs/#core/components/buttons) |
+| `shouldFitContainer` | [atlassian](https://atlassian.design/components/button/examples#full-width) |
+| `stretched` | [garden](https://garden.zendesk.com/components/button#stretched) |

@@ -30,18 +30,15 @@ export default function useModelProps(): [IButtonPropsCustom, IPropsDom] {
       title,
       loading,
       iconSpacing,
-      iconLeft,
-      iconRight,
+      iconStart,
+      iconEnd,
       preset = EButtonPreset.TERTIARY,
       size,
       textAlign,
-      cursor,
       borderRadius = true,
       noShadow,
       fluid,
       active,
-      iconLeftClassName,
-      iconRightClassName,
       ...rest
     } = props;
     
@@ -51,18 +48,15 @@ export default function useModelProps(): [IButtonPropsCustom, IPropsDom] {
       title,
       loading,
       iconSpacing,
-      iconLeft,
-      iconRight,
+      iconStart,
+      iconEnd,
       preset,
       size,
       textAlign,
-      cursor,
       borderRadius,
       noShadow,
       fluid,
-      active,
-      iconLeftClassName,
-      iconRightClassName
+      active
     };
     const propsDom: IPropsDom = {
       ...rest,

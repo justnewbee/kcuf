@@ -6,7 +6,7 @@ export type TNavItemMark = 'external' | 'new' | 'beta-public' | 'beta' | 'alpha'
 
 export type TUnfoldMode = boolean | 'first-level';
 
-export interface INavItemPropsBase extends Omit<ButtonProps, 'iconLeft' | 'iconRight'> {
+export interface INavItemPropsBase extends Omit<ButtonProps, 'iconStart' | 'iconEnd'> {
   key: string;
   icon?: string;
   mark?: TNavItemMark;

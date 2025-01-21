@@ -174,18 +174,6 @@ export interface IColorLink {
 }
 
 export interface IColorButton {
-  BUTTON_MENU_TEXT: string;
-  BUTTON_MENU_BG: string;
-  BUTTON_MENU_BORDER: string;
-  BUTTON_MENU_TEXT_HOVER: string;
-  BUTTON_MENU_BG_HOVER: string;
-  BUTTON_MENU_BORDER_HOVER: string;
-  BUTTON_MENU_TEXT_ACTIVE: string;
-  BUTTON_MENU_BG_ACTIVE: string;
-  BUTTON_MENU_BORDER_ACTIVE: string;
-  BUTTON_MENU_TEXT_DISABLED: string;
-  BUTTON_MENU_BG_DISABLED: string;
-  BUTTON_MENU_BORDER_DISABLED: string;
   BUTTON_DANGER_TEXT: string;
   BUTTON_DANGER_BG: string;
   BUTTON_DANGER_BORDER: string;

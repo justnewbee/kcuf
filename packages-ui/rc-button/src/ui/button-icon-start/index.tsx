@@ -2,6 +2,7 @@ import {
   ReactElement
 } from 'react';
 
+import Icon from '@kcuf-ui/rc-icon';
 import {
   usePropsCustom
 } from '@kcuf-ui/rc-button-headless';
@@ -9,20 +10,17 @@ import {
 import {
   renderIcon
 } from '../../util';
-import {
-  ButtonIconWrapper
-} from '../../rc';
+import ButtonIconWrapper from '../button-icon-wrapper';
 
-export default function ButtonIconRight(): ReactElement | null {
+export default function ButtonIconStart(): ReactElement | null {
   const {
+    loading,
     iconSpacing,
-    iconRight,
-    iconRightClassName
+    iconStart
   } = usePropsCustom();
-  const jsxIcon = renderIcon(iconRight);
+  const jsxIcon = loading ? <Icon type="loading" /> : renderIcon(iconStart);
   
   return jsxIcon ? <ButtonIconWrapper {...{
-    className: iconRightClassName,
     iconSpacing
   }}>{jsxIcon}</ButtonIconWrapper> : null;
 }

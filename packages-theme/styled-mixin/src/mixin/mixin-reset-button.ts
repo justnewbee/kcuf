@@ -11,17 +11,21 @@ import {
  * 4. 定义 disabled 的基础样式
  */
 export default css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 0;
+  max-width: 100%;
+  background: none;
+  border: 1px solid transparent;
   box-sizing: border-box;
+  outline: none;
+  color: inherit;
   font-family: inherit;
   font-size: inherit;
-  color: inherit;
   text-align: center;
   text-decoration: none;
   line-height: inherit;
-  background: none;
-  border: 1px solid transparent;
-  outline: none;
   cursor: pointer;
   transition: all ease-out 0.3s;
   

@@ -17,28 +17,19 @@ import {
 
 import {
   IScButtonProps
-} from './types';
+} from '../types';
 import {
-  isFluid,
   isBorderless,
   getStyleTextAlign,
   cssButtonPreset,
   cssButtonSize,
   cssButtonShadow
-} from './util';
-import {
-  ButtonIconLeft,
-  ButtonIconRight
-} from './rc-container';
+} from '../util';
 
-// 当有 iconLeft iconRight loading 时对内容的包裹
-const ScInner = styled.span`
-  display: flex;
-  align-items: center;
-`;
+import ButtonIconStart from './button-icon-start';
+import ButtonIconEnd from './button-icon-end';
 
 const ScInnerLabel = styled.span`
-  flex: 1;
   ${mixinTypoEllipsis}
 `;
 
@@ -50,46 +41,38 @@ function getStyleBorderRadius(props: IScButtonProps): string {
   return props.$borderRadius === 'full' ? '100px' : '2px';
 }
 
-function getStyleCursor(props: IScButtonProps): string {
-  if (props.disabled) {
-    return 'not-allowed';
-  }
-  
-  if (props.$loading) {
-    return 'default';
-  }
-  
-  return props.$cursor || 'pointer';
-}
-
 const ScButton = styled(ScBaseButton)<Partial<ButtonProps>>`
-  display: ${props => isFluid(props) ? 'block' : 'inline-block'};
-  width: ${props => isFluid(props) ? '100%' : 'auto'};
-  max-width: 100%;
   overflow: hidden;
   border: ${props => isBorderless(props) ? 'none' : '1px solid transparent'};
   border-radius: ${getStyleBorderRadius};
   text-align: ${getStyleTextAlign};
   vertical-align: middle;
-  cursor: ${getStyleCursor};
   ${mixinTypoEllipsis}
   ${cssButtonPreset}
   ${cssButtonSize}
   ${cssButtonShadow}
+  
+  &[data-button-loading] {
+    cursor: default;
+  }
+  
+  &[data-button-fluid] {
+    display: flex;
+    width: 100%;
+  }
 `;
 
 function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
   const {
     label,
-    iconLeft,
-    iconRight,
+    iconStart,
+    iconEnd,
     loading,
     component,
     preset,
     size,
     noShadow,
     textAlign,
-    cursor,
     borderRadius,
     fluid,
     active
@@ -100,26 +83,22 @@ function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
   } = usePropsDom();
   const jsxLabel = label || children; // label prior to children
   
-  return <ScButton
-    ref={ref}
-    as={component}
-    {...{
-      $preset: preset,
-      $size: size,
-      $loading: loading, // 否则报错
-      $noShadow: noShadow,
-      $textAlign: textAlign,
-      $cursor: cursor,
-      $borderRadius: borderRadius,
-      $fluid: fluid,
-      $active: active,
-      ...propsDom
-    }}>
-    {iconLeft || iconRight || loading ? <ScInner>
-      <ButtonIconLeft />
+  return <ScButton ref={ref} as={component} {...{
+    $preset: preset,
+    $size: size,
+    $noShadow: noShadow,
+    $textAlign: textAlign,
+    $borderRadius: borderRadius,
+    $active: active,
+    ...propsDom,
+    'data-button-loading': loading ? '' : undefined,
+    'data-button-fluid': fluid ? '' : undefined
+  }}>
+    {iconStart || iconEnd || loading ? <>
+      <ButtonIconStart />
       {jsxLabel ? <ScInnerLabel>{jsxLabel}</ScInnerLabel> : null}
-      <ButtonIconRight />
-    </ScInner> : jsxLabel}
+      <ButtonIconEnd />
+    </> : jsxLabel}
   </ScButton>;
 }
 

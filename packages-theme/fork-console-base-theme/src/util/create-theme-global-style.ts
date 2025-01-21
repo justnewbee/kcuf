@@ -21,9 +21,8 @@ export default function createThemeGlobalStyle({
   COLOR,
   TYPO,
   SIZE
-}: ITheme): NamedExoticComponent { // eslint-disable-line @typescript-eslint/no-explicit-any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return createGlobalStyle<any>`
+}: ITheme): NamedExoticComponent {
+  return createGlobalStyle`
     :root {
       --kcuf-color-text-transparent: ${COLOR.TEXT_TRANSPARENT};
       --kcuf-color-text-white: ${COLOR.TEXT_WHITE};
@@ -134,18 +133,6 @@ export default function createThemeGlobalStyle({
       --kcuf-color-input-bg-disabled: ${COLOR.INPUT_BG_DISABLED};
       --kcuf-color-input-border-disabled: ${COLOR.INPUT_BORDER_DISABLED};
       --kcuf-color-input-placeholder: ${COLOR.INPUT_PLACEHOLDER};
-      --kcuf-color-button-menu-text: ${COLOR.BUTTON_MENU_TEXT};
-      --kcuf-color-button-menu-bg: ${COLOR.BUTTON_MENU_BG};
-      --kcuf-color-button-menu-border: ${COLOR.BUTTON_MENU_BORDER};
-      --kcuf-color-button-menu-text-hover: ${COLOR.BUTTON_MENU_TEXT_HOVER};
-      --kcuf-color-button-menu-bg-hover: ${COLOR.BUTTON_MENU_BG_HOVER};
-      --kcuf-color-button-menu-border-hover: ${COLOR.BUTTON_MENU_BORDER_HOVER};
-      --kcuf-color-button-menu-text-active: ${COLOR.BUTTON_MENU_TEXT_ACTIVE};
-      --kcuf-color-button-menu-bg-active: ${COLOR.BUTTON_MENU_BG_ACTIVE};
-      --kcuf-color-button-menu-border-active: ${COLOR.BUTTON_MENU_BORDER_ACTIVE};
-      --kcuf-color-button-menu-text-disabled: ${COLOR.BUTTON_MENU_TEXT_DISABLED};
-      --kcuf-color-button-menu-bg-disabled: ${COLOR.BUTTON_MENU_BG_DISABLED};
-      --kcuf-color-button-menu-border-disabled: ${COLOR.BUTTON_MENU_BORDER_DISABLED};
       --kcuf-color-button-danger-text: ${COLOR.BUTTON_DANGER_TEXT};
       --kcuf-color-button-danger-bg: ${COLOR.BUTTON_DANGER_BG};
       --kcuf-color-button-danger-border: ${COLOR.BUTTON_DANGER_BORDER};

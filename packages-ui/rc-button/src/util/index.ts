@@ -1,4 +1,3 @@
-export { default as isFluid } from './is-fluid';
 export { default as isBorderless } from './is-borderless';
 export { default as getStyleTextAlign } from './get-style-text-align';
 export { default as getStyleIconSpacing } from './get-style-icon-spacing';

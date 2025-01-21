@@ -24,7 +24,7 @@ const THEMES_NEED_SHADOW: ButtonPreset[] = [
 ];
 
 export default function cssButtonShadow(props: IScButtonProps): RuleSet | null {
-  if (props.disabled || props.$noShadow || props.$loading || props.$active) {
+  if (props.disabled || props.$noShadow || props['data-button-loading'] !== undefined || props.$active) {
     return null;
   }
   
