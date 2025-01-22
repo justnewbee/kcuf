@@ -81,37 +81,3 @@ export const mixinLinkTertiary = css`
     color: var(--kcuf-color-link-tertiary-active, ${COLOR.LINK_TERTIARY_ACTIVE});
   }
 `;
-export const mixinLinkBrand = css`
-  color: var(--kcuf-color-link-brand, ${COLOR.LINK_BRAND});
-  ${linkCommon};
-  
-  &:visited {
-    color: var(--kcuf-color-link-brand-visited, ${COLOR.LINK_BRAND_VISITED});
-  }
-  
-  &:hover,
-  &:focus {
-    color: var(--kcuf-color-link-brand-hover, ${COLOR.LINK_BRAND_HOVER});
-  }
-  
-  &:active {
-    color: var(--kcuf-color-link-brand-active, ${COLOR.LINK_BRAND_ACTIVE});
-  }
-`;
-export const mixinLinkBrandSecondary = css`
-  color: var(--kcuf-color-link-brand-secondary, ${COLOR.LINK_BRAND_SECONDARY});
-  ${linkCommon};
-  
-  &:visited {
-    color: var(--kcuf-color-link-brand-secondary-visited, ${COLOR.LINK_BRAND_SECONDARY_VISITED});
-  }
-  
-  &:hover,
-  &:focus {
-    color: var(--kcuf-color-link-brand-secondary-hover, ${COLOR.LINK_BRAND_SECONDARY_HOVER});
-  }
-  
-  &:active {
-    color: var(--kcuf-color-link-brand-secondary-active, ${COLOR.LINK_BRAND_SECONDARY_ACTIVE});
-  }
-`;

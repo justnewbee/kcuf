@@ -7,24 +7,28 @@ import {
 import styled from 'styled-components';
 
 import {
-  SIZE
+  SIZE,
+  mixinInputBg,
+  mixinInputBgDisabled,
+  mixinInputBorder,
+  mixinInputBorderDisabled,
+  mixinInputBgFocus,
+  mixinInputBorderFocus,
+  mixinShadowMDown
 } from '@kcuf/fork-console-base-theme';
 import {
+  InputTextImperativeRef,
   useProps,
   useHovered,
   useFocused,
   useHandleMouseEnter,
-  useHandleMouseLeave, useImperativeRef,
-  InputSwitchImperativeRef
+  useHandleMouseLeave,
+  useImperativeRef
 } from '@kcuf-ui/rc-input-text-headless';
 
 import {
   IScInputProps
 } from '../types';
-import {
-  getStyledBorder,
-  getStyledShadow
-} from '../util';
 
 import AddonBefore from './addon-before';
 import AddonPrefix from './addon-prefix';
@@ -43,11 +47,22 @@ const ScUi = styled.div<IScInputProps>`
   box-sizing: border-box;
   font-size: ${SIZE.FONT_SIZE_BODY}px;
   transition: all 0.3s ease-out;
-  ${getStyledBorder}
-  ${getStyledShadow}
+  ${mixinInputBg}
+  ${mixinInputBorder}
+  
+  &:focus-within {
+    ${mixinInputBgFocus}
+    ${mixinInputBorderFocus}
+    ${mixinShadowMDown}
+  }
+  
+  &[data-disabled] {
+    ${mixinInputBgDisabled}
+    ${mixinInputBorderDisabled}
+  }
 `;
 
-function Ui(_props: unknown, ref: ForwardedRef<InputSwitchImperativeRef>): ReactElement {
+function Ui(_props: unknown, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
   const {
     fluid,
     round,
@@ -70,12 +85,10 @@ function Ui(_props: unknown, ref: ForwardedRef<InputSwitchImperativeRef>): React
     disabled,
     $fluid: fluid,
     $round: round,
-    // $weakFocusStyle: weakFocusStyle,
-    // $borderless: borderless,
     $hovered: hovered,
-    $focused: focused,
-    'data-hovered': hovered ? '' : undefined,
-    'data-focused': focused ? '' : undefined,
+    'data-hover': hovered ? '' : undefined,
+    'data-focus': focused ? '' : undefined,
+    'data-disabled': disabled ? '' : undefined,
     onMouseEnter: handleMouseEnter,
     onMouseLeave: handleMouseLeave
   }}>

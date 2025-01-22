@@ -10,7 +10,6 @@ import {
 } from '../enum';
 
 import {
-  TButtonIconSpacing,
   TButtonTextAlign
 } from './common';
 
@@ -39,10 +38,6 @@ export interface IButtonPropsCustom {
    */
   loading?: boolean;
   /**
-   * 定义 iconStart、iconEnd 与 label 之间的间距，默认 8，small 为 4，no 为 0
-   */
-  iconSpacing?: TButtonIconSpacing;
-  /**
    * 左侧图标
    *
    * 1. 如果 loading 中，渲染 Loading 图标
@@ -61,16 +56,9 @@ export interface IButtonPropsCustom {
    */
   textAlign?: TButtonTextAlign;
   /**
-   * 在有边框的时候，按钮默认会有个很小的圆角（2px），可以设置
-   * - true 默认
-   * - false 没有圆角
-   * - 'full' 两头圆角
+   * 两头圆形的按钮
    */
-  borderRadius?: boolean | 'full';
-  /**
-   * 去掉 `hover` 及 `active` 时的阴影（对非 tertiary 和 text）
-   */
-  noShadow?: boolean;
+  rounded?: boolean;
   /**
    * 是否显示全宽按钮
    */

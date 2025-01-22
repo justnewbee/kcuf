@@ -74,7 +74,7 @@ export default function FooterButton({
   
   return <ScButton {...{
     ...buttonProps as ButtonProps,
-    preset: primary ? ButtonPreset.PRIMARY : ButtonPreset.SECONDARY,
+    preset: primary ? ButtonPreset.PRIMARY : ButtonPreset.TERTIARY,
     onClick: handleClick
   }} />;
 }

@@ -2,8 +2,8 @@ import {
   IPropsDom
 } from '../types';
 
-import useModelProps from './_use-model-props';
+import usePropsCustomAndDom from './use-props-custom-and-dom';
 
 export default function usePropsDom(): IPropsDom {
-  return useModelProps()[1];
+  return usePropsCustomAndDom()[1];
 }

@@ -7,12 +7,12 @@ import {
   Button
 } from '@kcuf/demo-rc';
 
-import InputSwitch, {
-  InputSwitchRef
+import InputText, {
+  InputTextRef
 } from '../src';
 
 export default function StoryFocusing(): ReactElement {
-  const inputTextRef = useRef<InputSwitchRef>(null);
+  const inputTextRef = useRef<InputTextRef>(null);
   
   return <>
     <div>
@@ -47,6 +47,6 @@ export default function StoryFocusing(): ReactElement {
         onClick: () => inputTextRef.current?.selectText(1, 4)
       }} />
     </div>
-    <InputSwitch defaultValue="Kcuf InputSwitch rules" ref={inputTextRef} />
+    <InputText defaultValue="Kcuf InputText rules" ref={inputTextRef} />
   </>;
 }

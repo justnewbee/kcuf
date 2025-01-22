@@ -19,7 +19,6 @@ export default css`
   background: none;
   border: 1px solid transparent;
   box-sizing: border-box;
-  outline: none;
   color: inherit;
   font-family: inherit;
   font-size: inherit;
@@ -27,7 +26,12 @@ export default css`
   text-decoration: none;
   line-height: inherit;
   cursor: pointer;
-  transition: all ease-out 0.3s;
+  transition: all 400ms ease-in-out;
+  
+  &:focus-visible {
+    outline-offset: 1px;
+    transition: outline-offset ease-out 0.2s;
+  }
   
   &:hover,
   &:link:hover {

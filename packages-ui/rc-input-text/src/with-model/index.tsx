@@ -4,17 +4,17 @@ import {
   forwardRef
 } from 'react';
 
-import InputSwitchHeadless, {
-  InputSwitchProps,
-  InputSwitchImperativeRef
+import InputTextHeadless, {
+  InputTextProps,
+  InputTextImperativeRef
 } from '@kcuf-ui/rc-input-text-headless';
 
 import Ui from '../ui';
 
-function WithProvider(props: InputSwitchProps, ref: ForwardedRef<InputSwitchImperativeRef>): ReactElement {
-  return <InputSwitchHeadless {...props}>
+function WithProvider(props: InputTextProps, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
+  return <InputTextHeadless {...props}>
     <Ui ref={ref} />
-  </InputSwitchHeadless>;
+  </InputTextHeadless>;
 }
 
 export default forwardRef(WithProvider);

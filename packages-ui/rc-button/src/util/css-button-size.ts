@@ -29,11 +29,8 @@ const MAPPING: Record<ButtonSize, RuleSet | null> = {
 
 const THEMES_DEFAULT_SIZE_NONE = [
   ButtonPreset.NONE,
-  ButtonPreset.TEXT_PRIMARY,
-  ButtonPreset.TEXT_SECONDARY,
-  ButtonPreset.TEXT_TERTIARY,
-  ButtonPreset.TEXT_BRAND_PRIMARY,
-  ButtonPreset.TEXT_BRAND_SECONDARY
+  ButtonPreset.LINK,
+  ButtonPreset.TEXT
 ];
 
 export default function cssButtonSize(props: IScButtonProps): RuleSet | null {

@@ -10,14 +10,9 @@ import {
 const THEMES_NEED_BORDER: ButtonPreset[] = [
   ButtonPreset.DANGER,
   ButtonPreset.PRIMARY,
-  ButtonPreset.SECONDARY,
-  ButtonPreset.SECONDARY_ALT,
+  ButtonPreset.DEFAULT,
   ButtonPreset.TERTIARY,
-  ButtonPreset.TERTIARY_ALT,
-  ButtonPreset.BRAND_PRIMARY,
-  ButtonPreset.BRAND_SECONDARY,
-  ButtonPreset.BRAND_SECONDARY_ALT,
-  ButtonPreset.BRAND_TERTIARY
+  ButtonPreset.SECONDARY
 ];
 
 export default function isBorderless(props: IScButtonProps): boolean {

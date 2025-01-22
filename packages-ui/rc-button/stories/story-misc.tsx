@@ -2,11 +2,9 @@ import {
   ReactElement,
   useState
 } from 'react';
-import styled from 'styled-components';
 
 import {
-  H2,
-  InputSwitch
+  H2
 } from '@kcuf/demo-rc';
 import Icon from '@kcuf-ui/rc-icon';
 
@@ -14,22 +12,10 @@ import Button, {
   ButtonPreset
 } from '../src';
 
-const ScButtonThemes = styled(Button)`
-  margin: 2px;
-`;
-
-export default function DemoDefault(): ReactElement {
+export default function StoryMisc(): ReactElement {
   const [stateDom, setStateDom] = useState<HTMLElement | null>(null);
-  const [stateDisabled, setStateDisabled] = useState(false);
-  const [stateLoading, setStateLoading] = useState(false);
   
   return <>
-    {/* <ComponentTesting<ButtonProps> {...{ */}
-    {/*   componentName: 'Button', */}
-    {/*   componentPackageName: '@kcuf-ui/rc-button', */}
-    {/*   defaultProps: DEFAULT_PROPS, */}
-    {/*   renderer */}
-    {/* }} /> */}
     <H2>Ref Works Right</H2>
     <Button {...{
       ref: setStateDom,
@@ -40,25 +26,6 @@ export default function DemoDefault(): ReactElement {
         console.info(stateDom);
       }
     }} />
-    <H2>All Presets</H2>
-    <div>
-      <InputSwitch {...{
-        label: 'props.disabled',
-        value: stateDisabled,
-        onChange: setStateDisabled
-      }} />
-      <InputSwitch {...{
-        label: 'props.loading',
-        value: stateLoading,
-        onChange: setStateLoading
-      }} />
-    </div>
-    {Object.entries(ButtonPreset).map(([k, v]) => <ScButtonThemes key={k} {...{
-      preset: v,
-      label: v,
-      disabled: stateDisabled,
-      loading: stateLoading
-    }} />)}
     <H2>垂直对齐 IconStart / IconEnd</H2>
     <Button {...{
       iconStart: ' ',
@@ -80,9 +47,18 @@ export default function DemoDefault(): ReactElement {
     }} />
     <H2>Loading</H2>
     <Button loading>Loading</Button>
+    <H2>Ellipsis</H2>
+    <div style={{ border: '1px solid red', width: '200px' }}>
+      <Button>a normal button will ellipsis no matter what</Button>
+      <Button loading>a loading button will ellipsis too</Button>
+      <Button iconStart={<Icon type="search" />}>a button with icon will ellipsis too</Button>
+      <Button iconEnd={<Icon type="search" />}>a button with icon will ellipsis too</Button>
+      <Button iconStart={<Icon type="search" />} iconEnd={<Icon type="search" />}>a button with icon will ellipsis too</Button>
+    </div>
+    <Button fluid>a fluid button will ellipsis too nevertheless, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, architecto aut debitis delectus dignissimos distinctio dolores doloribus excepturi fugit inventore ipsa iste quod repellat rerum sapiente sequi soluta sunt velit!</Button>
     <H2>fluid & text-align</H2>
-    <Button fluid loading textAlign="l">textAlign: l</Button>
-    <Button fluid loading textAlign="c">textAlign: c</Button>
-    <Button fluid loading textAlign="r">textAlign: r</Button>
+    <Button fluid textAlign="l">textAlign: l</Button>
+    <Button fluid textAlign="c">textAlign: c</Button>
+    <Button fluid textAlign="r">textAlign: r</Button>
   </>;
 }

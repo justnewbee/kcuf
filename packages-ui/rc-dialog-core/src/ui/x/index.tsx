@@ -43,7 +43,7 @@ export default function X(): ReactElement | null {
     $mode: dialogMode,
     label: <Icon type="close" />,
     title: '关闭',
-    preset: ButtonPreset.TEXT_TERTIARY,
+    preset: ButtonPreset.TEXT,
     size: ButtonSize.NONE,
     disabled: locked !== DialogLockState.NO,
     onClick: dispatchClose

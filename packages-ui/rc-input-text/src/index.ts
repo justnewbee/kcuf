@@ -1,6 +1,6 @@
 export { default } from './with-model';
 
 export type {
-  InputSwitchProps,
-  InputSwitchImperativeRef as InputSwitchRef
+  InputTextProps,
+  InputTextImperativeRef as InputTextRef
 } from '@kcuf-ui/rc-input-text-headless';

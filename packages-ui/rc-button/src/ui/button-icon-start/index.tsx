@@ -4,7 +4,7 @@ import {
 
 import Icon from '@kcuf-ui/rc-icon';
 import {
-  usePropsCustom
+  useProps
 } from '@kcuf-ui/rc-button-headless';
 
 import {
@@ -15,12 +15,9 @@ import ButtonIconWrapper from '../button-icon-wrapper';
 export default function ButtonIconStart(): ReactElement | null {
   const {
     loading,
-    iconSpacing,
     iconStart
-  } = usePropsCustom();
+  } = useProps();
   const jsxIcon = loading ? <Icon type="loading" /> : renderIcon(iconStart);
   
-  return jsxIcon ? <ButtonIconWrapper {...{
-    iconSpacing
-  }}>{jsxIcon}</ButtonIconWrapper> : null;
+  return jsxIcon ? <ButtonIconWrapper>{jsxIcon}</ButtonIconWrapper> : null;
 }

@@ -11,8 +11,9 @@ import {
 } from '@kcuf/styled-mixin';
 import {
   ButtonProps,
-  usePropsCustom,
-  usePropsDom
+  useProps,
+  useButtonDomProps,
+  useButtonLabel
 } from '@kcuf-ui/rc-button-headless';
 
 import {
@@ -22,8 +23,8 @@ import {
   isBorderless,
   getStyleTextAlign,
   cssButtonPreset,
-  cssButtonSize,
-  cssButtonShadow
+  cssButtonSize
+  // cssButtonShadow
 } from '../util';
 
 import ButtonIconStart from './button-icon-start';
@@ -34,15 +35,15 @@ const ScInnerLabel = styled.span`
 `;
 
 function getStyleBorderRadius(props: IScButtonProps): string {
-  if (isBorderless(props) || !props.$borderRadius) {
+  if (isBorderless(props)) {
     return '0';
   }
   
-  return props.$borderRadius === 'full' ? '100px' : '2px';
+  return '2px';
 }
 
 const ScButton = styled(ScBaseButton)<Partial<ButtonProps>>`
-  overflow: hidden;
+  gap: 0.5rem;
   border: ${props => isBorderless(props) ? 'none' : '1px solid transparent'};
   border-radius: ${getStyleBorderRadius};
   text-align: ${getStyleTextAlign};
@@ -50,13 +51,18 @@ const ScButton = styled(ScBaseButton)<Partial<ButtonProps>>`
   ${mixinTypoEllipsis}
   ${cssButtonPreset}
   ${cssButtonSize}
-  ${cssButtonShadow}
   
-  &[data-button-loading] {
+  &[data-loading] {
+    opacity: 0.65;
     cursor: default;
   }
   
-  &[data-button-fluid] {
+  &[disabled],
+  &[data-disabled] {
+    opacity: 0.35;
+  }
+  
+  &[data-fluid] {
     display: flex;
     width: 100%;
   }
@@ -64,41 +70,25 @@ const ScButton = styled(ScBaseButton)<Partial<ButtonProps>>`
 
 function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
   const {
-    label,
-    iconStart,
-    iconEnd,
-    loading,
     component,
     preset,
     size,
-    noShadow,
     textAlign,
-    borderRadius,
-    fluid,
     active
-  } = usePropsCustom();
-  const {
-    children,
-    ...propsDom
-  } = usePropsDom();
-  const jsxLabel = label || children; // label prior to children
+  } = useProps();
+  const buttonDomProps = useButtonDomProps();
+  const label = useButtonLabel();
   
   return <ScButton ref={ref} as={component} {...{
     $preset: preset,
     $size: size,
-    $noShadow: noShadow,
     $textAlign: textAlign,
-    $borderRadius: borderRadius,
     $active: active,
-    ...propsDom,
-    'data-button-loading': loading ? '' : undefined,
-    'data-button-fluid': fluid ? '' : undefined
+    ...buttonDomProps
   }}>
-    {iconStart || iconEnd || loading ? <>
-      <ButtonIconStart />
-      {jsxLabel ? <ScInnerLabel>{jsxLabel}</ScInnerLabel> : null}
-      <ButtonIconEnd />
-    </> : jsxLabel}
+    <ButtonIconStart />
+    {label ? <ScInnerLabel>{label}</ScInnerLabel> : null}
+    <ButtonIconEnd />
   </ScButton>;
 }
 

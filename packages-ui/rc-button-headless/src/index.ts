@@ -8,7 +8,6 @@ export {
 } from './enum';
 
 export type {
-  TButtonIconSpacing as ButtonIconSpacing,
   TButtonTextAlign as ButtonTextAlign,
   IModelProps as ButtonProps
 } from './types';

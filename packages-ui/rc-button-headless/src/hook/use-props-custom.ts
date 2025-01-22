@@ -2,8 +2,8 @@ import {
   IButtonPropsCustom
 } from '../types';
 
-import useModelProps from './_use-model-props';
+import usePropsCustomAndDom from './use-props-custom-and-dom';
 
 export default function usePropsCustom(): IButtonPropsCustom {
-  return useModelProps()[0];
+  return usePropsCustomAndDom()[0];
 }

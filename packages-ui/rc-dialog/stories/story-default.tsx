@@ -17,7 +17,7 @@ import Dialog, {
   confirm
 } from '../src';
 
-export default function DemoDefault(): ReactElement {
+export default function StoryDefault(): ReactElement {
   const [stateYes, setStateYes] = useState<boolean>(false);
   
   return <>

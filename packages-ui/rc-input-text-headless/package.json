@@ -1,7 +1,7 @@
 {
   "name": "@kcuf-ui/rc-input-text-headless",
   "version": "0.0.0",
-  "description": "React headless InputSwitch component.",
+  "description": "React headless InputText component.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,

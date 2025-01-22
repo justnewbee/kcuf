@@ -24,4 +24,5 @@ export const Default = {
   }
 } satisfies TStory;
 
+export { default as Variant } from './story-variant';
 export { default as Misc } from './story-misc';

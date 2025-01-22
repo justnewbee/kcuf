@@ -1,4 +1,6 @@
-// 预设大小
+/**
+ * 预设大小
+ */
 export enum EButtonSize {
   NONE = 'none',
   XS = 'xs',
@@ -8,24 +10,29 @@ export enum EButtonSize {
   XL = 'xl'
 }
 
+/**
+ * 按钮层级
+ */
+export enum EButtonVariant {
+  /**
+   * 默认按钮
+   */
+  DEFAULT = 'default',
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+  TERTIARY = 'tertiary'
+}
+
 // TODO 拆成 如下
 //  color: default | primary | secondary | tertiary | danger
 //  variant: ghost | outline | solid | link | none
 export enum EButtonPreset {
   NONE = 'none',
-  DANGER = 'danger',
+  DEFAULT = 'default',
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
-  SECONDARY_ALT = 'secondary-alt', // 空心
   TERTIARY = 'tertiary',
-  TERTIARY_ALT = 'tertiary-alt',
-  BRAND_PRIMARY = 'brand-primary',
-  BRAND_SECONDARY = 'brand-secondary',
-  BRAND_SECONDARY_ALT = 'brand-secondary-alt', // 空心
-  BRAND_TERTIARY = 'brand-tertiary',
-  TEXT_PRIMARY = 'text-primary',
-  TEXT_SECONDARY = 'text-secondary',
-  TEXT_TERTIARY = 'text-tertiary',
-  TEXT_BRAND_PRIMARY = 'text-brand-primary',
-  TEXT_BRAND_SECONDARY = 'text-brand-secondary'
+  DANGER = 'danger',
+  LINK = 'link',
+  TEXT = 'text'
 }

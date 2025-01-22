@@ -6,7 +6,6 @@ export {
 } from '@kcuf-ui/rc-button-headless';
 
 export type {
-  ButtonIconSpacing,
   ButtonTextAlign,
   ButtonProps
 } from '@kcuf-ui/rc-button-headless';

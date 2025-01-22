@@ -33,14 +33,27 @@ tags:
 ### 变体
 
 ```tsx live
-<>
-  <Button preset="primary">primary</Button>
-  <Button preset="secondary">secondary</Button>
-  <Button preset="tertiary">tertiary</Button>
-  <Button preset="text">text</Button>
-  <Button preset="text-primary">text-primary</Button>
-  <Button preset="text-secondary">text-secondary</Button>
-</>
+function DemoVariant(): ReactElement {
+  const [stateDisabled, setStateDisabled] = useState(false);
+  const [stateLoading, setStateLoading] = useState(false);
+  const VARIANTS = ['none', 'danger', 'primary', 'secondary', 'secondary-alt', 'tertiary', 'tertiary-alt', 'brand-primary', 'brand-secondary', 'brand-secondary-alt', 'brand-tertiary', 'text-primary', 'text-secondary', 'text-tertiary', 'text-brand-primary', 'text-brand-secondary'];
+  
+  return <>
+    <InputSwitch {...{
+      label: 'disabled',
+      value: stateDisabled,
+      onChange: setStateDisabled
+    }} />
+    <InputSwitch {...{
+      label: 'loading',
+      value: stateLoading,
+      onChange: setStateLoading
+    }} />
+    <div>
+      {VARIANTS.map(v => <Button key={v} preset={v} disabled={stateDisabled} loading={stateLoading}>{v}</Button>)}
+    </div>
+  </>
+}
 ```
 
 ### 禁用状态
@@ -99,19 +112,17 @@ import Icon, {
 | `href` | `string` |  |
 | `target` | `HTMLAttributeAnchorTarget` |  |
 | `download` | `string \| boolean` |  |
-| `component` | `a \| span \| div"` | 理论上 `button` 不能包含 `button` 和 `a`，`a` 不能包含 `a`，若视觉上有这样的场景，可用该属性 |
+| `component` | `a \| span \| div` | 理论上 `button` 不能包含 `button` 和 `a`，`a` 不能包含 `a`，若视觉上有这样的场景，可用该属性 |
 | `label` | `string \| ReactElement` | or you can use `children` instead, but prefer this way |
 | `title` | `string \| boolean` | 为 `true` 时，使用 label（如果它是 string 的话）作为 title |
 | `loading` <TagDefault>false</TagDefault> | `boolean` | 在按钮左侧展示 loading 图标，比 iconStart 优先级高 |
-| `iconSpacing` | `TButtonIconSpacing` | 定义 `iconStart`、`iconEnd` 与 `label` 之间的间距，默认 8，`small` 为 4，`no` 为 0 |
-| `iconStart` | `ReactElement \| " "` | 左侧图标<br /><br />1. 如果 loading 中，渲染 Loading 图标<br />2. 如果是一个空格，则渲染一个占位（为保持图标在视觉上的垂直对齐）<br />3. 否则渲染组件 |
+| `iconStart` | `ReactElement \| ' '` | 左侧图标<br /><br />1. 如果 loading 中，渲染 Loading 图标<br />2. 如果是一个空格，则渲染一个占位（为保持图标在视觉上的垂直对齐）<br />3. 否则渲染组件 |
 | `iconEnd` | `ReactElement` | 右侧图标，类上 |
 | `preset` | `none \| danger \| primary \| secondary \| secondary-alt \| tertiary \| tertiary-alt \| brand-primary \| brand-secondary \| ... 6 more ... \| text-brand-secondary` |  |
-| `size` | `none \| xs \| s \| m \| l \| xl"` |  |
+| `size` | `none \| xs \| s \| m \| l \| xl` |  |
 | `textAlign` | `TButtonTextAlign` | a button is by default center aligned (`align` is a deprecated HTML attribute) |
 | `cursor` | `string` |  |
 | `borderRadius` | `boolean \| full` | 在有边框的时候，按钮默认会有个很小的圆角（2px），可以设置<br />- true 默认<br />- false 没有圆角<br />- 'full' 两头圆角 |
-| `noShadow` <TagDefault>false</TagDefault> | `boolean` | 是否去掉 `hover` 及 `active` 时的阴影（对非 tertiary 和 text） |
 | `fluid` <TagDefault>false</TagDefault> | `boolean` | 是否显示全宽按钮 |
 | `active` <TagDefault>false</TagDefault> | `boolean` | 是否将状态锁定在 `active` 状态 |
 
@@ -134,7 +145,7 @@ import Icon, {
 
 | Lib | 参考值 | 名称 | 归类 | 备注 |
 | --- | --- | --- | --- | --- |
-| [align](https://www.alignui.com/docs/ui/button) | ★★★☆ | `Button` | `Actions` | `variant: primary\| neutral \| error"`<br />`mode: filled\| stroke \| lighter \| ghost` |
+| [align](https://www.alignui.com/docs/ui/button) | ★★★☆ | `Button` | `Actions` | `variant: primary \| neutral \| error`<br />`mode: filled \| stroke \| lighter \| ghost` |
 | [antd](https://ant.design/components/button) | ★★★☆ | Button | `General` | `variant: outlined \| dashed \| solid \| filled \| text \| link`<br />`type: primary \| dashed \| link \| text \| default`<br />`color: default \| primary \| danger \| PresetColors` |
 | [atlassian](https://atlassian.design/components/button/examples) | ★★★ | `Button` | `Forms and input` | `appearance: default \| danger \| primary \| subtle \| warning \| discovery` |
 | [baklava](https://baklava.design/?path=/docs/components-button--documentation) | ★★★☆ | `Button` | - | `variant: primary \| secondary \| tertiary`<br />`kind: default \| neutral \| success \| danger` |
@@ -151,7 +162,7 @@ import Icon, {
 | [fusion](https://fusion.design/pc/component/button) | ★★★☆ | `Button` | `General` | `type: primary \| secondary \| normal`<br />`ghost: boolean`<br />`text: boolean` |
 | [garden](https://garden.zendesk.com/components/button) | ★☆ | `Button` | - | `type: default \| primary \| basic`<br />`danger: boolean` |
 | [headless](https://headlessui.com/react/button) | ★ | `Button` | `Forms` | |
-| [hero](https://www.heroui.com/docs/components/button) | ★★★☆ | `Button` | - | `color: default \| primary \| secondary \| success \| warning \| danger`<br />`variant: solid \| bordered \| light \| flat \| faded \| shadow \| ghost` |
+| [hero](https://www.heroui.com/docs/components/button) | ★★★☆ | `Button` | - | `variant: solid \| bordered \| light \| flat \| faded \| shadow \| ghost`<br />`color: default \| primary \| secondary \| success \| warning \| danger` |
 | [hyper](https://www.hyperui.dev/components/marketing/buttons) | ★★ | `Button` | - | |
 | [instructure](https://instructure.design/#Button) | ★★★ | `Button` | - | `color` |
 | [ionic](https://ionicframework.com/docs/api/buttons) | ★★ | `Button` | - | |

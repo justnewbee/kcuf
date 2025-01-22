@@ -3,7 +3,7 @@ import {
 } from 'react';
 
 import {
-  usePropsCustom
+  useProps
 } from '@kcuf-ui/rc-button-headless';
 
 import {
@@ -13,12 +13,9 @@ import ButtonIconWrapper from '../button-icon-wrapper';
 
 export default function ButtonIconEnd(): ReactElement | null {
   const {
-    iconSpacing,
     iconEnd
-  } = usePropsCustom();
+  } = useProps();
   const jsxIcon = renderIcon(iconEnd);
   
-  return jsxIcon ? <ButtonIconWrapper {...{
-    iconSpacing
-  }}>{jsxIcon}</ButtonIconWrapper> : null;
+  return jsxIcon ? <ButtonIconWrapper>{jsxIcon}</ButtonIconWrapper> : null;
 }

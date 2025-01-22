@@ -1,4 +1,4 @@
-import InputSwitch from '../src';
+import InputText from '../src';
 
 import {
   TMeta,
@@ -6,8 +6,8 @@ import {
 } from './types';
 
 const meta = {
-  title: 'InputSwitch',
-  component: InputSwitch,
+  title: 'InputText',
+  component: InputText,
   parameters: {
     layout: 'padded'
   },
@@ -16,7 +16,16 @@ const meta = {
 
 export default meta;
 
-export const Primary: TStory = {};
+export const Default: TStory = {
+  args: {
+    addonBefore: '',
+    addonAfter: '',
+    addonPrefix: '',
+    addonSuffix: '',
+    placeholder: '',
+    disabled: false
+  }
+};
 
 export const Anatomy: TStory = {
   args: {
