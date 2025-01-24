@@ -25,7 +25,7 @@ export enum EButtonVariant {
 
 // TODO 拆成 如下
 //  color: default | primary | secondary | tertiary | danger
-//  variant: ghost | outline | solid | link | none
+//  variant: ghost | outline | solid | text | none
 export enum EButtonPreset {
   NONE = 'none',
   DEFAULT = 'default',

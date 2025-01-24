@@ -20,6 +20,7 @@ export default meta;
 
 export const Primary: TStory = {
   args: {
+    title: 'I Do NOT have a Title',
     children: 'Alert'
   }
 };

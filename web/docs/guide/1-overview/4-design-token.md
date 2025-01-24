@@ -76,9 +76,13 @@ Design Token 是记录可重复使用的设计决策的键值对，如颜色、�
 
 ### Size modifiers
 
+## All tokens
+
+参考 [all-tokens](https://atlassian.design/components/tokens/all-tokens)
+
 ## 参考
 
-| Lib | 参考值 | 备注 |
+| Lib | 推荐 | 备注 |
 | --- | --- | --- |
 | [antd](https://ant.design/docs/react/customize-theme) | ★★ | |
 | [atlassian](https://atlassian.design/tokens/design-tokens) | ★★★★ | |

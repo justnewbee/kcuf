@@ -1,0 +1,5 @@
+export enum EAction {
+  TOGGLE_DARK,
+  TOGGLE_TEXT,
+  TOGGLE_GRAYSCALE
+}

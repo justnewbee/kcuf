@@ -20,7 +20,6 @@ import {
 // 不能将几个选择器合一起写，会不生效，只能冗余一份
 const ScInputRange = styled.input`
   margin: 2px 1px;
-  width: 100%;
   height: 24px;
   appearance: none;
   

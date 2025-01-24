@@ -17,6 +17,7 @@ import {
 
 const ScIcon = styled.i<IScIconBaseProps>`
   font-family: ${props => props.$fontFamily} !important;
+  line-height: 1.1;
   ${props => props.$color ? css`
     color: ${props.$color} !important;
   ` : null}
@@ -39,7 +40,6 @@ const ScIcon = styled.i<IScIconBaseProps>`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: auto;
-    line-height: 1;
     vertical-align: baseline;
     -webkit-text-stroke-width: 0.2px; /* stylelint-disable-line */
     transition: all linear 200ms;

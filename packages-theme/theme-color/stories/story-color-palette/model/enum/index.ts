@@ -1,0 +1,6 @@
+export enum EAction {
+  SET_DARK,
+  SET_SATURATION,
+  SET_HUE_OFFSET,
+  SET_SELECTED_HUE_LIGHTNESS
+}
