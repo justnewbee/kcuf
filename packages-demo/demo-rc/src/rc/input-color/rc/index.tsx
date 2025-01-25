@@ -68,6 +68,7 @@ function composeHexa(hex: string, alpha: number): string {
 }
 
 function InputColor({
+  withAlpha,
   value,
   defaultValue,
   onChange,
@@ -97,12 +98,12 @@ function InputColor({
         onChange: handleHexChange
       }} ref={ref} />
     </ScInputColorWrap>
-    <InputRange {...{
+    {withAlpha ? <InputRange {...{
       min: 0,
       max: 255,
       value: alpha,
       onChange: handleAlphaChange
-    }} />
+    }} /> : null}
   </ScInputColor>;
 }
 

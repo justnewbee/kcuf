@@ -23,13 +23,13 @@
     "access": "public"
   },
   "devDependencies": {
-    "eslint": "^9.18.0"
+    "eslint": "^9.19.0"
   },
   "peerDependencies": {
     "eslint": ">=9"
   },
   "dependencies": {
-    "@eslint/js": "^9.18.0",
+    "@eslint/js": "^9.19.0",
     "@stylistic/eslint-plugin": "^2.13.0",
     "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-import": "^2.31.0",

@@ -1,3 +1,4 @@
+export { default as Colored } from './colored';
 export { default as TagRequired } from './tag-required';
 export { default as TagReadonly } from './tag-readonly';
 export { default as TagTodo } from './tag-todo';

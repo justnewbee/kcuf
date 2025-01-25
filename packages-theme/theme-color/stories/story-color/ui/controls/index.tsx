@@ -9,13 +9,15 @@ import {
 import {
   useStateDark,
   useStateText,
-  useStateGrayscale
+  useStatePolishedGrayscale,
+  useStatePolishedInvert
 } from '../../model';
 
-export default function Toggles(): ReactElement {
+export default function Controls(): ReactElement {
   const [dark, toggleDark] = useStateDark();
   const [text, toggleText] = useStateText();
-  const [grayscale, toggleGrayscale] = useStateGrayscale();
+  const [polishedGrayscale, togglePolishedGrayscale] = useStatePolishedGrayscale();
+  const [polishedInvert, togglePolishedInvert] = useStatePolishedInvert();
   
   return <>
     <InputSwitch {...{
@@ -29,9 +31,14 @@ export default function Toggles(): ReactElement {
       onChange: toggleText
     }} />
     <InputSwitch {...{
-      label: 'Grayscale',
-      value: grayscale,
-      onChange: toggleGrayscale
+      label: 'grayscale',
+      value: polishedGrayscale,
+      onChange: togglePolishedGrayscale
+    }} />
+    <InputSwitch {...{
+      label: 'invert',
+      value: polishedInvert,
+      onChange: togglePolishedInvert
     }} />
   </>;
 }

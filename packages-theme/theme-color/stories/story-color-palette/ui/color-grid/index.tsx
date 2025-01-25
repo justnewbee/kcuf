@@ -8,6 +8,10 @@ import {
 import styled from 'styled-components';
 
 import {
+  ColorBlockBase,
+  ColorBlockGrid
+} from '../../../rc';
+import {
   HUE_LEVELS,
   LIGHTNESS_LEVELS,
   useStateHueOffset,
@@ -15,23 +19,7 @@ import {
   useGetHslColorString
 } from '../../model';
 
-const ScColorGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(${HUE_LEVELS.length}, 1fr);
-  gap: 4px;
-  margin: 8px 0;
-`;
-
-const ScColorBlockBase = styled.div`
-  height: 30px;
-  border-radius: 2px;
-  text-align: center;
-  line-height: 30px;
-  cursor: default;
-  transition: all 100ms ease;
-`;
-
-const ScColorBlock = styled(ScColorBlockBase)`
+const ScColorBlock = styled(ColorBlockBase)`
   font-size: 1.2rem;
 `;
 
@@ -40,8 +28,8 @@ export default function ColorGrid(): ReactElement {
   const [hueOffset] = useStateHueOffset();
   const getHslColorString = useGetHslColorString();
   
-  return <ScColorGrid>
-    {HUE_LEVELS.map(hue => <ScColorBlockBase key={hue}>{hue + hueOffset}</ScColorBlockBase>)}
+  return <ColorBlockGrid $repeat={HUE_LEVELS.length}>
+    {HUE_LEVELS.map(hue => <ColorBlockBase key={hue}>{hue + hueOffset}</ColorBlockBase>)}
     {LIGHTNESS_LEVELS.map(lightness => <Fragment key={lightness}>
       {HUE_LEVELS.map(hue => {
         const color = getHslColorString(hue, lightness);
@@ -55,5 +43,5 @@ export default function ColorGrid(): ReactElement {
         }}>{selection?.[0] === hue && selection?.[1] === lightness ? '❍' : null}</ScColorBlock>;
       })}
     </Fragment>)}
-  </ScColorGrid>;
+  </ColorBlockGrid>;
 }

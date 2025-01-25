@@ -1,15 +1,16 @@
-import _round from 'lodash/round';
 import {
   parseToHsl
 } from 'polished';
 
-function percentage(p: number): string {
-  return `${_round(p * 100, 1)}%`;
-}
+import {
+  HslColorString,
+  HslaColorString
+} from '../../src';
 
-export default function toHslColorString(color: string): string {
+import composeHslColorString from './compose-hsl-color-string';
+
+export default function toHslColorString(color: string): HslColorString | HslaColorString {
   const hsl = parseToHsl(color);
-  const str = `${_round(hsl.hue, 1)} ${percentage(hsl.saturation)} ${percentage(hsl.lightness)}`;
   
-  return `hsl(${'alpha' in hsl ? `${str} / ${percentage(hsl.alpha)}` : str})`;
+  return composeHslColorString(hsl.hue, hsl.saturation, hsl.lightness, 'alpha' in hsl ? hsl.alpha : undefined);
 }

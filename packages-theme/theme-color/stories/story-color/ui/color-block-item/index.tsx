@@ -2,12 +2,13 @@ import {
   ReactElement
 } from 'react';
 import {
-  grayscale as polishedGrayscale
+  grayscale,
+  invert
 } from 'polished';
 
 import {
-  Hsl,
-  Hsla
+  HslColorString,
+  HslaColorString
 } from '../../../../src';
 import {
   ColorBlock
@@ -15,13 +16,12 @@ import {
 import {
   useStateDark,
   useStateText,
-  useStateGrayscale
+  useStatePolishedGrayscale,
+  useStatePolishedInvert
 } from '../../model';
 
 interface IProps {
-  color: Hsl | Hsla;
-  text?: boolean;
-  dark?: boolean;
+  color: HslColorString | HslaColorString;
 }
 
 export default function ColorBlockItem({
@@ -29,10 +29,21 @@ export default function ColorBlockItem({
 }: IProps): ReactElement {
   const [dark] = useStateDark();
   const [text] = useStateText();
-  const [grayscale] = useStateGrayscale();
+  const [polishedGrayscale] = useStatePolishedGrayscale();
+  const [polishedInvert] = useStatePolishedInvert();
+  
+  let color: string = color0;
+  
+  if (polishedGrayscale) {
+    color = grayscale(color0);
+  }
+  
+  if (polishedInvert) {
+    color = invert(color0);
+  }
   
   return <ColorBlock {...{
-    color: grayscale ? polishedGrayscale(color0) : color0,
+    color,
     dark,
     text
   }} />;

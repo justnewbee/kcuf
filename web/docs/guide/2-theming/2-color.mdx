@@ -16,22 +16,20 @@ title: Color
 
 ### 色相 Hue
 
-蓝 > 红 > 绿 > 黄
-
 | 颜色 | HSL | HEX | Contrast |
 | --- | --- | --- | --- |
-| <strong style={{color: 'hsl(0 100% 50%)'}}>█ Red</strong> | `hsl(0 100% 50%)` | `#f00` | 3.99 / AALarge |
-| <strong style={{color: 'hsl(30 100% 50%)'}}>█ Orange</strong> | `hsl(30 100% 50%)` | `#ff8000` | 2.52 |
-| <strong style={{color: 'hsl(60 100% 50%)'}}>█ Yellow</strong> | `hsl(60 100% 50%)` | `#ff0` | 1.07 |
-| <strong style={{color: 'hsl(90 100% 50%)'}}>█ Lime</strong> | `hsl(90 100% 50%)` | `#80ff00` | 1.29 |
-| <strong style={{color: 'hsl(120 100% 50%)'}}>█ Green</strong> | `hsl(120 100% 50%)` | `#0f0` | 1.37 |
-| <strong style={{color: 'hsl(150 100% 50%)'}}>█ Emerald</strong> | `hsl(150 100% 50%)` | `#00ff80` | 1.34 |
-| <strong style={{color: 'hsl(180 100% 50%)'}}>█ Cyan</strong> | `hsl(180 100% 50%)` | `#0ff` | 1.25 |
-| <strong style={{color: 'hsl(210 100% 50%)'}}>█ Sky</strong> | `hsl(210 100% 50%)` | `#0080ff` | 3.79 / AALarge |
-| <strong style={{color: 'hsl(240 100% 50%)'}}>█ Blue</strong> | `hsl(240 100% 50%)` | `#00f` | 8.61 / AAA |
-| <strong style={{color: 'hsl(270 100% 50%)'}}>█ Indigo</strong> | `hsl(270 100% 50%)` | `#8000ff` | 6.25 / AA |
-| <strong style={{color: 'hsl(300 100% 50%)'}}>█ Violet</strong> | `hsl(300 100% 50%)` | `#f0f` | 3.13 / AALarge |
-| <strong style={{color: 'hsl(330 100% 50%)'}}>█ Fuchsia</strong> | `hsl(330 100% 50%)` | `#ff0080` | 3.78 / AALarge |
+| <C color="hsl(0 100% 50%)">● Red</C> | `hsl(0 100% 50%)` | `#f00` | 3.99 / AALarge |
+| <C color="hsl(30 100% 50%)">● Orange</C> | `hsl(30 100% 50%)` | `#ff8000` | 2.52 |
+| <C color="hsl(60 100% 50%)">● Yellow</C> | `hsl(60 100% 50%)` | `#ff0` | 1.07 |
+| <C color="hsl(90 100% 50%)">● Lime</C> | `hsl(90 100% 50%)` | `#80ff00` | 1.29 |
+| <C color="hsl(120 100% 50%)">● Green</C> | `hsl(120 100% 50%)` | `#0f0` | 1.37 |
+| <C color="hsl(150 100% 50%)">● Emerald</C> | `hsl(150 100% 50%)` | `#00ff80` | 1.34 |
+| <C color="hsl(180 100% 50%)">● Cyan</C> | `hsl(180 100% 50%)` | `#0ff` | 1.25 |
+| <C color="hsl(210 100% 50%)">● Sky</C> | `hsl(210 100% 50%)` | `#0080ff` | 3.79 / AALarge |
+| <C color="hsl(240 100% 50%)">● Blue</C> | `hsl(240 100% 50%)` | `#00f` | 8.61 / AAA |
+| <C color="hsl(270 100% 50%)">● Indigo</C> | `hsl(270 100% 50%)` | `#8000ff` | 6.25 / AA |
+| <C color="hsl(300 100% 50%)">● Violet</C> | `hsl(300 100% 50%)` | `#f0f` | 3.13 / AALarge |
+| <C color="hsl(330 100% 50%)">● Fuchsia</C> | `hsl(330 100% 50%)` | `#ff0080` | 3.78 / AALarge |
 
 ### 饱和度 Saturation
 
@@ -61,39 +59,53 @@ title: Color
 
 ## 灰色
 
-> 灰色多作文字、背景、边框
+:::note
+灰色多作文字、背景、边框。灰色也可以有变体，但推荐中性色，需遵循下表中 Contrast 规范。
+:::
 
 对比了几个 11、12 阶色盘后，`kcuf-ui` 借鉴了 [fluent](https://fluent2.microsoft.design/color) 的灰色色阶。
 
-| # | Css Var  | Contrast | 作用 |
-| ---- |---| ---- | ---- |
-| 0 | `-kc-gray-0` | 1.00 | （白色）背景层级 1 |
-| 1 | `-kc-gray-1` | 1.01-1.04 | 背景层级 2 |
-| 2 | `-kc-gray-2` | 1.07-1.08 | 背景层级 3（默认） |
-| 3 | `-kc-gray-3` | 1.14-1.15 | 背景层级 4 / 装饰性边框，用于非重要元素 |
-| 4 | `-kc-gray-4` | 1.19-1.21 | 装饰性边框，用于非重要元素 |
-| 5 | `-kc-gray-5` | 1.33-1.35 | 装饰性边框，用于非重要元素 / 组件边框，如表单控件 |
-| 6 | `-kc-gray-6` | 1.5-1.53 | 组件边框，如表单控件 |
-| 7 | `-kc-gray-7` | 1.88-1.9 | 禁用文字（不需满足 WCAG） |
-| 8 | `-kc-gray-8` | 5.1-5.2 AA✓ | 文字（三级） |
-| 9 | `-kc-gray-9` | 6.4-6.6 AA✓ | 文字（次级） |
-| 10 | `-kc-gray-10` | 10-10.4 AAA✓ | 文字（默认） |
-| 11 | `-kc-gray-11` | 15.3-15.7 AAA✓ | 标题文字 |
-| 12 | `-kc-gray-12` | 21.00 AAA✓ | （黑色）保留 |
+| # | Css Var  | Contrast / White | Contrast / Black | 作用 |
+| ---- |---| ---- | --- | ---- |
+| 0 | `-kc-gray-0` | 1.00 | <TagTodo /> | （白色）背景层级 1 |
+| 1 | `-kc-gray-1` | 1.01-1.04 | <TagTodo /> | 背景层级 2 |
+| 2 | `-kc-gray-2` | 1.07-1.08 | <TagTodo /> | 背景层级 3（默认） |
+| 3 | `-kc-gray-3` | 1.14-1.15 | <TagTodo /> | 背景层级 4 / 装饰性边框，用于非重要元素 |
+| 4 | `-kc-gray-4` | 1.19-1.21 | <TagTodo /> | 装饰性边框，用于非重要元素 |
+| 5 | `-kc-gray-5` | 1.33-1.35 | <TagTodo /> | 装饰性边框，用于非重要元素 / 组件边框，如表单控件 |
+| 6 | `-kc-gray-6` | 1.5-1.53 | <TagTodo /> | 组件边框，如表单控件 |
+| 7 | `-kc-gray-7` | 1.88-1.9 | <TagTodo /> | 禁用文字（不需满足 WCAG） |
+| 8 | `-kc-gray-8` | 5.1-5.2 AA✓ | <TagTodo /> | 文字（三级） |
+| 9 | `-kc-gray-9` | 6.4-6.6 AA✓ | <TagTodo /> | 文字（次级） |
+| 10 | `-kc-gray-10` | 10-10.4 AAA✓ | <TagTodo /> | 文字（默认） |
+| 11 | `-kc-gray-11` | 15.3-15.7 AAA✓ | <TagTodo /> | 标题文字 |
+| 12 | `-kc-gray-12` | 21.00 AAA✓ | <TagTodo /> | （黑色）保留 |
 
 灰色不一定必须是「真灰色」，即 HSL 的 `S` 为 `0%`，而是可以带一些些饱和度的，可以给用户以偏冷或偏暖的感觉。在设计这些灰色的时候，只需要保证 Contrast 值符合以上范围。
 
 ## 彩色
 
-> 彩色为功能色，选取一个作为主色 `Accent`。
+:::note
+彩色为功能色，选取一个作为主色 `Accent`。彩色选取统一色相下，明度参数 0%-100%，起始为 97%，以 8% 递减，最低明度 17%，共 11 阶。
+:::
 
-| 参考 | 分析 |
-| ---- | ---- |
-| Fluent | 没有直观的彩色色阶 |
-| Radix | 1. 和灰色一样，有较明显的深浅差别<br />2. 同一颜色的色相会有差，给人的感觉是不同颜色拼凑起来 |
-| Tailwind | 和灰色一样，递进的色阶 |
+:::info
+彩色的 Contract 跟 Hue 有关，由于采用的是 Lightness 递进的算法，因此 Contract 的递进会有差别。
+:::
 
-鉴于彩色与灰色的作用不同，我决定采用 Tailwind 的方案，实际上多数的设计也采用了类似的方案，比如 Antd 的 10 阶和 Spectrum 的 14 阶。
+| # | Css Var | Lightness | 例子 | 作用 |
+| ---- | --- | --- |---| --- |
+| 1 | `-kc-xx-1` | 97 | <C color="hsl(0 100% 97%)">●</C> <C color="hsl(60 100% 97%)">●</C> <C color="hsl(120 100% 97%)">●</C> <C color="hsl(180 100% 97%)">●</C> <C color="hsl(240 100% 97%)">●</C> <C color="hsl(320 100% 97%)">●</C> | 浅色背景 |
+| 2 | `-kc-xx-2` | 89 | <C color="hsl(0 100% 89%)">●</C> <C color="hsl(60 100% 89%)">●</C> <C color="hsl(120 100% 89%)">●</C> <C color="hsl(180 100% 89%)">●</C> <C color="hsl(240 100% 89%)">●</C> <C color="hsl(320 100% 89%)">●</C> | 浅色背景 Hover |
+| 3 | `-kc-xx-3` | 81 | <C color="hsl(0 100% 81%)">●</C> <C color="hsl(60 100% 81%)">●</C> <C color="hsl(120 100% 81%)">●</C> <C color="hsl(180 100% 81%)">●</C> <C color="hsl(240 100% 81%)">●</C> <C color="hsl(320 100% 81%)">●</C> | 浅色描边 |
+| 4 | `-kc-xx-4` | 73 | <C color="hsl(0 100% 73%)">●</C> <C color="hsl(60 100% 73%)">●</C> <C color="hsl(120 100% 73%)">●</C> <C color="hsl(180 100% 73%)">●</C> <C color="hsl(240 100% 73%)">●</C> <C color="hsl(320 100% 73%)">●</C> | 浅色描边 Hover |
+| 5 | `-kc-xx-5` | 65 | <C color="hsl(0 100% 65%)">●</C> <C color="hsl(60 100% 65%)">●</C> <C color="hsl(120 100% 65%)">●</C> <C color="hsl(180 100% 65%)">●</C> <C color="hsl(240 100% 65%)">●</C> <C color="hsl(320 100% 65%)">●</C> | |
+| 6 | `-kc-xx-6` | 57 | <C color="hsl(0 100% 57%)">●</C> <C color="hsl(60 100% 57%)">●</C> <C color="hsl(120 100% 57%)">●</C> <C color="hsl(180 100% 57%)">●</C> <C color="hsl(240 100% 57%)">●</C> <C color="hsl(320 100% 57%)">●</C> | 按钮背景色 Hover，按钮边框色 Hover，图标色 Hover |
+| 7 | `-kc-xx-7` | 49 | <C color="hsl(0 100% 49%)">●</C> <C color="hsl(60 100% 49%)">●</C> <C color="hsl(120 100% 49%)">●</C> <C color="hsl(180 100% 49%)">●</C> <C color="hsl(240 100% 49%)">●</C> <C color="hsl(320 100% 49%)">●</C> | **纯色** 按钮背景色，按钮边框色，图标色 |
+| 8 | `-kc-xx-8` | 41 | <C color="hsl(0 100% 41%)">●</C> <C color="hsl(60 100% 41%)">●</C> <C color="hsl(120 100% 41%)">●</C> <C color="hsl(180 100% 41%)">●</C> <C color="hsl(240 100% 41%)">●</C> <C color="hsl(320 100% 41%)">●</C> | 按钮背景色 Active，按钮边框色 Active，图标色 Active |
+| 9 | `-kc-xx-9` | 33 | <C color="hsl(0 100% 33%)">●</C> <C color="hsl(60 100% 33%)">●</C> <C color="hsl(120 100% 33%)">●</C> <C color="hsl(180 100% 33%)">●</C> <C color="hsl(240 100% 33%)">●</C> <C color="hsl(320 100% 33%)">●</C> | |
+| 10 | `-kc-xx-10` | 25 | <C color="hsl(0 100% 25%)">●</C> <C color="hsl(60 100% 25%)">●</C> <C color="hsl(120 100% 25%)">●</C> <C color="hsl(180 100% 25%)">●</C> <C color="hsl(240 100% 25%)">●</C> <C color="hsl(320 100% 25%)">●</C> | |
+| 11 | `-kc-xx-11` | 17 | <C color="hsl(0 100% 17%)">●</C> <C color="hsl(60 100% 17%)">●</C> <C color="hsl(120 100% 17%)">●</C> <C color="hsl(180 100% 17%)">●</C> <C color="hsl(240 100% 17%)">●</C> <C color="hsl(320 100% 17%)">●</C> | |
 
 ## 颜色工具
 
@@ -134,15 +146,15 @@ title: Color
 | [atlassian](https://atlassian.design/foundations/color-new/color-palette-new) | ★ | `100-1000`<br />灰色 `0, 100-1000`，外加 5 个透明色 | | |
 | [blueprint](https://blueprintjs.com/docs/#core/colors) | ★ | `1-5` | | 🌈 灰色分为浅灰、灰、深灰，格 5 阶，即共有 15 阶灰色 |
 | [eui](https://eui.elastic.co/#/theming/colors/values) | ★ | 直接语义化 | | |
-| [fluent](https://fluent2.microsoft.design/color) | ★★★★ | 直接语义化 | 灰色 11 阶 + 黑白 | |
+| [fluent](https://fluent2.microsoft.design/color) | ★★★★ | 直接语义化 | 灰色 11 阶 + 黑白 | 有一个很全的 [Storybook](https://react.fluentui.dev/?path=/docs/theme-colors--docs) 可以参考 |
 | [garden](https://garden.zendesk.com/design/color) | ★★ | `100-800` | | |
 | [mantine](https://mantine.dev/theming/colors) | ★★★ | `0-9` | [Mantine Colors Generator](https://mantine.dev/colors-generator) | |
 | [mui](https://mui.com/material-ui/customization/color) | ★★ | `50, 100-900` | [Material UI Color Config](https://m2.material.io/inline-tools/color) | |
-| [pluralsight](https://design-system.pluralsight.com/core/color) | ★ | `1-10` | | 1-5 为浅色，6-10 为深色，6 为主色 |
+| [pluralsight](https://design-system.pluralsight.com/core/color) | ★ | `1-10` | | 比较语义化，1-5 为浅色，6-10 为深色，6 为主色 |
 | [primer](https://primer.style/foundations/color/base-scales) | ★ | `0-9`<br />white + black | | 🌈 黑白单拎 |
 | [radix](https://www.radix-ui.com/colors) | ★★★ | `1-12` | [Radix Custom Palette](https://www.radix-ui.com/colors/custom) | 🎱 主色 #9，所有颜色的用法 |
 | [shadcn](https://ui.shadcn.com/colors) | ★★★☆ | `50, 100-900, 950` | | 基于 Tailwind |
-| [spectrum](https://spectrum.adobe.com/page/color-palette/) | ★★★★ | `100-1300`<br />灰色 `50, 75, 100-900` | - | 🎱 主色 #700<br />😱 灰色包含白色和黑色<br />🌈 灰色分层 |
+| [spectrum](https://spectrum.adobe.com/page/color-palette/) | ★★★★ | `100-1300`<br />灰色 `50, 75, 100-900` | - | 对色阶区间的用途作了说明<br />🎱 主色 #700<br />😱 灰色包含白色和黑色<br />🌈 灰色分层 |
 | [tailwind](https://tailwindcss.com/docs/customizing-colors) | ★★★★ | `50, 100-900, 950` | | |
 | [vuetify](https://vuetifyjs.com/en/styles/colors/#material-colors) | ★ | `xx-lighten-5>1, xx, xx-darken-1>4, xx-accent-1>4` | | |
 

@@ -1,6 +1,7 @@
 import MDXComponents from '@theme-original/MDXComponents';
 
 import {
+  Colored,
   Highlight,
   TagRequired,
   TagReadonly,
@@ -12,6 +13,7 @@ import {
 
 export default {
   ...MDXComponents,
+  C: Colored,
   Highlight,
   TagRequired,
   TagReadonly,

@@ -11,9 +11,10 @@ export default styled.div<IScColorBlockProps>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2px;
-  padding: 8px 4px;
-  border-radius: 2px;
+  padding-inline: 4px;
+  min-height: 30px;
+  border-radius: 4px;
+  box-sizing: border-box;
   color: hsl(0 0% 47%);
   font-size: 10px;
   ${props => props.$transparent ? css`

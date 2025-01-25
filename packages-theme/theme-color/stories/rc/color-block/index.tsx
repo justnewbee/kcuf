@@ -18,14 +18,13 @@ interface IProps {
   color: string;
   text?: boolean;
   dark?: boolean;
-  transparent?: boolean;
 }
 
-const ScContrast = styled.div`
-  margin-top: 4px;
+const ScColorBlock = styled(ColorBlockBase)`
+  padding-block: 8px;
 `;
 
-export default function ColorBlockItem({
+export default function ColorBlock({
   color,
   text,
   dark
@@ -34,7 +33,7 @@ export default function ColorBlockItem({
   const alpha = 'alpha' in rgb ? rgb.alpha : 1;
   const transparent = alpha < 1;
   
-  return <ColorBlockBase {...{
+  return <ScColorBlock {...{
     $transparent: transparent,
     style: text ? {
       color
@@ -45,6 +44,6 @@ export default function ColorBlockItem({
   }}>
     <div>{hslUnwrap(color)}</div>
     <div>{toColorString(parseToRgb(color))}</div>
-    {transparent ? null : <ScContrast>{getContrastLabel(color, dark)}</ScContrast>}
-  </ColorBlockBase>;
+    {transparent ? null : <div>{getContrastLabel(color, dark)}</div>}
+  </ScColorBlock>;
 }

@@ -3,75 +3,51 @@ import {
 } from 'react';
 
 import {
+  ColorLevels,
   COLOR,
   COLOR_DARK
 } from '../../../src';
 import {
+  DarkStyle,
   ColorBlockBase,
   ColorBlockGrid
 } from '../../rc';
+import {
+  useStateDark
+} from '../model';
 
 import Note from './note';
-import Toggles from './toggles';
-import GlobalStyle from './global-style';
+import Controls from './controls';
 import ColorBlockList from './color-block-list';
 
+const COLOR_KEYS = [
+  'GRAY',
+  'SLATE',
+  'ZINC',
+  'STONE',
+  'RED',
+  'ORANGE',
+  'YELLOW',
+  'GREEN',
+  'BLUE',
+  'INDIGO',
+  'PURPLE'
+];
+
 export default function StoryColor(): ReactElement {
+  const [dark] = useStateDark();
+  
   return <>
+    {dark ? <DarkStyle /> : null}
     <Note />
-    <Toggles />
-    <GlobalStyle />
+    <Controls />
     <ColorBlockGrid>
       <ColorBlockBase />
       {COLOR.GRAY.map((v, i) => <ColorBlockBase key={v}>#{i + 1}</ColorBlockBase>)}
-      <ColorBlockList {...{
-        title: 'Gray',
-        lists: [COLOR.GRAY, COLOR_DARK.GRAY]
-      }} />
-      <ColorBlockList {...{
-        title: 'Slate',
-        lists: [COLOR.SLATE, COLOR_DARK.SLATE]
-      }} />
-      <ColorBlockList {...{
-        title: 'Zinc',
-        lists: [COLOR.ZINC, COLOR_DARK.ZINC]
-      }} />
-      <ColorBlockList {...{
-        title: 'Stone',
-        lists: [COLOR.STONE, COLOR_DARK.STONE]
-      }} />
-      <ColorBlockList {...{
-        title: 'Blue',
-        lists: [COLOR.BLUE, COLOR_DARK.BLUE]
-      }} />
-      <ColorBlockList {...{
-        title: 'Indigo',
-        lists: [COLOR.INDIGO, COLOR_DARK.INDIGO]
-      }} />
-      <ColorBlockList {...{
-        title: 'Violet',
-        lists: [COLOR.VIOLET, COLOR_DARK.VIOLET]
-      }} />
-      <ColorBlockList {...{
-        title: 'Purple',
-        lists: [COLOR.PURPLE, COLOR_DARK.PURPLE]
-      }} />
-      <ColorBlockList {...{
-        title: 'Red',
-        lists: [COLOR.RED, COLOR_DARK.RED]
-      }} />
-      <ColorBlockList {...{
-        title: 'Orange',
-        lists: [COLOR.ORANGE, COLOR_DARK.ORANGE]
-      }} />
-      <ColorBlockList {...{
-        title: 'Yellow',
-        lists: [COLOR.YELLOW, COLOR_DARK.YELLOW]
-      }} />
-      <ColorBlockList {...{
-        title: 'Green',
-        lists: [COLOR.GREEN, COLOR_DARK.GREEN]
-      }} />
+      {COLOR_KEYS.map(v => <ColorBlockList key={v} {...{
+        title: v,
+        lists: [(COLOR as unknown as Record<string, ColorLevels>)[v] as ColorLevels, (COLOR_DARK as unknown as Record<string, ColorLevels>)[v] as ColorLevels]
+      }} />)}
       <ColorBlockList {...{
         title: 'White Alpha',
         titleColor: 'hsl(0 0% 50%)',
