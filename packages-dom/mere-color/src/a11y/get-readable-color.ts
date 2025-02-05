@@ -4,6 +4,12 @@ import getLuminance from './get-luminance';
 const DEFAULT_ON_LIGHT = '#000';
 const DEFAULT_ON_DARK = '#fff';
 
+interface IOptions {
+  whenBgLight?: string;
+  whenBgDark?: string;
+  strict?: boolean;
+}
+
 /**
  * Returns black or white (or optional passed colors) for best
  * contrast depending on the luminosity of the given color.
@@ -13,35 +19,14 @@ const DEFAULT_ON_DARK = '#fff';
  * custom return color. You can optionally turn off strict mode.
  *
  * Follows [W3C specs for readability](https://www.w3.org/TR/WCAG20-TECHS/G18.html).
- *
- * @example
- * // Styles as object usage
- * const styles = {
- *   color: readableColor('#000'),
- *   color: readableColor('black', '#001', '#ff8'),
- *   color: readableColor('white', '#001', '#ff8'),
- *   color: readableColor('red', '#333', '#ddd', true)
- * }
- *
- * // styled-components usage
- * const div = styled.div`
- *   color: ${readableColor('#000')};
- *   color: ${readableColor('black', '#001', '#ff8')};
- *   color: ${readableColor('white', '#001', '#ff8')};
- *   color: ${readableColor('red', '#333', '#ddd', true)};
- * `
- *
- * // CSS in JS Output
- * element {
- *   color: "#fff";
- *   color: "#ff8";
- *   color: "#001";
- *   color: "#000";
- * }
  */
-export default function getReadableColor(bgc: string, returnIfLightColor = DEFAULT_ON_LIGHT, returnIfDarkColor = DEFAULT_ON_DARK, strict = true): string {
+export default function getReadableColor(bgc: string, {
+  whenBgLight = DEFAULT_ON_LIGHT,
+  whenBgDark = DEFAULT_ON_DARK,
+  strict = true
+}: IOptions = {}): string {
   const bgcIsLight = getLuminance(bgc) > 0.179;
-  const readableColor = bgcIsLight ? returnIfLightColor : returnIfDarkColor;
+  const readableColor = bgcIsLight ? whenBgLight : whenBgDark;
   
   if (!strict || getContrast(bgc, readableColor) >= 4.5) {
     return readableColor;

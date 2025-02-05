@@ -3,10 +3,13 @@ import {
 } from 'react';
 import styled from 'styled-components';
 import {
-  readableColor,
   parseToRgb,
   toColorString
 } from 'polished';
+
+import {
+  getReadableColor
+} from '@kcuf/mere-color';
 
 import {
   hslUnwrap,
@@ -39,7 +42,9 @@ export default function ColorBlock({
       color
     } : {
       backgroundColor: color,
-      color: readableColor(color, undefined, transparent ? 'hsl(330 100% 60%)' : undefined)
+      color: getReadableColor(color, {
+        whenBgDark: transparent ? 'hsl(330 100% 60%)' : undefined
+      })
     }
   }}>
     <div>{hslUnwrap(color)}</div>
