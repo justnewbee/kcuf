@@ -9,6 +9,7 @@ function percentage(p: number): string {
   return `${_round(p * 100, 1)}%`;
 }
 
+// 代替 polished.hsl
 export default function composeHslColorString(h: number, s: number, l: number, a?: number): HslColorString | HslaColorString {
   const str = `${_round(h, 1)} ${percentage(s)} ${percentage(l)}`;
   

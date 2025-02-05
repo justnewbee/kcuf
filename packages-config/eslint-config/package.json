@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@eslint/js": "^9.19.0",
-    "@stylistic/eslint-plugin": "^2.13.0",
+    "@stylistic/eslint-plugin": "^3.0.1",
     "eslint-import-resolver-typescript": "^3.7.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -38,6 +38,6 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-storybook": "^0.11.2",
     "globals": "^15.14.0",
-    "typescript-eslint": "^8.21.0"
+    "typescript-eslint": "^8.23.0"
   }
 }

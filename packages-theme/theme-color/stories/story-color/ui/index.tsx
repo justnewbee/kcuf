@@ -16,15 +16,18 @@ import {
   useStateDark
 } from '../model';
 
-import Note from './note';
 import Controls from './controls';
 import ColorBlockList from './color-block-list';
+import GenerateGray from './generate-gray';
+import GenerateColorful from './generate-colorful';
 
-const COLOR_KEYS = [
+const COLOR_KEYS_GRAY = [
   'GRAY',
   'SLATE',
   'ZINC',
-  'STONE',
+  'STONE'
+];
+const COLOR_KEYS_COLORFUL = [
   'RED',
   'ORANGE',
   'YELLOW',
@@ -39,12 +42,17 @@ export default function StoryColor(): ReactElement {
   
   return <>
     {dark ? <DarkStyle /> : null}
-    <Note />
     <Controls />
     <ColorBlockGrid>
       <ColorBlockBase />
       {COLOR.GRAY.map((v, i) => <ColorBlockBase key={v}>#{i + 1}</ColorBlockBase>)}
-      {COLOR_KEYS.map(v => <ColorBlockList key={v} {...{
+      <GenerateGray />
+      {COLOR_KEYS_GRAY.map(v => <ColorBlockList key={v} {...{
+        title: v,
+        lists: [(COLOR as unknown as Record<string, ColorLevels>)[v] as ColorLevels, (COLOR_DARK as unknown as Record<string, ColorLevels>)[v] as ColorLevels]
+      }} />)}
+      <GenerateColorful />
+      {COLOR_KEYS_COLORFUL.map(v => <ColorBlockList key={v} {...{
         title: v,
         lists: [(COLOR as unknown as Record<string, ColorLevels>)[v] as ColorLevels, (COLOR_DARK as unknown as Record<string, ColorLevels>)[v] as ColorLevels]
       }} />)}
