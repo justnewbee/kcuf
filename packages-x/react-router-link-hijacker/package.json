@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/react-router-link-hijacker",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A much easier way to navigate around in react-router app.",
   "keywords": [],
   "license": "MIT",

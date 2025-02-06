@@ -19,7 +19,7 @@ export default function handleClickHijacker<T>(el: HTMLElement, e: MouseEvent, h
     shouldPreventDefault,
     shouldStopPropagation
   } = hijacker;
-  const result = condition(el);
+  const result = condition(el, e);
   
   if (!result) {
     return false;

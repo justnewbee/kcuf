@@ -29,7 +29,7 @@
 ```tsx
 import ReactRouterClickHijacker from '@kcuf/react-router-link-hijacker';
 
-// 在应用的 Root 加上，that easy
+// 在应用的 Router 顶层加上，that easy
 <ReactRouterClickHijacker />
 ```
 
@@ -42,12 +42,14 @@ import ReactRouterClickHijacker from '@kcuf/react-router-link-hijacker';
 
 ## ❓ 不期望被当成路由链接怎么办？
 
-默认情况下，以下链接不会被当成路由（而是标准的链接）：
+默认情况下，用户按住 `Meta` 键点击（Win `Ctrl`、Mac `Cmd`），并且以下链接不会被当成路由：
 
 1. 外链
 2. 带 `target` 属性（不论值）
 3. 带 `download` 属性（下载链接）
 4. 带 `data-route-not` 属性
+
+以上情况，链接的行为如同原生。
 
 ## ❓ 如何 `replace` 而非 `push`？
 
