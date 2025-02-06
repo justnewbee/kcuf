@@ -25,7 +25,7 @@ export default function handleClickHijacker<T>(el: HTMLElement, e: MouseEvent, h
     return false;
   }
   
-  callback?.(el, result);
+  callback?.(result, el);
   
   if (typeof shouldPreventDefault === 'boolean' ? shouldPreventDefault : el.tagName === 'A') { // 不传 `shouldPreventDefault`，则默认仅对链接阻止默认行为
     e.preventDefault();

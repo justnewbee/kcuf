@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/click-hijacker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Hijack click event like JQ delegate.",
   "keywords": [],
   "license": "MIT",

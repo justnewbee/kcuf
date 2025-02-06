@@ -31,7 +31,7 @@ interface ClickHijacker<T = boolean> {
   /**
    * 劫持操作
    */
-  callback?(el: HTMLElement, conditionResult: T): void;
+  callback?(result: T, el: HTMLElement): void;
   /**
    * 劫持后是否 `preventDefault`，默认对链接 `true`
    */
