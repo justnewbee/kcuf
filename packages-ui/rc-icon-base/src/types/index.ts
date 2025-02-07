@@ -32,11 +32,11 @@ export interface IIconPropsGeneric<T extends string = string> extends HTMLAttrib
    */
   type: T;
   /**
-   * 图标大小（字号大小），不设置则继承容器字号，与周边文字和谐共处。
+   * 图标大小（字号大小），不设置则继承容器字号，与周边文字和谐共处
    */
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
   /**
-   * 当设置 `size` 时，可以同时设置 `sizeRelative`，此时会用 `em` 相对大小。
+   * 当设置 `size` 时，可以同时设置 `sizeRelative`，此时会用 `em` 相对大小
    */
   sizeRelative?: boolean;
   /**
