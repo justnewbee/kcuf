@@ -1,5 +1,3 @@
-import normalizeHue from './normalize-hue';
-
 /**
  * Valid CSS <angle> units.
  *
@@ -17,5 +15,5 @@ const ANGLE_UNITS: Record<string, number> = {
  * 将 HSL 中的 Hue 转成 0-359 的数值
  */
 export default function parseNumberHue(value: string, unit = 'deg'): number {
-  return normalizeHue(Number(value) * (ANGLE_UNITS[unit] || 1));
+  return Number(value) * (ANGLE_UNITS[unit] || 1);
 }

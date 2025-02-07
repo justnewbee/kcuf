@@ -12,12 +12,15 @@ import {
   TIconBaseRef
 } from '../types';
 import {
-  getCssIconRotation
+  getCssIconRotation, getIconFontSize
 } from '../util';
 
 const ScIcon = styled.i<IScIconBaseProps>`
   font-family: ${props => props.$fontFamily} !important;
   line-height: 1.1;
+  ${props => props.$fontSize ? css`
+    font-size: ${props.$fontSize};
+  ` : null}
   ${props => props.$color ? css`
     color: ${props.$color} !important;
   ` : null}
@@ -60,6 +63,8 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconBaseRef)
     fontFamily,
     darkThemePrefix,
     type,
+    size,
+    sizeRelative,
     disabled,
     colored,
     rotating,
@@ -76,11 +81,13 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconBaseRef)
   const $code = getIconCode(type);
   const $color = colored && getIconColor ? getIconColor(type) : null;
   const $colorDark = colored && getIconColorDark ? getIconColorDark(type) : null;
+  const $fontSize = getIconFontSize(size, sizeRelative);
   
   return <ScIcon {...{
     ref,
     $fontFamily: fontFamily,
     $code,
+    $fontSize,
     $darkThemePrefix: darkThemePrefix,
     $color,
     $colorDark,

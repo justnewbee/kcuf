@@ -6,11 +6,12 @@ import {
   parseColorHex,
   parseColorRgb,
   parseColorHsl,
-  hslToRgb
+  fromHslToRgb,
+  normalizeColorRgb
 } from '../util';
 
 /**
- * Parse any color string into an `RgbColor` object.
+ * Parse valid color string into an `ColorRgb` object.
  *
  * Valid inputs are:
  *
@@ -24,10 +25,10 @@ export default function parseToRgb(input: string): IColorRgb | null {
   const rgb = parseColorHex(color) || parseColorRgb(color);
   
   if (rgb) {
-    return rgb;
+    return normalizeColorRgb(rgb);
   }
   
   const hsl = parseColorHsl(color);
   
-  return hsl ? hslToRgb(hsl) : null;
+  return hsl ? normalizeColorRgb(fromHslToRgb(hsl)) : null;
 }

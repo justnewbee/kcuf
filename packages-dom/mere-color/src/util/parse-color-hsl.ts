@@ -8,11 +8,11 @@ import parseNumberHue from './parse-number-hue';
 import parseNumberSaturation from './parse-number-saturation';
 import parseNumberLightness from './parse-number-lightness';
 import parseNumberAlpha from './parse-number-alpha';
-import normalizeColorHsl from './normalize-color-hsl';
 
 /**
- * Parses a valid HSL[A] CSS color function/string
- * https://www.w3.org/TR/css-color-4/#the-hsl-notation
+ * Parse `hsla?(...)` color string into an `ColorHsl` object.
+ *
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl
  */
 export default function parseColorHsl(input: string): IColorHsl | null {
   const matchModern = matchHsl(input);
@@ -23,10 +23,10 @@ export default function parseColorHsl(input: string): IColorHsl | null {
     return null;
   }
   
-  return normalizeColorHsl({
+  return {
     h: parseNumberHue(match[0] || '0', match[1]),
     s: parseNumberSaturation(match[2] || '0'),
     l: parseNumberLightness(match[3] || '0'),
     a: parseNumberAlpha(match[4], match[5])
-  });
+  };
 }

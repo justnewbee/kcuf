@@ -16,51 +16,6 @@ interface IColor {
   hsl: ColorHsl;
 }
 
-export const NON_COLOR_INPUTS = [
-  '',
-  'hong',
-  '123456',
-  '#'
-];
-
-export const INVALID_COLOR_INPUTS_HEX = [
-  '#1',
-  '#12',
-  '#12345',
-  '#xyz',
-  '#axbycz',
-  '#1x2y3z',
-  '#1234567',
-  '#1234567o',
-  '#123456789'
-];
-
-export const INVALID_COLOR_INPUTS_RGB = [
-  'rgb (255 0 0)',
-  'rgb (255, 0, 0)',
-  'rgb(255, 0)',
-  'rgb(255 0)',
-  'rgb(abc, 0, 0)',
-  'rgb(255, def, 0)',
-  'rgb(255, 0, ghi)',
-  'rgba(255, 0, 0, jkl)',
-  'rgba(100%, 20%, 30)' // mixing numeric and percentage in legacy format
-];
-
-export const INVALID_COLOR_INPUTS_HSL = [
-  'hsl(255, 70, 0)', // no % in legacy format
-  'hsl(255xx 70 0)', // illegal hue unit
-  'hsl(255yy, 70%, 0%)', // illegal hue unit 2
-  'hsl (255 70 50)',
-  'hsl(255, 10)',
-  'hsl(255 10)',
-  'hsl(abc, 0, 0)',
-  'hsl(255, def, 0)',
-  'hsl(255, 0, ghi)',
-  'hsla(255, 0, 0, jkl)',
-  'hsl(100%, 20%, 30)'
-];
-
 export const BLACK: IColor = {
   name: 'black',
   hexStr: '#000',
@@ -184,7 +139,7 @@ export const GREEN: IColor = {
 };
 export const CYAN: IColor = {
   name: 'cyan',
-  hexStr: '#00ffff',
+  hexStr: '#0ff',
   rgbStr: 'rgb(0 255 255)',
   rgbStrPercentage: 'rgb(0% 100% 100%)',
   rgbStrLegacy: 'rgb(0, 255, 255)',
@@ -242,6 +197,46 @@ export const PURPLE: IColor = {
     l: 25.1
   }
 };
+
+export const INVALID_INPUTS = [
+  // non-color
+  '',
+  'hong',
+  '123456',
+  '#',
+  // invalid hex
+  '#1',
+  '#12',
+  '#12345',
+  '#xyz',
+  '#axbycz',
+  '#1x2y3z',
+  '#1234567',
+  '#1234567o',
+  '#123456789',
+  // invalid rgb
+  'rgb (255 0 0)',
+  'rgb (255, 0, 0)',
+  'rgb(255, 0)',
+  'rgb(255 0)',
+  'rgb(abc, 0, 0)',
+  'rgb(255, def, 0)',
+  'rgb(255, 0, ghi)',
+  'rgba(255, 0, 0, jkl)',
+  'rgba(100%, 20%, 30)', // mixing numeric and percentage in legacy format
+  // invalid hsl
+  'hsl(255, 70, 0)', // no % in legacy format
+  'hsl(255xx 70 0)', // illegal hue unit
+  'hsl(255yy, 70%, 0%)', // illegal hue unit 2
+  'hsl (255 70 50)',
+  'hsl(255, 10)',
+  'hsl(255 10)',
+  'hsl(abc, 0, 0)',
+  'hsl(255, def, 0)',
+  'hsl(255, 0, ghi)',
+  'hsla(255, 0, 0, jkl)',
+  'hsl(100%, 20%, 30)'
+];
 
 export const COLORS: IColor[] = [
   BLACK,

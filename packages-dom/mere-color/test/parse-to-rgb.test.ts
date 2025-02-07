@@ -10,32 +10,15 @@ import {
 } from '../src';
 
 import {
-  NON_COLOR_INPUTS,
-  INVALID_COLOR_INPUTS_HEX,
-  INVALID_COLOR_INPUTS_RGB,
-  INVALID_COLOR_INPUTS_HSL,
+  INVALID_INPUTS,
   RED,
   BLUE,
   COLORS
 } from './const';
 
 describe('parseToRgb', () => {
-  describe('wrong inputs', () => {
-    test('non color inputs', () => {
-      NON_COLOR_INPUTS.forEach(v => expect(parseToRgb(v)).toBeNull());
-    });
-    
-    test('invalid hex', () => {
-      INVALID_COLOR_INPUTS_HEX.forEach(v => expect(parseToRgb(v)).toBeNull());
-    });
-    
-    test('invalid rgb', () => {
-      INVALID_COLOR_INPUTS_RGB.forEach(v => expect(parseToRgb(v)).toBeNull());
-    });
-    
-    test('invalid hsl', () => {
-      INVALID_COLOR_INPUTS_HSL.forEach(v => expect(parseToRgb(v)).toBeNull());
-    });
+  test('invalid inputs', () => {
+    INVALID_INPUTS.forEach(v => expect(parseToRgb(v)).toBeNull());
   });
   
   describe('predefined colors', () => {
@@ -57,6 +40,7 @@ describe('parseToRgb', () => {
         b: 204
       });
     });
+    
     test('hex4', () => {
       expect(parseToRgb('#1230')).toEqual({
         r: 17,
@@ -76,6 +60,7 @@ describe('parseToRgb', () => {
         b: 51
       });
     });
+    
     test('hex6', () => {
       expect(parseToRgb('#FF8000')).toEqual({
         r: 255,
@@ -83,6 +68,7 @@ describe('parseToRgb', () => {
         b: 0
       });
     });
+    
     test('hex8', () => {
       expect(parseToRgb('#ffcc9900')).toEqual({
         r: 255,

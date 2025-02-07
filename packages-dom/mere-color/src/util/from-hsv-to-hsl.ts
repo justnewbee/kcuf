@@ -3,7 +3,7 @@ import {
   IColorHsv
 } from '../types';
 
-export default function hsvToHsl(hsv: IColorHsv): IColorHsl {
+export default function fromHsvToHsl(hsv: IColorHsv): IColorHsl {
   const hh = ((200 - hsv.s) * hsv.v) / 100;
   
   return {

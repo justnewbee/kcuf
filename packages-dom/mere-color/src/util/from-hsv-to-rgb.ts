@@ -3,9 +3,7 @@ import {
   IColorRgb
 } from '../types';
 
-import normalizeColorRgb from './normalize-color-rgb';
-
-export default function hsvToRgb(hsv: IColorHsv): IColorRgb {
+export default function fromHsvToRgb(hsv: IColorHsv): IColorRgb {
   let {
     h,
     s,
@@ -22,10 +20,10 @@ export default function hsvToRgb(hsv: IColorHsv): IColorRgb {
   const d = v * (1 - (1 - h + hh) * s);
   const mod = hh % 6;
   
-  return normalizeColorRgb({
+  return {
     r: ([v, c, b, b, d, v][mod] ?? 0) * 255,
     g: ([d, v, v, c, b, b][mod] ?? 0) * 255,
     b: ([b, b, d, v, v, c][mod] ?? 0) * 255,
     a: hsv.a
-  });
+  };
 }

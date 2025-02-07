@@ -10,30 +10,13 @@ import {
 } from '../src';
 
 import {
-  NON_COLOR_INPUTS,
-  INVALID_COLOR_INPUTS_HEX,
-  INVALID_COLOR_INPUTS_RGB,
-  INVALID_COLOR_INPUTS_HSL,
+  INVALID_INPUTS,
   COLORS
 } from './const';
 
 describe('parseToHsl', () => {
-  describe('wrong inputs', () => {
-    test('non color inputs', () => {
-      NON_COLOR_INPUTS.forEach(v => expect(parseToHsl(v)).toBeNull());
-    });
-    
-    test('invalid hex', () => {
-      INVALID_COLOR_INPUTS_HEX.forEach(v => expect(parseToHsl(v)).toBeNull());
-    });
-    
-    test('invalid rgb', () => {
-      INVALID_COLOR_INPUTS_RGB.forEach(v => expect(parseToHsl(v)).toBeNull());
-    });
-    
-    test('invalid hsl', () => {
-      INVALID_COLOR_INPUTS_HSL.forEach(v => expect(parseToHsl(v)).toBeNull());
-    });
+  test('invalid inputs', () => {
+    INVALID_INPUTS.forEach(v => expect(parseToHsl(v)).toBeNull());
   });
   
   describe('predefined colors', () => {
@@ -137,7 +120,6 @@ describe('parseToHsl', () => {
         s: 100,
         l: 50
       });
-      
       expect(parseToHsl('hsl(361, 50%, 50%)')).toEqual({
         h: 1,
         s: 50,

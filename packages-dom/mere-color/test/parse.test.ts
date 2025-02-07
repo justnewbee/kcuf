@@ -9,30 +9,13 @@ import {
 } from '../src';
 
 import {
-  NON_COLOR_INPUTS,
-  INVALID_COLOR_INPUTS_HEX,
-  INVALID_COLOR_INPUTS_RGB,
-  INVALID_COLOR_INPUTS_HSL,
-  RED
+  RED,
+  INVALID_INPUTS
 } from './const';
 
 describe('parse', () => {
-  describe('wrong inputs', () => {
-    test('non color inputs', () => {
-      NON_COLOR_INPUTS.forEach(v => expect(parse(v)).toBeNull());
-    });
-    
-    test('invalid hex', () => {
-      INVALID_COLOR_INPUTS_HEX.forEach(v => expect(parse(v)).toBeNull());
-    });
-    
-    test('invalid rgb', () => {
-      INVALID_COLOR_INPUTS_RGB.forEach(v => expect(parse(v)).toBeNull());
-    });
-    
-    test('invalid hsl', () => {
-      INVALID_COLOR_INPUTS_HSL.forEach(v => expect(parse(v)).toBeNull());
-    });
+  test('invalid inputs', () => {
+    INVALID_INPUTS.forEach(v => expect(parse(v)).toBeNull());
   });
   
   describe('type according to original', () => {

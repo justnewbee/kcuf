@@ -3,7 +3,7 @@ import {
   IColorHsv
 } from '../types';
 
-export default function rgbToHsv(rgb: IColorRgb): IColorHsv {
+export default function fromRgbToHsv(rgb: IColorRgb): IColorHsv {
   const {
     r,
     g,

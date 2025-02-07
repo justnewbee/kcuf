@@ -25,10 +25,20 @@ export type TIconBaseRef = Ref<HTMLSpanElement>;
  */
 export interface IIconPropsGeneric<T extends string = string> extends HTMLAttributes<HTMLElement> {
   /**
-   * 类型名，决定图标长什么样。尽量使用语义化的名称，比如 `close` 等。一般来说，一个 `type` 对应一个图标的 code，
-   * 但出于语义化的考量，不同的 `type` 可以对应到同一个 `code`，比如 ✔ 这样的图标，其 `type` 可以是 `success` 和 `check`
+   * 类型，决定图标长什么样。
+   *
+   * 尽量使用语义化的名称，比如 `close` 等。一般来说，一个 `type` 对应一个图标的 code，但出于语义化的考量，
+   * 不同的 `type` 可以对应到同一个 `code`，比如 ✔ 这样的图标，其 `type` 可以是 `success` 和 `check`
    */
   type: T;
+  /**
+   * 图标大小（字号大小），不设置则继承容器字号，与周边文字和谐共处。
+   */
+  size?: 'xs' | 's' | 'm' | 'l' | 'xl';
+  /**
+   * 当设置 `size` 时，可以同时设置 `sizeRelative`，此时会用 `em` 相对大小。
+   */
+  sizeRelative?: boolean;
   /**
    * 是否为禁用状态
    */
@@ -77,6 +87,7 @@ export interface IIconBaseProps<T extends string = string> extends IIconPropsGen
 export interface IScIconBaseProps {
   $fontFamily: string;
   $code: string;
+  $fontSize?: string;
   $darkThemePrefix?: string;
   $color: string | null;
   $colorDark: string | null;

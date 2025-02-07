@@ -5,7 +5,7 @@ import {
 
 import isRgb from './is-rgb';
 import isHsl from './is-hsl';
-import hslToString from './hsl-to-string';
+import fromHslToString from './from-hsl-to-string';
 
 export default function toColorString(o: IColorRgb | IColorHsl): string {
   if (isRgb(o)) {
@@ -13,7 +13,7 @@ export default function toColorString(o: IColorRgb | IColorHsl): string {
   }
   
   if (isHsl(o)) {
-    return hslToString(o);
+    return fromHslToString(o);
   }
   
   return '';

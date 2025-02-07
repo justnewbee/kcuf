@@ -1,5 +1,3 @@
-import normalizePercentage from './normalize-percentage';
-
 /**
  * Parse number value alpha.
  *
@@ -7,5 +5,5 @@ import normalizePercentage from './normalize-percentage';
  * - xy% → xy
  */
 export default function parseNumberAlpha(value?: string, unit?: string): number | undefined {
-  return !value ? undefined : normalizePercentage(Number(value) * (unit === '%' ? 1 : 100));
+  return !value ? undefined : Number(value) * (unit === '%' ? 1 : 100);
 }

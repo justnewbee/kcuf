@@ -1,18 +1,11 @@
 import {
-  getContrast,
-  meetsContrastGuidelines
-} from 'polished';
-import {
   getContrastGuidelines
 } from '@kcuf/mere-color';
 
 export default function getContrastLabel(color: string, dark?: boolean): string | number {
   const againstColor = dark ? 'hsl(0 0% 0%)' : 'hsl(0 0% 100%)';
-  const contrast = getContrast(color, againstColor);
-  const contrastGuidelines = meetsContrastGuidelines(color, againstColor);
+  const contrastGuidelines = getContrastGuidelines(color, againstColor);
   let guidLineLevel = '';
-  
-  const d = getContrastGuidelines(color, againstColor);
   
   if (contrastGuidelines.AAA) {
     guidLineLevel = 'AAA';
@@ -24,7 +17,5 @@ export default function getContrastLabel(color: string, dark?: boolean): string 
     guidLineLevel = 'AALarge';
   }
   
-  console.info(color, contrast === d.contrast, color, contrast, d.contrast); // TODO 有不一样的
-  
-  return guidLineLevel ? `${contrast} / ${guidLineLevel} | ${d.contrast}` : contrast;
+  return guidLineLevel ? `${contrastGuidelines.contrast} / ${guidLineLevel} | ${contrastGuidelines.contrast}` : contrastGuidelines.contrast;
 }

@@ -3,9 +3,7 @@ import {
   IColorHsl
 } from '../types';
 
-import normalizeColorHsl from './normalize-color-hsl';
-
-export default function rgbToHsl(rgb: IColorRgb): IColorHsl {
+export default function fromRgbToHsl(rgb: IColorRgb): IColorHsl {
   const red = rgb.r / 255;
   const green = rgb.g / 255;
   const blue = rgb.b / 255;
@@ -43,10 +41,10 @@ export default function rgbToHsl(rgb: IColorRgb): IColorHsl {
     break;
   }
   
-  return normalizeColorHsl({
+  return {
     h: hue * 60,
     s: saturation * 100,
     l: lightness * 100,
     a: rgb.a
-  });
+  };
 }
