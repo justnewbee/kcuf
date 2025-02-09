@@ -1,7 +1,7 @@
 {
   "name": "@kcuf-ui/rc-input-switch-headless",
-  "version": "0.0.0",
-  "description": "React headless Switch component.",
+  "version": "0.0.1",
+  "description": "React headless InputSwitch component.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
