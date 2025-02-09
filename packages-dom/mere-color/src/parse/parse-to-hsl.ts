@@ -1,5 +1,5 @@
 import {
-  IColorHsl
+  IHsl
 } from '../types';
 import {
   matchName,
@@ -13,7 +13,7 @@ import {
 /**
  * Parse valid color string into an `ColorHsl` object.
  */
-export default function parseToHsl(input: string): IColorHsl | null {
+export default function parseToHsl(input: string): IHsl | null {
   const color = matchName(input) || input;
   const hsl = parseColorHsl(color);
   

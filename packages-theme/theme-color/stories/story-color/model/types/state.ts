@@ -3,6 +3,6 @@ export interface IModelState {
   text: boolean;
   seedGray: string;
   seedColorful: string;
-  polishedGrayscale: boolean;
-  polishedInvert: boolean;
+  grayscale: boolean;
+  invert: boolean;
 }

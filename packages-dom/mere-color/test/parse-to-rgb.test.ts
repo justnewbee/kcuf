@@ -5,7 +5,7 @@ import {
 } from 'vitest';
 
 import {
-  ColorRgb,
+  Rgb,
   parseToRgb
 } from '../src';
 
@@ -91,7 +91,7 @@ describe('parseToRgb', () => {
   });
   
   describe('rgba', () => {
-    const RGBA: ColorRgb = {
+    const RGBA: Rgb = {
       r: 255,
       g: 0,
       b: 128,

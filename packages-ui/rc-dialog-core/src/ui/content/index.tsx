@@ -19,7 +19,7 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {}
 const ScContent = styled.div`
   flex: 1;
   position: relative;
-  padding: ${SIZE.PADDING_X_DIALOG * 2 / 3}px ${SIZE.PADDING_X_DIALOG}px;
+  padding: ${SIZE.PADDING_X_DIALOG}px;
   overflow: auto;
 `;
 

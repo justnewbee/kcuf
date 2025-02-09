@@ -1,6 +1,11 @@
 import _round from 'lodash/round';
-import _clamp from 'lodash/clamp';
 
 export default function normalizeHue(hue: number): number {
-  return _clamp(_round(hue % 360, 1), 0, 360);
+  let h = hue % 360;
+  
+  if (h < 0) {
+    h += 360;
+  }
+  
+  return _round(h, 1);
 }

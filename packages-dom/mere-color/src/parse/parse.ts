@@ -1,12 +1,12 @@
 import {
-  EColorType
+  EColorNotationDetailed
 } from '../enum';
 import {
-  IColorHsl,
-  IColorRgb
+  IHsl,
+  IRgb
 } from '../types';
 import {
-  getColorType
+  getColorNotationDetailed
 } from '../util';
 
 import parseToRgb from './parse-to-rgb';
@@ -15,20 +15,20 @@ import parseToHsl from './parse-to-hsl';
 /**
  * Parse input to its closest color format.
  */
-export default function parse(input: string): IColorRgb | IColorHsl | null {
-  switch (getColorType(input)) {
-  case EColorType.NAME:
-  case EColorType.HEX3:
-  case EColorType.HEX4:
-  case EColorType.HEX6:
-  case EColorType.HEX8:
-  case EColorType.RGB:
-  case EColorType.RGB_LEGACY:
+export default function parse(input: string): IRgb | IHsl | null {
+  switch (getColorNotationDetailed(input)) {
+  case EColorNotationDetailed.NAME:
+  case EColorNotationDetailed.HEX3:
+  case EColorNotationDetailed.HEX4:
+  case EColorNotationDetailed.HEX6:
+  case EColorNotationDetailed.HEX8:
+  case EColorNotationDetailed.RGB:
+  case EColorNotationDetailed.RGB_LEGACY:
     return parseToRgb(input);
-  case EColorType.HSL:
-  case EColorType.HSL_LEGACY:
+  case EColorNotationDetailed.HSL:
+  case EColorNotationDetailed.HSL_LEGACY:
     return parseToHsl(input);
-  case EColorType.UNKNOWN:
+  case EColorNotationDetailed.UNKNOWN:
     return null;
   }
 }

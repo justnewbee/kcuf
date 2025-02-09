@@ -1,10 +1,10 @@
 import {
-  IColorRgb
+  IRgb
 } from '../types';
 
 import normalizeColorRgb from './normalize-color-rgb';
 
-export default function fromRgbToString(rgb: IColorRgb): string {
+export default function fromRgbToRgbString(rgb: IRgb): string {
   const {
     r,
     g,

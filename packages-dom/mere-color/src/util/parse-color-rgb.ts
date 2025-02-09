@@ -1,5 +1,5 @@
 import {
-  IColorRgb
+  IRgb
 } from '../types';
 
 import matchRgb from './match-rgb';
@@ -8,11 +8,11 @@ import parseNumberAlpha from './parse-number-alpha';
 import parseNumberRgbValue from './parse-number-rgb-value';
 
 /**
- * Parse `rgba?(...)` color string into an `ColorRgb` object.
+ * Parse `rgba?(...)` color string into an `Rgb` object.
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/rgb
  */
-export default function parseColorRgb(input: string): IColorRgb | null {
+export default function parseColorRgb(input: string): IRgb | null {
   const matchModern = matchRgb(input);
   const matchLegacy = matchModern ? null : matchRgbLegacy(input);
   const match = matchModern || matchLegacy;

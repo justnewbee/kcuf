@@ -54,5 +54,7 @@ export default function confirm(contentOrProps?: string | ReactElement | IDialog
     content: promiseProps.content
   }} />;
   
+  delete promiseProps.title;
+  
   return open<boolean>(promiseProps).then((result: unknown) => !!result);
 }

@@ -1,5 +1,5 @@
 import {
-  IColorRgb
+  IRgb
 } from '../types';
 
 import matchHex from './match-hex';
@@ -11,7 +11,7 @@ import parseNumberHexAlpha from './parse-number-hex-alpha';
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color
  */
-export default function parseColorHex(input: string): IColorRgb | null {
+export default function parseColorHex(input: string): IRgb | null {
   const match = matchHex(input);
   
   if (!match) {

@@ -8,10 +8,10 @@ import {
 
 import useModelDispatch from './_use-model-dispatch';
 
-export default function useDispatchTogglePolishedInvert(): () => void {
+export default function useDispatchToggleInvert(): () => void {
   const dispatch = useModelDispatch();
   
   return useCallback(() => dispatch({
-    type: EAction.TOGGLE_POLISHED_INVERT
+    type: EAction.TOGGLE_INVERT
   }), [dispatch]);
 }

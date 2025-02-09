@@ -1,9 +1,9 @@
 import {
-  IColorHsl,
-  IColorHsv
+  IHsl,
+  IHsv
 } from '../types';
 
-export default function fromHsvToHsl(hsv: IColorHsv): IColorHsl {
+export default function fromHsvToHsl(hsv: IHsv): IHsl {
   const hh = ((200 - hsv.s) * hsv.v) / 100;
   
   return {

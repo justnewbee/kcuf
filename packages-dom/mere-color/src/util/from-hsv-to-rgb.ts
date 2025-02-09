@@ -1,9 +1,9 @@
 import {
-  IColorHsv,
-  IColorRgb
+  IHsv,
+  IRgb
 } from '../types';
 
-export default function fromHsvToRgb(hsv: IColorHsv): IColorRgb {
+export default function fromHsvToRgb(hsv: IHsv): IRgb {
   let {
     h,
     s,

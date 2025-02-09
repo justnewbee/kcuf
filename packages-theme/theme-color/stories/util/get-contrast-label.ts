@@ -1,10 +1,10 @@
 import {
-  getContrastGuidelines
+  a11yContrastGuidelines
 } from '@kcuf/mere-color';
 
 export default function getContrastLabel(color: string, dark?: boolean): string | number {
   const againstColor = dark ? 'hsl(0 0% 0%)' : 'hsl(0 0% 100%)';
-  const contrastGuidelines = getContrastGuidelines(color, againstColor);
+  const contrastGuidelines = a11yContrastGuidelines(color, againstColor);
   let guidLineLevel = '';
   
   if (contrastGuidelines.AAA) {
@@ -17,5 +17,5 @@ export default function getContrastLabel(color: string, dark?: boolean): string 
     guidLineLevel = 'AALarge';
   }
   
-  return guidLineLevel ? `${contrastGuidelines.contrast} / ${guidLineLevel} | ${contrastGuidelines.contrast}` : contrastGuidelines.contrast;
+  return guidLineLevel ? `${contrastGuidelines.contrast} / ${guidLineLevel}` : contrastGuidelines.contrast;
 }

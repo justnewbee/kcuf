@@ -1,5 +1,5 @@
 import {
-  IColorHsl
+  IHsl
 } from '../types';
 
 import matchHsl from './match-hsl';
@@ -10,11 +10,11 @@ import parseNumberLightness from './parse-number-lightness';
 import parseNumberAlpha from './parse-number-alpha';
 
 /**
- * Parse `hsla?(...)` color string into an `ColorHsl` object.
+ * Parse `hsla?(...)` color string into an `Hsl` object.
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl
  */
-export default function parseColorHsl(input: string): IColorHsl | null {
+export default function parseColorHsl(input: string): IHsl | null {
   const matchModern = matchHsl(input);
   const matchLegacy = matchModern ? null : matchHslLegacy(input);
   const match = matchModern || matchLegacy;

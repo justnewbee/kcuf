@@ -5,7 +5,7 @@ import {
 } from 'vitest';
 
 import {
-  ColorHsl,
+  Hsl,
   parseToHsl
 } from '../src';
 
@@ -31,7 +31,7 @@ describe('parseToHsl', () => {
   });
   
   describe('hue unit', () => {
-    const HSL: ColorHsl = {
+    const HSL: Hsl = {
       h: 90,
       s: 100,
       l: 50
@@ -41,7 +41,7 @@ describe('parseToHsl', () => {
       expect(parseToHsl('hsl(90deg 100 50)')).toEqual(HSL);
       expect(parseToHsl('hsl(450deg 100 50)')).toEqual(HSL);
       expect(parseToHsl('hsl(0.25turn 100 50)')).toEqual(HSL);
-      expect(parseToHsl('hsl(1.25turn 100 50)')).toEqual(HSL);
+      expect(parseToHsl('hsl(1.25TURN 100 50)')).toEqual(HSL);
       expect(parseToHsl('hsl(100grad 100 50)')).toEqual(HSL);
       expect(parseToHsl('hsl(500grad 100 50)')).toEqual(HSL);
       expect(parseToHsl('hsl(1.5708rad 100 50)')).toEqual(HSL);
@@ -59,7 +59,7 @@ describe('parseToHsl', () => {
   });
   
   describe('hsla - well formated', () => {
-    const HSLA: ColorHsl = {
+    const HSLA: Hsl = {
       h: 90,
       s: 100,
       l: 50,

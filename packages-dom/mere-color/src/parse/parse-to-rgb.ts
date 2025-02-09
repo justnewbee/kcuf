@@ -1,5 +1,5 @@
 import {
-  IColorRgb
+  IRgb
 } from '../types';
 import {
   matchName,
@@ -20,7 +20,7 @@ import {
  * - rgb(a) - modern/legacy
  * - hsl(a) - modern/legacy
  */
-export default function parseToRgb(input: string): IColorRgb | null {
+export default function parseToRgb(input: string): IRgb | null {
   const color = matchName(input) || input;
   const rgb = parseColorHex(color) || parseColorRgb(color);
   

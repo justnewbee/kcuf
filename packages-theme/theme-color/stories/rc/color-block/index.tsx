@@ -2,17 +2,15 @@ import {
   ReactElement
 } from 'react';
 import styled from 'styled-components';
-import {
-  parseToRgb,
-  toColorString
-} from 'polished';
 
 import {
-  getReadableColor
+  parseToRgb,
+  toStringHex,
+  toStringHsl,
+  a11yReadableColor
 } from '@kcuf/mere-color';
 
 import {
-  hslUnwrap,
   getContrastLabel
 } from '../../util';
 import ColorBlockBase from '../color-block-base';
@@ -33,8 +31,7 @@ export default function ColorBlock({
   dark
 }: IProps): ReactElement {
   const rgb = parseToRgb(color);
-  const alpha = 'alpha' in rgb ? rgb.alpha : 1;
-  const transparent = alpha < 1;
+  const transparent = rgb ? rgb.a !== undefined : false;
   
   return <ScColorBlock {...{
     $transparent: transparent,
@@ -42,13 +39,13 @@ export default function ColorBlock({
       color
     } : {
       backgroundColor: color,
-      color: getReadableColor(color, {
+      color: a11yReadableColor(color, {
         whenBgDark: transparent ? 'hsl(330 100% 60%)' : undefined
       })
     }
   }}>
-    <div>{hslUnwrap(color)}</div>
-    <div>{toColorString(parseToRgb(color))}</div>
+    <div>{toStringHsl(color).replace(/hsl\(|\)/g, '')}</div>
+    <div>{toStringHex(color)}</div>
     {transparent ? null : <div>{getContrastLabel(color, dark)}</div>}
   </ScColorBlock>;
 }

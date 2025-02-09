@@ -1,4 +1,4 @@
-export { default as getLuminance } from './get-luminance';
-export { default as getContrast } from './get-contrast';
-export { default as getContrastGuidelines } from './get-contrast-guidelines';
-export { default as getReadableColor } from './get-readable-color';
+export { default as a11yLuminance } from './a11y-luminance';
+export { default as a11yContrast } from './a11y-contrast';
+export { default as a11yContrastGuidelines } from './a11y-contrast-guidelines';
+export { default as a11yReadableColor } from './a11y-readable-color';

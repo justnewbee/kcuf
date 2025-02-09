@@ -1,10 +1,11 @@
 import {
   ReactElement
 } from 'react';
+
 import {
-  grayscale,
-  invert
-} from 'polished';
+  invert as transformInvert,
+  grayscale as transformGrayscale
+} from '@kcuf/mere-color';
 
 import {
   HslColorString,
@@ -16,8 +17,8 @@ import {
 import {
   useStateDark,
   useStateText,
-  useStatePolishedGrayscale,
-  useStatePolishedInvert
+  useStateGrayscale,
+  useStateInvert
 } from '../../model';
 
 interface IProps {
@@ -29,17 +30,17 @@ export default function ColorBlockItem({
 }: IProps): ReactElement {
   const [dark] = useStateDark();
   const [text] = useStateText();
-  const [polishedGrayscale] = useStatePolishedGrayscale();
-  const [polishedInvert] = useStatePolishedInvert();
+  const [grayscale] = useStateGrayscale();
+  const [invert] = useStateInvert();
   
   let color: string = color0;
   
-  if (polishedGrayscale) {
-    color = grayscale(color0);
+  if (grayscale) {
+    color = transformGrayscale(color0);
   }
   
-  if (polishedInvert) {
-    color = invert(color0);
+  if (invert) {
+    color = transformInvert(color0);
   }
   
   return <ColorBlock {...{

@@ -1,13 +1,13 @@
 import {
-  IColorHsl
+  IHsl
 } from '../types';
 
 import normalizeHue from './normalize-hue';
 import normalizePercentage from './normalize-percentage';
 import normalizeAlpha from './normalize-alpha';
 
-export default function normalizeColorHsl(hsl: IColorHsl): IColorHsl {
-  const normalized: IColorHsl = {
+export default function normalizeColorHsl(hsl: IHsl): IHsl {
+  const normalized: IHsl = {
     h: normalizeHue(hsl.h),
     s: normalizePercentage(hsl.s),
     l: normalizePercentage(hsl.l)

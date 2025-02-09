@@ -8,31 +8,39 @@ import {
   invert
 } from '../src';
 
+import {
+  INVALID_INPUTS
+} from './const';
+
 describe('invert', () => {
-  test('todo', () => {
-    expect(typeof invert).toBe('function');
+  test('invalid inputs', () => {
+    INVALID_INPUTS.forEach(v => expect(invert(v)).toBe(v));
   });
-  // test('should invert a reduced hex color', () => {
-  //   expect(invert('#448')).toEqual('#bb7');
-  // });
-  //
-  // test('should invert a hex color', () => {
-  //   expect(invert('#CCCD64')).toEqual('#33329b');
-  // });
-  //
-  // test('should invert an 8-digit hex color', () => {
-  //   expect(invert('#6564CDB3')).toEqual('rgba(154,155,50,0.7)');
-  // });
-  //
-  // test('should invert an 4-digit hex color', () => {
-  //   expect(invert('#0f08')).toEqual('rgba(255,0,255,0.53)');
-  // });
-  //
-  // test('should invert a color with opacity', () => {
-  //   expect(invert('rgba(101,100,205,0.7)')).toEqual('rgba(154,155,50,0.7)');
-  // });
-  //
-  // test('should return transparent when passed transparent', () => {
-  //   expect(invert('transparent')).toEqual('transparent');
-  // });
+  
+  test('hex', () => {
+    expect(invert('#448')).toBe('#bb7');
+    expect(invert('#0f08')).toBe('#f0f8');
+    expect(invert('#CCCD64')).toBe('#33329b');
+    expect(invert('#6564CDB3')).toBe('#9a9b32b3');
+  });
+  
+  test('rgb', () => {
+    expect(invert('rgb(101 100 205)')).toBe('rgb(154 155 50)');
+    expect(invert('rgb(101 100 205 / 0.7)')).toBe('rgb(154 155 50 / 70%)');
+    expect(invert('rgb(101 100 205 / 70%)')).toBe('rgb(154 155 50 / 70%)');
+    expect(invert('rgb(101, 100, 205)')).toBe('rgb(154 155 50)');
+    expect(invert('rgba(101,100,205,0.7)')).toBe('rgb(154 155 50 / 70%)');
+  });
+  
+  test('hsl', () => {
+    expect(invert('hsl(241 51% 60%)')).toBe('hsl(61.2 51% 40%)');
+    expect(invert('hsl(241 51% 60% / 0.7)')).toBe('hsl(61.2 51% 40% / 70%)');
+    expect(invert('hsla(241 51% 60% / 70%)')).toBe('hsl(61.2 51% 40% / 70%)');
+    expect(invert('hsl(241, 51%, 60%)')).toBe('hsl(61.2 51% 40%)');
+    expect(invert('hsla(241, 51%, 60%, 0.7)')).toBe('hsl(61.2 51% 40% / 70%)');
+  });
+  
+  test('transparent', () => {
+    expect(invert('transparent')).toBe('#fff0');
+  });
 });

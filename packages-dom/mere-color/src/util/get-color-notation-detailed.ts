@@ -1,5 +1,5 @@
 import {
-  EColorType
+  EColorNotationDetailed
 } from '../enum';
 
 import matchName from './match-name';
@@ -9,9 +9,9 @@ import matchRgbLegacy from './match-rgb-legacy';
 import matchHsl from './match-hsl';
 import matchHslLegacy from './match-hsl-legacy';
 
-export default function getColorType(input: string): EColorType {
+export default function getColorNotationDetailed(input: string): EColorNotationDetailed {
   if (matchName(input)) {
-    return EColorType.NAME;
+    return EColorNotationDetailed.NAME;
   }
   
   const hex = matchHex(input);
@@ -19,31 +19,31 @@ export default function getColorType(input: string): EColorType {
   if (hex) {
     switch (hex.length) {
     case 3:
-      return EColorType.HEX3;
+      return EColorNotationDetailed.HEX3;
     case 4:
-      return EColorType.HEX4;
+      return EColorNotationDetailed.HEX4;
     case 8:
-      return EColorType.HEX8;
+      return EColorNotationDetailed.HEX8;
     default:
-      return EColorType.HEX6;
+      return EColorNotationDetailed.HEX6;
     }
   }
   
   if (matchRgb(input)) {
-    return EColorType.RGB;
+    return EColorNotationDetailed.RGB;
   }
   
   if (matchRgbLegacy(input)) {
-    return EColorType.RGB_LEGACY;
+    return EColorNotationDetailed.RGB_LEGACY;
   }
   
   if (matchHsl(input)) {
-    return EColorType.HSL;
+    return EColorNotationDetailed.HSL;
   }
   
   if (matchHslLegacy(input)) {
-    return EColorType.HSL_LEGACY;
+    return EColorNotationDetailed.HSL_LEGACY;
   }
   
-  return EColorType.UNKNOWN;
+  return EColorNotationDetailed.UNKNOWN;
 }

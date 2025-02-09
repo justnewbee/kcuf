@@ -9,15 +9,15 @@ import {
 import {
   useStateDark,
   useStateText,
-  useStatePolishedGrayscale,
-  useStatePolishedInvert
+  useStateGrayscale,
+  useStateInvert
 } from '../../model';
 
 export default function Controls(): ReactElement {
   const [dark, toggleDark] = useStateDark();
   const [text, toggleText] = useStateText();
-  const [polishedGrayscale, togglePolishedGrayscale] = useStatePolishedGrayscale();
-  const [polishedInvert, togglePolishedInvert] = useStatePolishedInvert();
+  const [grayscale, toggleGrayscale] = useStateGrayscale();
+  const [invert, toggleInvert] = useStateInvert();
   
   return <>
     <InputSwitch {...{
@@ -32,13 +32,13 @@ export default function Controls(): ReactElement {
     }} />
     <InputSwitch {...{
       label: 'grayscale',
-      value: polishedGrayscale,
-      onChange: togglePolishedGrayscale
+      value: grayscale,
+      onChange: toggleGrayscale
     }} />
     <InputSwitch {...{
       label: 'invert',
-      value: polishedInvert,
-      onChange: togglePolishedInvert
+      value: invert,
+      onChange: toggleInvert
     }} />
   </>;
 }

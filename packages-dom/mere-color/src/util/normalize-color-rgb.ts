@@ -1,12 +1,12 @@
 import {
-  IColorRgb
+  IRgb
 } from '../types';
 
 import normalizeHexValue from './normalize-hex-value';
 import normalizeAlpha from './normalize-alpha';
 
-export default function normalizeColorRgb(rgb: IColorRgb): IColorRgb {
-  const normalized: IColorRgb = {
+export default function normalizeColorRgb(rgb: IRgb): IRgb {
+  const normalized: IRgb = {
     r: normalizeHexValue(rgb.r),
     g: normalizeHexValue(rgb.g),
     b: normalizeHexValue(rgb.b)

@@ -79,18 +79,16 @@ const BLUE = [
 ];
 
 export default function StoryColorRef(): ReactElement {
-  return <>
-    <ColorBlockGrid>
-      <ColorBlockBase style={{ color: GRAY_FLUENT[9] }}>Fluent</ColorBlockBase>
-      {GRAY_FLUENT.map(v => <ColorBlock key={v} color={v} />)}
-      <ColorBlockBase style={{ color: GRAY_RADIX[9] }}>Radix</ColorBlockBase>
-      {GRAY_RADIX.map(v => <ColorBlock key={v} color={v} />)}
-      <ColorBlockBase style={{ color: GRAY_TAILWIND[9] }}>Tailwind</ColorBlockBase>
-      {GRAY_TAILWIND.map(v => <ColorBlock key={v} color={v} />)}
-      <ColorBlockBase style={{ color: GRAY_ANT[9] }}>Ant</ColorBlockBase>
-      {GRAY_ANT.map(v => <ColorBlock key={v} color={v} />)}
-      <ColorBlockBase style={{ color: BLUE[7] }}>Blue</ColorBlockBase>
-      {BLUE.map(v => <ColorBlock key={v} color={v} />)}
-    </ColorBlockGrid>
-  </>;
+  return <ColorBlockGrid>
+    <ColorBlockBase style={{ color: GRAY_FLUENT[9] }}>Fluent</ColorBlockBase>
+    {GRAY_FLUENT.map(v => <ColorBlock key={v} color={v} />)}
+    <ColorBlockBase style={{ color: GRAY_RADIX[9] }}>Radix</ColorBlockBase>
+    {GRAY_RADIX.map(v => <ColorBlock key={v} color={v} />)}
+    <ColorBlockBase style={{ color: GRAY_TAILWIND[9] }}>Tailwind</ColorBlockBase>
+    {GRAY_TAILWIND.map(v => <ColorBlock key={v} color={v} />)}
+    <ColorBlockBase style={{ color: GRAY_ANT[9] }}>Ant</ColorBlockBase>
+    {GRAY_ANT.map(v => <ColorBlock key={v} color={v} />)}
+    <ColorBlockBase style={{ color: BLUE[7] }}>Blue</ColorBlockBase>
+    {BLUE.map(v => <ColorBlock key={v} color={v} />)}
+  </ColorBlockGrid>;
 }

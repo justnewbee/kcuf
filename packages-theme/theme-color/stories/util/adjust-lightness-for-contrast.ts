@@ -1,7 +1,7 @@
 import {
   parseToHsl,
-  getContrast
-} from 'polished';
+  a11yContrast
+} from '@kcuf/mere-color';
 
 import composeHslColorString from './compose-hsl-color-string';
 
@@ -13,11 +13,12 @@ interface IOptions {
 }
 
 export default function adjustLightnessForContrast(color: string, desiredContrast: number, options: IOptions = {}): string {
-  const {
-    hue,
-    saturation
-  } = parseToHsl(color);
-  const h = Math.round(hue);
+  const hsl = parseToHsl(color);
+  
+  if (!hsl) {
+    return color;
+  }
+  
   const {
     dark,
     min = 0,
@@ -30,8 +31,8 @@ export default function adjustLightnessForContrast(color: string, desiredContras
   let targetLightness = (min + max) / 2;
   
   for (let i = 0; i < steps; i++) {
-    const color2 = composeHslColorString(h, saturation, targetLightness);
-    const contrast = getContrast(color2, backgroundColor);
+    const color2 = composeHslColorString(hsl.h, hsl.s, targetLightness);
+    const contrast = a11yContrast(color2, backgroundColor);
     
     if (Math.abs(contrast - desiredContrast) < 0.001) {
       return color2;
@@ -46,5 +47,5 @@ export default function adjustLightnessForContrast(color: string, desiredContras
     targetLightness = (minLightness + maxLightness) / 2;
   }
   
-  return composeHslColorString(h, saturation, targetLightness);
+  return composeHslColorString(hsl.h, hsl.s, targetLightness);
 }

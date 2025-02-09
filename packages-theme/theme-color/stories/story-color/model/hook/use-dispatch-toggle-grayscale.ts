@@ -8,10 +8,10 @@ import {
 
 import useModelDispatch from './_use-model-dispatch';
 
-export default function useDispatchTogglePolishedGrayscale(): () => void {
+export default function useDispatchToggleGrayscale(): () => void {
   const dispatch = useModelDispatch();
   
   return useCallback(() => dispatch({
-    type: EAction.TOGGLE_POLISHED_GRAYSCALE
+    type: EAction.TOGGLE_GRAYSCALE
   }), [dispatch]);
 }

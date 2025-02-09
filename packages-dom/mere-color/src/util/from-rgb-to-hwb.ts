@@ -1,11 +1,11 @@
 import {
-  IColorHwb,
-  IColorRgb
+  IHwb,
+  IRgb
 } from '../types';
 
 import fromRgbToHsv from './from-rgb-to-hsv';
 
-export default function fromRgbToHwb(rgb: IColorRgb): IColorHwb {
+export default function fromRgbToHwb(rgb: IRgb): IHwb {
   const {
     h
   } = fromRgbToHsv(rgb);

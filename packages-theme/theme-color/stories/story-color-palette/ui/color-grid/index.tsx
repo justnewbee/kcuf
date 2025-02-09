@@ -2,10 +2,11 @@ import {
   ReactElement,
   Fragment
 } from 'react';
-import {
-  readableColor
-} from 'polished';
 import styled from 'styled-components';
+
+import {
+  a11yReadableColor
+} from '@kcuf/mere-color';
 
 import {
   ColorBlockBase,
@@ -36,7 +37,7 @@ export default function ColorGrid(): ReactElement {
         
         return <ScColorBlock key={hue} {...{
           style: {
-            color: readableColor(color),
+            color: a11yReadableColor(color),
             backgroundColor: color
           },
           onClick: () => setSelection([hue, lightness])

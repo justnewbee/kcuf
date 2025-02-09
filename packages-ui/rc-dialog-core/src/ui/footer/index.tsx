@@ -32,7 +32,6 @@ const cssCommon = css`
 
 const cssNormal = css`
   justify-content: flex-end;
-  padding-top: ${SIZE.PADDING_X_DIALOG * 2 / 3}px;
   padding-bottom: ${SIZE.PADDING_X_DIALOG}px;
   text-align: right;
 `;

@@ -2,7 +2,7 @@ import {
   IContrastScores
 } from '../types';
 
-import getContrast from './get-contrast';
+import a11yContrast from './a11y-contrast';
 
 /**
  * Determines which contrast guidelines have been met for two colors.
@@ -11,8 +11,8 @@ import getContrast from './get-contrast';
  * @example
  * const scores = meetsContrastGuidelines('#444', '#fff');
  */
-export default function getContrastGuidelines(fgc: string, bgc?: string): IContrastScores {
-  const contrast = getContrast(fgc, bgc);
+export default function a11yContrastGuidelines(fgc: string, bgc?: string): IContrastScores {
+  const contrast = a11yContrast(fgc, bgc);
   
   return {
     contrast,

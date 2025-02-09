@@ -1,9 +1,9 @@
 import {
-  IColorRgb,
-  IColorHsv
+  IRgb,
+  IHsv
 } from '../types';
 
-export default function fromRgbToHsv(rgb: IColorRgb): IColorHsv {
+export default function fromRgbToHsv(rgb: IRgb): IHsv {
   const {
     r,
     g,

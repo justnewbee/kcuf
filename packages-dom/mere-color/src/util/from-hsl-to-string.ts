@@ -1,10 +1,10 @@
 import {
-  IColorHsl
+  IHsl
 } from '../types';
 
 import normalizeColorHsl from './normalize-color-hsl';
 
-export default function fromHslToString(hsl: IColorHsl): string {
+export default function fromHslToString(hsl: IHsl): string {
   const {
     h,
     s,

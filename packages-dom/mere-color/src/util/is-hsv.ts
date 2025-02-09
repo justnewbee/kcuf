@@ -1,8 +1,8 @@
 import {
-  IColorHsv
+  IHsv
 } from '../types';
 
-export default function isHsv(o: object): o is IColorHsv {
+export default function isHsv(o: object): o is IHsv {
   const color = o as Record<string, unknown>;
   
   return typeof (color as Record<string, unknown>).h === 'number'

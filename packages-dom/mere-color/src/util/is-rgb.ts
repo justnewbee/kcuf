@@ -1,8 +1,8 @@
 import {
-  IColorRgb
+  IRgb
 } from '../types';
 
-export default function isRgb(o: object): o is IColorRgb {
+export default function isRgb(o: object): o is IRgb {
   const color = o as Record<string, unknown>;
   
   return typeof (color as Record<string, unknown>).r === 'number'

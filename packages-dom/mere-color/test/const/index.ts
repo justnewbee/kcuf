@@ -1,19 +1,23 @@
 import {
-  ColorRgb,
-  ColorHsl
+  Rgb,
+  Hsl,
+  RgbString,
+  HslString
 } from '../../src';
 
 interface IColor {
   name: string;
   hexStr: `#${string}`;
-  rgbStr: `rgb(${string})`;
+  rgbStr: RgbString;
   rgbStrPercentage: `rgb(${string})`;
   rgbStrLegacy: `rgb(${string})`;
   rgbStrLegacyPercentage: `rgb(${string})`;
-  hslStr: `hsl(${string})`;
+  hslStr: HslString;
   hslStrLegacy: `hsl(${string})`;
-  rgb: ColorRgb;
-  hsl: ColorHsl;
+  rgb: Rgb;
+  hsl: Hsl;
+  luminance: number;
+  contrast: number;
 }
 
 export const BLACK: IColor = {
@@ -34,7 +38,10 @@ export const BLACK: IColor = {
     h: 0,
     s: 0,
     l: 0
-  }
+  },
+  // https://planetcalc.com/7779/
+  luminance: 0,
+  contrast: 21
 };
 
 export const WHITE: IColor = {
@@ -55,7 +62,9 @@ export const WHITE: IColor = {
     h: 0,
     s: 0,
     l: 100
-  }
+  },
+  luminance: 1,
+  contrast: 1
 };
 export const RED: IColor = {
   name: 'red',
@@ -75,7 +84,9 @@ export const RED: IColor = {
     h: 0,
     s: 100,
     l: 50
-  }
+  },
+  luminance: 0.213,
+  contrast: 3.992
 };
 export const ORANGE: IColor = {
   name: 'orange',
@@ -95,7 +106,9 @@ export const ORANGE: IColor = {
     h: 38.8,
     s: 100,
     l: 50
-  }
+  },
+  luminance: 0.482,
+  contrast: 1.974
 };
 export const YELLOW: IColor = {
   name: 'yellow',
@@ -115,7 +128,9 @@ export const YELLOW: IColor = {
     h: 60,
     s: 100,
     l: 50
-  }
+  },
+  luminance: 0.928,
+  contrast: 1.074
 };
 export const GREEN: IColor = {
   name: 'green',
@@ -135,7 +150,9 @@ export const GREEN: IColor = {
     h: 120,
     s: 100,
     l: 25.1
-  }
+  },
+  luminance: 0.154,
+  contrast: 5.147
 };
 export const CYAN: IColor = {
   name: 'cyan',
@@ -155,7 +172,9 @@ export const CYAN: IColor = {
     h: 180,
     s: 100,
     l: 50
-  }
+  },
+  luminance: 0.787,
+  contrast: 1.254
 };
 export const BLUE: IColor = {
   name: 'blue',
@@ -175,7 +194,9 @@ export const BLUE: IColor = {
     h: 240,
     s: 100,
     l: 50
-  }
+  },
+  luminance: 0.072,
+  contrast: 8.607
 };
 export const PURPLE: IColor = {
   name: 'purple',
@@ -195,8 +216,22 @@ export const PURPLE: IColor = {
     h: 300,
     s: 100,
     l: 25.1
-  }
+  },
+  luminance: 0.061,
+  contrast: 9.459
 };
+
+export const COLORS: IColor[] = [
+  BLACK,
+  WHITE,
+  RED,
+  ORANGE,
+  YELLOW,
+  GREEN,
+  CYAN,
+  BLUE,
+  PURPLE
+];
 
 export const INVALID_INPUTS = [
   // non-color
@@ -236,16 +271,4 @@ export const INVALID_INPUTS = [
   'hsl(255, 0, ghi)',
   'hsla(255, 0, 0, jkl)',
   'hsl(100%, 20%, 30)'
-];
-
-export const COLORS: IColor[] = [
-  BLACK,
-  WHITE,
-  RED,
-  ORANGE,
-  YELLOW,
-  GREEN,
-  CYAN,
-  BLUE,
-  PURPLE
 ];

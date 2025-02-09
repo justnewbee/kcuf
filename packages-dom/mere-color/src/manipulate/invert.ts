@@ -1,32 +1,13 @@
 import {
-  parseToRgb
-} from '../parse';
-import {
+  getColorNotation,
   toColorString
 } from '../util';
+import {
+  parseToRgb
+} from '../parse';
 
 /**
- * Inverts the red, green and blue values of a color.
- *
- * @example
- * // Styles as object usage
- * const styles = {
- *   background: invert('#CCCD64'),
- *   background: invert('rgba(101,100,205,0.7)'),
- * }
- *
- * // styled-components usage
- * const div = styled.div`
- *   background: ${invert('#CCCD64')};
- *   background: ${invert('rgba(101,100,205,0.7)')};
- * `
- *
- * // CSS in JS Output
- *
- * element {
- *   background: "#33329b";
- *   background: "rgba(154,155,50,0.7)";
- * }
+ * Inverts the r/g/b channel of a color, returning the new color in the original notation normalized.
  */
 export default function invert(input: string): string {
   const rgb = parseToRgb(input);
@@ -40,5 +21,5 @@ export default function invert(input: string): string {
     g: 255 - rgb.g,
     b: 255 - rgb.b,
     a: rgb.a
-  });
+  }, getColorNotation(input));
 }

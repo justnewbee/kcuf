@@ -1,9 +1,9 @@
 import {
-  IColorRgb,
-  IColorHsl
+  IRgb,
+  IHsl
 } from '../types';
 
-export default function fromRgbToHsl(rgb: IColorRgb): IColorHsl {
+export default function fromRgbToHsl(rgb: IRgb): IHsl {
   const red = rgb.r / 255;
   const green = rgb.g / 255;
   const blue = rgb.b / 255;
