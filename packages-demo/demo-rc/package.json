@@ -1,11 +1,11 @@
 {
   "name": "@kcuf/demo-rc",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "React components for demo purpose only.",
   "keywords": [
     "react",
     "component",
-    "demo-only"
+    "demo-purpose"
   ],
   "license": "MIT",
   "sideEffects": false,

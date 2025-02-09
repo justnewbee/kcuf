@@ -59,3 +59,7 @@ export { default as Codemirror } from './codemirror';
 
 // placeholder
 export { default as LongArticle } from './long-article';
+
+// special
+export * from './test-api';
+export { default as TestApi } from './test-api';

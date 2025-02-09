@@ -6,7 +6,6 @@ import {
   Table,
   TableColumnProps
 } from '../../../src';
-// import Shared from '../_shared';
 
 interface IData {
   id: string;
