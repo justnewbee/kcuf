@@ -8,32 +8,36 @@ import {
 } from '../../../src';
 
 const ScColorBlock = styled.div`
-  padding: 24px;
+  padding: 8px;
+  border-radius: 3px;
 `;
-const ScTitle = styled.div`
-  margin-bottom: 4px;
-  font-weight: 600;
+
+const ScPre = styled.pre`
+  margin: 4px 0 0;
+  padding: 0;
+  font-size: 0.8em;
 `;
 
 interface IProps {
-  title: string;
-  color?: string;
+  color?: string | null;
+  result?: string | number | null;
+  code: string;
 }
 
 export default function ColorGrid({
-  title,
-  color
+  color,
+  result,
+  code
 }: IProps): ReactElement {
   return <ScColorBlock {...{
     style: color ? {
       backgroundColor: color,
       color: a11yReadableColor(color)
     } : {
-      backgroundColor: '#eee',
-      color: '#c00'
+      backgroundColor: '#f7f7f7'
     }
   }}>
-    <ScTitle>{title}</ScTitle>
-    <div>{color || '💥 Unavailable'}</div>
+    <strong>{result ?? '💥'}</strong>
+    {code ? <ScPre>{code}</ScPre> : null}
   </ScColorBlock>;
 }

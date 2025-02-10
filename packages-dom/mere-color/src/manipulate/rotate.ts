@@ -2,9 +2,8 @@ import {
   EHueUnit
 } from '../enum';
 import {
-  getAngleUnitValue,
-  getColorNotation,
-  toColorString
+  adjustHue,
+  toColorStringOriginalNotation
 } from '../util';
 import {
   parseToHsl
@@ -20,8 +19,5 @@ export default function rotate(color: string, amount: number, unit?: `${EHueUnit
     return color;
   }
   
-  return toColorString({
-    ...hsl,
-    h: hsl.h + amount * getAngleUnitValue(unit)
-  }, getColorNotation(color));
+  return toColorStringOriginalNotation(adjustHue(hsl, amount, unit), color);
 }

@@ -1,7 +1,6 @@
 import {
   mixRgb,
-  getColorNotation,
-  toColorString
+  toColorStringOriginalNotation
 } from '../util';
 import {
   parseToRgb
@@ -22,5 +21,5 @@ export default function mix(color1: string, color2: string, ratio?: [number, num
     return color2;
   }
   
-  return toColorString(mixRgb(rgb1, rgb2, ratio), getColorNotation(color1));
+  return toColorStringOriginalNotation(mixRgb(rgb1, rgb2, ratio), color1);
 }

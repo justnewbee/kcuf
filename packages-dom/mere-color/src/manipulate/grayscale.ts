@@ -1,6 +1,5 @@
 import {
-  getColorNotation,
-  toColorString
+  toColorStringOriginalNotation
 } from '../util';
 import {
   parseToRgb
@@ -24,10 +23,10 @@ export default function grayscale(color: string): string {
   } = rgb;
   const gray = r * 0.3 + g * 0.59 + b * 0.11;
   
-  return toColorString({
+  return toColorStringOriginalNotation({
     r: gray,
     g: gray,
     b: gray,
     a
-  }, getColorNotation(color));
+  }, color);
 }

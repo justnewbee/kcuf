@@ -1,6 +1,5 @@
 import {
-  getColorNotation,
-  toColorString
+  toColorStringOriginalNotation
 } from '../util';
 import {
   parseToRgb
@@ -9,17 +8,17 @@ import {
 /**
  * Inverts the r/g/b channel of a color, returning the new color in the original notation normalized.
  */
-export default function invert(input: string): string {
-  const rgb = parseToRgb(input);
+export default function invert(color: string): string {
+  const rgb = parseToRgb(color);
   
   if (!rgb) {
-    return input;
+    return color;
   }
   
-  return toColorString({
+  return toColorStringOriginalNotation({
     r: 255 - rgb.r,
     g: 255 - rgb.g,
     b: 255 - rgb.b,
     a: rgb.a
-  }, getColorNotation(input));
+  }, color);
 }

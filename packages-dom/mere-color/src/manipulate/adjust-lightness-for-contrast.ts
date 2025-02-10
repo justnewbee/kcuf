@@ -1,9 +1,8 @@
 import {
-  getColorNotation,
   computeLuminance,
   computeContrast,
   fromHslToRgb,
-  toColorString
+  toColorStringOriginalNotation
 } from '../util';
 import {
   parseToHsl
@@ -22,7 +21,7 @@ interface IOptions {
 /**
  * Adjust the color's lightness to meet target contrast, returning the new color in the original notation normalized.
  */
-export default function adjustContrast(color: string, targetContrast: number, options: IOptions = {}): string {
+export default function adjustLightnessForContrast(color: string, targetContrast: number, options: IOptions = {}): string {
   const hsl = parseToHsl(color);
   
   if (!hsl) {
@@ -53,7 +52,7 @@ export default function adjustContrast(color: string, targetContrast: number, op
     const contrast = computeContrast(computeLuminance(rgb), bgcLuminance);
     
     if (Math.abs(contrast - targetContrast) < 0.001) {
-      return toColorString(rgb, getColorNotation(color));
+      return toColorStringOriginalNotation(rgb, color);
     }
     
     if (contrast > targetContrast) {
@@ -65,8 +64,8 @@ export default function adjustContrast(color: string, targetContrast: number, op
     targetLightness = (minL + maxL) / 2;
   }
   
-  return toColorString({
+  return toColorStringOriginalNotation({
     ...hsl,
     l: targetLightness
-  }, getColorNotation(color));
+  }, color);
 }
