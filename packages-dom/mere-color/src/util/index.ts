@@ -5,8 +5,8 @@ export { default as parseColorHsl } from './parse-color-hsl';
 export { default as normalizeColorRgb } from './normalize-color-rgb';
 export { default as normalizeColorHsl } from './normalize-color-hsl';
 
-export { default as adjustHue } from './adjust-hue';
-export { default as adjustLightness } from './adjust-lightness';
+export { default as shiftHue } from './shift-hue';
+export { default as shiftLightness } from './shift-lightness';
 
 export { default as computeLuminance } from './compute-luminance';
 export { default as computeContrast } from './compute-contrast';

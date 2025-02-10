@@ -47,6 +47,7 @@
     "@vitest/coverage-v8": "^3.0.5",
     "chroma-js": "^3.1.2",
     "color": "^4.2.3",
+    "color2k": "^2.0.3",
     "colord": "^2.9.3",
     "culori": "^4.0.1",
     "polished": "^4.3.1",

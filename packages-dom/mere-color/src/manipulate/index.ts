@@ -2,6 +2,8 @@
 export { default as invert } from './invert';
 export { default as grayscale } from './grayscale';
 export { default as mix } from './mix';
+export { default as tint } from './tint';
+export { default as shade } from './shade';
 
 // based on hsl
 export { default as rotate } from './rotate';

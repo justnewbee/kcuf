@@ -2,7 +2,7 @@ import {
   EHueUnit
 } from '../enum';
 import {
-  adjustHue,
+  shiftHue,
   toColorStringOriginalNotation
 } from '../util';
 import {
@@ -19,5 +19,5 @@ export default function rotate(color: string, amount: number, unit?: `${EHueUnit
     return color;
   }
   
-  return toColorStringOriginalNotation(adjustHue(hsl, amount, unit), color);
+  return toColorStringOriginalNotation(shiftHue(hsl, amount, unit), color);
 }
