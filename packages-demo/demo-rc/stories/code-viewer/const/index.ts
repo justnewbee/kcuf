@@ -94,7 +94,7 @@ export const CODE_MARKDOWN = `# @kcuf/demo-rc
   + \`List\`
   + \`CheckboxGroup\`
   + \`RadioGroup\`
-  + \`JsonViewer\`
+  + \`CodeViewerJson5\`
   + \`Flex100HBF\`
   + \`LongArticle\`
 `;

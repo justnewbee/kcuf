@@ -39,9 +39,9 @@
 * Data Display
   - `List`
   - `Table`
-  - `JsonViewer`
-  - `PromiseViewer`
-  - `CodeViewer`
   - `Codemirror`
+  - `CodeViewer`
+  - `CodeViewerJson5`
+  - `PromiseViewer`
 * Placeholder
   - `LongArticle` 可用来撑高

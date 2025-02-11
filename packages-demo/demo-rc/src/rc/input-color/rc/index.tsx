@@ -67,13 +67,15 @@ function composeHexa(hex: string, alpha: number): string {
   return `${hex}${alpha >= 255 ? '' : alpha.toString(16).padStart(2, '0')}`;
 }
 
-function InputColor({
-  withAlpha,
-  value,
-  defaultValue,
-  onChange,
-  ...props
-}: IInputColorProps, ref: TInputColorRef): ReactElement {
+function InputColor(props: IInputColorProps, ref: TInputColorRef): ReactElement {
+  const {
+    withAlpha,
+    value,
+    defaultValue,
+    onChange,
+    ...restProps
+  } = props;
+  
   const [controllableValue, controllableOnChange] = useControllable('#9900ff', value, defaultValue, onChange);
   const [hex, alpha] = parseColor(controllableValue);
   
@@ -92,7 +94,7 @@ function InputColor({
         }
       }} />
       <input {...{
-        ...props,
+        ...restProps,
         value: hex,
         type: 'color',
         onChange: handleHexChange

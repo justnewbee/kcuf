@@ -48,14 +48,14 @@ export * from './list';
 export { default as List } from './list';
 export * from './table';
 export { default as Table } from './table';
-export * from './json-viewer';
-export { default as JsonViewer } from './json-viewer';
-export * from './promise-viewer';
-export { default as PromiseViewer } from './promise-viewer';
-export * from './code-viewer';
-export { default as CodeViewer } from './code-viewer';
 export * from './codemirror';
 export { default as Codemirror } from './codemirror';
+export * from './code-viewer';
+export { default as CodeViewer } from './code-viewer';
+export * from './code-viewer-json5';
+export { default as CodeViewerJson5 } from './code-viewer-json5';
+export * from './promise-viewer';
+export { default as PromiseViewer } from './promise-viewer';
 
 // placeholder
 export { default as LongArticle } from './long-article';

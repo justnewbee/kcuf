@@ -41,7 +41,7 @@ function List({
 }: IListProps, ref: Ref<HTMLOListElement & HTMLUListElement>): ReactElement {
   const ListComponent = ordered ? ScOl : ScUl;
   
-  return <ListComponent ref={ref} {...props}>
+  return <ListComponent {...props} ref={ref}>
     {Children.map(children, (v, i): ReactElement | null => <ScLi key={i}>{v as ReactElement}</ScLi>)}
   </ListComponent>;
 }

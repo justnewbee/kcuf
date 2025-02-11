@@ -5,7 +5,8 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import JsonViewer from '../../json-viewer';
+import CodeViewer from '../../code-viewer';
+import CodeViewerJson5 from '../../code-viewer-json5';
 import {
   ELoading
 } from '../enum';
@@ -31,9 +32,9 @@ const ScInfoIdle = styled.div`
   z-index: 123;
   padding: 4px 8px;
   background-color: hsl(0 0% 40%);
+  color: hsl(0 0% 100%);
   font-family: Arial, sans-serif;
   font-size: 11px;
-  color: hsl(0 0% 100%);
   pointer-events: none;
 `;
 
@@ -83,15 +84,26 @@ export default function PromiseViewer({
     {((): ReactElement => {
       switch (stateResult.loading) {
       case ELoading.LOADING:
-        return <ScInfoLoading>Loading...</ScInfoLoading>;
+        return <>
+          <ScInfoLoading>Loading...</ScInfoLoading>
+          <CodeViewer>Loading...</CodeViewer>
+        </>;
       case ELoading.RESOLVED:
-        return <ScInfoResolved>Success ({stateResult.duration}ms)</ScInfoResolved>;
+        return <>
+          <ScInfoResolved>Success ({stateResult.duration}ms)</ScInfoResolved>
+          <CodeViewerJson5 o={stateResult.result} />
+        </>;
       case ELoading.REJECTED:
-        return <ScInfoRejected>Failed ({stateResult.duration}ms)</ScInfoRejected>;
+        return <>
+          <ScInfoRejected>Failed ({stateResult.duration}ms)</ScInfoRejected>
+          <CodeViewerJson5 o={normalizeError(stateResult.result as Error)} />
+        </>;
       default:
-        return <ScInfoIdle>Idle</ScInfoIdle>;
+        return <>
+          <ScInfoIdle>Idle</ScInfoIdle>
+          <CodeViewer />
+        </>;
       }
     })()}
-    <JsonViewer o={stateResult.loading === ELoading.REJECTED ? normalizeError(stateResult.result as Error) : stateResult.result} />
   </ScPromiseViewer>;
 }

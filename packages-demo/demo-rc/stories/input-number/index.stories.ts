@@ -18,8 +18,4 @@ const meta = {
 
 export default meta;
 
-export const Primary: TStory = {
-  args: {
-    defaultValue: 'InputNumber'
-  }
-};
+export const Primary: TStory = {};

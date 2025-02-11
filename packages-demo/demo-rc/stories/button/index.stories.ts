@@ -1,11 +1,14 @@
 import {
+  Meta,
+  StoryObj
+} from '@storybook/react';
+
+import {
   Button
 } from '../../src';
 
-import {
-  TMeta,
-  TStory
-} from './types';
+type TMeta = Meta<typeof Button>;
+type TStory = StoryObj<TMeta>;
 
 const meta = {
   title: 'Form/Button',

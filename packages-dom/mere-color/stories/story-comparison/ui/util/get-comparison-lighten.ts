@@ -36,7 +36,7 @@ export default function getComparisonLighten(c: string, amount: number): TCompar
   }, {
     key: 'tinycolor2',
     result: tinycolor2(c).lighten(amount).toString('hex'),
-    code: 'tinycolor2(c).amount(amount).toString(\'hex\')'
+    code: 'tinycolor2(c).lighten(amount).toString(\'hex\')'
   }, {
     key: 'colord',
     result: colord(c).lighten(amount / 100).toHex(),

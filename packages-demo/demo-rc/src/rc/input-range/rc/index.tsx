@@ -81,15 +81,13 @@ function InputRange({
     controllableOnChange(fromStringToNumber(e.target.value));
   }, [controllableOnChange]);
   
-  return <ScInputRange
-    {...{
-      title: `${controllableValue}`,
-      ...props,
-      value: fromNumberToString(controllableValue),
-      type: 'range',
-      onChange: handleChange
-    }}
-    ref={ref} />;
+  return <ScInputRange {...{
+    title: `${controllableValue}`,
+    ...props,
+    value: fromNumberToString(controllableValue),
+    type: 'range',
+    onChange: handleChange
+  }} ref={ref} />;
 }
 
 export default forwardRef(InputRange);

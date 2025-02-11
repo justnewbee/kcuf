@@ -7,14 +7,14 @@ import {
 } from '../../../util';
 import CodeViewer from '../../code-viewer';
 import {
-  IJsonViewerProps
+  ICodeViewerJson5Props
 } from '../types';
 
 /**
  * 展示简化的 JSON
  */
-export default function JsonViewer({
+export default function CodeViewerJson5({
   o
-}: IJsonViewerProps): ReactElement {
+}: ICodeViewerJson5Props): ReactElement {
   return <CodeViewer language="json5">{json5Stringify(o)}</CodeViewer>;
 }

@@ -1,5 +1,5 @@
 export { default } from './rc';
 
 export type {
-  IJsonViewerProps as JsonViewerProps
+  ICodeViewerJson5Props as CodeViewerJson5Props
 } from './types';

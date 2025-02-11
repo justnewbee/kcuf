@@ -21,7 +21,7 @@ export default function CompareA11yContrast({
   const color = useColor();
   
   return <>
-    <GridTitle>contrast(c, {black ? 'black' : 'white'})</GridTitle>
+    <GridTitle>a11yContrast(c, {black ? 'black' : 'white'})</GridTitle>
     {getComparisonContrast(color, black).map(v => <GridItem key={v.key} {...{
       result: v.result,
       code: v.code
