@@ -95,6 +95,7 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconBaseRef)
     $fontFamily: fontFamily,
     $code,
     $fontSize,
+    $spacing: spacing,
     $darkThemePrefix: darkThemePrefix,
     $color,
     $colorDark,
