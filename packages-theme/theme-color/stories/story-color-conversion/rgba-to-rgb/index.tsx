@@ -3,20 +3,20 @@ import {
   useState,
   useMemo
 } from 'react';
-import {
-  rgb
-} from 'polished';
 import styled from 'styled-components';
 
+import {
+  Rgb,
+  toString,
+  a11yReadableColor
+} from '@kcuf/mere-color';
 import {
   H2,
   P,
   List
 } from '@kcuf/demo-rc';
 
-import InputColor, {
-  IRgba
-} from '../_input-color';
+import InputColor from '../_input-color';
 
 const ScColorMix = styled.div`
   display: flex;
@@ -25,24 +25,22 @@ const ScColorMix = styled.div`
 
 const ScSign = styled.div`
   padding: 8px;
-  color: #999;
 `;
 
 /**
  * RGB + BG → RGBA
  */
 export default function RgbaToRgb(): ReactElement {
-  const [stateRgba, setStateRgba] = useState<IRgba>({
+  const [stateRgba, setStateRgba] = useState<Rgb>({
     r: 160,
     g: 20,
     b: 160,
-    a: 0.2
+    a: 20
   });
-  const [stateBg, setStateBg] = useState<IRgba>({
+  const [stateBg, setStateBg] = useState<Rgb>({
     r: 255,
     g: 255,
-    b: 255,
-    a: 1
+    b: 255
   });
   const mixedColor = useMemo((): string => {
     const {
@@ -57,7 +55,11 @@ export default function RgbaToRgb(): ReactElement {
       b: B
     } = stateBg;
     
-    return rgb(Math.round((1 - a) * R + a * r), Math.round((1 - a) * G + a * g), Math.round((1 - a) * B + a * b));
+    return toString({
+      r: (1 - a / 100) * R + a / 100 * r,
+      g: (1 - a / 100) * G + a / 100 * g,
+      b: (1 - a / 100) * B + a / 100 * b
+    });
   }, [stateRgba, stateBg]);
   
   return <>
@@ -75,7 +77,8 @@ export default function RgbaToRgb(): ReactElement {
       <InputColor value={stateBg} onChange={setStateBg} />
       <ScSign>=</ScSign>
       <ScSign style={{
-        backgroundColor: mixedColor
+        backgroundColor: mixedColor,
+        color: a11yReadableColor(mixedColor)
       }}>{mixedColor.toString()}</ScSign>
     </ScColorMix>
   </>;

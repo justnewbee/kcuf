@@ -1,12 +1,13 @@
 import {
   TupleOf
 } from '@kcuf/ts-missing-helpers';
+import {
+  adjustLightnessForContrast
+} from '@kcuf/mere-color';
 
 import {
   ColorLevels
 } from '../../src';
-
-import adjustLightnessForContrast from './adjust-lightness-for-contrast';
 
 interface IOptions {
   gray?: boolean;
@@ -47,6 +48,6 @@ export default function generateColorLevel(color: string, {
   dark
 }: IOptions = {}): ColorLevels {
   return (gray ? CONTRAST_LEVEL_GRAY : CONTRAST_LEVEL_COLORFUL).map(v => adjustLightnessForContrast(color, v, {
-    dark
+    bgc: dark ? '#000' : '#fff'
   })) as ColorLevels;
 }

@@ -6,6 +6,7 @@ export { default as normalizeColorRgb } from './normalize-color-rgb';
 export { default as normalizeColorHsl } from './normalize-color-hsl';
 
 export { default as shiftHue } from './shift-hue';
+export { default as shiftSaturation } from './shift-saturation';
 export { default as shiftLightness } from './shift-lightness';
 
 export { default as computeLuminance } from './compute-luminance';

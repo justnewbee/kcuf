@@ -7,6 +7,8 @@ export { default as shade } from './shade';
 
 // based on hsl
 export { default as rotate } from './rotate';
+export { default as desaturate } from './desaturate';
+export { default as saturate } from './saturate';
 export { default as darken } from './darken';
 export { default as lighten } from './lighten';
 export { default as complement } from './complement';

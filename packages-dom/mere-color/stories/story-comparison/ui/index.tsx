@@ -13,11 +13,13 @@ import {
   CompareToStringRgb,
   CompareToStringHsl,
   CompareManipulationGrayscale,
+  CompareManipulationRotate,
+  CompareManipulationDesaturate,
+  CompareManipulationSaturate,
   CompareManipulationDarken,
   CompareManipulationLighten,
   CompareManipulationShade,
   CompareManipulationTint,
-  CompareManipulationRotate,
   CompareManipulationInvert,
   CompareManipulationMix,
   CompareA11yLuminance,
@@ -39,11 +41,13 @@ export default function Ui(): ReactElement {
       <CompareToStringRgb />
       <CompareToStringHsl />
       <CompareManipulationGrayscale />
+      <CompareManipulationRotate />
+      <CompareManipulationDesaturate />
+      <CompareManipulationSaturate />
       <CompareManipulationDarken />
       <CompareManipulationLighten />
       <CompareManipulationShade />
       <CompareManipulationTint />
-      <CompareManipulationRotate />
       <CompareManipulationInvert />
       <CompareManipulationMix />
       <CompareA11yLuminance />

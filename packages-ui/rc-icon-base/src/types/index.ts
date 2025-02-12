@@ -32,13 +32,21 @@ export interface IIconPropsGeneric<T extends string = string> extends HTMLAttrib
    */
   type: T;
   /**
-   * 图标大小（字号大小），不设置则继承容器字号，与周边文字和谐共处
+   * 便捷属性，规范图标大小（字号大小），不设置则继承容器字号，与周边文字和谐共处
    */
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
   /**
    * 当设置 `size` 时，可以同时设置 `sizeRelative`，此时会用 `em` 相对大小
    */
   sizeRelative?: boolean;
+  /**
+   * 便捷属性，规范与左右内容的 `margin` 值为 `0.6em`，这样能适应 80% 的场景，若需要别的间隙，可用 `style`、`styled-components` 等样式方案
+   *
+   * - 'start' → `margin-inline-start`
+   * - `end` → `margin-inline-end`
+   * - `both` → `margin-inline`
+   */
+  spacing?: 'start' | 'end' | 'both';
   /**
    * 是否为禁用状态
    */
@@ -88,6 +96,7 @@ export interface IScIconBaseProps {
   $fontFamily: string;
   $code: string;
   $fontSize?: string;
+  $spacing?: IIconPropsGeneric['spacing'];
   $darkThemePrefix?: string;
   $color: string | null;
   $colorDark: string | null;

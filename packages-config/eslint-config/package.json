@@ -23,7 +23,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "eslint": "^9.20.0"
+    "eslint": "^9.20.1"
   },
   "peerDependencies": {
     "eslint": ">=9"

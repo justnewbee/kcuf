@@ -18,15 +18,21 @@ import {
 const ScIcon = styled.i<IScIconBaseProps>`
   font-family: ${props => props.$fontFamily} !important;
   line-height: 1.1;
-  ${props => props.$fontSize ? css`
-    font-size: ${props.$fontSize};
-  ` : null}
-  ${props => props.$color ? css`
-    color: ${props.$color} !important;
-  ` : null}
-  ${props => props.onClick ? css`
-    cursor: pointer;
-  ` : null}
+  ${props => {
+    switch (props.$spacing) {
+    case 'start':
+      return css`margin-inline-start: 0.6em;`;
+    case 'end':
+      return css`margin-inline-end: 0.6em;`;
+    case 'both':
+      return css`margin-inline: 0.6em;`;
+    default:
+      return null;
+    }
+  }}
+  ${props => props.$fontSize ? css`font-size: ${props.$fontSize};` : null}
+  ${props => props.$color ? css`color: ${props.$color} !important;` : null}
+  ${props => props.onClick ? css`cursor: pointer;` : null}
   
   ${props => props.$darkThemePrefix && props.$colorDark ? css`
     ${props.$darkThemePrefix} & {
@@ -65,6 +71,7 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconBaseRef)
     type,
     size,
     sizeRelative,
+    spacing,
     disabled,
     colored,
     rotating,

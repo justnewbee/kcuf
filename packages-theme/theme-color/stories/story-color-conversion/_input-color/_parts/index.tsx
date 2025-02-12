@@ -50,8 +50,8 @@ export function PartA(props: InputNumberProps): ReactElement {
   return <PartInput {...{
     ...props,
     placeholder: 'a',
-    step: 0.1,
-    max: 1
+    step: 10,
+    max: 100
   }} />;
 }
 

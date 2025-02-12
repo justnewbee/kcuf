@@ -1,0 +1,20 @@
+import {
+  shiftSaturation,
+  toColorStringOriginalNotation
+} from '../util';
+import {
+  parseToHsl
+} from '../parse';
+
+/**
+ * Increases the intensity of a color.
+ */
+export default function saturate(color: string, amount: number): string {
+  const hsl = parseToHsl(color);
+  
+  if (!hsl) {
+    return color;
+  }
+  
+  return toColorStringOriginalNotation(shiftSaturation(hsl, amount > 0 ? amount : 0), color);
+}

@@ -4,11 +4,12 @@ import {
   useCallback
 } from 'react';
 import styled from 'styled-components';
+
 import {
+  Rgb,
   parseToRgb,
-  rgb,
-  rgba
-} from 'polished';
+  toString
+} from '@kcuf/mere-color';
 
 import {
   PartR,
@@ -18,17 +19,10 @@ import {
   PartComplete
 } from './_parts';
 
-interface IRgba {
-  r: number;
-  g: number;
-  b: number;
-  a?: number;
-}
-
 interface IProps {
   rgbaMode?: boolean;
-  value?: IRgba;
-  onChange?(value: IRgba, color: string): void;
+  value?: Rgb;
+  onChange?(value: Rgb, color: string): void;
 }
 
 const ScColor = styled.div`
@@ -46,26 +40,23 @@ export default function InputColor({
   value,
   onChange
 }: IProps): ReactElement {
-  const [stateValue, setStateValue] = useState<IRgba>(value || {
+  const [stateValue, setStateValue] = useState<Rgb>(value || {
     r: 128,
     g: 0,
     b: 128,
-    a: 0.2
+    a: 20
   });
-  const computeColor = useCallback((o: IRgba): string => {
-    return rgbaMode ? rgba(o.r, o.g, o.b, o.a) : rgb(o.r, o.g, o.b);
-  }, [rgbaMode]);
-  const handleValueChange = useCallback((o: Partial<IRgba>): void => {
-    const newValue: IRgba = {
+  const handleValueChange = useCallback((o: Partial<Rgb>): void => {
+    const newValue: Rgb = {
       ...stateValue,
       ...o
     };
     
     setStateValue(newValue);
-    onChange?.(newValue, computeColor(newValue));
-  }, [onChange, computeColor, stateValue]);
-  const finalValue: IRgba = value ?? stateValue;
-  const finalColorString = computeColor(finalValue);
+    onChange?.(newValue, toString(newValue));
+  }, [onChange, stateValue]);
+  const finalValue: Rgb = value ?? stateValue;
+  const finalColorString = toString(finalValue);
   const handleChangeR = useCallback((n: number) => handleValueChange({
     r: n
   }), [handleValueChange]);
@@ -79,28 +70,12 @@ export default function InputColor({
     a: n
   }), [handleValueChange]);
   const handleCompleteChange = useCallback((completeColorString: string) => {
-    try {
-      const {
-        red: r,
-        green: g,
-        blue: b,
-        alpha: a
-      } = parseToRgb(completeColorString) as unknown as { red: number; green: number; blue: number; alpha: number; }; // 它的定义有问题
-      const o: IRgba = {
-        r,
-        g,
-        b
-      };
-      
-      if (rgbaMode) {
-        o.a = a || 1;
-      }
-      
-      handleValueChange(o);
-    } catch (_err) {
-      // ignore
+    const rgb = parseToRgb(completeColorString);
+    
+    if (rgb) {
+      handleValueChange(rgb);
     }
-  }, [handleValueChange, rgbaMode]);
+  }, [handleValueChange]);
   
   return <ScColor style={{
     backgroundColor: finalColorString
@@ -116,7 +91,3 @@ export default function InputColor({
     }} />
   </ScColor>;
 }
-
-export type {
-  IRgba
-};

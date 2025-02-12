@@ -13,5 +13,5 @@ export default function darken(color: string, amount = 10): string {
     return color;
   }
   
-  return toColorStringOriginalNotation(shiftLightness(hsl, -amount), color);
+  return toColorStringOriginalNotation(shiftLightness(hsl, amount > 0 ? -amount : 0), color);
 }
