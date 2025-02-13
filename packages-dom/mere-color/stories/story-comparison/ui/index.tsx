@@ -12,16 +12,17 @@ import {
   CompareToStringHex,
   CompareToStringRgb,
   CompareToStringHsl,
-  CompareManipulationGrayscale,
-  CompareManipulationRotate,
-  CompareManipulationDesaturate,
-  CompareManipulationSaturate,
-  CompareManipulationDarken,
-  CompareManipulationLighten,
-  CompareManipulationShade,
-  CompareManipulationTint,
-  CompareManipulationInvert,
-  CompareManipulationMix,
+  CompareGenerateRandom,
+  CompareGenerateGrayscale,
+  CompareGenerateRotate,
+  CompareGenerateDesaturate,
+  CompareGenerateSaturate,
+  CompareGenerateDarken,
+  CompareGenerateLighten,
+  CompareGenerateShade,
+  CompareGenerateTint,
+  CompareGenerateInvert,
+  CompareGenerateMix,
   CompareA11yLuminance,
   CompareA11yContrast
 } from './rc';
@@ -40,16 +41,17 @@ export default function Ui(): ReactElement {
       <CompareToStringHex />
       <CompareToStringRgb />
       <CompareToStringHsl />
-      <CompareManipulationGrayscale />
-      <CompareManipulationRotate />
-      <CompareManipulationDesaturate />
-      <CompareManipulationSaturate />
-      <CompareManipulationDarken />
-      <CompareManipulationLighten />
-      <CompareManipulationShade />
-      <CompareManipulationTint />
-      <CompareManipulationInvert />
-      <CompareManipulationMix />
+      <CompareGenerateRandom />
+      <CompareGenerateGrayscale />
+      <CompareGenerateRotate />
+      <CompareGenerateDesaturate />
+      <CompareGenerateSaturate />
+      <CompareGenerateDarken />
+      <CompareGenerateLighten />
+      <CompareGenerateShade />
+      <CompareGenerateTint />
+      <CompareGenerateInvert />
+      <CompareGenerateMix />
       <CompareA11yLuminance />
       <CompareA11yContrast />
       <CompareA11yContrast black />

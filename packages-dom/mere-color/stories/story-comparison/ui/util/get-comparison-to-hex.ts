@@ -14,6 +14,7 @@ import chroma from 'chroma-js';
 import {
   formatHex
 } from 'culori';
+import colormaster from 'colormaster';
 
 import {
   toStringHex
@@ -56,6 +57,10 @@ export default function getComparisonToHex(c: string): TComparisonResult {
   }, {
     key: 'culori',
     result: formatHex(c) || '',
-    code: 'formatHex(c) '
+    code: 'formatHex(c)'
+  }, {
+    key: 'colormaster',
+    result: colormaster(c).stringHEX(),
+    code: 'colormaster(c).stringHEX()'
   }];
 }

@@ -49,6 +49,7 @@
     "color": "^5.0.0",
     "color2k": "^2.0.3",
     "colord": "^2.9.3",
+    "colormaster": "^1.2.1",
     "culori": "^4.0.1",
     "polished": "^4.3.1",
     "react": "^18.3.1",

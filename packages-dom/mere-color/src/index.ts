@@ -1,6 +1,6 @@
 export * from './parse';
 export * from './to-string';
-export * from './manipulate';
+export * from './generate';
 export * from './a11y';
 
 export type {

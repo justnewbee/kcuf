@@ -7,5 +7,6 @@ export const TITLES = [
   'color',
   'color2k',
   'chroma-js',
-  'culori'
+  'culori',
+  'colormaster'
 ];

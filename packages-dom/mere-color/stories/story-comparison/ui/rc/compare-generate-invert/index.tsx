@@ -6,17 +6,18 @@ import {
   useColor
 } from '../../../model';
 import {
-  getComparisonA11yLuminance
+  getComparisonGenerateInvert
 } from '../../util';
 import GridTitle from '../grid-title';
 import GridItem from '../grid-item';
 
-export default function CompareA11yLuminance(): ReactElement {
+export default function CompareGenerateInvert(): ReactElement {
   const color = useColor();
   
   return <>
-    <GridTitle>a11yLuminance(c)</GridTitle>
-    {getComparisonA11yLuminance(color).map(v => <GridItem key={v.key} {...{
+    <GridTitle>invert(c)</GridTitle>
+    {getComparisonGenerateInvert(color).map(v => <GridItem key={v.key} {...{
+      color: v.result,
       result: v.result,
       code: v.code
     }} />)}

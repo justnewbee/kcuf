@@ -14,6 +14,7 @@ import chroma from 'chroma-js';
 import {
   formatRgb
 } from 'culori';
+import colormaster from 'colormaster';
 
 import {
   toStringRgb
@@ -56,6 +57,10 @@ export default function getComparisonToRgb(c: string): TComparisonResult {
   }, {
     key: 'culori',
     result: formatRgb(c) || '',
-    code: 'formatRgb(c) '
+    code: 'formatRgb(c)'
+  }, {
+    key: 'colormaster',
+    result: colormaster(c).stringRGB(),
+    code: 'colormaster(c).stringRGB()'
   }];
 }

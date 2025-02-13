@@ -14,6 +14,7 @@ import chroma from 'chroma-js';
 import {
   formatHsl
 } from 'culori';
+import colormaster from 'colormaster';
 
 import {
   toStringHsl
@@ -56,6 +57,10 @@ export default function getComparisonToHsl(c: string): TComparisonResult {
   }, {
     key: 'culori',
     result: formatHsl(c) || '',
-    code: 'formatHsl(c) '
+    code: 'formatHsl(c)'
+  }, {
+    key: 'colormaster',
+    result: colormaster(c).stringHSL(),
+    code: 'colormaster(c).stringHSL()'
   }];
 }

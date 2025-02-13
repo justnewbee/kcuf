@@ -6,7 +6,7 @@ import {
   useColor
 } from '../../../model';
 import {
-  getComparisonContrast
+  getComparisonA11yContrast
 } from '../../util';
 import GridTitle from '../grid-title';
 import GridItem from '../grid-item';
@@ -22,7 +22,7 @@ export default function CompareA11yContrast({
   
   return <>
     <GridTitle>a11yContrast(c, {black ? 'black' : 'white'})</GridTitle>
-    {getComparisonContrast(color, black).map(v => <GridItem key={v.key} {...{
+    {getComparisonA11yContrast(color, black).map(v => <GridItem key={v.key} {...{
       result: v.result,
       code: v.code
     }} />)}
