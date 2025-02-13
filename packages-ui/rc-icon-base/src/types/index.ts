@@ -44,9 +44,9 @@ export interface IIconPropsGeneric<T extends string = string> extends HTMLAttrib
    *
    * - 'start' → `margin-inline-start`
    * - `end` → `margin-inline-end`
-   * - `both` → `margin-inline`
+   * - `start-end` → `margin-inline`
    */
-  spacing?: 'start' | 'end' | 'both';
+  spacing?: 'start' | 'end' | 'start-end';
   /**
    * 是否为禁用状态
    */
@@ -95,8 +95,6 @@ export interface IIconBaseProps<T extends string = string> extends IIconPropsGen
 export interface IScIconBaseProps {
   $fontFamily: string;
   $code: string;
-  $fontSize?: string;
-  $spacing?: IIconPropsGeneric['spacing'];
   $darkThemePrefix?: string;
   $color: string | null;
   $colorDark: string | null;

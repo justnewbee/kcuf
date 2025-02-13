@@ -12,25 +12,12 @@ import {
   TIconBaseRef
 } from '../types';
 import {
-  getCssIconRotation, getIconFontSize
+  getCssIconRotation
 } from '../util';
 
 const ScIcon = styled.i<IScIconBaseProps>`
   font-family: ${props => props.$fontFamily} !important;
   line-height: 1.1;
-  ${props => {
-    switch (props.$spacing) {
-    case 'start':
-      return css`margin-inline-start: 0.6em;`;
-    case 'end':
-      return css`margin-inline-end: 0.6em;`;
-    case 'both':
-      return css`margin-inline: 0.6em;`;
-    default:
-      return null;
-    }
-  }}
-  ${props => props.$fontSize ? css`font-size: ${props.$fontSize};` : null}
   ${props => props.$color ? css`color: ${props.$color} !important;` : null}
   ${props => props.onClick ? css`cursor: pointer;` : null}
   
@@ -58,6 +45,58 @@ const ScIcon = styled.i<IScIconBaseProps>`
   &[aria-disabled='true'] {
     opacity: 0.7;
     cursor: not-allowed;
+  }
+  
+  &[data-size='xs'] {
+    font-size: 12px;
+  }
+  
+  &[data-size='xs-relative'] {
+    font-size: 0.9em;
+  }
+  
+  &[data-size='s'] {
+    font-size: 14px;
+  }
+  
+  &[data-size='s-relative'] {
+    font-size: 1.2em;
+  }
+  
+  &[data-size='m'] {
+    font-size: 16px;
+  }
+  
+  &[data-size='m-relative'] {
+    font-size: 1.4em;
+  }
+  
+  &[data-size='l'] {
+    font-size: 24px;
+  }
+  
+  &[data-size='l-relative'] {
+    font-size: 2em;
+  }
+  
+  &[data-size='xl'] {
+    font-size: 32px;
+  }
+  
+  &[data-size='xl-relative'] {
+    font-size: 3.2em;
+  }
+  
+  &[data-spacing='start'] {
+    margin-inline-start: 0.6em;
+  }
+  
+  &[data-spacing='end'] {
+    margin-inline-end: 0.6em;
+  }
+  
+  &[data-spacing='start-end'] {
+    margin-inline: 0.6em;
   }
 `;
 
@@ -88,14 +127,11 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconBaseRef)
   const $code = getIconCode(type);
   const $color = colored && getIconColor ? getIconColor(type) : null;
   const $colorDark = colored && getIconColorDark ? getIconColorDark(type) : null;
-  const $fontSize = getIconFontSize(size, sizeRelative);
   
   return <ScIcon {...{
     ref,
     $fontFamily: fontFamily,
     $code,
-    $fontSize,
-    $spacing: spacing,
     $darkThemePrefix: darkThemePrefix,
     $color,
     $colorDark,
@@ -103,6 +139,8 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconBaseRef)
     $rotate: rotate,
     $scale: scale,
     ...restProps,
+    'data-size': size ? `${size}${sizeRelative ? '-relative' : ''}` : undefined,
+    'data-spacing': spacing,
     tabIndex: tabIndex ?? (onClick ? 0 : undefined),
     'aria-disabled': disabled ? 'true' : undefined,
     role: onClick && !role ? 'button' : role,
