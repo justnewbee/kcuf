@@ -88,15 +88,15 @@ const ScIcon = styled.i<IScIconBaseProps>`
   }
   
   &[data-spacing='start'] {
-    margin-inline-start: 0.6em;
+    margin-inline-start: 0.4em;
   }
   
   &[data-spacing='end'] {
-    margin-inline-end: 0.6em;
+    margin-inline-end: 0.4em;
   }
   
   &[data-spacing='start-end'] {
-    margin-inline: 0.6em;
+    margin-inline: 0.4em;
   }
 `;
 
