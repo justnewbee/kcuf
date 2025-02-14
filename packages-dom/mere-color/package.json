@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/mere-color",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Mere color utils for generating, manipulation, a11y purposes.",
   "keywords": [
     "chroma-js",
