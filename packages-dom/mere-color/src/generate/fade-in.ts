@@ -8,8 +8,8 @@ import {
  *
  * 参考 https://lesscss.org/functions/#color-operations-fadein
  */
-export default function fadeIn(color: string, deltaAlpha = 10, min?: number): string {
+export default function fadeIn(color: string, deltaAlpha = 10, max?: number): string {
   return manipulateRgb(color, rgb => rgbShiftAlpha(rgb, deltaAlpha > 0 ? deltaAlpha : 0, {
-    min
+    max
   }));
 }
