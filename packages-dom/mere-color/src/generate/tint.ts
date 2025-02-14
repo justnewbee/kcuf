@@ -1,10 +1,7 @@
 import {
-  mixRgb,
-  toColorStringOriginalNotation
+  manipulateRgb,
+  rgbMix
 } from '../util';
-import {
-  parseToRgb
-} from '../parse';
 
 /**
  * Tints a color by mixing it with white.
@@ -13,15 +10,9 @@ import {
  * doesn't produce hue shifts.
  */
 export default function tint(color: string, percentage = 10): string {
-  const rgb = parseToRgb(color);
-  
-  if (!rgb) {
-    return color;
-  }
-  
-  return toColorStringOriginalNotation(mixRgb(rgb, {
+  return manipulateRgb(color, rgb => rgbMix(rgb, {
     r: 255,
     g: 255,
     b: 255
-  }, [100 - percentage, percentage]), color);
+  }, [100 - percentage, percentage]));
 }

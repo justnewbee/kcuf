@@ -1,17 +1,8 @@
 import {
-  parseToHsl
-} from '../parse';
-import {
-  shiftLightness,
-  toColorStringOriginalNotation
+  manipulateHsl,
+  hslShiftLightness
 } from '../util';
 
-export default function lighten(color: string, amount = 10): string {
-  const hsl = parseToHsl(color);
-  
-  if (!hsl) {
-    return color;
-  }
-  
-  return toColorStringOriginalNotation(shiftLightness(hsl, amount > 0 ? amount : 0), color);
+export default function lighten(color: string, deltaLightness = 10): string {
+  return manipulateHsl(color, hsl => hslShiftLightness(hsl, deltaLightness > 0 ? deltaLightness : 0));
 }

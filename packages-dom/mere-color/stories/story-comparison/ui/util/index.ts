@@ -33,5 +33,6 @@ export { default as getComparisonGenerateInvert } from './get-comparison-generat
 export { default as getComparisonGenerateMix } from './get-comparison-generate-mix';
 export { default as getComparisonGenerateTint } from './get-comparison-generate-tint';
 export { default as getComparisonGenerateShade } from './get-comparison-generate-shade';
+export { default as getComparisonA11yBrightness } from './get-comparison-a11y-brightness';
 export { default as getComparisonA11yLuminance } from './get-comparison-a11y-luminance';
 export { default as getComparisonA11yContrast } from './get-comparison-a11y-contrast';

@@ -16,5 +16,6 @@ export { default as CompareGenerateShade } from './compare-generate-shade';
 export { default as CompareGenerateTint } from './compare-generate-tint';
 export { default as CompareGenerateInvert } from './compare-generate-invert';
 export { default as CompareGenerateMix } from './compare-generate-mix';
+export { default as CompareA11yBrightness } from './compare-a11y-brightness';
 export { default as CompareA11yLuminance } from './compare-a11y-luminance';
 export { default as CompareA11yContrast } from './compare-a11y-contrast';

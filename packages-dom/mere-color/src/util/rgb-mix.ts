@@ -5,7 +5,7 @@ import {
 /**
  * Mixes two Rgb colors.
  */
-export default function mixRgb(rgb1: IRgb, rgb2: IRgb, ratio: [number, number] = [1, 1]): IRgb {
+export default function rgbMix(rgb1: IRgb, rgb2: IRgb, ratio: [number, number] = [1, 1]): IRgb {
   const weight1 = ratio[0] / (ratio[0] + ratio[1]);
   const weight2 = 1 - weight1;
   const {

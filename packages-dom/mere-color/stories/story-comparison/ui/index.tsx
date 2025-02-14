@@ -23,6 +23,7 @@ import {
   CompareGenerateTint,
   CompareGenerateInvert,
   CompareGenerateMix,
+  CompareA11yBrightness,
   CompareA11yLuminance,
   CompareA11yContrast
 } from './rc';
@@ -37,7 +38,7 @@ export default function Ui(): ReactElement {
   return <>
     <ColorInput />
     <ScGrid>
-      {TITLES.map(v => <GridTitle key={v}>{v}</GridTitle>)}
+      {TITLES.map(v => <GridTitle key={v.name}>{v.url ? <a href={v.url} target="_blank" rel="noreferrer">{v.name}</a> : v.name}</GridTitle>)}
       <CompareToStringHex />
       <CompareToStringRgb />
       <CompareToStringHsl />
@@ -52,6 +53,7 @@ export default function Ui(): ReactElement {
       <CompareGenerateTint />
       <CompareGenerateInvert />
       <CompareGenerateMix />
+      <CompareA11yBrightness />
       <CompareA11yLuminance />
       <CompareA11yContrast />
       <CompareA11yContrast black />

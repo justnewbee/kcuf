@@ -2,12 +2,8 @@ import {
   IRgb
 } from '../types';
 import {
-  matchName,
-  parseColorHex,
-  parseColorRgb,
-  parseColorHsl,
-  fromHslToRgb,
-  normalizeColorRgb
+  normalizeColorRgb,
+  parseToRgbUnnormalized
 } from '../util';
 
 /**
@@ -20,15 +16,8 @@ import {
  * - rgb(a) - modern/legacy
  * - hsl(a) - modern/legacy
  */
-export default function parseToRgb(input: string): IRgb | null {
-  const color = matchName(input) || input;
-  const rgb = parseColorHex(color) || parseColorRgb(color);
+export default function parseToRgb(color: string): IRgb | null {
+  const rgb = parseToRgbUnnormalized(color);
   
-  if (rgb) {
-    return normalizeColorRgb(rgb);
-  }
-  
-  const hsl = parseColorHsl(color);
-  
-  return hsl ? normalizeColorRgb(fromHslToRgb(hsl)) : null;
+  return rgb ? normalizeColorRgb(rgb) : null;
 }

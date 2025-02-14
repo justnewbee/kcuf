@@ -8,7 +8,7 @@ import {
 } from '../../../../../src';
 
 const ScColorBlock = styled.div`
-  padding: 8px;
+  padding: 4px 8px;
   border-radius: 3px;
 `;
 
