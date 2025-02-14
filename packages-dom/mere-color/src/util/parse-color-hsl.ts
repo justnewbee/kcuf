@@ -14,9 +14,9 @@ import parseNumberAlpha from './parse-number-alpha';
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl
  */
-export default function parseColorHsl(input: string): IHsl | null {
-  const matchModern = matchHsl(input);
-  const matchLegacy = matchModern ? null : matchHslLegacy(input);
+export default function parseColorHsl(color: string): IHsl | null {
+  const matchModern = matchHsl(color);
+  const matchLegacy = matchModern ? null : matchHslLegacy(color);
   const match = matchModern || matchLegacy;
   
   if (!match) {

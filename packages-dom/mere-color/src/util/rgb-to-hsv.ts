@@ -3,7 +3,7 @@ import {
   IHsv
 } from '../types';
 
-export default function fromRgbToHsv(rgb: IRgb): IHsv {
+export default function rgbToHsv(rgb: IRgb): IHsv {
   const {
     r,
     g,

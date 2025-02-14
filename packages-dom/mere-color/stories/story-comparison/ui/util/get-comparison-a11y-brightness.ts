@@ -10,6 +10,10 @@ import {
 import colormaster from 'colormaster';
 
 import {
+  FastColor
+} from '@ant-design/fast-color';
+
+import {
   a11yBrightness
 } from '../../../../src';
 import {
@@ -53,5 +57,9 @@ export default function getComparisonA11yBrightness(c: string): TComparisonResul
     key: 'colormaster',
     result: colormaster(c).brightness(),
     code: 'colormaster(c).brightness()'
+  }, {
+    key: 'fast-color',
+    result: new FastColor(c).getBrightness(),
+    code: 'new FastColor(c).getBrightness()'
   }];
 }

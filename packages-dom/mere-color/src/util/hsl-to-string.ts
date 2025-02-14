@@ -2,15 +2,15 @@ import {
   IHsl
 } from '../types';
 
-import normalizeColorHsl from './normalize-color-hsl';
+import hslNormalize from './hsl-normalize';
 
-export default function fromHslToString(hsl: IHsl): string {
+export default function hslToString(hsl: IHsl): string {
   const {
     h,
     s,
     l,
     a
-  } = normalizeColorHsl(hsl);
+  } = hslNormalize(hsl);
   let inner = `${h} ${s}% ${l}%`;
   
   if (a !== undefined && a < 100) {

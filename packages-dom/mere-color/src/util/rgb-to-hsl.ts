@@ -3,7 +3,7 @@ import {
   IHsl
 } from '../types';
 
-export default function fromRgbToHsl(rgb: IRgb): IHsl {
+export default function rgbToHsl(rgb: IRgb): IHsl {
   const red = rgb.r / 255;
   const green = rgb.g / 255;
   const blue = rgb.b / 255;

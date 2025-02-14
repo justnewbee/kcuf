@@ -8,39 +8,39 @@ import {
 
 import isRgb from './is-rgb';
 import isHsl from './is-hsl';
-import normalizeColorRgb from './normalize-color-rgb';
-import normalizeColorHsl from './normalize-color-hsl';
-import fromRgbToHsl from './from-rgb-to-hsl';
-import fromRgbToHex from './from-rgb-to-hex';
-import fromRgbToString from './from-rgb-to-string';
-import fromHslToRgb from './from-hsl-to-rgb';
-import fromHslToHex from './from-hsl-to-hex';
-import fromHslToString from './from-hsl-to-string';
+import rgbNormalize from './rgb-normalize';
+import hslNormalize from './hsl-normalize';
+import rgbToHsl from './rgb-to-hsl';
+import rgbToHex from './rgb-to-hex';
+import rgbToString from './rgb-to-string';
+import hslToRgb from './hsl-to-rgb';
+import hslToHex from './hsl-to-hex';
+import hslToString from './hsl-to-string';
 
 export default function toColorString(o: IRgb | IHsl, format?: `${EColorNotation}`): string {
   if (isRgb(o)) {
-    const rgb = normalizeColorRgb(o);
+    const rgb = rgbNormalize(o);
     
     switch (format) {
     case EColorNotation.HSL:
-      return fromHslToString(fromRgbToHsl(rgb));
+      return hslToString(rgbToHsl(rgb));
     case EColorNotation.HEX:
-      return fromRgbToHex(rgb);
+      return rgbToHex(rgb);
     default:
-      return fromRgbToString(rgb);
+      return rgbToString(rgb);
     }
   }
   
   if (isHsl(o)) {
-    const hsl = normalizeColorHsl(o);
+    const hsl = hslNormalize(o);
     
     switch (format) {
     case EColorNotation.RGB:
-      return fromRgbToString(fromHslToRgb(hsl));
+      return rgbToString(hslToRgb(hsl));
     case EColorNotation.HEX:
-      return fromHslToHex(hsl);
+      return hslToHex(hsl);
     default:
-      return fromHslToString(hsl);
+      return hslToString(hsl);
     }
   }
   

@@ -16,6 +16,7 @@ interface IColor {
   hslStrLegacy: `hsl(${string})`;
   rgb: Rgb;
   hsl: Hsl;
+  brightness: number;
   luminance: number;
   contrast: number;
 }
@@ -40,6 +41,7 @@ export const BLACK: IColor = {
     l: 0
   },
   // https://planetcalc.com/7779/
+  brightness: 0,
   luminance: 0,
   contrast: 21
 };
@@ -63,6 +65,7 @@ export const WHITE: IColor = {
     s: 0,
     l: 100
   },
+  brightness: 255,
   luminance: 1,
   contrast: 1
 };
@@ -85,6 +88,7 @@ export const RED: IColor = {
     s: 100,
     l: 50
   },
+  brightness: 76.245,
   luminance: 0.213,
   contrast: 3.992
 };
@@ -107,6 +111,7 @@ export const ORANGE: IColor = {
     s: 100,
     l: 50
   },
+  brightness: 173.1,
   luminance: 0.482,
   contrast: 1.974
 };
@@ -129,6 +134,7 @@ export const YELLOW: IColor = {
     s: 100,
     l: 50
   },
+  brightness: 225.93,
   luminance: 0.928,
   contrast: 1.074
 };
@@ -151,6 +157,7 @@ export const GREEN: IColor = {
     s: 100,
     l: 25.1
   },
+  brightness: 75.136,
   luminance: 0.154,
   contrast: 5.147
 };
@@ -173,6 +180,7 @@ export const CYAN: IColor = {
     s: 100,
     l: 50
   },
+  brightness: 178.755,
   luminance: 0.787,
   contrast: 1.254
 };
@@ -195,6 +203,7 @@ export const BLUE: IColor = {
     s: 100,
     l: 50
   },
+  brightness: 29.07,
   luminance: 0.072,
   contrast: 8.607
 };
@@ -217,6 +226,7 @@ export const PURPLE: IColor = {
     s: 100,
     l: 25.1
   },
+  brightness: 52.864,
   luminance: 0.061,
   contrast: 9.459
 };

@@ -9,12 +9,12 @@ import matchRgbLegacy from './match-rgb-legacy';
 import matchHsl from './match-hsl';
 import matchHslLegacy from './match-hsl-legacy';
 
-export default function getColorNotationDetailed(input: string): EColorNotationDetailed {
-  if (matchName(input)) {
+export default function getColorNotationDetailed(color: string): EColorNotationDetailed {
+  if (matchName(color)) {
     return EColorNotationDetailed.NAME;
   }
   
-  const hex = matchHex(input);
+  const hex = matchHex(color);
   
   if (hex) {
     switch (hex.length) {
@@ -29,19 +29,19 @@ export default function getColorNotationDetailed(input: string): EColorNotationD
     }
   }
   
-  if (matchRgb(input)) {
+  if (matchRgb(color)) {
     return EColorNotationDetailed.RGB;
   }
   
-  if (matchRgbLegacy(input)) {
+  if (matchRgbLegacy(color)) {
     return EColorNotationDetailed.RGB_LEGACY;
   }
   
-  if (matchHsl(input)) {
+  if (matchHsl(color)) {
     return EColorNotationDetailed.HSL;
   }
   
-  if (matchHslLegacy(input)) {
+  if (matchHslLegacy(color)) {
     return EColorNotationDetailed.HSL_LEGACY;
   }
   

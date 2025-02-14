@@ -6,10 +6,10 @@ import {
 import getColorNotationDetailed from './get-color-notation-detailed';
 
 /**
- * Get toString format according to color input
+ * Get toString format according to color string.
  */
-export default function getColorNotation(input: string): EColorNotation {
-  switch (getColorNotationDetailed(input)) {
+export default function getColorNotation(color: string): EColorNotation {
+  switch (getColorNotationDetailed(color)) {
   case EColorNotationDetailed.RGB:
   case EColorNotationDetailed.RGB_LEGACY:
     return EColorNotation.RGB;

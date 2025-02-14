@@ -17,6 +17,10 @@ import {
 import colormaster from 'colormaster';
 
 import {
+  FastColor
+} from '@ant-design/fast-color';
+
+import {
   mix
 } from '../../../../src';
 import {
@@ -64,5 +68,9 @@ export default function getComparisonMix(c: string, c2: string): TComparisonResu
       color: c2
     }).stringHEX(),
     code: 'colormaster(c).mix({ color }).stringHEX()'
+  }, {
+    key: 'fast-color',
+    result: new FastColor(c).mix(c2).toHexString(),
+    code: 'new FastColor(c).mix(c2).toHexString()'
   }];
 }

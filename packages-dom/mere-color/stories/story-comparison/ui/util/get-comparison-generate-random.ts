@@ -14,6 +14,10 @@ import {
   random as colormasterRandom
 } from 'colormaster';
 
+// import {
+//   FastColor
+// } from '@ant-design/fast-color';
+
 import {
   random
 } from '../../../../src';
@@ -58,5 +62,9 @@ export default function getComparisonRandom(): TComparisonResult {
     key: 'colormaster',
     result: colormasterRandom().stringHEX(),
     code: 'random().stringHEX()'
+  }, {
+    key: 'fast-color',
+    result: null,
+    code: ''
   }];
 }

@@ -5,8 +5,8 @@ import {
   parseToRgb
 } from '../parse';
 
-export default function a11yBrightness(color: string): number {
+export default function isDark(color: string): boolean {
   const rgb = parseToRgb(color);
   
-  return rgb ? rgbComputeBrightness(rgb) : -1;
+  return rgb ? rgbComputeBrightness(rgb) < 128 : false;
 }

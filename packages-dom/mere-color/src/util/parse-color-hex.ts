@@ -11,8 +11,8 @@ import parseNumberHexAlpha from './parse-number-hex-alpha';
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/hex-color
  */
-export default function parseColorHex(input: string): IRgb | null {
-  const match = matchHex(input);
+export default function parseColorHex(color: string): IRgb | null {
+  const match = matchHex(color);
   
   if (!match) {
     return null;

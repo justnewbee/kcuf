@@ -2,15 +2,15 @@ import {
   IRgb
 } from '../types';
 
-import normalizeColorRgb from './normalize-color-rgb';
+import rgbNormalize from './rgb-normalize';
 
-export default function fromRgbToRgbString(rgb: IRgb): string {
+export default function rgbToRgbString(rgb: IRgb): string {
   const {
     r,
     g,
     b,
     a
-  } = normalizeColorRgb(rgb);
+  } = rgbNormalize(rgb);
   let inner = `${r} ${g} ${b}`;
   
   if (a !== undefined && a < 100) {

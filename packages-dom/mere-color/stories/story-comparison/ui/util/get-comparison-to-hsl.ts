@@ -17,6 +17,10 @@ import {
 import colormaster from 'colormaster';
 
 import {
+  FastColor
+} from '@ant-design/fast-color';
+
+import {
   toStringHsl
 } from '../../../../src';
 import {
@@ -62,5 +66,9 @@ export default function getComparisonToHsl(c: string): TComparisonResult {
     key: 'colormaster',
     result: colormaster(c).stringHSL(),
     code: 'colormaster(c).stringHSL()'
+  }, {
+    key: 'fast-color',
+    result: new FastColor(c).toHslString(),
+    code: 'new FastColor(c).toHslString()'
   }];
 }

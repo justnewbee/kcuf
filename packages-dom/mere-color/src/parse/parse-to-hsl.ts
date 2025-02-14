@@ -2,7 +2,7 @@ import {
   IHsl
 } from '../types';
 import {
-  normalizeColorHsl,
+  hslNormalize,
   parseToHslUnnormalized
 } from '../util';
 
@@ -12,5 +12,5 @@ import {
 export default function parseToHsl(color: string): IHsl | null {
   const hsl = parseToHslUnnormalized(color);
   
-  return hsl ? normalizeColorHsl(hsl) : null;
+  return hsl ? hslNormalize(hsl) : null;
 }

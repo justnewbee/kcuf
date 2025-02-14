@@ -2,7 +2,7 @@ import {
   IRgb
 } from '../types';
 import {
-  normalizeColorRgb,
+  rgbNormalize,
   parseToRgbUnnormalized
 } from '../util';
 
@@ -19,5 +19,5 @@ import {
 export default function parseToRgb(color: string): IRgb | null {
   const rgb = parseToRgbUnnormalized(color);
   
-  return rgb ? normalizeColorRgb(rgb) : null;
+  return rgb ? rgbNormalize(rgb) : null;
 }

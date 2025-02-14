@@ -17,6 +17,10 @@ import {
 import colormaster from 'colormaster';
 
 import {
+  FastColor
+} from '@ant-design/fast-color';
+
+import {
   darken
 } from '../../../../src';
 import {
@@ -62,5 +66,9 @@ export default function getComparisonDarken(c: string, amount: number): TCompari
     key: 'colormaster',
     result: colormaster(c).darkerBy(amount).stringHEX(),
     code: 'colormaster(c).darkerBy(amount).stringHEX()'
+  }, {
+    key: 'fast-color',
+    result: new FastColor(c).darken(amount).toHexString(),
+    code: 'new FastColor(c).darken(amount).toHexString()'
   }];
 }

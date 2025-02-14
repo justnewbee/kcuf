@@ -17,6 +17,10 @@ import {
 import colormaster from 'colormaster';
 
 import {
+  FastColor
+} from '@ant-design/fast-color';
+
+import {
   toStringRgb
 } from '../../../../src';
 import {
@@ -62,5 +66,9 @@ export default function getComparisonToRgb(c: string): TComparisonResult {
     key: 'colormaster',
     result: colormaster(c).stringRGB(),
     code: 'colormaster(c).stringRGB()'
+  }, {
+    key: 'fast-color',
+    result: new FastColor(c).toRgbString(),
+    code: 'new FastColor(c).toRgbString()'
   }];
 }

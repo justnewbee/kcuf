@@ -12,9 +12,9 @@ import parseNumberRgbValue from './parse-number-rgb-value';
  *
  * https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/rgb
  */
-export default function parseColorRgb(input: string): IRgb | null {
-  const matchModern = matchRgb(input);
-  const matchLegacy = matchModern ? null : matchRgbLegacy(input);
+export default function parseColorRgb(color: string): IRgb | null {
+  const matchModern = matchRgb(color);
+  const matchLegacy = matchModern ? null : matchRgbLegacy(color);
   const match = matchModern || matchLegacy;
   
   if (!match || (matchLegacy && (match[1] !== match[3] || match[3] !== match[5]))) { // legacy format does not allow mixing number and percentage values

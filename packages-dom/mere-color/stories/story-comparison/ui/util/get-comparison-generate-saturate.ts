@@ -16,6 +16,10 @@ import {
 } from 'culori';
 import colormaster from 'colormaster';
 
+// import {
+//   FastColor
+// } from '@ant-design/fast-color';
+
 import {
   saturate
 } from '../../../../src';
@@ -62,5 +66,9 @@ export default function getComparisonSaturate(c: string, amount: number): TCompa
     key: 'colormaster',
     result: colormaster(c).saturateBy(amount).stringHEX(),
     code: 'colormaster(c).saturateBy(amount).stringHEX()'
+  }, {
+    key: 'fast-color',
+    result: null,
+    code: ''
   }];
 }

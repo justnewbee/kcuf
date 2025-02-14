@@ -3,7 +3,7 @@ import {
   IRgb
 } from '../types';
 
-export default function fromHsvToRgb(hsv: IHsv): IRgb {
+export default function hsvToRgb(hsv: IHsv): IRgb {
   let {
     h,
     s,

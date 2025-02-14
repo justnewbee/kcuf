@@ -17,6 +17,10 @@ import {
 import colormaster from 'colormaster';
 
 import {
+  FastColor
+} from '@ant-design/fast-color';
+
+import {
   lighten
 } from '../../../../src';
 import {
@@ -62,5 +66,9 @@ export default function getComparisonLighten(c: string, amount: number): TCompar
     key: 'colormaster',
     result: colormaster(c).lighterBy(amount).stringHEX(),
     code: 'colormaster(c).lighterBy(amount).stringHEX()'
+  }, {
+    key: 'fast-color',
+    result: new FastColor(c).lighten(amount).toHexString(),
+    code: 'new FastColor(c).lighten(amount).toHexString()'
   }];
 }

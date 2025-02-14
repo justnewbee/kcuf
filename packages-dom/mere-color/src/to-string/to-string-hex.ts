@@ -1,5 +1,5 @@
 import {
-  fromRgbToHex
+  rgbToHex
 } from '../util';
 import {
   parseToRgb
@@ -11,5 +11,5 @@ import {
 export default function toStringHex(input: string): string {
   const rgb = parseToRgb(input);
   
-  return rgb ? fromRgbToHex(rgb) : input;
+  return rgb ? rgbToHex(rgb) : input;
 }

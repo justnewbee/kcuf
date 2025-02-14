@@ -1,5 +1,5 @@
 import {
-  fromHslToString
+  hslToString
 } from '../util';
 import {
   parseToHsl
@@ -11,5 +11,5 @@ import {
 export default function toStringHsl(input: string): string {
   const hsl = parseToHsl(input);
   
-  return hsl ? fromHslToString(hsl) : input;
+  return hsl ? hslToString(hsl) : input;
 }

@@ -13,5 +13,6 @@ export type TComparisonResult<V = string> = [
   IResult<'color2k', V>,
   IResult<'chroma-js', V>,
   IResult<'culori', V>,
-  IResult<'colormaster', V>
+  IResult<'colormaster', V>,
+  IResult<'fast-color', V>
 ];

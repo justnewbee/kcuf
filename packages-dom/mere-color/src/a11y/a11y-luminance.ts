@@ -1,5 +1,5 @@
 import {
-  computeLuminance
+  rgbComputeLuminance
 } from '../util';
 import {
   parseToRgb
@@ -11,5 +11,5 @@ import {
 export default function a11yLuminance(color: string): number {
   const rgb = parseToRgb(color);
   
-  return rgb ? computeLuminance(rgb) : -1;
+  return rgb ? rgbComputeLuminance(rgb) : -1;
 }

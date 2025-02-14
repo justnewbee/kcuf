@@ -15,6 +15,10 @@ import {
 } from 'culori';
 import colormaster from 'colormaster';
 
+// import {
+//   FastColor
+// } from '@ant-design/fast-color';
+
 import {
   grayscale
 } from '../../../../src';
@@ -59,5 +63,9 @@ export default function getComparisonGrayscale(c: string): TComparisonResult {
     key: 'colormaster',
     result: colormaster(c).grayscale().stringHEX(),
     code: 'colormaster(c).grayscale().stringHEX()'
+  }, {
+    key: 'fast-color',
+    result: null,
+    code: ''
   }];
 }

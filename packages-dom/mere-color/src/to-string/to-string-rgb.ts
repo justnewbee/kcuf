@@ -1,5 +1,5 @@
 import {
-  fromRgbToString
+  rgbToString
 } from '../util';
 import {
   parseToRgb
@@ -11,5 +11,5 @@ import {
 export default function toStringRgb(input: string): string {
   const rgb = parseToRgb(input);
   
-  return rgb ? fromRgbToString(rgb) : input;
+  return rgb ? rgbToString(rgb) : input;
 }

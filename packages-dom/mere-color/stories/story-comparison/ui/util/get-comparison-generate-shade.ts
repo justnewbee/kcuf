@@ -10,6 +10,10 @@ import chroma from 'chroma-js';
 // import colormaster from 'colormaster';
 
 import {
+  FastColor
+} from '@ant-design/fast-color';
+
+import {
   shade
 } from '../../../../src';
 import {
@@ -53,5 +57,9 @@ export default function getComparisonShade(c: string, percentage: number): TComp
     key: 'colormaster',
     result: null,
     code: ''
+  }, {
+    key: 'fast-color',
+    result: new FastColor(c).shade(percentage).toHexString(),
+    code: 'new FastColor(c).shade(percentage).toHexString()'
   }];
 }

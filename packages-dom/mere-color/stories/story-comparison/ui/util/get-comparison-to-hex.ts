@@ -17,6 +17,10 @@ import {
 import colormaster from 'colormaster';
 
 import {
+  FastColor
+} from '@ant-design/fast-color';
+
+import {
   toStringHex
 } from '../../../../src';
 import {
@@ -62,5 +66,9 @@ export default function getComparisonToHex(c: string): TComparisonResult {
     key: 'colormaster',
     result: colormaster(c).stringHEX(),
     code: 'colormaster(c).stringHEX()'
+  }, {
+    key: 'fast-color',
+    result: new FastColor(c).toHexString(),
+    code: 'new FastColor(c).toHexString()'
   }];
 }

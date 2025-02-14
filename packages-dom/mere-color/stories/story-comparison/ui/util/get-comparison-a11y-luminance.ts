@@ -16,6 +16,10 @@ import {
 import colormaster from 'colormaster';
 
 import {
+  FastColor
+} from '@ant-design/fast-color';
+
+import {
   a11yLuminance
 } from '../../../../src';
 import {
@@ -61,5 +65,9 @@ export default function getComparisonA11yLuminance(c: string): TComparisonResult
     key: 'colormaster',
     result: colormaster(c).luminance(),
     code: 'colormaster(c).luminance()'
+  }, {
+    key: 'fast-color',
+    result: new FastColor(c).getLuminance(),
+    code: 'new FastColor(c).getLuminance()'
   }];
 }

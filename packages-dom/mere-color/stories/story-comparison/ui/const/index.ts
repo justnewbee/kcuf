@@ -31,4 +31,7 @@ export const TITLES: INameUrl[] = [{
 }, {
   name: 'colormaster',
   url: 'https://www.npmjs.com/package/colormaster'
+}, {
+  name: 'fast-color',
+  url: 'https://www.npmjs.com/package/@ant-design/fast-color'
 }];

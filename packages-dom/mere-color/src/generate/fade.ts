@@ -1,6 +1,5 @@
 import {
-  manipulateRgb,
-  rgbSetAlpha
+  manipulateRgb
 } from '../util';
 
 /**
@@ -9,5 +8,8 @@ import {
  * 参考 https://lesscss.org/functions/#color-operations-fade
  */
 export default function fade(color: string, toAlpha: number): string {
-  return manipulateRgb(color, rgb => rgbSetAlpha(rgb, toAlpha));
+  return manipulateRgb(color, rgb => ({
+    ...rgb,
+    a: toAlpha
+  }));
 }

@@ -1,7 +1,7 @@
 import {
-  computeLuminance,
+  rgbComputeLuminance,
   computeContrast,
-  fromHslToRgb,
+  hslToRgb,
   toColorStringOriginalNotation
 } from '../util';
 import {
@@ -45,11 +45,11 @@ export default function adjustLightnessForContrast(color: string, targetContrast
   let targetLightness = (minLightness + maxLightness) / 2;
   
   for (let i = 0; i < steps; i++) {
-    const rgb = fromHslToRgb({
+    const rgb = hslToRgb({
       ...hsl,
       l: targetLightness
     });
-    const contrast = computeContrast(computeLuminance(rgb), bgcLuminance);
+    const contrast = computeContrast(rgbComputeLuminance(rgb), bgcLuminance);
     
     if (Math.abs(contrast - targetContrast) < 0.001) {
       return toColorStringOriginalNotation(rgb, color);

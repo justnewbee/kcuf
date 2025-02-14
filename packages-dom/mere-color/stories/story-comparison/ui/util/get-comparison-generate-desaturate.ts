@@ -16,6 +16,10 @@ import {
 } from 'culori';
 import colormaster from 'colormaster';
 
+// import {
+//   FastColor
+// } from '@ant-design/fast-color';
+
 import {
   desaturate
 } from '../../../../src';
@@ -62,5 +66,9 @@ export default function getComparisonDesaturate(c: string, amount: number): TCom
     key: 'colormaster',
     result: colormaster(c).desaturateBy(amount).stringHEX(),
     code: 'colormaster(c).desaturateBy(amount).stringHEX()'
+  }, {
+    key: 'fast-color',
+    result: null,
+    code: ''
   }];
 }

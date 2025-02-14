@@ -3,12 +3,12 @@ import {
   IRgb
 } from '../types';
 
-import fromRgbToHsv from './from-rgb-to-hsv';
+import rgbToHsv from './rgb-to-hsv';
 
-export default function fromRgbToHwb(rgb: IRgb): IHwb {
+export default function rgbToHwb(rgb: IRgb): IHwb {
   const {
     h
-  } = fromRgbToHsv(rgb);
+  } = rgbToHsv(rgb);
   const w = (Math.min(rgb.r, rgb.g, rgb.b) / 255) * 100;
   const b = 100 - (Math.max(rgb.r, rgb.g, rgb.b) / 255) * 100;
   

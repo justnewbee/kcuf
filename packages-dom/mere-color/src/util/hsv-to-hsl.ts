@@ -3,7 +3,7 @@ import {
   IHsv
 } from '../types';
 
-export default function fromHsvToHsl(hsv: IHsv): IHsl {
+export default function hsvToHsl(hsv: IHsv): IHsl {
   const hh = ((200 - hsv.s) * hsv.v) / 100;
   
   return {

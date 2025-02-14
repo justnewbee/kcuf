@@ -6,7 +6,7 @@ import normalizeHue from './normalize-hue';
 import normalizePercentage from './normalize-percentage';
 import normalizeAlpha from './normalize-alpha';
 
-export default function normalizeColorHsl(hsl: IHsl): IHsl {
+export default function hslNormalize(hsl: IHsl): IHsl {
   const normalized: IHsl = {
     h: normalizeHue(hsl.h),
     s: normalizePercentage(hsl.s),

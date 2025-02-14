@@ -15,6 +15,10 @@ import {
 } from 'culori';
 import colormaster from 'colormaster';
 
+// import {
+//   FastColor
+// } from '@ant-design/fast-color';
+
 import {
   a11yContrast
 } from '../../../../src';
@@ -66,5 +70,9 @@ export default function getComparisonA11yContrast(c: string, black?: boolean): T
       bgColor: bgOptional
     }) as number,
     code: 'colormaster(c).contrast({ bgColor? }) as number'
+  }, {
+    key: 'fast-color',
+    result: null,
+    code: ''
   }];
 }

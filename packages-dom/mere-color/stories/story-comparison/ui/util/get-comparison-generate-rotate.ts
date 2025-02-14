@@ -16,6 +16,10 @@ import {
 } from 'culori';
 import colormaster from 'colormaster';
 
+// import {
+//   FastColor
+// } from '@ant-design/fast-color';
+
 import {
   rotate
 } from '../../../../src';
@@ -62,5 +66,9 @@ export default function getComparisonRotate(c: string, amount: number): TCompari
     key: 'colormaster',
     result: colormaster(c).rotate(amount).stringHEX(),
     code: 'colormaster(c).rotate(amount).stringHEX()'
+  }, {
+    key: 'fast-color',
+    result: null,
+    code: ''
   }];
 }

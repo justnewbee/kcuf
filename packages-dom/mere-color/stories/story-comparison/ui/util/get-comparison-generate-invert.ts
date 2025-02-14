@@ -14,6 +14,10 @@ import {
 } from 'culori';
 import colormaster from 'colormaster';
 
+// import {
+//   FastColor
+// } from '@ant-design/fast-color';
+
 import {
   invert
 } from '../../../../src';
@@ -57,6 +61,10 @@ export default function getComparisonInvert(c: string): TComparisonResult {
   }, {
     key: 'colormaster',
     result: colormaster(c).invert().stringHEX(),
+    code: ''
+  }, {
+    key: 'fast-color',
+    result: null,
     code: ''
   }];
 }

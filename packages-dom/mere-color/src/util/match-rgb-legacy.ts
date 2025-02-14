@@ -6,7 +6,7 @@ import {
  * Legacy functional format
  *
  * - rgb(255, 0, 0)
- * - rgb(100%, 0, 0) 💥
+ * - rgb(100%, 0, 0) 💥 No mixing
  * - rgba(255, 0, 0, 0.2)
  * - rgba(255, 0, 0, 20%)
  */
