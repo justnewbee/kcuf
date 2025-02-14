@@ -1,8 +1,17 @@
 {
   "name": "@kcuf/mere-color",
-  "version": "0.0.0",
-  "description": "Color utils inspired by polished, colord and tinycolor2.",
-  "keywords": [],
+  "version": "0.0.1",
+  "description": "Mere color utils for generating, manipulation, a11y purposes.",
+  "keywords": [
+    "chroma-js",
+    "color",
+    "color2k",
+    "colord",
+    "colormaster",
+    "culori",
+    "polished",
+    "tinycolor2"
+  ],
   "license": "MIT",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
