@@ -25,7 +25,10 @@ import {
   CompareGenerateMix,
   CompareA11yBrightness,
   CompareA11yLuminance,
-  CompareA11yContrast
+  CompareA11yContrast,
+  CompareIsEqual,
+  CompareIsDark,
+  CompareIsLight
 } from './rc';
 
 const ScGrid = styled.div`
@@ -57,6 +60,9 @@ export default function Ui(): ReactElement {
       <CompareA11yLuminance />
       <CompareA11yContrast />
       <CompareA11yContrast black />
+      <CompareIsEqual />
+      <CompareIsDark />
+      <CompareIsLight />
     </ScGrid>
   </>;
 }

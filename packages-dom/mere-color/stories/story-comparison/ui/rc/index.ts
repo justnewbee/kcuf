@@ -19,3 +19,6 @@ export { default as CompareGenerateMix } from './compare-generate-mix';
 export { default as CompareA11yBrightness } from './compare-a11y-brightness';
 export { default as CompareA11yLuminance } from './compare-a11y-luminance';
 export { default as CompareA11yContrast } from './compare-a11y-contrast';
+export { default as CompareIsEqual } from './compare-is-equal';
+export { default as CompareIsDark } from './compare-is-dark';
+export { default as CompareIsLight } from './compare-is-light';

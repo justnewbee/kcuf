@@ -36,3 +36,6 @@ export { default as getComparisonGenerateShade } from './get-comparison-generate
 export { default as getComparisonA11yBrightness } from './get-comparison-a11y-brightness';
 export { default as getComparisonA11yLuminance } from './get-comparison-a11y-luminance';
 export { default as getComparisonA11yContrast } from './get-comparison-a11y-contrast';
+export { default as getComparisonIsEqual } from './get-comparison-is-equal';
+export { default as getComparisonIsDark } from './get-comparison-is-dark';
+export { default as getComparisonIsLight } from './get-comparison-is-light';
