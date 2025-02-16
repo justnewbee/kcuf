@@ -7,7 +7,9 @@ import {
 } from '../util';
 
 /**
- * Rotate hue of a color, returning the new color in the original notation normalized.
+ * Rotate (spin) hue angle of a color.
+ *
+ * https://lesscss.org/functions/#color-operations-spin
  */
 export default function rotate(color: string, delta: number, unit?: `${EHueUnit}`): string {
   return manipulateHsl(color, hsl => hslShiftHue(hsl, delta, unit));

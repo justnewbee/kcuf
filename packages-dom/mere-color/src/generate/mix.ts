@@ -7,7 +7,9 @@ import {
 } from '../parse';
 
 /**
- * Mixes two colors together by calculating the average of each RGB channel, returning the new color in the original notation normalized.
+ * Mix two colors together in variable proportion. Opacity is included in the calculations.
+ *
+ * https://lesscss.org/functions/#color-operations-mix
  */
 export default function mix(color1: string, color2: string, ratio?: [number, number]): string {
   const rgb1 = parseToRgb(color1);
