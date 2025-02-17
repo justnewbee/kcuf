@@ -1,8 +1,12 @@
 {
   "name": "@kcuf/base64",
-  "version": "0.0.0",
-  "description": "Generate code from a template directory.",
-  "keywords": [],
+  "version": "0.1.0",
+  "description": "Base64 url-safe encoding/decoding.",
+  "keywords": [
+    "base64",
+    "url-safe",
+    "unicode"
+  ],
   "license": "MIT",
   "sideEffects": false,
   "main": "dist/cjs/index.js",

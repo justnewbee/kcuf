@@ -14,9 +14,17 @@ However, `btoa` does not support Unicode now, any of these will break:
 * `btoa('中文')`
 * `btoa('💥')`
 
-> DOMException: String contains an invalid character
-
 That's why this package is used.
+
+* 不支持 unicode，汉字和 Emoji 等会报错
+  - FF → `DOMException: String contains an invalid character`
+  - CH → `DOMException: Failed to execute 'atob' on 'Window': The string to be decoded contains characters outside of the Latin1 range.`
+  - SF → `InvalidCharacterError: The string contains invalid characters.`
+
+* 这两个方法有些奇怪，可以把它从 window 上脱离出来调用，但不能把它挂到某对象下面调用，否则会报错
+  - FF → `TypeError: 'atob' called on an object that does not implement interface Window`
+  - CH → `TypeError: Illegal invocation`
+  - SF → `TypeError: Can only call Window.btoa on instances of Window`
 
 ## How to Use
 
