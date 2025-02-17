@@ -9,7 +9,7 @@ import {
 import {
   getFormItemKey
 } from '../../util';
-import Item from '../form-item';
+import FormItem from '../form-item';
 
 export default function FormItems(): ReactElement {
   const {
@@ -22,7 +22,7 @@ export default function FormItems(): ReactElement {
         return null;
       }
       
-      return <Item {...v} key={getFormItemKey(v, i)} />;
+      return <FormItem {...v} key={getFormItemKey(v, i)} />;
     })}
   </>;
 }

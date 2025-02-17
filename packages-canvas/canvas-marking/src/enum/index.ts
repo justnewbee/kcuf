@@ -1,3 +1,8 @@
+export enum ELockStatus {
+  CANNOT_SELECT, // 不响应
+  CANNOT_CLICK
+}
+
 export enum EImageStatus {
   NONE = 'none',
   LOADING = 'loading',

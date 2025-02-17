@@ -2,11 +2,11 @@ import {
   Path
 } from '@kcuf/geometry-basic';
 
-import {
-  IDrawAreaOptions
-} from '../types';
-
 import canvasPathThroughPoints from './canvas-path-through-points';
+
+interface IDrawAreaOptions {
+  color: string;
+}
 
 export default function canvasDrawArea(canvasContext: CanvasRenderingContext2D, path: Path, options: IDrawAreaOptions): void {
   if (path.length < 3) {

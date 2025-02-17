@@ -12,7 +12,12 @@ import initDrawStyleFill from './init-draw-style-fill';
 
 export default function resolveMarkingStyleConfig(styleConfig?: IMarkingStyleConfig): IMarkingStyleConfigResolved {
   const border = initDrawStyleBorder(styleConfig?.border);
-  const borderHovering = initDrawStyleBorder(styleConfig?.borderHovering, border);
+  const borderHovering = initDrawStyleBorder({
+    shadowColor: 'hsl(0 0% 0% / 67%)',
+    shadowBlur: 4,
+    shadowOffsetY: 2,
+    ...styleConfig?.borderHovering
+  }, border);
   const borderHighlighting = initDrawStyleBorder(styleConfig?.borderHighlighting, borderHovering);
   const borderEditing = initDrawStyleBorder(styleConfig?.borderEditing, borderHovering);
   
@@ -42,7 +47,6 @@ export default function resolveMarkingStyleConfig(styleConfig?: IMarkingStyleCon
     fillHovering,
     fillHighlighting,
     fillEditing,
-    
     borderDiff: styleConfig?.borderDiff
   };
 }

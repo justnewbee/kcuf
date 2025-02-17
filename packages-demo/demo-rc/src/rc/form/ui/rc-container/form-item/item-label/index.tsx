@@ -17,9 +17,8 @@ interface IProps {
 }
 
 const ScItemLabel = styled.label`
-  padding-right: 16px;
+  margin-right: 16px;
   box-sizing: border-box;
-  width: 140px;
   color: ${COLOR_LIGHT.GRAY_PRIMARY};
   text-align: right;
   

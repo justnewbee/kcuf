@@ -7,8 +7,7 @@ import {
 } from '../enum';
 
 import {
-  IMarkingStyleConfig,
-  IMarkingBehaviorConfig
+  IMarkingStyleConfig
 } from './style';
 import {
   IMarkingItemStats
@@ -16,11 +15,14 @@ import {
 import {
   IMarkingEvents
 } from './events';
+import {
+  ICommonBehaviorOptions
+} from './options-common';
 
 /**
- * 从 Marking 对象透传到 MarkingItem 的选项，可以在 new MarkingItem 的时候有一部分覆盖
+ * 从 `Marking` 对象透传到 `MarkingItem` 的选项，可以在 `new CanvasMarkingItem` 的时候有一部分覆盖
  */
-export interface IMarkingItemConfig extends IMarkingBehaviorConfig {
+export interface IMarkingItemConfig extends ICommonBehaviorOptions {
   /**
    * 默认自由形状，设置 rect 可以画矩形
    *
@@ -36,14 +38,20 @@ export interface IMarkingItemConfig extends IMarkingBehaviorConfig {
 }
 
 export interface IMarkingConfigItem<T = unknown> extends IMarkingItemConfig {
-  path?: Path;
   id?: string; // 唯一性标识
+  path?: Path;
   data?: T; // 附加数据，可以添加你需要的任何数据
 }
 
+/**
+ * `new CanvasMarkingItem` 需要
+ */
 export interface IMarkingItemOptions<T = unknown> extends IMarkingConfigItem<T> {}
 
 export interface IMarkingItemClass<T = unknown> {
+  /**
+   * 画直角标需要
+   */
   getBorderColor(): string;
   
   toggleHovering(value?: boolean): void;

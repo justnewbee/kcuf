@@ -21,7 +21,7 @@ interface IScProps {
 
 const ScItem = styled.div<IScProps>`
   display: flex;
-  margin-bottom: ${props => (props.$dense ? 8 : 16)}px;
+  margin-bottom: ${props => props.$dense ? 8 : 16}px;
   line-height: ${HEIGHT_FORM_CONTROL}px;
   
   &:last-child {
@@ -39,7 +39,7 @@ export default function FormItem({
   } = useProps();
   
   return <ScItem $dense={dense}>
-    <ItemLabel label={label} />
+    {label ? <ItemLabel label={label} /> : null}
     <ItemContent content={content} help={help} />
   </ScItem>;
 }

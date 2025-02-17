@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const ScFormControlWithLabel = styled.label`
   display: inline-flex;
   align-items: center;
-  margin: 0 1.25em 0 1em;
+  margin-inline-end: 1.25em;
   color: #777;
   vertical-align: middle;
   transition: color 0.3s ease-in-out;

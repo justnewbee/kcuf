@@ -10,13 +10,14 @@ import displayPercentage from './display-percentage';
 import displaySize from './display-size';
 import displayCoords from './display-coords';
 import displayCoordsAndIndex from './display-coords-and-index';
+import displayEditable from './display-editable';
 
 export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>, cause?: EMarkingStatsChangeCause): string {
   return `<ul>${[
     ['Cause', cause || ''],
     ['TimeStamp', Date.now()],
-    // 禁用
-    ['Editable', displayBoolean(stats.editable)],
+    // 可编辑
+    ['Editable', displayEditable(stats.editable)],
     // 大小
     ['Zoom', displayPercentage(stats.zoom)],
     ['StageSize', displaySize(stats.stageSize)],

@@ -8,8 +8,7 @@ import {
 export const DEFAULT_POINT_RADIUS = 4;
 export const DEFAULT_POINT_RADIUS_ENLARGE = 0.66;
 export const DEFAULT_POINT_INSERTION_MIN_DISTANCE = 48;
-export const DEFAULT_POINT_ALT_COLOR = 'hsl(240 20% 50%)';
-export const DEFAULT_FILL_ALPHA_EDITING = 0.21;
+export const DEFAULT_FILL_ALPHA_EDITING = 20;
 export const DEFAULT_JUSTIFY_MAGNET_RADIUS = 10;
 export const DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS = 10;
 export const DEFAULT_RIGHT_ANGLE_MARK_SIZE = 12;
@@ -24,7 +23,11 @@ export const DEFAULT_BORDER_STYLE: Required<IMarkingStyleBorder> = {
   outerWidth: 0,
   outerColor: 'hsl(0 0% 100%)',
   crossingColor: 'hsl(0 100% 50%)',
-  crossingOuterColor: 'hsl(0 0% 100%)'
+  crossingOuterColor: 'hsl(0 0% 100%)',
+  shadowColor: '',
+  shadowBlur: 0,
+  shadowOffsetX: 0,
+  shadowOffsetY: 0
 };
 
 /**

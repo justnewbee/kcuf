@@ -25,6 +25,7 @@ import {
   EMarkingMouseStatus
 } from '../enum';
 import {
+  TEditable,
   TCreatingWillFinish,
   TMarkingStyleBorderResolved,
   IMarkingStyleFillResolved,
@@ -100,6 +101,28 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     }
     
     this.statsSnapshot = this.generateStats();
+  }
+  
+  private get editable(): TEditable {
+    const {
+      canvasMarking: {
+        options: {
+          editable: editableOverall = true
+        }
+      },
+      options: {
+        editable = editableOverall
+      }
+    } = this;
+    
+    switch (editableOverall) {
+    case 'locked':
+      return 'locked';
+    case false:
+      return editable === 'locked' ? 'locked' : false;
+    default:
+      return editable;
+    }
   }
   
   /**
@@ -427,6 +450,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       hoveringBorderIndex: !hovering || hoveringPointIndex >= 0 || hoveringInsertionPointIndex >= 0 ? -1 : this.hoveringBorderIndex,
       highlighting: this.highlighting,
       highlightingBorderIndex: this.highlightingBorderIndex,
+      editable: this.editable,
       editing: this.editing,
       dirty: pathSnapshotEditing.length > 0 && !_isEqual(pathSnapshotEditing, pathForDraw),
       crossing,
@@ -438,7 +462,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   private shouldDrawPoint(): boolean {
-    return this.creating || this.creatingWait || this.editing || this.hovering || this.path.length === 1;
+    return this.creating || this.creatingWait || this.editing || (this.hovering && this.editable === true) || this.path.length === 1;
   }
   
   private drawArea(): void {
@@ -457,20 +481,31 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       },
       faded,
       stats: {
+        creatingWillFinish,
         hoveringBorderIndex,
         highlightingBorderIndex
       }
     } = this;
     const pathForDraw = this.getPathForDraw();
     const borderStyle = this.getDrawStyleBorder();
-    const close = !this.creating || type === 'rect' || type === 'rect2';
+    const close = !this.creating || creatingWillFinish === 'close' || type === 'rect' || type === 'rect2';
     const diffAll = highlightingBorderIndex !== null && highlightingBorderIndex < 0 ? borderDiff?.hover || borderDiff?.all : borderDiff?.all;
     
     this.drawPerpendicularMarks(borderStyle);
+    
+    const {
+      canvasMarking: {
+        canvasContext
+      }
+    } = this;
+    
+    canvasContext.save();
+    
     this.drawBorderPartial(pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll, faded), close);
     
     const segmentList = pathSegmentList(pathForDraw);
     
+    // 处理 borderDiff
     _forEach(borderDiff, (diff, k) => {
       const segment = segmentList[Number(k)];
       
@@ -493,6 +528,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       this.drawBorderPartial(hoveringBorder, mergedStyleHover);
     }
     
+    // 高亮
     if (highlightingBorderIndex !== null && highlightingBorderIndex >= 0 && highlightingBorderIndex !== hoveringBorderIndex) {
       const highlightingBorder = segmentList[highlightingBorderIndex];
       const mergedStyleHighlighting = mergeBorderStyleWithDiff(borderStyle, borderDiff?.hover, faded);
@@ -526,6 +562,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       width: borderStyle.width,
       color: borderStyle.color,
       lineJoin: borderStyle.lineJoin,
+      shadowColor: borderStyle.shadowColor,
+      shadowBlur: borderStyle.shadowBlur,
+      shadowOffsetX: borderStyle.shadowOffsetX,
+      shadowOffsetY: borderStyle.shadowOffsetY,
       close
     });
   }
@@ -690,7 +730,9 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   toggleHovering(value = true): void {
-    this.hovering = value;
+    if (this.editable !== 'locked') {
+      this.hovering = value;
+    }
   }
   
   toggleHighlighting(value = true, borderIndex: number | null = null): void {
@@ -726,7 +768,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   isUnderMouse(): boolean {
-    return this.checkMouse() !== EMarkingMouseStatus.OUT;
+    return this.editable !== 'locked' && this.checkMouse() !== EMarkingMouseStatus.OUT;
   }
   
   select(): void {

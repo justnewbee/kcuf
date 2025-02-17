@@ -57,8 +57,8 @@
   "dependencies": {
     "@kcuf/canvas-helper": "workspace:^",
     "@kcuf/geometry-basic": "workspace:^",
+    "@kcuf/mere-color": "workspace:^",
     "@kcuf/subscribable": "workspace:^",
-    "colord": "^2.9.3",
     "debug": "^4.4.0",
     "lodash": "^4.17.21"
   },

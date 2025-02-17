@@ -41,11 +41,11 @@ import {
   IMarkingItemOptions,
   IMarkingItemStats,
   IMarkingPlugin,
-  TMarkingPluginRegister,
   ICanvasMarkingClass,
   ICanvasMarkingOptions,
+  TCanvasMarkingPluginRegister,
   IMarkingStats,
-  TMarkingItemFinder
+  TMarkingItemFinder, TEditable
 } from '../types';
 import {
   DEFAULT_AUXILIARY_STYLE,
@@ -62,7 +62,7 @@ import {
   createDomStage,
   loadImage,
   canvasDrawPerpendicularMark,
-  getMouseJustifiedStatusMagnet
+  getMouseJustifyStatusMagnet
 } from '../util';
 
 import CanvasMarkingItem from './canvas-marking-item';
@@ -108,7 +108,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    */
   private justifiedRightAngle: Angle | null = null;
   
-  private pluginMap: Map<TMarkingPluginRegister<T>, IMarkingPlugin<T>> = new Map<TMarkingPluginRegister<T>, IMarkingPlugin<T>>();
+  private pluginMap: Map<TCanvasMarkingPluginRegister<T>, IMarkingPlugin<T>> = new Map<TCanvasMarkingPluginRegister<T>, IMarkingPlugin<T>>();
   
   /**
    * 新建中的 MarkingItem，不计入 markingItems，在最末编辑结束后才进入（因此需单独渲染）
@@ -200,7 +200,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
   }
   
-  private get editable(): boolean {
+  private get editable(): TEditable {
     return this.options.editable ?? true;
   }
   
@@ -240,6 +240,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private get itemUnderMouse(): IMarkingItemClass<T> | null {
+    if (this.editable === 'locked') {
+      return null;
+    }
+    
     // findLast 还比较新，先不用
     return this.itemCreating ? null : this.getMarkingItemsOrdered().reverse().find(v => v.isUnderMouse()) || null;
   }
@@ -817,7 +821,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private throttledFireStatsChange = _throttle((stats: IMarkingStats<T>, cause: EMarkingStatsChangeCause) => {
     this.fireStatsChange(stats, cause);
-  }, 300);
+  }, 500);
   
   /**
    * 更新 stats 并渲染
@@ -901,7 +905,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.imageMouse = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
     
-    this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
+    if (this.itemCreating || this.itemEditing) {
+      this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
+    }
   }
   
   /**
@@ -940,7 +946,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     justifiedResult ||= justifyMagnetAlongPaths(imageMouse, this.getAllPaths(true), magnetRadius);
     
     if (justifiedResult) {
-      this.justified = getMouseJustifiedStatusMagnet(justifiedResult);
+      this.justified = getMouseJustifyStatusMagnet(justifiedResult);
       this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
       
       this.justifyImageMousePerpendicularExternal(); // 磁吸的时候，还需要进一步
@@ -1013,6 +1019,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     return !!justifiedResult;
   }
   
+  /**
+   * 将当前点自动旋转到 45° 的倍数角度
+   */
   private justifyImageMouseSnap(): boolean {
     if (!this.snapping) {
       return false;
@@ -1050,6 +1059,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private hoverMarkingItem(markingItem: IMarkingItemClass<T> | null): void {
+    if (this.options.editable === 'locked') {
+      return;
+    }
+    
     this.markingItems.forEach(v => {
       v.toggleHovering(v === markingItem);
     });
@@ -1190,7 +1203,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       itemEditing
     } = this;
     
-    if (!editable || item === itemEditing) {
+    if (!editable || editable === 'locked' || item === itemEditing || item?.stats.editable === false) {
       return;
     }
     
@@ -1349,7 +1362,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
   }
   
-  registerPlugin(pluginRegister: TMarkingPluginRegister<T>): () => void {
+  registerPlugin(pluginRegister: TCanvasMarkingPluginRegister<T>): () => void {
     const {
       pluginMap
     } = this;
@@ -1358,15 +1371,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       pluginMap.set(pluginRegister, pluginRegister(this));
     }
     
-    return () => this.deregisterPlugin(pluginRegister);
-  }
-  
-  deregisterPlugin(pluginRegister: TMarkingPluginRegister<T>): void {
-    const plugin = this.pluginMap.get(pluginRegister);
-    
-    plugin?.cleanup?.();
-    
-    this.pluginMap.delete(pluginRegister);
+    return () => {
+      const plugin = this.pluginMap.get(pluginRegister);
+      
+      plugin?.cleanup?.();
+      
+      this.pluginMap.delete(pluginRegister);
+    };
   }
   
   toggleJustify(enabled = true): void {

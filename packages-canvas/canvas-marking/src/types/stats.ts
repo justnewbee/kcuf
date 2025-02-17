@@ -10,6 +10,7 @@ import {
 
 import {
   TSize,
+  TEditable,
   TCreatingWillFinish
 } from './common';
 import {
@@ -41,6 +42,7 @@ export interface IMarkingItemStats<T = unknown> {
   hoveringBorderIndex: number;
   highlighting: boolean;
   highlightingBorderIndex: number | null;
+  editable: TEditable;
   editing: boolean;
   dirty: boolean;
   crossing: boolean;
@@ -54,7 +56,7 @@ export interface IMarkingItemStats<T = unknown> {
  * 整体实时统计信息
  */
 export interface IMarkingStats<T = unknown> {
-  editable: boolean;
+  editable: TEditable;
   zoom: number;
   stageSize: TSize;
   canvasSize: TSize;

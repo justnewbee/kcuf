@@ -1,6 +1,6 @@
 import {
-  colord
-} from 'colord';
+  fade
+} from '@kcuf/mere-color';
 
 export default function parseConfigColor(baseColor: string, configColor?: number | string): string {
   if (typeof configColor === 'string') {
@@ -8,7 +8,7 @@ export default function parseConfigColor(baseColor: string, configColor?: number
   }
   
   if (typeof configColor === 'number') {
-    return colord(baseColor).alpha(configColor).toHslString();
+    return fade(baseColor, configColor);
   }
   
   return baseColor;

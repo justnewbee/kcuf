@@ -22,7 +22,7 @@ import {
   ICanvasMarkingOptions
 } from './options';
 import {
-  TMarkingPluginRegister
+  IMarkingPlugin
 } from './plugin';
 
 /**
@@ -70,12 +70,7 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   /**
    * 注册插件，返回无参的解绑方法
    */
-  registerPlugin(pluginRegister: TMarkingPluginRegister<T>): () => void;
-  
-  /**
-   * 撤销注册的插件，一般不需要自行调用
-   */
-  deregisterPlugin(pluginRegister: TMarkingPluginRegister<T>): void;
+  registerPlugin(pluginRegister: (markingStage: ICanvasMarkingClass<T>) => IMarkingPlugin<T>): () => void;
   
   /**
    * 切换是否自动矫正（磁吸、正交）
@@ -158,3 +153,5 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
    */
   destroy(): void;
 }
+
+export type TCanvasMarkingPluginRegister<T = unknown> = (markingStage: ICanvasMarkingClass<T>) => IMarkingPlugin<T>;

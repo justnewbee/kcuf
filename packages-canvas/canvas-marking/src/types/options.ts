@@ -1,19 +1,19 @@
 import {
-  TLineJoin,
-  TPointType,
   IMarkingStyleAuxiliary,
-  IMarkingStyleConfig,
-  IMarkingBehaviorConfig
+  IMarkingStyleConfig
 } from './style';
-import {
-  IMarkingConfigItem
-} from './canvas-marking-item-class';
 import {
   IMarkingEvents
 } from './events';
 import {
   IMarkingItemStats
 } from './stats';
+import {
+  ICommonBehaviorOptions
+} from './options-common';
+import {
+  IMarkingConfigItem
+} from './canvas-marking-item-class';
 
 export interface IZoomOptions {
   step?: number; // 键盘或点击要快点
@@ -35,12 +35,10 @@ export interface ITooltipOptions<T = unknown> {
   getHoveringInfo?(itemStats: IMarkingItemStats<T>): string;
 }
 
-export interface ICanvasMarkingOptionsData<T = unknown> {
+export interface ICanvasMarkingOptions<T = unknown> extends ICommonBehaviorOptions, IMarkingEvents<T> {
+  // --- 数据 --- //
   image?: string;
   markings?: IMarkingConfigItem<T>[];
-}
-
-export interface ICanvasMarkingOptions<T = unknown> extends ICanvasMarkingOptionsData<T>, IMarkingBehaviorConfig, IMarkingEvents<T> {
   // --- 展示 --- //
   imageBgc?: string; // 没有图片的时候填充色（有助于辨别 move 后的边界）
   auxiliaryStyle?: IMarkingStyleAuxiliary;
@@ -50,10 +48,6 @@ export interface ICanvasMarkingOptions<T = unknown> extends ICanvasMarkingOption
    * 利用 debug 库将所有的事件打印出来，需设置 `localStorage.debug = 'canvas-marking'`
    */
   debugEvents?: boolean;
-  /**
-   * 是否可编辑，默认 true
-   */
-  editable?: boolean;
   /**
    * 磁吸距离（屏幕像素），当鼠标和任一标注的点或线距离小于此值时进行磁吸
    */
@@ -77,31 +71,4 @@ export interface ICanvasMarkingOptions<T = unknown> extends ICanvasMarkingOption
   // --- 共享给插件的选项 --- //
   zoomOptions?: IZoomOptions;
   tooltipOptions?: ITooltipOptions<T>;
-}
-
-export interface IDrawBorderOptions {
-  scale: number; // 需将 scale 反转过来，保证线在视觉上永远是绝对粗细
-  width: number;
-  color: string;
-  lineJoin: TLineJoin;
-  close?: boolean;
-}
-
-export interface IDrawPerpendicularMarkOptions {
-  scale: number; // 需将 scale 反转过来，保证线在视觉上永远是绝对粗细
-  size: number; // 边长
-  color: string;
-}
-
-export interface IDrawShapeOptions {
-  type: TPointType;
-  radius: number;
-  lineWidth: number;
-  lineColor: string;
-  fillColor: string;
-  scale: number;
-}
-
-export interface IDrawAreaOptions {
-  color: string;
 }

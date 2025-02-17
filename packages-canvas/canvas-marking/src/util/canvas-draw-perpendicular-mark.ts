@@ -10,10 +10,15 @@ import {
   multiplyVectorByScalar
 } from '@kcuf/geometry-basic';
 
-import {
-  IDrawPerpendicularMarkOptions
-} from '../types';
+interface IDrawPerpendicularMarkOptions {
+  scale: number; // 需将 scale 反转过来，保证线在视觉上永远是绝对粗细
+  size: number; // 边长
+  color: string;
+}
 
+/**
+ * 画直角标记
+ */
 export default function canvasDrawPerpendicularMark(canvasContext: CanvasRenderingContext2D, angle: Angle, options: IDrawPerpendicularMarkOptions): void {
   if (!isNearlyEqual(angleDegrees(angle, true), 90, 1e-3)) {
     return;

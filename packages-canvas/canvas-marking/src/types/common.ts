@@ -8,6 +8,15 @@ import {
 
 export type TSize = [number, number]; // 大小 [width, height]
 
+/**
+ * 可编辑状态
+ *
+ * - `true` 可编辑
+ * - `false` 不可编辑（无法选中，但响应点击）
+ * - `locked` 不可编辑（无法选中，也不响应点击）
+ */
+export type TEditable = boolean | 'locked';
+
 export type TCreatingWillFinish = boolean | 'close';
 
 /**

@@ -12,6 +12,9 @@ export type {
 } from '@kcuf/geometry-basic';
 
 export type {
+  TSubscribableEvents as SubscribableEvents,
+  TEditable as Editable,
+  
   ICanvasMarkingClass as CanvasMarkingClassType,
   
   IMarkingStats as MarkingStats,
@@ -19,8 +22,6 @@ export type {
   IMarkingEvents as MarkingEvents,
   IMarkingItemConfig as MarkingItemConfig,
   TMarkingItemFinder as MarkingItemFinder,
-  
-  TSubscribableEvents as SubscribableEvents,
   
   ICanvasMarkingOptions as CanvasMarkingOptions,
   TZoomArg as ZoomArg,

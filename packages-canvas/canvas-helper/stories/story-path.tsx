@@ -66,7 +66,7 @@ export default function StoryPath(): ReactElement {
     doPath(stateCanvasContext, {
       center: CENTER,
       radius: RADIUS,
-      rotate: stateRotate ? stateRotateValue: undefined
+      rotate: stateRotate ? stateRotateValue : undefined
     });
     
     stateCanvasContext.lineWidth = stateStrokeSize;
