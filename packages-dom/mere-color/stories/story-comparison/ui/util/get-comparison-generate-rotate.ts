@@ -29,43 +29,43 @@ import {
 
 import protect from './protect';
 
-export default function getComparisonRotate(c: string, amount: number): TComparisonResult {
+export default function getComparisonRotate(c: string, delta: number): TComparisonResult {
   return [{
     key: 'mere-color',
-    result: rotate(c, amount),
-    code: 'rotate(c, amount)'
+    result: rotate(c, delta),
+    code: 'rotate(c, delta)'
   }, {
     key: 'polished',
-    result: adjustHue(amount, c),
-    code: 'adjustHue(amount, c)'
+    result: adjustHue(delta, c),
+    code: 'adjustHue(delta, c)'
   }, {
     key: 'tinycolor2',
-    result: tinycolor2(c).spin(amount).toString('hex'),
-    code: 'tinycolor2(c).spin(amount).toString(\'hex\')'
+    result: tinycolor2(c).spin(delta).toString('hex'),
+    code: 'tinycolor2(c).spin(delta).toString(\'hex\')'
   }, {
     key: 'colord',
-    result: colord(c).rotate(amount).toHex(),
-    code: 'colord(c).rotate(amount).toHex()'
+    result: colord(c).rotate(delta).toHex(),
+    code: 'colord(c).rotate(delta).toHex()'
   }, {
     key: 'color',
-    result: new Color(c).rotate(amount).hex(),
+    result: new Color(c).rotate(delta).hex(),
     code: 'new Color(c).rotate().hex()'
   }, {
     key: 'color2k',
-    result: protect(() => color2kAdjustHue(c, amount)),
-    code: 'adjustHue(c, amount)'
+    result: protect(() => color2kAdjustHue(c, delta)),
+    code: 'adjustHue(c, delta)'
   }, {
     key: 'chroma-js',
     result: null,
     code: ''
   }, {
     key: 'culori',
-    result: formatHex(filterHueRotate(amount)(c)) || '',
-    code: 'formatHex(filterHueRotate(amount)(c))'
+    result: formatHex(filterHueRotate(delta)(c)) || '',
+    code: 'formatHex(filterHueRotate(delta)(c))'
   }, {
     key: 'colormaster',
-    result: colormaster(c).rotate(amount).stringHEX(),
-    code: 'colormaster(c).rotate(amount).stringHEX()'
+    result: colormaster(c).rotate(delta).stringHEX(),
+    code: 'colormaster(c).rotate(delta).stringHEX()'
   }, {
     key: 'fast-color',
     result: null,

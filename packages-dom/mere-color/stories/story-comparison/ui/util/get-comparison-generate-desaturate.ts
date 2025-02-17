@@ -29,43 +29,43 @@ import {
 
 import protect from './protect';
 
-export default function getComparisonDesaturate(c: string, amount: number): TComparisonResult {
+export default function getComparisonDesaturate(c: string, delta: number): TComparisonResult {
   return [{
     key: 'mere-color',
-    result: desaturate(c, amount),
-    code: 'desaturate(c, amount)'
+    result: desaturate(c, delta),
+    code: 'desaturate(c, delta)'
   }, {
     key: 'polished',
-    result: polishedDesaturate(amount / 100, c),
+    result: polishedDesaturate(delta / 100, c),
     code: 'desaturate(c)'
   }, {
     key: 'tinycolor2',
-    result: tinycolor2(c).desaturate(amount).toString('hex'),
-    code: 'tinycolor2(c).desaturate(amount).toString(\'hex\')'
+    result: tinycolor2(c).desaturate(delta).toString('hex'),
+    code: 'tinycolor2(c).desaturate(delta).toString(\'hex\')'
   }, {
     key: 'colord',
-    result: colord(c).desaturate(amount / 100).toHex(),
-    code: 'colord(c).desaturate(amount / 100).toHex()'
+    result: colord(c).desaturate(delta / 100).toHex(),
+    code: 'colord(c).desaturate(delta / 100).toHex()'
   }, {
     key: 'color',
-    result: new Color(c).desaturate(amount / 100).hex(),
-    code: 'new Color(c).desaturate(amount / 100).hex()'
+    result: new Color(c).desaturate(delta / 100).hex(),
+    code: 'new Color(c).desaturate(delta / 100).hex()'
   }, {
     key: 'color2k',
-    result: protect(() => color2kDesaturate(c, amount / 100)),
-    code: 'desaturate(c, amount / 100)'
+    result: protect(() => color2kDesaturate(c, delta / 100)),
+    code: 'desaturate(c, delta / 100)'
   }, {
     key: 'chroma-js',
-    result: chroma(c).desaturate(amount / 100).hex(),
-    code: 'chroma(c).desaturate(amount / 100).hex()'
+    result: chroma(c).desaturate(delta / 100).hex(),
+    code: 'chroma(c).desaturate(delta / 100).hex()'
   }, {
     key: 'culori',
-    result: formatHex(filterSaturate(-amount / 100)(c)) || '',
-    code: 'formatHex(filterSaturate(-amount / 100)(c))'
+    result: formatHex(filterSaturate(-delta / 100)(c)) || '',
+    code: 'formatHex(filterSaturate(-delta / 100)(c))'
   }, {
     key: 'colormaster',
-    result: colormaster(c).desaturateBy(amount).stringHEX(),
-    code: 'colormaster(c).desaturateBy(amount).stringHEX()'
+    result: colormaster(c).desaturateBy(delta).stringHEX(),
+    code: 'colormaster(c).desaturateBy(delta).stringHEX()'
   }, {
     key: 'fast-color',
     result: null,
