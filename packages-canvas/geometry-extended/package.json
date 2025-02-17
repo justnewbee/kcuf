@@ -1,7 +1,7 @@
 {
-  "name": "@kcuf/geometry-basic",
-  "version": "0.3.3",
-  "description": "Some basic geometry utility functions.",
+  "name": "@kcuf/geometry-extended",
+  "version": "0.0.0",
+  "description": "Stringify JSON with order.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-util/geometry-basic",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-canvas/geometry-extended",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -28,17 +28,16 @@
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-typescript": "^7.26.0",
     "@kcuf/ts-config": "workspace:^",
-    "@types/lodash": "^4.17.15",
-    "@vitest/coverage-v8": "^3.0.5",
     "rimraf": "^6.0.1",
-    "typescript": "^5.7.3",
-    "vitest": "^3.0.5"
+    "typescript": "^5.7.3"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "@kcuf/geometry-basic": "workspace:^",
+    "@turf/helpers": "^7.2.0",
+    "@turf/intersect": "^7.2.0"
   },
   "scripts": {
     "build:clean": "rimraf dist",
@@ -47,8 +46,6 @@
     "build:types": "tsc -rootDir src --outDir dist/types --declaration --noEmit false --emitDeclarationOnly --isolatedModules false",
     "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
     "watch": "pnpm build:esm -w",
-    "test": "vitest",
-    "test:cov": "vitest --coverage --coverage.include=src",
     "prepublishOnly": "pnpm build:clean && pnpm build"
   }
 }
