@@ -12,13 +12,15 @@ import {
 } from '../../model';
 
 import OpsOverall from './ops-overall';
-import OpsOptions from './ops-options';
+import OpsEditable from './ops-editable';
 import OpsPlugins from './ops-plugins';
 import OpsImageData from './ops-image-data';
-import OpsMarkings from './ops-markings';
+import OpsCreate from './ops-create';
+import OpsDelete from './ops-delete';
 import OpsSelect from './ops-select';
 import OpsHighlight from './ops-highlight';
 import OpsZoomMove from './ops-zoom-move';
+import OpsDebug from './ops-debug';
 
 const ScForm = styled(Form)`
   margin-left: 12px;
@@ -33,8 +35,8 @@ export default function Ops(): ReactElement {
     items: [{
       content: <OpsOverall />
     }, {
-      label: 'Options',
-      content: <OpsOptions />
+      label: 'Editable',
+      content: <OpsEditable />
     }, {
       label: '插件',
       content: <OpsPlugins />
@@ -42,8 +44,11 @@ export default function Ops(): ReactElement {
       label: '数据',
       content: <OpsImageData />
     }, {
-      label: 'Markings',
-      content: <OpsMarkings />
+      label: 'Create',
+      content: <OpsCreate />
+    }, {
+      label: 'Delete',
+      content: <OpsDelete />
     }, {
       label: 'Select',
       content: <OpsSelect />
@@ -53,6 +58,9 @@ export default function Ops(): ReactElement {
     }, {
       label: 'Zoom / Move',
       content: <OpsZoomMove />
+    }, {
+      label: 'Debug',
+      content: <OpsDebug />
     }] : []]
   }} />;
 }

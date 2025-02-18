@@ -14,23 +14,21 @@ interface IDrawShapeOptions {
   lineWidth: number;
   lineColor: string;
   fillColor: string;
-  scale: number;
 }
 
-export default function canvasDrawShape(canvasContext: CanvasRenderingContext2D, center: Point, options: IDrawShapeOptions): void {
+export default function canvasDrawPointShape(canvasContext: CanvasRenderingContext2D, center: Point, options: IDrawShapeOptions): void {
   const {
     type,
     radius,
     lineWidth,
     lineColor,
-    fillColor,
-    scale
+    fillColor
   } = options;
   
-  if (canvasPathPointShape(canvasContext, center, radius / scale, type)) {
+  if (canvasPathPointShape(canvasContext, center, radius, type)) {
     canvasContext.save();
     
-    canvasContext.lineWidth = lineWidth / scale;
+    canvasContext.lineWidth = lineWidth;
     canvasContext.strokeStyle = lineColor;
     canvasContext.fillStyle = fillColor;
     

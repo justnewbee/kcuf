@@ -6,7 +6,6 @@ import {
 } from '../types';
 
 export const DEFAULT_POINT_RADIUS = 4;
-export const DEFAULT_POINT_RADIUS_ENLARGE = 0.66;
 export const DEFAULT_POINT_INSERTION_MIN_DISTANCE = 48;
 export const DEFAULT_FILL_ALPHA_EDITING = 20;
 export const DEFAULT_JUSTIFY_MAGNET_RADIUS = 10;

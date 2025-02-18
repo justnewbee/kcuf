@@ -14,13 +14,12 @@ import {
   useHandleCreateRect,
   useHandleCreateRect2,
   useHandleCreateLine,
+  useHandleCreateSvgPoint,
   useHandleCancelCreating,
-  useHandleFinishCreating,
-  useHandleDeleteActiveItem,
-  useHandleDeleteAllItems
+  useHandleFinishCreating
 } from '../../model';
 
-export default function OpsMarkings(): ReactElement {
+export default function OpsCreate(): ReactElement {
   const markingStats = useMarkingStats();
   const handleCreate = useHandleCreate();
   const handleCreateMaxPoint1 = useHandleCreateMaxPoint1();
@@ -28,10 +27,9 @@ export default function OpsMarkings(): ReactElement {
   const handleCreateRect = useHandleCreateRect();
   const handleCreateRect2 = useHandleCreateRect2();
   const handleCreateLine = useHandleCreateLine();
+  const handleCreateSvgPoint = useHandleCreateSvgPoint();
   const handleCancelCreating = useHandleCancelCreating();
   const handleFinishCreating = useHandleFinishCreating();
-  const handleDeleteActiveItem = useHandleDeleteActiveItem();
-  const handleDeleteAllItems = useHandleDeleteAllItems();
   
   return <>
     <Button {...{
@@ -53,6 +51,9 @@ export default function OpsMarkings(): ReactElement {
       onClick: handleCreateRect2
     }}>矩形 II</Button>
     <Button {...{
+      onClick: handleCreateSvgPoint
+    }}>SVG 点</Button>
+    <Button {...{
       disabled: !markingStats?.creating,
       onClick: handleCancelCreating
     }}>取消标注</Button>
@@ -60,13 +61,5 @@ export default function OpsMarkings(): ReactElement {
       disabled: !markingStats?.creating,
       onClick: handleFinishCreating
     }}>完成标注</Button>
-    <Button {...{
-      disabled: !markingStats?.editing,
-      onClick: handleDeleteActiveItem
-    }}>删除</Button>
-    <Button {...{
-      disabled: !markingStats?.itemStatsList.length,
-      onClick: handleDeleteAllItems
-    }}>删除全部</Button>
   </>;
 }

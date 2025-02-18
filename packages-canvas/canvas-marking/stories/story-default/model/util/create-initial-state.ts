@@ -7,7 +7,7 @@ export default function createInitialState(): IModelState {
     domContainer: null,
     domMarking: null,
     everInit: false,
-    optionDebugEvents: true,
+    optionDebugEvents: localStorage.debug === 'canvas-marking',
     optionEditable: true,
     markingStats: null,
     markingInstance: null,

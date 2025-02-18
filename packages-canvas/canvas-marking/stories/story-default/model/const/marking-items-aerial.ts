@@ -172,7 +172,12 @@ export default [{
     [1925, 2734],
     [2726, 2182]
   ],
+  pointCountMax: 2,
   styleConfig: {
+    point: {
+      type: 'cross',
+      radius: 8
+    },
     border: {
       color: 'hsl(0 100% 50%)'
     }

@@ -26,6 +26,7 @@ import {
 } from '../enum';
 import {
   TEditable,
+  TPointType,
   TCreatingWillFinish,
   TMarkingStyleBorderResolved,
   IMarkingStyleFillResolved,
@@ -47,6 +48,7 @@ import {
   fadeStylePoint,
   fadeStyleFill,
   mergeBorderStyleWithDiff,
+  resolveMarkingStyleConfig,
   getPathCreatingFree,
   getPathCreatingRect,
   getPathCreatingRect2,
@@ -54,10 +56,9 @@ import {
   canvasCheckPointInStroke,
   canvasDrawPathBorder,
   canvasDrawPerpendicularMark,
-  canvasDrawShape,
+  canvasDrawPointShape,
   canvasDrawArea
 } from '../util';
-import resolveMarkingStyleConfig from '../util/resolve-marking-style-config';
 
 export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass<T> {
   private readonly canvasMarking: ICanvasMarkingClassProtected<T>;
@@ -126,22 +127,18 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   /**
-   * 默认最少必须 3 个点（区域），若指定 2 则允许线段，1 则只画一个点
+   * 默认最少必须 3 个点，若指定 `min: 2` 则允许线段，1 则只画一个点
    */
   private get pointCountRange(): [number, number] {
-    let {
-      options: {
-        pointCountMin: min = 3,
-        pointCountMax: max = 0
-      }
-    } = this;
+    const max = this.options.pointCountMax ?? 0;
+    let min = this.options.pointCountMin ?? 3;
     
     if (min < 1) {
       min = 1;
     }
     
     if (max > 0 && max < min) {
-      max = min;
+      min = max;
     }
     
     return [min, max];
@@ -192,7 +189,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   /**
-   * 如果 mouseCoords 在任何顶点，则返回此顶点 index
+   * 如果 `mouseCoords` 在任何顶点，则返回此顶点 `index`
    */
   private get hoveringPointIndex(): number {
     if (!this.shouldDrawPoint()) {
@@ -200,19 +197,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     }
     
     const {
-      canvasMarking: {
-        canvasContext,
-        imageScale,
-        imageMouse
-      },
       style
     } = this;
     
-    return this.path.findIndex(v => {
-      canvasPathPointShape(canvasContext, v, style.point.radius / imageScale, style.point.type);
-      
-      return canvasContext.isPointInPath(imageMouse[0], imageMouse[1]);
-    });
+    return this.path.findIndex(v => this.isMouseInPoint(v, style.point.radius, style.point.type));
   }
   
   /**
@@ -221,23 +209,24 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   private get hoveringInsertionPointIndex(): number {
     const {
       style,
+      insertionPoints
+    } = this;
+    
+    return insertionPoints.findIndex(v => v ? this.isMouseInPoint(v, style.point.radiusMiddle, style.point.typeMiddle) : false);
+  }
+  
+  private isMouseInPoint(point: Point, radius: number, pointType: TPointType): boolean {
+    const {
       canvasMarking: {
         canvasContext,
         imageScale,
         imageMouse
-      },
-      insertionPoints
+      }
     } = this;
     
-    return insertionPoints.findIndex(v => {
-      if (v) {
-        canvasPathPointShape(canvasContext, v, style.point.radius / imageScale, style.point.typeMiddle);
-        
-        return canvasContext.isPointInPath(imageMouse[0], imageMouse[1]);
-      }
-      
-      return false;
-    });
+    canvasPathPointShape(canvasContext, point, radius / imageScale, pointType instanceof Image || pointType === 'cross' ? 'square' : pointType);
+    
+    return canvasContext.isPointInPath(imageMouse[0], imageMouse[1]);
   }
   
   private get hoveringBorderIndex(): number {
@@ -599,36 +588,42 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     
     const pointStyle = this.getDrawStylePoint();
     
-    this.drawInsertionPoints(pointStyle); // 先画虚点，避免实点距离过近的时候的显示问题
-    this.drawVertexPoints(pointStyle);
+    this.drawPointsInsertion(pointStyle); // 先画虚点，避免实点距离过近的时候的显示问题
+    this.drawPointsVertex(pointStyle);
   }
   
-  private drawInsertionPoints(pointStyle: TMarkingStylePointResolved): void {
+  private drawPointsInsertion(pointStyle: TMarkingStylePointResolved): void {
     const {
       canvasMarking: {
         canvasContext,
         imageScale
-      }
+      },
+      insertionPoints
     } = this;
     
-    this.insertionPoints.forEach(v => {
+    if (!insertionPoints.length) {
+      return;
+    }
+    
+    const drawShapeOptions = {
+      type: pointStyle.typeMiddle,
+      radius: pointStyle.radiusMiddle / imageScale,
+      // 注意这里会调换顺序
+      lineWidth: pointStyle.lineWidth * 0.75 / imageScale,
+      lineColor: pointStyle.fillColor,
+      fillColor: pointStyle.lineColor
+    };
+    
+    insertionPoints.forEach(v => {
       if (!v) {
         return;
       }
       
-      canvasDrawShape(canvasContext, v, {
-        scale: imageScale,
-        type: pointStyle.typeMiddle,
-        radius: pointStyle.radius,
-        // 注意这里会调换顺序
-        lineWidth: pointStyle.lineWidth * 0.75,
-        lineColor: pointStyle.fillColor,
-        fillColor: pointStyle.lineColor
-      });
+      canvasDrawPointShape(canvasContext, v, drawShapeOptions);
     });
   }
   
-  private drawVertexPoints(pointStyle: TMarkingStylePointResolved): void {
+  private drawPointsVertex(pointStyle: TMarkingStylePointResolved): void {
     const {
       canvasMarking: {
         canvasContext,
@@ -637,14 +632,33 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       statsSnapshot
     } = this;
     
-    this.getPathForDraw().forEach((v, i) => canvasDrawShape(canvasContext, v, {
-      scale: imageScale,
+    const drawShapeOptions = {
       type: pointStyle.type,
-      radius: i === 0 && statsSnapshot.creatingWillFinish === 'close' ? pointStyle.radius * (1 + pointStyle.radiusEnlargeWhenClose) : pointStyle.radius,
-      lineWidth: pointStyle.lineWidth,
+      radius: pointStyle.radius / imageScale,
+      lineWidth: pointStyle.lineWidth / imageScale,
       lineColor: pointStyle.lineColor,
       fillColor: pointStyle.fillColor
-    }));
+    };
+    const drawShapeOptionsEnlarged = {
+      ...drawShapeOptions,
+      radius: pointStyle.radius * (1 + pointStyle.radiusEnlargeWhenClose) / imageScale
+    };
+    let image: HTMLImageElement | undefined;
+    let imageAspectRatio = 0;
+    
+    if (pointStyle.type instanceof Image) {
+      image = pointStyle.type;
+      
+      imageAspectRatio = image.naturalWidth / image.naturalHeight;
+    }
+    
+    this.getPathForDraw().forEach((v, i) => {
+      if (image) {
+        canvasContext.drawImage(image, v[0] - drawShapeOptions.radius, v[1] - drawShapeOptions.radius / imageAspectRatio, drawShapeOptions.radius * 2, drawShapeOptions.radius * 2 / imageAspectRatio);
+      } else {
+        canvasDrawPointShape(canvasContext, v, i === 0 && statsSnapshot.creatingWillFinish === 'close' ? drawShapeOptionsEnlarged : drawShapeOptions);
+      }
+    });
   }
   
   /**

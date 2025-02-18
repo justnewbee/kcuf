@@ -5,7 +5,7 @@ import {
 import CanvasMarking from '../../../../src';
 import {
   DEMO_MARKINGS_AERIAL,
-  IMAGE_AERIAL
+  IMAGE_URL_AERIAL
 } from '../const';
 import {
   getHoveringInfo
@@ -30,7 +30,7 @@ export default function useInit(): () => void {
       dispatchSetEverInit();
       
       dispatchSetCanvasMarking(new CanvasMarking(domMarking, {
-        image: IMAGE_AERIAL,
+        image: IMAGE_URL_AERIAL,
         markings: DEMO_MARKINGS_AERIAL,
         tooltipOptions: {
           getHoveringInfo

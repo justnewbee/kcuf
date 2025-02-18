@@ -59,7 +59,7 @@ export interface IMarkingItemClass<T = unknown> {
   toggleHighlighting(value?: boolean, borderIndex?: number | null): void;
   
   /**
-   * 检查跟鼠标之间的关系（比 isUnderMouse 更细）
+   * 检查跟鼠标之间的关系（比 `isUnderMouse` 更细）
    */
   checkMouse(): EMarkingMouseStatus;
   

@@ -3,16 +3,22 @@ import {
 } from 'react';
 
 import {
-  DEMO_MARKINGS_BAD_IMAGE,
-  IMAGE_URL_BAD
+  IMAGE_SVG_POINT
 } from '../const';
 
 import useMarkingInstance from './use-marking-instance';
 
-export default function useHandleSetDataBadImage(): () => void {
+export default function useHandleCreateSvgPoint(): () => void {
   const markingInstance = useMarkingInstance();
   
   return useCallback((): void => {
-    markingInstance?.setData(IMAGE_URL_BAD, DEMO_MARKINGS_BAD_IMAGE);
+    markingInstance?.startCreating({
+      styleConfig: {
+        point: {
+          type: IMAGE_SVG_POINT,
+          radius: 12
+        }
+      }
+    });
   }, [markingInstance]);
 }

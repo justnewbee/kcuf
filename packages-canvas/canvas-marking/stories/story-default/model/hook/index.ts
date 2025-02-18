@@ -28,6 +28,7 @@ export { default as useHandleCreateMaxPoint5 } from './use-handle-create-max-poi
 export { default as useHandleCreateRect } from './use-handle-create-rect';
 export { default as useHandleCreateRect2 } from './use-handle-create-rect2';
 export { default as useHandleCreateLine } from './use-handle-create-line';
+export { default as useHandleCreateSvgPoint } from './use-handle-create-svg-point';
 export { default as useHandleCancelCreating } from './use-handle-cancel-creating';
 export { default as useHandleFinishCreating } from './use-handle-finish-creating';
 export { default as useHandleDeleteActiveItem } from './use-handle-delete-active-item';

@@ -1,4 +1,4 @@
-export type TPointType = 'square' | 'circle';
+export type TPointType = 'cross' | 'circle' | 'triangle' | 'square' | 'pentagon' | 'hexagon' | 'diamond' | 'star' | HTMLImageElement;
 
 // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin
 export type TLineJoin = 'round' | 'bevel' | 'miter'; // 默认 round
@@ -30,7 +30,7 @@ export interface IMarkingStyleBorder {
   // 检测到交叉时的颜色设置
   crossingColor?: string;
   crossingOuterColor?: string | number;
-  
+  // 边框影音
   shadowColor?: string;
   shadowBlur?: number;
   shadowOffsetX?: number;
@@ -53,19 +53,20 @@ export interface IMarkingStyleBorderDiff {
  */
 export interface IMarkingStylePoint {
   /**
-   * 端点类型，默认 square，不建议改
+   * 端点类型，默认 `square`
    */
   type?: TPointType;
   /**
-   * 端点间中点类型，默认 circle，不建议改
+   * 端点间中点类型，默认 `circle`
    */
-  typeMiddle?: TPointType;
+  typeMiddle?: Exclude<TPointType, HTMLImageElement>;
   /**
    * 半径（或半边长）
    */
   radius?: number;
+  radiusMiddle?: number;
   /**
-   * 自动闭合时的扩大比例（会加上 1），默认 0.5
+   * 自动闭合时的扩大比例（会加上 `1`），默认 `0.66`
    */
   radiusEnlargeWhenClose?: number;
   /**
