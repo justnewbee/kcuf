@@ -9,4 +9,3 @@ reject:
   - '@types/react-dom'
   - 'react'
   - 'react-dom'
-  - 'eslint-import-resolver-typescript' # https://github.com/import-js/eslint-import-resolver-typescript/issues/348
