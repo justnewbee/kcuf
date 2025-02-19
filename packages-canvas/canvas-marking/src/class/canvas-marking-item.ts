@@ -49,6 +49,7 @@ import {
   fadeStyleFill,
   mergeBorderStyleWithDiff,
   resolveMarkingStyleConfig,
+  generateUuid,
   getPathCreatingFree,
   getPathCreatingRect,
   getPathCreatingRect2,
@@ -66,6 +67,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   protected options: IMarkingItemOptions<T>;
   
+  private readonly id: string;
   private data: T | undefined;
   private path: Path = []; // 永远是相对于图片大小的位置
   private pathSnapshotEditing: Path = []; // 编辑结束后，需要它
@@ -92,6 +94,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}) {
     this.canvasMarking = markingStage;
     this.options = options;
+    this.id = options.id || generateUuid();
     this.style = resolveMarkingStyleConfig(options.styleConfig);
     this.data = options.data;
     
@@ -425,7 +428,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     }
     
     return {
-      id: options.id ?? '',
+      id: this.id,
       data: this.data,
       path: _cloneDeep(path), // 得到一个干净的，从而避免引用干扰（尤其是 immer 这种会锁对象的）
       styleConfig: options.styleConfig || null,
