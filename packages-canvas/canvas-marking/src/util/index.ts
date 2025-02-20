@@ -6,10 +6,6 @@ export { default as generateUuid } from './generate-uuid';
 export { default as bindDocumentEvent } from './bind-document-event';
 export { default as loadImage } from './load-image';
 
-export { default as fadeStyleBorder } from './fade-style-border';
-export { default as fadeStylePoint } from './fade-style-point';
-export { default as fadeStyleFill } from './fade-style-fill';
-
 export { default as createDomDiv } from './create-dom-div';
 export { default as createDomStage } from './create-dom-stage';
 export { default as createDomImageBg } from './create-dom-image-bg';

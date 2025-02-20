@@ -44,9 +44,6 @@ import {
 } from '../const';
 import {
   canFinishRect,
-  fadeStyleBorder,
-  fadeStylePoint,
-  fadeStyleFill,
   mergeBorderStyleWithDiff,
   resolveMarkingStyleConfig,
   generateUuid,
@@ -88,8 +85,6 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   private draggingInsertionPointIndex = -1; // 拖拽虚拟点的 index，虚点在拖拽的开始（第一次动）的时候，会转正
   
   private statsSnapshot: IMarkingItemStats<T>;
-  
-  private faded = false;
   
   constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}) {
     this.canvasMarking = markingStage;
@@ -243,7 +238,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         borderDiff
       }
     } = this;
-    const borderStyle = mergeBorderStyleWithDiff(this.style.borderHovering, borderDiff?.hover, this.faded);
+    const borderStyle = mergeBorderStyleWithDiff(this.style.borderHovering, borderDiff?.hover);
     const lineWidth = (borderStyle.width + borderStyle.outerWidth * 2) / imageScale; // 考虑边的外框
     
     return pathSegmentList(this.path).findIndex(v => {
@@ -288,15 +283,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       borderStyle = style.borderHighlighting;
     }
     
-    if (crossing) {
-      return {
-        ...borderStyle,
-        color: borderStyle.crossingColor || borderStyle.color,
-        outerColor: borderStyle.crossingOuterColor || borderStyle.outerColor
-      };
-    }
-    
-    return this.faded ? fadeStyleBorder(borderStyle) : borderStyle;
+    return crossing ? {
+      ...borderStyle,
+      color: borderStyle.crossingColor || borderStyle.color,
+      outerColor: borderStyle.crossingOuterColor || borderStyle.outerColor
+    } : borderStyle;
   }
   
   private getDrawStylePoint(): TMarkingStylePointResolved {
@@ -319,15 +310,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       pointStyle = style.pointHighlighting;
     }
     
-    if (crossing) {
-      return {
-        ...pointStyle,
-        lineColor: pointStyle.crossingLineColor,
-        fillColor: pointStyle.crossingFillColor
-      };
-    }
-    
-    return this.faded ? fadeStylePoint(pointStyle) : pointStyle;
+    return crossing ? {
+      ...pointStyle,
+      lineColor: pointStyle.crossingLineColor,
+      fillColor: pointStyle.crossingFillColor
+    } : pointStyle;
   }
   
   private getDrawStyleFill(): IMarkingStyleFillResolved {
@@ -350,14 +337,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       fillStyle = style.fillHighlighting;
     }
     
-    if (crossing) {
-      return {
-        ...fillStyle,
-        color: fillStyle.crossingColor
-      };
-    }
-    
-    return this.faded ? fadeStyleFill(fillStyle) : fillStyle;
+    return crossing ? {
+      ...fillStyle,
+      color: fillStyle.crossingColor
+    } : fillStyle;
   }
   
   /**
@@ -465,13 +448,15 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   private drawBorder(): void {
     const {
+      canvasMarking: {
+        canvasContext
+      },
       options: {
         type
       },
       style: {
         borderDiff
       },
-      faded,
       stats: {
         creatingWillFinish,
         hoveringBorderIndex,
@@ -485,15 +470,9 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     
     this.drawPerpendicularMarks(borderStyle);
     
-    const {
-      canvasMarking: {
-        canvasContext
-      }
-    } = this;
-    
     canvasContext.save();
     
-    this.drawBorderPartial(pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll, faded), close);
+    this.drawBorderPartial(pathForDraw, mergeBorderStyleWithDiff(borderStyle, diffAll), close);
     
     const segmentList = pathSegmentList(pathForDraw);
     
@@ -505,7 +484,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         return;
       }
       
-      const mergedStyle = mergeBorderStyleWithDiff(borderStyle, diff, faded);
+      const mergedStyle = mergeBorderStyleWithDiff(borderStyle, diff);
       
       if (mergedStyle !== borderStyle) {
         this.drawBorderPartial(segment, mergedStyle);
@@ -514,7 +493,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     
     // 单根边样式 diff
     const hoveringBorder = hoveringBorderIndex >= 0 ? segmentList[hoveringBorderIndex] : undefined;
-    const mergedStyleHover = mergeBorderStyleWithDiff(borderStyle, borderDiff?.hover, faded);
+    const mergedStyleHover = mergeBorderStyleWithDiff(borderStyle, borderDiff?.hover);
     
     if (hoveringBorder && mergedStyleHover !== borderStyle) {
       this.drawBorderPartial(hoveringBorder, mergedStyleHover);
@@ -523,7 +502,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     // 高亮
     if (highlightingBorderIndex !== null && highlightingBorderIndex >= 0 && highlightingBorderIndex !== hoveringBorderIndex) {
       const highlightingBorder = segmentList[highlightingBorderIndex];
-      const mergedStyleHighlighting = mergeBorderStyleWithDiff(borderStyle, borderDiff?.hover, faded);
+      const mergedStyleHighlighting = mergeBorderStyleWithDiff(borderStyle, borderDiff?.hover);
       
       if (highlightingBorder && mergedStyleHighlighting !== borderStyle) {
         this.drawBorderPartial(highlightingBorder, mergedStyleHighlighting);
@@ -1007,11 +986,17 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
    * 画出自己，从底至上依次画区块、边线和拖拽点
    */
   draw(faded = false): void {
-    this.faded = faded;
+    if (faded) {
+      this.canvasMarking.canvasContext.globalAlpha = 0.37;
+    }
     
     this.drawArea();
     this.drawBorder();
     this.drawPoints();
+    
+    if (faded) {
+      this.canvasMarking.canvasContext.globalAlpha = 1;
+    }
   }
   
   get stats(): IMarkingItemStats<T> {

@@ -1,31 +1,29 @@
 import {
+  fadeOut
+} from '@kcuf/mere-color';
+
+import {
   IMarkingStyleBorderDiff,
   TMarkingStyleBorderResolved
 } from '../types';
 
-import fadeColor from './fade-color';
-
-function desaturateDiff(diff: IMarkingStyleBorderDiff, faded: boolean): IMarkingStyleBorderDiff {
-  if (!faded) {
-    return diff;
-  }
-  
+function desaturateDiff(diff: IMarkingStyleBorderDiff): IMarkingStyleBorderDiff {
   const diffClone: IMarkingStyleBorderDiff = {
     ...diff
   };
   
   if (diffClone.color) {
-    diffClone.color = fadeColor(diffClone.color);
+    diffClone.color = fadeOut(diffClone.color, 65, 5);
   }
   
   if (diffClone.outerColor) {
-    diffClone.outerColor = fadeColor(diffClone.outerColor);
+    diffClone.outerColor = fadeOut(diffClone.outerColor, 65, 5);
   }
   
   return diffClone;
 }
 
-export default function mergeBorderStyleWithDiff(borderStyle: TMarkingStyleBorderResolved, diff: IMarkingStyleBorderDiff | undefined, faded: boolean): TMarkingStyleBorderResolved {
+export default function mergeBorderStyleWithDiff(borderStyle: TMarkingStyleBorderResolved, diff?: IMarkingStyleBorderDiff): TMarkingStyleBorderResolved {
   if (!diff) {
     return borderStyle;
   }
@@ -35,7 +33,7 @@ export default function mergeBorderStyleWithDiff(borderStyle: TMarkingStyleBorde
     width = borderStyle.width,
     outerColor = borderStyle.outerColor,
     outerWidth = borderStyle.outerWidth
-  } = desaturateDiff(diff, faded);
+  } = desaturateDiff(diff);
   
   return color !== borderStyle.color || width !== borderStyle.width || outerColor !== borderStyle.outerColor || outerWidth !== borderStyle.outerWidth ? {
     ...borderStyle,
