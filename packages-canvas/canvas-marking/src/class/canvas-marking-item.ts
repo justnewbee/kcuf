@@ -235,10 +235,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         imageMouse
       },
       style: {
-        borderDiff
+        borderDiff,
+        borderHovering
       }
     } = this;
-    const borderStyle = mergeBorderStyleWithDiff(this.style.borderHovering, borderDiff?.hover);
+    const borderStyle = mergeBorderStyleWithDiff(borderHovering, borderDiff?.hover);
     const lineWidth = (borderStyle.width + borderStyle.outerWidth * 2) / imageScale; // 考虑边的外框
     
     return pathSegmentList(this.path).findIndex(v => {
