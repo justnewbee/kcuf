@@ -7,11 +7,11 @@ export interface IMarkingStylePoint {
   /**
    * 端点类型，默认 `square`
    */
-  type?: TPointShape;
+  shape?: TPointShape;
   /**
    * 端点间中点类型，默认 `circle`
    */
-  typeMiddle?: Exclude<TPointShape, HTMLImageElement>;
+  shapeMiddle?: Exclude<TPointShape, HTMLImageElement>;
   /**
    * 半径（或半边长）
    */

@@ -52,18 +52,20 @@ describe('md5', () => {
   
   test('input Uint8Array', () => {
     const message = 'foobarbaz';
-    const u8arr = Uint8Array.from(Array.from(message, c => {
-      return c.charCodeAt(0);
-    }));
     
-    expect(md5(u8arr)).toBe(md5(message));
+    expect(md5(Uint8Array.from(Array.from(message, c => {
+      return c.charCodeAt(0);
+    })))).toBe(md5(message));
   });
-  
-  // test('input Blob', () => {
-  //
-  // });
   
   test('input File', () => {
     expect(md5(fs.readFileSync(path.resolve(process.cwd(), './.babelrc.js')))).toBe('6899acd13b43fe461065e18ca4e42fb9');
+  });
+  
+  test('input Blob', () => {
+    expect(md5(new Blob(['Hello, World!'], {
+      type: 'text/plain'
+    }))).toBe('0b867e53c1d233ce9fe49d54549a2323');
+    expect(md5('[object Blob]')).toBe('0b867e53c1d233ce9fe49d54549a2323');
   });
 });

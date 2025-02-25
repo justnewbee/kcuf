@@ -175,7 +175,7 @@ export default [{
   pointCountMax: 2,
   styleConfig: {
     point: {
-      type: 'cross',
+      shape: 'cross',
       radius: 8
     },
     border: {
@@ -190,7 +190,7 @@ export default [{
   pointCountMax: 1,
   styleConfig: {
     point: {
-      type: (src => {
+      shape: (src => {
         const image = new Image();
         
         image.src = src;
@@ -208,7 +208,7 @@ export default [{
   pointCountMax: 1,
   styleConfig: {
     point: {
-      type: (src => {
+      shape: (src => {
         const image = new Image();
         
         image.src = src;
@@ -226,7 +226,7 @@ export default [{
   pointCountMax: 1,
   styleConfig: {
     point: {
-      type: (src => {
+      shape: (src => {
         const image = new Image();
         
         image.src = src;
@@ -244,7 +244,7 @@ export default [{
   pointCountMax: 1,
   styleConfig: {
     point: {
-      type: (src => {
+      shape: (src => {
         const image = new Image();
         
         image.src = src;
@@ -262,7 +262,7 @@ export default [{
   pointCountMax: 1,
   styleConfig: {
     point: {
-      type: (src => {
+      shape: (src => {
         const image = new Image();
         
         image.src = src;

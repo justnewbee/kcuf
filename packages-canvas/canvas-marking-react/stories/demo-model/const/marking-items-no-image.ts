@@ -20,7 +20,7 @@ export default [{
       color: 'hsl(0 36% 50%)'
     },
     point: {
-      type: 'square',
+      shape: 'square',
       lineColor: 'hsl(48 100% 50%)',
       fillColor: 'hsl(48 100% 50%)'
     },

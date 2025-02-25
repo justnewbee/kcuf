@@ -9,7 +9,7 @@ import {
 import canvasPathPointShape from './canvas-path-point-shape';
 
 interface IDrawShapeOptions {
-  type: TPointShape;
+  shape: TPointShape;
   radius: number;
   lineWidth: number;
   lineColor: string;
@@ -18,14 +18,14 @@ interface IDrawShapeOptions {
 
 export default function canvasDrawPointShape(canvasContext: CanvasRenderingContext2D, center: Point, options: IDrawShapeOptions): void {
   const {
-    type,
+    shape,
     radius,
     lineWidth,
     lineColor,
     fillColor
   } = options;
   
-  if (canvasPathPointShape(canvasContext, center, radius, type)) {
+  if (canvasPathPointShape(canvasContext, center, radius, shape)) {
     canvasContext.save();
     
     canvasContext.lineWidth = lineWidth;

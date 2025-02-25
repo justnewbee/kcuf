@@ -47,7 +47,7 @@ export default [{
       color: 'hsl(333 100% 64%)'
     },
     point: {
-      type: 'square',
+      shape: 'square',
       lineColor: 'hsl(48 100% 50%)'
     },
     fill: {

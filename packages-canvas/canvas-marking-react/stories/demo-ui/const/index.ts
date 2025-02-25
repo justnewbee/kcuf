@@ -7,7 +7,7 @@ export const CREATE_CONFIG_LINE: MarkingItemConfig = {
   pointCountMax: 2,
   styleConfig: {
     point: {
-      type: 'square'
+      shape: 'square'
     }
   }
 };

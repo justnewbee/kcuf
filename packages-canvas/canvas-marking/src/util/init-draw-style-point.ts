@@ -16,8 +16,8 @@ export default function initDrawStylePoint(borderStyleResolved: TMarkingStyleBor
     ...extendFrom,
     ...pointStyle
   } : {
-    type: 'circle',
-    typeMiddle: 'circle',
+    shape: 'circle',
+    shapeMiddle: 'circle',
     radius: DEFAULT_POINT_RADIUS,
     radiusMiddle: DEFAULT_POINT_RADIUS,
     radiusEnlargeWhenClose: 0.66,

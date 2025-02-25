@@ -16,8 +16,8 @@ import {
   TPointShape
 } from '../types';
 
-export default function canvasPathPointShape(canvasContext: CanvasRenderingContext2D, center: Point, radius: number, type: TPointShape): boolean {
-  switch (type) {
+export default function canvasPathPointShape(canvasContext: CanvasRenderingContext2D, center: Point, radius: number, shape: TPointShape): boolean {
+  switch (shape) {
   case 'cross':
     pathCross(canvasContext, {
       center,

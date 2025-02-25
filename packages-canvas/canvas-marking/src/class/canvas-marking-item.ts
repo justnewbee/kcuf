@@ -202,7 +202,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       style
     } = this;
     
-    return this.path.findIndex(v => this.isMouseInPoint(v, style.point.radius, style.point.type));
+    return this.path.findIndex(v => this.isMouseInPoint(v, style.point.radius, style.point.shape));
   }
   
   /**
@@ -214,7 +214,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       insertionPoints
     } = this;
     
-    return insertionPoints.findIndex(v => v ? this.isMouseInPoint(v, style.point.radiusMiddle, style.point.typeMiddle) : false);
+    return insertionPoints.findIndex(v => v ? this.isMouseInPoint(v, style.point.radiusMiddle, style.point.shapeMiddle) : false);
   }
   
   private isMouseInPoint(point: Point, radius: number, pointType: TPointShape): boolean {
@@ -593,7 +593,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     }
     
     const drawShapeOptions = {
-      type: pointStyle.typeMiddle,
+      shape: pointStyle.shapeMiddle,
       radius: pointStyle.radiusMiddle / imageScale,
       // 注意这里会调换顺序
       lineWidth: pointStyle.lineWidth * 0.75 / imageScale,
@@ -620,7 +620,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     } = this;
     
     const drawShapeOptions = {
-      type: pointStyle.type,
+      shape: pointStyle.shape,
       radius: pointStyle.radius / imageScale,
       lineWidth: pointStyle.lineWidth / imageScale,
       lineColor: pointStyle.lineColor,
@@ -633,8 +633,8 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     let image: HTMLImageElement | undefined;
     let imageAspectRatio = 0;
     
-    if (pointStyle.type instanceof Image) {
-      image = pointStyle.type;
+    if (pointStyle.shape instanceof Image) {
+      image = pointStyle.shape;
       
       imageAspectRatio = image.naturalWidth / image.naturalHeight;
     }

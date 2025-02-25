@@ -15,7 +15,7 @@ export default function useHandleCreateSvgPoint(): () => void {
     markingInstance?.startCreating({
       styleConfig: {
         point: {
-          type: IMAGE_SVG_POINT,
+          shape: IMAGE_SVG_POINT,
           radius: 12
         }
       }
