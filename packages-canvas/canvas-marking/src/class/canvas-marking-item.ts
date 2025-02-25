@@ -26,7 +26,7 @@ import {
 } from '../enum';
 import {
   TEditable,
-  TPointType,
+  TPointShape,
   TCreatingWillFinish,
   TMarkingStyleBorderResolved,
   IMarkingStyleFillResolved,
@@ -86,7 +86,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   private statsSnapshot: IMarkingItemStats<T>;
   
-  constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}) {
+  constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}, initialPath?: Path) {
     this.canvasMarking = markingStage;
     this.options = options;
     this.id = options.id || generateUuid();
@@ -96,6 +96,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     if (options.path?.length) { // 传入 path 表示已成图形，不传则表示新建
       this.path = _cloneDeep(options.path); // 因为可能要改它
     } else {
+      if (initialPath?.length) {
+        this.path = _cloneDeep(initialPath);
+      }
+      
       this.creating = true;
     }
     
@@ -213,7 +217,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return insertionPoints.findIndex(v => v ? this.isMouseInPoint(v, style.point.radiusMiddle, style.point.typeMiddle) : false);
   }
   
-  private isMouseInPoint(point: Point, radius: number, pointType: TPointType): boolean {
+  private isMouseInPoint(point: Point, radius: number, pointType: TPointShape): boolean {
     const {
       canvasMarking: {
         canvasContext,

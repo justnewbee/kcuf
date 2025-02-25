@@ -3,7 +3,7 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  TLineJoin
+  TBorderLineJoin
 } from '../types';
 
 import canvasPathThroughPoints from './canvas-path-through-points';
@@ -12,7 +12,7 @@ interface IDrawPathBorderOptions {
   scale: number; // 需将 scale 反转过来，保证线在视觉上永远是绝对粗细
   width: number;
   color: string;
-  lineJoin: TLineJoin;
+  lineJoin: TBorderLineJoin;
   shadowColor?: string;
   shadowBlur?: number;
   shadowOffsetX?: number;

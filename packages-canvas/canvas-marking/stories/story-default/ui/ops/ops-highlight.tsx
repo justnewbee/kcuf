@@ -1,9 +1,10 @@
 import {
-  ReactElement
+  ReactElement, useState
 } from 'react';
 
 import {
-  Button
+  Button,
+  InputText
 } from '@kcuf/demo-rc';
 
 import {
@@ -11,6 +12,7 @@ import {
 } from '../../model';
 
 export default function OpsHighlight(): ReactElement {
+  const [stateId, setStateId] = useState('');
   const handleHighlight = useHandleHighlight();
   
   return <>
@@ -35,5 +37,13 @@ export default function OpsHighlight(): ReactElement {
     <Button {...{
       onClick: () => handleHighlight(null)
     }}>highlight(none)</Button>
+    <br />
+    <InputText {...{
+      value: stateId,
+      onChange: setStateId
+    }} />
+    <Button {...{
+      onClick: () => handleHighlight(stateId)
+    }}>highlight(id)</Button>
   </>;
 }

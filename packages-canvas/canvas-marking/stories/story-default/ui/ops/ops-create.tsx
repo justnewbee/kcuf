@@ -53,6 +53,7 @@ export default function OpsCreate(): ReactElement {
     <Button {...{
       onClick: handleCreateSvgPoint
     }}>SVG 点</Button>
+    <br />
     <Button {...{
       disabled: !markingStats?.creating,
       onClick: handleCancelCreating

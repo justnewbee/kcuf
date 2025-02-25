@@ -1,4 +1,7 @@
 export * from './common';
+export * from './style-border';
+export * from './style-point';
+export * from './style-fill';
 export * from './style';
 export * from './stats';
 export * from './events';

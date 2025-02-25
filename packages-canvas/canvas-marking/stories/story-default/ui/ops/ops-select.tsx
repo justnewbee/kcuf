@@ -1,9 +1,11 @@
 import {
-  ReactElement
+  ReactElement,
+  useState
 } from 'react';
 
 import {
-  Button
+  Button,
+  InputText
 } from '@kcuf/demo-rc';
 
 import {
@@ -11,6 +13,7 @@ import {
 } from '../../model';
 
 export default function OpsSelect(): ReactElement {
+  const [stateId, setStateId] = useState('');
   const handleSelect = useHandleSelect();
   
   return <>
@@ -29,5 +32,13 @@ export default function OpsSelect(): ReactElement {
     <Button {...{
       onClick: () => handleSelect(null)
     }}>select(none)</Button>
+    <br />
+    <InputText {...{
+      value: stateId,
+      onChange: setStateId
+    }} />
+    <Button {...{
+      onClick: () => handleSelect(stateId)
+    }}>select(id)</Button>
   </>;
 }

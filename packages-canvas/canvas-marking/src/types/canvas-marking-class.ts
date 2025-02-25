@@ -1,6 +1,7 @@
 import Subscribable from '@kcuf/subscribable';
 import {
-  Point
+  Point,
+  Path
 } from '@kcuf/geometry-basic';
 
 import {
@@ -85,7 +86,7 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   /**
    * 开始新建
    */
-  startCreating(config?: IMarkingItemConfig): void;
+  startCreating(config?: IMarkingItemConfig, initialPath?: Path): void;
   
   /**
    * 取消新建

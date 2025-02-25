@@ -13,10 +13,10 @@ import {
 } from '@kcuf/canvas-helper';
 
 import {
-  TPointType
+  TPointShape
 } from '../types';
 
-export default function canvasPathPointShape(canvasContext: CanvasRenderingContext2D, center: Point, radius: number, type: TPointType): boolean {
+export default function canvasPathPointShape(canvasContext: CanvasRenderingContext2D, center: Point, radius: number, type: TPointShape): boolean {
   switch (type) {
   case 'cross':
     pathCross(canvasContext, {

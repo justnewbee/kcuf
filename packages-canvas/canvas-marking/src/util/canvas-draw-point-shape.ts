@@ -3,13 +3,13 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  TPointType
+  TPointShape
 } from '../types';
 
 import canvasPathPointShape from './canvas-path-point-shape';
 
 interface IDrawShapeOptions {
-  type: TPointType;
+  type: TPointShape;
   radius: number;
   lineWidth: number;
   lineColor: string;

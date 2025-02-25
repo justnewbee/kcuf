@@ -373,9 +373,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private setupImageAndMarkings(imageUrl = '', markings: IMarkingConfigItem<T>[] = [], cause: EMarkingStatsChangeCause = EMarkingStatsChangeCause.SET_DATA): Promise<void> {
     this.markingItems.length = 0;
     
-    markings.forEach(v => {
-      this.markingItems.push(this.createMarkingItem(v));
-    });
+    markings.forEach(v => this.markingItems.push(this.createMarkingItem(v)));
     
     return this.setupImage(imageUrl).then(() => this.updateAndDraw(cause)); // 保证图片加载完成再渲染 MarkingItem
   }
@@ -487,7 +485,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     return Date.now() - mouseClickTime <= doubleClickInterval;
   }
   
-  private createMarkingItem(extraOptions?: IMarkingItemOptions<T>): CanvasMarkingItem<T> {
+  private createMarkingItem(extraOptions?: IMarkingItemOptions<T>, initialPath?: Path): CanvasMarkingItem<T> {
     const {
       options
     } = this;
@@ -501,7 +499,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       noPointInsertion: options.noPointInsertion,
       noCrossingDetection: options.noCrossingDetection,
       noDragWhole: options.noDragWhole
-    });
+    }, initialPath);
   }
   
   private creatingPushPoint(): void {
@@ -1406,7 +1404,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_SNAP_TRUE : EMarkingStatsChangeCause.TOGGLE_SNAP_FALSE);
   }
   
-  startCreating(config?: IMarkingItemConfig): void {
+  startCreating(config?: IMarkingItemConfig, initialPath?: Path): void {
     if (!this.editable) {
       return;
     }
@@ -1423,7 +1421,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       this.emit('selection-change', null, statsList);
     }
     
-    this.itemCreating = this.createMarkingItem(config); // 副作用 - 替换正在进行的新建（有的话），但不触发 onCreateCancel
+    this.itemCreating = this.createMarkingItem(config, initialPath); // 副作用 - 替换正在进行的新建（有的话），而不触发其 `onCreateCancel`
     this.updateAndDraw(EMarkingStatsChangeCause.START_CREATING);
     
     this.options.onCreateStart?.();
