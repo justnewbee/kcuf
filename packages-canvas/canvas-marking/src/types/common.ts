@@ -20,9 +20,16 @@ export type TEditable = boolean | 'locked';
 export type TCreatingWillFinish = boolean | 'close';
 
 /**
- * 对外提供的查找 MarkingItem 的方式，若为数字，可以表示根据给定 MarkingItem 向前或向后几个
+ * 对外提供的查找 `MarkingItem` 的方式
+ *
+ * - `null`
+ * - `'first'` 第一个
+ * - `'last'` 最末一个
+ * - `number` 向前（复数）或向后
+ * - `string` 根据 `id` 查找
+ * - `(id: string, data?: T) => boolean` 更细节的查找
  */
-export type TMarkingItemFinder<T = unknown> = null | 'first' | 'last' | number | ((id: string, data?: T) => boolean);
+export type TMarkingItemFinder<T = unknown> = null | 'first' | 'last' | string | number | ((id: string, data?: T) => boolean);
 
 export type TZoomArg = EZoomHow | `${EZoomHow}`;
 

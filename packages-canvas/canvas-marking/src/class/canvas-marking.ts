@@ -1181,6 +1181,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return markingItems[markingItems.length - 1] || null;
     }
     
+    if (typeof finder === 'string') {
+      return markingItems.find(v => v.stats.id === finder) || null;
+    }
+    
     if (typeof finder === 'number') {
       let nextIndex = markingItems.findIndex(v => v === givenItem) + finder;
       
@@ -1194,7 +1198,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return markingItems[nextIndex] || null;
     }
     
-    return this.markingItems.find(v => finder(v.stats.id, v.stats.data)) || null;
+    return markingItems.find(v => finder(v.stats.id, v.stats.data)) || null;
   }
   
   private selectItem(item: IMarkingItemClass<T> | null): void {

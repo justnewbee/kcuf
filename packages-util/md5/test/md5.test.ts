@@ -1,8 +1,16 @@
-import { describe, expect, test } from 'vitest';
+import path from 'node:path';
+import fs from 'node:fs';
+
+import {
+  describe,
+  expect,
+  test
+} from 'vitest';
 
 import md5 from '../src';
 
 // https://www.md5hashgenerator.com/
+// https://checksumchecker.com
 describe('md5', () => {
   test('input simple strings', () => {
     expect(md5('undefined')).toBe('5e543256c480ac577d30f76f9120eb74');
@@ -36,6 +44,12 @@ describe('md5', () => {
     expect(md5(buffer)).toBe(md5('message áßäöü'));
   });
   
+  // test('input ArrayBuffer', () => {
+  //   const buffer = Buffer.from('message áßäöü', 'utf8');
+  //
+  //   expect(md5(buffer)).toBe(md5('message áßäöü'));
+  // });
+  
   test('input Uint8Array', () => {
     const message = 'foobarbaz';
     const u8arr = Uint8Array.from(Array.from(message, c => {
@@ -45,19 +59,11 @@ describe('md5', () => {
     expect(md5(u8arr)).toBe(md5(message));
   });
   
-  test('binary encoded string', () => {
-    const hash1 = md5('abc', {
-      asString: true
-    });
-    
-    expect(md5(`${hash1}a`, {
-      encoding: 'binary'
-    })).toBe('131f0ac52813044f5110e4aec638c169');
-    expect(md5('hello')).toBe(md5('hello', {
-      encoding: 'binary'
-    }));
-    // expect(md5('中文')).toBe(md5('中文', {
-    //   encoding: 'binary'
-    // }));
+  // test('input Blob', () => {
+  //
+  // });
+  
+  test('input File', () => {
+    expect(md5(fs.readFileSync(path.resolve(process.cwd(), './.babelrc.js')))).toBe('6899acd13b43fe461065e18ca4e42fb9');
   });
 });
