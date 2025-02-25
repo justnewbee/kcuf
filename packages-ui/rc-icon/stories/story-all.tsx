@@ -11,13 +11,8 @@ import {
 } from '@kcuf/demo-rc';
 
 import Icon, {
-  IconType
+  ICON_TYPES
 } from '../src';
-import {
-  ICON_TYPE_MAPPING
-} from '../src/const';
-
-const TYPES: IconType[] = Object.keys(ICON_TYPE_MAPPING) as IconType[];
 
 const ScIconList = styled.ul`
   display: flex;
@@ -52,7 +47,7 @@ export default function StoryAll(): ReactElement {
   const [stateRotate, setStateRotate] = useState(0);
   const [stateColored, setStateColored] = useState(true);
   const filterTrimmed = stateFilter.trim();
-  const filteredTypes = filterTrimmed ? TYPES.filter(v => v.includes(filterTrimmed)) : TYPES;
+  const filteredTypes = filterTrimmed ? ICON_TYPES.filter(v => v.includes(filterTrimmed)) : ICON_TYPES;
   
   return <>
     <InputText {...{
@@ -70,7 +65,7 @@ export default function StoryAll(): ReactElement {
       value: stateColored,
       onChange: setStateColored
     }} />
-    {filterTrimmed ? `${filteredTypes.length} / ${TYPES.length}` : null}
+    {filterTrimmed ? `${filteredTypes.length} / ${ICON_TYPES.length}` : null}
     <ScIconList>
       {filteredTypes.map(v => <ScIconListItem key={v}>
         <Icon {...{

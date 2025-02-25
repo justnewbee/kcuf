@@ -1,13 +1,10 @@
 {
-  "name": "@kcuf-hook/use-controllable",
-  "version": "0.0.1",
-  "description": "React hook - useControllable.",
+  "name": "@kcuf/md5",
+  "version": "0.0.0",
+  "description": "Md5 url-safe encoding/decoding.",
   "keywords": [
-    "react",
-    "hook",
-    "useControllable",
-    "useControllableSoftTrim",
-    "useControllableUnprotected"
+    "md5",
+    "hash"
   ],
   "license": "MIT",
   "sideEffects": false,
@@ -18,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/use-controllable",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-util/md5",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -32,19 +29,15 @@
     "@babel/core": "^7.26.9",
     "@babel/plugin-transform-runtime": "^7.26.9",
     "@babel/preset-env": "^7.26.9",
-    "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.26.0",
     "@kcuf/ts-config": "workspace:^",
-    "@types/react": "^18.3.18",
     "@vitest/coverage-v8": "^3.0.7",
-    "react": "^18.3.1",
     "rimraf": "^6.0.1",
     "typescript": "^5.7.3",
     "vitest": "^3.0.7"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.x",
-    "react": "^18.x"
+    "@babel/runtime": "^7.x"
   },
   "scripts": {
     "build:clean": "rimraf dist",

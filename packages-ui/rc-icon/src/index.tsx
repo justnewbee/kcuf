@@ -12,12 +12,15 @@ import {
   IIconProps
 } from './types';
 import {
-  ICON_FONT
+  ICON_FONT,
+  ICON_TYPE_MAPPING
 } from './const';
 import {
   getIconCode,
   getIconColor
 } from './util';
+
+export const ICON_TYPES = Object.keys(ICON_TYPE_MAPPING) as TIconType[]; // for demo purpose
 
 /**
  * ConsoleBase 项目自用的图标组件

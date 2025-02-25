@@ -2,8 +2,8 @@ import {
   injectIconFont
 } from '@kcuf-ui/rc-icon-base';
 
-// https://at.alicdn.com/t/c/font_4720928_p25pnn0f8dn.css
-export const ICON_FONT = injectIconFont('4720928', 'p25pnn0f8dn', {
+// https://at.alicdn.com/t/c/font_4720928_qneakc6nxj.css
+export const ICON_FONT = injectIconFont('4720928', 'qneakc6nxj', {
   pathExtra: '/c'
 });
 

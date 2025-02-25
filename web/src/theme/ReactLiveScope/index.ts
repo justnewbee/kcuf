@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ICON_TYPES,
   Backdrop,
   Button,
   Dialog,
@@ -13,6 +14,7 @@ import {
 export default {
   React,
   ...React,
+  ICON_TYPES,
   Backdrop,
   Button,
   Dialog,

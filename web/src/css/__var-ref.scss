@@ -124,8 +124,7 @@
   --ifm-transition-timing-default: cubic-bezier(0.08, 0.52, 0.52, 1);
   --ifm-global-shadow-lw: 0 1px 2px 0 rgb(0 0 0 / 10%);
   --ifm-global-shadow-md: 0 5px 40px rgb(0 0 0 / 20%);
-  --ifm-global-shadow-tl: 0 12px 28px 0 rgb(0 0 0 / 20%),
-  0 2px 4px 0 rgb(0 0 0 / 10%);
+  --ifm-global-shadow-tl: 0 12px 28px 0 rgb(0 0 0 / 20%), 0 2px 4px 0 rgb(0 0 0 / 10%);
   --ifm-z-index-dropdown: 100;
   --ifm-z-index-fixed: 200;
   --ifm-z-index-overlay: 400;

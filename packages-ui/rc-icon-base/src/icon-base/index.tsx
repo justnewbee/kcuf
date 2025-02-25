@@ -36,7 +36,7 @@ const ScIcon = styled.i<IScIconBaseProps>`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: auto;
-    vertical-align: baseline;
+    vertical-align: middle;
     -webkit-text-stroke-width: 0.2px; /* stylelint-disable-line */
     transition: all linear 200ms;
     ${props => getCssIconRotation(props)}

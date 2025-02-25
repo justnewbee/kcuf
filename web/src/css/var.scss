@@ -33,6 +33,7 @@
   --ifm-table-border-color: hsl(214 32% 91%);
   --ifm-table-cell-padding: 0.4rem 0.75rem;
   --ifm-table-stripe-background: none;
+  --ifm-table-row-background-hover: hsl(223 79% 60% / 4%);
   --ifm-alert-padding-vertical: 0.6rem;
   
   /* 一些专属自定义，以 --k- 打头 */
@@ -46,6 +47,7 @@ html[data-theme="dark"] {
   --ifm-background-surface-color: hsl(220 26% 14%);
   --ifm-table-head-background: hsl(0 0% 100% / 7%);
   --ifm-table-stripe-background: none;
+  --ifm-table-row-background-hover: hsl(0 0% 100% / 7%);
   
   /* 一些专属自定义，以 --k- 打头 */
   --k-color-keyword: hsl(255 94% 79%);

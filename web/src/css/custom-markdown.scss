@@ -6,11 +6,16 @@
     
     tr {
       border-top: 0;
+      transition: background-color var(--ifm-transition-slow) var(--ifm-transition-timing-default);
     }
     
     tbody {
       tr {
         border-bottom: 1px solid var(--ifm-table-border-color);
+        
+        &:hover {
+          background-color: var(--ifm-table-row-background-hover);
+        }
       }
     }
     

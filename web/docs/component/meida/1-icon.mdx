@@ -13,14 +13,6 @@ tags:
 
 ```tsx live
 function Demo(): ReactElement {
-  const ICONS = [
-    '_invalid_type_',
-    'loading',
-    'arrowhead', 'arrow', 'arrow-to-top', 'triangle',
-    'info', 'info-fill', 'help', 'help-fill', 'warn', 'warn-fill', 'success', 'success-fill', 'error', 'error-fill',
-    'banned', 'empty', 'close', 'clear', 'copy', 'refresh', 'setting', 'drag', 'search', 'zoom-in', 'zoom-out', 'more',
-    'avatar', 'avatar-fill', 'code', 'external'
-  ];
   const [stateColored, setStateColored] = useState<boolean>(true);
   
   return <>
@@ -30,7 +22,14 @@ function Demo(): ReactElement {
       onChange: setStateColored
     }} />
     <div>
-      {ICONS.map(v => <Icon key={v} type={v} colored={stateColored} />)}
+      <Icon type="_invalid_type_" size="l" spacing="end" colored={stateColored} />
+      {ICON_TYPES.map(v => <Icon key={v} {...{
+        type: v,
+        size: 'l',
+        spacing: 'end',
+        colored: stateColored,
+        title: `<Icon type="${v}" />`
+      }} />)}
     </div>
   </>;
 }
