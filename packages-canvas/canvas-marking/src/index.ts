@@ -9,7 +9,8 @@ export {
 
 export type {
   Point,
-  Path
+  Path,
+  Segment
 } from '@kcuf/geometry-basic';
 
 export type {
