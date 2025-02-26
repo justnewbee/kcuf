@@ -8,6 +8,7 @@ export {
 } from './enum';
 
 export type {
+  Point,
   Path
 } from '@kcuf/geometry-basic';
 
