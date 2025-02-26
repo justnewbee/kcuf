@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/canvas-marking-react-headless",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "The React headless wrapping of @kcuf/canvas-marking.",
   "keywords": [],
   "license": "MIT",

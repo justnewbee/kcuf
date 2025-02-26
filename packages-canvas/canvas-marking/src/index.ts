@@ -1,6 +1,9 @@
 export { CanvasMarking as default } from './class';
 
 export * from './plugin';
+export {
+  uuid
+} from './util';
 
 export {
   EZoomHow as ZoomHow,

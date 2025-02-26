@@ -43,10 +43,10 @@ import {
   DEFAULT_RIGHT_ANGLE_MARK_SIZE
 } from '../const';
 import {
+  uuid,
   canFinishRect,
   mergeBorderStyleWithDiff,
   resolveMarkingStyleConfig,
-  generateUuid,
   getPathCreatingFree,
   getPathCreatingRect,
   getPathCreatingRect2,
@@ -89,7 +89,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}, initialPath?: Path) {
     this.canvasMarking = markingStage;
     this.options = options;
-    this.id = options.id || generateUuid();
+    this.id = options.id || uuid();
     this.style = resolveMarkingStyleConfig(options.styleConfig);
     this.data = options.data;
     

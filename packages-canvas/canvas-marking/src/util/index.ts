@@ -1,7 +1,8 @@
+export { default as uuid } from './uuid';
+
 export { default as myDebug } from './my-debug';
 
 export { default as resolveMarkingStyleConfig } from './resolve-marking-style-config';
-export { default as generateUuid } from './generate-uuid';
 
 export { default as bindDocumentEvent } from './bind-document-event';
 export { default as loadImage } from './load-image';
