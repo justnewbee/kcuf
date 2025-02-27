@@ -664,6 +664,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       image = pointStyle.shape;
       
       imageAspectRatio = image.naturalWidth / image.naturalHeight;
+      
+      if (imageAspectRatio > 1) {
+        imageAspectRatio = 1 / imageAspectRatio;
+      }
     }
     
     this.getPathForDraw().forEach((v, i) => {
