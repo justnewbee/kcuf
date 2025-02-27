@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/md5",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Md5 url-safe encoding/decoding.",
   "keywords": [
     "md5",
@@ -37,7 +37,8 @@
     "vitest": "^3.0.7"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.x"
+    "@babel/runtime": "^7.x",
+    "@kcuf/json-stringify-ordered": "workspace:^"
   },
   "scripts": {
     "build:clean": "rimraf dist",

@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import FF from './ff';
-import GG from './gg';
-import HH from './hh';
-import II from './ii';
-import cryptEndian from './crypt-endian';
-import cryptWordsToBytes from './crypt-words-to-bytes';
-import cryptBytesToHex from './crypt-bytes-to-hex';
-import cryptBytesToWords from './crypt-bytes-to-words';
+import {
+  FF,
+  GG,
+  HH,
+  II,
+  cryptEndian,
+  cryptWordsToBytes,
+  cryptBytesToHex,
+  cryptBytesToWords
+} from './util';
 
 // The base
 export default function md5Unit8Array(uint8Array: Uint8Array): string {
