@@ -28,6 +28,9 @@ export type {
   TMarkingItemFinder as MarkingItemFinder,
   
   ICanvasMarkingOptions as CanvasMarkingOptions,
+  
+  ICommonNoActionOptions as NoActionOptions,
+  
   TZoomArg as ZoomArg,
   IZoomOptions as ZoomOptions,
   ITooltipOptions as TooltipOptions,

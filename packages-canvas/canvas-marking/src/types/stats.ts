@@ -10,8 +10,11 @@ import {
 
 import {
   TSize,
-  TCreatingWillFinish, INoOptions
+  TCreatingWillFinish
 } from './common';
+import {
+  ICommonNoActionOptions
+} from './options-common';
 import {
   IMarkingStyleConfig
 } from './style';
@@ -19,7 +22,7 @@ import {
 /**
  * 单个标记的实时统计信息（注意，并不记录创建中的）
  */
-export interface IMarkingItemStats<T = unknown> extends Required<INoOptions> {
+export interface IMarkingItemStats<T = unknown> extends Required<ICommonNoActionOptions> {
   id: string;
   data?: T; // 附加数据，可以添加你需要的任何数据
   path: Path;
