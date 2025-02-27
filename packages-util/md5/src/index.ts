@@ -1,1 +1,3 @@
-export { md5 as default } from './util';
+export {
+  md5 as default
+} from './util';

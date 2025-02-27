@@ -12,16 +12,30 @@ import md5 from '../src';
 // https://www.md5hashgenerator.com/
 // https://checksumchecker.com
 describe('md5', () => {
+  test('input empty', () => {
+    expect(md5(null)).toBe('');
+    expect(md5(undefined)).toBe('');
+    expect(md5('')).toBe('');
+  });
+  
   test('input simple strings', () => {
     expect(md5('undefined')).toBe('5e543256c480ac577d30f76f9120eb74');
     expect(md5('null')).toBe('37a6259cc0c1dae299a7866489dff0bd');
     expect(md5(' ')).toBe('7215ee9c7d9dc229d2921a40e899ec5f');
+    expect(md5('0')).toBe('cfcd208495d565ef66e7dff9f98764da');
     expect(md5('1')).toBe('c4ca4238a0b923820dcc509a6f75849b');
+    expect(md5('false')).toBe('68934a3e9455fa72420237eb05902327');
     expect(md5('1 ')).toBe('9d9dff9320e27082b15b4ed7a086ba83');
     expect(md5('11')).toBe('6512bd43d9caa6e02c990b0a82652dca');
     expect(md5('123')).toBe('202cb962ac59075b964b07152d234b70');
     expect(md5('hello md5')).toBe('741fc6b1878e208346359af502dd11c5');
     expect(md5('message')).toBe('78e731027d8fd50ed642340b7c9a63b3');
+  });
+  
+  test('input not string', () => {
+    expect(md5(0)).toBe('cfcd208495d565ef66e7dff9f98764da');
+    expect(md5(1)).toBe('c4ca4238a0b923820dcc509a6f75849b');
+    expect(md5(false)).toBe('68934a3e9455fa72420237eb05902327');
   });
   
   test('input string non-ascii', () => {

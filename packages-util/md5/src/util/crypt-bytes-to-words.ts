@@ -1,4 +1,6 @@
-// Convert a byte array to big-endian 32-bit words
+/**
+ * Convert a byte array to big-endian 32-bit words
+ */
 export default function cryptBytesToWords(bytes: Uint8Array): number[] {
   const words: number[] = [];
   

@@ -1,4 +1,6 @@
-// Swap big-endian to little-endian and vice versa
+/**
+ * Swap big-endian to little-endian and vice versa
+ */
 import bitRotateLeft from './bit-rotate-left';
 
 function cryptEndian(n: number): number;

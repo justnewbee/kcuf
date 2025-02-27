@@ -21,6 +21,8 @@ export default function pluginCursor<T>(canvasMarking: ICanvasMarkingClass<T>): 
       
       if (stats.moving) {
         cursor = 'move';
+      } else if (stats.itemStatsHovering?.noClick) {
+        cursor = 'default';
       } else if (stats.editingDragging) {
         cursor = 'grabbing';
       } else if (stats.editingHoveringPointIndex >= 0 || stats.editingHoveringInsertionPointIndex >= 0 || stats.editingDraggingPointIndex >= 0 || stats.editingDraggingInsertionPointIndex >= 0) {
