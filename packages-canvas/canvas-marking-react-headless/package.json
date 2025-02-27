@@ -1,8 +1,11 @@
 {
   "name": "@kcuf/canvas-marking-react-headless",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "The React headless wrapping of @kcuf/canvas-marking.",
-  "keywords": [],
+  "keywords": [
+    "canvas",
+    "headless"
+  ],
   "license": "MIT",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
