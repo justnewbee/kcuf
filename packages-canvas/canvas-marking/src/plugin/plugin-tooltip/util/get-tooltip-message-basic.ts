@@ -32,40 +32,38 @@ export default function getTooltipMessageBasic<T = unknown>(stats: IMarkingStats
     });
   }
   
-  if (itemStatsHovering) {
-    if (itemStatsEditing) {
-      let info: Record<string, string> = {};
+  if (itemStatsEditing && itemStatsEditing.hovering) {
+    let info: Record<string, string>;
     
-      if (stats.editingHoveringPointIndex >= 0) {
-        info = {
-          ['拖拽']: itemStatsEditing.noEditDragPoint ? '' : '移动节点',
-          ['双击']: itemStatsEditing.noEditRemovePoint ? '' : '删除节点',
-          Enter: '完成编辑'
-        };
-      } else if (stats.editingHoveringInsertionPointIndex >= 0) {
-        info = {
-          ['拖拽']: '新增节点',
-          Enter: '完成编辑'
-        };
-      } else if (stats.editingHovering) {
-        info = {
-          ['拖拽']: itemStatsEditing.noEditDragWhole ? '' : '移动',
-          ['双击 / Enter']: '完成编辑'
-        };
-      }
-    
-      return generateTableInfo({
-        ...info,
-        Delete: itemStatsEditing.noDelete ? '' : '删除',
-        Esc: '取消选择'
-      });
+    if (itemStatsEditing.hoveringPointIndex >= 0) {
+      info = {
+        ['拖拽']: itemStatsEditing.noEditDragPoint || itemStatsEditing.path.length < 2 ? '' : '移动节点',
+        ['双击']: itemStatsEditing.noEditRemovePoint || itemStatsEditing.path.length < 2 ? '' : '删除节点',
+        Enter: '完成编辑'
+      };
+    } else if (itemStatsEditing.hoveringInsertionPointIndex >= 0) {
+      info = {
+        ['拖拽']: '新增节点',
+        Enter: '完成编辑'
+      };
+    } else {
+      info = {
+        ['拖拽']: itemStatsEditing.noEditDragWhole ? '' : '移动',
+        ['双击 / Enter']: '完成编辑'
+      };
     }
-    
-    if (!itemStatsHovering.noSelect) {
-      return generateTableInfo({
-        ['单击']: '选择'
-      });
-    }
+  
+    return generateTableInfo({
+      ...info,
+      Delete: itemStatsEditing.noDelete ? '' : '删除',
+      Esc: '取消选择'
+    });
+  }
+  
+  if (itemStatsHovering && !itemStatsHovering.noSelect) {
+    return generateTableInfo({
+      ['单击']: '选择'
+    });
   }
   
   return '';
