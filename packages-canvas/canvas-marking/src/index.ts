@@ -18,7 +18,6 @@ export type {
 
 export type {
   TSubscribableEvents as SubscribableEvents,
-  TEditable as Editable,
   
   ICanvasMarkingClass as CanvasMarkingClassType,
   

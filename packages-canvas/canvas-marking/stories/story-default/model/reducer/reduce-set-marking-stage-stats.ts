@@ -11,6 +11,6 @@ import {
 
 export default function reduceSetCanvasMarkingStats(state: IModelState, payload: MarkingStats | null): IModelState {
   return produce(state, draft => {
-    draft.markingStats = payload;
+    (draft as IModelState).markingStats = payload;
   });
 }

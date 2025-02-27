@@ -26,7 +26,7 @@ export default function createStatsStyle(stage: HTMLDivElement): string {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  line-height: 17px;
+  line-height: 1.6;
   padding: 0 6px;
   border-bottom: 1px solid hsl(0 0% 100% / 17%);
 }
@@ -34,6 +34,7 @@ export default function createStatsStyle(stage: HTMLDivElement): string {
   margin-right: 8px;
   opacity: 0.67;
   font-weight: 200;
+  white-space: pre;
 }`;
   
   return className;

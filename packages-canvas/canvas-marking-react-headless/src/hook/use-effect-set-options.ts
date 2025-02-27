@@ -6,13 +6,7 @@ import useModelProps from './_use-model-props';
 import useMarkingInstance from './use-marking-instance';
 
 export default function useEffectSetOptions(): void {
-  const {
-    className,
-    plugins,
-    image,
-    markings,
-    ...options
-  } = useModelProps();
+  const modelOptions = useModelProps();
   const markingInstance = useMarkingInstance();
   
   useEffect(() => {
@@ -20,9 +14,14 @@ export default function useEffectSetOptions(): void {
       return;
     }
     
+    const {
+      className,
+      plugins,
+      image,
+      markings,
+      ...options
+    } = modelOptions;
+    
     markingInstance.updateOptions(options);
-  }, [
-    markingInstance,
-    options
-  ]);
+  }, [markingInstance, modelOptions]);
 }

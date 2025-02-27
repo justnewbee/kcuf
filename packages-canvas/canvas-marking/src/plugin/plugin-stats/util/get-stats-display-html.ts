@@ -10,55 +10,52 @@ import displayPercentage from './display-percentage';
 import displaySize from './display-size';
 import displayCoords from './display-coords';
 import displayCoordsAndIndex from './display-coords-and-index';
-import displayEditable from './display-editable';
 
 export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>, cause?: EMarkingStatsChangeCause): string {
   return `<ul>${[
     ['Cause', cause || ''],
     ['TimeStamp', Date.now()],
-    // 可编辑
-    ['Editable', displayEditable(stats.editable)],
     // 大小
     ['Zoom', displayPercentage(stats.zoom)],
     ['StageSize', displaySize(stats.stageSize)],
     ['CanvasSize', displaySize(stats.canvasSize)],
     ['CanvasCoords', displayCoords(stats.canvasCoords)],
-    ['ImageStatus', stats.imageStatus],
-    ['ImageSize', displaySize(stats.imageSize)],
-    ['ImageScale', displayPercentage(stats.imageScale)],
-    ['ImageMouse', displayCoords(stats.imageMouse)],
-    ['ImageMouseJustified', stats.imageMouseJustified],
+    ['Image', stats.imageStatus],
+    [' ├ Size', displaySize(stats.imageSize)],
+    [' ├ Scale', displayPercentage(stats.imageScale)],
+    [' ├ Mouse', displayCoords(stats.imageMouse)],
+    [' └ MouseJustified', stats.imageMouseJustified],
     // 鼠标状态
-    ['MouseInStage', displayCoords(stats.mouseInStage)],
-    ['MouseInCanvas', displayCoords(stats.mouseInCanvas)],
-    ['MouseDownCanvas', displayBoolean(stats.mouseDownCanvas)],
-    ['MouseDownMoving', displayBoolean(stats.mouseDownMoving)],
+    ['Mouse (InStage)', displayCoords(stats.mouseInStage)],
+    [' ├ InCanvas', displayCoords(stats.mouseInCanvas)],
+    [' ├ DownCanvas', displayBoolean(stats.mouseDownCanvas)],
+    [' └ DownMoving', displayBoolean(stats.mouseDownMoving)],
     // 移动
     ['Moving', displayBoolean(stats.moving)],
-    ['MovingCoordsStart', displayCoords(stats.movingCoordsStart)],
-    ['MovingCoords', displayCoords(stats.movingCoords)],
+    [' ├ CoordsStart', displayCoords(stats.movingCoordsStart)],
+    [' └ Coords', displayCoords(stats.movingCoords)],
     // 与 MarkingItem 有关的状态
     ['Creating', displayBoolean(stats.creating)],
-    ['CreatingStarted', displayBoolean(stats.creatingStarted)],
-    ['CreatingCrossing', displayBoolean(stats.creatingCrossing)],
-    ['CreatingWillFinish', stats.creatingWillFinish],
-    ['Highlighting', displayBoolean(stats.highlighting)],
+    [' ├ Started', displayBoolean(stats.creatingStarted)],
+    [' ├ Crossing', displayBoolean(stats.creatingCrossing)],
+    [' └ WillFinish', stats.creatingWillFinish],
     // Hover
     ['Hovering', displayBoolean(stats.hovering)],
-    ['HoveringPoint', displayCoordsAndIndex(stats.hoveringPoint, stats.hoveringPointIndex)],
-    ['HoveringInsertionPoint', stats.hoveringInsertionPointIndex],
-    ['HoveringBorder', stats.hoveringBorderIndex],
+    [' ├ Point', displayCoordsAndIndex(stats.hoveringPoint, stats.hoveringPointIndex)],
+    [' ├ InsertionPoint', stats.hoveringInsertionPointIndex],
+    [' └ Border', stats.hoveringBorderIndex],
     // 编辑
     ['Editing', displayBoolean(stats.editing)],
-    ['EditingDirty', displayBoolean(stats.editingDirty)],
-    ['EditingCrossing', displayBoolean(stats.editingCrossing)],
-    ['EditingHovering', displayBoolean(stats.editingHovering)],
-    ['EditingHoveringPoint', stats.editingHoveringPointIndex],
-    ['EditingHoveringInsertionPoint', stats.editingHoveringInsertionPointIndex],
-    ['EditingHoveringBorder', stats.editingHoveringBorderIndex],
-    ['EditingDragging', displayBoolean(stats.editingDragging)],
-    ['EditingDraggingPoint', stats.editingDraggingPointIndex],
-    ['EditingDraggingInsertionPoint', stats.editingDraggingInsertionPointIndex],
+    [' ├ Dirty', displayBoolean(stats.editingDirty)],
+    [' ├ Crossing', displayBoolean(stats.editingCrossing)],
+    [' ├ Hovering', displayBoolean(stats.editingHovering)],
+    [' ├ HoveringPoint', stats.editingHoveringPointIndex],
+    [' ├ HoveringInsertionPoint', stats.editingHoveringInsertionPointIndex],
+    [' ├ HoveringBorder', stats.editingHoveringBorderIndex],
+    [' ├ Dragging', displayBoolean(stats.editingDragging)],
+    [' ├ DraggingPoint', stats.editingDraggingPointIndex],
+    [' └ DraggingInsertionPoint', stats.editingDraggingInsertionPointIndex],
+    ['Highlighting', displayBoolean(stats.highlighting)],
     // 数据
     ['MarkingItems', stats.itemStatsList.length]
   ].map(v => {

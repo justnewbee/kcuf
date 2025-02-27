@@ -25,7 +25,6 @@ import {
   EMarkingMouseStatus
 } from '../enum';
 import {
-  TEditable,
   TPointShape,
   TCreatingWillFinish,
   TMarkingStyleBorderResolved,
@@ -106,26 +105,44 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     this.statsSnapshot = this.generateStats();
   }
   
-  private get editable(): TEditable {
-    const {
-      canvasMarking: {
-        options: {
-          editable: editableOverall = true
-        }
-      },
-      options: {
-        editable = editableOverall
-      }
-    } = this;
-    
-    switch (editableOverall) {
-    case 'locked':
-      return 'locked';
-    case false:
-      return editable === 'locked' ? 'locked' : false;
-    default:
-      return editable;
-    }
+  private get noHover(): boolean {
+    return this.canvasMarking.options.noHover || (this.options.noHover ?? false);
+  }
+  
+  private get noClick(): boolean {
+    return this.noHover || this.canvasMarking.options.noClick || (this.options.noClick ?? false);
+  }
+  
+  private get noSelect(): boolean {
+    return this.noClick || this.canvasMarking.options.noSelect || (this.options.noSelect ?? false);
+  }
+  
+  private get noEdit(): boolean {
+    return this.noSelect || this.canvasMarking.options.noEdit || (this.options.noEdit ?? false);
+  }
+  
+  private get noEditDragPoint(): boolean {
+    return this.noEdit || this.canvasMarking.options.noEditDragPoint || (this.options.noEditDragPoint ?? false);
+  }
+  
+  private get noEditDragInsertion(): boolean {
+    return this.noEditDragPoint || this.canvasMarking.options.noEditDragInsertion || (this.options.noEditDragInsertion ?? false);
+  }
+  
+  private get noEditDragWhole(): boolean {
+    return this.noEdit || this.canvasMarking.options.noEditDragWhole || this.options.noEditDragWhole || false;
+  }
+  
+  private get noEditRemovePoint(): boolean {
+    return this.noEdit || this.canvasMarking.options.noEditRemovePoint || (this.options.noEditRemovePoint ?? false);
+  }
+  
+  private get noDelete(): boolean {
+    return this.noSelect || this.canvasMarking.options.noDelete || (this.options.noDelete ?? false);
+  }
+  
+  private get noCrossingDetection(): boolean {
+    return this.canvasMarking.options.noCrossingDetection || (this.options.noCrossingDetection ?? false);
   }
   
   /**
@@ -155,8 +172,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         imageScale
       },
       options: {
-        pointInsertionMinDistance = DEFAULT_POINT_INSERTION_MIN_DISTANCE,
-        noPointInsertion
+        pointInsertionMinDistance = DEFAULT_POINT_INSERTION_MIN_DISTANCE
       },
       style: {
         borderDiff
@@ -166,7 +182,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       pointCountRange: [, max]
     } = this;
     
-    if (noPointInsertion || !editing || (max > 0 && path.length >= max)) {
+    if (this.noEditDragInsertion || !editing || (max > 0 && path.length >= max)) {
       return [];
     }
     
@@ -430,19 +446,28 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       hoveringBorderIndex: !hovering || hoveringPointIndex >= 0 || hoveringInsertionPointIndex >= 0 ? -1 : this.hoveringBorderIndex,
       highlighting: this.highlighting,
       highlightingBorderIndex: this.highlightingBorderIndex,
-      editable: this.editable,
       editing: this.editing,
       dirty: pathSnapshotEditing.length > 0 && !_isEqual(pathSnapshotEditing, pathForDraw),
       crossing,
       dragging: !!this.draggingStartCoords,
       draggingMoved: this.draggingMoved,
       draggingPointIndex: this.draggingPointIndex,
-      draggingInsertionPointIndex: this.draggingInsertionPointIndex
+      draggingInsertionPointIndex: this.draggingInsertionPointIndex,
+      noHover: this.noHover,
+      noClick: this.noClick,
+      noSelect: this.noSelect,
+      noEdit: this.noEdit,
+      noEditDragPoint: this.noEditDragPoint,
+      noEditDragInsertion: this.noEditDragInsertion,
+      noEditDragWhole: this.noEditDragWhole,
+      noEditRemovePoint: this.noEditRemovePoint,
+      noDelete: this.noDelete,
+      noCrossingDetection: this.noCrossingDetection
     };
   }
   
   private shouldDrawPoint(): boolean {
-    return this.creating || this.creatingWait || this.editing || (this.hovering && this.editable === true) || this.path.length === 1;
+    return this.creating || this.creatingWait || this.editing || (this.hovering && !this.noSelect) || this.path.length === 1;
   }
   
   private drawArea(): void {
@@ -529,6 +554,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         width: borderStyle.width + borderStyle.outerWidth * 2,
         color: borderStyle.outerColor,
         lineJoin: borderStyle.lineJoin,
+        lineDash: borderStyle.lineDash,
         close
       });
     }
@@ -538,6 +564,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       width: borderStyle.width,
       color: borderStyle.color,
       lineJoin: borderStyle.lineJoin,
+      lineDash: borderStyle.lineDash,
       shadowColor: borderStyle.shadowColor,
       shadowBlur: borderStyle.shadowBlur,
       shadowOffsetX: borderStyle.shadowOffsetX,
@@ -652,7 +679,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
    * 检查 path 中是否有任何两条不相邻线存在交叉，以及是否有点在别的线上
    */
   private detectCrossingAndOverlap(): boolean {
-    if (this.options.noCrossingDetection) {
+    if (this.noCrossingDetection) {
       return false;
     }
     
@@ -680,7 +707,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       pointCountRange: [min]
     } = this;
     
-    if (!this.editing || path.length <= min || hoveringPointIndex < 0) {
+    if (this.noEditRemovePoint || !this.editing || path.length <= min || hoveringPointIndex < 0) {
       return -1;
     }
     
@@ -731,7 +758,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   toggleHovering(value = true): void {
-    if (this.editable !== 'locked') {
+    if (!this.noHover) {
       this.hovering = value;
     }
   }
@@ -769,7 +796,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   isUnderMouse(): boolean {
-    return this.editable !== 'locked' && this.checkMouse() !== EMarkingMouseStatus.OUT;
+    return !this.noHover && this.checkMouse() !== EMarkingMouseStatus.OUT;
   }
   
   select(): void {
@@ -890,7 +917,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       return false;
     }
     
-    if (!(hoveringPointIndex >= 0 || hoveringInsertionPointIndex >= 0) && this.options.noDragWhole) {
+    if (hoveringPointIndex >= 0 || hoveringInsertionPointIndex >= 0) { // 点拖
+      if (this.noEditDragPoint) {
+        return false;
+      }
+    } else if (this.noEditDragWhole) { // 全拖
       return false;
     }
     

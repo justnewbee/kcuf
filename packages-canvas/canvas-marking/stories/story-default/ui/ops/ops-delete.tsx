@@ -8,13 +8,13 @@ import {
 
 import {
   useMarkingStats,
-  useHandleDeleteActiveItem,
+  useHandleDeleteSelectedItem,
   useHandleDeleteAllItems
 } from '../../model';
 
 export default function OpsDelete(): ReactElement {
   const markingStats = useMarkingStats();
-  const handleDeleteActiveItem = useHandleDeleteActiveItem();
+  const handleDeleteActiveItem = useHandleDeleteSelectedItem();
   const handleDeleteAllItems = useHandleDeleteAllItems();
   
   return <>

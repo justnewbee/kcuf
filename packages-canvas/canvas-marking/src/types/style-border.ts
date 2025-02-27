@@ -1,14 +1,12 @@
-// https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin
-export type TBorderLineJoin = 'round' | 'bevel' | 'miter'; // 默认 round
-
-// // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap
-// export type TBorderLineCap = 'butt' | 'round' | 'square'; // 默认 butt
+export type TBorderLineJoin = 'round' | 'bevel' | 'miter'; // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin
+// export type TBorderLineCap = 'butt' | 'round' | 'square'; // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap
 
 /**
  * 边框样式
  */
 export interface IMarkingStyleBorder {
   lineJoin?: TBorderLineJoin;
+  lineDash?: number[];
   /**
    * 连线宽度
    */

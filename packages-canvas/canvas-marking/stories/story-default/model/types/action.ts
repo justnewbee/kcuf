@@ -22,7 +22,18 @@ export type TModelAction = {
   type: EAction.SET_MARKING_STATS;
   payload: MarkingStats | null;
 } | {
-  type: EAction.LOOP_OPTION_EDITABLE | EAction.TOGGLE_OPTION_DEBUG_EVENTS;
+  type: EAction.SET_OPTION_DEBUG_EVENTS
+    | EAction.SET_OPTION_NO_HOVER
+    | EAction.SET_OPTION_NO_CLICK
+    | EAction.SET_OPTION_NO_SELECT
+    | EAction.SET_OPTION_NO_DELETE
+    | EAction.SET_OPTION_NO_EDIT_REMOVE_POINT
+    | EAction.SET_OPTION_NO_EDIT
+    | EAction.SET_OPTION_NO_EDIT_DRAG_POINT
+    | EAction.SET_OPTION_NO_EDIT_DRAG_INSERTION
+    | EAction.SET_OPTION_NO_EDIT_DRAG_WHOLE
+    | EAction.SET_OPTION_NO_CROSSING_DETECTION;
+  payload: boolean;
 } | {
   type: EAction.TOGGLE_FULLSCREEN;
   payload?: boolean;

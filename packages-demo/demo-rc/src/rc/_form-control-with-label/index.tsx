@@ -11,17 +11,13 @@ const ScFormControlWithLabel = styled.label`
   vertical-align: middle;
   transition: color 0.3s ease-in-out;
   
-  &:first-child {
-    margin-left: 0;
-  }
-  
   &:last-child {
-    margin-right: 0;
+    margin-inline-end: 0;
   }
 `;
 
 const ScSwitchLabel = styled.span`
-  margin-left: 8px;
+  margin-inline-start: 0.4em;
   color: #777;
 `;
 

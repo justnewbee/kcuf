@@ -13,6 +13,7 @@ interface IDrawPathBorderOptions {
   width: number;
   color: string;
   lineJoin: TBorderLineJoin;
+  lineDash?: number[];
   shadowColor?: string;
   shadowBlur?: number;
   shadowOffsetX?: number;
@@ -37,6 +38,10 @@ export default function canvasDrawPathBorder(canvasContext: CanvasRenderingConte
   canvasContext.strokeStyle = options.color;
   canvasContext.lineJoin = options.lineJoin;
   
+  if (options.lineDash?.length) {
+    canvasContext.setLineDash(options.lineDash.map(v => v / options.scale));
+  }
+  
   if (options.shadowColor) {
     canvasContext.shadowColor = options.shadowColor;
     canvasContext.shadowBlur = (options.shadowBlur ?? 0) * options.scale;
@@ -49,9 +54,10 @@ export default function canvasDrawPathBorder(canvasContext: CanvasRenderingConte
   canvasContext.stroke();
   
   if (path.length > 2 && !options.close && point1st && pointLast) { // 最末一条稍细虚线
-    canvasContext.beginPath();
-    canvasContext.lineWidth = lineWidth * 0.77;
+    canvasContext.lineWidth = lineWidth * 0.66;
     canvasContext.setLineDash([7 / options.scale, 5 / options.scale]);
+    
+    canvasContext.beginPath();
     canvasContext.moveTo(pointLast[0], pointLast[1]);
     canvasContext.lineTo(point1st[0], point1st[1]);
     canvasContext.stroke();

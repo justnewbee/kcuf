@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/canvas-marking-react",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "description": "The React wrapping of @kcuf/canvas-marking.",
   "keywords": [],
   "license": "MIT",

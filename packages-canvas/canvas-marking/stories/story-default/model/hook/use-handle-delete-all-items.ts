@@ -8,6 +8,6 @@ export default function useHandleDeleteAllItems(): () => void {
   const markingInstance = useMarkingInstance();
   
   return useCallback((): void => {
-    markingInstance?.deleteAllItems();
+    markingInstance?.deleteItemsAll();
   }, [markingInstance]);
 }

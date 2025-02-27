@@ -1,5 +1,5 @@
 import {
-  StorybookConfig
+  type StorybookConfig
 } from '@storybook/react-vite';
 
 export default {

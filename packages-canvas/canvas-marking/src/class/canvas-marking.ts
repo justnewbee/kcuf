@@ -45,7 +45,7 @@ import {
   ICanvasMarkingOptions,
   TCanvasMarkingPluginRegister,
   IMarkingStats,
-  TMarkingItemFinder, TEditable
+  TMarkingItemFinder
 } from '../types';
 import {
   DEFAULT_AUXILIARY_STYLE,
@@ -200,10 +200,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
   }
   
-  private get editable(): TEditable {
-    return this.options.editable ?? true;
-  }
-  
   private get imageFitScale(): number {
     const {
       stage,
@@ -240,10 +236,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private get itemUnderMouse(): IMarkingItemClass<T> | null {
-    if (this.editable === 'locked') {
-      return null;
-    }
-    
     // findLast 还比较新，先不用
     return this.itemCreating ? null : this.getMarkingItemsOrdered().reverse().find(v => v.isUnderMouse()) || null;
   }
@@ -494,11 +486,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       styleConfig: options.styleConfig,
       pointCountMin: options.pointCountMin,
       pointCountMax: options.pointCountMax,
-      ...extraOptions,
       pointInsertionMinDistance: options.pointInsertionMinDistance,
-      noPointInsertion: options.noPointInsertion,
-      noCrossingDetection: options.noCrossingDetection,
-      noDragWhole: options.noDragWhole
+      ...extraOptions
     }, initialPath);
   }
   
@@ -706,7 +695,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         break;
       case 'Backspace':
       case 'Delete':
-        this.deleteActiveItem();
+        this.deleteItemEditing();
         
         break;
       default:
@@ -724,11 +713,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     itemHighlighting?.toggleHighlighting(false);
     
-    if (itemUnderMouse) {
+    const stats = itemUnderMouse?.stats;
+    
+    if (stats && !stats.noClick) {
       const statsList = this.getAllStats();
       
-      this.options.onClick?.(itemUnderMouse.stats, statsList);
-      this.emit('click', itemUnderMouse.stats, statsList);
+      this.options.onClick?.(stats, statsList);
+      this.emit('click', stats, statsList);
     }
     
     if (!itemCreating) {
@@ -1057,10 +1048,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private hoverMarkingItem(markingItem: IMarkingItemClass<T> | null): void {
-    if (this.options.editable === 'locked') {
-      return;
-    }
-    
     this.markingItems.forEach(v => {
       v.toggleHovering(v === markingItem);
     });
@@ -1201,11 +1188,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private selectItem(item: IMarkingItemClass<T> | null): void {
     const {
-      editable,
       itemEditing
     } = this;
     
-    if (!editable || editable === 'locked' || item === itemEditing || item?.stats.editable === false) {
+    if (item === itemEditing || item?.stats.noSelect) {
       return;
     }
     
@@ -1345,7 +1331,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const updatedKeys = Object.keys(updates).reduce((result: string[], v) => {
       const key = v as keyof ICanvasMarkingOptions;
       
-      if (!_isEqual(this.options[key], updates[key])) {
+      if (key !== 'image' && key !== 'markings' && !_isEqual(this.options[key], updates[key])) {
         this.options[key] = updates[key] as never;
         
         result.push(key);
@@ -1354,12 +1340,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return result;
     }, []);
     
-    if (updatedKeys.includes('editable')) {
-      if (!this.editable) {
-        this.cancelCreating();
-        this.finishEditing();
-      }
-      
+    if (updatedKeys.length) {
       this.updateAndDraw(EMarkingStatsChangeCause.UPDATE_OPTIONS);
     }
   }
@@ -1405,10 +1386,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   startCreating(config?: IMarkingItemConfig, initialPath?: Path): void {
-    if (!this.editable) {
-      return;
-    }
-    
     this.moveEnd(); // 副作用 - 结束移动
     this.hoverMarkingItem(null); // 副作用 - 取消 hover
     
@@ -1510,12 +1487,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
   }
   
-  deleteActiveItem(): boolean {
+  deleteItemEditing(): boolean {
     const {
       itemEditing
     } = this;
+    const stats = itemEditing?.stats;
     
-    if (!itemEditing) {
+    if (!stats || stats.noDelete) {
       return false;
     }
     
@@ -1530,13 +1508,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     const statsList = this.getAllStats();
     
-    this.options.onDelete?.(itemEditing.stats, statsList);
-    this.emit('delete', itemEditing.stats, statsList);
+    this.options.onDelete?.(stats, statsList);
+    this.emit('delete', stats, statsList);
     
     return true;
   }
   
-  deleteAllItems(): void {
+  deleteItemsAll(): void {
     this.markingItems.length = 0;
     this.itemCreating = null;
     this.updateAndDraw(EMarkingStatsChangeCause.CLEAR);
@@ -1702,7 +1680,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const itemStatsEditing = itemEditing?.stats || null;
     
     return {
-      editable: this.editable,
       // 大小
       zoom: this.zoomLevel,
       stageSize: [rectStage.width, rectStage.height], // 浏览器缩放会影响

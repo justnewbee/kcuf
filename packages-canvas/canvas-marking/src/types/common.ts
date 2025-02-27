@@ -8,15 +8,6 @@ import {
 
 export type TSize = [number, number]; // 大小 [width, height]
 
-/**
- * 可编辑状态
- *
- * - `true` 可编辑
- * - `false` 不可编辑（无法选中，但响应点击）
- * - `locked` 不可编辑（无法选中，也不响应点击）
- */
-export type TEditable = boolean | 'locked';
-
 export type TCreatingWillFinish = boolean | 'close';
 
 /**
@@ -41,4 +32,39 @@ export interface ICreateCompletePreResult<T = unknown> {
 export interface IEditDragEndPreResult<T = unknown> {
   path?: Path;
   data?: T;
+}
+
+/**
+ * 交互流程
+ *
+ * +---------------------------------------+
+ * | hover → click → select -----→ edit    |
+ * |                          └--→ delete  |
+ * +---------------------------------------+
+ *
+ * - `noHover`: 无 hover 样式、无 tooltip、z-index 最低 ⇒ `noClick`
+ * - `noClick`: 无 click 事件 ⇒ `noSelect`
+ * - `noSelect`: 无 select 样式，不响应 `select` 方法 ⇒ `noDelete`
+ * - `noDelete`: 不响应删除
+ */
+export interface INoOptions {
+  noHover?: boolean;
+  noClick?: boolean;
+  noSelect?: boolean;
+  /**
+   * noEdit = noEditDragPoint && noEditDragInsertion && noEditDragWhole && noEditRemovePoint
+   */
+  noEdit?: boolean;
+  noEditDragPoint?: boolean;
+  noEditDragInsertion?: boolean;
+  noEditDragWhole?: boolean;
+  noEditRemovePoint?: boolean;
+  noDelete?: boolean;
+  /**
+   * 是否禁用（默认不禁）交叉检测
+   *
+   * - false：默认，若交叉，将不允许完成新建和编辑
+   * - true：允许交叉
+   */
+  noCrossingDetection?: boolean;
 }

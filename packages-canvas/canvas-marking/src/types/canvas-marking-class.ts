@@ -64,7 +64,7 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   setData(image: string, markings?: IMarkingConfigItem<T>[]): void;
   
   /**
-   * 更新配置项
+   * 更新配置项（除 `image`、`markings` 外）
    */
   updateOptions(updates: Partial<ICanvasMarkingOptions<T>>): void;
   
@@ -116,12 +116,12 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   /**
    * 删除激活的标记（可用于在新建后删除刚刚新建的那个）
    */
-  deleteActiveItem(): boolean;
+  deleteItemEditing(): boolean;
   
   /**
    * 清除所有标记（包括新建中的，如果有）
    */
-  deleteAllItems(): void;
+  deleteItemsAll(): void;
   
   zoom(how: TZoomArg, wheel?: boolean): void;
   

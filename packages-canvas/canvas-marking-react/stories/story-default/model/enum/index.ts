@@ -1,0 +1,14 @@
+export enum EAction {
+  TOGGLE_DESTROYED,
+  TOGGLE_DEBUG_EVENTS,
+  SET_DATA_TYPE,
+  SET_MARKING_STATS,
+  TOGGLE_PLUGIN
+}
+
+export enum EDataType {
+  ARIAL,
+  RANDOM,
+  NO_IMAGE,
+  NONE
+}

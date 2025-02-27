@@ -17,6 +17,7 @@ export const DEFAULT_RIGHT_ANGLE_MARK_SIZE = 12;
  */
 export const DEFAULT_BORDER_STYLE: Required<IMarkingStyleBorder> = {
   lineJoin: 'round',
+  lineDash: [],
   width: 1.5,
   color: 'hsl(0 0% 100%)', // 'hsl(217 100% 50%)'
   outerWidth: 0,

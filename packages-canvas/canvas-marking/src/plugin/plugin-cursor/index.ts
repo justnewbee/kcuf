@@ -25,7 +25,7 @@ export default function pluginCursor<T>(canvasMarking: ICanvasMarkingClass<T>): 
         cursor = 'grabbing';
       } else if (stats.editingHoveringPointIndex >= 0 || stats.editingHoveringInsertionPointIndex >= 0 || stats.editingDraggingPointIndex >= 0 || stats.editingDraggingInsertionPointIndex >= 0) {
         cursor = 'crosshair';
-      } else if (stats.editingHovering && !options.noDragWhole) {
+      } else if (stats.editingHovering && !options.noEditDragWhole) {
         cursor = 'grab';
       } else if (stats.hovering && stats.hoveringPointIndex < 0) {
         cursor = 'pointer';

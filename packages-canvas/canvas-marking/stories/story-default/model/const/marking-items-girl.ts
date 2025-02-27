@@ -3,7 +3,7 @@ import {
 } from '../../../../src';
 
 export default [{
-  editable: 'locked',
+  noHover: true,
   path: [
     [117, 319],
     [16, 370],
@@ -29,7 +29,7 @@ export default [{
     }
   }
 }, {
-  editable: false,
+  noClick: true,
   path: [
     [163, 383],
     [263, 367],

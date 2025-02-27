@@ -1,17 +1,10 @@
-// `CanvasMarking` + `CanvasMarkingItem` 通用的 options
-
 import {
-  TEditable
+  INoOptions
 } from './common';
 
-/**
- * 控制行为
- */
-export interface ICommonBehaviorOptions {
-  /**
-   * 是否可编辑，默认 `true`
-   */
-  editable?: TEditable;
+// `CanvasMarking` + `CanvasMarkingItem` 通用的 options
+
+export interface ICommonBehaviorOptions extends INoOptions {
   /**
    * 路径支持最少点数，若完成绘制时，不满足此值，视为取消
    *
@@ -38,25 +31,4 @@ export interface ICommonBehaviorOptions {
    * 插入点在两个端点距离（视觉值，并非实际值）小于此值时，不显示
    */
   pointInsertionMinDistance?: number;
-  /**
-   * 是否禁用（默认不禁）在端点中间加入插入点
-   *
-   * - false：默认，可插
-   * - true：不可插
-   */
-  noPointInsertion?: boolean;
-  /**
-   * 是否禁用（默认不禁）交叉检测
-   *
-   * - false：默认，若交叉，将不允许完成新建和编辑
-   * - true：允许交叉
-   */
-  noCrossingDetection?: boolean;
-  /**
-   * 是否禁用（默认不禁）拖动整体
-   *
-   * - false：默认，可拖路径整体
-   * - true：无法拖路径整体，但还可以拖动节点
-   */
-  noDragWhole?: boolean;
 }

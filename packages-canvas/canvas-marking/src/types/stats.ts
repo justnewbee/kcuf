@@ -10,8 +10,7 @@ import {
 
 import {
   TSize,
-  TEditable,
-  TCreatingWillFinish
+  TCreatingWillFinish, INoOptions
 } from './common';
 import {
   IMarkingStyleConfig
@@ -20,7 +19,7 @@ import {
 /**
  * 单个标记的实时统计信息（注意，并不记录创建中的）
  */
-export interface IMarkingItemStats<T = unknown> {
+export interface IMarkingItemStats<T = unknown> extends Required<INoOptions> {
   id: string;
   data?: T; // 附加数据，可以添加你需要的任何数据
   path: Path;
@@ -42,7 +41,6 @@ export interface IMarkingItemStats<T = unknown> {
   hoveringBorderIndex: number;
   highlighting: boolean;
   highlightingBorderIndex: number | null;
-  editable: TEditable;
   editing: boolean;
   dirty: boolean;
   crossing: boolean;
@@ -56,7 +54,6 @@ export interface IMarkingItemStats<T = unknown> {
  * 整体实时统计信息
  */
 export interface IMarkingStats<T = unknown> {
-  editable: TEditable;
   zoom: number;
   stageSize: TSize;
   canvasSize: TSize;
