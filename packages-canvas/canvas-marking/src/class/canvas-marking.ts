@@ -62,7 +62,8 @@ import {
   createDomStage,
   loadImage,
   canvasDrawPerpendicularMark,
-  getMouseJustifyStatusMagnet
+  getMouseJustifyStatusMagnet,
+  sortMarkingItems
 } from '../util';
 
 import CanvasMarkingItem from './canvas-marking-item';
@@ -236,8 +237,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private get itemUnderMouse(): IMarkingItemClass<T> | null {
-    // findLast 还比较新，先不用
-    return this.itemCreating ? null : this.getMarkingItemsOrdered().reverse().find(v => v.isUnderMouse()) || null;
+    // findLast 还比较新，不用
+    return this.itemCreating ? null : sortMarkingItems(this.markingItems, true).find(v => v.isUnderMouse()) || null;
   }
   
   private get zoomOptions(): Required<IZoomOptions> {
@@ -258,56 +259,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     } = this;
     
     return this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius);
-  }
-  
-  /**
-   * 排好序的 MarkingItem 列表（不影响 this.markingItems），如下排序：
-   *
-   * 数组尾，顶层
-   * 1. 点
-   * 2. 线
-   * 3. 编辑中
-   * 4. 面积小
-   * 5. 面积大
-   * 数组头，底部
-   */
-  private getMarkingItemsOrdered(): IMarkingItemClass<T>[] {
-    const {
-      markingItems,
-      itemEditing
-    } = this;
-    const list = [...markingItems];
-    
-    return list.sort((v1, v2) => {
-      const v1Points = v1.stats.path.length;
-      const v2Points = v2.stats.path.length;
-      
-      if (v2Points === 1 && v1Points > 1) {
-        return -1;
-      }
-      
-      if (v1Points === 1 && v2Points > 1) {
-        return 1;
-      }
-      
-      if (v2Points === 2 && v1Points > 2) {
-        return -1;
-      }
-      
-      if (v1Points === 2 && v2Points > 2) {
-        return 1;
-      }
-      
-      if (v2 === itemEditing) {
-        return -1;
-      }
-      
-      if (v1 === itemEditing) {
-        return 1;
-      }
-      
-      return v2.stats.area - v1.stats.area;
-    });
   }
   
   private getAllStats(excludeEditing?: boolean): IMarkingItemStats<T>[] {
@@ -1142,7 +1093,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       itemHighlighting
     } = this;
     
-    this.getMarkingItemsOrdered().forEach(v => v.draw(itemHighlighting ? v !== itemHighlighting : false));
+    sortMarkingItems(this.markingItems).forEach(v => v.draw(itemHighlighting ? v !== itemHighlighting : false));
     
     if (itemCreating && (mouseInCanvas || itemCreating.stats.path.length)) {
       itemCreating.draw();

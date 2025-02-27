@@ -28,3 +28,5 @@ export { default as canvasDrawPointShape } from './canvas-draw-point-shape';
 export { default as canvasDrawPerpendicularMark } from './canvas-draw-perpendicular-mark';
 
 export { default as canFinishRect } from './can-finish-rect';
+
+export { default as sortMarkingItems } from './sort-marking-items';
