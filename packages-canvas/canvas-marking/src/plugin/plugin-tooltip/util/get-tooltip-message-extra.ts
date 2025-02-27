@@ -9,10 +9,6 @@ export default function getTooltipMessageExtra<T = unknown>(stats: IMarkingStats
     itemStatsHovering
   } = stats;
   
-  if (stats.moving) {
-    return '';
-  }
-  
   if (stats.creatingCrossing || stats.editingCrossing) {
     return '检测到路径有交叉或重叠，将无法保存';
   }
