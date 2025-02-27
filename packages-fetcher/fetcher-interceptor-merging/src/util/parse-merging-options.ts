@@ -19,6 +19,6 @@ export default function parseMergingOptions(config: FetcherConfig): IMergingOpti
   } = config;
   
   return config._byInterceptor || config.signal || !merging ? null : {
-    key: config._id! // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    key: config._hash! // eslint-disable-line @typescript-eslint/no-non-null-assertion
   };
 }

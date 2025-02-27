@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-login",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Fetcher interceptor seamless login and redo request.",
   "keywords": [],
   "license": "MIT",

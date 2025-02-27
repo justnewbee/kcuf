@@ -68,9 +68,9 @@ export interface IFetcherConfigDefault extends Omit<FetchOptions, 'method' | 'he
  */
 export interface IFetcherConfig extends IFetcherConfigDefault {
   /**
-   * 根据 method、url、params、body 计算得到的 id，可以被拦截器使用，比如缓存、合并时需要
+   * 根据 `method`、`url`、`urlBase`、`params`、`body` 计算得到的 MD5，可以被拦截器使用，比如缓存、合并时需要
    */
-  _id?: string;
+  _hash?: string;
   /**
    * 真正开始请求的时间，由最末一个 interceptor 计入，便于需要记录耗时的场景
    */

@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Fetcher with more reasonable interceptors.",
   "keywords": [],
   "license": "MIT",
@@ -61,6 +61,7 @@
     "@kcuf/fetcher-jsonp": "workspace:^",
     "@kcuf/fetcher-xhr": "workspace:^",
     "@kcuf/json-stringify-ordered": "workspace:^",
+    "@kcuf/md5": "workspace:^",
     "lodash": "^4.17.21",
     "qs": "^6.14.0"
   },

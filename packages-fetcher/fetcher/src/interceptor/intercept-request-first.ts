@@ -2,7 +2,7 @@ import {
   IFetcherConfig
 } from '../types';
 import {
-  generateConfigId
+  generateConfigHash
 } from '../util';
 
 /**
@@ -14,10 +14,10 @@ import {
 export default function interceptRequestFirst(config: IFetcherConfig): Partial<IFetcherConfig> {
   const method = config.method?.toUpperCase() || 'GET';
   
-  config.method = method; // 设进去，为了 _id...
+  config.method = method; // 设进去，为了 _hash...
   
   return {
-    _id: generateConfigId(config),
+    _hash: generateConfigHash(config),
     method
   };
 }

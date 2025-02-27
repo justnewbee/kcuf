@@ -53,9 +53,7 @@ export const API_UPLOAD: IMockApi = {
 };
 export const API_TEXT: IMockApi = {
   url: '/api/text',
-  result: {
-    data: 'TEXT'
-  }
+  result: 'TEXT'
 };
 export const API_CORS: IMockApi = {
   url: 'https://anotherdomain.com/api/cors',

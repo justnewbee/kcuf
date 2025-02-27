@@ -18,7 +18,7 @@ export default function parseCacheLocalOptions(config: FetcherConfig): ICacheLoc
   } = config.cacheLocal === true ? {} : config.cacheLocal;
   
   return {
-    key: key || config._id!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    key: key || config._hash!, // eslint-disable-line @typescript-eslint/no-non-null-assertion
     ttl,
     overwrite
   };

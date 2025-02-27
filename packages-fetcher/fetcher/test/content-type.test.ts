@@ -27,7 +27,7 @@ describe('content-type', () => {
     
     expect(fetchMock.callHistory.calls().length).toBe(1);
     expect(new Headers(fetchMock.callHistory.lastCall()?.options.headers).get('Content-Type')).toBeNull();
-    expect(fetchMock.callHistory.lastCall()?.options.body).toBeUndefined();
+    expect(fetchMock.callHistory.lastCall()?.options.body).toBeNull();
   });
   
   test('Content-Type according to body - string', async () => {
