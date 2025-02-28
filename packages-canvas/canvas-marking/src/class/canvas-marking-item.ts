@@ -664,15 +664,28 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       image = pointStyle.shape;
       
       imageAspectRatio = image.naturalWidth / image.naturalHeight;
-      
-      if (imageAspectRatio > 1) {
-        imageAspectRatio = 1 / imageAspectRatio;
-      }
     }
     
     this.getPathForDraw().forEach((v, i) => {
       if (image) {
-        canvasContext.drawImage(image, v[0] - drawShapeOptions.radius, v[1] - drawShapeOptions.radius / imageAspectRatio, drawShapeOptions.radius * 2, drawShapeOptions.radius * 2 / imageAspectRatio);
+        let dx: number;
+        let dy: number;
+        let dw: number;
+        let dh: number;
+        
+        if (imageAspectRatio > 1) {
+          dx = v[0] - drawShapeOptions.radius;
+          dy = v[1] - drawShapeOptions.radius / imageAspectRatio;
+          dw = drawShapeOptions.radius * 2;
+          dh = drawShapeOptions.radius * 2 / imageAspectRatio;
+        } else {
+          dx = v[0] - drawShapeOptions.radius * imageAspectRatio;
+          dy = v[1] - drawShapeOptions.radius;
+          dw = drawShapeOptions.radius * 2 * imageAspectRatio;
+          dh = drawShapeOptions.radius * 2;
+        }
+        
+        canvasContext.drawImage(image, dx, dy, dw, dh);
       } else {
         canvasDrawPointShape(canvasContext, v, i === 0 && statsSnapshot.creatingWillFinish === 'close' ? drawShapeOptionsEnlarged : drawShapeOptions);
       }
