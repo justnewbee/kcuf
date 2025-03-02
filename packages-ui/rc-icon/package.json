@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-ui/rc-icon",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Icon used in all @kcuf-ui/rc-xx components internally.",
   "keywords": [],
   "license": "MIT",

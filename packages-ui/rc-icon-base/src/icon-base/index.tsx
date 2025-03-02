@@ -123,7 +123,9 @@ const ScIcon = styled.i<IScIconBaseProps>`
   }
   
   &[data-eye-catching] {
-    animation: ${kfEyeCatching} 1.5s ease-in-out;
+    &::before {
+      animation: ${kfEyeCatching} 1.5s ease-in-out;
+    }
   }
 `;
 
