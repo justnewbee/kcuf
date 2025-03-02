@@ -4,7 +4,7 @@ import {
 
 import useModelProps from './_use-model-props';
 import useModelState from './_use-model-state';
- 
+
 export default function useZIndex(): number {
   const {
     zIndex = DEFAULT_Z_INDEX

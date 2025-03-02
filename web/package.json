@@ -41,7 +41,7 @@
     "@docusaurus/theme-live-codeblock": "^3.7.0",
     "@docusaurus/tsconfig": "^3.7.0",
     "@docusaurus/types": "^3.7.0",
-    "@types/lodash": "^4.17.15",
+    "@types/lodash": "^4.17.16",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "commander": "^13.1.0",
@@ -51,7 +51,7 @@
     "sass": "^1.85.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
   "dependencies": {
     "@docusaurus/core": "^3.7.0",

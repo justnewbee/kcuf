@@ -1,0 +1,140 @@
+---
+title: Transition
+---
+
+<ComponentBrief name="Transition">
+  样式辅助
+</ComponentBrief>
+
+A ~~fork~~ rewritten of `https://www.npmjs.com/package/react-transition-group` using TS and hooks.
+
+It's NOT designed to be a drop-in replacement of `react-transition-group`, however some APIs are learned from it.
+
+## Why
+
+1. `react-transition-group` has not been updated for over 2 years (version 4.4.5 till 2025/01/03)
+2. `react-transition-group` is written in JS
+3. `react-transition-group` depends on `prop-types` which TS react coders might hate
+4. `react-transition-group` is in class component format
+5. `react-transition-group` uses deprecated [findDOMNode](https://legacy.reactjs.org/docs/react-dom.html) which can only be used in class component
+6. `react-transition-group` cannot start its own dev environment now, a bunch of errors
+
+## How to Use
+
+### Using Render Props
+
+```tsx
+import Transition from '@kcuf-ui/rc-transition';
+
+const transitionStyles = {
+  entering: {
+    opacity: 1
+  },
+  entered: {
+    opacity: 1
+  },
+  exiting: {
+    opacity: 0
+  },
+  exited: {
+    opacity: 0
+  }
+};
+
+<Transition {...props}>
+  {(status: 'entering' | 'entered' | 'exiting' | 'exited') => <Child style={transitionStyles[status]} />}
+</Transition>
+```
+
+### Using `data-transition`
+
+```tsx
+import styled from 'styled-components';
+
+import Transition from '@kcuf-ui/rc-transition';
+
+const ScChild = styled.div`
+  &[data-transition='entering'] {
+    opacity: 1;
+  }
+  
+  &[data-transition='entered'] {
+    opacity: 1;
+  }
+  
+  &[data-transition='exiting'] {
+    opacity: 0;
+    text-decoration: line-through;
+  }
+  
+  &[data-transition='exited'] {
+    opacity: 0;
+  }
+`;
+
+<Transition {...props}>
+  {(status: 'entering' | 'entered' | 'exiting' | 'exited') => <ScChild />}
+</Transition>
+```
+
+### Using `useTransitionStatus` hook
+
+```tsx
+import {
+  ReactElement
+} from 'react';
+import styled from 'styled-components';
+
+import Transition, {
+  useTransitionStatus
+} from '@kcuf-ui/rc-transition';
+
+function Child(): ReactElement {
+  const transitionStatus = useTransitionStatus(); // however you would like to use it
+  
+  return <div>...</div>;
+}
+
+<Transition {...props}>
+  <Child />
+</Transition>
+```
+
+## APIs
+
+### Exports
+
+**Removed**
+
+* `CSSTransition` → `Transition` + `data-transition` is enough
+
+**Renamed**
+
+* `SwitchTransition` → `TransitionSwitch` TODO
+* `ReplaceTransition` → `TransitionReplace` TODO
+
+### Props
+
+| 属性 | 类型 | 说明 |
+| --- | --- | --- |
+| `children` <TagRequired /> | `ReactElement \| TRenderChildren` | A `function` child can be used instead of a React element. This function is<br />called with the current transition status (`'entering'`, `'entered'`,<br />`'exiting'`, `'exited'`), which can be used to apply context<br />specific props to a component. |
+| `in` <TagDefault>false</TagDefault> | `boolean` | Show or hide the children, triggers status change |
+| `nodeRef` | `MutableRefObject<HTMLElement>` | A React reference to the DOM element that needs to transition. It is only used for do a force reflow.<br /><br />When `mountOnEnter \|\| unmountOnExit`, it will be needed to make transition on enter to take effect. |
+| `durationEnter` | `number` | How long will status `entering` retain before `entered`, default 400ms. |
+| `durationExit` | `number` | How long will status `exiting` retain before `exited`, default 400ms. |
+| `mountOnEnter` <TagDefault>false</TagDefault> | `boolean` | By default, the child component is mounted immediately along with the parent `Transition` component.<br />If you want to 'lazy mount' the component on the first `in={true}` you can set `mountOnEnter`.<br />After the first enter transition the component will stay mounted, even on 'exited', unless you also specify `unmountOnExit`. |
+| `unmountOnExit` <TagDefault>false</TagDefault> | `boolean` | By default, the child component stays mounted after it reaches the `'exited'` state.<br />Set `unmountOnExit` if you'd prefer to unmount the component after it finishes exiting. |
+| `onEnter` | `() => void` | Fired when status changed to `entering`. |
+| `onEntered` | `() => void` | Fired when status changed to `entered`. |
+| `onExit` | `() => void` | Fired when status changed to `exiting`. |
+| `onExited` | `() => void` | Fired when status changed to `exited`. |
+
+These props are removed:
+
+* ~~`onEntering()`~~
+* ~~`onExiting()`~~
+* ~~`appear`~~ → There is no `appear` now, treated the same as `enter`.
+* ~~`enter`~~ → `durationEnter: 0`
+* ~~`exit`~~ → `durationExit: 0`
+* ~~`timeout?: number \| { apear?: number; enter?: number; exit: number; }`~~ → `durationEnter?: number` + `durationExit?: number`
+* ~~`addEventListener`~~
