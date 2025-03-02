@@ -3,6 +3,7 @@ import {
   forwardRef
 } from 'react';
 import styled, {
+  keyframes,
   css
 } from 'styled-components';
 
@@ -14,6 +15,28 @@ import {
 import {
   getCssIconRotation
 } from '../util';
+
+const kfEyeCatching = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  
+  14% {
+    transform: scale(1.5);
+  }
+  
+  28% {
+    transform: scale(1);
+  }
+  
+  42% {
+    transform: scale(1.5);
+  }
+  
+  70% {
+    transform: scale(1);
+  }
+`;
 
 const ScIcon = styled.i<IScIconBaseProps>`
   font-family: ${props => props.$fontFamily} !important;
@@ -98,6 +121,10 @@ const ScIcon = styled.i<IScIconBaseProps>`
   &[data-spacing='start-end'] {
     margin-inline: 0.4em;
   }
+  
+  &[data-eye-catching] {
+    animation: ${kfEyeCatching} 1.5s ease-in-out;
+  }
 `;
 
 /**
@@ -116,6 +143,7 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconBaseRef)
     rotating,
     rotate,
     scale,
+    eyeCatching,
     getIconCode,
     getIconColor,
     getIconColorDark,
@@ -141,6 +169,7 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref: TIconBaseRef)
     ...restProps,
     'data-size': size ? `${size}${sizeRelative ? '-relative' : ''}` : undefined,
     'data-spacing': spacing,
+    'data-eye-catching': eyeCatching ? '' : undefined,
     tabIndex: tabIndex ?? (onClick ? 0 : undefined),
     'aria-disabled': disabled ? 'true' : undefined,
     role: onClick && !role ? 'button' : role,

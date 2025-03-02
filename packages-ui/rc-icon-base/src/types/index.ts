@@ -63,6 +63,10 @@ export interface IIconPropsGeneric<T extends string = string> extends HTMLAttrib
    * 若 rotate 后图标的大小可能不令人满意，可以用它矫正，一般情况下不要用
    */
   scale?: number;
+  /**
+   * 给图标一个脉搏放大特效，以起到获取用户注意力的效果
+   */
+  eyeCatching?: boolean;
 }
 
 export interface IIconBaseProps<T extends string = string> extends IIconPropsGeneric<T> {

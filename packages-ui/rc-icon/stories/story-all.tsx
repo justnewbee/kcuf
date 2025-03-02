@@ -46,6 +46,7 @@ export default function StoryAll(): ReactElement {
   const [stateFilter, setStateFilter] = useState('');
   const [stateRotate, setStateRotate] = useState(0);
   const [stateColored, setStateColored] = useState(true);
+  const [stateEyeCatching, setStateEyeCatching] = useState(false);
   const filterTrimmed = stateFilter.trim();
   const filteredTypes = filterTrimmed ? ICON_TYPES.filter(v => v.includes(filterTrimmed)) : ICON_TYPES;
   
@@ -65,13 +66,19 @@ export default function StoryAll(): ReactElement {
       value: stateColored,
       onChange: setStateColored
     }} />
+    <InputSwitch {...{
+      label: 'eyeCatching',
+      value: stateEyeCatching,
+      onChange: setStateEyeCatching
+    }} />
     {filterTrimmed ? `${filteredTypes.length} / ${ICON_TYPES.length}` : null}
     <ScIconList>
       {filteredTypes.map(v => <ScIconListItem key={v}>
         <Icon {...{
           type: v,
           colored: stateColored,
-          rotate: stateRotate
+          rotate: stateRotate,
+          eyeCatching: stateEyeCatching
         }} />
         <div>{v}</div>
       </ScIconListItem>)}
