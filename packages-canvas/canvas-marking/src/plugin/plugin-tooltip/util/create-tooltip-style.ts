@@ -7,16 +7,19 @@ export default function createTooltipStyle(stage: HTMLDivElement): string {
   style.innerHTML = `.${className} {
   display: none;
   position: absolute;
+  z-index: 10;
   padding: 2px 8px;
-  border-radius: 3px;
+  min-width: 120px;
+  max-width: 400px;
+  opacity: 0;
   background-color: hsl(0 0% 0% / 66%);
+  border-radius: 3px;
   color: hsl(0 0% 100%);
-  line-height: 1.6;
   font-size: 11px;
+  line-height: 1.6;
+  word-break: break-all;
   white-space: pre-wrap;
   user-select: none;
-  z-index: 10;
-  opacity: 0;
   transition: opacity 400ms ease-in-out;
 }
 .${className}.is-visible {
