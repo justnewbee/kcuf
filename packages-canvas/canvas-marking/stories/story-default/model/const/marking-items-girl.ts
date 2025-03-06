@@ -57,6 +57,7 @@ export default [{
     }
   }
 }, {
+  noEdit: true,
   path: [
     [294, 378],
     [339, 367],

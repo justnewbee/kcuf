@@ -1628,7 +1628,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const itemStatsCreating = itemCreating?.stats || null;
     const itemStatsHovering = itemHovering?.stats || null;
     const itemStatsHighlighting = itemHighlighting?.stats || null;
-    const itemStatsEditing = itemEditing?.stats || null;
+    const itemStatsSelected = itemEditing?.stats || null;
     
     return {
       // 大小
@@ -1665,7 +1665,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       itemStatsCreating,
       itemStatsHovering,
       itemStatsHighlighting,
-      itemStatsEditing,
+      itemStatsSelected,
       // 根据 MarkingItemStats 计算得出的结果
       creating: !!itemCreating,
       creatingStarted: itemStatsCreating ? itemStatsCreating.path.length > 0 : false,
@@ -1677,16 +1677,16 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       hoveringInsertionPointIndex: itemStatsHovering?.hoveringInsertionPointIndex ?? -1,
       hoveringBorderIndex: itemStatsHovering?.hoveringBorderIndex ?? -1,
       highlighting: !!itemStatsHighlighting,
-      editing: !!itemStatsEditing,
-      editingDirty: itemStatsEditing ? itemStatsEditing.dirty : false,
-      editingCrossing: itemStatsEditing ? itemStatsEditing.crossing : false,
-      editingHovering: itemStatsEditing ? itemStatsEditing.hovering : false,
-      editingHoveringPointIndex: itemStatsEditing ? itemStatsEditing.draggingPointIndex >= 0 ? itemStatsEditing.draggingPointIndex : itemStatsEditing.hoveringPointIndex : -1,
-      editingHoveringInsertionPointIndex: itemStatsEditing ? itemStatsEditing.hoveringInsertionPointIndex : -1,
-      editingHoveringBorderIndex: itemStatsEditing ? itemStatsEditing.hoveringBorderIndex : -1, // TODO check -1
-      editingDragging: itemStatsEditing ? itemStatsEditing.dragging : false,
-      editingDraggingPointIndex: itemStatsEditing ? itemStatsEditing.draggingPointIndex : -1,
-      editingDraggingInsertionPointIndex: itemStatsEditing ? itemStatsEditing.draggingInsertionPointIndex : -1
+      editing: !!itemStatsSelected,
+      editingDirty: itemStatsSelected ? itemStatsSelected.dirty : false,
+      editingCrossing: itemStatsSelected ? itemStatsSelected.crossing : false,
+      editingHovering: itemStatsSelected ? itemStatsSelected.hovering : false,
+      editingHoveringPointIndex: itemStatsSelected ? itemStatsSelected.draggingPointIndex >= 0 ? itemStatsSelected.draggingPointIndex : itemStatsSelected.hoveringPointIndex : -1,
+      editingHoveringInsertionPointIndex: itemStatsSelected ? itemStatsSelected.hoveringInsertionPointIndex : -1,
+      editingHoveringBorderIndex: itemStatsSelected ? itemStatsSelected.hoveringBorderIndex : -1, // TODO check -1
+      editingDragging: itemStatsSelected ? itemStatsSelected.dragging : false,
+      editingDraggingPointIndex: itemStatsSelected ? itemStatsSelected.draggingPointIndex : -1,
+      editingDraggingInsertionPointIndex: itemStatsSelected ? itemStatsSelected.draggingInsertionPointIndex : -1
     };
   }
   

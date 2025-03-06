@@ -12,7 +12,7 @@ export default function getTooltipMessageBasic<T = unknown>(stats: IMarkingStats
   const {
     itemStatsCreating,
     itemStatsHovering,
-    itemStatsEditing
+    itemStatsSelected
   } = stats;
   
   if (itemStatsCreating) {
@@ -32,30 +32,30 @@ export default function getTooltipMessageBasic<T = unknown>(stats: IMarkingStats
     });
   }
   
-  if (itemStatsEditing && itemStatsEditing.hovering) {
+  if (itemStatsSelected && itemStatsSelected.hovering) {
     let info: Record<string, string>;
     
-    if (itemStatsEditing.hoveringPointIndex >= 0) {
+    if (itemStatsSelected.hoveringPointIndex >= 0) {
       info = {
-        ['拖拽']: itemStatsEditing.noEditDragPoint || itemStatsEditing.path.length < 2 ? '' : '移动节点',
-        ['双击']: itemStatsEditing.noEditRemovePoint || itemStatsEditing.path.length < 2 ? '' : '删除节点',
+        ['拖拽']: itemStatsSelected.noEditDragPoint || itemStatsSelected.path.length < 2 ? '' : '移动节点',
+        ['双击']: itemStatsSelected.noEditRemovePoint || itemStatsSelected.path.length < 2 ? '' : '删除节点',
         Enter: '完成编辑'
       };
-    } else if (itemStatsEditing.hoveringInsertionPointIndex >= 0) {
+    } else if (itemStatsSelected.hoveringInsertionPointIndex >= 0) {
       info = {
         ['拖拽']: '新增节点',
         Enter: '完成编辑'
       };
     } else {
       info = {
-        ['拖拽']: itemStatsEditing.noEditDragWhole ? '' : '移动',
-        ['双击 / Enter']: '完成编辑'
+        ['拖拽']: itemStatsSelected.noEditDragWhole ? '' : '移动',
+        ['双击 / Enter']: itemStatsSelected.noEdit ? '' : '完成编辑'
       };
     }
   
     return generateTableInfo({
       ...info,
-      Delete: itemStatsEditing.noDelete ? '' : '删除',
+      Delete: itemStatsSelected.noDelete ? '' : '删除',
       Esc: '取消选择'
     });
   }

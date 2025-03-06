@@ -78,7 +78,7 @@ export interface IMarkingStats<T = unknown> {
   itemStatsCreating: IMarkingItemStats<T> | null;
   itemStatsHovering: IMarkingItemStats<T> | null;
   itemStatsHighlighting: IMarkingItemStats<T> | null;
-  itemStatsEditing: IMarkingItemStats<T> | null;
+  itemStatsSelected: IMarkingItemStats<T> | null;
   // 根据 MarkingItemStats 计算得出的结果
   creating: boolean;
   creatingStarted: boolean;

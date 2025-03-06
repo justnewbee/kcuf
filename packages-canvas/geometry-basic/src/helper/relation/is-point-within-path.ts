@@ -9,7 +9,7 @@ import {
 import isPointOnPath from './is-point-on-path';
 
 /**
- * 点是否在 path 围成的多边形内部
+ * 点是否在 path 围成的多边形内部（不在边上）
  *
  * 使用射线算法（Ray Casting Algorithm），从待判断的点向任意方向发出一条射线，计算这条射线与多边形边界的交点数量，
  * 若交点数为奇数，则该点位于多边形内部；如果为偶数，则位于外部。
