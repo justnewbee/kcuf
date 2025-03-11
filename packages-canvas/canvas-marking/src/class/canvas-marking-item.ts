@@ -256,10 +256,10 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       },
       style: {
         borderDiff,
-        borderHovering
+        borderHover
       }
     } = this;
-    const borderStyle = mergeBorderStyleWithDiff(borderHovering, borderDiff?.hover);
+    const borderStyle = mergeBorderStyleWithDiff(borderHover, borderDiff?.hover);
     const lineWidth = (borderStyle.width + borderStyle.outerWidth * 2) / imageScale; // 考虑边的外框
     
     return pathSegmentList(this.path).findIndex(v => {
@@ -297,11 +297,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     let borderStyle = style.border;
     
     if (editing) {
-      borderStyle = style.borderEditing;
+      borderStyle = style.borderSelect;
     } else if (hovering) {
-      borderStyle = style.borderHovering;
+      borderStyle = style.borderHover;
     } else if (highlighting) {
-      borderStyle = style.borderHighlighting;
+      borderStyle = style.borderHighlight;
     }
     
     return crossing ? {
@@ -324,11 +324,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     let pointStyle = style.point;
     
     if (editing) {
-      pointStyle = style.pointEditing;
+      pointStyle = style.pointSelect;
     } else if (hovering) {
-      pointStyle = style.pointHovering;
+      pointStyle = style.pointHover;
     } else if (highlighting) {
-      pointStyle = style.pointHighlighting;
+      pointStyle = style.pointHighlight;
     }
     
     return crossing ? {
@@ -351,11 +351,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     let fillStyle = style.fill;
     
     if (editing) {
-      fillStyle = style.fillEditing;
+      fillStyle = style.fillSelect;
     } else if (hovering) {
-      fillStyle = style.fillHovering;
+      fillStyle = style.fillHover;
     } else if (highlighting) {
-      fillStyle = style.fillHighlighting;
+      fillStyle = style.fillHighlight;
     }
     
     return crossing ? {

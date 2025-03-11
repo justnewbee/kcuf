@@ -31,17 +31,17 @@ export interface IMarkingStyleAuxiliary {
  */
 export interface IMarkingStyleConfig {
   border?: IMarkingStyleBorder;
-  borderHovering?: IMarkingStyleBorder;
-  borderHighlighting?: IMarkingStyleBorder;
-  borderEditing?: IMarkingStyleBorder;
+  borderHover?: IMarkingStyleBorder;
+  borderHighlight?: IMarkingStyleBorder;
+  borderSelect?: IMarkingStyleBorder;
   point?: IMarkingStylePoint;
-  pointHovering?: IMarkingStylePoint;
-  pointHighlighting?: IMarkingStylePoint;
-  pointEditing?: IMarkingStylePoint;
+  pointHover?: IMarkingStylePoint;
+  pointHighlight?: IMarkingStylePoint;
+  pointSelect?: IMarkingStylePoint;
   fill?: IMarkingStyleFill;
-  fillHovering?: IMarkingStyleFill;
-  fillHighlighting?: IMarkingStyleFill;
-  fillEditing?: IMarkingStyleFill;
+  fillHover?: IMarkingStyleFill;
+  fillHighlight?: IMarkingStyleFill;
+  fillSelect?: IMarkingStyleFill;
   /**
    * 针对第 n 边（起点为第 n 个点）做特定的设置
    */
@@ -50,19 +50,19 @@ export interface IMarkingStyleConfig {
 
 export interface IMarkingStyleConfigResolved {
   border: TMarkingStyleBorderResolved;
-  borderHovering: TMarkingStyleBorderResolved;
-  borderHighlighting: TMarkingStyleBorderResolved;
-  borderEditing: TMarkingStyleBorderResolved;
+  borderHover: TMarkingStyleBorderResolved;
+  borderHighlight: TMarkingStyleBorderResolved;
+  borderSelect: TMarkingStyleBorderResolved;
   
   point: TMarkingStylePointResolved;
-  pointHovering: TMarkingStylePointResolved;
-  pointHighlighting: TMarkingStylePointResolved;
-  pointEditing: TMarkingStylePointResolved;
+  pointHover: TMarkingStylePointResolved;
+  pointHighlight: TMarkingStylePointResolved;
+  pointSelect: TMarkingStylePointResolved;
   
   fill: IMarkingStyleFillResolved;
-  fillHovering: IMarkingStyleFillResolved;
-  fillHighlighting: IMarkingStyleFillResolved;
-  fillEditing: IMarkingStyleFillResolved;
+  fillHover: IMarkingStyleFillResolved;
+  fillHighlight: IMarkingStyleFillResolved;
+  fillSelect: IMarkingStyleFillResolved;
   
   borderDiff?: IMarkingStyleConfigBorderDiff;
 }

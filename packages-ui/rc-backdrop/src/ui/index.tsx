@@ -40,7 +40,9 @@ export default function Ui(): ReactElement | null {
   
   return <Transition {...{
     nodeRef,
-    in: zIndex > 0
+    in: zIndex > 0,
+    mountOnEnter: true,
+    unmountOnExit: true
   }}>
     <ScBackdrop {...{
       ref: nodeRef,

@@ -1,5 +1,4 @@
 import {
-  IModelProps,
   IBackdropSingletonItem
 } from '../types';
 import {
@@ -10,7 +9,7 @@ import singletonGlobal from './singleton-global';
 import messageBroadcastRefresh from './message-broadcast-refresh';
 import toggleScrollbar from './toggle-scrollbar';
 
-export default function singletonPush(props: IModelProps): number {
+export default function singletonPush(zIndex = DEFAULT_Z_INDEX): number {
   const o = singletonGlobal();
   let {
     n = 0,
@@ -27,7 +26,7 @@ export default function singletonPush(props: IModelProps): number {
   
   const item: IBackdropSingletonItem = {
     n,
-    zIndex: props.zIndex ?? DEFAULT_Z_INDEX
+    zIndex
   };
   
   if (n === 1) {

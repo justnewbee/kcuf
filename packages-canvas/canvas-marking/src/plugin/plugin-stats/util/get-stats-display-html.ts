@@ -31,21 +31,21 @@ export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>
     [' ├ DownCanvas', displayBoolean(stats.mouseDownCanvas)],
     [' └ DownMoving', displayBoolean(stats.mouseDownMoving)],
     // 移动
-    ['Moving', displayBoolean(stats.moving)],
+    ['Move', displayBoolean(stats.moving)],
     [' ├ CoordsStart', displayCoords(stats.movingCoordsStart)],
     [' └ Coords', displayCoords(stats.movingCoords)],
     // 与 MarkingItem 有关的状态
-    ['Creating', displayBoolean(stats.creating)],
+    ['Create', displayBoolean(stats.creating)],
     [' ├ Started', displayBoolean(stats.creatingStarted)],
     [' ├ Crossing', displayBoolean(stats.creatingCrossing)],
     [' └ WillFinish', stats.creatingWillFinish],
     // Hover
-    ['Hovering', displayBoolean(stats.hovering)],
+    ['Hover', displayBoolean(stats.hovering)],
     [' ├ Point', displayCoordsAndIndex(stats.hoveringPoint, stats.hoveringPointIndex)],
     [' ├ InsertionPoint', stats.hoveringInsertionPointIndex],
     [' └ Border', stats.hoveringBorderIndex],
     // 编辑
-    ['Editing', displayBoolean(stats.editing)],
+    ['Edit', displayBoolean(stats.editing)],
     [' ├ Dirty', displayBoolean(stats.editingDirty)],
     [' ├ Crossing', displayBoolean(stats.editingCrossing)],
     [' ├ Hovering', displayBoolean(stats.editingHovering)],
@@ -55,7 +55,7 @@ export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>
     [' ├ Dragging', displayBoolean(stats.editingDragging)],
     [' ├ DraggingPoint', stats.editingDraggingPointIndex],
     [' └ DraggingInsertionPoint', stats.editingDraggingInsertionPointIndex],
-    ['Highlighting', displayBoolean(stats.highlighting)],
+    ['Highlight', displayBoolean(stats.highlighting)],
     // 数据
     ['MarkingItems', stats.itemStatsList.length]
   ].map(v => {

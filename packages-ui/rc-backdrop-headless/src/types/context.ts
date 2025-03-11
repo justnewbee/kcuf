@@ -9,11 +9,11 @@ import {
   IModelState
 } from './state';
 import {
-  TModelAction,
+  IModelAction,
   TModelDispatch
 } from './action';
 
-export type TModelReducer = (state: IModelState, action: TModelAction) => IModelState;
+export type TModelReducer = (state: IModelState, action: IModelAction) => IModelState;
 
 export interface IModelContext {
   props: IModelProps;

@@ -1,6 +1,6 @@
 import {
   IModelState,
-  TModelAction
+  IModelAction
 } from '../types';
 import {
   EAction
@@ -8,10 +8,10 @@ import {
 
 import reduceRefreshVisible from './reduce-refresh-visible';
 
-export default function reducer(state: IModelState, action: TModelAction): IModelState {
+export default function reducer(state: IModelState, action: IModelAction): IModelState {
   switch (action.type) {
   case EAction.REFRESH_VISIBLE:
-    return reduceRefreshVisible(state);
+    return reduceRefreshVisible(state, action.payload);
   default:
     return state;
   }

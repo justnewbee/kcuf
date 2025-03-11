@@ -12,41 +12,41 @@ import initDrawStyleFill from './init-draw-style-fill';
 
 export default function resolveMarkingStyleConfig(styleConfig?: IMarkingStyleConfig): IMarkingStyleConfigResolved {
   const border = initDrawStyleBorder(styleConfig?.border);
-  const borderHovering = initDrawStyleBorder({
+  const borderHover = initDrawStyleBorder({
     shadowColor: 'hsl(0 0% 0% / 67%)',
     shadowBlur: 4,
     shadowOffsetY: 2,
-    ...styleConfig?.borderHovering
+    ...styleConfig?.borderHover
   }, border);
-  const borderHighlighting = initDrawStyleBorder(styleConfig?.borderHighlighting, borderHovering);
-  const borderEditing = initDrawStyleBorder(styleConfig?.borderEditing, borderHovering);
+  const borderHighlight = initDrawStyleBorder(styleConfig?.borderHighlight, borderHover);
+  const borderSelect = initDrawStyleBorder(styleConfig?.borderSelect, borderHover);
   
   const point = initDrawStylePoint(border, styleConfig?.point);
-  const pointHovering = initDrawStylePoint(borderHovering, styleConfig?.pointHovering, point);
-  const pointHighlighting = initDrawStylePoint(borderHighlighting, styleConfig?.pointHighlighting, pointHovering);
-  const pointEditing = initDrawStylePoint(borderEditing, styleConfig?.pointEditing, pointHovering);
+  const pointHover = initDrawStylePoint(borderHover, styleConfig?.pointHover, point);
+  const pointHighlight = initDrawStylePoint(borderHighlight, styleConfig?.pointHighlight, pointHover);
+  const pointSelect = initDrawStylePoint(borderSelect, styleConfig?.pointSelect, pointHover);
   
   const fill = initDrawStyleFill(border, styleConfig?.fill);
-  const fillHovering = initDrawStyleFill(borderHovering, styleConfig?.fillHovering, fill);
-  const fillHighlighting = initDrawStyleFill(borderHighlighting, styleConfig?.fillHighlighting, fillHovering);
-  const fillEditing = initDrawStyleFill(borderEditing, {
+  const fillHover = initDrawStyleFill(borderHover, styleConfig?.fillHover, fill);
+  const fillHighlight = initDrawStyleFill(borderHighlight, styleConfig?.fillHighlight, fillHover);
+  const fillSelect = initDrawStyleFill(borderSelect, {
     color: DEFAULT_FILL_ALPHA_EDITING,
-    ...styleConfig?.fillEditing
-  }, fillHovering);
+    ...styleConfig?.fillSelect
+  }, fillHover);
   
   return {
     border,
-    borderHovering,
-    borderHighlighting,
-    borderEditing,
+    borderHover,
+    borderHighlight,
+    borderSelect,
     point,
-    pointHovering,
-    pointHighlighting,
-    pointEditing,
+    pointHover,
+    pointHighlight,
+    pointSelect,
     fill,
-    fillHovering,
-    fillHighlighting,
-    fillEditing,
+    fillHover,
+    fillHighlight,
+    fillSelect,
     borderDiff: styleConfig?.borderDiff
   };
 }

@@ -1,9 +1,5 @@
-import useEffectWatchZIndex from './use-effect-watch-z-index';
-import useEffectMessageRefresh from './use-effect-message-refresh';
-import useEffectUnmounted from './use-effect-unmounted';
+import useEffectSingleton from './use-effect-singleton';
 
 export default function useEffects(): void {
-  useEffectWatchZIndex();
-  useEffectMessageRefresh();
-  useEffectUnmounted();
+  useEffectSingleton();
 }

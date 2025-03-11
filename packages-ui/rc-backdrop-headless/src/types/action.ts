@@ -6,8 +6,9 @@ import {
   EAction
 } from '../enum';
 
-export type TModelAction = {
+export interface IModelAction {
   type: EAction.REFRESH_VISIBLE;
-};
+  payload: number;
+}
 
-export type TModelDispatch = Dispatch<TModelAction>;
+export type TModelDispatch = Dispatch<IModelAction>;

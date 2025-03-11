@@ -5,7 +5,7 @@ import {
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
 
 import {
-  TModelAction,
+  IModelAction,
   TModelDispatch
 } from '../types';
 
@@ -17,7 +17,7 @@ export default function useModelDispatch(): TModelDispatch {
     dispatch
   } = useModelContext();
   
-  return useCallback((action: TModelAction) => {
+  return useCallback((action: IModelAction) => {
     if (isUnmounted()) {
       return;
     }
