@@ -1,12 +1,16 @@
 {
   "name": "@kcuf-hook/use-debounced",
-  "version": "0.0.0",
-  "description": "React hook - useDebounced.",
+  "version": "0.0.1",
+  "description": "React hook - useDebounced/useThrottled.",
   "keywords": [
     "react",
     "hook",
     "debounce",
-    "useDebounced"
+    "throttle",
+    "useDebouncedCallback",
+    "useDebouncedValue",
+    "useThrottledCallback",
+    "useThrottledValue"
   ],
   "license": "MIT",
   "sideEffects": false,
