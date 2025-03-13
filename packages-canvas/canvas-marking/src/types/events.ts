@@ -30,25 +30,26 @@ export interface IMarkingEvents<T> {
    * `onCreateComplete` 前置回调，可用于修改 path 或填入 data，返回 false 表示拒绝此次新建
    */
   onCreateCompletePre?(itemStats: IMarkingItemStats<T>, markingStats: IMarkingStats<T>): ICreateCompletePreResult<T> | false | undefined | Promise<ICreateCompletePreResult<T> | false | undefined>;
+  onCreateComplete?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
+  onClick?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
+  onSelectionChange?(itemStats: IMarkingItemStats<T> | null, itemStatsList: IMarkingItemStats<T>[]): void;
   /**
    * `onPointPush` 前置回调，返回 false 表示拒绝 push
    */
   onPointPushPre?(point: Point, itemStats: IMarkingItemStats<T>, markingStats: IMarkingStats<T>): boolean | undefined;
+  onPointPush?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
+  onPointInsert?(itemStats: IMarkingItemStats<T>, index: number, itemStatsList: IMarkingItemStats<T>[]): void;
+  onPointDelete?(itemStats: IMarkingItemStats<T>, index: number, itemStatsList: IMarkingItemStats<T>[]): void;
   /**
    * `onEditDragEnd` 前置回调，可用于修改 path 或填入 data，返回 false 则表示拒绝此次编辑（还原）
    */
   onEditDragEndPre?(itemStats: IMarkingItemStats<T>, markingStats: IMarkingStats<T>): IEditDragEndPreResult<T> | false | undefined;
-  onCreateComplete?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
-  onClick?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
-  onSelectionChange?(itemStats: IMarkingItemStats<T> | null, itemStatsList: IMarkingItemStats<T>[]): void;
-  onPointPush?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
-  onPointInsert?(itemStats: IMarkingItemStats<T>, index: number, itemStatsList: IMarkingItemStats<T>[]): void;
-  onPointDelete?(itemStats: IMarkingItemStats<T>, index: number, itemStatsList: IMarkingItemStats<T>[]): void;
   onEditDragEnd?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   onEditCancel?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   onEditComplete?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   onDelete?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   onZoomChange?(zoomLevel: number, zoomLevelPrev: number): void;
+  onMoveReady?(): void;
   onMoveStart?(): void;
   onMovePause?(): void;
   onMoveEnd?(): void;
@@ -73,6 +74,7 @@ export type TSubscribableEvents<T = unknown> = { // 这个不用 interface
   'edit-complete'(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   delete(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   'zoom-change'(zoomLevel: number, zoomLevelPrev: number): void;
+  'move-ready'(): void;
   'move-start'(): void;
   'move-pause'(): void;
   'move-end'(): void;

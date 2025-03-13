@@ -746,22 +746,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.statsSnapshot = stats;
     this.pluginMap.forEach(v => v.run?.call(this, stats, cause)); // 每次状态更新都必须运行 plugin
     
-    // MOVE 太频繁
-    if ([EMarkingStatsChangeCause.MOUSE_MOVE_STAGE, EMarkingStatsChangeCause.MOUSE_MOVE_CANVAS].includes(cause)) {
-      this.throttledFireStatsChange(stats, cause);
-    } else {
-      this.fireStatsChange(stats, cause);
-    }
+    this.fireStatsChange(stats, cause);
   }
   
-  private fireStatsChange(stats: IMarkingStats<T>, cause: EMarkingStatsChangeCause): void {
+  private fireStatsChange = _throttle((stats: IMarkingStats<T>, cause: EMarkingStatsChangeCause) => {
     this.options.onStatsChange?.(stats, cause);
     this.emit('stats-change', stats, cause);
-  }
-  
-  private throttledFireStatsChange = _throttle((stats: IMarkingStats<T>, cause: EMarkingStatsChangeCause) => {
-    this.fireStatsChange(stats, cause);
-  }, 500);
+  }, 1000);
   
   /**
    * 更新 stats 并渲染
@@ -1529,6 +1520,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.moving = true;
     this.updateAndDraw(EMarkingStatsChangeCause.MOVE_READY);
+    
+    this.options.onMoveReady?.();
+    this.emit('move-ready');
   }
   
   moveStart(): void {
