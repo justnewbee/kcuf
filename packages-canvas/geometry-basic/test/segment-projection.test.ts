@@ -4,14 +4,13 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   Segment,
   segmentProjectionX,
   segmentProjectionY
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('segmentProjectionX/Y', () => {
   const SEGMENT: Segment = [[1, 2], [5, 7]];
   const SEGMENT_VERTICAL: Segment = [[4, 2], [4, 7]];
   const SEGMENT_HORIZONTAL: Segment = [[5, 3], [15, 3]];

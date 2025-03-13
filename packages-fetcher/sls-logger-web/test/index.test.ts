@@ -9,7 +9,6 @@ import {
 } from 'vitest';
 import fetchMock from 'fetch-mock';
 
-import pkgInfo from '../package.json';
 import createLogger, {
   generateCreateLogger
 } from '../src';
@@ -26,7 +25,7 @@ import {
 
 const sls = createLogger(LOGGER_OPTIONS);
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('slsLoggerWeb', () => {
   beforeEach(() => {
     fetchMock.clearHistory();
     fetchMock.removeRoutes();

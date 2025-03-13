@@ -6,13 +6,11 @@ import {
 import styled from 'styled-components';
 
 import {
-  H1,
   H2,
   P,
   Alert
 } from '@kcuf/demo-rc';
 
-import pkgInfo from '../package.json';
 import useMouseHover from '../src';
 
 const ScSpan = styled.span`
@@ -60,7 +58,6 @@ export default function StoryDefault(): ReactElement {
   });
   
   return <>
-    <H1>{pkgInfo.name}@{pkgInfo.version}</H1>
     <Alert type="warn">注意：在 CodeSandbox 下，修改代码，热部署后，hover 会有问题，需要刷新（本地的 Storybook 下没有这个问题）。</Alert>
     <H2>不需要 click</H2>
     <P>无延时保护的 MouseEnter/Leave，鼠标快速经过会频闪；有延时保护的则不会，可以避免不必要的接口请求和界面变化</P>

@@ -4,7 +4,6 @@ import {
   expect
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   codeCssVarLines
 } from '../src';
@@ -24,7 +23,7 @@ const info2 = {
   }
 };
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('codeCssVarLines', () => {
   test('codeCssVarLines', () => {
     expect(codeCssVarLines(info)).toEqual([
       '--kf-gray-0: #fff;',

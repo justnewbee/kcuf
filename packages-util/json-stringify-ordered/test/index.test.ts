@@ -4,7 +4,6 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import jsonStringifyOrdered from '../src';
 
 const EQUAL_OBJECT_PAIRS: [unknown, unknown][] = [
@@ -45,7 +44,7 @@ const EQUAL_OBJECT_PAIRS: [unknown, unknown][] = [
   }]
 ];
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('jsonStringifyOrdered', () => {
   test('equals', () => {
     EQUAL_OBJECT_PAIRS.forEach(([o1, o2]) => {
       expect(jsonStringifyOrdered(o1)).toBe(jsonStringifyOrdered(o2));

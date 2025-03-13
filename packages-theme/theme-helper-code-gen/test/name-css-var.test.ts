@@ -4,12 +4,11 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   nameCssVar
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('nameCssVar', () => {
   test('nameCssVar', () => {
     expect(nameCssVar(['color', 'gray'])).toEqual('--kf-color--gray');
     expect(nameCssVar(['Color', 'light gray'])).toEqual('--kf-color--light-gray');

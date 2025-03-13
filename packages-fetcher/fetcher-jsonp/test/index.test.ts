@@ -10,10 +10,9 @@ import {
   JSDOM
 } from 'jsdom';
 
-import pkgInfo from '../package.json';
 import fetcherJsonp from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('fetcherJsonp', () => {
   let dom: JSDOM;
   
   beforeEach(() => {

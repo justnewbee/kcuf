@@ -16,7 +16,6 @@ import {
   createFetcher
 } from '@kcuf/fetcher';
 
-import pkgInfo from '../package.json';
 import interceptLogin from '../src';
 
 interface IResult {
@@ -80,7 +79,7 @@ interceptLogin(fetcher, {
   doLogin
 });
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('fetcherInterceptorLogin', () => {
   beforeEach(() => {
     fetchMock.clearHistory();
     fetchMock.removeRoutes();

@@ -3,9 +3,7 @@
 //   renderHook
 // } from '@testing-library/react';
 
-import pkgInfo from '../package.json';
-
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('useMouseHover', () => {
   it('exports in correct type', () => {
     expect(typeof 'TODO').toBe('function');
   });

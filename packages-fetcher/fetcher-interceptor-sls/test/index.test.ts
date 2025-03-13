@@ -16,7 +16,6 @@ import {
   SlsPostBody
 } from '@kcuf/sls-logger-web';
 
-import pkgInfo from '../package.json';
 import intercept from '../src';
 
 import {
@@ -30,14 +29,16 @@ const fetcher = createFetcher();
 intercept(fetcher, INTERCEPTOR_OPTIONS);
 
 function sleep(time: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, time));
+  return new Promise(resolve => {
+    setTimeout(resolve, time);
+  });
 }
 
 function getLastCallBody(): SlsPostBody {
   return JSON.parse(fetchMock.callHistory.lastCall()?.options.body as string || '');
 }
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('fetcherInterceptorSls', () => {
   beforeEach(() => {
     fetchMock.clearHistory();
     fetchMock.removeRoutes();

@@ -4,12 +4,11 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   segmentSlope
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('segmentSlope', () => {
   test('segmentSlope(segment: Segment): number', () => {
     expect(segmentSlope([[1, 1], [2, 2]])).toEqual(1);
     expect(segmentSlope([[2, 2], [1, 1]])).toEqual(1);

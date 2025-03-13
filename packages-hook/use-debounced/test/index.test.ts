@@ -2,7 +2,7 @@
 //   renderHook
 // } from '@testing-library/react';
 
-describe('useControllable', () => {
+describe('useDebounced', () => {
   test('exports in correct type', () => {
     expect(typeof 'TODO').toBe('function');
   });

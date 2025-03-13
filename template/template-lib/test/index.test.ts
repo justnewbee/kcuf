@@ -8,10 +8,9 @@ import {
   beforeEach
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import lib from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('xx', () => {
   beforeEach(() => {
     // TODO
   });

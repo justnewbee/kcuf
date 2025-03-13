@@ -4,12 +4,11 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   segmentLine
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('segmentLine', () => {
   describe('segmentLine(segment: Segment): LineCoefficients', () => {
     test('平行 x 轴', () => {
       expect(segmentLine([[0, 0], [5, 0]])).toEqual([0, -1, 0]);

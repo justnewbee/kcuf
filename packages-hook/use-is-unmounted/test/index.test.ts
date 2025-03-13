@@ -14,10 +14,9 @@ import {
   renderHook
 } from '@testing-library/react';
 
-import useIsUnmounted from '../src'; // 确保路径正确
-import pkgInfo from '../package.json';
+import useIsUnmounted from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('useIsUnmounted', () => {
   test('When component is not yet unmounted', () => {
     const {
       result

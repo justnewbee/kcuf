@@ -9,12 +9,11 @@ import {
 } from 'vitest';
 import fetchMock from 'fetch-mock';
 
-import pkgInfo from '../package.json';
 import fetcherFetch, {
   FetchErrorName
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('fetcherFetch', () => {
   beforeEach(() => {
     fetchMock.clearHistory();
     fetchMock.removeRoutes();
@@ -32,17 +31,29 @@ describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
     fetchMock.route('/api/error', () => {
       throw new Error('Network ERROR');
     });
-    fetchMock.route('/api/timeout', () => new Promise(resolve => setTimeout(() => resolve('timeout result'), 250)));
-    fetchMock.route('/api/timeout-reject', () => new Promise((_, reject) => setTimeout(() => reject(new Error('Error after timeout')), 250)));
-    fetchMock.route('/api/abort', () => new Promise(resolve => setTimeout(() => resolve('abort result'), 20)));
+    fetchMock.route('/api/timeout', () => new Promise(resolve => {
+      setTimeout(() => resolve('timeout result'), 250);
+    }));
+    fetchMock.route('/api/timeout-reject', () => new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Error after timeout')), 250);
+    }));
+    fetchMock.route('/api/abort', () => new Promise(resolve => {
+      setTimeout(() => resolve('abort result'), 20);
+    }));
     fetchMock.route('/api/404', 404);
     fetchMock.route('/api/500', 500);
     fetchMock.route('/api/error', () => {
       throw new Error('Network ERROR');
     });
-    fetchMock.route('/api/timeout', () => new Promise(resolve => setTimeout(() => resolve('timeout result'), 250)));
-    fetchMock.route('/api/timeout-reject', () => new Promise((_, reject) => setTimeout(() => reject(new Error('Error after timeout')), 250)));
-    fetchMock.route('/api/abort', () => new Promise(resolve => setTimeout(() => resolve('abort result'), 20)));
+    fetchMock.route('/api/timeout', () => new Promise(resolve => {
+      setTimeout(() => resolve('timeout result'), 250);
+    }));
+    fetchMock.route('/api/timeout-reject', () => new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Error after timeout')), 250);
+    }));
+    fetchMock.route('/api/abort', () => new Promise(resolve => {
+      setTimeout(() => resolve('abort result'), 20);
+    }));
   });
   
   test('response status 200', () => {

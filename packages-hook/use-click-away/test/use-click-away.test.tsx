@@ -15,11 +15,9 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import pkgInfo from '../package.json';
-
 import TestComponent from './test-component';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('useClickAway', () => {
   afterAll(() => {
     vi.clearAllMocks();
   });

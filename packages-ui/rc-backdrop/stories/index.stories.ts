@@ -1,6 +1,10 @@
 import {
-  TMeta
-} from './types';
+  Meta
+} from '@storybook/react';
+
+import Backdrop from '../src';
+
+type TMeta = Meta<typeof Backdrop>;
 
 export default {
   title: 'Backdrop'

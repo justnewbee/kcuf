@@ -9,7 +9,6 @@ import {
 } from 'vitest';
 import fetchMock from 'fetch-mock';
 
-import pkgInfo from '../package.json';
 import createLogger from '../src';
 
 import {
@@ -26,7 +25,7 @@ import {
 
 const sls = createLogger(sender, LOGGER_OPTIONS);
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('slsLoggerBase', () => {
   beforeEach(setupFetchMock);
   
   test('simple methods with group predefined', async () => {

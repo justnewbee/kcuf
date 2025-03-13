@@ -5,7 +5,7 @@ import {
 import useClickAway from '../src';
 
 interface ITargetProps {
-  handler: () => void;
+  handler(): void;
 }
 
 export default function TestComponent(props: ITargetProps): ReactElement {

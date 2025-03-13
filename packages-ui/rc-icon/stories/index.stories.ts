@@ -1,6 +1,10 @@
 import {
-  TMeta
-} from './types';
+  Meta
+} from '@storybook/react';
+
+import Icon from '../src';
+
+type TMeta = Meta<typeof Icon>;
 
 export default {
   title: 'Icon'

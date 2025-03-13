@@ -7,7 +7,6 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import storageFactory from '../src';
 
 interface IAccount {
@@ -18,7 +17,7 @@ interface IAccount {
 
 const KEY = 'ACCOUNT';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('storageFactory', () => {
   test('localStorage', () => {
     localStorage.removeItem(KEY);
     

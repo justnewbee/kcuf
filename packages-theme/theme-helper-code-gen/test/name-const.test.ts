@@ -4,12 +4,11 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   nameConst
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('nameConst', () => {
   test('nameConst', () => {
     expect(nameConst('hello')).toEqual('HELLO');
     expect(nameConst('hello world')).toEqual('HELLO_WORLD');

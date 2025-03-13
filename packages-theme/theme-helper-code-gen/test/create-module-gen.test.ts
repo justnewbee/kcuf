@@ -4,12 +4,11 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   createModuleGen
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('createModuleGen', () => {
   test('createModuleGen', () => {
     const moduleGen = createModuleGen('module-css-var-color.test');
     

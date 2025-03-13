@@ -4,13 +4,12 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   Segment,
   isPointInSegmentProjection
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('isPointInSegmentProjection', () => {
   const SEGMENT: Segment = [[1, 1], [4, 4]];
   
   describe('isPointInSegmentProjection(p: Point, segment: Segment): boolean', () => {

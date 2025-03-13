@@ -13,14 +13,13 @@ import {
   createFetcher
 } from '@kcuf/fetcher';
 
-import pkgInfo from '../package.json';
 import intercept from '../src';
 
 const fetcher = createFetcher();
 
 intercept(fetcher);
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('fetcherInterceptorMerging', () => {
   beforeEach(() => {
     fetchMock.clearHistory();
     fetchMock.removeRoutes();

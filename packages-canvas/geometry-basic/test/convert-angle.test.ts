@@ -4,13 +4,12 @@ import {
   test
 } from 'vitest';
 
-import pkgInfo from '../package.json';
 import {
   fromRadiansToDegrees,
   fromDegreesToRadians
 } from '../src';
 
-describe(`${pkgInfo.name}@${pkgInfo.version}`, () => {
+describe('convertAngle', () => {
   test('fromRadiansToDegrees(radians: number): number', () => {
     expect(fromRadiansToDegrees(0)).toBe(0);
     expect(fromRadiansToDegrees(Math.PI / 4)).toBe(45);
