@@ -677,11 +677,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
           dx = v[0] - drawShapeOptions.radius;
           dy = v[1] - drawShapeOptions.radius / imageAspectRatio;
           dw = drawShapeOptions.radius * 2;
-          dh = drawShapeOptions.radius * 2 / imageAspectRatio;
+          dh = Math.floor(drawShapeOptions.radius * 2 / imageAspectRatio);
         } else {
           dx = v[0] - drawShapeOptions.radius * imageAspectRatio;
           dy = v[1] - drawShapeOptions.radius;
-          dw = drawShapeOptions.radius * 2 * imageAspectRatio;
+          dw = Math.floor(drawShapeOptions.radius * 2 * imageAspectRatio);
           dh = drawShapeOptions.radius * 2;
         }
         
