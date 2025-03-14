@@ -3,6 +3,9 @@ import {
   TSegment
 } from '../../types';
 import {
+  getVectorDotProduct
+} from '../../util';
+import {
   segmentVector,
   segmentLength
 } from '../base';
@@ -11,9 +14,9 @@ import {
  * 角弧度，默认范围 `[0, 2π)`，若传入 `undirected: true`，范围为 `[0, π]`
  *
  *      ◉ C
- *     ╱
- *    ╱ θ?
- * B ◉━━━━━━━◉ A
+ *     /
+ *    / θ?
+ * B ◉----------◉ A
  */
 export default function angleRadians(angle: TAngle, undirected?: boolean): number {
   const [a, b, c] = angle;
@@ -21,7 +24,7 @@ export default function angleRadians(angle: TAngle, undirected?: boolean): numbe
   const bc: TSegment = [b, c];
   const vectorBa = segmentVector(ba);
   const vectorBc = segmentVector(bc);
-  const vectorDotProduct = vectorBa[0] * vectorBc[0] + vectorBa[1] * vectorBc[1]; // 点积和模
+  const vectorDotProduct = getVectorDotProduct(vectorBa, vectorBc);
   const cosTheta = vectorDotProduct / (segmentLength(ba) * segmentLength(bc)); // 夹角的余弦值
   let radians = Math.acos(cosTheta); // [0, π]
   

@@ -9,7 +9,7 @@ import {
 } from '../src';
 
 describe('segmentLine', () => {
-  describe('segmentLine(segment: Segment): LineCoefficients', () => {
+  describe('segmentLine(segment: Segment): Line', () => {
     test('平行 x 轴', () => {
       expect(segmentLine([[0, 0], [5, 0]])).toEqual([0, -1, 0]);
       expect(segmentLine([[2, 2], [100, 2]])).toEqual([0, -1, 2]);

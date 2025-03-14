@@ -15,10 +15,10 @@ import checkThresholdAngle from './_check-threshold-angle';
  * 对 p 沿 sibling1-p 所在直线移动，得到 p'，使 sibling2-p' 垂直于 p-sibling1 所在直线
  *
  *   ▲ sibling2
- *   ┃θ╲
- *   ┃  ╲
- *   ┃⏋ ╲
- *   ⦿━━━◉━━━━━━━━▲ 待正交
+ *   |θ\
+ *   |  \
+ *   |⏋ \
+ *   ⦿---◉----------▲ 待正交
  *   p'? ←p      sibling1
  */
 export default function justifyPerpendicular2(point: TPoint, sibling1: TPoint, sibling2: TPoint, thresholdRadius: number, thresholdDegrees: number): IJustifyPerpendicularResult | null {

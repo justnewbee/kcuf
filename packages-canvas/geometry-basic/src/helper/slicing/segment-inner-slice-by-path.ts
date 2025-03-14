@@ -4,6 +4,9 @@ import {
   TSegment
 } from '../../types';
 import {
+  segmentMidpoint
+} from '../base';
+import {
   isEqualPoints,
   isPointIncluded
 } from '../comparison';
@@ -11,9 +14,6 @@ import {
   isPointWithinPath,
   intersectionSegmentWithPath
 } from '../relation';
-import {
-  segmentMidpoint
-} from '../base';
 
 function buildSegments(points: TPoint[], path: TPath): TSegment[] {
   const segments: TSegment[] = [];

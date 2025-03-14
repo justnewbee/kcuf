@@ -3,17 +3,17 @@ import {
 } from '../enum';
 
 /**
- * 向量 [vx, vy]
+ * 向量 `[vx, vy]`
  */
 export type TVector = [number, number];
 
 /**
- * 坐标 [x, y]
+ * 坐标 `[x, y]`
  */
 export type TPoint = [number, number];
 
 /**
- * 线段 [p1, p2]
+ * 线段 `[p1, p2]`
  */
 export type TSegment = [TPoint, TPoint];
 
@@ -36,6 +36,11 @@ export type TLineNormalized = [1, 0, number] | [number, -1, number];
  * 角 ∠ABC
  */
 export type TAngle = [TPoint, TPoint, TPoint];
+
+/**
+ * 圆 `[center, radius]`
+ */
+export type TCircle = [TPoint, number];
 
 /**
  * 路径，一组有序坐标，也可以表示多边形（Polygon），当表示多边形的时候，
@@ -78,9 +83,4 @@ export interface IJustifyPerpendicularThreshold {
    * 距离变化不可超过此值，默认 0，不比较（因跟图片比例有关系，必须要传入）
    */
   radius?: number;
-}
-
-export interface IPathIntersectionWithSegmentOptions {
-  extended?: boolean;
-  sorted?: boolean;
 }

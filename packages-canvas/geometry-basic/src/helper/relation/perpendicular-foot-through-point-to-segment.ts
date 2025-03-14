@@ -12,10 +12,10 @@ import perpendicularFootThroughPointToLine from './perpendicular-foot-through-po
  * 点 point 到线段 segment 的垂足（不一定在线段上）
  *
  *     ◉ p
- *     ┃
- *     ┃
- *     ┃⏋↙ ?
- * ◉━━━⦿━━━━━━━━━━◉ segment
+ *     |
+ *     |
+ *     |⏋↙ ?
+ * ◉---⦿----------◉ segment
  */
 export default function perpendicularFootThroughPointToSegment(point: TPoint, segment: TSegment): TPoint {
   return perpendicularFootThroughPointToLine(point, segmentLine(segment));

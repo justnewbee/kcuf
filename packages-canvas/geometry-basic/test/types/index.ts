@@ -17,15 +17,9 @@ export interface ITestPath {
   centroid: Point | null; // pathCentroid
   bbox: Bbox; // pathBbox
   ecp: PathEdgeCenterPoints | null;
-  intersectionWithLine?: { // intersectionLineWithPath
+  intersectionWithLine?: {
     title: string;
     input: LineNormalized;
     output: Point[];
-  }[];
-  intersectionWithSegment?: { // intersectionSegmentWithPath
-    title: string;
-    input: Segment;
-    output: Point[];
-    outputExtended: Point[];
   }[];
 }

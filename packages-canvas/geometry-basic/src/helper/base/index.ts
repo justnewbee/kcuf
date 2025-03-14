@@ -1,6 +1,3 @@
-export { default as normalizeVector } from './normalize-vector';
-export { default as normalizeLine } from './normalize-line';
-
 export { default as pointDistance } from './point-distance';
 
 export { default as segmentLine } from './segment-line';
@@ -11,8 +8,6 @@ export { default as segmentVectorNormalized } from './segment-vector-normalized'
 export { default as segmentSlope } from './segment-slope';
 export { default as segmentProjectionX } from './segment-projection-x';
 export { default as segmentProjectionY } from './segment-projection-y';
-
-export { default as vectorMagnitude } from './vector-magnitude';
 
 export { default as pathArea } from './path-area';
 export { default as pathPerimeter } from './path-perimeter';

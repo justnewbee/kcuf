@@ -5,9 +5,9 @@ import {
 /**
  * 向量 vector 旋转 theta 角（弧度值）得到新的向量 vector
  *
- *  ◉━━━━━━━◉ vector
- *   ╲ ↙ +θ
- *    ╲
+ *  ◉---------◉ vector
+ *   \ ↙ +θ
+ *    \
  *     ◉
  *    vector'
  */

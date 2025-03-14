@@ -1,14 +1,14 @@
 import {
   TVector
-} from '../../types';
+} from '../types';
 
-import vectorMagnitude from './vector-magnitude';
+import getVectorMagnitude from './get-vector-magnitude';
 
 /**
  * 点 p1 到 p2 的标准化单位向量
  */
 export default function normalizeVector(vector: TVector): TVector {
-  const m = vectorMagnitude(vector);
+  const m = getVectorMagnitude(vector);
   
   return [vector[0] / m, vector[1] / m];
 }

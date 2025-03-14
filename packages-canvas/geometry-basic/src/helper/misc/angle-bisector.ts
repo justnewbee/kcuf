@@ -3,7 +3,9 @@ import {
   TVector
 } from '../../types';
 import {
-  normalizeVector,
+  normalizeVector
+} from '../../util';
+import {
   segmentVectorNormalized
 } from '../base';
 import {

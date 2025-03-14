@@ -6,12 +6,12 @@ import {
   pairwise
 } from '../../util';
 import {
+  comparePaths
+} from '../comparison';
+import {
   isPointWithinPath,
   intersectionLineWithLine
 } from '../relation';
-import {
-  comparePaths
-} from '../comparison';
 
 import slicePathWithLine from './slice-path-with-line';
 

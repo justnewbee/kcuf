@@ -2,8 +2,9 @@ import {
   TSegment,
   TLineNormalized
 } from '../../types';
-
-import normalizeLine from './normalize-line';
+import {
+  normalizeLine
+} from '../../util';
 
 /**
  * 线段所在直线的方程系数，使方程 `A*x + B*y + C = 0` 成立

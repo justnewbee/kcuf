@@ -4,16 +4,16 @@ import {
 } from '../../types';
 import {
   normalizeLine
-} from '../base';
+} from '../../util';
 
 /**
  * 点 point 到直线 line 的垂足
  *
  *     ◉ p
- *     ┃
- *     ┃
- *     ┃⏋↙ ?
- * ━━━━⦿━━━━━━━━━━ line
+ *     |
+ *     |
+ *     |⏋↙ ?
+ * ----⦿------------ line
  */
 export default function perpendicularFootThroughPointToLine(point: TPoint, line: TLine): TPoint {
   const [x, y] = point;

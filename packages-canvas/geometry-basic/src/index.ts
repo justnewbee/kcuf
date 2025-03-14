@@ -18,6 +18,7 @@ export type {
   TLine as Line,
   TLineNormalized as LineNormalized,
   TAngle as Angle,
+  TCircle as Circle,
   TBbox as Bbox,
   TVector as Vector,
   IPathEdgeCenterPoints as PathEdgeCenterPoints,

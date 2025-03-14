@@ -2,11 +2,9 @@ import {
   TLine
 } from '../../types';
 import {
-  isNearlyEqual
-} from '../../util';
-import {
+  isNearlyEqual,
   normalizeLine
-} from '../base';
+} from '../../util';
 
 export default function isEqualLines(line1: TLine, line2: TLine): boolean {
   const [A1, B1, C1] = normalizeLine(line1);

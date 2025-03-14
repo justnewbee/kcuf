@@ -6,9 +6,9 @@ import {
  * 直线相对于 X 轴的弧度值，范围 `[0, π)`
  *
  *      Y
- *  ╲   ┃
- *    ╲θ┃
- *   ━━━┃━━ X
+ *  \   |
+ *    \θ|
+ *  ----|-------- X
  */
 export default function angleOfLineWithRespectToAxisY(line: TLine): number {
   const [A, B] = line;

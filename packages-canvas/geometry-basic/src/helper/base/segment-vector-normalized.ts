@@ -2,8 +2,10 @@ import {
   TSegment,
   TVector
 } from '../../types';
+import {
+  normalizeVector
+} from '../../util';
 
-import normalizeVector from './normalize-vector';
 import segmentVector from './segment-vector';
 
 /**

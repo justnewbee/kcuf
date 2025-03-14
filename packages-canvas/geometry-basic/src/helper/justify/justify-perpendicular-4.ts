@@ -23,19 +23,19 @@ function getEndPoint(segment: TSegment, pointOnSetment: TPoint): TPoint {
  * 场景 1：pivot 在线段上
  *
  *      pivot
- * ▲━━━━━◉━━━━━━━━▲ segment
- *       └┃θ╲
- *        ┃  ╲
- *        ┃  ↙ ◉ p
+ * ▲------◉----------▲ segment
+ *       └|θ\
+ *        |  \
+ *        |  ↙ ◉ p
  *        ⦿ p'?
  *
  * 场景 2：point 在线段上（需加判断 p' 是否在 segment 上）
  *
  *      p'? ←p
- * ▲━━━⦿━━━━◉━━━━━▲ segment
- *      ┃⏌  ╱
- *      ┃  ╱
- *      ┃θ╱
+ * ▲----⦿----◉-------▲ segment
+ *      |⏌  /
+ *      |  /
+ *      |θ/
  *      ◉ pivot
  */
 export default function justifyPerpendicular4(point: TPoint, pivot: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPerpendicularResult | null {

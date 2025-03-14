@@ -5,7 +5,7 @@ import {
 } from '../../types';
 import {
   normalizeLine
-} from '../base';
+} from '../../util';
 
 /**
  * 经过点且垂直于直线的直线 line'
@@ -15,12 +15,12 @@ import {
  * 由于垂直线经过 `point`，将 `point` 代入即可（以上算法跟 C 值无关）
  *
  *   line'?                          line'?
- *     ┃                               ┃
- *     ◉ p                             ┃
- *     ┃                               ┃
- *     ┃⏋                             ┃⏋
- * ━━━━+━━━━━━━━━━━ line         ━━━━◉━━━━━━━━━━━ line
- *     ┃                               ┃ p
+ *     |                               |
+ *     ◉ p                             |
+ *     |                               |
+ *     |⏋                             |⏋
+ * ----+------------- line         ----◉------------ line
+ *     |                               | p
  */
 export default function perpendicularLineThroughPointToLine(point: TPoint, line: TLine): TLineNormalized {
   const [A, B] = line;

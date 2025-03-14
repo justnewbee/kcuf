@@ -19,11 +19,11 @@ import checkThresholdAngle from './_check-threshold-angle';
  *
  * 对 p 沿 `sibling-p` 所在直线移动，得到 p'，使 p'-segment.0 与 segment 垂直
  *
- *        ▲→ ━━━━━▲ segment 待正交
- *      ╱θ┃⏌
- *     ╱  ┃
- *    ╱   ┃
- *   ◉━━━━⦿━━━━━━━━━━━▲ 上下两条线不一定平行，这里只是画起来方便
+ *        ▲→ ------▲ segment 待正交
+ *      /θ|⏌
+ *     /  |
+ *    /   |
+ *   ◉----⦿-------------▲ 上下两条线不一定平行，这里只是画起来方便
  *   p→   p'?         sibling
  */
 export default function justifyPerpendicular3(point: TPoint, sibling: TPoint, segment: TSegment, thresholdRadius: number, thresholdDegrees: number): IJustifyPerpendicularResult | null {

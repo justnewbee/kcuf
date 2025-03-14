@@ -39,7 +39,7 @@ import {
   LINE_N1X_N1Y_5
 } from './const';
 
-describe('intersectionLineWithLine(line1: LineCoefficients, line2: LineCoefficients): Point', () => {
+describe('intersectionLineWithLine(line1: Line, line2: Line): Point', () => {
   test('same line', () => {
     expect(intersectionLineWithLine(LINE_1X_0Y_N5, LINE_1X_0Y_N5)).toBeNull();
     expect(intersectionLineWithLine(LINE_1X_0Y_N4, LINE_1X_0Y_N4)).toBeNull();

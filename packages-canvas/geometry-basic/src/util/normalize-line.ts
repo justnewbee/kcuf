@@ -1,7 +1,7 @@
 import {
   TLine,
   TLineNormalized
-} from '../../types';
+} from '../types';
 
 export default function normalizeLine(line: TLine): TLineNormalized {
   const [A, B, C] = line;

@@ -3,8 +3,10 @@ import {
   TSegment
 } from '../../types';
 import {
-  segmentLine,
   normalizeLine
+} from '../../util';
+import {
+  segmentLine
 } from '../base';
 import {
   isEqualLines

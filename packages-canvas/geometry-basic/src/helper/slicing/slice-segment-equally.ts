@@ -15,9 +15,9 @@ export default function sliceSegmentEqually(segment: TSegment, n: number): TSegm
     return [segment];
   }
   
+  const [start, end] = segment;
   const vector = segmentVector(segment);
   const vectorStep: TVector = [vector[0] / n, vector[1] / n];
-  const [start, end] = segment;
   const segments: TSegment[] = [];
   let prev = start;
   

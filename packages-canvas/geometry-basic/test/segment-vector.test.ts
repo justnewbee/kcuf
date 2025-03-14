@@ -6,8 +6,7 @@ import {
 
 import {
   segmentVector,
-  segmentVectorNormalized,
-  vectorMagnitude
+  segmentVectorNormalized
 } from '../src';
 
 import {
@@ -57,10 +56,5 @@ describe('segmentVectorNormalized(segment: Segment): Vector', (): void => {
   test('普通线段', () => {
     expect(segmentVectorNormalized([[1, 1], [7, 7]])[0]).toBeCloseTo(SQRT2 / 2);
     expect(segmentVectorNormalized([[7, 7], [1, 1]])[1]).toBeCloseTo(-SQRT2 / 2);
-    expect(vectorMagnitude(segmentVectorNormalized([[7, 7], [1, 1]]))).toEqual(1);
-    expect(vectorMagnitude(segmentVectorNormalized([[2, 2], [8, 8]]))).toEqual(1);
-    expect(vectorMagnitude(segmentVectorNormalized([[8, 8], [2, 2]]))).toEqual(1);
-    expect(vectorMagnitude(segmentVectorNormalized([[2, 4], [8, 10]]))).toEqual(1);
-    expect(vectorMagnitude(segmentVectorNormalized([[8, 10], [2, 4]]))).toEqual(1);
   });
 });

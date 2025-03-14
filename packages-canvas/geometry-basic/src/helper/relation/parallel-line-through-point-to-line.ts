@@ -5,13 +5,13 @@ import {
 } from '../../types';
 import {
   normalizeLine
-} from '../base';
+} from '../../util';
 
 /**
  * 求经过点 point 且平行于直线 line 的平行线 line'
  *
- * ━━━━━▲━━━━━ line'?
- * ━━━━━━━━━━━━━━━━ line
+ * ------▲------ line'?
+ * ------------------ line
  */
 export default function parallelLineThroughPointToLine(point: TPoint, line: TLine): TLineNormalized {
   const [A, B] = line;
