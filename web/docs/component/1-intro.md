@@ -7,6 +7,7 @@ sidebar_position: 1
 * WJ ★★★★★
 * LP ★★★★☆
 * LL ★★★★
+* MF ★★★★
 * OT ★★★☆
 * JL ★★★☆
 * LD ★★★☆

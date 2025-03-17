@@ -23,7 +23,7 @@ const ScButtons = styled.div`
   justify-content: center;
 `;
 
-function HomepageHeader(): ReactElement {
+function HomepageHero(): ReactElement {
   const {
     siteConfig
   } = useDocusaurusContext();
@@ -50,7 +50,7 @@ export default function Home(): ReactElement {
     title: `Hello from ${siteConfig.title}`,
     description: 'Description will go into a meta tag in <head />'
   }}>
-    <HomepageHeader />
+    <HomepageHero />
     <main><HomepageFeatures /></main>
   </Layout>;
 }
