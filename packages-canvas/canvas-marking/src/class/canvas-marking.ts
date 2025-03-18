@@ -443,7 +443,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }, initialPath);
   }
   
-  private creatingPushPoint(): void {
+  private creatingPushPoint(byEnter?: boolean): void {
     const {
       mouseInCanvas,
       itemCreating
@@ -464,11 +464,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     switch (result) {
     case 'close':
-      this.finishCreatingInternal(EFinishCreatingReason.CLOSE);
+      this.finishCreatingInternal(byEnter ? EFinishCreatingReason.ENTER : EFinishCreatingReason.CLOSE);
       
       break;
     case 'last':
-      this.finishCreatingInternal(EFinishCreatingReason.LAST);
+      this.finishCreatingInternal(byEnter ? EFinishCreatingReason.ENTER : EFinishCreatingReason.LAST);
       
       break;
     default:
@@ -610,7 +610,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         
         break;
       case 'Enter': // 回车：添加节点并完成新建
-        this.creatingPushPoint();
+        this.creatingPushPoint(true);
         this.finishCreatingInternal(EFinishCreatingReason.ENTER);
         
         break;
