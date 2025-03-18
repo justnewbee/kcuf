@@ -13,8 +13,8 @@ import {
   pathsAuxiliaryList,
   justifyMagnetAlongPath,
   justifyMagnetAlongPaths,
-  justifyPerpendicularInternal,
   justifyPerpendicularExternal,
+  justifyPerpendicularInternal,
   justifySnapAroundPivots
 } from '@kcuf/geometry-basic';
 import {
@@ -24,28 +24,29 @@ import {
 import Subscribable from '@kcuf/subscribable';
 
 import {
+  EFinishCreatingReason,
   EImageStatus,
-  EMouseJustifyStatus,
   EMarkingMouseStatus,
   EMarkingStatsChangeCause,
+  EMouseJustifyStatus,
   EZoomHow
 } from '../enum';
 import {
-  TSize,
-  TSubscribableEvents,
-  TZoomArg,
-  IZoomOptions,
+  ICanvasMarkingClass,
+  ICanvasMarkingOptions,
   IMarkingConfigItem,
   IMarkingItemClass,
   IMarkingItemConfig,
   IMarkingItemOptions,
   IMarkingItemStats,
   IMarkingPlugin,
-  ICanvasMarkingClass,
-  ICanvasMarkingOptions,
-  TCanvasMarkingPluginRegister,
   IMarkingStats,
-  TMarkingItemFinder
+  IZoomOptions,
+  TCanvasMarkingPluginRegister,
+  TMarkingItemFinder,
+  TSize,
+  TSubscribableEvents,
+  TZoomArg
 } from '../types';
 import {
   DEFAULT_AUXILIARY_STYLE,
@@ -56,12 +57,12 @@ import {
 } from '../const';
 import {
   myDebug,
+  loadImage,
   bindDocumentEvent,
+  canvasDrawPerpendicularMark,
   createDomCanvas,
   createDomImageBg,
   createDomStage,
-  loadImage,
-  canvasDrawPerpendicularMark,
   getMouseJustifyStatusMagnet,
   sortMarkingItems
 } from '../util';
@@ -463,8 +464,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     switch (result) {
     case 'close':
+      this.finishCreatingInternal(EFinishCreatingReason.CLOSE);
+      
+      break;
     case 'last':
-      this.finishCreating();
+      this.finishCreatingInternal(EFinishCreatingReason.LAST);
       
       break;
     default:
@@ -607,7 +611,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         break;
       case 'Enter': // 回车：添加节点并完成新建
         this.creatingPushPoint();
-        this.finishCreating();
+        this.finishCreatingInternal(EFinishCreatingReason.ENTER);
         
         break;
       case 'Escape': // ESC：取消新建
@@ -685,7 +689,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     } = this;
     
     if (itemCreating) { // 新建中，结束新建（可能取消或完成）
-      this.finishCreating();
+      this.finishCreatingInternal(EFinishCreatingReason.DOUBLE_CLICK);
       
       return;
     }
@@ -1360,6 +1364,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   finishCreating(): void {
+    this.finishCreatingInternal();
+  }
+  
+  private finishCreatingInternal(reason?: EFinishCreatingReason): void {
     const {
       options: {
         onCreateCompletePre,
@@ -1388,8 +1396,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         
         const statsList = this.getAllStats();
         
-        onCreateComplete?.(itemCreating.stats, statsList);
-        this.emit('create-complete', itemCreating.stats, statsList);
+        onCreateComplete?.(itemCreating.stats, statsList, reason);
+        this.emit('create-complete', itemCreating.stats, statsList, reason);
         this.selectItem(itemCreating);
         
         this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
@@ -1672,6 +1680,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       hoveringBorderIndex: itemStatsHovering?.hoveringBorderIndex ?? -1,
       highlighting: !!itemStatsHighlighting,
       editing: !!itemStatsSelected,
+      editingPathLength: itemStatsSelected ? itemStatsSelected.path.length : 0,
       editingDirty: itemStatsSelected ? itemStatsSelected.dirty : false,
       editingCrossing: itemStatsSelected ? itemStatsSelected.crossing : false,
       editingHovering: itemStatsSelected ? itemStatsSelected.hovering : false,

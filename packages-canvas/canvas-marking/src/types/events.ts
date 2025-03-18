@@ -3,6 +3,7 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
+  EFinishCreatingReason,
   EMarkingStatsChangeCause
 } from '../enum';
 
@@ -30,7 +31,7 @@ export interface IMarkingEvents<T> {
    * `onCreateComplete` 前置回调，可用于修改 path 或填入 data，返回 false 表示拒绝此次新建
    */
   onCreateCompletePre?(itemStats: IMarkingItemStats<T>, markingStats: IMarkingStats<T>): ICreateCompletePreResult<T> | false | undefined | Promise<ICreateCompletePreResult<T> | false | undefined>;
-  onCreateComplete?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
+  onCreateComplete?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[], reason?: `${EFinishCreatingReason}`): void;
   onClick?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   onSelectionChange?(itemStats: IMarkingItemStats<T> | null, itemStatsList: IMarkingItemStats<T>[]): void;
   /**
@@ -63,7 +64,7 @@ export type TSubscribableEvents<T = unknown> = { // 这个不用 interface
   'image-load-error'?(imageUrl: string, duration: number): void;
   'create-start'(): void;
   'create-cancel'(): void;
-  'create-complete'(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
+  'create-complete'(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[], reason?: `${EFinishCreatingReason}`): void;
   click(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   'selection-change'(itemStats: IMarkingItemStats<T> | null, itemStatsList: IMarkingItemStats<T>[]): void;
   'point-push'(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;

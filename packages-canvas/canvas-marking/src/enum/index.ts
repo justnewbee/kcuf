@@ -1,8 +1,3 @@
-export enum ELockStatus {
-  CANNOT_SELECT, // 不响应
-  CANNOT_CLICK
-}
-
 export enum EImageStatus {
   NONE = 'none',
   LOADING = 'loading',
@@ -16,6 +11,13 @@ export enum EZoomHow {
   MIN = 'min',
   MAX = 'max',
   RESET = 'reset'
+}
+
+export enum EFinishCreatingReason {
+  ENTER = 'enter',
+  DOUBLE_CLICK = 'double-click',
+  CLOSE = 'close',
+  LAST = 'last'
 }
 
 export enum EMouseJustifyStatus {

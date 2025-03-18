@@ -46,6 +46,7 @@ export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>
     [' └ Border', stats.hoveringBorderIndex],
     // 编辑
     ['Edit', displayBoolean(stats.editing)],
+    [' ├ PathLength', stats.editingPathLength],
     [' ├ Dirty', displayBoolean(stats.editingDirty)],
     [' ├ Crossing', displayBoolean(stats.editingCrossing)],
     [' ├ Hovering', displayBoolean(stats.editingHovering)],

@@ -91,6 +91,7 @@ export interface IMarkingStats<T = unknown> {
   hoveringInsertionPointIndex: number;
   hoveringBorderIndex: number;
   editing: boolean;
+  editingPathLength: number;
   editingDirty: boolean;
   editingCrossing: boolean;
   editingHovering: boolean;
