@@ -104,9 +104,9 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   finishEditing(): void;
   
   /**
-   * 选中或取消选中，会触发 `onSelectionChange`，可能
+   * 选中或取消选中，会触发 `onSelectionChange`
    */
-  select(finder: TMarkingItemFinder<T>): void;
+  select(finder: TMarkingItemFinder<T>, highlightToo?: boolean): void;
   
   /**
    * 高亮或取消高亮

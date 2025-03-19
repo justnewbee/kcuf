@@ -1595,21 +1595,23 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.moveTo([this.movingCoords[0] + dx, this.movingCoords[1] + dy]);
   }
   
-  select(finder: TMarkingItemFinder<T>): void {
-    this.itemHighlighting?.toggleHighlighting(false);
-    
+  select(finder: TMarkingItemFinder<T>, highlightToo?: boolean): void {
     const markingItem = finder === null ? null : this.findItem(finder, this.itemEditing);
     
+    this.itemHighlighting?.toggleHighlighting(false);
     this.selectItem(markingItem || null);
+    
+    if (markingItem && highlightToo) {
+      markingItem.toggleHighlighting();
+    }
+    
     this.updateAndDraw(EMarkingStatsChangeCause.SELECT);
   }
   
   highlight(finder: TMarkingItemFinder<T>, borderIndex: number | null = null): void {
     const markingItem = finder === null ? null : this.findItem(finder, this.itemHighlighting || this.itemEditing);
     
-    this.markingItems.forEach(v => {
-      v.toggleHighlighting(v === markingItem, borderIndex);
-    });
+    this.markingItems.forEach(v => v.toggleHighlighting(v === markingItem, borderIndex));
     this.updateAndDraw(EMarkingStatsChangeCause.HIGHLIGHT);
   }
   
