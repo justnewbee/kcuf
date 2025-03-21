@@ -1226,11 +1226,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.moveTo([0, 0]);
   }
   
-  private cleanupBeforeSetData(): void {
-    this.clearJustified();
-    this.itemCreating = null;
-  }
-  
   private finishEditDragging(): void {
     const {
       options: {
@@ -1266,7 +1261,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     const lastSelectedId = this.itemEditing?.stats.id;
     
-    this.cleanupBeforeSetData();
+    this.clearJustified();
     this.setupImageAndMarkings(image, markings).then(() => {
       if (lastSelectedId) {
         this.select(id => id === lastSelectedId);
