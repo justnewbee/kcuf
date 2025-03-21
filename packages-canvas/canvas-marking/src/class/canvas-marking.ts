@@ -541,7 +541,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private handleMouseDownCanvas(): void {
     this.mouseDownCanvas = true;
-    this.creatingPushPoint();
     
     if (this.isDoubleClicking()) {
       return;
@@ -559,6 +558,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       mouseInStage,
       mouseDownMoving
     } = this;
+    
+    this.creatingPushPoint();
     
     this.mouseDownCanvas = false;
     this.mouseDownMoving = false;
@@ -1387,6 +1388,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
+    this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING_WAIT);
+    
     completeResult.then(finalResult => {
       this.clearJustified();
       this.itemCreating = null;
@@ -1396,19 +1399,17 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         
         const statsList = this.getAllStats();
         
+        this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
+        
         onCreateComplete?.(itemCreating.stats, statsList, reason);
         this.emit('create-complete', itemCreating.stats, statsList, reason);
-        this.selectItem(itemCreating);
-        
-        this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING);
       } else { // 相当于取消
+        this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
+        
         onCreateCancel?.();
         this.emit('create-cancel');
-        this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
       }
     });
-    
-    this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING_WAIT);
   }
   
   finishEditing(cancel?: boolean): void {
