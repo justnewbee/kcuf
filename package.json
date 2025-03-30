@@ -31,7 +31,7 @@
     "@kcuf/stylelint-config": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@tsconfig/node22": "^22.0.1",
-    "@types/node": "^22.13.13",
+    "@types/node": "^22.13.14",
     "commander": "^13.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.23.0",
@@ -41,7 +41,7 @@
     "markdownlint-cli2": "^0.17.2",
     "npm-check-updates": "^17.1.16",
     "npm-package-json-lint": "^8.0.0",
-    "stylelint": "^16.16.0",
+    "stylelint": "^16.17.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },

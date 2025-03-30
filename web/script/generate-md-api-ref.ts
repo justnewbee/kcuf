@@ -112,7 +112,7 @@ function readAndGenerate(options: ICommandArgs): void {
 }
 
 /**
- * How to use:
+ * How to use (where `pkg` is the package directory):
  *
  * > ts-node-dev ./script/generate-md-api-pref.ts -p <pkg>
  */

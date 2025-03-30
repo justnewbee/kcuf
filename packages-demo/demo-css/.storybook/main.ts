@@ -8,7 +8,6 @@ const config: StorybookConfig = {
     '../stories/**/*.stories.@(ts|tsx)'
   ],
   addons: [
-    '@storybook/addon-onboarding',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@chromatic-com/storybook',

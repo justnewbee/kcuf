@@ -14,5 +14,5 @@ export default function StoryFetch(): ReactElement {
     fetch('https://apifoxmock.com/m1/4847676-4502957-default/jsonp');
   }, []);
   
-  return <Button onClick={handleJsonp}>fuck you </Button>;
+  return <Button onClick={handleJsonp}>fetchJsonp</Button>;
 }

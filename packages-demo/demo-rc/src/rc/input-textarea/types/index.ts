@@ -3,7 +3,7 @@ import {
   TextareaHTMLAttributes
 } from 'react';
 
-export type TInputTextAreaRef = ForwardedRef<HTMLTextAreaElement>;
+export type TInputTextareaRef = ForwardedRef<HTMLTextAreaElement>;
 
 export interface IInputTextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'children' | 'value' | 'defaultValue' | 'onChange'> {
   value?: string;

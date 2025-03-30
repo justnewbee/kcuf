@@ -1,6 +1,6 @@
 export { default } from './rc';
 
 export type {
-  TInputTextAreaRef as InputTextAreaRef,
+  TInputTextareaRef as InputTextareaRef,
   IInputTextareaProps as InputTextareaProps
 } from './types';

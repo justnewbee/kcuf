@@ -30,7 +30,7 @@
     "@babel/preset-react": "^7.26.3",
     "@babel/preset-typescript": "^7.27.0",
     "@kcuf/ts-config": "workspace:^",
-    "@types/react": "^18.3.14",
+    "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.5",
     "babel-plugin-styled-components": "^2.1.4",
     "react": "^18.3.1",

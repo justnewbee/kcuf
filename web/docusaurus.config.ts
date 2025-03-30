@@ -101,16 +101,16 @@ export default {
         position: 'left',
         label: 'Component'
       }, {
-        to: '/blog',
-        label: 'Blog',
-        position: 'left'
-      }, {
         type: 'docSidebar',
         sidebarId: 'tutor',
         position: 'left',
         label: 'Tutorial'
       }, {
-        href: 'https://github.com/agrawal-rohit/pearl-ui',
+        to: '/blog',
+        label: 'Blog',
+        position: 'left'
+      }, {
+        href: 'https://github.com/justnewbee/kcuf',
         position: 'right',
         className: 'header-github-link',
         'aria-label': 'GitHub repository'

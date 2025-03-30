@@ -5,5 +5,5 @@ import {
 export { default as Fetch } from './story-fetch';
 
 export default {
-  title: 'fetcher'
+  title: 'fetcher-fetch'
 } satisfies TMeta;
