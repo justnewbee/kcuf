@@ -23,7 +23,7 @@ export default function initDrawStylePoint(borderStyleResolved: TMarkingStyleBor
     radiusEnlargeWhenClose: 0.66,
     lineWidth: borderStyleResolved.width,
     lineColor: borderStyleResolved.color,
-    fillColor: a11yBrightness(borderStyleResolved.color) >= 180 ? 'hsl(240 20% 50%)' : 'hsl(0 0% 100%)',
+    fillColor: borderStyleResolved.color && a11yBrightness(borderStyleResolved.color) >= 180 ? 'hsl(240 20% 50%)' : 'hsl(0 0% 100%)',
     crossingLineColor: borderStyleResolved.crossingColor,
     crossingFillColor: 'hsl(0 0% 100%)',
     ...pointStyle

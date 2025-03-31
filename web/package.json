@@ -70,7 +70,7 @@
     "styled-components": "^6.1.16"
   },
   "scripts": {
-    "start": "docusaurus start --host 127.0.0.1",
+    "start": "docusaurus start --host 0.0.0.0",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
