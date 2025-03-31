@@ -11,10 +11,11 @@ import {
   DEFAULT_POINT_RADIUS
 } from '../const';
 
+import safeMerge from './safe-merge';
+
 export default function initDrawStylePoint(borderStyleResolved: TMarkingStyleBorderResolved, pointStyle?: IMarkingStylePoint, extendFrom?: TMarkingStylePointResolved): TMarkingStylePointResolved {
-  return extendFrom ? {
-    ...extendFrom,
-    ...pointStyle
+  return safeMerge(extendFrom ? {
+    ...extendFrom
   } : {
     shape: 'circle',
     shapeMiddle: 'circle',
@@ -25,7 +26,6 @@ export default function initDrawStylePoint(borderStyleResolved: TMarkingStyleBor
     lineColor: borderStyleResolved.color,
     fillColor: borderStyleResolved.color && a11yBrightness(borderStyleResolved.color) >= 180 ? 'hsl(240 20% 50%)' : 'hsl(0 0% 100%)',
     crossingLineColor: borderStyleResolved.crossingColor,
-    crossingFillColor: 'hsl(0 0% 100%)',
-    ...pointStyle
-  };
+    crossingFillColor: 'hsl(0 0% 100%)'
+  }, pointStyle);
 }

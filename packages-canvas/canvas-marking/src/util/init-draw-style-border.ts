@@ -6,14 +6,14 @@ import {
   DEFAULT_BORDER_STYLE
 } from '../const';
 
+import safeMerge from './safe-merge';
 import parseConfigColor from './parse-config-color';
 
 export default function initDrawStyleBorder(borderStyle?: IMarkingStyleBorder, extendFrom?: TMarkingStyleBorderResolved): TMarkingStyleBorderResolved {
-  const result = {
+  const result = safeMerge({
     ...DEFAULT_BORDER_STYLE,
-    ...extendFrom,
-    ...borderStyle
-  };
+    ...extendFrom
+  }, borderStyle);
   
   return {
     ...result,

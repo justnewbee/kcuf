@@ -7,14 +7,14 @@ import {
   DEFAULT_FILL_STYLE
 } from '../const';
 
+import safeMerge from './safe-merge';
 import parseConfigColor from './parse-config-color';
 
 export default function initDrawStyleFill(borderStyleResolved: TMarkingStyleBorderResolved, fillStyle?: IMarkingStyleFill, extendFrom?: IMarkingStyleFillResolved): IMarkingStyleFillResolved {
-  const result = {
+  const result = safeMerge({
     ...DEFAULT_FILL_STYLE,
-    ...extendFrom,
-    ...fillStyle
-  };
+    ...extendFrom
+  }, fillStyle);
   
   return {
     ...result,
