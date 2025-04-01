@@ -17,7 +17,7 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
   let willZoom = false;
   
   function zoomOnKey(key: string, shift: boolean): boolean {
-    switch (key) {
+    switch (key) { // TODO 是不是有个 100%
     case '=': // +
       shift ? canvasMarking.zoom(EZoomHow.MAX) : canvasMarking.zoom(EZoomHow.IN);
       
@@ -27,9 +27,9 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
       
       return true;
     case '0':
-      canvasMarking.zoom(EZoomHow.RESET); // TODO 是不是有个 100%
+      canvasMarking.zoom(EZoomHow.RESET);
       
-      return true;
+      return false; // CMD 0 可以消除 pinch 的放大效果
     default:
       return false;
     }
