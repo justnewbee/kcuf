@@ -31,7 +31,7 @@
     "@kcuf/stylelint-config": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@tsconfig/node22": "^22.0.1",
-    "@types/node": "^22.13.14",
+    "@types/node": "^22.13.17",
     "commander": "^13.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.23.0",
