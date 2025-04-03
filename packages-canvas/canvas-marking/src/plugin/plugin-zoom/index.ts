@@ -47,18 +47,13 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
   }
   
   function handleWheel(e: WheelEvent): void {
-    if (!willZoom) {
+    if (!willZoom || !e.deltaY) {
       return;
     }
     
     e.stopPropagation();
     e.preventDefault();
-    
-    if (e.deltaY > 0) {
-      canvasMarking.zoom(EZoomHow.OUT, true);
-    } else {
-      canvasMarking.zoom(EZoomHow.IN, true);
-    }
+    canvasMarking.zoom(e.deltaY > 0 ? EZoomHow.OUT : EZoomHow.IN, Math.ceil(Math.abs(e.deltaY / 4)));
   }
   
   const unbindDocKeydown = bindDocumentEvent('keydown', handleKeydown, true);

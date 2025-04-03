@@ -245,9 +245,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private get zoomOptions(): Required<IZoomOptions> {
     return {
       step: 0.25,
-      stepWheel: 0.05,
+      stepWheel: 0.01,
       min: 0.2,
-      max: 4,
+      max: 5,
       ...this.options.zoomOptions
     };
   }
@@ -1152,14 +1152,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.emit('selection-change', itemStats, statsList);
   }
   
-  private zoomBy(inOut: boolean, wheel?: boolean): void {
+  private zoomBy(inOut: boolean, wheelDelta?: number): void {
     const {
       step,
       stepWheel,
       min,
       max
     } = this.zoomOptions;
-    const delta = (inOut ? 1 : -1) * (wheel ? stepWheel : step);
+    const delta = (inOut ? 1 : -1) * (wheelDelta ? stepWheel * wheelDelta : step);
     const {
       zoomLevel
     } = this;
@@ -1466,14 +1466,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.updateAndDraw(EMarkingStatsChangeCause.CLEAR);
   }
   
-  zoom(how: TZoomArg, wheel?: boolean): void {
+  zoom(how: TZoomArg, wheelDelta?: number): void {
     switch (how) {
     case EZoomHow.IN:
-      this.zoomBy(true, wheel);
+      this.zoomBy(true, wheelDelta);
       
       break;
     case EZoomHow.OUT:
-      this.zoomBy(false, wheel);
+      this.zoomBy(false, wheelDelta);
       
       break;
     case EZoomHow.MIN:
