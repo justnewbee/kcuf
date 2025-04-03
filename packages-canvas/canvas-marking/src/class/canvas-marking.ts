@@ -192,7 +192,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.setupEvents();
     this.setupScaleSizing();
-    this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, EMarkingStatsChangeCause.INIT);
+    this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, true);
   }
   
   // Subscribable beforeEmit
@@ -314,12 +314,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.cleanups.push(pixelRatioListen(pixelRatio => this.updatePixelRatio(pixelRatio)));
   }
   
-  private setupImageAndMarkings(imageUrl = '', markings: IMarkingConfigItem<T>[] = [], cause: EMarkingStatsChangeCause = EMarkingStatsChangeCause.SET_DATA): Promise<void> {
+  private async setupImageAndMarkings(imageUrl = '', markings: IMarkingConfigItem<T>[] = [], init?: boolean): Promise<void> {
     this.markingItems.length = 0;
     
     markings.forEach(v => this.markingItems.push(this.createMarkingItem(v)));
     
-    return this.setupImage(imageUrl).then(() => this.updateAndDraw(cause)); // 保证图片加载完成再渲染 MarkingItem
+    await this.setupImage(imageUrl); // 保证图片加载完成再渲染 MarkingItem
+    
+    this.updateAndDraw(init ? EMarkingStatsChangeCause.INIT : EMarkingStatsChangeCause.SET_DATA);
   }
   
   private async setupImage(imageUrl: string): Promise<void> {
