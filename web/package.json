@@ -46,12 +46,12 @@
     "@types/react-dom": "^18.3.5",
     "commander": "^13.1.0",
     "docusaurus-plugin-sass": "^0.2.6",
-    "inquirer": "^12.5.0",
+    "inquirer": "^12.5.2",
     "react-docgen": "^7.1.1",
     "react-docgen-typescript": "^2.2.2",
-    "sass": "^1.86.2",
+    "sass": "^1.86.3",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "@docusaurus/core": "^3.7.0",

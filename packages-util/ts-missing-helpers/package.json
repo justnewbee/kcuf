@@ -29,7 +29,7 @@
     "@babel/preset-typescript": "^7.27.0",
     "@kcuf/ts-config": "workspace:^",
     "rimraf": "^6.0.1",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "scripts": {
     "build:clean": "rimraf dist",

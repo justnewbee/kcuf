@@ -34,16 +34,16 @@
     "@types/node": "^22.14.0",
     "commander": "^13.1.0",
     "depcheck": "^1.4.7",
-    "eslint": "^9.23.0",
+    "eslint": "^9.24.0",
     "husky": "^9.1.7",
     "lerna": "^8.2.1",
     "lint-staged": "^15.5.0",
     "markdownlint-cli2": "^0.17.2",
     "npm-check-updates": "^17.1.16",
     "npm-package-json-lint": "^8.0.0",
-    "stylelint": "^16.17.0",
+    "stylelint": "^16.18.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   },
   "scripts": {
     "prepare": "husky",
