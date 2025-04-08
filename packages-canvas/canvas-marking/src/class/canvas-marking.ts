@@ -24,11 +24,11 @@ import {
 import Subscribable from '@kcuf/subscribable';
 
 import {
-  EFinishCreatingReason,
   EImageStatus,
   EMarkingMouseStatus,
   EMarkingStatsChangeCause,
   EMouseJustifyStatus,
+  EFinishCreatingReason,
   EZoomHow
 } from '../enum';
 import {
@@ -93,13 +93,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private pixelRatio = pixelRatioGet();
   
   /**
-   * 磁吸 + 正交，默认开启，按住 Alt 键临时取消
-   */
-  private justifying = true;
-  /**
    * Snap 效果（45° 倍数角方向跳），默认不开启，按住 Shift 键启用
    */
   private snapping = false;
+  /**
+   * 磁吸 + 正交，默认开启，按住 Alt 键临时取消
+   */
+  private justifying = true;
   /**
    * 鼠标矫正状态
    */
@@ -118,10 +118,20 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   // --- 鼠标状态 --- //
   /**
+   * 这个坐标计算相对复杂，且会传递给 Item 对象
+   */
+  mouseInImage: Point = [-1, -1];
+  /**
    * 鼠标相对于 stage 左上角实时坐标（屏幕像素），不论内外（因此可能有负值）
    */
-  private mouseRelative: Point = [-1, -1];
-  mouseInImage: Point = [-1, -1]; // 鼠标在图片上的坐标（图片像素），即使鼠标移出，也能够保证之前画的图形不会消失
+  private mouse: Point = [-1, -1];
+  /**
+   * 鼠标相对于 stage 和 canvas 的坐标是根据 mouse 实时计算的，但仍然需要记录鼠标是否已进入 stage，原因如下：
+   *
+   * 1. 初始化的时候，鼠标在 stage 内，尚未移动，需监听 `stage` 的 `mouseenter` 事件以第一时间感知鼠标位置
+   * 2. Cmd Tab 导致 leave/enter 状态切换
+   */
+  private mouseEntered = false;
   /**
    * 鼠标在 canvas 内部按下
    */
@@ -196,25 +206,36 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private get mouseInStage(): Point | null {
-    return this.isMouseInStage() ? this.mouseRelative : null;
+    return this.isMouseInStage() ? this.mouse : null;
+  }
+  
+  private get mouseInCanvasUnprotected(): Point {
+    const {
+      mouse
+    } = this;
+    const rectStage = this.stage.getBoundingClientRect();
+    const rectCanvas = this.canvas.getBoundingClientRect();
+    
+    return [
+      mouse[0] + rectStage.left - rectCanvas.left,
+      mouse[1] + rectStage.top - rectCanvas.top
+    ];
   }
   
   private get mouseInCanvas(): Point | null {
-    const {
-      mouseRelative
-    } = this;
-    
     if (!this.isMouseInCanvas()) {
       return null;
     }
     
-    const rectStage = this.stage.getBoundingClientRect();
+    const {
+      mouseInCanvasUnprotected
+    } = this;
     const rectCanvas = this.canvas.getBoundingClientRect();
     
-    return roundCoords([
-      _clamp(mouseRelative[0] + rectStage.left - rectCanvas.left, 0, rectCanvas.width),
-      _clamp(mouseRelative[1] + rectStage.top - rectCanvas.top, 0, rectCanvas.height)
-    ]);
+    return [
+      _clamp(mouseInCanvasUnprotected[0], 0, rectCanvas.width),
+      _clamp(mouseInCanvasUnprotected[1], 0, rectCanvas.height)
+    ];
   }
   
   private get itemHovering(): IMarkingItemClass<T> | null {
@@ -250,43 +271,43 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   };
   
   private _handleMouseEnterStage = (e: MouseEvent): void => {
-    this.refreshMouseRelative(e);
+    this.mouseEntered = true;
+    this.refreshMouse(e);
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_ENTER);
   };
   
   private _handleMouseLeaveStage = (): void => {
-    this.refreshMouseRelative(null);
+    this.mouseEntered = false;
+    this.refreshMouse(null);
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE);
   };
   
   private _handleMouseMoveGlobal = (e: MouseEvent): void => {
-    this.refreshMouseRelative(e);
+    this.refreshMouse(e);
     this.refreshStats(EMarkingStatsChangeCause.MOUSE_MOVE);
     
-    if (this.isMouseInCanvas()) {
-      if (this.mouseDownCanvas) {
-        this.mouseDownMoving = true;
-      }
+    const {
+      moving,
+      itemCreating,
+      itemEditing
+    } = this;
+    
+    if (this.isMouseInCanvas() && this.mouseDownCanvas) {
+      this.mouseDownMoving = true;
+    }
+    
+    if (!moving && !itemCreating && itemEditing) {
+      const draggingResult = itemEditing.processDragging();
       
-      const {
-        moving,
-        itemCreating,
-        itemEditing
-      } = this;
-      
-      if (!moving && !itemCreating && itemEditing) {
-        const draggingResult = itemEditing.processDragging();
+      if (typeof draggingResult === 'number') {
+        const statsList = this.getAllStats();
         
-        if (typeof draggingResult === 'number') {
-          const statsList = this.getAllStats();
-          
-          this.options.onPointInsert?.(itemEditing.stats, draggingResult, statsList);
-          this.emit('point-insert', itemEditing.stats, draggingResult, statsList);
-        }
+        this.options.onPointInsert?.(itemEditing.stats, draggingResult, statsList);
+        this.emit('point-insert', itemEditing.stats, draggingResult, statsList);
       }
     }
     
-    if (this.isMouseInStage()) {
+    if (this.isMouseInStage() || itemCreating || itemEditing) {
       this.draw();
     }
   };
@@ -460,12 +481,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     resizeObserver.observe(stage);
     
-    /*
-     * 以下场景需要
-     *
-     * 1. 初始化的时候，鼠标在 stage 内，尚未移动，需第一时间感知鼠标位置
-     * 2. Cmd Tab 导致 leave/enter 状态切换
-     */
     stage.addEventListener('mouseenter', this._handleMouseEnterStage);
     stage.addEventListener('mouseleave', this._handleMouseLeaveStage);
     
@@ -576,16 +591,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.imageLoading = false;
   }
   
-  private refreshMouseRelative(e: MouseEvent | null): void {
+  private refreshMouse(e: MouseEvent | null): void {
     if (e) {
       const rectStage = this.stage.getBoundingClientRect();
       
-      this.mouseRelative = roundCoords([
+      this.mouse = roundCoords([
         e.clientX - rectStage.left,
         e.clientY - rectStage.top
       ]);
-    } else {
-      this.mouseRelative = [-1, -1];
     }
     
     this.refreshMouseInImage();
@@ -598,20 +611,26 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.clearJustified();
     
     const {
-      mouseInCanvas,
+      mouseInCanvasUnprotected,
       itemCreating,
       itemEditing
     } = this;
+    const mouseIsInCanvas = this.isMouseInCanvas();
+    const rectStage = this.stage.getBoundingClientRect();
+    const rectCanvas = this.canvas.getBoundingClientRect();
+    const canvasX = rectCanvas.left - rectStage.left;
+    const canvasY = rectCanvas.top - rectStage.top;
     
-    if (mouseInCanvas) {
-      this.mouseInImage = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
-      
-      if (itemCreating || itemEditing) {
-        this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
-      }
+    this.mouseInImage = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords([
+      _clamp(mouseInCanvasUnprotected[0], canvasX >= 0 ? 0 : Math.abs(canvasX), Math.min(rectCanvas.width, rectStage.width - canvasX)),
+      _clamp(mouseInCanvasUnprotected[1], canvasY >= 0 ? 0 : Math.abs(canvasY), Math.min(rectCanvas.height, rectStage.height - canvasY))
+    ]));
+    
+    if (mouseIsInCanvas && (itemCreating || itemEditing)) {
+      this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
     }
     
-    this.hoverMarkingItem(!mouseInCanvas || this.moving || itemCreating || itemEditing?.stats.dragging ? null : this.itemUnderMouse);
+    this.hoverMarkingItem(!mouseIsInCanvas || this.moving || itemCreating || itemEditing?.stats.dragging ? null : this.itemUnderMouse);
   }
   
   /**
@@ -644,9 +663,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private isMouseInStage(): boolean {
+    if (!this.mouseEntered) {
+      return false;
+    }
+    
     const {
       stage,
-      mouseRelative: [x, y]
+      mouse: [x, y]
     } = this;
     const rectStage = stage.getBoundingClientRect();
     
@@ -654,13 +677,15 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private isMouseInCanvas(): boolean {
+    if (!this.mouseEntered) {
+      return false;
+    }
+    
     const {
-      stage,
-      canvas,
-      mouseRelative: [x, y]
+      mouse: [x, y]
     } = this;
-    const rectStage = stage.getBoundingClientRect();
-    const rectCanvas = canvas.getBoundingClientRect();
+    const rectStage = this.stage.getBoundingClientRect();
+    const rectCanvas = this.canvas.getBoundingClientRect();
     const canvasX = rectCanvas.left - rectStage.left;
     const canvasY = rectCanvas.top - rectStage.top;
     
@@ -876,17 +901,15 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return false;
     }
     
+    const itemStatsCreating = this.itemCreating?.stats;
+    const itemStatsEditing = this.itemEditing?.stats;
     const {
-      mouseInImage,
-      itemCreating,
-      itemEditing
+      mouseInImage
     } = this;
-    const creatingStats = itemCreating?.stats;
-    const editingStats = itemEditing?.stats;
-    let justifiedResult = creatingStats ? justifyMagnetAlongPath(mouseInImage, creatingStats.path, magnetRadius) : null;
+    let justifiedResult = itemStatsCreating ? justifyMagnetAlongPath(mouseInImage, itemStatsCreating.path, magnetRadius) : null;
     
-    justifiedResult ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyMagnetAlongPath(mouseInImage, editingStats.path.filter((_v, i) => {
-      return i !== editingStats.draggingPointIndex;
+    justifiedResult ||= itemStatsEditing && itemStatsEditing.draggingPointIndex >= 0 ? justifyMagnetAlongPath(mouseInImage, itemStatsEditing.path.filter((_v, i) => {
+      return i !== itemStatsEditing.draggingPointIndex;
     }), magnetRadius) : null;
     
     justifiedResult ||= justifyMagnetAlongPaths(mouseInImage, this.getAllPaths(true), magnetRadius);
@@ -1709,12 +1732,12 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       })(),
       imageSize: imageLoader ? [imageLoader.naturalWidth, imageLoader.naturalHeight] : [0, 0],
       imageScale: this.imageScale,
-      mouseInImage: _cloneDeep(this.mouseInImage), // 避免使用 immer 对其锁定造成新建后拖拽报错
-      mouseInImageJustified: this.justified,
       // 鼠标
-      mouseRelative: this.mouseRelative,
+      mouse: this.mouse,
       mouseInStage: this.mouseInStage,
       mouseInCanvas: this.mouseInCanvas,
+      mouseInImage: _cloneDeep(this.mouseInImage), // 避免使用 immer 对其锁定造成新建后拖拽报错
+      mouseInImageJustified: this.justified,
       mouseDownCanvas: this.mouseDownCanvas,
       mouseDownMoving: this.mouseDownMoving,
       // 移动状态
