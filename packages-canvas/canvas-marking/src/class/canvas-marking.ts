@@ -117,11 +117,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private itemCreating: CanvasMarkingItem<T> | null = null;
   
   // --- 鼠标状态 --- //
-  mouseInImage: Point = [-1, -1]; // 鼠标在图片上的坐标（图片像素），即使鼠标移出，也能够保证之前画的图形不会消失
   /**
    * 鼠标相对于 stage 左上角实时坐标（屏幕像素），不论内外（因此可能有负值）
    */
   private mouseRelative: Point = [-1, -1];
+  mouseInImage: Point = [-1, -1]; // 鼠标在图片上的坐标（图片像素），即使鼠标移出，也能够保证之前画的图形不会消失
   /**
    * 鼠标在 canvas 内部按下
    */
@@ -251,13 +251,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private _handleMouseEnterStage = (e: MouseEvent): void => {
     this.refreshMouseRelative(e);
-    this.refreshMouseInCanvas();
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_ENTER);
   };
   
   private _handleMouseLeaveStage = (): void => {
-    this.mouseRelative = [-1, -1];
-    this.refreshMouseInCanvas();
+    this.refreshMouseRelative(null);
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE);
   };
   
@@ -266,8 +264,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.refreshStats(EMarkingStatsChangeCause.MOUSE_MOVE);
     
     if (this.isMouseInCanvas()) {
-      this.refreshMouseInCanvas();
-      
       if (this.mouseDownCanvas) {
         this.mouseDownMoving = true;
       }
@@ -580,47 +576,42 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.imageLoading = false;
   }
   
-  private refreshMouseRelative(e: MouseEvent): void {
-    const rectStage = this.stage.getBoundingClientRect();
-    
-    this.mouseRelative = roundCoords([
-      e.clientX - rectStage.left,
-      e.clientY - rectStage.top
-    ]);
-  }
-  
-  /**
-   * 刷新 canvas 鼠标信息
-   */
-  private refreshMouseInCanvas(): void {
-    this.refreshImageMouse();
-    
-    if (!this.isMouseInCanvas() || this.moving || this.itemCreating || this.itemEditing?.stats.dragging) {
-      this.hoverMarkingItem(null);
+  private refreshMouseRelative(e: MouseEvent | null): void {
+    if (e) {
+      const rectStage = this.stage.getBoundingClientRect();
+      
+      this.mouseRelative = roundCoords([
+        e.clientX - rectStage.left,
+        e.clientY - rectStage.top
+      ]);
     } else {
-      this.hoverMarkingItem(this.itemUnderMouse);
+      this.mouseRelative = [-1, -1];
     }
+    
+    this.refreshMouseInImage();
   }
   
   /**
    * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
    */
-  private refreshImageMouse(): void {
+  private refreshMouseInImage(): void {
     this.clearJustified();
     
     const {
-      mouseInCanvas
+      mouseInCanvas,
+      itemCreating,
+      itemEditing
     } = this;
     
-    if (!mouseInCanvas) {
-      return;
+    if (mouseInCanvas) {
+      this.mouseInImage = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
+      
+      if (itemCreating || itemEditing) {
+        this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
+      }
     }
     
-    this.mouseInImage = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
-    
-    if (this.itemCreating || this.itemEditing) {
-      this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
-    }
+    this.hoverMarkingItem(!mouseInCanvas || this.moving || itemCreating || itemEditing?.stats.dragging ? null : this.itemUnderMouse);
   }
   
   /**
@@ -766,38 +757,35 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private actOnMouseClick(): void {
     const {
-      itemCreating,
-      itemUnderMouse,
-      itemHighlighting
+      itemUnderMouse
     } = this;
     
-    itemHighlighting?.toggleHighlighting(false);
+    this.itemHighlighting?.toggleHighlighting(false);
     
-    const stats = itemUnderMouse?.stats;
+    const itemStatsUnderMouse = itemUnderMouse?.stats;
     
-    if (stats && !stats.noClick) {
+    if (itemStatsUnderMouse && !itemStatsUnderMouse.noClick) {
       const statsList = this.getAllStats();
       
-      this.options.onClick?.(stats, statsList);
-      this.emit('click', stats, statsList);
+      this.options.onClick?.(itemStatsUnderMouse, statsList);
+      this.emit('click', itemStatsUnderMouse, statsList);
     }
     
-    if (!itemCreating) {
+    if (!this.itemCreating) {
       this.selectItem(itemUnderMouse);
     }
   }
   
   private actOnMouseClickDouble(): void {
-    const {
-      itemCreating,
-      itemEditing
-    } = this;
-    
-    if (itemCreating) { // 新建中，结束新建（可能取消或完成）
+    if (this.itemCreating) { // 新建中，结束新建（可能取消或完成）
       this.finishCreatingInternal(EFinishCreatingReason.DOUBLE_CLICK);
       
       return;
     }
+    
+    const {
+      itemEditing
+    } = this;
     
     if (!itemEditing) {
       return;
@@ -1207,7 +1195,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.setupScaleSizing(zoomLevelNext);
-    this.refreshMouseInCanvas();
+    this.refreshMouseInImage();
     this.updateAndDraw(cause);
     this.throttledFireZoomChange(zoomLevelNext, zoomLevel);
     
@@ -1330,7 +1318,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.justifying = enabled;
-    this.refreshImageMouse();
+    this.refreshMouseInImage();
     this.itemEditing?.processDragging(); // 否则不会立即产生效果
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_JUSTIFY_TRUE : EMarkingStatsChangeCause.TOGGLE_JUSTIFY_FALSE);
   }
@@ -1341,7 +1329,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.snapping = enabled;
-    this.refreshImageMouse();
+    this.refreshMouseInImage();
     this.itemEditing?.processDragging(); // 否则不会立即产生效果
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_SNAP_TRUE : EMarkingStatsChangeCause.TOGGLE_SNAP_FALSE);
   }
