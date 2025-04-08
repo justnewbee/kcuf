@@ -238,13 +238,13 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       canvasMarking: {
         canvasContext,
         imageScale,
-        imageMouse
+        mouseInImage
       }
     } = this;
     
     canvasPathPointShape(canvasContext, point, radius / imageScale, pointType instanceof Image || pointType === 'cross' ? 'square' : pointType);
     
-    return canvasContext.isPointInPath(imageMouse[0], imageMouse[1]);
+    return canvasContext.isPointInPath(mouseInImage[0], mouseInImage[1]);
   }
   
   private get hoveringBorderIndex(): number {
@@ -252,7 +252,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       canvasMarking: {
         canvasContext,
         imageScale,
-        imageMouse
+        mouseInImage
       },
       style: {
         borderDiff,
@@ -263,7 +263,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     const lineWidth = (borderStyle.width + borderStyle.outerWidth * 2) / imageScale; // 考虑边的外框
     
     return pathSegmentList(this.path).findIndex(v => {
-      return canvasCheckPointInStroke(canvasContext, imageMouse, v, lineWidth);
+      return canvasCheckPointInStroke(canvasContext, mouseInImage, v, lineWidth);
     });
   }
   
@@ -372,24 +372,24 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       options,
       canvasMarking: {
         imageSize,
-        imageMouse
+        mouseInImage
       },
       path
     } = this;
     const [p1] = path;
     
-    if (!this.creating || (path.length === 1 && _isEqual(p1, imageMouse))) {
+    if (!this.creating || (path.length === 1 && _isEqual(p1, mouseInImage))) {
       return _cloneDeep(path);
     }
     
     // 以下为新建中的路径
     switch (options.type) {
     case 'rect':
-      return getPathCreatingRect(path, imageMouse);
+      return getPathCreatingRect(path, mouseInImage);
     case 'rect2':
-      return getPathCreatingRect2(path, imageMouse, [[0, 0], imageSize]);
+      return getPathCreatingRect2(path, mouseInImage, [[0, 0], imageSize]);
     default:
-      return getPathCreatingFree(path, imageMouse);
+      return getPathCreatingFree(path, mouseInImage);
     }
   }
   
@@ -788,7 +788,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   checkMouse(): EMarkingMouseStatus {
     const {
       canvasMarking: {
-        imageMouse
+        mouseInImage
       },
       path
     } = this;
@@ -805,7 +805,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       return EMarkingMouseStatus.IN_BORDER;
     }
     
-    if (isPointWithinPath(imageMouse, path)) {
+    if (isPointWithinPath(mouseInImage, path)) {
       return EMarkingMouseStatus.IN;
     }
     
@@ -862,7 +862,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     
     const {
       canvasMarking: {
-        imageMouse,
+        mouseInImage,
         imageScale
       },
       options,
@@ -871,7 +871,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       stats
     } = this;
     
-    if (onPointPushPre?.(imageMouse, stats, this.canvasMarking.statsSnapshot) === false) {
+    if (onPointPushPre?.(mouseInImage, stats, this.canvasMarking.statsSnapshot) === false) {
       return false;
     }
     
@@ -905,11 +905,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         return false;
       }
       
-      if (isPointOnPath(imageMouse, this.path, true)) {
+      if (isPointOnPath(mouseInImage, this.path, true)) {
         return false;
       }
       
-      this.path.push(imageMouse);
+      this.path.push(mouseInImage);
       
       break;
     }
@@ -924,7 +924,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   startDragging(): boolean {
     const {
       canvasMarking: {
-        imageMouse
+        mouseInImage
       },
       hoveringPointIndex,
       hoveringInsertionPointIndex
@@ -945,7 +945,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     // 缓存住
     this.draggingPointIndex = hoveringPointIndex;
     this.draggingInsertionPointIndex = hoveringInsertionPointIndex;
-    this.draggingStartCoords = imageMouse;
+    this.draggingStartCoords = mouseInImage;
     this.pathSnapshotDragging = _cloneDeep(this.path);
     
     return true;
@@ -959,7 +959,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     const {
       canvasMarking: {
         imageSize,
-        imageMouse
+        mouseInImage
       },
       draggingPointIndex,
       draggingInsertionPointIndex,
@@ -969,13 +969,13 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     this.draggingMoved = true;
     
     if (draggingPointIndex >= 0) { // 拖动单个顶点
-      this.path.splice(draggingPointIndex, 1, [imageMouse[0], imageMouse[1]]);
+      this.path.splice(draggingPointIndex, 1, [mouseInImage[0], mouseInImage[1]]);
       
       return true;
     }
     
     if (draggingInsertionPointIndex >= 0) { // 拖动的是虚拟点，转正
-      this.path.splice(draggingInsertionPointIndex + 1, 0, [imageMouse[0], imageMouse[1]]); // 新一个 Point，避免类似 immer 的锁对象行为造成问题
+      this.path.splice(draggingInsertionPointIndex + 1, 0, [mouseInImage[0], mouseInImage[1]]); // 新一个 Point，避免类似 immer 的锁对象行为造成问题
       this.draggingPointIndex = draggingInsertionPointIndex + 1;
       this.draggingInsertionPointIndex = -1; // 消除
       this.refreshStats();
@@ -987,8 +987,8 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     const [[xMin, yMin], [xMax, yMax]] = pathBbox(this.pathSnapshotDragging);
     
     this.path = translatePath(this.pathSnapshotDragging, [
-      _clamp(imageMouse[0] - draggingStartCoords[0], -xMin, imageSize[0] - xMax),
-      _clamp(imageMouse[1] - draggingStartCoords[1], -yMin, imageSize[1] - yMax)
+      _clamp(mouseInImage[0] - draggingStartCoords[0], -xMin, imageSize[0] - xMax),
+      _clamp(mouseInImage[1] - draggingStartCoords[1], -yMin, imageSize[1] - yMax)
     ]);
     
     return true;

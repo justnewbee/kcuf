@@ -44,7 +44,7 @@ export interface ICanvasMarkingClassProtected<T = unknown> {
   /**
    * 鼠标相对于图片的坐标，鼠标移出后不会清空
    */
-  imageMouse: Point;
+  mouseInImage: Point;
   /**
    * 当前状态之快照
    */
@@ -138,11 +138,6 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   moveBy(dx: number, dy: number): void;
   
   /**
-   * 主动获取当前状态，一般不需要主动调用，建议在 options.onStatsChange 监听
-   */
-  getStats(): IMarkingStats<T>;
-  
-  /**
    * 根据当前 stats 进行绘画，主要用于内部调用；但也可以由使用者按需主动调用，`drawExtra` 仅供外部调用，以于画一些额外的图形
    *
    * `drawExtra` 的 `scale` 参数主要用于画视觉等效的线
@@ -153,6 +148,11 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
    * 销毁
    */
   destroy(): void;
+  
+  /**
+   * 主动获取当前状态，一般不需要主动调用，建议在 options.onStatsChange 监听
+   */
+  getStats(): IMarkingStats<T>;
 }
 
 export type TCanvasMarkingPluginRegister<T = unknown> = (markingStage: ICanvasMarkingClass<T>) => IMarkingPlugin<T>;

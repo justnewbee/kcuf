@@ -64,8 +64,9 @@ export interface IMarkingStats<T = unknown> {
   imageStatus: EImageStatus;
   imageSize: TSize;
   imageScale: number;
-  imageMouse: Point;
-  imageMouseJustified: EMouseJustifyStatus;
+  mouseInImage: Point;
+  mouseInImageJustified: EMouseJustifyStatus;
+  mouseRelative: Point | null;
   mouseInStage: Point | null;
   mouseInCanvas: Point | null;
   mouseDownCanvas: boolean;

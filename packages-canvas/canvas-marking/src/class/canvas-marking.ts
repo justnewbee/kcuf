@@ -5,17 +5,17 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _throttle from 'lodash/throttle';
 
 import {
-  Path,
   Point,
+  Path,
   Angle,
-  roundCoords,
-  pathPointSiblingsByIndex,
-  pathsAuxiliaryList,
   justifyMagnetAlongPath,
   justifyMagnetAlongPaths,
   justifyPerpendicularExternal,
   justifyPerpendicularInternal,
-  justifySnapAroundPivots
+  justifySnapAroundPivots,
+  pathPointSiblingsByIndex,
+  pathsAuxiliaryList,
+  roundCoords
 } from '@kcuf/geometry-basic';
 import {
   pixelRatioGet,
@@ -57,13 +57,13 @@ import {
 } from '../const';
 import {
   myDebug,
-  loadImage,
   bindDocumentEvent,
   canvasDrawPerpendicularMark,
   createDomCanvas,
   createDomImageBg,
   createDomStage,
   getMouseJustifyStatusMagnet,
+  loadImage,
   sortMarkingItems
 } from '../util';
 
@@ -76,13 +76,12 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   readonly canvas: HTMLCanvasElement;
   readonly canvasContext: CanvasRenderingContext2D;
   
-  imageSize: TSize = [200, 200];
-  imageScale = 1;
-  imageMouse: Point = [-1, -1]; // 鼠标在图片上的坐标（图片像素），即使鼠标移出，也能够保证之前画的图形不会消失
   statsSnapshot: IMarkingStats<T>;
   
   private readonly markingItems: IMarkingItemClass<T>[] = [];
   
+  imageSize: TSize = [200, 200];
+  imageScale = 1;
   /**
    * 缓存已加载的图片 URL 和 <img> 对象（必定成对出现）
    */
@@ -117,14 +116,28 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    */
   private itemCreating: CanvasMarkingItem<T> | null = null;
   
-  // 鼠标状态
-  // 鼠标相对于组件的实时坐标（屏幕像素），null 表示在组件外
-  private mouseInStage: Point | null = null;
-  // 鼠标相对于 canvas 的实时坐标（屏幕像素），null 表示在 canvas 外
-  private mouseInCanvas: Point | null = null;
+  // --- 鼠标状态 --- //
+  mouseInImage: Point = [-1, -1]; // 鼠标在图片上的坐标（图片像素），即使鼠标移出，也能够保证之前画的图形不会消失
+  /**
+   * 鼠标相对于 stage 左上角实时坐标（屏幕像素），不论内外（因此可能有负值）
+   */
+  private mouseRelative: Point | null = null;
+  /**
+   * 鼠标在 stage 内部
+   */
+  private mouseIsInStage = false;
+  /**
+   * 鼠标在 canvas 内部
+   */
+  private mouseIsInCanvas = false;
+  /**
+   * 鼠标在 canvas 内部按下
+   */
   private mouseDownCanvas = false;
+  /**
+   * 鼠标在 canvas 内部按下后拖移中
+   */
   private mouseDownMoving = false;
-  
   /**
    * 我们使用 MouseUp 模拟点击事件，并使用点击间隔进行双击判断，原因如下：
    *
@@ -167,41 +180,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    */
   private cleanups: (() => void)[] = [];
   
-  constructor(container: HTMLElement, options?: ICanvasMarkingOptions<T>) {
-    super();
-    
-    const safeOptions = _merge({}, DEFAULT_MARKING_OPTIONS, options);
-    
-    const stage = createDomStage();
-    const imageBg = createDomImageBg(safeOptions.imageBgc);
-    const canvas = createDomCanvas();
-    
-    stage.prepend(imageBg); // 作为其第一个元素，可以不需要设 z-index
-    stage.appendChild(canvas);
-    container.style.overflow = 'hidden';
-    container.style.position = 'relative';
-    container.appendChild(stage);
-    
-    this.container = container;
-    this.options = safeOptions;
-    this.stage = stage;
-    this.imageBg = imageBg;
-    this.canvas = canvas;
-    this.canvasContext = canvas.getContext('2d')!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-    this.statsSnapshot = this.getStats();
-    
-    this.setupEvents();
-    this.setupScaleSizing();
-    this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, true);
-  }
-  
-  // Subscribable beforeEmit
-  beforeEmit(topic: keyof TSubscribableEvents, args: unknown[]): void {
-    if (this.options.debugEvents && topic !== 'stats-change') {
-      myDebug(topic, args);
-    }
-  }
-  
   private get imageFitScale(): number {
     const {
       stage,
@@ -223,6 +201,34 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     // 宽比大于高比，则定高，宽度自适应；否则定宽，高度自适应
     return imageScaleW > imageScaleH ? imageScaleH : imageScaleW;
+  }
+  
+  private get mouseInStage(): Point | null {
+    const {
+      mouseIsInStage,
+      mouseRelative
+    } = this;
+    
+    return mouseIsInStage && mouseRelative ? mouseRelative : null;
+  }
+  
+  private get mouseInCanvas(): Point | null {
+    const {
+      mouseRelative,
+      mouseIsInCanvas
+    } = this;
+    
+    if (!mouseRelative || !mouseIsInCanvas) {
+      return null;
+    }
+    
+    const rectStage = this.stage.getBoundingClientRect();
+    const rectCanvas = this.canvas.getBoundingClientRect();
+    
+    return roundCoords([
+      _clamp(mouseRelative[0] + rectStage.left - rectCanvas.left, 0, rectCanvas.width),
+      _clamp(mouseRelative[1] + rectStage.top - rectCanvas.top, 0, rectCanvas.height)
+    ]);
   }
   
   private get itemHovering(): IMarkingItemClass<T> | null {
@@ -252,251 +258,43 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     };
   }
   
-  private getOptionJustifyPerpendicularThresholdRadius(): number {
-    const {
-      options: {
-        justifyPerpendicularThresholdRadius = DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS
-      }
-    } = this;
-    
-    return this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius);
-  }
-  
-  private getAllStats(excludeEditing?: boolean): IMarkingItemStats<T>[] {
-    const {
-      itemEditing
-    } = this;
-    
-    return (excludeEditing && itemEditing ? this.markingItems.filter(v => v !== itemEditing) : this.markingItems).map(v => v.stats);
-  }
-  
-  private getAllPaths(excludeEditing?: boolean): Path[] {
-    return this.getAllStats(excludeEditing).map(v => v.path);
-  }
-  
-  private getMouseInStageFromMouseEvent(e: MouseEvent): Point {
-    const rectStage = this.stage.getBoundingClientRect();
-    
-    return roundCoords([
-      _clamp(e.clientX - rectStage.left, 0, rectStage.width),
-      _clamp(e.clientY - rectStage.top, 0, rectStage.height)
-    ]);
-  }
-  
-  private getMouseInCanvasFromMouseEvent(e: MouseEvent): Point {
-    const rectCanvas = this.canvas.getBoundingClientRect();
-    
-    return this.roundClampCoordsInCanvas([e.clientX - rectCanvas.left, e.clientY - rectCanvas.top]);
-  }
-  
-  private setupEvents(): void {
-    const {
-      stage,
-      canvas
-    } = this;
-    const resizeObserver = new ResizeObserver((): void => this.handleResize());
-    
-    resizeObserver.observe(stage);
-    
-    stage.addEventListener('mouseenter', (e: MouseEvent): void => this.handleMouseEnterStage(e));
-    stage.addEventListener('mouseleave', (): void => this.handleMouseLeaveStage()); // 这里不用捕获阶段
-    stage.addEventListener('mousemove', (e: MouseEvent): void => this.handleMouseMoveStage(e), true);
-    
-    canvas.addEventListener('mouseenter', (): void => this.handleMouseEnterCanvas());
-    canvas.addEventListener('mouseleave', (e: MouseEvent): void => this.handleMouseLeaveCanvas(e));
-    canvas.addEventListener('mousemove', (): void => this.handleMouseMoveCanvas());
-    canvas.addEventListener('mousedown', (): void => this.handleMouseDownCanvas(), true);
-    
-    // 添加消除副作用的清理方法
-    this.cleanups.push(bindDocumentEvent('mouseup', (): void => this.handleMouseUpWindow(), true));
-    this.cleanups.push(bindDocumentEvent('keydown', (e: KeyboardEvent): void => this.handleKeyDownWindow(e), true));
-    this.cleanups.push(() => resizeObserver.disconnect());
-    this.cleanups.push(pixelRatioListen(pixelRatio => this.updatePixelRatio(pixelRatio)));
-  }
-  
-  private async setupImageAndMarkings(imageUrl = '', markings: IMarkingConfigItem<T>[] = [], init?: boolean): Promise<void> {
-    this.markingItems.length = 0;
-    
-    markings.forEach(v => this.markingItems.push(this.createMarkingItem(v)));
-    
-    await this.setupImage(imageUrl); // 保证图片加载完成再渲染 MarkingItem
-    
-    this.updateAndDraw(init ? EMarkingStatsChangeCause.INIT : EMarkingStatsChangeCause.SET_DATA);
-  }
-  
-  private async setupImage(imageUrl: string): Promise<void> {
-    if (imageUrl === this.imageUrl) { // 避免相同的图片重复加载渲染造成的闪现
-      return;
-    }
-    
-    const {
-      imageBg
-    } = this;
-    
-    imageBg.style.transition = 'none'; // 为了保证切图的时候，新图不产生残影
-    imageBg.style.opacity = '0'; // 若有图，则等加载完再显示
-    imageBg.style.backgroundImage = imageUrl ? `url(${imageUrl})` : 'none';
-    
-    this.moveTo([0, 0]);
-    this.imageUrl = imageUrl;
-    this.imageLoader = null;
-    this.setupScaleSizing();
-    
-    if (!imageUrl) {
-      return;
-    }
-    
-    this.imageLoading = true;
-    this.updateAndDraw(EMarkingStatsChangeCause.LOADING_IMAGE);
-    this.options.onImageLoadStart?.(imageUrl);
-    this.emit('image-load-start', imageUrl);
-    
-    const start = Date.now();
-    
-    try {
-      const imageLoader = await loadImage(imageUrl);
-      const duration = Date.now() - start;
-      
-      this.imageLoader = imageLoader;
-      
-      imageBg.style.transition = 'opacity 200ms ease-in-out';
-      imageBg.style.opacity = '1';
-      
-      this.options.onImageLoadSuccess?.(imageUrl, [imageLoader.naturalWidth, imageLoader.naturalHeight], duration);
-      this.emit('image-load-success', imageUrl, [imageLoader.naturalWidth, imageLoader.naturalHeight], duration);
-    } catch (_err) {
-      const duration = Date.now() - start;
-      
-      this.imageLoader = null;
-      this.imageUrl = ''; // 再次设置，可以重新加载
-      
-      this.options.onImageLoadError?.(imageUrl, duration);
-      this.emit('image-load-error', imageUrl, duration);
-    }
-    
-    this.setupScaleSizing();
-    this.imageLoading = false;
-  }
-  
-  /**
-   * 根据容器大小、图片本身大小等，计算并设置 canvas 的大小和位置
-   */
-  private setupScaleSizing(zoomLevel = 1): void {
-    const {
-      canvas,
-      imageBg,
-      imageLoader,
-      pixelRatio
-    } = this;
-    
-    this.zoomLevel = zoomLevel;
-    this.imageScale = this.imageFitScale * zoomLevel;
-    
-    const rect = this.stage.getBoundingClientRect();
-    const width = Math.round((imageLoader?.naturalWidth || rect.width) * this.imageScale);
-    const height = Math.round((imageLoader?.naturalHeight || rect.height) * this.imageScale);
-    const top = Math.round((rect.height - height) / 2);
-    const left = Math.round((rect.width - width) / 2);
-    
-    imageBg.style.width = `${width}px`;
-    imageBg.style.height = `${height}px`;
-    imageBg.style.top = `${top}px`;
-    imageBg.style.left = `${left}px`;
-    
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
-    canvas.width = width * pixelRatio;
-    canvas.height = height * pixelRatio;
-    canvas.style.top = `${top}px`;
-    canvas.style.left = `${left}px`;
-  }
-  
-  private updatePixelRatio(pixelRatio: number): void {
-    this.pixelRatio = pixelRatio;
-    this.setupScaleSizing();
-    this.draw();
-  }
-  
-  /**
-   * 是否正在双击中
-   */
-  private isDoubleClicking(): boolean {
-    const {
-      options: {
-        doubleClickInterval = 200
-      },
-      mouseClickTime
-    } = this;
-    
-    return Date.now() - mouseClickTime <= doubleClickInterval;
-  }
-  
-  private createMarkingItem(extraOptions?: IMarkingItemOptions<T>, initialPath?: Path): CanvasMarkingItem<T> {
-    const {
-      options
-    } = this;
-    
-    return new CanvasMarkingItem<T>(this, {
-      styleConfig: options.styleConfig,
-      pointCountMin: options.pointCountMin,
-      pointCountMax: options.pointCountMax,
-      pointInsertionMinDistance: options.pointInsertionMinDistance,
-      ...extraOptions
-    }, initialPath);
-  }
-  
-  private creatingPushPoint(byEnter?: boolean): void {
-    const {
-      mouseInCanvas,
-      itemCreating
-    } = this;
-    
-    if (!mouseInCanvas || !itemCreating) {
-      return;
-    }
-    
-    const result = itemCreating.pushPoint(this.options.onPointPushPre);
-    
-    if (result !== false) {
-      const statsList = this.getAllStats();
-      
-      this.options.onPointPush?.(itemCreating.stats, statsList);
-      this.emit('point-push', itemCreating.stats, statsList);
-    }
-    
-    switch (result) {
-    case 'close':
-      this.finishCreatingInternal(byEnter ? EFinishCreatingReason.ENTER : EFinishCreatingReason.CLOSE);
-      
-      break;
-    case 'last':
-      this.finishCreatingInternal(byEnter ? EFinishCreatingReason.ENTER : EFinishCreatingReason.LAST);
-      
-      break;
-    default:
-      break;
-    }
-  }
-  
-  private handleResize(): void {
+  private _handleResize = (): void => {
     this.setupScaleSizing();
     this.updateAndDraw(EMarkingStatsChangeCause.RESIZE);
-  }
+  };
   
-  private handleMouseEnterStage(e: MouseEvent): void {
-    this.mouseInStage = this.getMouseInStageFromMouseEvent(e);
+  private _handleMouseEnterStage = (e: MouseEvent): void => {
+    this.mouseIsInStage = true;
+    this.refreshMouseRelative(e);
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_ENTER_STAGE);
-  }
+  };
   
-  private handleMouseLeaveStage(): void {
-    this.mouseInStage = null;
+  private _handleMouseEnterCanvas = (): void => {
+    this.mouseIsInCanvas = true;
+    this.refreshMouseInCanvas();
+    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_ENTER_CANVAS);
+  };
+  
+  private _handleMouseLeaveStage = (e: MouseEvent): void => {
+    this.mouseIsInStage = false;
+    this.refreshMouseRelative(e);
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE_STAGE);
-  }
+  };
   
-  private handleMouseMoveStage(e: MouseEvent): void {
-    this.mouseInStage = this.getMouseInStageFromMouseEvent(e);
-    
-    if (this.mouseInCanvas) {
+  private _handleMouseLeaveCanvas = (): void => {
+    this.mouseIsInCanvas = false;
+    this.hoverMarkingItem(null);
+    this.refreshImageMouse(); // 避免出现空隙
+    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE_CANVAS);
+  };
+  
+  private _handleMouseMoveCanvas = (): void => {
+    this.refreshMouseInCanvas();
+    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_MOVE_CANVAS);
+  };
+  
+  private _handleMouseMoveStage = (): void => {
+    if (this.mouseIsInCanvas) {
       if (this.mouseDownCanvas) {
         this.mouseDownMoving = true;
       }
@@ -522,26 +320,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_MOVE_STAGE);
-  }
+  };
   
-  private handleMouseEnterCanvas(): void {
-    this.refreshMouseCoordsInCanvas();
-    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_ENTER_CANVAS);
-  }
+  private _handleMouseMoveGlobal = (e: MouseEvent): void => {
+    this.refreshMouseRelative(e);
+  };
   
-  private handleMouseLeaveCanvas(e: MouseEvent): void {
-    this.mouseInCanvas = null;
-    this.hoverMarkingItem(null);
-    this.updateImageMouse(this.getMouseInCanvasFromMouseEvent(e)); // 避免出现空隙
-    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE_CANVAS);
-  }
-  
-  private handleMouseMoveCanvas(): void {
-    this.refreshMouseCoordsInCanvas();
-    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_MOVE_CANVAS);
-  }
-  
-  private handleMouseDownCanvas(): void {
+  private _handleMouseDownCanvas = (): void => {
     this.mouseDownCanvas = true;
     
     if (this.isDoubleClicking()) {
@@ -553,11 +338,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_DOWN_CANVAS);
-  }
+  };
   
-  private handleMouseUpWindow(): void {
+  private _handleMouseUpGlobal = (): void => {
     const {
-      mouseInStage,
       mouseDownMoving
     } = this;
     
@@ -578,7 +362,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    if (!mouseInStage) {
+    if (!this.mouseIsInStage) {
       return;
     }
     
@@ -593,10 +377,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.updateAndDraw(doubleClicking ? EMarkingStatsChangeCause.MOUSE_DOUBLE_CLICK_CANVAS : EMarkingStatsChangeCause.MOUSE_CLICK_CANVAS);
-  }
+  };
   
-  private handleKeyDownWindow(e: KeyboardEvent): void {
-    if (!this.mouseInStage || this.moving || e.repeat) {
+  private _handleKeyDownGlobal = (e: KeyboardEvent): void => {
+    if (!this.mouseIsInStage || this.moving || e.repeat) {
       return;
     }
     
@@ -659,6 +443,303 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       default:
         break;
       }
+    }
+  };
+  
+  constructor(container: HTMLElement, options?: ICanvasMarkingOptions<T>) {
+    super();
+    
+    const safeOptions = _merge({}, DEFAULT_MARKING_OPTIONS, options);
+    
+    /**
+     * 主要组成部分
+     *
+     * ┌- stage ---------------------------┐
+     * | ┌- imageBg ---------------------┐ |
+     * | |                               | |
+     * | |            canvas             | |
+     * | |                               | |
+     * | └-------------------------------┘ |
+     * └-----------------------------------┘
+     */
+    const stage = createDomStage();
+    const imageBg = createDomImageBg(safeOptions.imageBgc);
+    const canvas = createDomCanvas();
+    
+    stage.prepend(imageBg); // 作为其第一个元素，可以不需要设 z-index
+    stage.appendChild(canvas);
+    
+    container.style.position = 'relative';
+    container.style.overflow = 'hidden';
+    container.appendChild(stage);
+    
+    this.container = container;
+    this.options = safeOptions;
+    this.stage = stage;
+    this.imageBg = imageBg;
+    this.canvas = canvas;
+    this.canvasContext = canvas.getContext('2d')!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    this.statsSnapshot = this.getStats();
+    
+    this.setupEvents();
+    this.setupScaleSizing();
+    this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, true);
+  }
+  
+  private setupEvents(): void {
+    const {
+      stage,
+      canvas
+    } = this;
+    const resizeObserver = new ResizeObserver(this._handleResize);
+    
+    resizeObserver.observe(stage);
+    
+    stage.addEventListener('mouseenter', this._handleMouseEnterStage);
+    stage.addEventListener('mouseleave', this._handleMouseLeaveStage); // 这里不用捕获阶段
+    
+    canvas.addEventListener('mouseenter', this._handleMouseEnterCanvas);
+    canvas.addEventListener('mouseleave', this._handleMouseLeaveCanvas);
+    canvas.addEventListener('mousedown', this._handleMouseDownCanvas, true);
+    
+    // TODO RM the two below
+    stage.addEventListener('mousemove', this._handleMouseMoveStage, true);
+    canvas.addEventListener('mousemove', this._handleMouseMoveCanvas);
+    
+    // 添加消除副作用的清理方法
+    this.cleanups.push(bindDocumentEvent('mousemove', this._handleMouseMoveGlobal, true));
+    this.cleanups.push(bindDocumentEvent('mouseup', this._handleMouseUpGlobal, true));
+    this.cleanups.push(bindDocumentEvent('keydown', this._handleKeyDownGlobal, true));
+    this.cleanups.push(() => resizeObserver.disconnect());
+    this.cleanups.push(pixelRatioListen(pixelRatio => this.updatePixelRatio(pixelRatio)));
+  }
+  
+  private async setupImageAndMarkings(imageUrl = '', markings: IMarkingConfigItem<T>[] = [], init?: boolean): Promise<void> {
+    this.markingItems.length = 0;
+    
+    markings.forEach(v => this.markingItems.push(this.createMarkingItem(v)));
+    
+    await this.setupImage(imageUrl); // 保证图片加载完成再渲染 MarkingItem
+    
+    this.updateAndDraw(init ? EMarkingStatsChangeCause.INIT : EMarkingStatsChangeCause.SET_DATA);
+  }
+  
+  /**
+   * 根据容器大小、图片本身大小等，计算并设置 canvas 的大小和位置
+   */
+  private setupScaleSizing(zoomLevel = 1): void {
+    const {
+      canvas,
+      imageBg,
+      imageLoader,
+      pixelRatio
+    } = this;
+    
+    this.zoomLevel = zoomLevel;
+    this.imageScale = this.imageFitScale * zoomLevel;
+    
+    const rect = this.stage.getBoundingClientRect();
+    const width = Math.round((imageLoader?.naturalWidth || rect.width) * this.imageScale);
+    const height = Math.round((imageLoader?.naturalHeight || rect.height) * this.imageScale);
+    const top = Math.round((rect.height - height) / 2);
+    const left = Math.round((rect.width - width) / 2);
+    
+    imageBg.style.width = `${width}px`;
+    imageBg.style.height = `${height}px`;
+    imageBg.style.top = `${top}px`;
+    imageBg.style.left = `${left}px`;
+    
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+    canvas.width = width * pixelRatio;
+    canvas.height = height * pixelRatio;
+    canvas.style.top = `${top}px`;
+    canvas.style.left = `${left}px`;
+  }
+  
+  private async setupImage(imageUrl: string): Promise<void> {
+    if (imageUrl === this.imageUrl) { // 避免相同的图片重复加载渲染造成的闪现
+      return;
+    }
+    
+    const {
+      imageBg
+    } = this;
+    
+    imageBg.style.transition = 'none'; // 为了保证切图的时候，新图不产生残影
+    imageBg.style.opacity = '0'; // 若有图，则等加载完再显示
+    imageBg.style.backgroundImage = imageUrl ? `url(${imageUrl})` : 'none';
+    
+    this.moveTo([0, 0]);
+    this.imageUrl = imageUrl;
+    this.imageLoader = null;
+    this.setupScaleSizing();
+    
+    if (!imageUrl) {
+      return;
+    }
+    
+    this.imageLoading = true;
+    this.updateAndDraw(EMarkingStatsChangeCause.LOADING_IMAGE);
+    this.options.onImageLoadStart?.(imageUrl);
+    this.emit('image-load-start', imageUrl);
+    
+    const start = Date.now();
+    
+    try {
+      const imageLoader = await loadImage(imageUrl);
+      const duration = Date.now() - start;
+      
+      this.imageLoader = imageLoader;
+      
+      imageBg.style.transition = 'opacity 200ms ease-in-out';
+      imageBg.style.opacity = '1';
+      
+      this.options.onImageLoadSuccess?.(imageUrl, [imageLoader.naturalWidth, imageLoader.naturalHeight], duration);
+      this.emit('image-load-success', imageUrl, [imageLoader.naturalWidth, imageLoader.naturalHeight], duration);
+    } catch (_err) {
+      const duration = Date.now() - start;
+      
+      this.imageLoader = null;
+      this.imageUrl = ''; // 再次设置，可以重新加载
+      
+      this.options.onImageLoadError?.(imageUrl, duration);
+      this.emit('image-load-error', imageUrl, duration);
+    }
+    
+    this.setupScaleSizing();
+    this.imageLoading = false;
+  }
+  
+  private refreshMouseRelative(e: MouseEvent): void {
+    const rectStage = this.stage.getBoundingClientRect();
+    
+    this.mouseRelative = roundCoords([
+      e.clientX - rectStage.left,
+      e.clientY - rectStage.top
+    ]);
+  }
+  
+  /**
+   * 刷新 canvas 鼠标信息
+   */
+  private refreshMouseInCanvas(): void {
+    this.refreshImageMouse();
+    
+    if (!this.mouseIsInCanvas || this.moving || this.itemCreating || this.itemEditing?.stats.dragging) {
+      this.hoverMarkingItem(null);
+    } else {
+      this.hoverMarkingItem(this.itemUnderMouse);
+    }
+  }
+  
+  /**
+   * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
+   */
+  private refreshImageMouse(): void {
+    this.clearJustified();
+    
+    const {
+      mouseInCanvas
+    } = this;
+    
+    if (!mouseInCanvas) {
+      return;
+    }
+    
+    this.mouseInImage = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
+    
+    if (this.itemCreating || this.itemEditing) {
+      this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
+    }
+  }
+  
+  private getOptionJustifyPerpendicularThresholdRadius(): number {
+    const {
+      options: {
+        justifyPerpendicularThresholdRadius = DEFAULT_JUSTIFY_PERPENDICULAR_THRESHOLD_RADIUS
+      }
+    } = this;
+    
+    return this.fromCanvasPixelToImagePixel(justifyPerpendicularThresholdRadius);
+  }
+  
+  private getAllStats(excludeEditing?: boolean): IMarkingItemStats<T>[] {
+    const {
+      itemEditing
+    } = this;
+    
+    return (excludeEditing && itemEditing ? this.markingItems.filter(v => v !== itemEditing) : this.markingItems).map(v => v.stats);
+  }
+  
+  private getAllPaths(excludeEditing?: boolean): Path[] {
+    return this.getAllStats(excludeEditing).map(v => v.path);
+  }
+  
+  private updatePixelRatio(pixelRatio: number): void {
+    this.pixelRatio = pixelRatio;
+    this.setupScaleSizing();
+    this.draw();
+  }
+  
+  /**
+   * 是否正在双击中
+   */
+  private isDoubleClicking(): boolean {
+    const {
+      options: {
+        doubleClickInterval = 200
+      },
+      mouseClickTime
+    } = this;
+    
+    return Date.now() - mouseClickTime <= doubleClickInterval;
+  }
+  
+  private createMarkingItem(extraOptions?: IMarkingItemOptions<T>, initialPath?: Path): CanvasMarkingItem<T> {
+    const {
+      options
+    } = this;
+    
+    return new CanvasMarkingItem<T>(this, {
+      styleConfig: options.styleConfig,
+      pointCountMin: options.pointCountMin,
+      pointCountMax: options.pointCountMax,
+      pointInsertionMinDistance: options.pointInsertionMinDistance,
+      ...extraOptions
+    }, initialPath);
+  }
+  
+  private creatingPushPoint(byEnter?: boolean): void {
+    const {
+      mouseIsInCanvas,
+      itemCreating
+    } = this;
+    
+    if (!mouseIsInCanvas || !itemCreating) {
+      return;
+    }
+    
+    const result = itemCreating.pushPoint(this.options.onPointPushPre);
+    
+    if (result !== false) {
+      const statsList = this.getAllStats();
+      
+      this.options.onPointPush?.(itemCreating.stats, statsList);
+      this.emit('point-push', itemCreating.stats, statsList);
+    }
+    
+    switch (result) {
+    case 'close':
+      this.finishCreatingInternal(byEnter ? EFinishCreatingReason.ENTER : EFinishCreatingReason.CLOSE);
+      
+      break;
+    case 'last':
+      this.finishCreatingInternal(byEnter ? EFinishCreatingReason.ENTER : EFinishCreatingReason.LAST);
+      
+      break;
+    default:
+      break;
     }
   }
   
@@ -769,15 +850,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.draw();
   }
   
-  private roundClampCoordsInCanvas([x, y]: Point): Point {
-    const rectCanvas = this.canvas.getBoundingClientRect();
-    
-    return roundCoords([
-      _clamp(x, 0, rectCanvas.width),
-      _clamp(y, 0, rectCanvas.height)
-    ]);
-  }
-  
   private roundClampCoordsInImage([x, y]: Point): Point {
     const {
       imageSize
@@ -787,32 +859,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       _clamp(x, 0, imageSize[0]),
       _clamp(y, 0, imageSize[1])
     ]);
-  }
-  
-  /**
-   * 刷新 canvas 鼠标信息
-   */
-  private refreshMouseCoordsInCanvas(): void {
-    const rectStage = this.stage.getBoundingClientRect();
-    const rectCanvas = this.canvas.getBoundingClientRect();
-    const mouseInCanvas = this.mouseInStage ? this.roundClampCoordsInCanvas([
-      this.mouseInStage[0] - (rectCanvas.left - rectStage.left),
-      this.mouseInStage[1] - (rectCanvas.top - rectStage.top)
-    ]) : null;
-    const {
-      itemCreating,
-      itemEditing,
-      moving
-    } = this;
-    
-    this.mouseInCanvas = mouseInCanvas;
-    this.updateImageMouse(mouseInCanvas);
-    
-    if (!mouseInCanvas || moving || itemCreating || itemEditing?.stats.dragging) {
-      this.hoverMarkingItem(null);
-    } else {
-      this.hoverMarkingItem(this.itemUnderMouse);
-    }
   }
   
   /**
@@ -829,23 +875,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private clearJustified(): void {
     this.justified = EMouseJustifyStatus.NONE;
     this.justifiedRightAngle = null;
-  }
-  
-  /**
-   * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
-   */
-  private updateImageMouse(mouseInCanvas: Point | null): void {
-    this.clearJustified();
-    
-    if (!mouseInCanvas) {
-      return;
-    }
-    
-    this.imageMouse = this.roundClampCoordsInImage(this.fromCanvasCoordsToImageCoords(mouseInCanvas)); // 鼠标坐标转成图片内部坐标
-    
-    if (this.itemCreating || this.itemEditing) {
-      this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
-    }
   }
   
   /**
@@ -868,24 +897,23 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     const {
-      imageMouse,
+      mouseInImage,
       itemCreating,
       itemEditing
     } = this;
     const creatingStats = itemCreating?.stats;
     const editingStats = itemEditing?.stats;
+    let justifiedResult = creatingStats ? justifyMagnetAlongPath(mouseInImage, creatingStats.path, magnetRadius) : null;
     
-    let justifiedResult = creatingStats ? justifyMagnetAlongPath(imageMouse, creatingStats.path, magnetRadius) : null;
-    
-    justifiedResult ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyMagnetAlongPath(imageMouse, editingStats.path.filter((_v, i) => {
+    justifiedResult ||= editingStats && editingStats.draggingPointIndex >= 0 ? justifyMagnetAlongPath(mouseInImage, editingStats.path.filter((_v, i) => {
       return i !== editingStats.draggingPointIndex;
     }), magnetRadius) : null;
     
-    justifiedResult ||= justifyMagnetAlongPaths(imageMouse, this.getAllPaths(true), magnetRadius);
+    justifiedResult ||= justifyMagnetAlongPaths(mouseInImage, this.getAllPaths(true), magnetRadius);
     
     if (justifiedResult) {
       this.justified = getMouseJustifyStatusMagnet(justifiedResult);
-      this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
+      this.mouseInImage = this.roundClampCoordsInImage(justifiedResult.point);
       
       this.justifyImageMousePerpendicularExternal(); // 磁吸的时候，还需要进一步
     }
@@ -914,13 +942,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       pathToJustifyPerpendicular = [...pathAfter, ...pathBefore];
     }
     
-    const justifiedResult = pathToJustifyPerpendicular ? justifyPerpendicularInternal(this.imageMouse, pathToJustifyPerpendicular, {
+    const justifiedResult = pathToJustifyPerpendicular ? justifyPerpendicularInternal(this.mouseInImage, pathToJustifyPerpendicular, {
       radius: this.getOptionJustifyPerpendicularThresholdRadius()
     }) : null;
     
     if (justifiedResult) {
       this.justified = EMouseJustifyStatus.PERPENDICULAR_INTERNAL;
-      this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
+      this.mouseInImage = this.roundClampCoordsInImage(justifiedResult.point);
     }
     
     return !!justifiedResult;
@@ -944,14 +972,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       pivot = editingStats.path[editingStats.draggingPointIndex === 0 ? 1 : 0];
     }
     
-    const justifiedResult = pivot ? justifyPerpendicularExternal(this.imageMouse, pivot, this.getAllPaths(true), {
+    const justifiedResult = pivot ? justifyPerpendicularExternal(this.mouseInImage, pivot, this.getAllPaths(true), {
       radius: this.getOptionJustifyPerpendicularThresholdRadius()
     }) : null;
     
     if (justifiedResult) {
       this.justified = EMouseJustifyStatus.PERPENDICULAR_EXTERNAL;
       this.justifiedRightAngle = justifiedResult.angle;
-      this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
+      this.mouseInImage = this.roundClampCoordsInImage(justifiedResult.point);
     }
     
     return !!justifiedResult;
@@ -966,7 +994,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     const {
-      imageMouse
+      mouseInImage
     } = this;
     const creatingStats = this.itemCreating?.stats;
     const editingStats = this.itemEditing?.stats;
@@ -986,11 +1014,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       }
     }
     
-    const justifiedResult = justifySnapAroundPivots(imageMouse, [pivot1, pivot2]);
+    const justifiedResult = justifySnapAroundPivots(mouseInImage, [pivot1, pivot2]);
     
     if (justifiedResult) {
       this.justified = EMouseJustifyStatus.SNAP;
-      this.imageMouse = this.roundClampCoordsInImage(justifiedResult.point);
+      this.mouseInImage = this.roundClampCoordsInImage(justifiedResult.point);
     }
     
     return !!justifiedResult;
@@ -1044,12 +1072,12 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       canvasContext,
       itemCreating,
       itemEditing,
-      imageMouse
+      mouseInImage
     } = this;
     let activePath: Path | undefined;
     
     if (itemCreating) {
-      activePath = [imageMouse];
+      activePath = [mouseInImage];
     } else if (itemEditing && itemEditing.stats.draggingMoved) {
       activePath = itemEditing.stats.path;
     }
@@ -1086,14 +1114,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private drawItems(): void {
     const {
-      mouseInCanvas,
+      mouseIsInCanvas,
       itemCreating,
       itemHighlighting
     } = this;
     
     sortMarkingItems(this.markingItems).forEach(v => v.draw(itemHighlighting ? v !== itemHighlighting : false));
     
-    if (itemCreating && (mouseInCanvas || itemCreating.stats.path.length)) {
+    if (itemCreating && (mouseIsInCanvas || itemCreating.stats.path.length)) {
       itemCreating.draw();
     }
   }
@@ -1188,11 +1216,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.setupScaleSizing(zoomLevelNext);
+    this.refreshMouseInCanvas();
     this.updateAndDraw(cause);
-    this.refreshMouseCoordsInCanvas();
     this.throttledFireZoomChange(zoomLevelNext, zoomLevel);
-    // this.options.onZoomChange?.(zoomLevelNext, zoomLevel);
-    // this.emit('zoom-change', zoomLevelNext, zoomLevel);
     
     // TODO 要做这个事情
     // // 根据缩放前后鼠标在 canvas 上的相对位置变化（后 - 前）
@@ -1313,7 +1339,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.justifying = enabled;
-    this.updateImageMouse(this.mouseInCanvas);
+    this.refreshImageMouse();
     this.itemEditing?.processDragging(); // 否则不会立即产生效果
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_JUSTIFY_TRUE : EMarkingStatsChangeCause.TOGGLE_JUSTIFY_FALSE);
   }
@@ -1324,7 +1350,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.snapping = enabled;
-    this.updateImageMouse(this.mouseInCanvas);
+    this.refreshImageMouse();
     this.itemEditing?.processDragging(); // 否则不会立即产生效果
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_SNAP_TRUE : EMarkingStatsChangeCause.TOGGLE_SNAP_FALSE);
   }
@@ -1613,6 +1639,63 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.updateAndDraw(EMarkingStatsChangeCause.HIGHLIGHT);
   }
   
+  draw(drawExtra?: (canvasContext: CanvasRenderingContext2D, scale: number) => void): void {
+    const {
+      canvas: {
+        width,
+        height
+      },
+      canvasContext,
+      pixelRatio,
+      imageScale,
+      statsSnapshot
+    } = this;
+    
+    if (statsSnapshot.imageStatus === 'loading') {
+      return;
+    }
+    
+    canvasContext.clearRect(0, 0, width, height);
+    canvasContext.scale(imageScale * pixelRatio, imageScale * pixelRatio);
+    
+    this.drawItems();
+    this.drawPerpendicularMark();
+    this.drawAuxiliaryLines();
+    
+    if (drawExtra) {
+      canvasContext.save();
+      drawExtra(canvasContext, imageScale);
+      canvasContext.restore();
+    }
+    
+    canvasContext.setTransform(1, 0, 0, 1, 0, 0); // 清除，必须清除，否则 scale 效果会叠加
+  }
+  
+  /**
+   * @implements Subscribable beforeEmit
+   */
+  beforeEmit(topic: keyof TSubscribableEvents, args: unknown[]): void {
+    if (this.options.debugEvents && topic !== 'stats-change') {
+      myDebug(topic, args);
+    }
+  }
+  
+  destroy(): void {
+    this.pluginMap.forEach(v => {
+      v.cleanup?.();
+    });
+    this.pluginMap.clear();
+    
+    this.cleanups.forEach(v => v());
+    this.cleanups = [];
+    
+    try {
+      this.container.removeChild(this.stage);
+    } catch (_err) {
+      // Uncaught DOMException: Node.removeChild: The node to be removed is not a child of this node
+    }
+  }
+  
   getStats(): IMarkingStats<T> {
     const {
       stage,
@@ -1651,9 +1734,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       })(),
       imageSize: imageLoader ? [imageLoader.naturalWidth, imageLoader.naturalHeight] : [0, 0],
       imageScale: this.imageScale,
-      imageMouse: _cloneDeep(this.imageMouse), // 避免使用 immer 对其锁定造成新建后拖拽报错
-      imageMouseJustified: this.justified,
+      mouseInImage: _cloneDeep(this.mouseInImage), // 避免使用 immer 对其锁定造成新建后拖拽报错
+      mouseInImageJustified: this.justified,
       // 鼠标
+      mouseRelative: this.mouseRelative,
       mouseInStage: this.mouseInStage,
       mouseInCanvas: this.mouseInCanvas,
       mouseDownCanvas: this.mouseDownCanvas,
@@ -1691,53 +1775,5 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       editingDraggingPointIndex: itemStatsSelected ? itemStatsSelected.draggingPointIndex : -1,
       editingDraggingInsertionPointIndex: itemStatsSelected ? itemStatsSelected.draggingInsertionPointIndex : -1
     };
-  }
-  
-  draw(drawExtra?: (canvasContext: CanvasRenderingContext2D, scale: number) => void): void {
-    const {
-      canvas: {
-        width,
-        height
-      },
-      canvasContext,
-      pixelRatio,
-      imageScale,
-      statsSnapshot
-    } = this;
-    
-    if (statsSnapshot.imageStatus === 'loading') {
-      return;
-    }
-    
-    canvasContext.clearRect(0, 0, width, height);
-    canvasContext.scale(imageScale * pixelRatio, imageScale * pixelRatio);
-    
-    this.drawItems();
-    this.drawPerpendicularMark();
-    this.drawAuxiliaryLines();
-    
-    if (drawExtra) {
-      canvasContext.save();
-      drawExtra(canvasContext, imageScale);
-      canvasContext.restore();
-    }
-    
-    canvasContext.setTransform(1, 0, 0, 1, 0, 0); // 清除，必须清除，否则 scale 效果会叠加
-  }
-  
-  destroy(): void {
-    this.pluginMap.forEach(v => {
-      v.cleanup?.();
-    });
-    this.pluginMap.clear();
-    
-    this.cleanups.forEach(v => v());
-    this.cleanups = [];
-    
-    try {
-      this.container.removeChild(this.stage);
-    } catch (_err) {
-      // Uncaught DOMException: Node.removeChild: The node to be removed is not a child of this node
-    }
   }
 }

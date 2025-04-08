@@ -51,8 +51,8 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
       return;
     }
     
-    e.stopPropagation();
     e.preventDefault();
+    e.stopPropagation();
     canvasMarking.zoom(e.deltaY > 0 ? EZoomHow.OUT : EZoomHow.IN, Math.ceil(Math.abs(e.deltaY / 4)));
   }
   
