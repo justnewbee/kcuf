@@ -19,7 +19,7 @@ export default function createFpsStyle(stage: HTMLDivElement): string {
     padding: 4px;
     background-color: hsl(0 0% 0% / 80%);
     pointer-events: none;
-    z-index: 10;
+    z-index: 2;
   }
     
     .${className} .${CLASS_FPS_TEXT} {

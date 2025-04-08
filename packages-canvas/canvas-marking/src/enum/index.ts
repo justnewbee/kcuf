@@ -42,12 +42,9 @@ export enum EMarkingMouseStatus {
 export enum EMarkingStatsChangeCause {
   INIT = 'init',
   RESIZE = 'resize',
-  MOUSE_ENTER_STAGE = 'mouse:enter@stage',
-  MOUSE_LEAVE_STAGE = 'mouse:leave@stage',
-  MOUSE_MOVE_STAGE = 'mouse:move@stage',
-  MOUSE_ENTER_CANVAS = 'mouse:enter@canvas',
-  MOUSE_LEAVE_CANVAS = 'mouse:leave@canvas',
-  MOUSE_MOVE_CANVAS = 'mouse:move@canvas',
+  MOUSE_MOVE = 'mouse:move',
+  MOUSE_ENTER = 'mouse:enter',
+  MOUSE_LEAVE = 'mouse:leave',
   MOUSE_DOWN_CANVAS = 'mouse:down@canvas',
   MOUSE_UP_WINDOW = 'mouse:up@window',
   MOUSE_CLICK_CANVAS = 'mouse:click@canvas', // TODO 消化掉

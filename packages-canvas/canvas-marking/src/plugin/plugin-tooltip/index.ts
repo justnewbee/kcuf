@@ -23,8 +23,10 @@ export default function pluginTooltip<T = unknown>(canvasMarking: ICanvasMarking
   
   function showTooltip(message: string, stats: IMarkingStats<T>): void {
     const {
+      stageRect: {
+        size
+      },
       mouseInStage,
-      stageSize,
       creatingCrossing,
       editingCrossing
     } = stats;
@@ -39,17 +41,17 @@ export default function pluginTooltip<T = unknown>(canvasMarking: ICanvasMarking
     
     tooltipElement.innerHTML = message;
     
-    if (mouseInStage[0] > stageSize[0] * 2 / 3) {
+    if (mouseInStage[0] > size[0] * 2 / 3) {
       tooltipElement.style.left = 'auto';
-      tooltipElement.style.right = `${stageSize[0] - mouseInStage[0] + (options.tooltipOptions?.offsetX ?? 16)}px`;
+      tooltipElement.style.right = `${size[0] - mouseInStage[0] + (options.tooltipOptions?.offsetX ?? 16)}px`;
     } else {
       tooltipElement.style.left = `${mouseInStage[0] + (options.tooltipOptions?.offsetX ?? 16)}px`;
       tooltipElement.style.right = 'auto';
     }
     
-    if (mouseInStage[1] > stageSize[1] - BOTTOM_SPACING) {
+    if (mouseInStage[1] > size[1] - BOTTOM_SPACING) {
       tooltipElement.style.top = 'auto';
-      tooltipElement.style.bottom = `${stageSize[1] - mouseInStage[1] + (options.tooltipOptions?.offsetY ?? 4)}px`;
+      tooltipElement.style.bottom = `${size[1] - mouseInStage[1] + (options.tooltipOptions?.offsetY ?? 4)}px`;
     } else {
       tooltipElement.style.top = `${mouseInStage[1] + (options.tooltipOptions?.offsetY ?? 4)}px`;
       tooltipElement.style.bottom = 'auto';

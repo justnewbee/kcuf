@@ -121,15 +121,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   /**
    * 鼠标相对于 stage 左上角实时坐标（屏幕像素），不论内外（因此可能有负值）
    */
-  private mouseRelative: Point | null = null;
-  /**
-   * 鼠标在 stage 内部
-   */
-  private mouseIsInStage = false;
-  /**
-   * 鼠标在 canvas 内部
-   */
-  private mouseIsInCanvas = false;
+  private mouseRelative: Point = [-1, -1];
   /**
    * 鼠标在 canvas 内部按下
    */
@@ -204,21 +196,15 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private get mouseInStage(): Point | null {
-    const {
-      mouseIsInStage,
-      mouseRelative
-    } = this;
-    
-    return mouseIsInStage && mouseRelative ? mouseRelative : null;
+    return this.isMouseInStage() ? this.mouseRelative : null;
   }
   
   private get mouseInCanvas(): Point | null {
     const {
-      mouseRelative,
-      mouseIsInCanvas
+      mouseRelative
     } = this;
     
-    if (!mouseRelative || !mouseIsInCanvas) {
+    if (!this.isMouseInCanvas()) {
       return null;
     }
     
@@ -264,37 +250,24 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   };
   
   private _handleMouseEnterStage = (e: MouseEvent): void => {
-    this.mouseIsInStage = true;
     this.refreshMouseRelative(e);
-    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_ENTER_STAGE);
-  };
-  
-  private _handleMouseEnterCanvas = (): void => {
-    this.mouseIsInCanvas = true;
     this.refreshMouseInCanvas();
-    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_ENTER_CANVAS);
+    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_ENTER);
   };
   
-  private _handleMouseLeaveStage = (e: MouseEvent): void => {
-    this.mouseIsInStage = false;
+  private _handleMouseLeaveStage = (): void => {
+    this.mouseRelative = [-1, -1];
+    this.refreshMouseInCanvas();
+    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE);
+  };
+  
+  private _handleMouseMoveGlobal = (e: MouseEvent): void => {
     this.refreshMouseRelative(e);
-    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE_STAGE);
-  };
-  
-  private _handleMouseLeaveCanvas = (): void => {
-    this.mouseIsInCanvas = false;
-    this.hoverMarkingItem(null);
-    this.refreshImageMouse(); // 避免出现空隙
-    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE_CANVAS);
-  };
-  
-  private _handleMouseMoveCanvas = (): void => {
-    this.refreshMouseInCanvas();
-    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_MOVE_CANVAS);
-  };
-  
-  private _handleMouseMoveStage = (): void => {
-    if (this.mouseIsInCanvas) {
+    this.refreshStats(EMarkingStatsChangeCause.MOUSE_MOVE);
+    
+    if (this.isMouseInCanvas()) {
+      this.refreshMouseInCanvas();
+      
       if (this.mouseDownCanvas) {
         this.mouseDownMoving = true;
       }
@@ -305,25 +278,21 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         itemEditing
       } = this;
       
-      if (moving || itemCreating || !itemEditing) {
-        return;
-      }
-      
-      const draggingResult = itemEditing.processDragging();
-      
-      if (typeof draggingResult === 'number') {
-        const statsList = this.getAllStats();
+      if (!moving && !itemCreating && itemEditing) {
+        const draggingResult = itemEditing.processDragging();
         
-        this.options.onPointInsert?.(itemEditing.stats, draggingResult, statsList);
-        this.emit('point-insert', itemEditing.stats, draggingResult, statsList);
+        if (typeof draggingResult === 'number') {
+          const statsList = this.getAllStats();
+          
+          this.options.onPointInsert?.(itemEditing.stats, draggingResult, statsList);
+          this.emit('point-insert', itemEditing.stats, draggingResult, statsList);
+        }
       }
     }
     
-    this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_MOVE_STAGE);
-  };
-  
-  private _handleMouseMoveGlobal = (e: MouseEvent): void => {
-    this.refreshMouseRelative(e);
+    if (this.isMouseInStage()) {
+      this.draw();
+    }
   };
   
   private _handleMouseDownCanvas = (): void => {
@@ -362,7 +331,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    if (!this.mouseIsInStage) {
+    if (!this.isMouseInStage()) {
       return;
     }
     
@@ -380,7 +349,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   };
   
   private _handleKeyDownGlobal = (e: KeyboardEvent): void => {
-    if (!this.mouseIsInStage || this.moving || e.repeat) {
+    if (!this.isMouseInStage() || this.moving || e.repeat) {
       return;
     }
     
@@ -495,16 +464,16 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     resizeObserver.observe(stage);
     
+    /*
+     * 以下场景需要
+     *
+     * 1. 初始化的时候，鼠标在 stage 内，尚未移动，需第一时间感知鼠标位置
+     * 2. Cmd Tab 导致 leave/enter 状态切换
+     */
     stage.addEventListener('mouseenter', this._handleMouseEnterStage);
-    stage.addEventListener('mouseleave', this._handleMouseLeaveStage); // 这里不用捕获阶段
+    stage.addEventListener('mouseleave', this._handleMouseLeaveStage);
     
-    canvas.addEventListener('mouseenter', this._handleMouseEnterCanvas);
-    canvas.addEventListener('mouseleave', this._handleMouseLeaveCanvas);
     canvas.addEventListener('mousedown', this._handleMouseDownCanvas, true);
-    
-    // TODO RM the two below
-    stage.addEventListener('mousemove', this._handleMouseMoveStage, true);
-    canvas.addEventListener('mousemove', this._handleMouseMoveCanvas);
     
     // 添加消除副作用的清理方法
     this.cleanups.push(bindDocumentEvent('mousemove', this._handleMouseMoveGlobal, true));
@@ -626,7 +595,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private refreshMouseInCanvas(): void {
     this.refreshImageMouse();
     
-    if (!this.mouseIsInCanvas || this.moving || this.itemCreating || this.itemEditing?.stats.dragging) {
+    if (!this.isMouseInCanvas() || this.moving || this.itemCreating || this.itemEditing?.stats.dragging) {
       this.hoverMarkingItem(null);
     } else {
       this.hoverMarkingItem(this.itemUnderMouse);
@@ -652,6 +621,59 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     if (this.itemCreating || this.itemEditing) {
       this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
     }
+  }
+  
+  /**
+   * 每次 render 之前，需更新所有 `MarkingItem` 的状态，以及本身的状态
+   */
+  private refreshStats(cause: EMarkingStatsChangeCause): void {
+    const {
+      canvas,
+      imageLoader
+    } = this;
+    const rectCanvas = canvas.getBoundingClientRect();
+    
+    this.imageSize = [
+      imageLoader?.naturalWidth || rectCanvas.width,
+      imageLoader?.naturalHeight || rectCanvas.height
+    ];
+    
+    // 先更新所有 `MarkingItem` 的 `stats`
+    this.itemCreating?.refreshStats();
+    this.markingItems.forEach(v => {
+      v.refreshStats();
+    });
+    
+    const stats = this.getStats();
+    
+    this.statsSnapshot = stats;
+    this.pluginMap.forEach(v => v.run?.call(this, stats, cause)); // 每次状态更新都必须运行 plugin
+    
+    this.fireStatsChange(stats, cause);
+  }
+  
+  private isMouseInStage(): boolean {
+    const {
+      stage,
+      mouseRelative: [x, y]
+    } = this;
+    const rectStage = stage.getBoundingClientRect();
+    
+    return x >= 0 && y >= 0 && x <= rectStage.width && y <= rectStage.height;
+  }
+  
+  private isMouseInCanvas(): boolean {
+    const {
+      stage,
+      canvas,
+      mouseRelative: [x, y]
+    } = this;
+    const rectStage = stage.getBoundingClientRect();
+    const rectCanvas = canvas.getBoundingClientRect();
+    const canvasX = rectCanvas.left - rectStage.left;
+    const canvasY = rectCanvas.top - rectStage.top;
+    
+    return x >= Math.max(0, canvasX) && y >= Math.max(0, canvasY) && x <= Math.min(rectStage.width, rectCanvas.width + canvasX) && y <= Math.min(rectStage.height, rectCanvas.height + canvasY);
   }
   
   private getOptionJustifyPerpendicularThresholdRadius(): number {
@@ -712,11 +734,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private creatingPushPoint(byEnter?: boolean): void {
     const {
-      mouseIsInCanvas,
       itemCreating
     } = this;
     
-    if (!mouseIsInCanvas || !itemCreating) {
+    if (!this.isMouseInCanvas() || !itemCreating) {
       return;
     }
     
@@ -808,35 +829,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
   }
   
-  /**
-   * 每次 render 之前，需更新所有 MarkingItem 的状态，以及本身的状态
-   */
-  private updateStats(cause: EMarkingStatsChangeCause): void {
-    const {
-      canvas,
-      imageLoader
-    } = this;
-    const rectCanvas = canvas.getBoundingClientRect();
-    
-    this.imageSize = [
-      imageLoader?.naturalWidth || rectCanvas.width,
-      imageLoader?.naturalHeight || rectCanvas.height
-    ];
-    
-    // 先更新所有 MarkingItem 的 stats
-    this.itemCreating?.refreshStats();
-    this.markingItems.forEach(v => {
-      v.refreshStats();
-    });
-    
-    const stats = this.getStats();
-    
-    this.statsSnapshot = stats;
-    this.pluginMap.forEach(v => v.run?.call(this, stats, cause)); // 每次状态更新都必须运行 plugin
-    
-    this.fireStatsChange(stats, cause);
-  }
-  
   private fireStatsChange = _throttle((stats: IMarkingStats<T>, cause: EMarkingStatsChangeCause) => {
     this.options.onStatsChange?.(stats, cause);
     this.emit('stats-change', stats, cause);
@@ -846,7 +838,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    * 更新 stats 并渲染
    */
   private updateAndDraw(cause: EMarkingStatsChangeCause): void {
-    this.updateStats(cause);
+    this.refreshStats(cause);
     this.draw();
   }
   
@@ -1114,14 +1106,13 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private drawItems(): void {
     const {
-      mouseIsInCanvas,
       itemCreating,
       itemHighlighting
     } = this;
     
     sortMarkingItems(this.markingItems).forEach(v => v.draw(itemHighlighting ? v !== itemHighlighting : false));
     
-    if (itemCreating && (mouseIsInCanvas || itemCreating.stats.path.length)) {
+    if (itemCreating && (this.isMouseInCanvas() || itemCreating.stats.path.length)) {
       itemCreating.draw();
     }
   }
@@ -1370,7 +1361,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.itemCreating = this.createMarkingItem(config, initialPath); // 副作用 - 替换正在进行的新建（有的话），而不触发其 `onCreateCancel`
     this.updateAndDraw(EMarkingStatsChangeCause.START_CREATING);
-    
     this.options.onCreateStart?.();
     this.emit('create-start');
   }
@@ -1382,9 +1372,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.clearJustified();
     this.itemCreating = null;
+    this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
     this.options.onCreateCancel?.();
     this.emit('create-cancel');
-    this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
   }
   
   finishCreating(): void {
@@ -1698,35 +1688,32 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   getStats(): IMarkingStats<T> {
     const {
-      stage,
-      canvas,
-      imageUrl,
-      imageLoading,
-      imageLoader,
-      itemCreating,
-      itemHovering,
-      itemHighlighting,
-      itemEditing
+      imageLoader
     } = this;
-    const rectStage = stage.getBoundingClientRect();
-    const rectCanvas = canvas.getBoundingClientRect();
-    const itemStatsCreating = itemCreating?.stats || null;
-    const itemStatsHovering = itemHovering?.stats || null;
-    const itemStatsHighlighting = itemHighlighting?.stats || null;
-    const itemStatsSelected = itemEditing?.stats || null;
+    const rectStage = this.stage.getBoundingClientRect();
+    const rectCanvas = this.canvas.getBoundingClientRect();
+    const itemStatsCreating = this.itemCreating?.stats || null;
+    const itemStatsHovering = this.itemHovering?.stats || null;
+    const itemStatsHighlighting = this.itemHighlighting?.stats || null;
+    const itemStatsSelected = this.itemEditing?.stats || null;
     
     return {
       // 大小
       zoom: this.zoomLevel,
-      stageSize: [rectStage.width, rectStage.height], // 浏览器缩放会影响
-      canvasSize: [rectCanvas.width, rectCanvas.height],
-      canvasCoords: roundCoords([rectCanvas.left - rectStage.left, rectCanvas.top - rectStage.top]),
+      stageRect: {
+        coords: [rectStage.left, rectStage.top],
+        size: [rectStage.width, rectStage.height]
+      },
+      canvasRect: {
+        coords: [rectCanvas.left - rectStage.left, rectCanvas.top - rectStage.top],
+        size: [rectCanvas.width, rectCanvas.height]
+      },
       imageStatus: ((): EImageStatus => {
-        if (!imageUrl) {
+        if (!this.imageUrl) {
           return EImageStatus.NONE;
         }
         
-        if (imageLoading) {
+        if (this.imageLoading) {
           return EImageStatus.LOADING;
         }
         
@@ -1753,7 +1740,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       itemStatsHighlighting,
       itemStatsSelected,
       // 根据 MarkingItemStats 计算得出的结果
-      creating: !!itemCreating,
+      creating: !!itemStatsCreating,
       creatingStarted: itemStatsCreating ? itemStatsCreating.path.length > 0 : false,
       creatingCrossing: !!itemStatsCreating?.crossing,
       creatingWillFinish: itemStatsCreating ? itemStatsCreating.creatingWillFinish : false,

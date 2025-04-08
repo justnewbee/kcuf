@@ -33,3 +33,8 @@ export interface IEditDragEndPreResult<T = unknown> {
   path?: Path;
   data?: T;
 }
+
+export interface ISimpleRect {
+  coords: [number, number];
+  size: [number, number];
+}

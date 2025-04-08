@@ -15,7 +15,7 @@ export default function createStatsStyle(stage: HTMLDivElement): string {
   font-variant-numeric: slashed-zero;
   font-size: 10px;
   pointer-events: none;
-  z-index: 10;
+  z-index: 2;
 }
 .${className} ul {
   margin: 0;

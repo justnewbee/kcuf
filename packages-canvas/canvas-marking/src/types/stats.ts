@@ -10,7 +10,7 @@ import {
 
 import {
   TSize,
-  TCreatingWillFinish
+  TCreatingWillFinish, ISimpleRect
 } from './common';
 import {
   ICommonNoActionOptions
@@ -58,9 +58,8 @@ export interface IMarkingItemStats<T = unknown> extends Required<ICommonNoAction
  */
 export interface IMarkingStats<T = unknown> {
   zoom: number;
-  stageSize: TSize;
-  canvasSize: TSize;
-  canvasCoords: Point; // 画布左上角相对于 stage 的位置 (x, y)
+  stageRect: ISimpleRect; // 相对于 document，浏览器缩放会影响
+  canvasRect: ISimpleRect; // 相对于 stage
   imageStatus: EImageStatus;
   imageSize: TSize;
   imageScale: number;
