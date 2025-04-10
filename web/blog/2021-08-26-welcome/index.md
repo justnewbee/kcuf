@@ -7,6 +7,8 @@ tags: [facebook, hello, docusaurus]
 
 [Docusaurus blogging features](https://docusaurus.io/docs/blog) are powered by the [blog plugin](https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog).
 
+## title1
+
 Here are a few tips you might find useful.
 
 <!-- truncate -->
@@ -14,6 +16,8 @@ Here are a few tips you might find useful.
 Simply add Markdown files (or folders) to the `blog` directory.
 
 Regular blog authors can be added to `authors.yml`.
+
+## title2
 
 The blog post date can be extracted from filenames, such as:
 

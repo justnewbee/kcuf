@@ -39,7 +39,7 @@
     "lerna": "^8.2.1",
     "lint-staged": "^15.5.0",
     "markdownlint-cli2": "^0.17.2",
-    "npm-check-updates": "^17.1.16",
+    "npm-check-updates": "^17.1.18",
     "npm-package-json-lint": "^8.0.0",
     "stylelint": "^16.18.0",
     "ts-node": "^10.9.2",

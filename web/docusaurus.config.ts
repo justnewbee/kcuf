@@ -149,7 +149,8 @@ export default {
     },
     
     prism: {
-      theme: prismThemes.nightOwl
+      theme: prismThemes.nightOwl,
+      additionalLanguages: ['bash']
     },
     
     liveCodeBlock: {

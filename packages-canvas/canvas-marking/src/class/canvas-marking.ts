@@ -5,30 +5,28 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _throttle from 'lodash/throttle';
 
 import {
-  Point,
-  Path,
   Angle,
   justifyMagnetAlongPath,
   justifyMagnetAlongPaths,
   justifyPerpendicularExternal,
   justifyPerpendicularInternal,
   justifySnapAroundPivots,
+  Path,
   pathPointSiblingsByIndex,
   pathsAuxiliaryList,
+  Point,
   roundCoords
 } from '@kcuf/geometry-basic';
-import {
-  pixelRatioGet,
-  pixelRatioListen
-} from '@kcuf/canvas-helper';
+import { pixelRatioGet, pixelRatioListen } from '@kcuf/canvas-helper';
 import Subscribable from '@kcuf/subscribable';
 
 import {
+  EFinishCreatingReason,
   EImageStatus,
   EMarkingMouseStatus,
   EMarkingStatsChangeCause,
   EMouseJustifyStatus,
-  EFinishCreatingReason,
+  ERelativePosition,
   EZoomHow
 } from '../enum';
 import {
@@ -41,6 +39,7 @@ import {
   IMarkingItemStats,
   IMarkingPlugin,
   IMarkingStats,
+  ISimpleRect,
   IZoomOptions,
   TCanvasMarkingPluginRegister,
   TMarkingItemFinder,
@@ -56,14 +55,16 @@ import {
   DEFAULT_RIGHT_ANGLE_MARK_SIZE
 } from '../const';
 import {
-  myDebug,
   bindDocumentEvent,
   canvasDrawPerpendicularMark,
   createDomCanvas,
   createDomImageBg,
   createDomStage,
   getMouseJustifyStatusMagnet,
+  getRelativePositionOfArea,
+  getRelativePositionOfPoint,
   loadImage,
+  myDebug,
   sortMarkingItems
 } from '../util';
 
@@ -291,8 +292,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       itemCreating,
       itemEditing
     } = this;
+    const mouseIsInStage = this.isMouseInStage();
+    const mouseIsInCanvas = mouseIsInStage && this.isMouseInCanvas();
     
-    if (this.isMouseInCanvas() && this.mouseDownCanvas) {
+    if (mouseIsInCanvas && this.mouseDownCanvas) {
       this.mouseDownMoving = true;
     }
     
@@ -307,8 +310,12 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       }
     }
     
-    if (this.isMouseInStage() || itemCreating || itemEditing) {
+    if (mouseIsInStage || itemCreating || itemEditing) {
       this.draw();
+    }
+    
+    if (!mouseIsInStage) {
+      this.moveCanvasWhenMouseOutDragging();
     }
   };
   
@@ -608,7 +615,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
    */
   private refreshMouseInImage(): void {
-    this.clearJustified();
+    this.justifyClear();
     
     const {
       mouseInCanvasUnprotected,
@@ -877,7 +884,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     return [canvasCoords[0] / this.imageScale, canvasCoords[1] / this.imageScale];
   }
   
-  private clearJustified(): void {
+  private justifyClear(): void {
     this.justified = EMouseJustifyStatus.NONE;
     this.justifiedRightAngle = null;
   }
@@ -1034,6 +1041,57 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     if (markingItem) {
       this.itemHighlighting?.toggleHighlighting(false);
+    }
+  }
+  
+  private moveCanvasWhenMouseOutDragging(): void {
+    const {
+      statsSnapshot: {
+        stageRect: stageRect0,
+        canvasRect,
+        creatingStarted,
+        editingDragging
+      }
+    } = this;
+    
+    if (!creatingStarted && !editingDragging) {
+      return;
+    }
+    
+    const stageRect: ISimpleRect = {
+      coords: [0, 0],
+      size: stageRect0.size
+    };
+    const pointRelative = getRelativePositionOfPoint(stageRect, this.mouse);
+    
+    if (pointRelative === ERelativePosition.C) { // 不可能，为了严谨
+      return;
+    }
+    
+    const canvasRelative = getRelativePositionOfArea(stageRect, canvasRect);
+    
+    if (!canvasRelative.includes(pointRelative)) {
+      return;
+    }
+    
+    const UNIT = 5;
+    let dx = 0;
+    let dy = 0;
+    
+    if ([ERelativePosition.TL, ERelativePosition.L, ERelativePosition.BL].includes(pointRelative)) {
+      dx = UNIT;
+    } else if ([ERelativePosition.TR, ERelativePosition.R, ERelativePosition.BR].includes(pointRelative)) {
+      dx = -UNIT;
+    }
+    
+    if ([ERelativePosition.TL, ERelativePosition.T, ERelativePosition.TR].includes(pointRelative)) {
+      dy = UNIT;
+    } else if ([ERelativePosition.BL, ERelativePosition.B, ERelativePosition.BR].includes(pointRelative)) {
+      dy = -UNIT;
+    }
+    
+    if (dx || dy) {
+      this.moveBy(dx, dy);
     }
   }
   
@@ -1266,7 +1324,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     } = this;
     
     if (itemEditing?.finishDragging(onEditDragEndPre)) {
-      this.clearJustified();
+      this.justifyClear();
       
       const statsList = this.getAllStats();
       
@@ -1291,7 +1349,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     const lastSelectedId = this.itemEditing?.stats.id;
     
-    this.clearJustified();
+    this.justifyClear();
     this.setupImageAndMarkings(image, markings).then(() => {
       if (lastSelectedId) {
         this.select(id => id === lastSelectedId);
@@ -1381,7 +1439,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    this.clearJustified();
+    this.justifyClear();
     this.itemCreating = null;
     this.updateAndDraw(EMarkingStatsChangeCause.CANCEL_CREATING);
     this.options.onCreateCancel?.();
@@ -1415,7 +1473,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING_WAIT);
     
     completeResult.then(finalResult => {
-      this.clearJustified();
+      this.justifyClear();
       this.itemCreating = null;
       
       if (finalResult) {
@@ -1448,7 +1506,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.finishEditDragging();
     
     if (itemEditing.finishEditing(cancel)) {
-      this.clearJustified();
+      this.justifyClear();
       
       const statsList = this.getAllStats();
       

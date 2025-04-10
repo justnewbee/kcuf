@@ -13,6 +13,18 @@ export enum EZoomHow {
   RESET = 'reset'
 }
 
+export enum ERelativePosition {
+  TL = 1,
+  T,
+  TR,
+  L,
+  C,
+  R,
+  BL,
+  B,
+  BR
+}
+
 export enum EFinishCreatingReason {
   ENTER = 'enter',
   DOUBLE_CLICK = 'double-click',

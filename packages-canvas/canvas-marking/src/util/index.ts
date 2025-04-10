@@ -14,6 +14,8 @@ export { default as createDomCanvas } from './create-dom-canvas';
 
 export { default as mergeBorderStyleWithDiff } from './merge-border-style-with-diff';
 
+export { default as getRelativePositionOfArea } from './get-relative-position-of-area';
+export { default as getRelativePositionOfPoint } from './get-relative-position-of-point';
 export { default as getPathCreatingFree } from './get-path-creating-free';
 export { default as getPathCreatingRect } from './get-path-creating-rect';
 export { default as getPathCreatingRect2 } from './get-path-creating-rect2';
