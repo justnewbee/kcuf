@@ -16,10 +16,8 @@ import {
 } from '../types';
 
 const ScSelect = styled.select`
+  width: 200px;
   height: ${HEIGHT_FORM_CONTROL}px;
-  min-width: 120px;
-  max-width: 100%;
-  
   ${CSS_FORM_CONTROL_INPUT_BASE}
 `;
 
