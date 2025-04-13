@@ -25,7 +25,7 @@ interface IScInput {
 }
 
 const ScInputText = styled.input<IScInput>`
-  min-width: 240px;
+  min-width: 120px;
   max-width: 100%;
   ${CSS_FORM_CONTROL_INPUT_BASE}
   ${props => props.$block ? css`

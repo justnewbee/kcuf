@@ -1,4 +1,4 @@
-export const HEIGHT_FORM_CONTROL = 24;
+export const HEIGHT_FORM_CONTROL = 28;
 export const PADDING_FORM_CONTROL_HORIZONTAL = 12;
 
 export const HEIGHT_INPUT_SWITCH = 18;

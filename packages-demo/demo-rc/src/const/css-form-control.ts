@@ -35,19 +35,19 @@ const CSS_FORM_CONTROL_OVERRIDE_BUTTON = css`
   &:hover {
     background-color: ${COLOR_FORM_CONTROL.BGC_HOVER};
     box-shadow: 0 4px 8px hsl(0 0% 0% / 10%);
-    
-    .theme-dark & {
-      background-color: ${COLOR_FORM_CONTROL_DARK.BGC_HOVER};
-    }
   }
   
   &:active {
     background-color: ${COLOR_FORM_CONTROL.BGC_ACTIVE};
     box-shadow: none;
-    
-    .theme-dark & {
-      background-color: ${COLOR_FORM_CONTROL_DARK.BGC_ACTIVE};
-    }
+  }
+  
+  .theme-dark &:hover {
+    background-color: ${COLOR_FORM_CONTROL_DARK.BGC_HOVER};
+  }
+  
+  .theme-dark &:active {
+    background-color: ${COLOR_FORM_CONTROL_DARK.BGC_ACTIVE};
   }
   
   &[disabled],
@@ -85,27 +85,27 @@ export const CSS_FORM_CONTROL_BASE = css`
   
   &:hover {
     border-color: ${COLOR_FORM_CONTROL.BDC_HOVER};
-    
-    .theme-dark & {
-      border-color: ${COLOR_FORM_CONTROL_DARK.BDC_HOVER};
-    }
   }
   
   &:focus {
     border-color: ${COLOR_FORM_CONTROL.BDC_FOCUS};
     outline: none;
-    
-    .theme-dark & {
-      border-color: ${COLOR_FORM_CONTROL_DARK.BDC_FOCUS};
-    }
   }
   
   &:active {
     border-color: ${COLOR_FORM_CONTROL.BDC_ACTIVE};
-    
-    .theme-dark & {
-      border-color: ${COLOR_FORM_CONTROL_DARK.BDC_ACTIVE};
-    }
+  }
+  
+  .theme-dark &:hover {
+    border-color: ${COLOR_FORM_CONTROL_DARK.BDC_HOVER};
+  }
+  
+  .theme-dark &:focus {
+    border-color: ${COLOR_FORM_CONTROL_DARK.BDC_FOCUS};
+  }
+  
+  .theme-dark &:active {
+    border-color: ${COLOR_FORM_CONTROL_DARK.BDC_ACTIVE};
   }
   
   &[disabled],
@@ -126,6 +126,7 @@ export const CSS_FORM_CONTROL_BASE = css`
 export const CSS_FORM_CONTROL_INPUT_BASE = css`
   margin: 1px 1px 1px 0;
   padding: 0 ${PADDING_FORM_CONTROL_HORIZONTAL}px;
+  background: none;
   ${CSS_FORM_CONTROL_BASE}
 `;
 

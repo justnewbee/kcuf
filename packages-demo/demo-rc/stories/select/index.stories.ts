@@ -4,15 +4,15 @@ import {
 } from '@storybook/react';
 
 import {
-  InputNumber
+  Select
 } from '../../src';
 
-type TMeta = Meta<typeof InputNumber>;
+type TMeta = Meta<typeof Select>;
 type TStory = StoryObj<TMeta>;
 
 const meta = {
-  title: 'Form/InputDate',
-  component: InputNumber,
+  title: 'Form/Select',
+  component: Select,
   parameters: {
     layout: 'centered'
   },
@@ -21,4 +21,12 @@ const meta = {
 
 export default meta;
 
-export const Primary: TStory = {};
+export const Primary: TStory = {
+  args: {
+    datasource: [{
+      value: '12345'
+    }, {
+      value: '54321'
+    }]
+  }
+};
