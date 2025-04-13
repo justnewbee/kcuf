@@ -1,8 +1,10 @@
 import {
   ReactElement,
-  forwardRef
+  forwardRef, useCallback, ChangeEvent
 } from 'react';
 import styled from 'styled-components';
+
+import useControllable from '@kcuf-hook/use-controllable';
 
 import {
   CSS_FORM_CONTROL_INPUT_BASE,
@@ -23,9 +25,22 @@ const ScSelect = styled.select`
 
 function Select({
   datasource = [],
+  value,
+  defaultValue,
+  onChange,
   ...props
 }: ISelectProps, ref: TSelectRef): ReactElement {
-  return <ScSelect {...props} ref={ref}>
+  const [controllableValue, controllableOnChange] = useControllable('', value, defaultValue, onChange);
+  const handleChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+    controllableOnChange(e.target.value);
+  }, [controllableOnChange]);
+  
+  return <ScSelect {...{
+    ...props,
+    value: controllableValue,
+    ref,
+    onChange: handleChange
+  }}>
     {datasource.map(v => <option key={v.value} value={v.value}>{v.label ?? v.value}</option>)}
   </ScSelect>;
 }
