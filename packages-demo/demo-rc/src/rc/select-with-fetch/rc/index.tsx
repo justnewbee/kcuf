@@ -16,13 +16,18 @@ import {
 
 function SelectWithFetch({
   fetchDatasource,
+  onFetchSuccess,
+  onFetchError,
   ...props
 }: ISelectWithFetchProps, ref: TSelectWithFetchRef): ReactElement {
   const [stateDatasource, setStateDatasource] = useState<IDatasourceItem[]>([]);
   
   useEffect(() => {
-    fetchDatasource().then(setStateDatasource);
-  }, [fetchDatasource, setStateDatasource]);
+    fetchDatasource().then(datasource => {
+      setStateDatasource(datasource);
+      onFetchSuccess?.(datasource);
+    }).catch(onFetchError);
+  }, [fetchDatasource, onFetchSuccess, onFetchError, setStateDatasource]);
   
   return <Select {...props} datasource={stateDatasource} ref={ref} />;
 }
