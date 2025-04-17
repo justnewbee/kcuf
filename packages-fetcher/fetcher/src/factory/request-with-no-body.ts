@@ -10,7 +10,7 @@ import {
 } from '../util';
 
 /**
- * 用于执行不带 body 的请求，对应点 method 有 'GET' / 'DELETE' / 'HEAD' / 'OPTIONS' / 'JSONP'
+ * 用于执行不带 body 的请求，对应 method 有 'GET' / 'DELETE' / 'HEAD' / 'OPTIONS' / 'JSONP'
  */
 export default function requestWithNoBody<T, P extends TFetcherParams>(fetcher: IFetcherClass, method: string, args: TFetcherJsonpArgs<P> | TFetcherGetArgs<P>): Promise<T> {
   let config: IFetcherConfigQuick | undefined;

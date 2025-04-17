@@ -10,7 +10,7 @@ import {
 } from '../util';
 
 /**
- * 用于执行带 body 的请求，对应点 method 有 'POST' / 'PUT' / 'PATCH'
+ * 用于执行带 body 的请求，对应 method 有 'POST' / 'PUT' / 'PATCH'
  */
 export default function requestWithBody<T, B extends TFetcherBody, P extends TFetcherParams>(fetcher: IFetcherClass, method: string, args: TFetcherPostArgs<B, P>): Promise<T> {
   let config: IFetcherConfigQuick | undefined;

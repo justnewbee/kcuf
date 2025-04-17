@@ -12,7 +12,7 @@ import cloneTypeHeaders from './clone-type-headers';
  * 如果 fetch 对 GET/HEAD 请求传入 body，哪怕只是一个空字符串，
  * 浏览器就会直接拒绝并报错「HEAD or GET Request cannot have a body.」
  *
- *  当 `request.headers['Content-Type']` 不存在时，会自动设置 `Content-Type` 的：
+ * 当 `request.headers['Content-Type']` 不存在时，会自动设置 `Content-Type` 的：
  *
  * ### URLSearchParams
  *
@@ -62,7 +62,11 @@ export default function processConfigHeadersAndBody(config: IFetcherConfig): [He
   const headers = cloneTypeHeaders(config.headers || {});
   const body = config.body;
   
-  if (body && canHaveBody(config)) {
+  if (!canHaveBody(config)) {
+    return [headers, null];
+  }
+  
+  if (body) {
     if (typeof body === 'string') {
       if (!headers.get('Content-Type')) {
         headers.set('Content-Type', 'application/x-www-form-urlencoded');
@@ -86,5 +90,6 @@ export default function processConfigHeadersAndBody(config: IFetcherConfig): [He
     return [headers, serializeBody(body, config.serializeBody)];
   }
   
-  return [headers, null];
+  // JSON 的时候不传 body 可能导致后端抛错
+  return [headers, headers.get('Content-Type') === 'application/json' ? '{}' : null];
 }
