@@ -21,9 +21,6 @@ import useModelState from './_use-model-state';
 
 type TModelProps<T = void, D extends object = Record<string, unknown>> = RequiredSelected<IDialogProps<T, D>, 'mode' | 'backdrop' | 'closable' | 'esc' | 'zIndex' | 'zIndexBackdrop'>;
 
-/**
- * 返回填充默认值并合并 propsUpdate 的 props
- */
 export default function useModelProps<T = void, D extends object = Record<string, unknown>>(): TModelProps<T, D> {
   const {
     props

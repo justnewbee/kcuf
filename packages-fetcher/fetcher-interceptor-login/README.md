@@ -28,13 +28,8 @@ interceptLogin(fetcher, {
 ### needLogin
 
 ```ts
-function needLogin(code: string): boolean;
+function needLogin(code: string, error: FetcherError): boolean;
 ```
-
-以下条件满足，拦截器才调用 `needLogin`：
-
-- `error.name` 判定为业务错误
-- `error.code` 存在（且 `@kcuf/fetcher-interceptor-biz` 会保证它一定是 `string` 类型）
 
 ### doLogin
 
