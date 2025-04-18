@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-cache-local",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Fetcher interceptor cache local in memory.",
   "keywords": [],
   "license": "MIT",

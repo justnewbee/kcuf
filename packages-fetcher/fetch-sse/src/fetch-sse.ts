@@ -18,7 +18,7 @@ import {
  * 2. Polyfill 有个会循环启动的 BUG
  * 3. Polyfill 版本代码臃肿，有较多过时的逻辑
  *
- * 参考
+ * 参考：
  *
  * - SSE → https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events
  * - EventSource → https://developer.mozilla.org/en-US/docs/Web/API/EventSource
