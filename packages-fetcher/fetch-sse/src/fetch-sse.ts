@@ -33,6 +33,8 @@ export default function fetchSse(url: string, options: IFetchSseOptions = {}): I
     onOpen,
     onChunk,
     onCancel,
+    onSuccess,
+    onError,
     ...restOptions
   } = options;
   
@@ -71,13 +73,17 @@ export default function fetchSse(url: string, options: IFetchSseOptions = {}): I
             onChunk?.(result.value);
             readNextChunk();
           }
-        }).catch((error: Error) => {
-          reject(error);
+        }).catch((err: Error) => {
+          reject(err);
         });
       }
       
       readNextChunk();
     });
+  }).then(onSuccess, err => {
+    onError?.(err as Error);
+    
+    throw err;
   });
   
   return {
