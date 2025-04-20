@@ -32,6 +32,7 @@ export default function fetchSse(url: string, options: IFetchSseOptions = {}): I
     headers,
     onOpen,
     onChunk,
+    onCancel,
     ...restOptions
   } = options;
   
@@ -84,6 +85,7 @@ export default function fetchSse(url: string, options: IFetchSseOptions = {}): I
     cancel(): void {
       reader?.cancel(); // https://bugzilla.mozilla.org/show_bug.cgi?id=1583815
       controller.abort();
+      onCancel?.();
     }
   };
 }
