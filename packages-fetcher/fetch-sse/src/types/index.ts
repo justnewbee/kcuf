@@ -2,8 +2,7 @@ export interface IFetchSseOptions extends Omit<RequestInit, 'signal'> {
   onOpen?(): void;
   onChunk?(chunk: Uint8Array): void;
   onCancel?(): void;
-  onSuccess?(): void;
-  onError?(error: Error): void;
+  onComplete?(error?: Error): void;
 }
 
 export interface IFetchSseErrorResponseStatus extends Error {
