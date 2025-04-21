@@ -1,7 +1,8 @@
 import {
   ReactElement,
   useState,
-  useCallback
+  useCallback,
+  useEffect
 } from 'react';
 import styled from 'styled-components';
 
@@ -28,12 +29,19 @@ export default function TestApi({
   name,
   type,
   formItems = [],
+  immediate,
   test
 }: ITestApiProps): ReactElement {
   const [statePromise, setStatePromise] = useState<Promise<unknown> | null>(null);
   const handleTest = useCallback(() => {
     setStatePromise(test());
   }, [test, setStatePromise]);
+  
+  useEffect(() => {
+    if (immediate && !statePromise) {
+      handleTest();
+    }
+  }, [immediate, statePromise, handleTest]);
   
   return <>
     <H1>{title}</H1>
