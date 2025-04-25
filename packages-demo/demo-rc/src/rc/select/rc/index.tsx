@@ -23,6 +23,7 @@ const ScSelect = styled.select`
 
 function Select({
   datasource = [],
+  withEmpty = true,
   value,
   defaultValue,
   onChange,
@@ -39,6 +40,7 @@ function Select({
     ref,
     onChange: handleChange
   }}>
+    {withEmpty ? <option value="">&lt;EMPTY&gt;</option> : null}
     {datasource.map(v => <option key={v.value} value={v.value}>{v.label ?? v.value}</option>)}
   </ScSelect>;
 }
