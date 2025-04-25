@@ -23,7 +23,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "stylelint": "^16.18.0"
+    "stylelint": "^16.19.0"
   },
   "peerDependencies": {
     "stylelint": ">=15"

@@ -71,7 +71,7 @@
     "@codemirror/search": "^6.5.10",
     "@codemirror/state": "^6.5.2",
     "@codemirror/theme-one-dark": "^6.1.2",
-    "@codemirror/view": "^6.36.5",
+    "@codemirror/view": "^6.36.6",
     "@kcuf-hook/use-controllable": "workspace:^",
     "@kcuf-ui/rc-form-headless": "workspace:^",
     "@kcuf-ui/rc-icon-base": "workspace:^",
