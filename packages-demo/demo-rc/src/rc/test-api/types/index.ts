@@ -7,6 +7,6 @@ export interface ITestApiProps {
   name: string;
   type: string;
   formItems?: FormItemProps[];
-  immediate?: boolean; // 进入后立即调用接口
+  auto?: boolean; // test 方法变化时，自动调用
   test(): Promise<unknown>;
 }

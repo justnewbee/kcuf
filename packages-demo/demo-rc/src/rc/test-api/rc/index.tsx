@@ -29,7 +29,7 @@ export default function TestApi({
   name,
   type,
   formItems = [],
-  immediate,
+  auto,
   test
 }: ITestApiProps): ReactElement {
   const [statePromise, setStatePromise] = useState<Promise<unknown> | null>(null);
@@ -38,17 +38,16 @@ export default function TestApi({
   }, [test, setStatePromise]);
   
   useEffect(() => {
-    if (immediate && !statePromise) {
+    if (auto) {
       handleTest();
     }
-  }, [immediate, statePromise, handleTest]);
+  }, [auto, handleTest]);
   
   return <>
     <H1>{title}</H1>
     <ScForm {...{
       dense: true,
       items: [...formItems, {
-        label: ' ',
         content: <>
           <Button onClick={handleTest}>{name}</Button>
           &nbsp;→&nbsp;
