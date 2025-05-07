@@ -12,3 +12,4 @@ export { default as Em } from './em';
 export { default as Strong } from './strong';
 export { default as Code } from './code';
 export { default as Kbd } from './kbd';
+export { default as Article } from './article';

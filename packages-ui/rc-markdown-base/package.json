@@ -1,0 +1,76 @@
+{
+  "name": "@kcuf-ui/rc-markdown-base",
+  "version": "0.0.0",
+  "description": "React wrapped Markdown based on micromark, no styles.",
+  "keywords": [],
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/justnewbee/kcuf.git"
+  },
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-ui/rc-markdown-base",
+  "bugs": "https://github.com/justnewbee/kcuf/issues",
+  "author": {
+    "name": "Jianchun Wang",
+    "email": "justnewbee@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.27.2",
+    "@babel/core": "^7.27.1",
+    "@babel/plugin-transform-react-jsx": "^7.27.1",
+    "@babel/plugin-transform-runtime": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@chromatic-com/storybook": "^3.2.6",
+    "@kcuf/demo-rc": "workspace:^",
+    "@kcuf/ts-config": "workspace:^",
+    "@storybook/addon-essentials": "^8.6.12",
+    "@storybook/addon-interactions": "^8.6.12",
+    "@storybook/addon-links": "^8.6.12",
+    "@storybook/blocks": "^8.6.12",
+    "@storybook/react": "^8.6.12",
+    "@storybook/react-vite": "^8.6.12",
+    "@storybook/test": "^8.6.12",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.5",
+    "babel-plugin-styled-components": "^2.1.4",
+    "micromark-extension-math": "^2.1.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rimraf": "^6.0.1",
+    "storybook": "^8.6.12",
+    "styled-components": "^6.1.17",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "@babel/runtime": "^7.x",
+    "react": "^18.x",
+    "styled-components": "^6.x"
+  },
+  "dependencies": {
+    "micromark": "^3.2.0",
+    "micromark-extension-directive": "^2.2.1",
+    "micromark-extension-gfm": "^2.0.3",
+    "micromark-util-symbol": "^1.1.0",
+    "micromark-util-types": "^1.1.0"
+  },
+  "scripts": {
+    "start": "storybook dev -p 6006",
+    "build:clean": "rimraf dist",
+    "build:esm": "ESM=1 babel src -d dist/esm --extensions .ts,.tsx --source-maps",
+    "build:cjs": "ESM=0 babel src -d dist/cjs --extensions .ts,.tsx",
+    "build:types": "tsc -rootDir src --outDir dist/types --declaration --noEmit false --emitDeclarationOnly --isolatedModules false",
+    "build:sb": "storybook build",
+    "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
+    "watch": "pnpm build:esm -w",
+    "prepublishOnly": "pnpm build:clean && pnpm build"
+  }
+}

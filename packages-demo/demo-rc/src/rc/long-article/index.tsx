@@ -3,34 +3,13 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-const ScLongArticle = styled.article`
-  color: hsl(0 0% 20%);
-  
-  .theme-dark & {
-    color: hsl(0 0% 80%);
-  }
-  
+import {
+  Article
+} from '../simple';
+
+const ScLongArticle = styled(Article)`
   audio {
     width: 100%;
-  }
-  
-  h1,
-  h2 {
-    font-weight: 400;
-    
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  
-  h1 {
-    margin: 0.24em 0 0.5em;
-    font-size: 1.6em;
-  }
-  
-  h2 {
-    margin: 0;
-    font-size: 1em;
   }
 `;
 

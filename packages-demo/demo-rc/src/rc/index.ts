@@ -48,6 +48,8 @@ export * from './form';
 export { default as Form } from './form';
 
 // data display
+export * from './flex';
+export { default as Flex } from './flex';
 export * from './list';
 export { default as List } from './list';
 export * from './table';

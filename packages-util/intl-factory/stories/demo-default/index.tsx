@@ -5,15 +5,11 @@ import {
 import {
   H1
 } from '@kcuf/demo-rc';
-import ThemeSwitcher from '@alicloud/console-base-demo-helper-theme-switcher';
 
-import PkgInfo from '../pkg-info';
 import intl from '../_intl';
 
 export default function DemoDefault(): ReactElement {
   return <>
-    <ThemeSwitcher />
-    <PkgInfo />
     <H1>纯文本</H1>
     <div>{intl('demo.op.switch_locale')}</div>
     <div>{intl('hello:world')}</div>

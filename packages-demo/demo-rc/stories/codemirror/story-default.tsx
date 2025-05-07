@@ -7,15 +7,13 @@ import styled from 'styled-components';
 import {
   InputSwitch,
   InputTextarea,
+  Flex,
   Codemirror
 } from '../../src';
 
-const ScTwoPane = styled.div`
-  display: flex;
-  
-  > * {
-    flex: 1;
-  }
+const ScTextarea = styled(InputTextarea)`
+  height: 100%;
+  resize: none;
 `;
 
 const CODE = `import {
@@ -62,17 +60,17 @@ export default function StoryDefault(): ReactElement {
       value: stateReadOnly,
       onChange: setStateReadOnly
     }} />
-    <ScTwoPane>
+    <Flex>
       <Codemirror {...{
         readOnly: stateReadOnly,
         language: 'tsx',
         value: stateCode,
         onChange: setStateCode
       }} />
-      <InputTextarea {...{
+      <ScTextarea {...{
         value: stateCode,
         onChange: setStateCode
       }} />
-    </ScTwoPane>
+    </Flex>
   </>;
 }

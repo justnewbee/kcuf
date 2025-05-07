@@ -1,4 +1,13 @@
+import {
+  defineConfig,
+  globalIgnores
+} from 'eslint/config';
+
 import kcufEslintConfig from '@kcuf/eslint-config';
 
-/** @type {import('eslint').Linter.Config[]} */
-export default kcufEslintConfig;
+export default defineConfig([
+  ...kcufEslintConfig,
+  globalIgnores([
+    '**/*/.babelrc.js' // TODO module / process 在 JS 中找不到
+  ])
+]);

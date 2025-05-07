@@ -11,7 +11,7 @@ const meta = {
   title: 'Placeholder/LongArticle',
   component: LongArticle,
   parameters: {
-    layout: 'centered'
+    layout: 'fullscreen'
   },
   tags: ['autodocs']
 } satisfies TMeta;
