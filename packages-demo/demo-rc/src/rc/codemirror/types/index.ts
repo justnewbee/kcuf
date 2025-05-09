@@ -3,7 +3,7 @@ export interface ICodemirrorProps {
   value?: string;
   placeholder?: string;
   readOnly?: boolean;
-  language?: string; // TODO | Extension
+  language?: string;
   theme?: 'none' | 'one-dark' | 'material-dark' | 'material-light'; // default material-dark
   lines?: number | [number, number];
   onChange?(value: string): void;

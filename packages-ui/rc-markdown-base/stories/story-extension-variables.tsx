@@ -7,7 +7,7 @@ import {
 } from '../src';
 
 import {
-  VARIABLES
+  MD_VARIABLES
 } from './const';
 import Demo from './demo';
 import {
@@ -15,7 +15,7 @@ import {
   variablesHtml
 } from './extension-variables';
 
-const extraExtensions: MarkdownExtension[] = [{
+const extensions: MarkdownExtension[] = [{
   syntax: variables(),
   html: variablesHtml({
     planet: 'boshi~t',
@@ -25,9 +25,9 @@ const extraExtensions: MarkdownExtension[] = [{
 
 export default function StoryExtensionVariables(): ReactElement {
   return <Demo {...{
-    source: VARIABLES,
+    source: MD_VARIABLES,
     options: {
-      extraExtensions
+      extensions
     }
   }} />;
 }

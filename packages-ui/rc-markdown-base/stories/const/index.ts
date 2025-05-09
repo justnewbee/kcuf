@@ -27,27 +27,27 @@ const APPENDIX_LINK = `# Useful Links
 [remark]: https://github.com/remarkjs/remark
 [react-markdown]: https://github.com/remarkjs/react-markdown`;
 
-export const FULL = `${markdownCommon}
+export const MD_FULL = `${markdownCommon}
 ${markdownGfm}
 
 ${markdownDirective}
 
 ${APPENDIX_LINK}`;
 
-export const COMMON = `${markdownCommon}
+export const MD_COMMON = `${markdownCommon}
 
 ${APPENDIX_LINK}`;
 
-export const GFM = `${markdownGfm}
+export const MD_GFM = `${markdownGfm}
 
 ${APPENDIX_LINK}`;
 
-export const DIRECTIVE = `${markdownDirective}
+export const MD_DIRECTIVE = `${markdownDirective}
 
 ${APPENDIX_LINK}`;
 
 // 测试所有的 headings
-export const HEADINGS = `
+export const MD_HEADINGS = `
 Another demo only for headings.
 
 # Heading level 1
@@ -62,7 +62,7 @@ Heading level 2 - Alt
 ---
 `;
 
-export const MATH = `# MATH
+export const MD_MATH = `# MATH
 
 Lift($L$) can be determined by Lift Coefficient ($C_L$) like the following equation.
 
@@ -70,7 +70,7 @@ $$
 L = \\frac{1}{2} \\rho v^2 S C_L
 $$`;
 
-export const VARIABLES = `# 自定义扩展
+export const MD_VARIABLES = `# 自定义扩展
 
 可以通过 console 看扩展是如何运作的。
 

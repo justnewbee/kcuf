@@ -1,2 +1,2 @@
-export { default as variables } from './syntax';
-export { default as variablesHtml } from './html';
+export { default as variables } from './variables-syntax';
+export { default as variablesHtml } from './variables-html';

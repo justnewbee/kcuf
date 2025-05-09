@@ -3,12 +3,12 @@ import {
 } from 'react';
 
 import {
-  HEADINGS
+  MD_HEADINGS
 } from './const';
 import Demo from './demo';
 
 export default function StoryHeadings(): ReactElement {
   return <Demo {...{
-    source: HEADINGS
+    source: MD_HEADINGS
   }} />;
 }

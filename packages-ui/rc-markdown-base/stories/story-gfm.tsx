@@ -3,12 +3,12 @@ import {
 } from 'react';
 
 import {
-  GFM
+  MD_GFM
 } from './const';
 import Demo from './demo';
 
 export default function StoryGfm(): ReactElement {
   return <Demo {...{
-    source: GFM
+    source: MD_GFM
   }} />;
 }

@@ -46,7 +46,7 @@
   "dependencies": {
     "@kcuf/demo-rc": "workspace:^",
     "react": "^18.3.1",
-    "styled-components": "^6.1.17"
+    "styled-components": "^6.1.18"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

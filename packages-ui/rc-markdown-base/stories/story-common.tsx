@@ -3,12 +3,12 @@ import {
 } from 'react';
 
 import {
-  COMMON
+  MD_COMMON
 } from './const';
 import Demo from './demo';
 
 export default function StoryCommon(): ReactElement {
   return <Demo {...{
-    source: COMMON
+    source: MD_COMMON
   }} />;
 }

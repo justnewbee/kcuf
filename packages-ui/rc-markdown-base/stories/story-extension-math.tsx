@@ -11,20 +11,20 @@ import {
 } from '../src';
 
 import {
-  MATH
+  MD_MATH
 } from './const';
 import Demo from './demo';
 
-const extraExtensions: MarkdownExtension[] = [{
+const extensions: MarkdownExtension[] = [{
   syntax: math(),
   html: mathHtml()
 }];
 
 export default function StoryExtensionMath(): ReactElement {
   return <Demo {...{
-    source: MATH,
+    source: MD_MATH,
     options: {
-      extraExtensions
+      extensions
     }
   }} />;
 }

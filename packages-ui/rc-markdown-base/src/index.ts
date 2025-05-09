@@ -1,4 +1,4 @@
-export { default } from './rc/markdown';
+export { default } from './rc';
 
 /**
  * 如果想看看编译后的 HTML 长什么样，或者不希望 DOM 再套一层，可以用这个
@@ -22,11 +22,10 @@ export type {
 } from 'micromark-extension-directive';
 export type {
   Directive as MarkdownDirective
-} from 'micromark-extension-directive/lib/html';
+} from 'micromark-extension-directive';
 
 export type {
   IMarkdownProps as MarkdownProps,
   IMarkdownCompileOptions as MarkdownCompileOptions,
-  IMarkdownExtension as MarkdownExtension,
-  IMarkdownPlugins as MarkdownPlugins
+  IMarkdownExtension as MarkdownExtension
 } from './types';

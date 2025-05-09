@@ -4,7 +4,7 @@ export default `# Extended Syntax - Directive
 
 A lovely language know as :abbr[HTML]{title="HyperText Markup Language"}.
 
-:::main{#readme}
+:::div{#readme}
 Lorem:br
 ipsum.
 

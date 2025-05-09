@@ -4,23 +4,21 @@ import {
   State
 } from 'micromark-util-types';
 import {
-  codes
-} from 'micromark-util-symbol/codes';
-import {
+  codes,
   types
-} from 'micromark-util-symbol/types';
+} from 'micromark-util-symbol';
 
 import {
   VARIABLE_TYPES
 } from './const';
 
-export default function syntax(): Extension {
+export default function variablesSyntax(): Extension {
   return {
     text: {
-      [`${codes.leftCurlyBrace}`]: {
+      [codes.leftCurlyBrace]: {
         name: 'variables',
         tokenize(effects, ok, nok): State {
-          function inside(code: Code): State | void {
+          function inside(code: Code): State | undefined {
             switch (code) {
             case null:
             case codes.carriageReturn:
@@ -47,7 +45,7 @@ export default function syntax(): Extension {
             }
           }
           
-          function insideEscape(code: Code): State | void {
+          function insideEscape(code: Code): State | undefined {
             if (code === codes.backslash || code === codes.rightCurlyBrace) {
               effects.consume(code);
               
@@ -57,7 +55,7 @@ export default function syntax(): Extension {
             return inside(code);
           }
           
-          function begin(code: Code): State | void {
+          function begin(code: Code): State | undefined {
             return code === codes.rightCurlyBrace ? nok(code) : inside(code);
           }
           

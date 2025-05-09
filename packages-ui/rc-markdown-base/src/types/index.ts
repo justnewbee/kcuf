@@ -19,24 +19,17 @@ import {
  * 这里，主要是用来规范化调用时的插件命名
  */
 export interface IMarkdownExtension { // internal use only
-  syntax: Extension;
-  html: HtmlExtension;
-}
-
-export interface IMarkdownPlugins {
-  gfm?: boolean;
-  directive?: DirectiveHtmlOptions;
+  syntax?: Extension;
+  html?: HtmlExtension;
 }
 
 export interface IMarkdownCompileOptions {
   allowDangerousHtml?: boolean;
+  gfm?: boolean;
+  directive?: DirectiveHtmlOptions;
+  extensions?: IMarkdownExtension[];
   /**
-   * predefined extensions
-   */
-  plugins?: IMarkdownPlugins;
-  extraExtensions?: IMarkdownExtension[];
-  /**
-   * 写 extension 非常困难，所以有的时候，可以用简单的 DOM 处理来解决一些 HTML 预处理的问题
+   * 写 extension 非常困难，有的时候，可以用简单的 DOM 处理来解决一些 HTML 预处理的问题
    */
   processHtml?(html: string): string;
 }

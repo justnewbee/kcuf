@@ -2,6 +2,9 @@ import {
   ReactElement,
   useState
 } from 'react';
+import {
+  CompileContext
+} from 'micromark-util-types';
 
 import {
   H1,
@@ -20,6 +23,23 @@ import Markdown, {
   compileIntoHtml
 } from '../../src';
 
+function tagStart(this: CompileContext, d: MarkdownDirective, autoClose?: boolean, tag?: string): void {
+  const {
+    name,
+    attributes
+  } = d;
+  
+  this.tag(`<${tag || name}`);
+  
+  if (attributes) {
+    Object.keys(attributes).forEach(v => {
+      this.tag(` ${v}="${this.encode(attributes[v] || '')}"`);
+    });
+  }
+  
+  this.tag(autoClose ? '/>' : '>');
+}
+
 const directiveOptions: MarkdownExtensionDirectiveHtmlOptions = {
   /**
    * 支持 :abbr
@@ -29,21 +49,39 @@ const directiveOptions: MarkdownExtensionDirectiveHtmlOptions = {
       return false;
     }
     
-    this.tag('<abbr');
+    tagStart.call(this, d);
     
-    if (d.attributes && 'title' in d.attributes) {
-      this.tag(` title="${this.encode(d.attributes.title)}"`);
-    }
-    
-    this.tag('>');
     this.raw(d.label || '');
     this.tag('</abbr>');
   },
-  '*': function any(d: MarkdownDirective) {
-    console.info(d); // eslint-disable-line no-console
+  /**
+   * 支持 ::hr
+   */
+  hr(d: MarkdownDirective) {
+    if (d.type !== 'leafDirective') {
+      return false;
+    }
     
-    return false;
+    tagStart.call(this, d, true);
+  },
+  /**
+   * 支持 :::div
+   */
+  div(d: MarkdownDirective) {
+    if (d.type !== 'containerDirective') {
+      return false;
+    }
+    
+    tagStart.call(this, d);
+    
+    this.raw(d.content || '');
+    this.tag('</div>');
   }
+  // '*': function any(d: MarkdownDirective) {
+  //   console.info('DirectiveHtmlOptions *', d); // eslint-disable-line no-console
+  //
+  //   return false;
+  // }
 };
 
 export default function Demo({
@@ -58,15 +96,13 @@ export default function Demo({
   const [stateDirectiveEnabled, setStateDirectiveEnabled] = useState<boolean>(true);
   const compileOptions: MarkdownCompileOptions = {
     allowDangerousHtml: stateAllowDangerousHtml,
-    plugins: {
-      gfm: stateGfmEnabled,
-      directive: stateDirectiveEnabled ? directiveOptions : undefined
-    },
+    gfm: stateGfmEnabled,
+    directive: stateDirectiveEnabled ? directiveOptions : undefined,
     ...options
   };
   
   const jsxMarkdown = stateHtmlSource ? <CodeViewer {...{
-    type: 'html'
+    language: 'html'
   }}>{compileIntoHtml(stateSource, compileOptions)}</CodeViewer> : <Markdown {...{
     source: stateSource,
     options: compileOptions
@@ -97,14 +133,14 @@ export default function Demo({
     </div>
     <div>
       <InputSwitch {...{
-        label: 'props.plugins.gfm',
+        label: 'props.gfm',
         value: stateGfmEnabled,
         onChange: setStateGfmEnabled
       }} />
     </div>
     <div>
       <InputSwitch {...{
-        label: 'props.plugins.directive',
+        label: 'props.directive',
         value: stateDirectiveEnabled,
         onChange: setStateDirectiveEnabled
       }} />
@@ -112,15 +148,13 @@ export default function Demo({
     <Flex>
       <>
         <H2><span role="img" aria-label="mwa">💋</span> 展示</H2>
-        {stateApplyStyle ? <Article>{jsxMarkdown}</Article> : jsxMarkdown}
+        {stateApplyStyle && !stateHtmlSource ? <Article>{jsxMarkdown}</Article> : jsxMarkdown}
       </>
       <>
         <H2><span role="img" aria-label="code">Ⓜ</span> 代码</H2>
         <CodeViewer {...{
-          conf: {
-            readOnly: false
-          },
-          type: 'markdown',
+          readOnly: false,
+          language: 'markdown',
           onChange: setStateSource
         }}>{stateSource}</CodeViewer>
       </>

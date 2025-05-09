@@ -10,46 +10,41 @@ import {
   IMarkdownExtension,
   IMarkdownCompileOptions
 } from '../types';
-import {
-  pluginGfm,
-  pluginDirective
-} from '../plugins';
+
+import getExtensionGfm from './get-extension-gfm';
+import getExtensionDirective from './get-extension-directive';
 
 /**
  * 不需要对编译使用 useMemo 做缓存，我试过，几乎没有影响
  */
 export default function compileIntoHtml(source: string, {
   allowDangerousHtml,
-  plugins: {
-    gfm,
-    directive
-  } = {},
-  extraExtensions,
+  gfm,
+  directive,
+  extensions,
   processHtml
 }: IMarkdownCompileOptions = {}): string {
-  const extensions: Extension[] = [];
+  const syntaxExtensions: Extension[] = [];
   const htmlExtensions: HtmlExtension[] = [];
   
-  function putExtensions(ex: IMarkdownExtension): void {
-    extensions.push(ex.syntax);
-    htmlExtensions.push(ex.html);
+  function putExtensions(extension: IMarkdownExtension): void {
+    extension.syntax && syntaxExtensions.push(extension.syntax);
+    extension.html && htmlExtensions.push(extension.html);
   }
   
   if (gfm !== false) {
-    putExtensions(pluginGfm());
+    putExtensions(getExtensionGfm());
   }
   
   if (directive) {
-    putExtensions(pluginDirective(directive));
+    putExtensions(getExtensionDirective(directive));
   }
   
-  if (extraExtensions) {
-    extraExtensions.forEach(putExtensions);
-  }
+  extensions?.forEach(putExtensions);
   
   const html = micromark(source, {
     allowDangerousHtml,
-    extensions,
+    extensions: syntaxExtensions,
     htmlExtensions
   });
   

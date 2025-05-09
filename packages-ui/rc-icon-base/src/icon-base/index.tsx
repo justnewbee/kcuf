@@ -71,43 +71,43 @@ const ScIcon = styled.i<IScIconBaseProps>`
   }
   
   &[data-size='xs'] {
-    font-size: 12px;
+    font-size: 12px !important;
   }
   
   &[data-size='xs-relative'] {
-    font-size: 0.9em;
+    font-size: 0.9em !important;
   }
   
   &[data-size='s'] {
-    font-size: 14px;
+    font-size: 14px !important;
   }
   
   &[data-size='s-relative'] {
-    font-size: 1.2em;
+    font-size: 1.2em !important;
   }
   
   &[data-size='m'] {
-    font-size: 16px;
+    font-size: 16px !important;
   }
   
   &[data-size='m-relative'] {
-    font-size: 1.4em;
+    font-size: 1.4em !important;
   }
   
   &[data-size='l'] {
-    font-size: 24px;
+    font-size: 24px !important;
   }
   
   &[data-size='l-relative'] {
-    font-size: 2em;
+    font-size: 2em !important;
   }
   
   &[data-size='xl'] {
-    font-size: 32px;
+    font-size: 32px !important;
   }
   
   &[data-size='xl-relative'] {
-    font-size: 3.2em;
+    font-size: 3.2em !important;
   }
   
   &[data-spacing='start'] {

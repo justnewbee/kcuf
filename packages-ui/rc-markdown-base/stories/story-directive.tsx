@@ -3,12 +3,12 @@ import {
 } from 'react';
 
 import {
-  DIRECTIVE
+  MD_DIRECTIVE
 } from './const';
 import Demo from './demo';
 
 export default function StoryDirective(): ReactElement {
   return <Demo {...{
-    source: DIRECTIVE
+    source: MD_DIRECTIVE
   }} />;
 }

@@ -23,15 +23,15 @@
     "email": "justnewbee@gmail.com"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.8.0",
-    "@commitlint/config-conventional": "^19.8.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@kcuf/eslint-config": "workspace:^",
     "@kcuf/markdownlint-config": "workspace:^",
     "@kcuf/npm-package-json-lint-config": "workspace:^",
     "@kcuf/stylelint-config": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@tsconfig/node22": "^22.0.1",
-    "@types/node": "^22.15.14",
+    "@types/node": "^22.15.17",
     "commander": "^13.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.26.0",

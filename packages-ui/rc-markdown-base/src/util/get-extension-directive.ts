@@ -1,14 +1,14 @@
 import {
+  HtmlOptions,
   directive,
-  directiveHtml,
-  HtmlOptions
+  directiveHtml
 } from 'micromark-extension-directive';
 
 import {
   IMarkdownExtension
-} from '../../types';
+} from '../types';
 
-export default function pluginDirective(options: HtmlOptions): IMarkdownExtension {
+export default function getExtensionDirective(options: HtmlOptions): IMarkdownExtension {
   return {
     syntax: directive(),
     html: directiveHtml(options)

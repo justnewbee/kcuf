@@ -60,7 +60,7 @@ export default function reducer(state: IModelState, action: TModelAction): IMode
     return reduceSetOptionNoDelete(state, action.payload);
   case EAction.SET_OPTION_NO_CROSSING_DETECTION:
     return reduceSetOptionNoCrossingDetection(state, action.payload);
-  default:
+  default: // 如果 default 里 action 的类型没有 narrow 到 never，则说明 type 没有 cover 全
     return state;
   }
 }

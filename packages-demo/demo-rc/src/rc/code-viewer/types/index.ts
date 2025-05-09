@@ -2,7 +2,7 @@ import {
   CodemirrorProps
 } from '../../codemirror';
 
-export interface ICodeViewerProps extends Pick<CodemirrorProps, 'language' | 'theme' | 'lines'> {
+export interface ICodeViewerProps extends CodemirrorProps {
   content?: string;
   children?: string; // a fallback to content
 }

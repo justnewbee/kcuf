@@ -5,9 +5,9 @@ import {
 
 import {
   IMarkdownExtension
-} from '../../types';
+} from '../types';
 
-export default function pluginGfm(): IMarkdownExtension {
+export default function getExtensionGfm(): IMarkdownExtension {
   return {
     syntax: gfm({
       singleTilde: false

@@ -15,9 +15,7 @@ export default function reducer(state: IModelState, action: TModelAction): IMode
     return reduceSetXx(state, action.payload);
   case EAction.SET_YY:
     return reduceSetYy(state, action.payload);
-  default:
-    // // eslint-disable-next-line no-case-declarations
-    // const type: never = action.type; // 如果这里 `.type` 没有报错，则说明 type 没有 cover 全
+  default: // 如果 default 里 action 的类型没有 narrow 到 never，则说明 type 没有 cover 全
     return state;
   }
 }

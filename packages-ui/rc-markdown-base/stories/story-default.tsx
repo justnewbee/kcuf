@@ -3,12 +3,12 @@ import {
 } from 'react';
 
 import {
-  FULL
+  MD_FULL
 } from './const';
 import Demo from './demo';
 
 export default function StoryDefault(): ReactElement {
   return <Demo {...{
-    source: FULL
+    source: MD_FULL
   }} />;
 }

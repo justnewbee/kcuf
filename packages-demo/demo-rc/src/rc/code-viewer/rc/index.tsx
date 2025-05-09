@@ -11,12 +11,13 @@ export default function CodeViewer(props: ICodeViewerProps): ReactElement {
   const {
     content,
     children,
+    readOnly = true,
     ...restProps
   } = props;
   
   return <Codemirror {...{
+    readOnly,
     ...restProps,
-    value: props.content || props.children,
-    readOnly: true
+    value: props.content || props.children
   }} />;
 }

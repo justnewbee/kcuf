@@ -41,11 +41,12 @@
     "@storybook/test": "^8.6.12",
     "@types/react": "^18.3.20",
     "babel-plugin-styled-components": "^2.1.4",
-    "micromark-extension-math": "^2.1.2",
+    "micromark-extension-math": "^3.1.0",
+    "micromark-util-symbol": "^2.0.1",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
     "storybook": "^8.6.12",
-    "styled-components": "^6.1.17",
+    "styled-components": "^6.1.18",
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
@@ -54,11 +55,10 @@
     "styled-components": "^6.x"
   },
   "dependencies": {
-    "micromark": "^3.2.0",
-    "micromark-extension-directive": "^2.2.1",
-    "micromark-extension-gfm": "^2.0.3",
-    "micromark-util-symbol": "^1.1.0",
-    "micromark-util-types": "^1.1.0"
+    "micromark": "^4.0.2",
+    "micromark-extension-directive": "^4.0.0",
+    "micromark-extension-gfm": "^3.0.0",
+    "micromark-util-types": "^2.0.2"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
