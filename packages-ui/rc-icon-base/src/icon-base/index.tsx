@@ -87,7 +87,7 @@ const ScIcon = styled.i<IScIconBaseProps>`
   }
   
   &[data-size='m'] {
-    font-size: 16px !important;
+    font-size: 18px !important;
   }
   
   &[data-size='m-relative'] {

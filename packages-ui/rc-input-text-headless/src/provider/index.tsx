@@ -8,7 +8,8 @@ import {
 } from '@kcuf-hook/use-controllable';
 
 import {
-  IModelProviderProps, TChangeReason,
+  IModelProviderProps,
+  TChangeReason,
   TModelReducer
 } from '../types';
 import {
