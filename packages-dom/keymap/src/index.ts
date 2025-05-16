@@ -1,5 +1,5 @@
 import {
-  IKeymapCallback,
+  TKeymapCallback,
   IKeymapOptions
 } from './types';
 import {
@@ -10,7 +10,7 @@ import {
 /**
  * 绑定 keystroke，返回无参的解绑方法
  */
-export default function keymap(keystroke: string, callback: IKeymapCallback, {
+export default function keymap(keystroke: string, callback: TKeymapCallback, {
   target = window,
   keyup,
   capture = true,

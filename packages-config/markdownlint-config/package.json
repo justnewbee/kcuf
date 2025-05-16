@@ -22,7 +22,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "markdownlint-cli2": "^0.17.2"
+    "markdownlint-cli2": "^0.18.1"
   },
   "peerDependencies": {
     "markdownlint-cli2": ">=0"

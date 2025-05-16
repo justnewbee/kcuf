@@ -1,6 +1,6 @@
 import {
   IKeybinding,
-  IKeymapCallback
+  TKeymapCallback
 } from '../types';
 import {
   DEFAULT_TIMEOUT
@@ -8,7 +8,7 @@ import {
 
 import matchKeybinding from './match-keybinding';
 
-export default function createKeybindingHandler(keybindings: IKeybinding[], callback: IKeymapCallback, timeout = DEFAULT_TIMEOUT): (e: KeyboardEvent) => void {
+export default function createKeybindingHandler(keybindings: IKeybinding[], callback: TKeymapCallback, timeout = DEFAULT_TIMEOUT): (e: KeyboardEvent) => void {
   const possibleMatches = new Map<IKeybinding[], IKeybinding[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
   
@@ -37,15 +37,15 @@ export default function createKeybindingHandler(keybindings: IKeybinding[], call
       case false:
         e.preventDefault();
         e.stopPropagation();
-          
+        
         break;
       case 'stop':
         e.stopPropagation();
-          
+        
         break;
       case 'prevent':
         e.preventDefault();
-          
+        
         break;
       default:
         break;

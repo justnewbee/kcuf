@@ -1,10 +1,11 @@
 import {
   TDateFormat
-} from '../types';
-
-import formatDateFallback from './format-date-fallback';
-import getFormatDateFallbackPattern from './get-format-date-fallback-pattern';
-import getFormatDateOptions from './get-format-date-options';
+} from './types';
+import {
+  formatDateFallback,
+  getFormatDateOptions,
+  getFormatDateFallbackPattern
+} from './util';
 
 /**
  * 格式化日期时间

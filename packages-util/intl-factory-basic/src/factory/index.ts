@@ -1,4 +1,9 @@
 import {
+  formatNumber,
+  formatDate
+} from '@kcuf/intl-formmater';
+
+import {
   TIntlMessagesMap,
   IIntlFactoryOptions,
   IFnIntl,
@@ -7,9 +12,7 @@ import {
 import {
   getMessages,
   convertDate,
-  formatMessage,
-  formatDate,
-  formatNumber
+  formatMessage
 } from '../util';
 
 /**
