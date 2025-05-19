@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-helper-file",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Common helpers for upload and download.",
   "keywords": [],
   "license": "MIT",
@@ -33,6 +33,9 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"
+  },
+  "dependencies": {
+    "@kcuf/md5": "workspace:^"
   },
   "scripts": {
     "build:clean": "rimraf dist",
