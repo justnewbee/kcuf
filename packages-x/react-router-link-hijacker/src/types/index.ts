@@ -4,3 +4,7 @@ export interface IHijackResult {
   search: string;
   hash: string;
 }
+
+export interface IReactRouterClickHijackerProps {
+  ignore?(el: HTMLElement): boolean;
+}

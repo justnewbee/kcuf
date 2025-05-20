@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/click-hijacker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hijack click event like JQ delegate.",
   "keywords": [
     "dom",

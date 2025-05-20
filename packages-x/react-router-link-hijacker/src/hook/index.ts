@@ -1,1 +1,1 @@
-export { default as useEffectClickHijack } from './use-effect-click-hijack';
+export { default as useHandleHijackCallback } from './use-handle-hijack-callback';

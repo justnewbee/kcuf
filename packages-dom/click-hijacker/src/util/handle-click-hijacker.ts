@@ -21,7 +21,7 @@ export default function handleClickHijacker<T>(el: HTMLElement, e: MouseEvent, h
     shouldStopPropagation
   } = hijacker;
   
-  if (ignore && !ignore(el)) {
+  if (ignore && ignore(el)) {
     return false;
   }
   
