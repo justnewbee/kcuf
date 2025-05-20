@@ -15,10 +15,16 @@ export default function handleClickHijacker<T>(el: HTMLElement, e: MouseEvent, h
   
   const {
     condition,
+    ignore,
     callback,
     shouldPreventDefault,
     shouldStopPropagation
   } = hijacker;
+  
+  if (ignore && !ignore(el)) {
+    return false;
+  }
+  
   const result = condition(el, e);
   
   if (!result) {

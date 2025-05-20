@@ -4,6 +4,10 @@ export interface IClickHijacker<T = boolean> {
    */
   condition(el: HTMLElement, e: MouseEvent): T | void;
   /**
+   * 对 `condition` 的补充，命中则忽略，优先于 `condition` 调用
+   */
+  ignore?(el: HTMLElement): boolean;
+  /**
    * 劫持操作
    */
   callback?(result: T, el: HTMLElement): void;

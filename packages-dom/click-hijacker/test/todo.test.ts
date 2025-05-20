@@ -1,12 +1,9 @@
-import {
-  beforeEach,
-  afterEach,
-  describe,
-  expect,
-  test
-} from 'vitest';
+/**
+ * @vitest-environment jsdom
+ */
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
-// TODO
+import clickHijacker from '../src';
 
 describe('hijack', () => {
   let root;
@@ -16,14 +13,14 @@ describe('hijack', () => {
   
   beforeEach(() => {
     root = {
-      addEventListener: vitest.fn(),
-      removeEventListener: vitest.fn()
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn()
     };
     link = global.document.createElement('a');
     link.href = 'about:/foo/bar';
     global.document.body.appendChild(link);
     mockEvent = {
-      preventDefault: vitest.fn(),
+      preventDefault: vi.fn(),
       target: link
     };
   });
@@ -34,17 +31,19 @@ describe('hijack', () => {
   });
   
   test('adds a listener', () => {
-    const options = { root };
+    const options = {root};
     const callback = () => {};
-    remove = linkHijacker.hijack(options, callback);
+    
+    remove = clickHijacker(options, callback);
     expect(root.addEventListener).toHaveBeenCalledTimes(1);
     expect(root.addEventListener.mock.calls[0][0]).toBe('click');
   });
   
   test('can remove the listener', () => {
-    const options = { root };
-    const callback = () => {};
-    remove = linkHijacker.hijack(options, callback);
+    const options = {root};
+    const callback = () => {
+    };
+    remove = clickHijacker(options, callback);
     remove();
     const handler = root.addEventListener.mock.calls[0][1];
     expect(root.removeEventListener).toHaveBeenCalledTimes(1);
@@ -54,12 +53,15 @@ describe('hijack', () => {
   
   test('hijacks links, preventing default', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, (clickedLink, clickEvent) => {
+    
+    remove = clickHijacker({root}, (clickedLink, clickEvent) => {
       callbackCalled = true;
       expect(clickedLink).toBe(link);
       expect(clickEvent).toBe(mockEvent);
     });
+    
     const handler = root.addEventListener.mock.calls[0][1];
+    
     handler(mockEvent);
     expect(callbackCalled).toBe(true);
     expect(mockEvent.preventDefault).toHaveBeenCalledTimes(1);
@@ -67,25 +69,32 @@ describe('hijack', () => {
   
   test('hijacks links when click is on nested element', () => {
     const nestedEl = global.document.createElement('div');
+    
     link.appendChild(nestedEl);
     mockEvent.target = nestedEl;
+    
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, (clickedLink, clickEvent) => {
+    
+    remove = clickHijacker({root}, (clickedLink, clickEvent) => {
       callbackCalled = true;
       expect(clickedLink).toBe(link);
       expect(clickEvent).toBe(mockEvent);
     });
+    
     const handler = root.addEventListener.mock.calls[0][1];
+    
     handler(mockEvent);
     expect(callbackCalled).toBe(true);
   });
   
   test('skips defaultPrevented', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
+    
     mockEvent.defaultPrevented = true;
     handler(mockEvent);
     expect(callbackCalled).toBe(false);
@@ -93,7 +102,7 @@ describe('hijack', () => {
   
   test('skips right click', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -104,7 +113,7 @@ describe('hijack', () => {
   
   test('skips ctrl key', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -115,8 +124,7 @@ describe('hijack', () => {
   
   test('options.skipModifierKeys = false does not skip ctrl key', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack(
-      {
+    remove = clickHijacker({
         root,
         skipModifierKeys: false
       },
@@ -132,7 +140,7 @@ describe('hijack', () => {
   
   test('skips meta key', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -143,8 +151,7 @@ describe('hijack', () => {
   
   test('options.skipModifierKeys = false does not skip meta key', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack(
-      {
+    remove = clickHijacker({
         root,
         skipModifierKeys: false
       },
@@ -160,7 +167,7 @@ describe('hijack', () => {
   
   test('skips alt key', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -171,8 +178,7 @@ describe('hijack', () => {
   
   test('options.skipModifierKeys = false does not skip alt key', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack(
-      {
+    remove = clickHijacker({
         root,
         skipModifierKeys: false
       },
@@ -188,7 +194,7 @@ describe('hijack', () => {
   
   test('skips shift key', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -199,8 +205,7 @@ describe('hijack', () => {
   
   test('options.skipModifierKeys = false does not skip shift key', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack(
-      {
+    remove = clickHijacker({
         root,
         skipModifierKeys: false
       },
@@ -216,7 +221,7 @@ describe('hijack', () => {
   
   test('skips elements with no link parent', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -229,7 +234,7 @@ describe('hijack', () => {
   
   test('skips download', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -240,8 +245,7 @@ describe('hijack', () => {
   
   test('options.skipDownload = false does not skip download', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack(
-      {
+    remove = clickHijacker({
         root,
         skipDownload: false
       },
@@ -257,7 +261,7 @@ describe('hijack', () => {
   
   test('skips rel="external"', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -268,8 +272,7 @@ describe('hijack', () => {
   
   test('options.skipExternal = false does not skip rel="external"', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack(
-      {
+    remove = clickHijacker({
         root,
         skipExternal: false
       },
@@ -285,7 +288,7 @@ describe('hijack', () => {
   
   test('skips target="_blank"', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -296,15 +299,12 @@ describe('hijack', () => {
   
   test('options.skipTargetBlank = false does not skip target="_blank"', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack(
-      {
-        root,
-        skipTargetBlank: false
-      },
-      () => {
-        callbackCalled = true;
-      }
-    );
+    remove = clickHijacker({
+      root,
+      skipTargetBlank: false
+    }, () => {
+      callbackCalled = true;
+    });
     const handler = root.addEventListener.mock.calls[0][1];
     link.setAttribute('target', '_blank');
     handler(mockEvent);
@@ -313,7 +313,7 @@ describe('hijack', () => {
   
   test('skips mailto', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -324,15 +324,12 @@ describe('hijack', () => {
   
   test('options.skipMailTo = false does not skip mailto', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack(
-      {
-        root,
-        skipMailTo: false
-      },
-      () => {
-        callbackCalled = true;
-      }
-    );
+    remove = clickHijacker({
+      root,
+      skipMailTo: false
+    }, () => {
+      callbackCalled = true;
+    });
     const handler = root.addEventListener.mock.calls[0][1];
     link.setAttribute('href', 'mailto:fake@gmail.com');
     handler(mockEvent);
@@ -341,7 +338,7 @@ describe('hijack', () => {
   
   test('skips links to another host', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -352,15 +349,12 @@ describe('hijack', () => {
   
   test('options.skipFilter', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack(
-      {
-        root,
-        skipFilter: link => link.hasAttribute('data-no-hijack')
-      },
-      () => {
-        callbackCalled = true;
-      }
-    );
+    remove = clickHijacker({
+      root,
+      skipFilter: link => link.hasAttribute('data-no-hijack')
+    }, () => {
+      callbackCalled = true;
+    });
     const handler = root.addEventListener.mock.calls[0][1];
     link.setAttribute('href', 'about:/path/to/place');
     link.setAttribute('data-no-hijack', '');
@@ -373,7 +367,7 @@ describe('hijack', () => {
   
   test('skips anchor without href', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -384,7 +378,7 @@ describe('hijack', () => {
   
   test('skips fragments', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -395,7 +389,7 @@ describe('hijack', () => {
   
   test('does not skip URLs ending with fragments', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -406,7 +400,7 @@ describe('hijack', () => {
   
   test('does not skip URLs ending with slash + fragments', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -417,7 +411,10 @@ describe('hijack', () => {
   
   test('options.skipFragment', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root, skipFragment: false }, () => {
+    remove = clickHijacker({
+      root,
+      skipFragment: false
+    }, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -428,7 +425,7 @@ describe('hijack', () => {
   
   test('options.preventDefault true (default)', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root }, () => {
+    remove = clickHijacker({root}, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];
@@ -440,7 +437,10 @@ describe('hijack', () => {
   
   test('options.preventDefault false', () => {
     let callbackCalled = false;
-    remove = linkHijacker.hijack({ root, preventDefault: false }, () => {
+    remove = clickHijacker({
+      root,
+      preventDefault: false
+    }, () => {
       callbackCalled = true;
     });
     const handler = root.addEventListener.mock.calls[0][1];

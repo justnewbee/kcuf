@@ -30,7 +30,7 @@
     "@kcuf/npm-package-json-lint-config": "workspace:^",
     "@kcuf/stylelint-config": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@tsconfig/node22": "^22.0.1",
+    "@tsconfig/node22": "^22.0.2",
     "@types/node": "^22.15.19",
     "commander": "^14.0.0",
     "depcheck": "^1.4.7",
