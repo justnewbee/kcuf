@@ -96,6 +96,7 @@ export default eslintTs.config(
           allowTernary: true,
           enforceForJSX: true
         }],
+        // '@typescript-eslint/no-unnecessary-condition': 'error',
         '@typescript-eslint/prefer-function-type': 'error'
       }
     }
