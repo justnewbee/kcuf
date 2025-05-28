@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/mere-dom",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A minimal DOM util collection.",
   "keywords": [],
   "license": "MIT",
