@@ -67,7 +67,7 @@ const ScChild = styled.div`
 `;
 
 <Transition {...props}>
-  {(status: 'entering' | 'entered' | 'exiting' | 'exited') => <ScChild />}
+  <ScChild />
 </Transition>
 ```
 
@@ -98,14 +98,11 @@ function Child(): ReactElement {
 
 ### Exports
 
-**Removed**
-
-* `CSSTransition` → `Transition` + `data-transition` is enough
-
-**Renamed**
-
-* `SwitchTransition` → `TransitionSwitch` TODO
-* `ReplaceTransition` → `TransitionReplace` TODO
+* Removed
+  + `CSSTransition` → `Transition` + `data-transition` is enough
+* Renamed
+  + `SwitchTransition` → `TransitionSwitch` TODO
+  + `ReplaceTransition` → `TransitionReplace` TODO
 
 ### TransitionProps
 
