@@ -33,8 +33,8 @@
   "devDependencies": {
     "@ant-design/fast-color": "^3.0.0",
     "@babel/cli": "^7.27.2",
-    "@babel/core": "^7.27.1",
-    "@babel/plugin-transform-runtime": "^7.27.1",
+    "@babel/core": "^7.27.3",
+    "@babel/plugin-transform-runtime": "^7.27.3",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-typescript": "^7.27.1",
     "@chromatic-com/storybook": "^3.2.6",

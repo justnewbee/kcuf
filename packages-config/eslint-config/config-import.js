@@ -46,7 +46,8 @@ export default [
       'import/no-named-as-default': 'off',
       'import/no-duplicates': 'error', // 默认 warn
       'import/no-cycle': 'error',
-      'import/no-self-import': 'error'
+      'import/no-self-import': 'error',
+      'import/prefer-default-export': 'error'
     }
   }
 ];
