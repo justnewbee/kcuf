@@ -5,9 +5,9 @@ import {
 export default {
   stories: ['../stories/**/*.stories.@(ts|tsx)'],
   addons: [
+    '@storybook/addon-docs',
     '@storybook/addon-links',
-    '@chromatic-com/storybook',
-    '@storybook/addon-docs'
+    '@chromatic-com/storybook'
   ],
   framework: {
     name: '@storybook/react-vite',
