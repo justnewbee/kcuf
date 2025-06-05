@@ -23,13 +23,13 @@
     "access": "public"
   },
   "devDependencies": {
-    "stylelint": "^16.19.1"
+    "stylelint": "^16.20.0"
   },
   "peerDependencies": {
     "stylelint": ">=15"
   },
   "dependencies": {
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.4",
     "postcss-html": "^1.8.0",
     "postcss-less": "^6.0.0",
     "postcss-sass": "^0.5.0",

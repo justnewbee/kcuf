@@ -18,7 +18,7 @@ const meta = {
 
 export default meta;
 
-export const Primary: TStory = {
+export const Default: TStory = {
   args: {
     children: 'Lorem ipsum dolor sit amet, consectetur adip sap et dolor sit amet, sed diam eu et dolor sit amet, sed diam eu et dolor sit amet, sed diam eu et dolor sit amet, sed'
   }

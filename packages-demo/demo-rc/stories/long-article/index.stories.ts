@@ -18,4 +18,4 @@ const meta = {
 
 export default meta;
 
-export const Primary: TStory = {};
+export const Default: TStory = {};

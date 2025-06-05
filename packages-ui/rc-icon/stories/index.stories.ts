@@ -1,6 +1,6 @@
 import {
   Meta
-} from '@storybook/react';
+} from '@storybook/react-vite';
 
 import Icon from '../src';
 

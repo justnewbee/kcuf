@@ -1,6 +1,6 @@
 import {
   Meta
-} from '@storybook/react';
+} from '@storybook/react-vite';
 
 // button
 export { default as ButtonGlowOnHover } from './story-button-glow-on-hover';

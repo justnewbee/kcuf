@@ -1,7 +1,7 @@
 import {
   Meta,
   StoryObj
-} from '@storybook/react';
+} from '@storybook/react-vite';
 
 import {
   Button
@@ -21,7 +21,7 @@ const meta = {
 
 export default meta;
 
-export const Primary: TStory = {
+export const Default: TStory = {
   args: {
     children: 'Button'
   }

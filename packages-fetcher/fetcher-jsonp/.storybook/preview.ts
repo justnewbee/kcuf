@@ -1,6 +1,6 @@
 import {
   Preview
-} from '@storybook/react';
+} from '@storybook/react-vite';
 
 export default {
   parameters: {

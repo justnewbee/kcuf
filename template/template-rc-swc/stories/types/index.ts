@@ -1,7 +1,7 @@
 import {
   Meta,
   StoryObj
-} from '@storybook/react';
+} from '@storybook/react-vite';
 
 import Alert from '../../src';
 

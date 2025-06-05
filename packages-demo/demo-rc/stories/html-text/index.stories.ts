@@ -18,7 +18,7 @@ const meta = {
 
 export default meta;
 
-export const Primary: TStory = {
+export const Default: TStory = {
   args: {
     text: 'HtmlText <strong>strong</strong> <em>em</em> <code>code</code> <kbd>kbd</kbd>'
   }

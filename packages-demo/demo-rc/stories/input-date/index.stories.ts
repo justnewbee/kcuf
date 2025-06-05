@@ -1,7 +1,7 @@
 import {
   Meta,
   StoryObj
-} from '@storybook/react';
+} from '@storybook/react-vite';
 
 import {
   InputNumber
@@ -21,4 +21,4 @@ const meta = {
 
 export default meta;
 
-export const Primary: TStory = {};
+export const Default: TStory = {};
