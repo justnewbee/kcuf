@@ -1,7 +1,7 @@
 # common
 .*
 !.*ignore
-!.*.yml
+!.*.yaml
 !.*rc
 !.*rc.*
 !.husky
@@ -19,6 +19,7 @@
 **/*.lock
 **/*-lock.json
 **/*-lock.yaml
+!pnpm-lock.yaml
 
 # build
 
