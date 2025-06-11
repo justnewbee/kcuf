@@ -1,4 +1,8 @@
 import {
+  bindEventToDocument
+} from '@kcuf/mere-dom';
+
+import {
   EZoomHow
 } from '../../enum';
 import {
@@ -6,9 +10,6 @@ import {
   IMarkingStats,
   IMarkingPlugin
 } from '../../types';
-import {
-  bindDocumentEvent
-} from '../../util';
 
 /**
  * 为 zoom 添加快捷键
@@ -56,8 +57,8 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
     canvasMarking.zoom(e.deltaY > 0 ? EZoomHow.OUT : EZoomHow.IN, Math.ceil(Math.abs(e.deltaY / 4)));
   }
   
-  const unbindDocKeydown = bindDocumentEvent('keydown', handleKeydown, true);
-  const unbindDocWheel = bindDocumentEvent('wheel', handleWheel, {
+  const unbindDocKeydown = bindEventToDocument('keydown', handleKeydown, true);
+  const unbindDocWheel = bindEventToDocument('wheel', handleWheel, {
     capture: true,
     passive: false // 否则 Chrome 会 console.error 出一堆恶心的提示「[Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive.」
   });

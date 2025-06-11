@@ -48,9 +48,11 @@
     "docusaurus-plugin-sass": "^0.2.6",
     "inquirer": "^12.6.3",
     "react-docgen": "^8.0.0",
-    "react-docgen-typescript": "^2.2.2",
+    "react-docgen-typescript": "^2.4.0",
     "sass": "^1.89.2",
     "ts-node-dev": "^2.0.0",
+    "typedoc": "^0.28.5",
+    "typedoc-plugin-markdown": "^4.6.4",
     "typescript": "^5.8.3"
   },
   "dependencies": {

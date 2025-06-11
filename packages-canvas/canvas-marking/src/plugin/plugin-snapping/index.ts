@@ -1,11 +1,12 @@
 import {
+  bindEventToDocument
+} from '@kcuf/mere-dom';
+
+import {
   ICanvasMarkingClass,
   IMarkingStats,
   IMarkingPlugin
 } from '../../types';
-import {
-  bindDocumentEvent
-} from '../../util';
 
 const KEY = 'Shift';
 
@@ -15,12 +16,12 @@ const KEY = 'Shift';
 export default function pluginSnapping<T = unknown>(canvasMarking: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   let inCanvas = false;
   
-  const unbindDocKeydown = bindDocumentEvent('keydown', (e: KeyboardEvent): void => {
+  const unbindDocKeydown = bindEventToDocument('keydown', (e: KeyboardEvent): void => {
     if (inCanvas && e.key === KEY) {
       canvasMarking.toggleSnap(true);
     }
   }, true);
-  const unbindDocKeyup = bindDocumentEvent('keyup', (e: KeyboardEvent): void => {
+  const unbindDocKeyup = bindEventToDocument('keyup', (e: KeyboardEvent): void => {
     if (e.key === KEY) {
       canvasMarking.toggleSnap(false);
     }

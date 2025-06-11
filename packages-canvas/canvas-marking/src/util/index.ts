@@ -4,7 +4,6 @@ export { default as myDebug } from './my-debug';
 
 export { default as resolveMarkingStyleConfig } from './resolve-marking-style-config';
 
-export { default as bindDocumentEvent } from './bind-document-event';
 export { default as loadImage } from './load-image';
 
 export { default as createDomDiv } from './create-dom-div';

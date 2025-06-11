@@ -17,7 +17,13 @@ import {
   Point,
   roundCoords
 } from '@kcuf/geometry-basic';
-import { pixelRatioGet, pixelRatioListen } from '@kcuf/canvas-helper';
+import {
+  bindEventToDocument
+} from '@kcuf/mere-dom';
+import {
+  pixelRatioGet,
+  pixelRatioListen
+} from '@kcuf/canvas-helper';
 import Subscribable from '@kcuf/subscribable';
 
 import {
@@ -55,7 +61,6 @@ import {
   DEFAULT_RIGHT_ANGLE_MARK_SIZE
 } from '../const';
 import {
-  bindDocumentEvent,
   canvasDrawPerpendicularMark,
   createDomCanvas,
   createDomImageBg,
@@ -494,9 +499,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     canvas.addEventListener('mousedown', this._handleMouseDownCanvas, true);
     
     // 添加消除副作用的清理方法
-    this.cleanups.push(bindDocumentEvent('mousemove', this._handleMouseMoveGlobal, true));
-    this.cleanups.push(bindDocumentEvent('mouseup', this._handleMouseUpGlobal, true));
-    this.cleanups.push(bindDocumentEvent('keydown', this._handleKeyDownGlobal, true));
+    this.cleanups.push(bindEventToDocument('mousemove', this._handleMouseMoveGlobal, true));
+    this.cleanups.push(bindEventToDocument('mouseup', this._handleMouseUpGlobal, true));
+    this.cleanups.push(bindEventToDocument('keydown', this._handleKeyDownGlobal, true));
     this.cleanups.push(() => resizeObserver.disconnect());
     this.cleanups.push(pixelRatioListen(pixelRatio => this.updatePixelRatio(pixelRatio)));
   }
