@@ -6,6 +6,8 @@ import _throttle from 'lodash/throttle';
 
 import {
   Angle,
+  JustifyMagnetType,
+  JustifyMagnetResult,
   justifyMagnetAlongPath,
   justifyMagnetAlongPaths,
   justifyPerpendicularExternal,
@@ -319,7 +321,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       this.draw();
     }
     
-    if (!mouseIsInStage) {
+    if (!mouseIsInStage) { // TODO 应该判断移出或临近边缘
       this.moveCanvasWhenMouseOutDragging();
     }
   };
@@ -530,11 +532,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.zoomLevel = zoomLevel;
     this.imageScale = this.imageFitScale * zoomLevel;
     
-    const rect = this.stage.getBoundingClientRect();
-    const width = Math.round((imageLoader?.naturalWidth || rect.width) * this.imageScale);
-    const height = Math.round((imageLoader?.naturalHeight || rect.height) * this.imageScale);
-    const top = Math.round((rect.height - height) / 2);
-    const left = Math.round((rect.width - width) / 2);
+    const rectStage = this.stage.getBoundingClientRect();
+    const width = Math.round((imageLoader?.naturalWidth || rectStage.width) * this.imageScale);
+    const height = Math.round((imageLoader?.naturalHeight || rectStage.height) * this.imageScale);
+    const top = Math.round((rectStage.height - height) / 2);
+    const left = Math.round((rectStage.width - width) / 2);
     
     imageBg.style.width = `${width}px`;
     imageBg.style.height = `${height}px`;
@@ -913,24 +915,34 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return false;
     }
     
-    const itemStatsCreating = this.itemCreating?.stats;
-    const itemStatsEditing = this.itemEditing?.stats;
     const {
       mouseInImage
     } = this;
-    let justifiedResult = itemStatsCreating ? justifyMagnetAlongPath(mouseInImage, itemStatsCreating.path, magnetRadius) : null;
+    const itemStatsCreating = this.itemCreating?.stats;
+    const itemStatsEditing = this.itemEditing?.stats;
+    let justifiedResult: JustifyMagnetResult | null = null;
     
-    justifiedResult ||= itemStatsEditing && itemStatsEditing.draggingPointIndex >= 0 ? justifyMagnetAlongPath(mouseInImage, itemStatsEditing.path.filter((_v, i) => {
-      return i !== itemStatsEditing.draggingPointIndex;
-    }), magnetRadius) : null;
+    if (itemStatsCreating) { // 新建内部磁吸
+      justifiedResult = justifyMagnetAlongPath(mouseInImage, itemStatsCreating.path, magnetRadius);
+    }
     
+    if (!justifiedResult && itemStatsEditing && itemStatsEditing?.draggingPointIndex >= 0) { // 编辑内部磁吸
+      justifiedResult = justifyMagnetAlongPath(mouseInImage, itemStatsEditing.path.filter((_v, i) => {
+        return i !== itemStatsEditing.draggingPointIndex;
+      }), magnetRadius);
+    }
+    
+    // 新建或编辑，外部磁吸
     justifiedResult ||= justifyMagnetAlongPaths(mouseInImage, this.getAllPaths(true), magnetRadius);
     
     if (justifiedResult) {
       this.justified = getMouseJustifyStatusMagnet(justifiedResult);
       this.mouseInImage = this.roundClampCoordsInImage(justifiedResult.point);
       
-      this.justifyImageMousePerpendicularExternal(); // 磁吸的时候，还需要进一步
+      // 磁吸的时候，若不是吸住顶点，还需要进一步做直角矫正
+      if (justifiedResult.type !== JustifyMagnetType.VERTEX) {
+        this.justifyImageMousePerpendicularExternal();
+      }
     }
     
     return !!justifiedResult;

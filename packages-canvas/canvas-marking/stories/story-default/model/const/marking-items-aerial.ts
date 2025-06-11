@@ -279,7 +279,7 @@ export default [{
 }, {
   id: 'well',
   path: [
-    [1400, 200]
+    [2800, 1898]
   ],
   pointCountMax: 1,
   styleConfig: {
