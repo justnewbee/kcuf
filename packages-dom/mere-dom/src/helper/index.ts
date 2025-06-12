@@ -3,10 +3,6 @@ export { default as find } from './find';
 export { default as findOutside } from './find-outside';
 export { default as findFocusable } from './find-focusable';
 
-// event
-export { default as bindEventToDocument } from './bind-event-to-document';
-export { default as bindEventToWindow } from './bind-event-to-window';
-
 // getter
 export { default as getComputedStyle } from './get-computed-style';
 export { default as getRect } from './get-rect';
@@ -15,6 +11,7 @@ export { default as getScrollbarWidth } from './get-scrollbar-width';
 export { default as getScrollbarWidthOfSystem } from './get-scrollbar-width-of-system';
 export { default as getScrollbarWidthOfWindow } from './get-scrollbar-width-of-window';
 export { default as getEventTarget } from './get-event-target';
+export { default as getPixelRatio } from './get-pixel-ratio';
 
 // checker
 export { default as isVisible } from './is-visible';
@@ -32,6 +29,11 @@ export { default as wrap } from './wrap';
 export { default as scrollIntoView } from './scroll-into-view';
 export { default as scrollTo } from './scroll-to';
 export { default as selectText } from './select-text';
+
+// event
+export { default as bindEventToDocument } from './bind-event-to-document';
+export { default as bindEventToWindow } from './bind-event-to-window';
+export { default as listenPixelRatioChange } from './listen-pixel-ratio-change';
 
 // content safe
 export { default as htmlEscape } from './html-escape';

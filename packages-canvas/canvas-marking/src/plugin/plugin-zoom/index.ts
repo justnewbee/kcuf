@@ -20,11 +20,11 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
   function zoomOnKey(key: string, shift: boolean): boolean {
     switch (key) { // TODO 是不是有个 100%
     case '=': // +
-      shift ? canvasMarking.zoom(EZoomHow.MAX) : canvasMarking.zoom(EZoomHow.IN);
+      shift ? canvasMarking.zoom(EZoomHow.MAX) : canvasMarking.zoom(EZoomHow.IN, true);
       
       return true;
     case '-':
-      shift ? canvasMarking.zoom(EZoomHow.MIN) : canvasMarking.zoom(EZoomHow.OUT);
+      shift ? canvasMarking.zoom(EZoomHow.MIN) : canvasMarking.zoom(EZoomHow.OUT, true);
       
       return true;
     case '0':
@@ -54,7 +54,7 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
     
     e.preventDefault();
     e.stopPropagation();
-    canvasMarking.zoom(e.deltaY > 0 ? EZoomHow.OUT : EZoomHow.IN, Math.ceil(Math.abs(e.deltaY / 4)));
+    canvasMarking.zoom(e.deltaY > 0 ? EZoomHow.OUT : EZoomHow.IN, true, Math.ceil(Math.abs(e.deltaY / 4)));
   }
   
   const unbindDocKeydown = bindEventToDocument('keydown', handleKeydown, true);

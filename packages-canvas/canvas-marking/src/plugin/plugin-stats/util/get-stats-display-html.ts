@@ -25,6 +25,7 @@ export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>
     [' └ Scale', displayPercentage(stats.imageScale)],
     ['Mouse', displayCoords(stats.mouse)],
     [' ├ InStage', displayCoords(stats.mouseInStage)],
+    [' ├ InCanvasUnprotected', displayCoords(stats.mouseInCanvasUnprotected)],
     [' ├ InCanvas', displayCoords(stats.mouseInCanvas)],
     [' ├ InImage', displayCoords(stats.mouseInImage)],
     [' ├ InImageJustified', stats.mouseInImageJustified],
