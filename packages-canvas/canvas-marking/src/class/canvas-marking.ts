@@ -159,6 +159,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    */
   private cleanups: (() => void)[] = [];
   
+  private get rectStage(): DOMRect {
+    return this.stage.getBoundingClientRect();
+  }
+  
+  private get rectCanvas(): DOMRect {
+    return this.canvas.getBoundingClientRect();
+  }
+  
   private get itemHovering(): IMarkingItemClass<T> | null {
     return this.markingItems.find(v => v.stats.hovering) || null;
   }
@@ -441,19 +449,17 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       stage,
       canvas,
       bg,
-      imageInfo: {
-        loader: imageLoader
-      },
-      pixelRatio
+      imageInfo,
+      pixelRatio,
+      rectStage
     } = this;
-    const imageScale = (imageLoader ? getImageFitScale(stage, imageLoader) : 1) * zoomLevel;
+    const imageScale = (imageInfo.loader ? getImageFitScale(stage, imageInfo.loader) : 1) * zoomLevel;
     
     this.zoomLevel = zoomLevel;
-    this.imageInfo.scale = imageScale;
+    imageInfo.scale = imageScale;
     
-    const rectStage = this.stage.getBoundingClientRect();
-    const width = Math.round((imageLoader?.naturalWidth || rectStage.width) * imageScale);
-    const height = Math.round((imageLoader?.naturalHeight || rectStage.height) * imageScale);
+    const width = Math.round((imageInfo.loader?.naturalWidth || rectStage.width) * imageScale);
+    const height = Math.round((imageInfo.loader?.naturalHeight || rectStage.height) * imageScale);
     const x = Math.round((rectStage.width - width) / 2);
     const y = Math.round((rectStage.height - height) / 2);
     
@@ -487,7 +493,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private async setupImage(imageUrl: string): Promise<void> {
-    if (imageUrl === this.imageInfo.url) { // 避免相同的图片重复加载渲染造成的闪现
+    const {
+      imageInfo
+    } = this;
+    
+    if (imageUrl === imageInfo.url) { // 避免相同的图片重复加载渲染造成的闪现
       return;
     }
     
@@ -500,9 +510,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     bg.style.backgroundImage = imageUrl ? `url(${imageUrl})` : 'none';
     
     this.moveTo([0, 0]);
-    this.imageInfo.url = imageUrl;
-    this.imageInfo.loader = null;
-    this.imageInfo.status = imageUrl ? EImageStatus.LOADING : EImageStatus.NONE;
+    
+    imageInfo.url = imageUrl;
+    imageInfo.loader = null;
+    imageInfo.status = imageUrl ? EImageStatus.LOADING : EImageStatus.NONE;
+    
     this.setupScaleSizing();
     
     if (!imageUrl) {
@@ -519,8 +531,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       const imageLoader = await loadImage(imageUrl);
       const duration = Date.now() - start;
       
-      this.imageInfo.status = EImageStatus.LOADED;
-      this.imageInfo.loader = imageLoader;
+      imageInfo.status = EImageStatus.LOADED;
+      imageInfo.loader = imageLoader;
       
       bg.style.transition = 'opacity 200ms ease-in-out';
       bg.style.opacity = '1';
@@ -530,9 +542,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     } catch (_err) {
       const duration = Date.now() - start;
       
-      this.imageInfo.status = EImageStatus.ERROR;
-      this.imageInfo.loader = null;
-      this.imageInfo.url = ''; // 再次设置，可以重新加载
+      imageInfo.status = EImageStatus.ERROR;
+      imageInfo.loader = null;
+      imageInfo.url = ''; // 再次设置，可以重新加载
       
       this.options.onImageLoadError?.(imageUrl, duration);
       this.emit('image-load-error', imageUrl, duration);
@@ -543,11 +555,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private refreshMouseInfo(e: MouseEvent): void {
     const {
-      mouseInfo
+      mouseInfo,
+      rectStage,
+      rectCanvas
     } = this;
-    
-    const rectStage = this.stage.getBoundingClientRect();
-    const rectCanvas = this.canvas.getBoundingClientRect();
     
     const coordsRelativeToStage: Point = [e.clientX - rectStage.left, e.clientY - rectStage.top];
     const coordsRelativeToCanvas: Point = [e.clientX - rectCanvas.left, e.clientY - rectCanvas.top];
@@ -574,6 +585,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.justifyClear();
     
     const {
+      rectStage,
+      rectCanvas,
       mouseInfo,
       mouseInfo: {
         coordsRelativeToCanvas
@@ -582,8 +595,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       itemEditing
     } = this;
     const mouseIsInCanvas = this.mouseInfo.coordsInCanvas;
-    const rectStage = this.stage.getBoundingClientRect();
-    const rectCanvas = this.canvas.getBoundingClientRect();
     const canvasX = rectCanvas.left - rectStage.left;
     const canvasY = rectCanvas.top - rectStage.top;
     
@@ -609,16 +620,16 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    */
   private refreshStats(cause: EMarkingStatsChangeCause): void {
     const {
-      canvas,
-      imageInfo: {
-        loader: imageLoader
-      }
+      imageInfo,
+      rectCanvas
     } = this;
-    const rectCanvas = canvas.getBoundingClientRect();
     
-    this.imageInfo.size = [
-      imageLoader?.naturalWidth || rectCanvas.width,
-      imageLoader?.naturalHeight || rectCanvas.height
+    imageInfo.size = imageInfo.loader ? [
+      imageInfo.loader.naturalWidth,
+      imageInfo.loader.naturalHeight
+    ] : [
+      rectCanvas.width,
+      rectCanvas.height
     ];
     
     // 先更新所有 `MarkingItem` 的 `stats`
@@ -900,13 +911,16 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       pathToJustifyPerpendicular = [...pathAfter, ...pathBefore];
     }
     
-    const justifiedResult = pathToJustifyPerpendicular ? justifyPerpendicularInternal(this.mouseInfo.coordsInImage, pathToJustifyPerpendicular, {
+    const {
+      mouseInfo
+    } = this;
+    const justifiedResult = pathToJustifyPerpendicular ? justifyPerpendicularInternal(mouseInfo.coordsInImage, pathToJustifyPerpendicular, {
       radius: this.getOptionJustifyPerpendicularThresholdRadius()
     }) : null;
     
     if (justifiedResult) {
-      this.mouseInfo.coordsInImageJustified = EMouseJustifyStatus.PERPENDICULAR_INTERNAL;
-      this.mouseInfo.coordsInImage = this.clampCoordsInImage(justifiedResult.point);
+      mouseInfo.coordsInImageJustified = EMouseJustifyStatus.PERPENDICULAR_INTERNAL;
+      mouseInfo.coordsInImage = this.clampCoordsInImage(justifiedResult.point);
     }
     
     return !!justifiedResult;
@@ -930,14 +944,18 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       pivot = editingStats.path[editingStats.draggingPointIndex === 0 ? 1 : 0];
     }
     
-    const justifiedResult = pivot ? justifyPerpendicularExternal(this.mouseInfo.coordsInImage, pivot, this.getAllPaths(true), {
+    const {
+      mouseInfo
+    } = this;
+    const justifiedResult = pivot ? justifyPerpendicularExternal(mouseInfo.coordsInImage, pivot, this.getAllPaths(true), {
       radius: this.getOptionJustifyPerpendicularThresholdRadius()
     }) : null;
     
     if (justifiedResult) {
-      this.mouseInfo.coordsInImageJustified = EMouseJustifyStatus.PERPENDICULAR_EXTERNAL;
       this.justifiedRightAngle = justifiedResult.angle;
-      this.mouseInfo.coordsInImage = this.clampCoordsInImage(justifiedResult.point);
+      
+      mouseInfo.coordsInImageJustified = EMouseJustifyStatus.PERPENDICULAR_EXTERNAL;
+      mouseInfo.coordsInImage = this.clampCoordsInImage(justifiedResult.point);
     }
     
     return !!justifiedResult;
@@ -1561,6 +1579,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   moveStart(): void {
     const {
+      mouseInfo,
       movingInfo
     } = this;
     
@@ -1568,7 +1587,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    movingInfo.coordsStart = this.mouseInfo.coordsInStage;
+    movingInfo.coordsStart = mouseInfo.coordsInStage;
     movingInfo.coordsSnapshot = movingInfo.coords;
     this.updateAndDraw(EMarkingStatsChangeCause.MOVE_START);
     
@@ -1713,8 +1732,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   getStats(): IMarkingStats<T> {
-    const rectStage = this.stage.getBoundingClientRect();
-    const rectCanvas = this.canvas.getBoundingClientRect();
+    const {
+      rectStage,
+      rectCanvas
+    } = this;
     const itemStatsCreating = this.itemCreating?.stats || null;
     const itemStatsHovering = this.itemHovering?.stats || null;
     const itemStatsHighlighting = this.itemHighlighting?.stats || null;

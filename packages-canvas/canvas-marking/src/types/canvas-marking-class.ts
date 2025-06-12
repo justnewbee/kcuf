@@ -133,14 +133,14 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
   draw(drawExtra?: (canvasContext: CanvasRenderingContext2D, scale: number) => void): void;
   
   /**
-   * 销毁
-   */
-  destroy(): void;
-  
-  /**
    * 主动获取当前状态，一般不需要主动调用，建议在 options.onStatsChange 监听
    */
   getStats(): IMarkingStats<T>;
+  
+  /**
+   * 销毁
+   */
+  destroy(): void;
 }
 
 export type TCanvasMarkingPluginRegister<T = unknown> = (markingStage: ICanvasMarkingClass<T>) => IMarkingPlugin<T>;
