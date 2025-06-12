@@ -6,7 +6,9 @@ import {
 import {
   TCreatingWillFinish,
   ISimpleRect,
-  IImageInfo, IMouseInfo
+  IImageInfo,
+  IMouseInfo,
+  IMovingInfo
 } from './common';
 import {
   ICommonNoActionOptions
@@ -58,11 +60,7 @@ export interface IMarkingStats<T = unknown> {
   canvasRect: ISimpleRect; // 相对于 stage
   imageInfo: IImageInfo;
   mouseInfo: IMouseInfo;
-  mouseDownCanvas: boolean;
-  mouseDownMoving: boolean;
-  moving: boolean;
-  movingCoordsStart: Point | null;
-  movingCoords: Point;
+  movingInfo: IMovingInfo;
   // 与 MarkingItem 有关状态
   itemStatsList: IMarkingItemStats<T>[];
   itemStatsCreating: IMarkingItemStats<T> | null;

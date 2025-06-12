@@ -19,7 +19,7 @@ export default function pluginCursor<T>(canvasMarking: ICanvasMarkingClass<T>): 
     run(stats: IMarkingStats<T>): void {
       let cursor = 'default';
       
-      if (stats.moving) {
+      if (stats.movingInfo.started) {
         cursor = 'move';
       } else if (stats.itemStatsHovering?.noClick) {
         cursor = 'default';

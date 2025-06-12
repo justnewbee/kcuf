@@ -108,3 +108,30 @@ export interface IMouseInfo {
    */
   coordsInImageJustified: EMouseJustifyStatus;
 }
+
+/**
+ * 画布移动信息汇总
+ */
+export interface IMovingInfo {
+  /**
+   * 已开始拖拽移动
+   */
+  started: boolean;
+  
+  /**
+   * 画布移动开始的鼠标位置
+   */
+  coordsStart: Point | null;
+  
+  /**
+   * 画布移动开始的画布左上角位移快照
+   *
+   * 鼠标位移（当前鼠标位置 - 开始移动的鼠标位置）+ coordsSnapshot 即移动后的画布左上角位移
+   */
+  coordsSnapshot: Point;
+  
+  /**
+   * 画布当前的瞬时位移
+   */
+  coords: Point;
+}

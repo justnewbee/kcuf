@@ -14,7 +14,8 @@ import displayCoordsAndIndex from './display-coords-and-index';
 export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>, cause?: EMarkingStatsChangeCause): string {
   const {
     imageInfo,
-    mouseInfo
+    mouseInfo,
+    movingInfo
   } = stats;
   
   return `<ul>${[
@@ -34,11 +35,11 @@ export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>
     [' ├ InCanvas', displayCoords(mouseInfo.coordsInCanvas)],
     [' ├ InImage', displayCoords(mouseInfo.coordsInImage)],
     [' ├ InImageJustified', mouseInfo.coordsInImageJustified],
-    [' ├ DownCanvas', displayBoolean(stats.mouseDownCanvas)],
-    [' └ DownMoving', displayBoolean(stats.mouseDownMoving)],
-    ['Moving', displayBoolean(stats.moving)],
-    [' ├ CoordsStart', displayCoords(stats.movingCoordsStart)],
-    [' └ Coords', displayCoords(stats.movingCoords)],
+    [' ├ DownCanvas', displayBoolean(mouseInfo.downCanvas)],
+    [' └ DownMoving', displayBoolean(mouseInfo.downMoving)],
+    ['Moving', displayBoolean(movingInfo.started)],
+    [' ├ CoordsStart', displayCoords(movingInfo.coordsStart)],
+    [' └ Coords', displayCoords(movingInfo.coords)],
     ['Creating', displayBoolean(stats.creating)],
     [' ├ Started', displayBoolean(stats.creatingStarted)],
     [' ├ Crossing', displayBoolean(stats.creatingCrossing)],

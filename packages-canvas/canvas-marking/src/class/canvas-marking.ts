@@ -34,6 +34,8 @@ import {
   ICanvasMarkingClass,
   ICanvasMarkingOptions,
   IImageInfo,
+  IMouseInfo,
+  IMovingInfo,
   IMarkingConfigItem,
   IMarkingItemClass,
   IMarkingItemConfig,
@@ -41,7 +43,6 @@ import {
   IMarkingItemStats,
   IMarkingPlugin,
   IMarkingStats,
-  IMouseInfo,
   ISimpleRect,
   IZoomOptions,
   TCanvasMarkingPluginRegister,
@@ -146,24 +147,12 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    */
   private zoomLevel = 1;
   
-  /**
-   * 画布是否可拖拽移动
-   */
-  private moving = false;
-  /**
-   * 画布移动开始的鼠标位置
-   */
-  private movingCoordsStart: Point | null = null;
-  /**
-   * 画布移动开始的画布左上角位移快照
-   *
-   * 鼠标位移（当前鼠标位置 - 开始移动的鼠标位置）+ movingCoordsSnapshot 即移动后的画布左上角位移
-   */
-  private movingCoordsSnapshot: Point = [0, 0];
-  /**
-   * 画布当前的瞬时位移
-   */
-  private movingCoords: Point = [0, 0];
+  private readonly movingInfo: IMovingInfo = {
+    started: false,
+    coordsStart: null,
+    coordsSnapshot: [0, 0],
+    coords: [0, 0]
+  };
   
   /**
    * 用于在销毁实例时清理副作用
@@ -220,7 +209,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     const {
       mouseInfo,
-      moving,
+      movingInfo,
       itemCreating,
       itemEditing
     } = this;
@@ -229,7 +218,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       mouseInfo.downMoving = true;
     }
     
-    if (!moving && !itemCreating && itemEditing) {
+    if (!movingInfo.started && !itemCreating && itemEditing) {
       const draggingResult = itemEditing.processDragging();
       
       if (typeof draggingResult === 'number') {
@@ -256,7 +245,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    if (!this.moving) {
+    if (!this.movingInfo.started) {
       this.itemEditing?.startDragging();
     }
     
@@ -276,7 +265,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     mouseInfo.downCanvas = false;
     mouseInfo.downMoving = false;
     
-    if (this.moving) {
+    if (this.movingInfo.started) {
       return;
     }
     
@@ -306,7 +295,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   };
   
   private _handleKeyDownGlobal = (e: KeyboardEvent): void => {
-    if (!this.mouseInfo.coordsInStage || this.moving || e.repeat) {
+    if (!this.mouseInfo.coordsInStage || this.movingInfo.started || e.repeat) {
       return;
     }
     
@@ -612,7 +601,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
     }
     
-    this.hoverMarkingItem(!mouseIsInCanvas || this.moving || itemCreating || itemEditing?.stats.dragging ? null : this.itemUnderMouse);
+    this.hoverMarkingItem(!mouseIsInCanvas || this.movingInfo.started || itemCreating || itemEditing?.stats.dragging ? null : this.itemUnderMouse);
   }
   
   /**
@@ -1535,7 +1524,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   toggleMove(): void {
-    if (this.moving) {
+    if (this.movingInfo.started) {
       this.moveEnd();
     } else {
       this.moveReady();
@@ -1544,14 +1533,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   moveReady(): void {
     const {
-      moving,
+      movingInfo,
       itemCreating,
       itemHovering,
       itemHighlighting,
       itemEditing
     } = this;
     
-    if (moving || itemCreating || itemEditing?.stats.dragging) { // 不重复触发，且正在新建或拖拽编辑时不触发
+    if (movingInfo.started || itemCreating || itemEditing?.stats.dragging) { // 不重复触发，且正在新建或拖拽编辑时不触发
       return;
     }
     
@@ -1563,7 +1552,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       this.finishEditing(true);
     }
     
-    this.moving = true;
+    movingInfo.started = true;
     this.updateAndDraw(EMarkingStatsChangeCause.MOVE_READY);
     
     this.options.onMoveReady?.();
@@ -1571,12 +1560,16 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   moveStart(): void {
-    if (!this.moving) {
+    const {
+      movingInfo
+    } = this;
+    
+    if (!movingInfo.started) {
       return;
     }
     
-    this.movingCoordsStart = this.mouseInfo.coordsInStage;
-    this.movingCoordsSnapshot = this.movingCoords;
+    movingInfo.coordsStart = this.mouseInfo.coordsInStage;
+    movingInfo.coordsSnapshot = movingInfo.coords;
     this.updateAndDraw(EMarkingStatsChangeCause.MOVE_START);
     
     this.options.onMoveStart?.();
@@ -1588,41 +1581,50 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       mouseInfo: {
         coordsInStage
       },
-      movingCoordsStart,
-      movingCoordsSnapshot
+      movingInfo
     } = this;
     
-    if (!movingCoordsStart || !coordsInStage) {
+    if (!movingInfo.coordsStart || !coordsInStage) {
       return;
     }
     
-    this.moveTo([movingCoordsSnapshot[0] + coordsInStage[0] - movingCoordsStart[0], movingCoordsSnapshot[1] + coordsInStage[1] - movingCoordsStart[1]]);
+    this.moveTo([movingInfo.coordsSnapshot[0] + coordsInStage[0] - movingInfo.coordsStart[0], movingInfo.coordsSnapshot[1] + coordsInStage[1] - movingInfo.coordsStart[1]]);
   }
   
   movePause(): void {
-    if (!this.moving) {
+    const {
+      movingInfo
+    } = this;
+    
+    if (!movingInfo.started) {
       return;
     }
     
-    this.movingCoordsStart = null;
+    movingInfo.coordsStart = null;
+    
     this.options.onMovePause?.();
     this.emit('move-pause');
   }
   
   moveEnd(): void {
-    if (!this.moving) {
+    const {
+      movingInfo
+    } = this;
+    
+    if (!movingInfo.started) {
       return;
     }
     
-    this.moving = false;
-    this.movingCoordsStart = null;
+    movingInfo.started = false;
+    movingInfo.coordsStart = null;
+    
     this.updateAndDraw(EMarkingStatsChangeCause.MOVE_END);
     this.options.onMoveEnd?.();
     this.emit('move-end');
   }
   
   moveTo(coords: Point): void {
-    this.movingCoords = coords;
+    this.movingInfo.coords = coords;
     
     const transform = `translate(${coords[0]}px, ${coords[1]}px)`; // 用 translate 对鼠标位置不会有影响，也不需要重渲染
     
@@ -1631,7 +1633,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   moveBy(dx: number, dy: number): void {
-    this.moveTo([this.movingCoords[0] + dx, this.movingCoords[1] + dy]);
+    this.moveTo([this.movingInfo.coords[0] + dx, this.movingInfo.coords[1] + dy]);
   }
   
   select(finder: TMarkingItemFinder<T>, highlightToo?: boolean): void {
@@ -1711,9 +1713,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   getStats(): IMarkingStats<T> {
-    const {
-      mouseInfo
-    } = this;
     const rectStage = this.stage.getBoundingClientRect();
     const rectCanvas = this.canvas.getBoundingClientRect();
     const itemStatsCreating = this.itemCreating?.stats || null;
@@ -1733,13 +1732,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       },
       imageInfo: _cloneDeep(this.imageInfo),
       mouseInfo: _cloneDeep(this.mouseInfo),
-      // 鼠标
-      mouseDownCanvas: mouseInfo.downCanvas,
-      mouseDownMoving: mouseInfo.downMoving,
-      // 移动状态
-      moving: this.moving,
-      movingCoordsStart: this.movingCoordsStart,
-      movingCoords: this.movingCoords,
+      movingInfo: _cloneDeep(this.movingInfo),
       // 与 MarkingItem 有关状态
       itemStatsList: this.getAllStats(),
       itemStatsCreating,

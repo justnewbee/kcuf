@@ -65,7 +65,7 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
   
   return {
     run(stats: IMarkingStats<T>): void {
-      willZoom = !!stats.mouseInfo.coordsInStage && !stats.moving;
+      willZoom = !!stats.mouseInfo.coordsInStage && !stats.movingInfo.started;
     },
     cleanup(): void {
       unbindDocKeydown();
