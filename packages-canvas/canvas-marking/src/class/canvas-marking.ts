@@ -59,7 +59,7 @@ import {
 import {
   canvasDrawPerpendicularMark,
   createDomCanvas,
-  createDomImageBg,
+  createDomBg,
   createDomStage,
   getImageFitScale,
   getMouseJustifyStatusMagnet,
@@ -76,16 +76,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private readonly container: HTMLElement;
   readonly options: ICanvasMarkingOptions<T>;
   readonly stage: HTMLDivElement;
+  private bg: HTMLDivElement;
   readonly canvas: HTMLCanvasElement;
   readonly canvasContext: CanvasRenderingContext2D;
-  /**
-   * 缓存已加载的图片 URL 和 <img> 对象（必定成对出现）
-   */
-  private imageBg: HTMLDivElement;
-  
-  statsSnapshot: IMarkingStats<T>;
-  
-  private readonly markingItems: IMarkingItemClass<T>[] = [];
   
   readonly imageInfo: IImageInfo = {
     url: '',
@@ -106,6 +99,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     coordsInImage: [-1, -1],
     coordsInImageJustified: EMouseJustifyStatus.NONE
   };
+  
+  statsSnapshot: IMarkingStats<T>;
+  
+  private readonly markingItems: IMarkingItemClass<T>[] = [];
   
   private pixelRatio = getPixelRatio();
   
@@ -384,7 +381,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
      * 主要组成部分
      *
      * ┌- stage ---------------------------┐
-     * | ┌- imageBg ---------------------┐ |
+     * | ┌- bg --------------------------┐ |
      * | |                               | |
      * | |            canvas             | |
      * | |                               | |
@@ -392,10 +389,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
      * └-----------------------------------┘
      */
     const stage = createDomStage();
-    const imageBg = createDomImageBg(safeOptions.imageBgc);
+    const bg = createDomBg(safeOptions.imageBgc);
     const canvas = createDomCanvas();
     
-    stage.prepend(imageBg); // 作为其第一个元素，可以不需要设 z-index
+    stage.prepend(bg); // 作为其第一个元素，可以不需要设 z-index
     stage.appendChild(canvas);
     
     container.style.position = 'relative';
@@ -405,7 +402,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.container = container;
     this.options = safeOptions;
     this.stage = stage;
-    this.imageBg = imageBg;
+    this.bg = bg;
     this.canvas = canvas;
     this.canvasContext = canvas.getContext('2d')!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     this.statsSnapshot = this.getStats();
@@ -454,7 +451,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const {
       stage,
       canvas,
-      imageBg,
+      bg,
       imageInfo: {
         loader: imageLoader
       },
@@ -487,10 +484,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     //   y -= dy;
     // }
     
-    imageBg.style.width = `${width}px`;
-    imageBg.style.height = `${height}px`;
-    imageBg.style.top = `${y}px`;
-    imageBg.style.left = `${x}px`;
+    bg.style.width = `${width}px`;
+    bg.style.height = `${height}px`;
+    bg.style.top = `${y}px`;
+    bg.style.left = `${x}px`;
     
     canvas.style.width = `${width}px`;
     canvas.style.height = `${height}px`;
@@ -506,12 +503,12 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     const {
-      imageBg
+      bg
     } = this;
     
-    imageBg.style.transition = 'none'; // 保证切换图片的时候，新图不产生残影
-    imageBg.style.opacity = '0'; // 若有图，则等加载完再显示
-    imageBg.style.backgroundImage = imageUrl ? `url(${imageUrl})` : 'none';
+    bg.style.transition = 'none'; // 保证切换图片的时候，新图不产生残影
+    bg.style.opacity = '0'; // 若有图，则等加载完再显示
+    bg.style.backgroundImage = imageUrl ? `url(${imageUrl})` : 'none';
     
     this.moveTo([0, 0]);
     this.imageInfo.url = imageUrl;
@@ -536,8 +533,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       this.imageInfo.status = EImageStatus.LOADED;
       this.imageInfo.loader = imageLoader;
       
-      imageBg.style.transition = 'opacity 200ms ease-in-out';
-      imageBg.style.opacity = '1';
+      bg.style.transition = 'opacity 200ms ease-in-out';
+      bg.style.opacity = '1';
       
       this.options.onImageLoadSuccess?.(imageUrl, [imageLoader.naturalWidth, imageLoader.naturalHeight], duration);
       this.emit('image-load-success', imageUrl, [imageLoader.naturalWidth, imageLoader.naturalHeight], duration);
@@ -1629,7 +1626,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     const transform = `translate(${coords[0]}px, ${coords[1]}px)`; // 用 translate 对鼠标位置不会有影响，也不需要重渲染
     
-    this.imageBg.style.transform = transform;
+    this.bg.style.transform = transform;
     this.canvas.style.transform = transform;
   }
   

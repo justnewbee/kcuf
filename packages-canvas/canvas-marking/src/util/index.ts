@@ -8,7 +8,7 @@ export { default as loadImage } from './load-image';
 
 export { default as createDomDiv } from './create-dom-div';
 export { default as createDomStage } from './create-dom-stage';
-export { default as createDomImageBg } from './create-dom-image-bg';
+export { default as createDomBg } from './create-dom-bg';
 export { default as createDomCanvas } from './create-dom-canvas';
 
 export { default as mergeBorderStyleWithDiff } from './merge-border-style-with-diff';

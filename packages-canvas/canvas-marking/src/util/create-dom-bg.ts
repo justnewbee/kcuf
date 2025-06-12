@@ -6,7 +6,7 @@ background-size: contain;
 background-repeat: no-repeat;
 pointer-events: none;`;
 
-export default function createDomImageBg(imageBgc?: string): HTMLDivElement {
+export default function createDomBg(imageBgc?: string): HTMLDivElement {
   const divImageBg = createDomDiv(CLASS);
   
   divImageBg.style.cssText = CSS;
