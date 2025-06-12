@@ -5,9 +5,10 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  TSize,
   TZoomArg,
-  TMarkingItemFinder
+  TMarkingItemFinder,
+  IImageInfo,
+  IMouseInfo
 } from './common';
 import {
   IMarkingStats
@@ -33,21 +34,8 @@ export interface ICanvasMarkingClassProtected<T = unknown> {
   readonly options: ICanvasMarkingOptions<T>;
   readonly canvasContext: CanvasRenderingContext2D;
   
-  /**
-   * 图片实际大小，没有图片的时候为 canvas 大小
-   */
-  imageSize: TSize;
-  /**
-   * 图片缩放比例，小于 1 则图片展示尺寸比其本身小
-   */
-  imageScale: number;
-  /**
-   * 鼠标相对于图片的坐标，鼠标移出后不会清空
-   */
-  mouseInImage: Point;
-  /**
-   * 当前状态之快照
-   */
+  imageInfo: IImageInfo;
+  mouseInfo: IMouseInfo;
   statsSnapshot: IMarkingStats<T>;
 }
 

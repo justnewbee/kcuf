@@ -6,18 +6,18 @@ import {
 } from 'react';
 
 import {
-  pixelRatioGet,
-  pixelRatioListen
+  getPixelRatio,
+  listenPixelRatioChange
 } from '../src';
 
 const SIZE = 320;
 
 export default function StoryPixelRatio(): ReactElement {
-  const [statePixelRatio, setStatePixelRatio] = useState(pixelRatioGet);
+  const [statePixelRatio, setStatePixelRatio] = useState(getPixelRatio());
   const [stateDomCanvas, setStateDomCanvas] = useState<HTMLCanvasElement | null>(null);
   
   const updatePixelRatio = useCallback(() => {
-    setStatePixelRatio(pixelRatioGet());
+    setStatePixelRatio(getPixelRatio());
   }, [setStatePixelRatio]);
   
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function StoryPixelRatio(): ReactElement {
   }, [statePixelRatio, stateDomCanvas]);
   
   useEffect(() => {
-    return pixelRatioListen(updatePixelRatio);
+    return listenPixelRatioChange(updatePixelRatio);
   }, [updatePixelRatio]);
   
   return <canvas ref={setStateDomCanvas} />;

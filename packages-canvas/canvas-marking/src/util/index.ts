@@ -18,7 +18,7 @@ export { default as getRelativePositionOfPoint } from './get-relative-position-o
 export { default as getPathCreatingFree } from './get-path-creating-free';
 export { default as getPathCreatingRect } from './get-path-creating-rect';
 export { default as getPathCreatingRect2 } from './get-path-creating-rect2';
-
+export { default as getImageFitScale } from './get-image-fit-scale';
 export { default as getMouseJustifyStatusMagnet } from './get-mouse-justify-status-magnet';
 
 export { default as canvasCheckPointInStroke } from './canvas-check-point-in-stroke';

@@ -29,7 +29,7 @@ export default function pluginMagnet<T = unknown>(canvasMarking: ICanvasMarkingC
   
   return {
     run(stats: IMarkingStats<T>): void {
-      inCanvas = !!stats.mouseInCanvas;
+      inCanvas = !!stats.mouseInfo.coordsInCanvas;
     },
     cleanup(): void {
       unbindDocKeydown();

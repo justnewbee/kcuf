@@ -8,6 +8,3 @@ export { default as pathHexagon } from './path-hexagon';
 export { default as pathPolygon } from './path-polygon';
 export { default as pathDiamond } from './path-diamond';
 export { default as pathStar } from './path-star';
-
-export { default as pixelRatioGet } from './pixel-ratio-get';
-export { default as pixelRatioListen } from './pixel-ratio-listen';

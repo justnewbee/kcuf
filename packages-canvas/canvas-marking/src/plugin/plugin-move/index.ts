@@ -21,10 +21,10 @@ export default function pluginMove<T = unknown>(canvasMarking: ICanvasMarkingCla
   
   const unbindDocKeydown = bindEventToDocument('keydown', (e: KeyboardEvent): void => { // 可能会移到外部，需要能够在外部结束
     const {
-      mouseInStage
+      mouseInfo
     } = canvasMarking.getStats();
     
-    if (!mouseInStage || e.key !== ' ') {
+    if (!mouseInfo.coordsInStage || e.key !== ' ') {
       return;
     }
     

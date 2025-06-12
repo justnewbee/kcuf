@@ -7,7 +7,7 @@ import getTooltipMessageBasic from './get-tooltip-message-basic';
 import getTooltipMessageExtra from './get-tooltip-message-extra';
 
 export default function getTooltipMessage<T = unknown>(stats: IMarkingStats<T>, options: ICanvasMarkingOptions<T>): string {
-  if (!stats.mouseInCanvas || stats.moving) {
+  if (!stats.mouseInfo.coordsInCanvas || stats.moving) {
     return '';
   }
   

@@ -12,6 +12,11 @@ import displayCoords from './display-coords';
 import displayCoordsAndIndex from './display-coords-and-index';
 
 export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>, cause?: EMarkingStatsChangeCause): string {
+  const {
+    imageInfo,
+    mouseInfo
+  } = stats;
+  
   return `<ul>${[
     ['Cause', cause || ''],
     ['TimeStamp', Date.now()],
@@ -20,15 +25,15 @@ export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>
     ['StageSize', displaySize(stats.stageRect.size)],
     ['CanvasCoords', displayCoords(stats.canvasRect.coords)],
     ['CanvasSize', displaySize(stats.canvasRect.size)],
-    ['Image', stats.imageStatus],
-    [' ├ Size', displaySize(stats.imageSize)],
-    [' └ Scale', displayPercentage(stats.imageScale)],
-    ['Mouse', displayCoords(stats.mouse)],
-    [' ├ InStage', displayCoords(stats.mouseInStage)],
-    [' ├ InCanvasUnprotected', displayCoords(stats.mouseInCanvasUnprotected)],
-    [' ├ InCanvas', displayCoords(stats.mouseInCanvas)],
-    [' ├ InImage', displayCoords(stats.mouseInImage)],
-    [' ├ InImageJustified', stats.mouseInImageJustified],
+    ['Image', imageInfo.status],
+    [' ├ Size', displaySize(imageInfo.size)],
+    [' └ Scale', displayPercentage(imageInfo.scale)],
+    ['Mouse', displayCoords(mouseInfo.coordsRelativeToStage)],
+    [' ├ RelativeToCanvas', displayCoords(mouseInfo.coordsRelativeToCanvas)],
+    [' ├ InStage', displayCoords(mouseInfo.coordsInStage)],
+    [' ├ InCanvas', displayCoords(mouseInfo.coordsInCanvas)],
+    [' ├ InImage', displayCoords(mouseInfo.coordsInImage)],
+    [' ├ InImageJustified', mouseInfo.coordsInImageJustified],
     [' ├ DownCanvas', displayBoolean(stats.mouseDownCanvas)],
     [' └ DownMoving', displayBoolean(stats.mouseDownMoving)],
     ['Moving', displayBoolean(stats.moving)],

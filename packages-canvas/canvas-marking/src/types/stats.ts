@@ -4,13 +4,9 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  EImageStatus,
-  EMouseJustifyStatus
-} from '../enum';
-
-import {
-  TSize,
-  TCreatingWillFinish, ISimpleRect
+  TCreatingWillFinish,
+  ISimpleRect,
+  IImageInfo, IMouseInfo
 } from './common';
 import {
   ICommonNoActionOptions
@@ -60,15 +56,8 @@ export interface IMarkingStats<T = unknown> {
   zoom: number;
   stageRect: ISimpleRect; // 相对于 document，浏览器缩放会影响
   canvasRect: ISimpleRect; // 相对于 stage
-  imageStatus: EImageStatus;
-  imageSize: TSize;
-  imageScale: number;
-  mouse: Point | null;
-  mouseInStage: Point | null;
-  mouseInCanvas: Point | null;
-  mouseInCanvasUnprotected: Point | null;
-  mouseInImage: Point;
-  mouseInImageJustified: EMouseJustifyStatus;
+  imageInfo: IImageInfo;
+  mouseInfo: IMouseInfo;
   mouseDownCanvas: boolean;
   mouseDownMoving: boolean;
   moving: boolean;
