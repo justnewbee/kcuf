@@ -5,6 +5,8 @@ import _cloneDeep from 'lodash/cloneDeep';
 import _throttle from 'lodash/throttle';
 
 import {
+  Point,
+  Path,
   Angle,
   justifyMagnetAlongPath,
   justifyMagnetAlongPaths,
@@ -13,12 +15,14 @@ import {
   justifyPerpendicularExternal,
   justifyPerpendicularInternal,
   justifySnapAroundPivots,
-  Path,
   pathPointSiblingsByIndex,
-  pathsAuxiliaryList,
-  Point
+  pathsAuxiliaryList
 } from '@kcuf/geometry-basic';
-import { bindEventToDocument, getPixelRatio, listenPixelRatioChange } from '@kcuf/mere-dom';
+import {
+  bindEventToDocument,
+  getPixelRatio,
+  listenPixelRatioChange
+} from '@kcuf/mere-dom';
 import Subscribable from '@kcuf/subscribable';
 
 import {
@@ -95,6 +99,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     downMoving: false,
     coordsRelativeToStage: [-1, -1],
     coordsRelativeToCanvas: [-1, -1],
+    coordsRelativeToImage: [-1, -1],
     coordsInStage: null,
     coordsInCanvas: null,
     coordsInImage: [-1, -1],
@@ -123,11 +128,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private justifiedRightAngle: Angle | null = null;
   
   private pluginMap: Map<TCanvasMarkingPluginRegister<T>, IMarkingPlugin<T>> = new Map<TCanvasMarkingPluginRegister<T>, IMarkingPlugin<T>>();
-  
-  /**
-   * 新建中的 MarkingItem，不计入 markingItems，在最末编辑结束后才进入（因此需单独渲染）
-   */
-  private itemCreating: CanvasMarkingItem<T> | null = null;
   
   /**
    * 我们使用 MouseUp 模拟点击事件，并使用点击间隔进行双击判断，原因如下：
@@ -184,6 +184,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     return this.itemCreating ? null : sortMarkingItems(this.markingItems, true).find(v => v.isUnderMouse()) || null;
   }
   
+  /**
+   * 新建中的 MarkingItem，不计入 markingItems，在最末编辑结束后才进入（因此需单独渲染）
+   */
+  private itemCreating: CanvasMarkingItem<T> | null = null;
+  
   private get zoomOptions(): Required<IZoomOptions> {
     return {
       step: 0.25,
@@ -201,18 +206,18 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private _handleMouseEnterStage = (e: MouseEvent): void => {
     this.mouseInfo.inStage = true;
-    this.refreshMouseInfo(e);
+    this.refreshMouseInfoStage(e);
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_ENTER);
   };
   
   private _handleMouseLeaveStage = (e: MouseEvent): void => {
     this.mouseInfo.inStage = false;
-    this.refreshMouseInfo(e);
+    this.refreshMouseInfoStage(e);
     this.updateAndDraw(EMarkingStatsChangeCause.MOUSE_LEAVE);
   };
   
   private _handleMouseMoveGlobal = (e: MouseEvent): void => {
-    this.refreshMouseInfo(e);
+    this.refreshMouseInfoStage(e);
     this.refreshStats(EMarkingStatsChangeCause.MOUSE_MOVE);
     
     const {
@@ -444,11 +449,11 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   /**
    * 根据容器大小、图片本身大小等，计算并设置 canvas 的大小和位置
    */
-  private setupScaleSizing(zoomLevel = 1, _aroundMouse?: boolean): void {
+  private setupScaleSizing(zoomLevel = 1): void {
     const {
       stage,
-      canvas,
       bg,
+      canvas,
       imageInfo,
       pixelRatio,
       rectStage
@@ -462,22 +467,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const height = Math.round((imageInfo.loader?.naturalHeight || rectStage.height) * imageScale);
     const x = Math.round((rectStage.width - width) / 2);
     const y = Math.round((rectStage.height - height) / 2);
-    
-    // TODO 要做这个事情
-    // // 根据缩放前后鼠标在 canvas 上的相对位置变化（后 - 前）
-    // const [x, y] = this.mouseInfo.coordsInCanvas;
-    // const dx = x - x0;
-    // const dy = y - y0;
-    //
-    // this.moveBy(dx / 2, dy / 2);
-    
-    // if (aroundMouse && mouseInfo.coordsInStage) {
-    //   const dx = rectStage.width / 2 - mouseInfo.coordsInStage[0];
-    //   const dy = rectStage.height / 2 - mouseInfo.coordsInStage[1];
-    //
-    //   x -= dx;
-    //   y -= dy;
-    // }
     
     bg.style.width = `${width}px`;
     bg.style.height = `${height}px`;
@@ -553,57 +542,74 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.setupScaleSizing();
   }
   
-  private refreshMouseInfo(e: MouseEvent): void {
+  private refreshMouseInfoStage(e: MouseEvent): void {
     const {
       mouseInfo,
+      rectStage
+    } = this;
+    
+    const coordsRelativeToStage: Point = [
+      e.clientX - rectStage.left,
+      e.clientY - rectStage.top
+    ];
+    
+    mouseInfo.coordsRelativeToStage = coordsRelativeToStage;
+    mouseInfo.coordsInStage = mouseInfo.inStage ? coordsRelativeToStage : null;
+    
+    this.refreshMouseInfoCanvas();
+  }
+  
+  private refreshMouseInfoCanvas(): void {
+    const {
+      mouseInfo,
+      mouseInfo: {
+        coordsRelativeToStage
+      },
       rectStage,
       rectCanvas
     } = this;
     
-    const coordsRelativeToStage: Point = [e.clientX - rectStage.left, e.clientY - rectStage.top];
-    const coordsRelativeToCanvas: Point = [e.clientX - rectCanvas.left, e.clientY - rectCanvas.top];
+    const coordsRelativeToCanvas: Point = [
+      coordsRelativeToStage[0] + rectStage.left - rectCanvas.left,
+      coordsRelativeToStage[1] + rectStage.top - rectCanvas.top
+    ];
     const [x, y] = coordsRelativeToStage;
     const canvasX = rectCanvas.left - rectStage.left;
     const canvasY = rectCanvas.top - rectStage.top;
     const inCanvas = x >= Math.max(0, canvasX) && y >= Math.max(0, canvasY) && x <= Math.min(rectStage.width, rectCanvas.width + canvasX) && y <= Math.min(rectStage.height, rectCanvas.height + canvasY);
     
-    mouseInfo.coordsRelativeToStage = coordsRelativeToStage;
     mouseInfo.coordsRelativeToCanvas = coordsRelativeToCanvas;
-    mouseInfo.coordsInStage = mouseInfo.inStage ? coordsRelativeToStage : null;
     mouseInfo.coordsInCanvas = inCanvas ? [
       _clamp(coordsRelativeToCanvas[0], 0, rectCanvas.width),
       _clamp(coordsRelativeToCanvas[1], 0, rectCanvas.height)
     ] : null;
     
-    this.refreshMouseInImage();
+    this.refreshMouseInfoImage();
   }
   
   /**
    * 根据图片大小、缩放、是否磁吸、是否 Snap，换算出鼠标所指像素位置相对于图片的 100% 坐标
    */
-  private refreshMouseInImage(): void {
+  private refreshMouseInfoImage(): void {
     this.justifyClear();
     
     const {
       rectStage,
       rectCanvas,
       mouseInfo,
-      mouseInfo: {
-        coordsRelativeToCanvas
-      },
+      movingInfo,
       itemCreating,
       itemEditing
     } = this;
-    const mouseIsInCanvas = this.mouseInfo.coordsInCanvas;
+    const mouseIsInCanvas = mouseInfo.coordsInCanvas;
     const canvasX = rectCanvas.left - rectStage.left;
     const canvasY = rectCanvas.top - rectStage.top;
     
-    this.mouseInfo.coordsInImage = this.clampCoordsInImage(this.fromCanvasCoordsToImageCoords([
-      _clamp(coordsRelativeToCanvas[0], canvasX >= 0 ? 0 : Math.abs(canvasX), Math.min(rectCanvas.width, rectStage.width - canvasX)),
-      _clamp(coordsRelativeToCanvas[1], canvasY >= 0 ? 0 : Math.abs(canvasY), Math.min(rectCanvas.height, rectStage.height - canvasY))
-    ]));
-    
-    mouseInfo.coordsInImage = this.clampCoordsInImage(this.fromCanvasCoordsToImageCoords([
+    mouseInfo.coordsRelativeToImage = this.fromCanvasCoordsToImageCoords([
+      mouseInfo.coordsRelativeToCanvas[0],
+      mouseInfo.coordsRelativeToCanvas[1]
+    ]);
+    mouseInfo.coordsInImage = this.clampCoordsInImage(this.fromCanvasCoordsToImageCoords([ // 初步计算，后续还会被磁吸等影响
       _clamp(mouseInfo.coordsRelativeToCanvas[0], canvasX >= 0 ? 0 : Math.abs(canvasX), Math.min(rectCanvas.width, rectStage.width - canvasX)),
       _clamp(mouseInfo.coordsRelativeToCanvas[1], canvasY >= 0 ? 0 : Math.abs(canvasY), Math.min(rectCanvas.height, rectStage.height - canvasY))
     ]));
@@ -612,7 +618,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       this.justifyImageMouseMagnet() || this.justifyImageMousePerpendicularInternal() || this.justifyImageMousePerpendicularExternal() || this.justifyImageMouseSnap();
     }
     
-    this.hoverMarkingItem(!mouseIsInCanvas || this.movingInfo.started || itemCreating || itemEditing?.stats.dragging ? null : this.itemUnderMouse);
+    this.hoverMarkingItem(!mouseIsInCanvas || movingInfo.started || itemCreating || itemEditing?.stats.dragging ? null : this.itemUnderMouse); // itemUnderMouse 不要在上面得
   }
   
   /**
@@ -823,14 +829,28 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   /**
-   * 图片有缩放，有写场景下我们需要将肉眼看到相对于 canvas 的坐标转换成相对于 image 的坐标
+   * 将相对于 canvas 像素的坐标转换成相对于 image 像素的坐标
    */
   private fromCanvasPixelToImagePixel(canvasPixel: number): number {
     return canvasPixel / this.imageInfo.scale;
   }
   
+  private fromImagePixelToCanvasPixel(imagePixel: number): number {
+    return imagePixel * this.imageInfo.scale;
+  }
+  
   private fromCanvasCoordsToImageCoords(canvasCoords: Point): Point {
-    return [canvasCoords[0] / this.imageInfo.scale, canvasCoords[1] / this.imageInfo.scale];
+    return [
+      this.fromCanvasPixelToImagePixel(canvasCoords[0]),
+      this.fromCanvasPixelToImagePixel(canvasCoords[1])
+    ];
+  }
+  
+  private fromImageCoordsToCanvasCoords(imageCoords: Point): Point {
+    return [
+      this.fromImagePixelToCanvasPixel(imageCoords[0]),
+      this.fromImagePixelToCanvasPixel(imageCoords[1])
+    ];
   }
   
   private justifyClear(): void {
@@ -1244,8 +1264,25 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       return;
     }
     
-    this.setupScaleSizing(zoomLevelNext, aroundMouse);
-    this.refreshMouseInImage();
+    const {
+      mouseInfo,
+      mouseInfo: {
+        coordsRelativeToImage // 记录 zoom 前的值
+      }
+    } = this;
+    
+    this.setupScaleSizing(zoomLevelNext);
+    this.refreshMouseInfoCanvas();
+    
+    if (aroundMouse) { // 让缩放后的 image coordsRelativeToImage 保持不变
+      this.moveBy(...this.fromImageCoordsToCanvasCoords([
+        mouseInfo.coordsRelativeToImage[0] - coordsRelativeToImage[0],
+        mouseInfo.coordsRelativeToImage[1] - coordsRelativeToImage[1]
+      ]));
+      
+      this.refreshMouseInfoCanvas();
+    }
+    
     this.updateAndDraw(cause);
     this.throttledFireZoomChange(zoomLevelNext, zoomLevel);
   }
@@ -1360,7 +1397,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.justifying = enabled;
-    this.refreshMouseInImage();
+    this.refreshMouseInfoImage();
     this.itemEditing?.processDragging(); // 否则不会立即产生效果
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_JUSTIFY_TRUE : EMarkingStatsChangeCause.TOGGLE_JUSTIFY_FALSE);
   }
@@ -1371,7 +1408,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     this.snapping = enabled;
-    this.refreshMouseInImage();
+    this.refreshMouseInfoImage();
     this.itemEditing?.processDragging(); // 否则不会立即产生效果
     this.updateAndDraw(enabled ? EMarkingStatsChangeCause.TOGGLE_SNAP_TRUE : EMarkingStatsChangeCause.TOGGLE_SNAP_FALSE);
   }
@@ -1715,22 +1752,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
   }
   
-  destroy(): void {
-    this.pluginMap.forEach(v => {
-      v.cleanup?.();
-    });
-    this.pluginMap.clear();
-    
-    this.cleanups.forEach(v => v());
-    this.cleanups = [];
-    
-    try {
-      this.container.removeChild(this.stage);
-    } catch (_err) {
-      // Uncaught DOMException: Node.removeChild: The node to be removed is not a child of this node
-    }
-  }
-  
   getStats(): IMarkingStats<T> {
     const {
       rectStage,
@@ -1783,5 +1804,21 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       editingDraggingPointIndex: itemStatsSelected ? itemStatsSelected.draggingPointIndex : -1,
       editingDraggingInsertionPointIndex: itemStatsSelected ? itemStatsSelected.draggingInsertionPointIndex : -1
     };
+  }
+  
+  destroy(): void {
+    this.pluginMap.forEach(v => {
+      v.cleanup?.();
+    });
+    this.pluginMap.clear();
+    
+    this.cleanups.forEach(v => v());
+    this.cleanups = [];
+    
+    try {
+      this.container.removeChild(this.stage);
+    } catch (_err) {
+      // Uncaught DOMException: Node.removeChild: The node to be removed is not a child of this node
+    }
   }
 }

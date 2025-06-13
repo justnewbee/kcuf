@@ -75,36 +75,37 @@ export interface IMouseInfo {
   downMoving: boolean;
   
   /**
-   * 鼠标位置（屏幕像素）：相对于 stage 左上角，不论内外（因此可能有负值）
+   * 鼠标位置（屏幕像素，不受缩放影响）：相对于 stage 左上角，不论内外
    */
   coordsRelativeToStage: Point;
   
   /**
-   * 相对于 canvas 的鼠标位置，可能有负
+   * 鼠标位置（屏幕像素，不受缩放影响）：相对于 canvas 左上角，不论内外
    */
   coordsRelativeToCanvas: Point;
   
   /**
-   * 鼠标位置（屏幕像素）：相对于 stage 左上角，不论内外（因此可能有负值）
+   * 鼠标位置（图片像素，受缩放影响）：相对于 canvas 左上角，不论内外，不受磁吸等矫正
+   */
+  coordsRelativeToImage: Point;
+  
+  /**
+   * 鼠标位置（屏幕像素，不受缩放影响）：相对于 stage 左上角，为 null 表示在 stage 之外
    */
   coordsInStage: Point | null;
   
   /**
-   * 相对于 canvas 的鼠标位置，为 null 表示在 canvas 之外
+   * 鼠标位置（屏幕像素，不受缩放影响）：相对于 canvas 左上角，为 null 表示在 canvas 之外
    */
   coordsInCanvas: Point | null;
   
   /**
-   * 相对于图片的鼠标位置（跟缩放有关），这个坐标计算相对复杂，且会被 Item 对象读取（故为 public）
-   *
-   *
-   * 鼠标相对于图片的坐标，鼠标移出后不会清空
-   *
+   * 鼠标位置（图片像素，受缩放影响）：相对于 canvas 左上角，且限定在图片内部，受磁吸等矫正，移出后不清空
    */
   coordsInImage: Point;
   
   /**
-   * 鼠标矫正状态
+   * 鼠标矫正方式
    */
   coordsInImageJustified: EMouseJustifyStatus;
 }
