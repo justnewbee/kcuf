@@ -1524,7 +1524,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     } = this;
     const stats = itemEditing?.stats;
     
-    if (!stats || stats.noDelete) {
+    if (!stats || stats.noDelete || this.options.onDeletePre?.(stats, this.statsSnapshot.itemStatsList) === false) {
       return false;
     }
     

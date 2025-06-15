@@ -35,7 +35,7 @@ export interface IMarkingEvents<T> {
   onClick?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   onSelectionChange?(itemStats: IMarkingItemStats<T> | null, itemStatsList: IMarkingItemStats<T>[]): void;
   /**
-   * `onPointPush` 前置回调，返回 false 表示拒绝 push
+   * `onPointPush` 前置回调，返回 `false` 表示拒绝 push
    */
   onPointPushPre?(point: Point, itemStats: IMarkingItemStats<T>, markingStats: IMarkingStats<T>): boolean | undefined;
   onPointPush?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
@@ -48,6 +48,10 @@ export interface IMarkingEvents<T> {
   onEditDragEnd?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   onEditCancel?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   onEditComplete?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
+  /**
+   * `onDelete` 前置回调，返回 `false` 表示拒绝删除
+   */
+  onDeletePre?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): boolean | undefined;
   onDelete?(itemStats: IMarkingItemStats<T>, itemStatsList: IMarkingItemStats<T>[]): void;
   onZoomChange?(zoomLevel: number, zoomLevelPrev: number): void;
   onMoveReady?(): void;
