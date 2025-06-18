@@ -46,8 +46,8 @@ export default [
       'import/no-named-as-default': 'off',
       'import/no-duplicates': 'error', // 默认 warn
       'import/no-cycle': 'error',
-      'import/no-self-import': 'error',
-      'import/prefer-default-export': 'warn'
+      'import/no-self-import': 'error'
+      // 'import/prefer-default-export': 'warn' // 保持 off，否则对类似 util 这种 re-export 不够友好
     }
   }
 ];
