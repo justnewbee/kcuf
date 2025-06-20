@@ -28,7 +28,7 @@
     "@babel/plugin-transform-runtime": "^7.27.4",
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-typescript": "^7.27.1",
-    "@chromatic-com/storybook": "^4.0.0",
+    "@chromatic-com/storybook": "^4.0.1",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-docs": "^9.0.12",
     "@storybook/addon-links": "^9.0.12",

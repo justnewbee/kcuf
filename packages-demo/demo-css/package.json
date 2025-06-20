@@ -27,7 +27,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
-    "@chromatic-com/storybook": "^4.0.0",
+    "@chromatic-com/storybook": "^4.0.1",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-docs": "^9.0.12",
     "@storybook/addon-links": "^9.0.12",
@@ -42,7 +42,7 @@
   "dependencies": {
     "@kcuf/demo-rc": "workspace:^",
     "react": "^18.3.1",
-    "styled-components": "^6.1.18"
+    "styled-components": "^6.1.19"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

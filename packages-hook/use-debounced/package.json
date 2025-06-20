@@ -37,7 +37,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
-    "@chromatic-com/storybook": "^4.0.0",
+    "@chromatic-com/storybook": "^4.0.1",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-docs": "^9.0.12",
