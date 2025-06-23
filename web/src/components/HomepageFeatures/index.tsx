@@ -1,6 +1,8 @@
 import {
   ReactElement,
-  ReactNode
+  ReactNode,
+  ComponentType,
+  ComponentProps
 } from 'react';
 import styled from 'styled-components';
 
@@ -11,7 +13,7 @@ import Svg3 from '@site/static/img/undraw_docusaurus_react.svg';
 
 interface IFeatureItem {
   title: string;
-  Svg: React.ComponentType<React.ComponentProps<'svg'>>;
+  Svg: ComponentType<ComponentProps<'svg'>>;
   description: ReactNode;
 }
 

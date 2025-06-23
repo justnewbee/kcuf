@@ -23,13 +23,7 @@ const NO_AUTO_DEFAULT_NAMES = [
 ];
 
 const parser = withCustomConfig('./tsconfig.json', {
-  propFilter: (prop: PropItem) => {
-    if (prop.parent) {
-      return !prop.parent.fileName.includes('node_modules');
-    }
-    
-    return true;
-  }
+  propFilter: (prop: PropItem) => prop.parent ? !prop.parent.fileName.includes('node_modules') : true
 });
 
 function codify(content: string): string {
@@ -37,7 +31,7 @@ function codify(content: string): string {
 }
 
 function safeCellContent(content?: string): string {
-  return content.replaceAll('|', '\\|').replaceAll('\n', '<br />') || '';
+  return content ? content.replaceAll('|', '\\|').replaceAll('\n', '<br />') : '';
 }
 
 function printPropName(prop: PropItem): string {
