@@ -28,7 +28,8 @@ export default function CompareGenerateDesaturate(): ReactElement {
         max: 100,
         value: stateAmount,
         onChange: setStateAmount
-      }} /></GridTitle>
+      }} />
+    </GridTitle>
     {getComparisonGenerateDesaturate(color, stateAmount).map(v => <GridItem key={v.key} {...{
       color: v.result,
       result: v.result,

@@ -2,19 +2,17 @@ import {
   ReactElement
 } from 'react';
 
-export interface IControllableValue<T = string> {
-  value?: T;
-  defaultValue?: T;
-  onChange?(value: T): void;
-}
-
 export interface IControllableChecked {
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?(checked: boolean): void;
 }
 
-export interface IDatasourceItem<T = string> {
+export type TDatasourceValue = string | number | boolean;
+
+export interface IDatasourceItem<T extends TDatasourceValue = string> {
   value: T;
-  label: string | ReactElement;
+  label?: string | ReactElement;
 }
+
+export type TDatasource<T extends TDatasourceValue = string> = (T | IDatasourceItem<T>)[];

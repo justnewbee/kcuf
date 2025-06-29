@@ -174,5 +174,6 @@ const ScStoryGlitch = styled.div`
 
 export default function StoryGlitch(): ReactElement {
   return <ScStoryGlitch>
-    <ScGlitch data-text="GLITCH">GLITCH</ScGlitch></ScStoryGlitch>;
+    <ScGlitch data-text="GLITCH">GLITCH</ScGlitch>
+  </ScStoryGlitch>;
 }

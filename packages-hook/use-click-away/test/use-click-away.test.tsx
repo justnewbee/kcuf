@@ -27,7 +27,8 @@ describe('useClickAway', () => {
     
     render(<>
       <TestComponent handler={handler} />
-      <div data-testid="outside-target" /></>);
+      <div data-testid="outside-target" />
+    </>);
     
     const target = screen.getByTestId('target');
     const outsideTarget = screen.getByTestId('outside-target');

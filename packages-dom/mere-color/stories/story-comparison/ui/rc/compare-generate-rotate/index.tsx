@@ -28,7 +28,8 @@ export default function CompareGenerateRotate(): ReactElement {
         max: 360,
         value: stateAmount,
         onChange: setStateAmount
-      }} /></GridTitle>
+      }} />
+    </GridTitle>
     {getComparisonGenerateRotate(color, stateAmount).map(v => <GridItem key={v.key} {...{
       color: v.result,
       result: v.result,

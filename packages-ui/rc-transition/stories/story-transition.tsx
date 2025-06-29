@@ -106,7 +106,8 @@ export default function StoryTransitionClone(): ReactElement {
       mountOnEnter: stateMountOnEnter,
       unmountOnExit: stateUnmountOnExit
     }}>
-      <ScChild ref={nodeRef1}>I use data-transition as CSS hook.</ScChild></Transition>
+      <ScChild ref={nodeRef1}>I use data-transition as CSS hook.</ScChild>
+    </Transition>
     <Transition {...{
       in: stateIn,
       nodeRef: stateUseNodeRef ? nodeRef2 : undefined,
@@ -123,5 +124,7 @@ export default function StoryTransitionClone(): ReactElement {
       mountOnEnter: stateMountOnEnter,
       unmountOnExit: stateUnmountOnExit
     }}>
-      <HookChild ref={nodeRef3} /></Transition></>;
+      <HookChild ref={nodeRef3} />
+    </Transition>
+  </>;
 }

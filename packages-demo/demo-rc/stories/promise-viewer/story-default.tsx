@@ -36,5 +36,6 @@ export default function StoryDefault(): ReactElement {
   
   return <>
     <Button onClick={handleMockPromise}>Mock Promise</Button>
-    <PromiseViewer promise={statePromise} /></>;
+    <PromiseViewer promise={statePromise} />
+  </>;
 }

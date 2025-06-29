@@ -18,26 +18,33 @@ export default function OpsSelect(): ReactElement {
   
   return <>
     <Button {...{
+      label: 'select(prev)',
       onClick: () => handleSelect(-1)
-    }}>select(prev)</Button>
+    }} />
     <Button {...{
+      label: 'select(next)',
       onClick: () => handleSelect(1)
-    }}>select(next)</Button>
+    }} />
     <Button {...{
+      label: 'select(first)',
       onClick: () => handleSelect('first')
-    }}>select(first)</Button>
+    }} />
     <Button {...{
+      label: 'select(last)',
       onClick: () => handleSelect('last')
-    }}>select(last)</Button>
+    }} />
     <Button {...{
+      label: 'select(none)',
       onClick: () => handleSelect(null)
-    }}>select(none)</Button>
+    }} />
     <br />
     <InputText {...{
       value: stateId,
       onChange: setStateId
     }} />
     <Button {...{
+      label: 'select(id)',
       onClick: () => handleSelect(stateId)
-    }}>select(id)</Button></>;
+    }} />
+  </>;
 }

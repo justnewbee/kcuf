@@ -40,5 +40,6 @@ export default function FormItem({
   
   return <ScItem $dense={dense}>
     {label ? <ItemLabel label={label} /> : null}
-    <ItemContent content={content} help={help} /></ScItem>;
+    <ItemContent content={content} help={help} />
+  </ScItem>;
 }

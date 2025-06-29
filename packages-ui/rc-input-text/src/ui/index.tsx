@@ -97,7 +97,8 @@ function Ui(_props: unknown, ref: ForwardedRef<InputTextImperativeRef>): ReactEl
     <TheInput />
     <Count />
     <AddonSuffix />
-    <AddonAfter /></ScUi>;
+    <AddonAfter />
+  </ScUi>;
 }
 
 export default forwardRef(Ui);

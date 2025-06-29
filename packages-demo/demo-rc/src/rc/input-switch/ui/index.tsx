@@ -65,5 +65,6 @@ export default function Ui(): ReactElement {
       role: 'switch',
       'aria-checked': value,
       onClick: handleToggleSwitch
-    }} /></FormControlWithLabel>;
+    }} />
+  </FormControlWithLabel>;
 }

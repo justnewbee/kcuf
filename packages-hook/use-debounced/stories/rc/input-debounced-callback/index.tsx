@@ -59,5 +59,6 @@ export default function InputDebouncedCallback(): ReactElement {
           onChange: setStateImmediate
         }} />
       }]
-    }} /></>;
+    }} />
+  </>;
 }

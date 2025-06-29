@@ -63,7 +63,8 @@ export default function SomeComponent(): ReactElement {
   return stateDataSome || stateErrorSome ? <div>
     <ResultSome data={stateDataSome} error={stateErrorSome} />
     {stateDataOther || stateErrorOther ? <ResultOther data={stateDataOther} error={stateErrorOther} /> : null}
-    <Button onClick={handleGetOther}>get other</Button></div> : <Loading />;
+    <Button onClick={handleGetOther}>get other</Button>
+  </div> : <Loading />;
 };
 ```
 

@@ -185,5 +185,6 @@ export default function StoryButtonAdd(): ReactElement {
     <ScHoverLayer2 />
     <ScCrossCorner />
     <ScCrossHover />
-    <>add</></ScButtonAdd>;
+    <>add</>
+  </ScButtonAdd>;
 }

@@ -25,5 +25,6 @@ export default function StoryControllable(): ReactElement {
     <input {...{
       value: stateValue,
       onChange: handleNativeInputChange
-    }} /></>;
+    }} />
+  </>;
 }

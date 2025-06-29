@@ -60,5 +60,6 @@ export default function InputDebouncedValue(): ReactElement {
           onChange: setStateImmediate
         }} />
       }]
-    }} /></>;
+    }} />
+  </>;
 }

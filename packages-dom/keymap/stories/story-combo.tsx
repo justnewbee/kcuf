@@ -51,5 +51,6 @@ export default function StoryCombo(): ReactElement {
     <Keystroke {...{
       keystroke: 'T E N T H L E V E L T A U R E N C H I E F T A I N',
       onFire: throwConfetti
-    }} /></>;
+    }} />
+  </>;
 }

@@ -157,5 +157,6 @@ export default function StoryButtonMortar(): ReactElement {
   return <ScButtonMortar>
     Learn More
     <span />
-    <span /></ScButtonMortar>;
+    <span />
+  </ScButtonMortar>;
 }

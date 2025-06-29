@@ -58,7 +58,8 @@ function Demo(): ReactElement {
       <Backdrop closable onClose={handleClose} />
       <Backdrop closable onClose={handleClose} />
       <Backdrop closable onClose={handleClose} />
-      <Backdrop closable onClose={handleClose} /></>: null}
+      <Backdrop closable onClose={handleClose} />
+    </>: null}
   </>;
 }
 ```
@@ -81,7 +82,8 @@ function Demo(): ReactElement {
     {stateVisible ? <>
       <Backdrop />
       <Backdrop zIndex={12345} closable onClose={handleClose} />
-      <Backdrop /></>: null}
+      <Backdrop />
+    </>: null}
   </>;
 }
 ```

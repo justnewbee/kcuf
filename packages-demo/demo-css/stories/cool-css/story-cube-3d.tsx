@@ -120,7 +120,9 @@ export default function StoryCube3d(): ReactElement {
         <ScCubeFace data-face="right">right</ScCubeFace>
         <ScCubeFace data-face="left">left</ScCubeFace>
         <ScCubeFace data-face="top">top</ScCubeFace>
-        <ScCubeFace data-face="bottom">bottom</ScCubeFace></ScCube></ScCubeWrapper>
+        <ScCubeFace data-face="bottom">bottom</ScCubeFace>
+      </ScCube>
+    </ScCubeWrapper>
     <ChoiceGroupRadio<ECubeFace> {...{
       datasource: CUBE_FACES.map(v => ({
         label: v,
@@ -128,5 +130,6 @@ export default function StoryCube3d(): ReactElement {
       })),
       value: stateFace,
       onChange: setStateFace
-    }} /></>;
+    }} />
+  </>;
 }

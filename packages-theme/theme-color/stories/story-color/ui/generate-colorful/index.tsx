@@ -28,7 +28,8 @@ export default function GenerateColorful(): ReactElement {
         withAlpha: false,
         value: seedColorful,
         onChange: setSeedColorful
-      }} /></ColorBlockBase>
+      }} />
+    </ColorBlockBase>
     {generateColorLevel(seedColorful, {
       dark
     }).map((v, i) => <ColorBlockItem key={`${v}-${i}`} color={v} />)}

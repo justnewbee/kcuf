@@ -62,5 +62,7 @@ export default function Ui(): ReactElement {
       <CompareA11yContrast black />
       <CompareIsEqual />
       <CompareIsDark />
-      <CompareIsLight /></ScGrid></>;
+      <CompareIsLight />
+    </ScGrid>
+    </>;
 }

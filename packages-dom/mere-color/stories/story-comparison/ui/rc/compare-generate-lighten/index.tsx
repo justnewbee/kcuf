@@ -28,7 +28,8 @@ export default function CompareGenerateLighten(): ReactElement {
         max: 100,
         value: stateAmount,
         onChange: setStateAmount
-      }} /></GridTitle>
+      }} />
+    </GridTitle>
     {getComparisonGenerateLighten(color, stateAmount).map(v => <GridItem key={v.key} {...{
       color: v.result,
       result: v.result,

@@ -40,7 +40,8 @@ export default function StoryReturnFalse(): ReactElement {
         value: stateReturnFalse,
         label: 'Return false',
         onChange: setStateReturnFalse
-      }} /></H1>
+      }} />
+    </H1>
     <KeystrokeModifiers {...{
       theKey: 'S',
       modifierNames,
@@ -55,5 +56,6 @@ export default function StoryReturnFalse(): ReactElement {
       theKey: 'L',
       modifierNames,
       returnFalse: stateReturnFalse
-    }} /></>;
+    }} />
+  </>;
 }

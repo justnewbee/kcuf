@@ -51,11 +51,12 @@ export default function StoryVariant(): ReactElement {
         onChange: setStateLoading
       }} />
       <br />
-      <ChoiceGroupRadio {...{
+      <ChoiceGroupRadio<ButtonSize> {...{
         datasource: SIZES,
         value: stateSize,
         onChange: setStateSize
-      }} /></div>
+      }} />
+    </div>
     {Object.entries(ButtonPreset).map(([k, v]) => <ScButtonThemes key={k} {...{
       preset: v,
       label: v,

@@ -20,5 +20,6 @@ export default function StoryDefault(): ReactElement {
       label: 'Radio 2',
       checked: stateChecked,
       onChange: setStateChecked
-    }} /></>;
+    }} />
+  </>;
 }

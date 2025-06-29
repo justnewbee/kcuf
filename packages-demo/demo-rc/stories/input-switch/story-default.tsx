@@ -20,5 +20,6 @@ export default function StoryDefault(): ReactElement {
       label: 'Switch 2',
       value: stateValue,
       onChange: setStateValue
-    }} /></>;
+    }} />
+  </>;
 }

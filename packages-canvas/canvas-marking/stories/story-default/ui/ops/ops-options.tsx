@@ -88,5 +88,6 @@ export default function OpsOptions(): ReactElement {
       label: 'noCrossingDetection',
       checked: optionNoCrossingDetection,
       onChange: setOptionNoCrossingDetection
-    }} /></>;
+    }} />
+  </>;
 }

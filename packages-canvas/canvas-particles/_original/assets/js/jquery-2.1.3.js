@@ -1170,9 +1170,12 @@
               // setting a boolean content attribute,
               // since its presence should be enough
               // http://bugs.jquery.com/ticket/12359
-              docElem.appendChild(div).innerHTML = '<a id=\'' + expando + '\'></a>' +
+              docElem.appendChild(div).innerHTML = '<a id=\'' + expando + '\'>
+            </a>' +
                   '<select id=\'' + expando + '-\f]\' msallowcapture=\'\'>' +
-                  '<option selected=\'\'></option></select>';
+                  '<option selected=\'\'>
+                </option>
+                </select>';
               
               // Support: IE8, Opera 11-12.16
               // Nothing should be selected when empty strings follow ^= or $= or *=
@@ -2579,7 +2582,8 @@
 // Prevent attribute/property "interpolation"
 // http://msdn.microsoft.com/en-us/library/ms536429%28VS.85%29.aspx
         if (!assert(function(div) {
-          div.innerHTML = '<a href=\'#\'></a>';
+          div.innerHTML = '<a href=\'#\'>
+        </a>';
           return div.firstChild.getAttribute('href') === '#';
         })) {
           addHandle('type|href|height|width', function(elem, name, isXML) {
@@ -4922,9 +4926,13 @@
         option: [1, '<select multiple=\'multiple\'>', '</select>'],
         
         thead: [1, '<table>', '</table>'],
-        col: [2, '<table><colgroup>', '</colgroup></table>'],
-        tr: [2, '<table><tbody>', '</tbody></table>'],
-        td: [3, '<table><tbody><tr>', '</tr></tbody></table>'],
+        col: [2, '<table><colgroup>', '</colgroup>
+      </table>'],
+        tr: [2, '<table><tbody>', '</tbody>
+      </table>'],
+        td: [3, '<table><tbody><tr>', '</tr>
+      </tbody>
+      </table>'],
         
         _default: [0, '', '']
       };
@@ -5106,7 +5114,8 @@
             // Deserialize a standard representation
             tag = (rtagName.exec(elem) || ['', ''])[1].toLowerCase();
             wrap = wrapMap[tag] || wrapMap._default;
-            tmp.innerHTML = wrap[1] + elem.replace(rxhtmlTag, '<$1></$2>') + wrap[2];
+            tmp.innerHTML = wrap[1] + elem.replace(rxhtmlTag, '<$1>
+          </$2>') + wrap[2];
             
             // Descend through wrappers to the right content
             j = wrap[0];
@@ -5305,7 +5314,9 @@
         if (typeof value === 'string' && !rnoInnerhtml.test(value) &&
             !wrapMap[(rtagName.exec(value) || ['', ''])[1].toLowerCase()]) {
           
-          value = value.replace(rxhtmlTag, '<$1></$2>');
+          value = value.replace(rxhtmlTag, '<$1>
+        
+          </$2>');
           
           try {
             for (; i < l; i++) {

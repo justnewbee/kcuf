@@ -17,6 +17,7 @@ const ScGlowingBorderAni = styled.div`
   }
   
   img {
+    /* stylelint-disable */
     --_s: (90deg -mod(var(--a), .5turn)) * 9999;
     
     margin: 12px;
@@ -27,13 +28,13 @@ const ScGlowingBorderAni = styled.div`
     border: 5px solid #0000;
     border-radius: 30px;
     cursor: pointer;
-    mask: conic-gradient(#000 0 0) content-box,
-          linear-gradient(calc(var(--_a, 45deg) + mod(var(--a), 90deg) * var(--i) + clamp(-90deg * var(--i), (90deg - mod(var(--a), 180deg)) * 9999, 0deg)), #0000 30%, #000 40% 60%, #0000 70%) subtract,
-          conic-gradient(#000 0 0) padding-box;
+    /* stylelint-disable */
+    mask: conic-gradient(#000 0 0) content-box, linear-gradient(calc(var(--_a, 45deg) + mod(var(--a), 90deg) * var(--i) + clamp(-90deg * var(--i), (90deg - mod(var(--a), 180deg)) * 9999, 0deg)), #0000 30%, #000 40% 60%, #0000 70%) subtract, conic-gradient(#000 0 0) padding-box;
     transition: --i .3s, --a 0s .3s;
   }
   
   img.alt {
+    /* stylelint-disable */
     --_a: -45deg;
   }
   
@@ -49,5 +50,6 @@ const ScGlowingBorderAni = styled.div`
 export default function StoryGlowingBorderAni(): ReactElement {
   return <ScGlowingBorderAni>
     <img src="https://picsum.photos/id/65/300/300" alt="" />
-    <img src="https://picsum.photos/id/227/300/300" className="alt" alt="" /></ScGlowingBorderAni>;
+    <img src="https://picsum.photos/id/227/300/300" className="alt" alt="" />
+  </ScGlowingBorderAni>;
 }

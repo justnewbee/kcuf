@@ -33,33 +33,43 @@ export default function OpsCreate(): ReactElement {
   
   return <>
     <Button {...{
+      label: '自由',
       onClick: handleCreate
-    }}>自由</Button>
+    }} />
     <Button {...{
+      label: '单点',
       onClick: handleCreateMaxPoint1
-    }}>单点</Button>
+    }} />
     <Button {...{
+      label: '线（两点）',
       onClick: handleCreateLine
-    }}>线（两点）</Button>
+    }} />
     <Button {...{
+      label: '最多 5 点',
       onClick: handleCreateMaxPoint5
-    }}>最多 5 点</Button>
+    }} />
     <Button {...{
+      label: '矩形',
       onClick: handleCreateRect
-    }}>矩形</Button>
+    }} />
     <Button {...{
+      label: '矩形 II',
       onClick: handleCreateRect2
-    }}>矩形 II</Button>
+    }} />
     <Button {...{
+      label: 'SVG 点',
       onClick: handleCreateSvgPoint
-    }}>SVG 点</Button>
+    }} />
     <br />
     <Button {...{
+      label: '取消标注',
       disabled: !markingStats?.creating,
       onClick: handleCancelCreating
-    }}>取消标注</Button>
+    }} />
     <Button {...{
+      label: '完成标注',
       disabled: !markingStats?.creating,
       onClick: handleFinishCreating
-    }}>完成标注</Button></>;
+    }} />
+  </>;
 }

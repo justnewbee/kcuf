@@ -37,7 +37,8 @@ export default function StoryCaseSensitive(): ReactElement {
     }} />
     <H1>
       Case Sensitive
-      <InputSwitch label="case sensitive" value={stateCaseSensitive} onChange={setStateCaseSensitive} /></H1>
+      <InputSwitch label="case sensitive" value={stateCaseSensitive} onChange={setStateCaseSensitive} />
+    </H1>
     <GridContainer>
       <Keystroke {...{
         keystroke: 'X',
@@ -54,7 +55,8 @@ export default function StoryCaseSensitive(): ReactElement {
       <Keystroke {...{
         keystroke: [...modifierNames, 'x'].join('+'),
         caseSensitive: stateCaseSensitive
-      }} /></GridContainer>
+      }} />
+    </GridContainer>
     <GridContainer>
       <Keystroke {...{
         keystroke: 'F1',
@@ -63,5 +65,7 @@ export default function StoryCaseSensitive(): ReactElement {
       <Keystroke {...{
         keystroke: [...modifierNames, 'F1'].join('+'),
         caseSensitive: stateCaseSensitive
-      }} /></GridContainer></>;
+      }} />
+    </GridContainer>
+    </>;
 }

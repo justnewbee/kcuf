@@ -28,5 +28,6 @@ export default function OpsSelect(): ReactElement {
     }}>next</Button>
     <Button {...{
       onClick: () => ref.current?.select(null)
-    }}>none</Button></>;
+    }}>none</Button>
+  </>;
 }

@@ -34,5 +34,6 @@ export default function OpsHighlight(): ReactElement {
     }}>prev & border-first</Button>
     <Button {...{
       onClick: () => ref.current?.highlight(1, -1)
-    }}>next & border-all</Button></>;
+    }}>next & border-all</Button>
+  </>;
 }

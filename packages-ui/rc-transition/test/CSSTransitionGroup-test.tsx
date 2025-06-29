@@ -28,7 +28,8 @@ describe('CSSTransitionGroup', () => {
     const nodeRef = React.useRef();
     
     return <TransitionCss nodeRef={nodeRef} classNames="yolo" duration={0} {...props}>
-      <span ref={nodeRef} id={id} /></TransitionCss>;
+      <span ref={nodeRef} id={id} />
+    </TransitionCss>;
   }
   
   beforeEach(() => {
@@ -58,14 +59,16 @@ describe('CSSTransitionGroup', () => {
   
   test('should clean-up silently after the timeout elapses', () => {
     render(<TransitionGroup enter={false}>
-      <YoloTransition key="one" id="one" /></TransitionGroup>, container);
+      <YoloTransition key="one" id="one" />
+    </TransitionGroup>, container);
     
     const transitionGroupDiv = container.childNodes[0];
     
     expect(transitionGroupDiv.childNodes.length).toBe(1);
     
     render(<TransitionGroup enter={false}>
-      <YoloTransition key="two" id="two" /></TransitionGroup>, container);
+      <YoloTransition key="two" id="two" />
+    </TransitionGroup>, container);
     
     expect(transitionGroupDiv.childNodes.length).toBe(2);
     expect(transitionGroupDiv.childNodes[0].id).toBe('two');
@@ -85,14 +88,16 @@ describe('CSSTransitionGroup', () => {
   
   test('should keep both sets of DOM nodes around', () => {
     render(<TransitionGroup>
-      <YoloTransition key="one" id="one" /></TransitionGroup>, container);
+      <YoloTransition key="one" id="one" />
+    </TransitionGroup>, container);
     
     const transitionGroupDiv = container.childNodes[0];
     
     expect(transitionGroupDiv.childNodes.length).toBe(1);
     
     render(<TransitionGroup>
-      <YoloTransition key="two" id="two" /></TransitionGroup>, container);
+      <YoloTransition key="two" id="two" />
+    </TransitionGroup>, container);
     
     expect(transitionGroupDiv.childNodes.length).toBe(2);
     expect(transitionGroupDiv.childNodes[0].id).toBe('two');
@@ -101,14 +106,16 @@ describe('CSSTransitionGroup', () => {
   
   test('should switch transitionLeave from false to true', () => {
     render(<TransitionGroup enter={false} leave={false}>
-      <YoloTransition key="one" id="one" /></TransitionGroup>, container);
+      <YoloTransition key="one" id="one" />
+    </TransitionGroup>, container);
     
     const transitionGroupDiv = container.childNodes[0];
     
     expect(transitionGroupDiv.childNodes.length).toBe(1);
     
     render(<TransitionGroup enter={false} leave={false}>
-      <YoloTransition key="two" id="two" /></TransitionGroup>, container);
+      <YoloTransition key="two" id="two" />
+    </TransitionGroup>, container);
     
     act(() => {
       vitest.runAllTimers();
@@ -117,7 +124,8 @@ describe('CSSTransitionGroup', () => {
     expect(transitionGroupDiv.childNodes.length).toBe(1);
     
     render(<TransitionGroup enter={false} leave>
-      <YoloTransition key="three" id="three" /></TransitionGroup>, container);
+      <YoloTransition key="three" id="three" />
+    </TransitionGroup>, container);
     
     expect(transitionGroupDiv.childNodes.length).toBe(2);
     expect(transitionGroupDiv.childNodes[0].id).toBe('three');
@@ -135,7 +143,8 @@ describe('CSSTransitionGroup', () => {
     render(<TransitionGroup />, container);
     render(<TransitionGroup>
       <TransitionCss classNames="yolo" duration={0}>
-        <NullComponent /></TransitionCss>     </TransitionGroup>,
+        <NullComponent />
+      </TransitionCss>     </TransitionGroup>,
       container
     );
     render(<TransitionGroup />, container);
@@ -143,7 +152,8 @@ describe('CSSTransitionGroup', () => {
   
   test('should transition from one to null', () => {
     render(<TransitionGroup>
-      <YoloTransition key="one" id="one" /></TransitionGroup>, container);
+      <YoloTransition key="one" id="one" />
+    </TransitionGroup>, container);
     
     const transitionGroupDiv = container.childNodes[0];
     
@@ -165,7 +175,8 @@ describe('CSSTransitionGroup', () => {
     expect(transitionGroupDiv.childNodes.length).toBe(0);
     
     render(<TransitionGroup>
-      <YoloTransition key="one" id="one" /></TransitionGroup>, container);
+      <YoloTransition key="one" id="one" />
+    </TransitionGroup>, container);
     
     expect(transitionGroupDiv.childNodes.length).toBe(1);
     expect(transitionGroupDiv.childNodes[0].id).toBe('one');
@@ -180,7 +191,8 @@ describe('CSSTransitionGroup', () => {
     
     render(<Component />, container);
     render(<Component>
-      <YoloTransition key="yolo" id="yolo" /></Component>, container);
+      <YoloTransition key="yolo" id="yolo" />
+    </Component>, container);
     
     ReactDOM.unmountComponentAtNode(container);
     
@@ -211,7 +223,8 @@ describe('CSSTransitionGroup', () => {
       
       render() {
         return <TransitionGroup appear={true}>
-          <Child show={this.state.showChild} /></TransitionGroup>;
+          <Child show={this.state.showChild} />
+        </TransitionGroup>;
       }
     }
     
@@ -245,7 +258,8 @@ describe('CSSTransitionGroup', () => {
     class Component extends React.Component {
       render() {
         return <TransitionGroup component={Wrapper}>
-          <Child /></TransitionGroup>;
+          <Child />
+        </TransitionGroup>;
       }
     }
     

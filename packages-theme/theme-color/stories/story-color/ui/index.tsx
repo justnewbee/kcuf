@@ -65,5 +65,7 @@ export default function StoryColor(): ReactElement {
         title: 'Black Alpha',
         titleColor: 'hsl(0 0% 50%)',
         lists: [COLOR.BLACK_A, COLOR_DARK.BLACK_A]
-      }} /></ColorBlockGrid></>;
+      }} />
+    </ColorBlockGrid>
+    </>;
 }

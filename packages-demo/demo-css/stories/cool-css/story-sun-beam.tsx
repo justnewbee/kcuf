@@ -36,6 +36,8 @@ export default function StorySunBeam(): ReactElement {
   
   return <>
     <ScSunBeam>
-      <h1>参考自 <a href="https://lea.verou.me" target="_blank" rel="noreferrer">https://lea.verou.me</a> 的顶部样式，滚动会旋转</h1></ScSunBeam>
-    <LongArticle /></>;
+      <h1>参考自 <a href="https://lea.verou.me" target="_blank" rel="noreferrer">https://lea.verou.me</a> 的顶部样式，滚动会旋转</h1>
+    </ScSunBeam>
+    <LongArticle />
+  </>;
 }

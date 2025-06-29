@@ -37,7 +37,8 @@ describe('TransitionSwitch', () => {
           key={on ? 'first' : 'second'}
           {...events}
         >
-          <span ref={nodeRef}>{on ? 'first' : 'second'}</span></Transition> : null}
+          <span ref={nodeRef}>{on ? 'first' : 'second'}</span>
+        </Transition> : null}
       </TransitionSwitch>;
     };
     
@@ -56,7 +57,8 @@ describe('TransitionSwitch', () => {
         {(status) => {
           return <span ref={nodeRef}>status: {status}</span>;
         }}
-      </Transition></TransitionSwitch>);
+      </Transition>
+    </TransitionSwitch>);
     
     expect(nodeRef.current.textContent).toBe(`status: ${TransitionStatus.ENTERED}`);
   });
@@ -71,12 +73,14 @@ describe('TransitionSwitch', () => {
         {(status) => {
           return <span ref={firstNodeRef}>first status: {status}</span>;
         }}
-      </Transition></TransitionSwitch>);
+      </Transition>
+    </TransitionSwitch>);
     
     rerender(<TransitionSwitch>
       <Transition nodeRef={secondNodeRef} timeout={0} key="second">
         {(status) => <span ref={secondNodeRef}>second status: {status}</span>}
-      </Transition></TransitionSwitch>);
+      </Transition>
+    </TransitionSwitch>);
     
     expect(firstNodeRef.current.textContent).toBe('first status: exiting');
     expect(secondNodeRef.current).toBe(null);
@@ -88,7 +92,9 @@ describe('TransitionSwitch', () => {
     expect(() => {
       render(<TransitionSwitch>
         <Transition nodeRef={nodeRef} timeout={0} key="first">
-          <span ref={nodeRef} /></Transition></TransitionSwitch>);
+          <span ref={nodeRef} />
+        </Transition>
+        </TransitionSwitch>);
     }).not.toThrow();
   });
   

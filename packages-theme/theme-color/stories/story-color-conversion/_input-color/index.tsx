@@ -88,5 +88,6 @@ export default function InputColor({
     <PartComplete {...{
       value: finalColorString,
       onChange: handleCompleteChange
-    }} /></ScColor>;
+    }} />
+  </ScColor>;
 }

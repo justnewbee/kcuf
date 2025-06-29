@@ -27,14 +27,18 @@ export default function OpsOverall(): ReactElement {
   
   return <>
     <Button {...{
+      label: fullscreen ? '退出全屏' : '进入全屏',
       onClick: handleToggleFullscreen
-    }}>{fullscreen ? '退出全屏' : '进入全屏'}</Button>
+    }} />
     <Button {...{
+      label: markingInstance ? 'destroy' : 'init',
       onClick: markingInstance ? handleDestroy : init
-    }}>{markingInstance ? 'destroy' : 'init'}</Button>
+    }} />
     {markingInstance ? <>
       <Button {...{
+        label: `stats (${markingStats?.itemStatsList.length ?? 0})`,
         onClick: handleDebugStats
-      }}>stats ({markingStats?.itemStatsList.length ?? 0})</Button></> : null}
+      }} />
+    </> : null}
   </>;
 }

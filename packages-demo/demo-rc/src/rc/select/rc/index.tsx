@@ -1,15 +1,25 @@
 import {
+  ChangeEvent,
   ReactElement,
-  forwardRef, useCallback, ChangeEvent
+  forwardRef,
+  useCallback, useMemo
 } from 'react';
 import styled from 'styled-components';
 
-import useControllable from '@kcuf-hook/use-controllable';
+import {
+  useControllableUnprotected
+} from '@kcuf-hook/use-controllable';
 
+import {
+  TDatasourceValue
+} from '../../../types';
 import {
   CSS_FORM_CONTROL_INPUT_BASE,
   HEIGHT_FORM_CONTROL
 } from '../../../const';
+import {
+  parseDatasource
+} from '../../../util';
 import {
   TSelectRef,
   ISelectProps
@@ -21,27 +31,28 @@ const ScSelect = styled.select`
   ${CSS_FORM_CONTROL_INPUT_BASE}
 `;
 
-function Select({
-  datasource = [],
+function Select<T extends TDatasourceValue = string>({
+  datasource,
   withEmpty = true,
   value,
   defaultValue,
   onChange,
   ...props
-}: ISelectProps, ref: TSelectRef): ReactElement {
-  const [controllableValue, controllableOnChange] = useControllable('', value, defaultValue, onChange);
+}: ISelectProps<T>, ref: TSelectRef): ReactElement {
+  const datasourceParsed = useMemo(() => parseDatasource(datasource), [datasource]);
+  const [controllableValue, controllableOnChange] = useControllableUnprotected<T | undefined>(value, defaultValue, onChange);
   const handleChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    controllableOnChange(e.target.value);
-  }, [controllableOnChange]);
+    controllableOnChange(datasourceParsed.find(v => String(v.value) === e.target.value)?.value);
+  }, [controllableOnChange, datasourceParsed]);
   
   return <ScSelect {...{
     ...props,
-    value: controllableValue,
+    value: String(controllableValue),
     ref,
     onChange: handleChange
   }}>
-    {withEmpty ? <option value="">&lt;EMPTY&gt;</option> : null}
-    {datasource.map(v => <option key={v.value} value={v.value}>{v.label ?? v.value}</option>)}
+    {withEmpty ? <option value="<EMPTY>">&lt;EMPTY&gt;</option> : null}
+    {datasourceParsed.map(v => <option key={String(v.value)} value={String(v.value)}>{v.label ?? v.value}</option>)}
   </ScSelect>;
 }
 

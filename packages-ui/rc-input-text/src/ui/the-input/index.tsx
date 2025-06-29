@@ -15,5 +15,6 @@ const ScTheInput = styled.div`
 export default function TheInput(): ReactElement {
   return <ScTheInput>
     <InputElement />
-    <InputIcon /></ScTheInput>;
+    <InputIcon />
+  </ScTheInput>;
 }

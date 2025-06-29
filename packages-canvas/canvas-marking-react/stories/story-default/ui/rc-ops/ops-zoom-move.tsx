@@ -36,5 +36,6 @@ export default function OpsZoomMove(): ReactElement {
     }}>zoom Reset</Button>
     <Button {...{
       onClick: () => ref.current?.toggleMove()
-    }}>{markingStats?.movingInfo.started ? 'moving...' : 'move'}</Button></>;
+    }}>{markingStats?.movingInfo.started ? 'moving...' : 'move'}</Button>
+  </>;
 }

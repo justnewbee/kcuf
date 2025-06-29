@@ -10,5 +10,6 @@ import Ui from '../ui';
 
 export default function WithProvider(props: KeyboardProps): ReactElement {
   return <KeyboardModel {...props}>
-    <Ui /></KeyboardModel>;
+    <Ui />
+  </KeyboardModel>;
 }

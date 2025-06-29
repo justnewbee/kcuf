@@ -25,7 +25,8 @@ export default function CompareGenerateMix(): ReactElement {
       <InputColor {...{
         value: stateColor2,
         onChange: setStateColor2
-      }} /></GridTitle>
+      }} />
+    </GridTitle>
     {getComparisonGenerateMix(color, stateColor2).map(v => <GridItem key={v.key} {...{
       color: v.result,
       result: v.result,

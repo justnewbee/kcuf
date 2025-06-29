@@ -33,6 +33,7 @@ export default function StoryEvent(): ReactElement {
       {' '}
       /
       {' '}
-      <code>{stateLastKeyPress[1]}</code></ScLastPress> : null}
+      <code>{stateLastKeyPress[1]}</code>
+    </ScLastPress> : null}
   </>;
 }

@@ -39,5 +39,6 @@ export default function StoryDefault(): ReactElement {
   
   return <ScContainer ref={refDomContainer} $fullscreen={fullscreen}>
     <ScMarking ref={refDomCanvasMarking} />
-    <Ops /></ScContainer>;
+    <Ops />
+  </ScContainer>;
 }

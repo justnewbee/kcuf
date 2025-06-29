@@ -14,7 +14,6 @@ import intl, {
 
 export default function DemoDefault(): ReactElement {
   return <>
-    <ThemeSwitcher />
     <PkgInfo />
     <H1>不会产出 HTML</H1>
     <P>{intl('demo.op.switch_locale')}</P>
@@ -33,5 +32,6 @@ export default function DemoDefault(): ReactElement {
     <P>2020-07-27 23:07:07 → {intlDate('2020-07-27 23:57:47')}</P>
     <P>Date.now() + format: date → {intlDate(Date.now(), 'date')}</P>
     <P>Date.now() + format: time → {intlDate(Date.now(), 'time')}</P>
-    <P>Invalid → {intlDate('InvalidDATE')}</P></>;
+    <P>Invalid → {intlDate('InvalidDATE')}</P>
+  </>;
 }

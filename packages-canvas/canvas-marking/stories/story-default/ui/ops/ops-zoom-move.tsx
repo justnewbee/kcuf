@@ -22,21 +22,28 @@ export default function OpsZoomMove(): ReactElement {
   
   return <>
     <Button {...{
+      label: 'zoom-',
       onClick: () => handleZoom(ZoomHow.OUT)
-    }}>zoom-</Button>
+    }} />
     <Button {...{
+      label: 'zoom+',
       onClick: () => handleZoom(ZoomHow.IN)
-    }}>zoom+</Button>
+    }} />
     <Button {...{
+      label: 'zoom min',
       onClick: () => handleZoom(ZoomHow.MIN)
-    }}>zoom min</Button>
+    }} />
     <Button {...{
+      label: 'zoom max',
       onClick: () => handleZoom(ZoomHow.MAX)
-    }}>zoom max</Button>
+    }} />
     <Button {...{
+      label: 'zoom reset',
       onClick: () => handleZoom(ZoomHow.RESET)
-    }}>zoom reset</Button>
+    }} />
     <Button {...{
+      label: markingStats?.movingInfo.started ? 'moving...' : 'move',
       onClick: handleToggleMove
-    }}>{markingStats?.movingInfo.started ? 'moving...' : 'move'}</Button></>;
+    }} />
+  </>;
 }

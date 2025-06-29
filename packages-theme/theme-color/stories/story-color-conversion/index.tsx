@@ -16,5 +16,6 @@ export default function StoryColorConversion(): ReactElement {
   return <>
     <H1>颜色计算</H1>
     <RgbaToRgb />
-    <RgbToRgba /></>;
+    <RgbToRgba />
+  </>;
 }

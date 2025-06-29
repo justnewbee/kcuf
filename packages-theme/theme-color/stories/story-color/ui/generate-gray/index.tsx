@@ -28,7 +28,8 @@ export default function GenerateGray(): ReactElement {
         withAlpha: false,
         value: seedGray,
         onChange: setSeedGray
-      }} /></ColorBlockBase>
+      }} />
+    </ColorBlockBase>
     {generateColorLevel(seedGray, {
       gray: true,
       dark

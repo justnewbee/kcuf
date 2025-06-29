@@ -23,5 +23,6 @@ const ScText = styled.div`
 export default function StoryBackBlurGrid(): ReactElement {
   return <ScStoryBackTextBlur>
     <ScCover />
-    <ScText>这里的文字将被虚化成栅格（其实图片什么的也会）</ScText></ScStoryBackTextBlur>;
+    <ScText>这里的文字将被虚化成栅格（其实图片什么的也会）</ScText>
+  </ScStoryBackTextBlur>;
 }

@@ -35,29 +35,28 @@ export default function StoryDefault(): ReactElement {
         setStateYes(false);
       }
     }} /> : null}
-    <H1>
-      快速方法 I：<code>open</code>、<code>slide</code>、<code>slideUp</code></H1>
+    <H1>快速方法 I：<code>open</code>、<code>slide</code>、<code>slideUp</code></H1>
     <Button {...{
       label: 'open',
-      onClick: () => open({}).then(console.info)
+      onClick: () => open({}).then(console.info) // eslint-disable-line no-console
     }} />
     <Button {...{
       label: 'slide',
-      onClick: () => slide({}).then(console.info)
+      onClick: () => slide({}).then(console.info) // eslint-disable-line no-console
     }} />
     <Button {...{
       label: 'slideUp',
-      onClick: () => slideUp({}).then(console.info)
+      onClick: () => slideUp({}).then(console.info) // eslint-disable-line no-console
     }} />
     <Hr />
-    <H1>
-      快速方法 II：<code>alert</code>、<code>confirm</code>、<code>prompt</code></H1>
+    <H1>快速方法 II：<code>alert</code>、<code>confirm</code>、<code>prompt</code></H1>
     <Button {...{
       label: 'alert',
-      onClick: () => alert('Alert').then(console.info)
+      onClick: () => alert('Alert').then(console.info) // eslint-disable-line no-console
     }} />
     <Button {...{
       label: 'confirm',
-      onClick: () => confirm('Confirm').then(console.info)
-    }} /></>;
+      onClick: () => confirm('Confirm').then(console.info) // eslint-disable-line no-console
+    }} />
+  </>;
 }

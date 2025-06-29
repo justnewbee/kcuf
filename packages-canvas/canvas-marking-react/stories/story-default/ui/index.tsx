@@ -13,5 +13,6 @@ export default function DemoUi(): ReactElement {
   return <>
     <TheCanvas />
     <Hr />
-    <TheOps /></>;
+    <TheOps />
+  </>;
 }

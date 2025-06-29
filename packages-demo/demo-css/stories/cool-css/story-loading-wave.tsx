@@ -67,5 +67,6 @@ export default function StoryLoadingWave(): ReactElement {
     <span />
     <span />
     <span />
-    <span /></ScLoadingWave>;
+    <span />
+  </ScLoadingWave>;
 }

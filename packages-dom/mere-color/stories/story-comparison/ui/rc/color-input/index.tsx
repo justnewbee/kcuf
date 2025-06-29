@@ -38,5 +38,6 @@ export default function ColorInput(): ReactElement {
       }],
       value: colorType,
       onChange: setColorType
-    }} /></>;
+    }} />
+  </>;
 }

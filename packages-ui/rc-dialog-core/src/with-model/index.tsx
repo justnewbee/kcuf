@@ -16,5 +16,6 @@ import Ui from '../ui';
  */
 export default function WithProvider(props: ModelProps<any, any>): ReactPortal { // eslint-disable-line @typescript-eslint/no-explicit-any
   return createPortal(<Model props={props}>
-    <Ui /></Model>, document.body);
+    <Ui />
+  </Model>, document.body);
 }

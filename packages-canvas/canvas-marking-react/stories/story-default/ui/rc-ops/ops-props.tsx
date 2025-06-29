@@ -26,5 +26,6 @@ export default function OpsProps(): ReactElement {
     }} />
     <Button {...{
       onClick: () => console.info(ref.current?.getStats()) // eslint-disable-line no-console
-    }}>getStats</Button></>;
+    }}>getStats</Button>
+  </>;
 }

@@ -51,8 +51,10 @@ export default function TestApi({
         content: <>
           <Button onClick={handleTest}>{name}</Button>
           &nbsp;→&nbsp;
-          <Code>Promise&lt;{type}&gt;</Code></>
+          <Code>Promise&lt;{type}&gt;</Code>
+        </>
       }]
     }} />
-    <PromiseViewer promise={statePromise} /></>;
+    <PromiseViewer promise={statePromise} />
+  </>;
 }

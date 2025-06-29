@@ -55,5 +55,6 @@ export default function DemoDefault(): ReactElement {
       })}
     </div>
     <H1>Date</H1>
-    <div>{intl.intlDate(new Date())}</div></>;
+    <div>{intl.intlDate(new Date())}</div>
+  </>;
 }
