@@ -35,10 +35,7 @@ function HomepageHero(): ReactElement {
       <ScButtons>
         <Link className="button button--secondary button--lg" to="/docs/tutor/intro">
           Docusaurus Tutorial - 5min ⏱️
-        </Link>
-      </ScButtons>
-    </div>
-  </ScHeader>;
+        </Link></ScButtons></div></ScHeader>;
 }
 
 export default function Home(): ReactElement {
@@ -51,6 +48,5 @@ export default function Home(): ReactElement {
     description: 'Description will go into a meta tag in <head />'
   }}>
     <HomepageHero />
-    <main><HomepageFeatures /></main>
-  </Layout>;
+    <main><HomepageFeatures /></main></Layout>;
 }

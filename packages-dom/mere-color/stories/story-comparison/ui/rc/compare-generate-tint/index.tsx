@@ -28,8 +28,7 @@ export default function CompareGenerateTint(): ReactElement {
         max: 100,
         value: statePercentage,
         onChange: setStatePercentage
-      }} />
-    </GridTitle>
+      }} /></GridTitle>
     {getComparisonGenerateTint(color, statePercentage).map(v => <GridItem key={v.key} {...{
       color: v.result,
       result: v.result,

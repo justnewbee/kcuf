@@ -34,8 +34,7 @@ describe('TransitionCss', () => {
         done();
       }
     }}>
-      <div ref={nodeRef} />
-    </TransitionCss>);
+      <div ref={nodeRef} /></TransitionCss>);
     
     expect(nodeRef.current.classList.contains('test-class')).toEqual(false);
     
@@ -51,8 +50,7 @@ describe('TransitionCss', () => {
       let done = false;
       const nodeRef = createRef();
       const {setProps} = render(<TransitionCss nodeRef={nodeRef} duration={10} classNames="test">
-        <div ref={nodeRef} />
-      </TransitionCss>);
+        <div ref={nodeRef} /></TransitionCss>);
       
       setProps({
         in: true,
@@ -90,8 +88,7 @@ describe('TransitionCss', () => {
           enterDone: 'custom-super-done'
         }}
       >
-        <div ref={nodeRef} />
-      </TransitionCss>);
+        <div ref={nodeRef} /></TransitionCss>);
       
       setProps({
         in: true,
@@ -140,8 +137,7 @@ describe('TransitionCss', () => {
           expect(nodeRef.current.className).toEqual('appear-test-appear-done appear-test-enter-done');
         }
       }}>
-        <div ref={nodeRef} />
-      </TransitionCss>);
+        <div ref={nodeRef} /></TransitionCss>);
       
       await waitFor(() => {
         expect(count).toEqual(2);
@@ -164,8 +160,7 @@ describe('TransitionCss', () => {
           entered = true;
         }}
       >
-        <div ref={nodeRef} />
-      </TransitionCss>);
+        <div ref={nodeRef} /></TransitionCss>);
       
       await waitFor(() => {
         expect(entered).toEqual(true);
@@ -218,8 +213,7 @@ describe('TransitionCss', () => {
           done = true;
         }}
       >
-        <div ref={nodeRef} />
-      </TransitionCss>);
+        <div ref={nodeRef} /></TransitionCss>);
       
       await waitFor(() => {
         expect(done).toEqual(true);
@@ -236,8 +230,7 @@ describe('TransitionCss', () => {
         classNames="not-appear-test"
         appear={true}
       >
-        <div ref={nodeRef} />
-      </TransitionCss>).setProps({
+        <div ref={nodeRef} /></TransitionCss>).setProps({
         in: true,
         onEnter(isAppearing) {
           count++;
@@ -279,8 +272,7 @@ describe('TransitionCss', () => {
           throw Error('Entred called!');
         }}
       >
-        <div ref={nodeRef} />
-      </TransitionCss>);
+        <div ref={nodeRef} /></TransitionCss>);
     });
   });
   
@@ -291,8 +283,7 @@ describe('TransitionCss', () => {
       const {
         setProps
       } = render(<TransitionCss in nodeRef={nodeRef} duration={10} classNames="test">
-        <div ref={nodeRef} />
-      </TransitionCss>);
+        <div ref={nodeRef} /></TransitionCss>);
       
       setProps({
         in: false,
@@ -329,8 +320,7 @@ describe('TransitionCss', () => {
           exitDone: 'custom-super-done'
         }}
       >
-        <div ref={nodeRef} />
-      </TransitionCss>);
+        <div ref={nodeRef} /></TransitionCss>);
       
       setProps({
         in: false,
@@ -359,8 +349,7 @@ describe('TransitionCss', () => {
       const {
         setProps
       } = render(<TransitionCss in nodeRef={nodeRef} duration={10}>
-        <div ref={nodeRef} />
-      </TransitionCss>);
+        <div ref={nodeRef} /></TransitionCss>);
       
       setProps({
         in: false,
@@ -410,9 +399,7 @@ describe('TransitionCss', () => {
               nodeRef={nodeRef}
               {...props}
             >
-              <span ref={nodeRef}>{text}</span>
-            </TransitionCss>
-          </TransitionGroup>;
+              <span ref={nodeRef}>{text}</span></TransitionCss></TransitionGroup>;
         }
       }
       

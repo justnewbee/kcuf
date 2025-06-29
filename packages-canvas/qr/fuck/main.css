@@ -1,0 +1,474 @@
+html {
+  scrollbar-color: #f70 #eee;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f0f0f0;
+  font-size: 12pt;
+  line-height: 1.5em;
+  color: #333;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    scrollbar-color: #f70 #333
+  }
+  
+  body {
+    background: #444;
+    color: #ccc
+  }
+}
+
+#splash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
+}
+
+.qrsvgDemo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2em;
+  font-size: 1.5em
+}
+
+.qrsvgDemo > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  position: relative;
+  width: 16.5em;
+}
+
+.qrsvgDemo > div:first-child > input[type="text"] {
+  width: min(16.5em, 100%);
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: 1em
+}
+
+.qrsvgDemo > div:first-child > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: .5ex;
+  position: absolute;
+  top: 2em;
+  width: 100%;
+  height: calc(100% - 2em);
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 880px) {
+  .qrsvgDemo {
+    flex-direction: column;
+    padding: 60pt .5em 1em
+  }
+  
+  .qrsvgDemo > div {
+    width: 100%;
+    max-width: 16.5em
+  }
+  
+  .qrsvgDemo > div:first-child > div {
+    position: static
+  }
+}
+
+@media screen and (pointer: coarse) {
+  .qrsvgDemo {
+    padding-top: 60pt
+  }
+}
+
+.qrsvgDemo > div:first-child details {
+  font-size: .7em
+}
+
+.qrsvgDemo > div:first-child details summary {
+  background: #80808020;
+  padding: .5ex 1ex;
+  cursor: pointer
+}
+
+.qrsvgDemo > div:first-child details p {
+  margin: 0 0 1ex 0;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.qrsvgDemo > div:first-child details p span {
+  margin-right: 1em;
+  white-space: nowrap
+}
+
+.qrsvgDemo > div:first-child details .colorMode {
+  display: none
+}
+
+.qrsvgDemo > div:first-child details .backgroundConfig,
+.qrsvgDemo > div:first-child details .logoColorizeConfig {
+  margin-top: 1ex;
+  min-height: 2em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5ex
+}
+
+.qrsvgDemo > div:first-child details .logoColorizeConfig {
+  justify-content: center
+}
+
+.qrsvgDemo > div:first-child details .logoColorizeConfig input[disabled],
+.qrsvgDemo > div:first-child details .backgroundConfig input[disabled] {
+  opacity: 0.6
+}
+
+.qrsvgDemo > div:first-child div.colorModeGradient > div {
+  margin-top: 1ex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1ex
+}
+
+.qrsvgDemo > div:first-child div.colorModeGradient > div button#colorGradientSwap svg {
+  display: block;
+  width: 1.2em;
+  height: 1.2em
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette {
+  margin-top: 1ex;
+  grid-template-columns:1fr 2fr;
+  gap: .5ex
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette span {
+  text-align: right;
+  font-size: min(1em, 5vw);
+  line-height: 2em;
+  white-space: nowrap
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette .colorPicker {
+  justify-content: left
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette span:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette div:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette span:nth-child(3) {
+  grid-column: 1;
+  grid-row: 2
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette div:nth-child(4) {
+  grid-column: 2;
+  grid-row: 2
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette span:nth-child(5) {
+  grid-column: 1;
+  grid-row: 3
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette div:nth-child(6) {
+  grid-column: 2;
+  grid-row: 3
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette span:nth-child(7) {
+  grid-column: 1;
+  grid-row: 4
+}
+
+.qrsvgDemo > div:first-child div.colorModePalette div:nth-child(8) {
+  grid-column: 2;
+  grid-row: 4
+}
+
+.qrsvgDemo > div:first-child .logoButtons {
+  padding: .5ex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1ex
+}
+
+.qrsvgDemo > div:first-child .logoButtons button.custom {
+  width: calc(5.6em + 1ex + 2px);
+  height: 2.8em;
+  font-size: .8em
+}
+
+.qrsvgDemo > div:first-child .logoButtons button.custom span {
+  padding: .7ex
+}
+
+.qrsvgDemo > div:first-child p.error {
+  display: block;
+  padding: 0 1ex 1ex;
+  text-align: center;
+  color: #d82002
+}
+
+.qrsvgDemo > div:first-child p.urlError {
+  display: block;
+  margin: 0 0 1ex;
+  padding: 0;
+  text-align: center;
+  color: #d82002;
+  font-size: .6em;
+  line-height: 1.2
+}
+
+.qrsvgDemo > div:first-child p.urlError strong {
+  display: block;
+  margin-bottom: 1ex;
+  font-weight: normal;
+  text-align: center;
+  font-size: 1.2em
+}
+
+.qrsvgDemo > div:first-child details[open] {
+  padding-bottom: 1ex
+}
+
+.qrsvgDemo > div:first-child details[open] summary {
+  margin-bottom: 1ex;
+  background: #80808060;
+}
+
+.qrsvgDemo > div:first-child .shapes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1ex
+}
+
+.qrsvgDemo button.shape,
+.qrsvgDemo button.gradientType,
+.qrsvgDemo button.logo {
+  box-sizing: border-box;
+  padding: 0
+}
+
+.qrsvgDemo button.shape,
+.qrsvgDemo button.logo {
+  width: 2.8em;
+  height: 2.8em;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.qrsvgDemo button.shape.active,
+.qrsvgDemo button.gradientType.active,
+.qrsvgDemo button.logo.active {
+  box-shadow: 0 0 0 .5ex #f70
+}
+
+.qrsvgDemo button.shape svg,
+.qrsvgDemo button.gradientType svg,
+.qrsvgDemo button.logo svg {
+  display: block
+}
+
+.qrsvgDemo button.gradientType svg {
+  width: 2em
+}
+
+.qrsvgDemo button.shape svg,
+.qrsvgDemo button.logo svg {
+  width: 2.1em
+}
+
+.qrsvgDemo button.shape svg {
+  transform: scale(1.4)
+}
+
+.qrsvgDemo .colorPicker {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: .5ex
+}
+
+.qrsvgDemo .colorPicker input[type=text] {
+  width: 9ex;
+  font-size: .8em
+}
+
+.qrsvgDemo > div:first-child .ecc {
+  margin-bottom: 1.2ex;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1ex
+}
+
+.qrsvgDemo > div:first-child .quietZone {
+  margin-bottom: 1.2ex;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1ex
+}
+
+.qrsvgDemo > div:first-child .stats {
+  padding: 0 1ex 1.2ex;
+  text-align: center
+}
+
+.qrsvgDemo > div:first-child .stats div:first-child span {
+  font-weight: bold
+}
+
+.qrsvgDemo > div:first-child .stats div:last-child {
+  font-size: .8em
+}
+
+.qrsvgDemo > div:first-child .quietZone input[type=number] {
+  margin-left: .6ex
+}
+
+.qrsvgDemo > div:first-child .remember {
+  padding: 0 1ex 1.2ex;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: .6ex
+}
+
+.qrsvgDemo > div:first-child .exportconfig {
+  padding: 0 1ex 1.2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .6ex
+}
+
+.qrsvgDemo > div:first-child .exportconfig textarea {
+  box-sizing: border-box;
+  width: 100%;
+  height: 4.7em;
+  resize: vertical;
+  font-size: .6em
+}
+
+.qrsvgDemo > div:first-child .exportconfig p {
+  text-align: center;
+  font-size: .8em;
+  line-height: 1.2em;
+  text-wrap: balance
+}
+
+.qrsvgDemo > div:first-child .batch {
+  padding: 0 1ex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1ex
+}
+
+.qrsvgDemo > div:first-child .batch span {
+  font-size: .8em;
+  opacity: .75;
+  text-align: center;
+  line-height: 1.2em
+}
+
+.qrsvgDemo > div:first-child .batchStatus {
+  padding: .7ex 1ex 0;
+  display: none;
+  flex-direction: row;
+  gap: .7ex
+}
+
+.qrsvgDemo > div:first-child .batchStatus button {
+  display: block;
+  flex-grow: 0
+}
+
+.qrsvgDemo > div:first-child .batchStatus div.batchProgress {
+  position: relative;
+  flex-grow: 1;
+  background: #80808020;
+  border: 1px inset #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: .8em;
+  line-height: .8em
+}
+
+.qrsvgDemo > div:first-child .batchStatus div.batchProgress span {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
+.qrsvgDemo > div:last-child div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1ex
+}
+
+.qrsvgDemo > div:last-child svg {
+  overflow: hidden
+}
+
+.qrsvgDemo > div:last-child div button {
+  padding: .5ex 3ex;
+  text-align: center;
+  font-size: min(.8em, 4vw);
+  white-space: nowrap
+}
+
+.qrsvgDemo p.warning {
+  margin: 1em 1ex 0 0;
+  font-size: .6em;
+  hyphens: auto;
+  line-height: 1.5;
+  color: #a00;
+  text-align: center
+}
+
+.qrsvg-blend-overlay {
+  mix-blend-mode: overlay
+}

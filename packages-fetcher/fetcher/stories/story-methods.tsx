@@ -44,6 +44,5 @@ export default function StoryMethods(): ReactElement {
     <Button onClick={handleDelete}>delete</Button>
     <Button onClick={handlePut}>put</Button>
     <Button onClick={handlePatch}>patch</Button>
-    <PromiseViewer promise={statePromise} />
-  </>;
+    <PromiseViewer promise={statePromise} /></>;
 }

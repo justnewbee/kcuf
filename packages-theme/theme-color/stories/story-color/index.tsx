@@ -7,6 +7,5 @@ import Ui from './ui';
 
 export default function StoryColor(): ReactElement {
   return <Model>
-    <Ui />
-  </Model>;
+    <Ui /></Model>;
 }

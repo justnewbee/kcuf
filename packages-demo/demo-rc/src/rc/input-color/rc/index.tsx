@@ -98,8 +98,7 @@ function InputColor(props: IInputColorProps, ref: TInputColorRef): ReactElement 
         value: hex,
         type: 'color',
         onChange: handleHexChange
-      }} ref={ref} />
-    </ScInputColorWrap>
+      }} ref={ref} /></ScInputColorWrap>
     {withAlpha ? <InputRange {...{
       min: 0,
       max: 255,

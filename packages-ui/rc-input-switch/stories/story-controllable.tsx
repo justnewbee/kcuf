@@ -26,6 +26,5 @@ export default function StoryControllable(): ReactElement {
       type: 'checkbox',
       checked: stateValue,
       onChange: handleNativeInputChange
-    }} />
-  </>;
+    }} /></>;
 }

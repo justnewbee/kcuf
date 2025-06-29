@@ -121,6 +121,5 @@ export default function OpsPlugins(): ReactElement {
       label: 'stats',
       checked: statePluginStats,
       onChange: setStatePluginStats
-    }} />
-  </>;
+    }} /></>;
 }

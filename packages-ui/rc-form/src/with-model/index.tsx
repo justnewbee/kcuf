@@ -10,6 +10,5 @@ import Ui from '../ui';
 
 export default function WithProvider(props: FormProps): ReactElement {
   return <Model {...props}>
-    <Ui />
-  </Model>;
+    <Ui /></Model>;
 }

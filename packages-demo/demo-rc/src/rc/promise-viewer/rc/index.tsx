@@ -86,23 +86,19 @@ export default function PromiseViewer({
       case ELoading.LOADING:
         return <>
           <ScInfoLoading>Loading...</ScInfoLoading>
-          <CodeViewer>Loading...</CodeViewer>
-        </>;
+          <CodeViewer>Loading...</CodeViewer></>;
       case ELoading.RESOLVED:
         return <>
           <ScInfoResolved>Success ({stateResult.duration}ms)</ScInfoResolved>
-          <CodeViewerJson5 o={stateResult.result} />
-        </>;
+          <CodeViewerJson5 o={stateResult.result} /></>;
       case ELoading.REJECTED:
         return <>
           <ScInfoRejected>Failed ({stateResult.duration}ms)</ScInfoRejected>
-          <CodeViewerJson5 o={normalizeError(stateResult.result as Error)} />
-        </>;
+          <CodeViewerJson5 o={normalizeError(stateResult.result as Error)} /></>;
       default:
         return <>
           <ScInfoIdle>Idle</ScInfoIdle>
-          <CodeViewer />
-        </>;
+          <CodeViewer /></>;
       }
     })()}
   </ScPromiseViewer>;

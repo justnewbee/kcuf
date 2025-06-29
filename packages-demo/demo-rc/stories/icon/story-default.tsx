@@ -76,8 +76,6 @@ export default function StoryDefault(): ReactElement {
           colored: stateColored,
           rotate: stateRotate
         }} />
-        <div>{v}</div>
-      </ScIconListItem>)}
-    </ScIconList>
-  </>;
+        <div>{v}</div></ScIconListItem>)}
+    </ScIconList></>;
 }

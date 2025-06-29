@@ -128,6 +128,5 @@ export default function StoryDefault(): ReactElement {
       theKey: '⌦',
       modifierNames,
       modifierSymbols
-    }} />
-  </>;
+    }} /></>;
 }

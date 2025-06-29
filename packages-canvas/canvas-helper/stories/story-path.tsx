@@ -202,8 +202,7 @@ export default function StoryPath(): ReactElement {
   
   return <>
     <div>
-      <ScCanvas ref={setStateCanvas} width={CANVAS_W} height={CANVAS_H} />
-    </div>
+      <ScCanvas ref={setStateCanvas} width={CANVAS_W} height={CANVAS_H} /></div>
     <Form {...{
       dense: true,
       items: [{
@@ -223,8 +222,7 @@ export default function StoryPath(): ReactElement {
           <Button onClick={handleDrawStar5}>Star 5</Button>
           <Button onClick={handleDrawStar6}>Star 6</Button>
           <Button onClick={handleDrawStar7}>Star 7</Button>
-          <Button onClick={handleDrawStar8}>Star 8</Button>
-        </>
+          <Button onClick={handleDrawStar8}>Star 8</Button></>
       }, {
         label: 'Clear',
         content: <>
@@ -233,8 +231,7 @@ export default function StoryPath(): ReactElement {
             label: 'Clear before draw',
             value: stateClear,
             onChange: setStateClear
-          }} />
-        </>
+          }} /></>
       }, {
         label: 'Stroke',
         content: <>
@@ -249,8 +246,7 @@ export default function StoryPath(): ReactElement {
           <InputColor {...{
             value: stateStrokeColor,
             onChange: setStateStrokeColor
-          }} />
-        </>
+          }} /></>
       }, {
         label: 'Fill',
         content: <>
@@ -261,8 +257,7 @@ export default function StoryPath(): ReactElement {
           <InputColor {...{
             value: stateFillColor,
             onChange: setStateFillColor
-          }} />
-        </>
+          }} /></>
       }, {
         label: 'Rotate',
         content: <>
@@ -273,9 +268,7 @@ export default function StoryPath(): ReactElement {
           <InputNumber {...{
             value: stateRotateValue,
             onChange: setStateRotateValue
-          }} />
-        </>
+          }} /></>
       }]
-    }} />
-  </>;
+    }} /></>;
 }

@@ -44,6 +44,5 @@ export default function OpsCreate(): ReactElement {
     <Button {...{
       disabled: !stats?.creating,
       onClick: () => ref.current?.cancelCreating()
-    }}>取消</Button>
-  </>;
+    }}>取消</Button></>;
 }

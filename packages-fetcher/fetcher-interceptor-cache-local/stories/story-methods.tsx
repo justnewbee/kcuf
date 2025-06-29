@@ -64,14 +64,12 @@ export default function StoryMethods(): ReactElement {
         label: 'cacheLocal',
         value: stateCacheLocal,
         onChange: setStateCacheLocal
-      }} />
-    </div>
+      }} /></div>
     <Button onClick={handleJsonp}>jsonp</Button>
     <Button onClick={handleGet}>get</Button>
     <Button onClick={handlePost}>post</Button>
     <Button onClick={handleDelete}>delete</Button>
     <Button onClick={handlePut}>put</Button>
     <Button onClick={handlePatch}>patch</Button>
-    <PromiseViewer promise={statePromise} />
-  </>;
+    <PromiseViewer promise={statePromise} /></>;
 }

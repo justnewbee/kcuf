@@ -115,36 +115,31 @@ export default function Demo({
         label: '展示 HTML 源码',
         value: stateHtmlSource,
         onChange: setStateHtmlSource
-      }} />
-    </div>
+      }} /></div>
     <div>
       <InputSwitch {...{
         label: '加样式（this component comes with NO style at all... it is for demo only）',
         value: stateApplyStyle,
         onChange: setStateApplyStyle
-      }} />
-    </div>
+      }} /></div>
     <div>
       <InputSwitch {...{
         label: 'props.allowDangerousHtml',
         value: stateAllowDangerousHtml,
         onChange: setStateAllowDangerousHtml
-      }} />
-    </div>
+      }} /></div>
     <div>
       <InputSwitch {...{
         label: 'props.gfm',
         value: stateGfmEnabled,
         onChange: setStateGfmEnabled
-      }} />
-    </div>
+      }} /></div>
     <div>
       <InputSwitch {...{
         label: 'props.directive',
         value: stateDirectiveEnabled,
         onChange: setStateDirectiveEnabled
-      }} />
-    </div>
+      }} /></div>
     <Flex>
       <>
         <H2><span role="img" aria-label="mwa">💋</span> 展示</H2>
@@ -156,8 +151,5 @@ export default function Demo({
           readOnly: false,
           language: 'markdown',
           onChange: setStateSource
-        }}>{stateSource}</CodeViewer>
-      </>
-    </Flex>
-  </>;
+        }}>{stateSource}</CodeViewer></></Flex></>;
 }

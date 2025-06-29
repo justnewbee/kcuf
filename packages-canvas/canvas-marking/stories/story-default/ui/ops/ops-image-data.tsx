@@ -36,6 +36,5 @@ export default function OpsImageData(): ReactElement {
     }}>无图</Button>
     <Button {...{
       onClick: handleSetDataEmpty
-    }}>空</Button>
-  </>;
+    }}>空</Button></>;
 }

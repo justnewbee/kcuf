@@ -17,6 +17,5 @@ export default function Ui(): ReactElement {
   const formDomProps = useFormDomProps();
   
   return <form {...formDomProps}>
-    <FormItems />
-  </form>;
+    <FormItems /></form>;
 }

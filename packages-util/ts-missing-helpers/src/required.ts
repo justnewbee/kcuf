@@ -26,7 +26,7 @@
  * const o5: Alt = { a: '', b: 1, c: true }; // unknown property c
  * ```
  */
-export type RequiredPick<T, K extends keyof T> = {
+export type TRequiredPick<T, K extends keyof T> = {
   [P in K]-?: T[P];
 };
 
@@ -60,7 +60,7 @@ export type RequiredPick<T, K extends keyof T> = {
  * const o5: Alt = { a: '', b: 1, c: false, e: null }; // unknown e
  * ```
  */
-export type RequiredSelected<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
+export type TRequiredSelected<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
 
 /**
  * Properties defined by `K` in `T` untouched, the rest made required.
@@ -93,7 +93,7 @@ export type RequiredSelected<T, K extends keyof T> = Omit<T, K> & Required<Pick<
  * const o6: Alt = { a: '', b: 1, c: false }; // missing d
  * ```
  */
-export type RequiredUnselected<T, K extends keyof T = keyof T> = Pick<T, K> & Required<Pick<T, Exclude<keyof T, K>>>;
+export type TRequiredUnselected<T, K extends keyof T = keyof T> = Pick<T, K> & Required<Pick<T, Exclude<keyof T, K>>>;
 
 /**
  * Properties defined by `K` in `T` optional, the rest made required.
@@ -128,4 +128,4 @@ export type RequiredUnselected<T, K extends keyof T = keyof T> = Pick<T, K> & Re
  * const o8: Alt = { a: '', b: 1, d: new Date() }; // missing c
  * ```
  */
-export type RequiredBut<T, K extends keyof T = keyof T> = Partial<Pick<T, K>> & Required<Pick<T, Exclude<keyof T, K>>>;
+export type TRequiredBut<T, K extends keyof T = keyof T> = Partial<Pick<T, K>> & Required<Pick<T, Exclude<keyof T, K>>>;

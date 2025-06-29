@@ -43,8 +43,7 @@ describe('TransitionGroup', () => {
     
     Child = function Child(props) {
       return <Transition nodeRef={nodeRef} timeout={0} {...props} {...events}>
-        <span ref={nodeRef} />
-      </Transition>;
+        <span ref={nodeRef} /></Transition>;
     };
   });
 
@@ -56,8 +55,7 @@ describe('TransitionGroup', () => {
     }
 
     render(<TransitionGroup component={FirstChild}>
-      <Child />
-    </TransitionGroup>);
+      <Child /></TransitionGroup>);
   });
 
   test('should allow callback refs', () => {
@@ -70,8 +68,7 @@ describe('TransitionGroup', () => {
     }
 
     render(<TransitionGroup>
-      <Child ref={ref} />
-    </TransitionGroup>);
+      <Child ref={ref} /></TransitionGroup>);
 
     expect(ref).toHaveBeenCalled();
   });

@@ -35,7 +35,6 @@ export default function OpsOverall(): ReactElement {
     {markingInstance ? <>
       <Button {...{
         onClick: handleDebugStats
-      }}>stats ({markingStats?.itemStatsList.length ?? 0})</Button>
-    </> : null}
+      }}>stats ({markingStats?.itemStatsList.length ?? 0})</Button></> : null}
   </>;
 }

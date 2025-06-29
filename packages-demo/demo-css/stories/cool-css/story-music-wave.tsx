@@ -63,6 +63,5 @@ export default function StoryMusicWave(): ReactElement {
     <span />
     <span />
     <span />
-    <span />
-  </ScMusicWave>;
+    <span /></ScMusicWave>;
 }

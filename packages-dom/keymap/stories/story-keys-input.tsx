@@ -57,6 +57,5 @@ export default function StoryKeysInput(): ReactElement {
       {SYMBOL_SHIFT.map(v => <Keystroke key={v} {...{
         keystroke: v
       }} />)}
-    </GridContainer>
-  </>;
+    </GridContainer></>;
 }

@@ -27,6 +27,5 @@ export default function StoryLinkStyle(): ReactElement {
   return <>
     <ScLangChainDev>
       From <a href="https://blog.langchain.dev" target="_blank" rel="noreferrer">https://blog.langchain.dev</a>.
-    </ScLangChainDev>
-  </>;
+    </ScLangChainDev></>;
 }

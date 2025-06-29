@@ -25,8 +25,7 @@ export default function CompareIsEqual(): ReactElement {
       <InputColor {...{
         value: stateColor2,
         onChange: setStateColor2
-      }} />
-    </GridTitle>
+      }} /></GridTitle>
     {getComparisonIsEqual(color, stateColor2).map(v => <GridItem key={v.key} {...{
       result: v.result === null ? null : v.result ? '✅' : '❌',
       code: v.code

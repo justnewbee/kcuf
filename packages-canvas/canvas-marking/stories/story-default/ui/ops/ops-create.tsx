@@ -61,6 +61,5 @@ export default function OpsCreate(): ReactElement {
     <Button {...{
       disabled: !markingStats?.creating,
       onClick: handleFinishCreating
-    }}>完成标注</Button>
-  </>;
+    }}>完成标注</Button></>;
 }

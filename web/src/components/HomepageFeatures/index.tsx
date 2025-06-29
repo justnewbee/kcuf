@@ -59,13 +59,10 @@ function Feature({
 }: IFeatureItem): ReactElement {
   return <div className="col col--4">
     <div className="text--center">
-      <Svg role="img" />
-    </div>
+      <Svg role="img" /></div>
     <div className="text--center padding-horiz--md">
       <Heading as="h3">{title}</Heading>
-      <p>{description}</p>
-    </div>
-  </div>;
+      <p>{description}</p></div></div>;
 }
 
 export default function HomepageFeatures(): ReactElement {
@@ -73,7 +70,5 @@ export default function HomepageFeatures(): ReactElement {
     <div className="container">
       <div className="row">
         {FEATURE_LIST.map((props, idx) => <Feature key={idx} {...props} />)}
-      </div>
-    </div>
-  </ScSection>;
+      </div></div></ScSection>;
 }

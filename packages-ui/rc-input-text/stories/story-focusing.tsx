@@ -45,8 +45,6 @@ export default function StoryFocusing(): ReactElement {
       <Button {...{
         label: 'selectText',
         onClick: () => inputTextRef.current?.selectText(1, 4)
-      }} />
-    </div>
-    <InputText defaultValue="Kcuf InputText rules" ref={inputTextRef} />
-  </>;
+      }} /></div>
+    <InputText defaultValue="Kcuf InputText rules" ref={inputTextRef} /></>;
 }

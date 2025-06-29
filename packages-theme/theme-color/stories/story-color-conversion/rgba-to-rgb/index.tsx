@@ -69,8 +69,7 @@ export default function RgbaToRgb(): ReactElement {
     <List>
       <code>R = (1 - a) * Rb + a * r</code>
       <code>G = (1 - a) * Gb + a * g</code>
-      <code>B = (1 - a) * Bb + a * b</code>
-    </List>
+      <code>B = (1 - a) * Bb + a * b</code></List>
     <ScColorMix>
       <InputColor value={stateRgba} onChange={setStateRgba} rgbaMode />
       <ScSign>+</ScSign>
@@ -79,7 +78,5 @@ export default function RgbaToRgb(): ReactElement {
       <ScSign style={{
         backgroundColor: mixedColor,
         color: a11yReadableColor(mixedColor)
-      }}>{mixedColor.toString()}</ScSign>
-    </ScColorMix>
-  </>;
+      }}>{mixedColor.toString()}</ScSign></ScColorMix></>;
 }

@@ -49,6 +49,5 @@ const ScGlowingBorderAni = styled.div`
 export default function StoryGlowingBorderAni(): ReactElement {
   return <ScGlowingBorderAni>
     <img src="https://picsum.photos/id/65/300/300" alt="" />
-    <img src="https://picsum.photos/id/227/300/300" className="alt" alt="" />
-  </ScGlowingBorderAni>;
+    <img src="https://picsum.photos/id/227/300/300" className="alt" alt="" /></ScGlowingBorderAni>;
 }

@@ -84,6 +84,5 @@ export default function AltWrap({
   return <ScAltWrap>
     <ScIcon type={getIconType(type)} colored />
     {title ? <ScTitle>{title}</ScTitle> : null}
-    <ScContent>{content}</ScContent>
-  </ScAltWrap>;
+    <ScContent>{content}</ScContent></ScAltWrap>;
 }

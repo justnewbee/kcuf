@@ -88,8 +88,7 @@ function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
   }}>
     <ButtonIconStart />
     {label ? <ScInnerLabel>{label}</ScInnerLabel> : null}
-    <ButtonIconEnd />
-  </ScButton>;
+    <ButtonIconEnd /></ScButton>;
 }
 
 export default forwardRef(Ui);

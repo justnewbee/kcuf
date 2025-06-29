@@ -27,7 +27,6 @@ export default function StorySpace(): ReactElement {
       <ScBlock style={{
         width: v
       }} />
-      <ScInfo>{`#${i + 1}`} = {v}</ScInfo>
-    </ScSpace>)}
+      <ScInfo>{`#${i + 1}`} = {v}</ScInfo></ScSpace>)}
   </>;
 }

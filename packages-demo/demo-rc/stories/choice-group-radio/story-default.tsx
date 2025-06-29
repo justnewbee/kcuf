@@ -32,6 +32,5 @@ export default function StoryDefault(): ReactElement {
       }],
       value: stateValue,
       onChange: setStateValue
-    }} />
-  </>;
+    }} /></>;
 }

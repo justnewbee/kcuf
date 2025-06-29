@@ -51,6 +51,5 @@ export default function StoryKeysExtra(): ReactElement {
       {EXTRA_ALIAS.map(v => <Keystroke key={v} {...{
         keystroke: v
       }} />)}
-    </GridContainer>
-  </>;
+    </GridContainer></>;
 }

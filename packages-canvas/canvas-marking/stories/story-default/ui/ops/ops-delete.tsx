@@ -25,6 +25,5 @@ export default function OpsDelete(): ReactElement {
     <Button {...{
       disabled: !markingStats?.itemStatsList.length,
       onClick: handleDeleteAllItems
-    }}>删除全部</Button>
-  </>;
+    }}>删除全部</Button></>;
 }

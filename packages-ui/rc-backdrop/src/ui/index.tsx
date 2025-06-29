@@ -50,6 +50,5 @@ export default function Ui(): ReactElement | null {
         zIndex
       },
       onClick: handleClick
-    }} />
-  </Transition>;
+    }} /></Transition>;
 }

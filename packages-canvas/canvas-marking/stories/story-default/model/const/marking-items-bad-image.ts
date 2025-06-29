@@ -22,7 +22,7 @@ export default [{
       fillColor: 'hsl(48 100% 50%)'
     },
     fill: {
-      color: 'hsla(320 95% 59% / 30%)'
+      color: 'hsl(320 95% 59% / 30%)'
     }
   }
 }, {

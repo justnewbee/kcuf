@@ -53,12 +53,10 @@ export default function StoryMisc(): ReactElement {
       <Button loading>a loading button will ellipsis too</Button>
       <Button iconStart={<Icon type="search" />}>a button with icon will ellipsis too</Button>
       <Button iconEnd={<Icon type="search" />}>a button with icon will ellipsis too</Button>
-      <Button iconStart={<Icon type="search" />} iconEnd={<Icon type="search" />}>a button with icon will ellipsis too</Button>
-    </div>
+      <Button iconStart={<Icon type="search" />} iconEnd={<Icon type="search" />}>a button with icon will ellipsis too</Button></div>
     <Button fluid>a fluid button will ellipsis too nevertheless, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, architecto aut debitis delectus dignissimos distinctio dolores doloribus excepturi fugit inventore ipsa iste quod repellat rerum sapiente sequi soluta sunt velit!</Button>
     <H2>fluid & text-align</H2>
     <Button fluid textAlign="l">textAlign: l</Button>
     <Button fluid textAlign="c">textAlign: c</Button>
-    <Button fluid textAlign="r">textAlign: r</Button>
-  </>;
+    <Button fluid textAlign="r">textAlign: r</Button></>;
 }

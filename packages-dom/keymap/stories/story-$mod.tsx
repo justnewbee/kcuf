@@ -23,6 +23,5 @@ export default function Story$Mod(): ReactElement {
     </H1>
     <Keystroke {...{
       keystroke: '$mod+X'
-    }} />
-  </>;
+    }} /></>;
 }

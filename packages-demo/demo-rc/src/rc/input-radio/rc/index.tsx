@@ -22,6 +22,5 @@ export default function InputRadio({
       type: 'radio',
       checked: controllableChecked,
       onChange: e => setControllableChecked(e.target.checked)
-    }} />
-  </FormControlWithLabel>;
+    }} /></FormControlWithLabel>;
 }

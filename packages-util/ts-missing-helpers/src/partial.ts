@@ -27,7 +27,7 @@
  * const o6: Alt = { d: new Date };
  * ```
  */
-export type PartialPick<T, K extends keyof T> = {
+export type TPartialPick<T, K extends keyof T> = {
   [P in K]?: T[P];
 };
 
@@ -63,7 +63,7 @@ export type PartialPick<T, K extends keyof T> = {
  * const o7: Alt = { a: '', b: 1, c: true, d: new Date(), e: null }; // unknown e
  * ```
  */
-export type PartialSelected<T, K extends keyof T> = Omit<T, K> & Partial<T>;
+export type TPartialSelected<T, K extends keyof T> = Omit<T, K> & Partial<T>;
 
 /**
  * Properties defined by `K` in `T` untouched, the rest made optional.
@@ -93,7 +93,7 @@ export type PartialSelected<T, K extends keyof T> = Omit<T, K> & Partial<T>;
  * const o3: Alt = { a: '', c: false }; // missing b
  * ```
  */
-export type PartialUnselected<T, K extends keyof T> = Partial<T> & Pick<T, K>;
+export type TPartialUnselected<T, K extends keyof T> = Partial<T> & Pick<T, K>;
 
 /**
  * Properties defined by `K` in `T` required, the rest made optional.
@@ -126,4 +126,4 @@ export type PartialUnselected<T, K extends keyof T> = Partial<T> & Pick<T, K>;
  * const o8: Alt = { }; // missing a, b
  * ```
  */
-export type PartialBut<T, K extends keyof T = keyof T> = Partial<Pick<T, Exclude<keyof T, K>>> & Required<Pick<T, K>>;
+export type TPartialBut<T, K extends keyof T = keyof T> = Partial<Pick<T, Exclude<keyof T, K>>> & Required<Pick<T, K>>;

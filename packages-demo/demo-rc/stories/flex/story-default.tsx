@@ -26,7 +26,5 @@ export default function StoryDefault(): ReactElement {
     <H1>Flex</H1>
     <Flex ratio={[2, 1]}>
       <ScRed>Red</ScRed>
-      <ScBlue>Blue</ScBlue>
-    </Flex>
-  </>;
+      <ScBlue>Blue</ScBlue></Flex></>;
 }

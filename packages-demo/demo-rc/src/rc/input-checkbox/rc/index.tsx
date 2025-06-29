@@ -22,6 +22,5 @@ export default function InputCheckbox({
       type: 'checkbox',
       checked: controllableChecked,
       onChange: e => setControllableChecked(e.target.checked)
-    }} />
-  </FormControlWithLabel>;
+    }} /></FormControlWithLabel>;
 }

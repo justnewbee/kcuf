@@ -53,6 +53,5 @@ const ScButton = styled.button`
 // 参考自 https://franken-ui.dev/
 export default function StoryRunningBorder(): ReactElement {
   return <ScRunningBorder>
-    <ScButton>I am a Button with a Running Border</ScButton>
-  </ScRunningBorder>;
+    <ScButton>I am a Button with a Running Border</ScButton></ScRunningBorder>;
 }

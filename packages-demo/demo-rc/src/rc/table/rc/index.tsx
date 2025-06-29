@@ -35,13 +35,11 @@ export default function Table<T>({
       <tr>
         {firstColumnIndex ? <th align="right">#</th> : null}
         {columns.map((v, i) => <th key={getTableColumnKey(v, i)} align={v.align}>{v.title}</th>)}
-      </tr>
-    </thead>
+      </tr></thead>
     <tbody>
       {datasource.map((o, valueIndex) => <tr key={getTableRowKey(o, valueIndex, primaryKey)}>
         {firstColumnIndex ? <td align="right">{valueIndex + 1}</td> : null}
         {columns.map((v, columnIndex) => <td key={getTableColumnKey(v, columnIndex)} align={v.align}>{renderTableCell(o, valueIndex, v)}</td>)}
       </tr>)}
-    </tbody>
-  </ScTable>;
+    </tbody></ScTable>;
 }

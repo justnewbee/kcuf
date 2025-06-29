@@ -76,6 +76,5 @@ export default function StoryRadar(): ReactElement {
     <div className="circle" />
     <div className="circle1" />
     <div className="circle2" />
-    <div className="circle3" />
-  </ScRadar>;
+    <div className="circle3" /></ScRadar>;
 }

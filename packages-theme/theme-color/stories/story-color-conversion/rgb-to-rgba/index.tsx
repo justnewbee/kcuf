@@ -87,8 +87,7 @@ export default function RgbToRgba(): ReactElement {
       <ScSign style={{
         backgroundColor: extractedRgbaColorBasedOnWhite,
         color: a11yReadableColor(extractedRgbaColorBasedOnWhite)
-      }}>{extractedRgbaColorBasedOnWhite.toString()}</ScSign>
-    </ScColorMix>
+      }}>{extractedRgbaColorBasedOnWhite.toString()}</ScSign></ScColorMix>
     <ScColorMix style={{
       background: '#000'
     }}>
@@ -99,7 +98,5 @@ export default function RgbToRgba(): ReactElement {
       <ScSign style={{
         backgroundColor: extractedRgbaColorBasedOnBlack,
         color: a11yReadableColor(extractedRgbaColorBasedOnBlack)
-      }}>{extractedRgbaColorBasedOnBlack.toString()}</ScSign>
-    </ScColorMix>
-  </>;
+      }}>{extractedRgbaColorBasedOnBlack.toString()}</ScSign></ScColorMix></>;
 }

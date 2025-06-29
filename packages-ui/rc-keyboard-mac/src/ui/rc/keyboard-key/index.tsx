@@ -205,6 +205,5 @@ export default function KeyboardKey({
     'data-on': isKeyOn(data.code) ? '' : undefined,
     onClick: handleClick
   }}>
-    <KeyboardKeyName data={data} />
-  </ScKeyboardKey>;
+    <KeyboardKeyName data={data} /></ScKeyboardKey>;
 }

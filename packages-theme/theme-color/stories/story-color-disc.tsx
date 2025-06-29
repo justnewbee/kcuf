@@ -39,6 +39,5 @@ export default function StoryColorDisc(): ReactElement {
     <ColorBlockGrid>
       {Object.keys(COLORS).map(v => <ColorBlockBase key={v}>{v}</ColorBlockBase>)}
       {COLOR_VALUES.map(v => <ColorBlock key={v} color={v} />)}
-    </ColorBlockGrid>
-  </>;
+    </ColorBlockGrid></>;
 }

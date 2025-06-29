@@ -42,8 +42,7 @@ export default function LongArticle(): ReactElement {
   return <ScLongArticle>
     <h1>Ich Verlasse Heut&#39; Dein Herz</h1>
     <audio controls src={MUSIC_URL}>
-      <track kind="captions" src={MUSIC_URL} />
-    </audio>
+      <track kind="captions" src={MUSIC_URL} /></audio>
     <h2>歌手：Lacrimosa</h2>
     <h2>专辑：Elodia</h2>
     <h2>作词：Tilo Wolff</h2>
@@ -126,7 +125,5 @@ export default function LongArticle(): ReactElement {
       <p />
       <p>~~ Guitar Solo ~~</p>
       <p />
-      <p>~~ SOLO ~~</p>
-    </ScLyrics>
-  </ScLongArticle>;
+      <p>~~ SOLO ~~</p></ScLyrics></ScLongArticle>;
 }

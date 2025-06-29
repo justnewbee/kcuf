@@ -129,8 +129,7 @@ function DemoControllable(): ReactElement {
       placeholder: '原生受控 input',
       value: stateValue,
       onChange: handleNativeInputChange
-    }} />
-  </>;
+    }} /></>;
 }
 ```
 
@@ -172,8 +171,7 @@ function DemoTrim(): ReactElement {
       value: stateValue,
       onChange: handleChange
     }} />
-    <div>value: "<span style={{ whiteSpace: 'pre' }}>{stateValue}</span>" time: {stateTime}</div>
-  </>;
+    <div>value: "<span style={{ whiteSpace: 'pre' }}>{stateValue}</span>" time: {stateTime}</div></>;
 }
 ```
 
@@ -205,8 +203,7 @@ function DemoControllable(): ReactElement {
       placeholder: '原生受控 input，输入中文试试',
       value: stateValue,
       onChange: handleNativeInputChange
-    }} />
-  </>;
+    }} /></>;
 }
 ```
 
@@ -251,10 +248,8 @@ function DemoFocusing(): ReactElement {
       <Button {...{
         label: 'selectText - backward',
         onClick: () => inputTextRef.current?.selectText(1, 4, true)
-      }} />
-    </div>
-    <InputText defaultValue="Kcuf InputText rules" ref={inputTextRef} />
-  </>;
+      }} /></div>
+    <InputText defaultValue="Kcuf InputText rules" ref={inputTextRef} /></>;
 }
 ```
 

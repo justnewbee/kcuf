@@ -86,6 +86,5 @@ export default function StoryDefault(): ReactElement {
       onMouseEnter: onMouseEnterPlay,
       onMouseLeave: onMouseLeavePlay,
       onClick: onActiveChange
-    }}>{statePlaying ? '⏸' : '▶'}</ScActiveButton>
-  </>;
+    }}>{statePlaying ? '⏸' : '▶'}</ScActiveButton></>;
 }

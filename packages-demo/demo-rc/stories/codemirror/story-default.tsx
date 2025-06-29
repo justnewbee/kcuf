@@ -70,7 +70,5 @@ export default function StoryDefault(): ReactElement {
       <ScTextarea {...{
         value: stateCode,
         onChange: setStateCode
-      }} />
-    </Flex>
-  </>;
+      }} /></Flex></>;
 }

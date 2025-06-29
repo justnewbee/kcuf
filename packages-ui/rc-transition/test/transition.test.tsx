@@ -60,8 +60,7 @@ describe('Transition', () => {
           throw Error('Animated!');
         }}
     >
-      <div ref={nodeRef} />
-    </Transition>);
+      <div ref={nodeRef} /></Transition>);
     
     render(<Transition
         nodeRef={nodeRef}
@@ -70,8 +69,7 @@ describe('Transition', () => {
         timeout={0}
         onEnter={() => done()}
     >
-      <div ref={nodeRef} />
-    </Transition>);
+      <div ref={nodeRef} /></Transition>);
   });
   
   test('should pass filtered props to children', () => {
@@ -111,8 +109,7 @@ describe('Transition', () => {
         onExited={() => {
         }}
     >
-      <Child nodeRef={nodeRef} />
-    </Transition>);
+      <Child nodeRef={nodeRef} /></Transition>);
     
     expect(nodeRef.current.textContent).toBe('foo: foo, bar: bar');
   });
@@ -130,8 +127,7 @@ describe('Transition', () => {
           done = true;
         }}
     >
-      <div ref={nodeRef} />
-    </Transition>);
+      <div ref={nodeRef} /></Transition>);
     
     setProps({ in: true });
     
@@ -159,8 +155,7 @@ describe('Transition', () => {
           done = true;
         }}
     >
-      <div ref={nodeRef} />
-    </Transition>);
+      <div ref={nodeRef} /></Transition>);
     
     setProps({ in: true });
     
@@ -215,8 +210,7 @@ describe('Transition', () => {
           }}
           appear
       >
-        <div ref={nodeRef} />
-      </Transition>);
+        <div ref={nodeRef} /></Transition>);
       
       setProps({
         onEntered() {
@@ -247,8 +241,7 @@ describe('Transition', () => {
           }}
           appear
       >
-        <div ref={nodeRef} />
-      </Transition>);
+        <div ref={nodeRef} /></Transition>);
       
       let isCausedLate = false;
       
@@ -492,8 +485,7 @@ describe('Transition', () => {
           timeout={10}
           {...props}
         >
-          <div ref={this.nodeRef} />
-        </Transition>;
+          <div ref={this.nodeRef} /></Transition>;
       }
       
       getStatus = () => {

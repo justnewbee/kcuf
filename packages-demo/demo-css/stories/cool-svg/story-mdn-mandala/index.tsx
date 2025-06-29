@@ -17,8 +17,7 @@ export default function StoryMdnMandala(): ReactElement {
           <path d="M337.5,337.5 m-280,0 a280,280 0 1,1 560,0 a280,280 0 1,1 -560,0" id="circle2" />
           <path d="M337.5,337.5 m-240,0 a240,240 0 1,1 480,0 a240,240 0 1,1 -480,0" id="circle3" />
           <path d="M337.5,337.5 m-200,0 a200,200 0 1,1 400,0 a200,200 0 1,1 -400,0" id="circle4" />
-          <path d="M337.5,337.5 m-160,0 a160,160 0 1,1 320,0 a160,160 0 1,1 -320,0" id="circle5" />
-        </defs>
+          <path d="M337.5,337.5 m-160,0 a160,160 0 1,1 320,0 a160,160 0 1,1 -320,0" id="circle5" /></defs>
         <text className="mandala-ring accent-1" dy="70" textLength="2010">
           <textPath textLength="2010" href="#circle1">
             &nbsp;&nbsp;&nbsp;
@@ -111,9 +110,7 @@ export default function StoryMdnMandala(): ReactElement {
             /
             <tspan>/</tspan>
             /
-            <tspan>/</tspan>
-          </textPath>
-        </text>
+            <tspan>/</tspan></textPath></text>
         <text className="mandala-ring accent-2" dy="70" textLength="1760">
           <textPath textLength="1760" href="#circle2">
             &nbsp;&nbsp;
@@ -164,9 +161,7 @@ export default function StoryMdnMandala(): ReactElement {
             +
             <tspan>+</tspan>
             +
-            <tspan>+</tspan>
-          </textPath>
-        </text>
+            <tspan>+</tspan></textPath></text>
         <text className="mandala-ring accent-3" dy="70" textLength="1507">
           <textPath textLength="1507" href="#circle3">
             <tspan>{SymbolBraceLeft}</tspan>
@@ -229,8 +224,7 @@ export default function StoryMdnMandala(): ReactElement {
             <tspan>{SymbolBraceRight}</tspan>
             {SymbolBraceRight}
             &nbsp;&nbsp;
-          </textPath>
-        </text>
+          </textPath></text>
         <text className="mandala-ring accent-4" dy="70" textLength="1257">
           <textPath textLength="1257" href="#circle4">
             &nbsp;&nbsp;&nbsp;
@@ -242,8 +236,7 @@ export default function StoryMdnMandala(): ReactElement {
             &nbsp;&nbsp;&nbsp;../../ &nbsp;&nbsp;&nbsp;
             <tspan>../../</tspan>
             &nbsp;&nbsp;&nbsp;../../
-          </textPath>
-        </text>
+          </textPath></text>
         <text className="mandala-ring accent-5" dy="70" textLength="1005">
           <textPath textLength="1005" href="#circle5">
             <tspan>&lt;&gt;</tspan>
@@ -278,9 +271,5 @@ export default function StoryMdnMandala(): ReactElement {
             &lt;/&gt;
             <tspan>&lt;&gt;</tspan>
             &lt;/&gt;
-          </textPath>
-        </text>
-      </svg>
-    </div>
-  </>;
+          </textPath></text></svg></div></>;
 }

@@ -21,6 +21,5 @@ export default function StoryJsonp(): ReactElement {
   
   return <>
     <Button onClick={handleJsonp}>JSONP</Button>
-    <PromiseViewer promise={statePromise} />
-  </>;
+    <PromiseViewer promise={statePromise} /></>;
 }

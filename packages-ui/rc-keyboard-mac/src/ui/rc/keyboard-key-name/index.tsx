@@ -54,8 +54,7 @@ export default function KeyboardKeyName({
       {keyDetails.keyCode ? <>
         <span>keyCode</span>
         {' '}
-        <>{keyDetails.keyCode}</>
-      </> : null}
+        <>{keyDetails.keyCode}</></> : null}
     </ScKeyDetails>;
   }
   

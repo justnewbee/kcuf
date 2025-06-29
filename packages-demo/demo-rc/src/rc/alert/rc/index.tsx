@@ -49,6 +49,5 @@ export default function Alert({
   return <ScAlert {...restProps} $type={type}>
     <ScAlertIcon type={getIconType(type)} colored />
     {title ? <ScAlertTitle>{title}</ScAlertTitle> : null}
-    <ScAlertContent>{children}</ScAlertContent>
-  </ScAlert>;
+    <ScAlertContent>{children}</ScAlertContent></ScAlert>;
 }

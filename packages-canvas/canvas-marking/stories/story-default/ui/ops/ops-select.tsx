@@ -39,6 +39,5 @@ export default function OpsSelect(): ReactElement {
     }} />
     <Button {...{
       onClick: () => handleSelect(stateId)
-    }}>select(id)</Button>
-  </>;
+    }}>select(id)</Button></>;
 }

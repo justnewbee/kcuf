@@ -20,6 +20,5 @@ export default function StoryDefault(): ReactElement {
       label: 'Checkbox 2',
       checked: stateChecked,
       onChange: setStateChecked
-    }} />
-  </>;
+    }} /></>;
 }

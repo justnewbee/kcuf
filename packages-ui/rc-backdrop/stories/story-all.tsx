@@ -14,6 +14,5 @@ export default function StoryAll(): ReactElement {
     <ShowMeBackdrop />
     <ShowMeBackdrop />
     <ShowMeBackdrop />
-    <LongArticle />
-  </>;
+    <LongArticle /></>;
 }

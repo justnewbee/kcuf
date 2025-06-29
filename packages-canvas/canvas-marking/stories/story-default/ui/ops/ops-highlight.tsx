@@ -44,6 +44,5 @@ export default function OpsHighlight(): ReactElement {
     }} />
     <Button {...{
       onClick: () => handleHighlight(stateId)
-    }}>highlight(id)</Button>
-  </>;
+    }}>highlight(id)</Button></>;
 }

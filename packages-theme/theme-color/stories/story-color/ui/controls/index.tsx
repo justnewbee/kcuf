@@ -39,6 +39,5 @@ export default function Controls(): ReactElement {
       label: 'invert',
       value: invert,
       onChange: toggleInvert
-    }} />
-  </>;
+    }} /></>;
 }

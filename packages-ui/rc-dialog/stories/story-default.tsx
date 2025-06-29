@@ -36,8 +36,7 @@ export default function StoryDefault(): ReactElement {
       }
     }} /> : null}
     <H1>
-      快速方法 I：<code>open</code>、<code>slide</code>、<code>slideUp</code>
-    </H1>
+      快速方法 I：<code>open</code>、<code>slide</code>、<code>slideUp</code></H1>
     <Button {...{
       label: 'open',
       onClick: () => open({}).then(console.info)
@@ -52,8 +51,7 @@ export default function StoryDefault(): ReactElement {
     }} />
     <Hr />
     <H1>
-      快速方法 II：<code>alert</code>、<code>confirm</code>、<code>prompt</code>
-    </H1>
+      快速方法 II：<code>alert</code>、<code>confirm</code>、<code>prompt</code></H1>
     <Button {...{
       label: 'alert',
       onClick: () => alert('Alert').then(console.info)
@@ -61,6 +59,5 @@ export default function StoryDefault(): ReactElement {
     <Button {...{
       label: 'confirm',
       onClick: () => confirm('Confirm').then(console.info)
-    }} />
-  </>;
+    }} /></>;
 }

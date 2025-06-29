@@ -13,6 +13,5 @@ import Ui from '../ui';
 
 export default function WithProvider(props: BackdropProps): ReactPortal {
   return createPortal(<BackdropModel {...props}>
-    <Ui />
-  </BackdropModel>, document.body);
+    <Ui /></BackdropModel>, document.body);
 }

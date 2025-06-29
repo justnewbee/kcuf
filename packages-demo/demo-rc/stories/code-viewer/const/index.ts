@@ -16,8 +16,7 @@ export default function StoryDefault(): ReactElement {
   return <>
     <CodeViewer>{CODE_TSX}</CodeViewer>
     <CodeViewer>{CODE_CSS}</CodeViewer>
-    <CodeViewer>{CODE_HTML}</CodeViewer>
-  </>;
+    <CodeViewer>{CODE_HTML}</CodeViewer></>;
 }`;
 
 export const CODE_CSS = `*, *::before {

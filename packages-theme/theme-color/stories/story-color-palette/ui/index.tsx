@@ -22,6 +22,5 @@ export default function StoryColorPalette(): ReactElement {
     <About />
     <Controls />
     <ColorGrid />
-    <ColorArrayCode />
-  </>;
+    <ColorArrayCode /></>;
 }

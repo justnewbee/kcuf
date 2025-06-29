@@ -10,6 +10,5 @@ import Ui from '../ui';
 
 export default function WithProvider(props: InputSwitchProps): ReactElement {
   return <InputSwitchHeadless {...props}>
-    <Ui />
-  </InputSwitchHeadless>;
+    <Ui /></InputSwitchHeadless>;
 }

@@ -13,8 +13,7 @@ import Ui from '../ui';
 
 function WithProvider(props: InputTextProps, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
   return <InputTextHeadless {...props}>
-    <Ui ref={ref} />
-  </InputTextHeadless>;
+    <Ui ref={ref} /></InputTextHeadless>;
 }
 
 export default forwardRef(WithProvider);

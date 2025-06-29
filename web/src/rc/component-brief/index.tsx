@@ -57,23 +57,15 @@ export default function ComponentBrief(props: IComponentBriefProps): ReactElemen
         <ScKeyValueV>
           <ImportFrom {...{
             name: pascalCase(name)
-          }} />
-        </ScKeyValueV>
-      </div>
+          }} /></ScKeyValueV></div>
       <div>
         <ScKeyValueK>Source</ScKeyValueK>
         <ScKeyValueV>
           <Icon type="github" colored />
-          <a href={`https://github.com/justnewbee/kcuf/tree/master/${gitPath}`} target="_blank" rel="noreferrer">{gitPath}</a>
-        </ScKeyValueV>
-      </div>
+          <a href={`https://github.com/justnewbee/kcuf/tree/master/${gitPath}`} target="_blank" rel="noreferrer">{gitPath}</a></ScKeyValueV></div>
       <div>
         <ScKeyValueK>Package</ScKeyValueK>
         <ScKeyValueV>
           <Icon type="npm" colored />
-          <a href={`https://www.npmjs.com/package/${npmName}`} target="_blank" rel="noreferrer">{npmName}</a>
-        </ScKeyValueV>
-      </div>
-    </ScKeyValue>
-  </>;
+          <a href={`https://www.npmjs.com/package/${npmName}`} target="_blank" rel="noreferrer">{npmName}</a></ScKeyValueV></div></ScKeyValue></>;
 }
