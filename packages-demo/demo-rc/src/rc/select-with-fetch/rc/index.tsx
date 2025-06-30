@@ -1,26 +1,24 @@
 import {
   ReactElement,
-  forwardRef,
   useState,
   useEffect
 } from 'react';
 
 import {
-  IDatasourceItem
+  IDatasourceItem, TDatasourceValue
 } from '../../../types';
 import Select from '../../select';
 import {
-  TSelectWithFetchRef,
   ISelectWithFetchProps
 } from '../types';
 
-function SelectWithFetch({
+export default function SelectWithFetch<T extends TDatasourceValue = string>({
   fetchDatasource,
   onFetchSuccess,
   onFetchError,
   ...props
-}: ISelectWithFetchProps, ref: TSelectWithFetchRef): ReactElement {
-  const [stateDatasource, setStateDatasource] = useState<IDatasourceItem[]>([]);
+}: ISelectWithFetchProps<T>): ReactElement {
+  const [stateDatasource, setStateDatasource] = useState<IDatasourceItem<T>[]>([]);
   
   useEffect(() => {
     fetchDatasource().then(datasource => {
@@ -29,7 +27,5 @@ function SelectWithFetch({
     }).catch(onFetchError);
   }, [fetchDatasource, onFetchSuccess, onFetchError, setStateDatasource]);
   
-  return <Select {...props} datasource={stateDatasource} ref={ref} />;
+  return <Select {...props} datasource={stateDatasource} />;
 }
-
-export default forwardRef(SelectWithFetch);

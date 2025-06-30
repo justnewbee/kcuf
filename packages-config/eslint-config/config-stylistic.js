@@ -4,7 +4,7 @@ import stylistic from '@stylistic/eslint-plugin';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  stylistic.configs.customize({ // eslint-disable-line import/no-named-as-default-member
+  stylistic.configs.customize({
     // indent: 2, // default 2
     // quotes: 'single', // default single
     // jsx: true, // default true

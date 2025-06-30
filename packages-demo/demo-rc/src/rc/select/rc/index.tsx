@@ -1,8 +1,8 @@
 import {
   ChangeEvent,
   ReactElement,
-  forwardRef,
-  useCallback, useMemo
+  useCallback,
+  useMemo
 } from 'react';
 import styled from 'styled-components';
 
@@ -21,7 +21,6 @@ import {
   parseDatasource
 } from '../../../util';
 import {
-  TSelectRef,
   ISelectProps
 } from '../types';
 
@@ -31,14 +30,14 @@ const ScSelect = styled.select`
   ${CSS_FORM_CONTROL_INPUT_BASE}
 `;
 
-function Select<T extends TDatasourceValue = string>({
+export default function Select<T extends TDatasourceValue = string>({
   datasource,
   withEmpty = true,
   value,
   defaultValue,
   onChange,
   ...props
-}: ISelectProps<T>, ref: TSelectRef): ReactElement {
+}: ISelectProps<T>): ReactElement {
   const datasourceParsed = useMemo(() => parseDatasource(datasource), [datasource]);
   const [controllableValue, controllableOnChange] = useControllableUnprotected<T | undefined>(value, defaultValue, onChange);
   const handleChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
@@ -48,12 +47,9 @@ function Select<T extends TDatasourceValue = string>({
   return <ScSelect {...{
     ...props,
     value: String(controllableValue),
-    ref,
     onChange: handleChange
   }}>
     {withEmpty ? <option value="<EMPTY>">&lt;EMPTY&gt;</option> : null}
     {datasourceParsed.map(v => <option key={String(v.value)} value={String(v.value)}>{v.label ?? v.value}</option>)}
   </ScSelect>;
 }
-
-export default forwardRef(Select);
