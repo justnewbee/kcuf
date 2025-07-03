@@ -37,6 +37,10 @@ export default {
     '@docusaurus/theme-mermaid'
   ],
   
+  markdown: {
+    mermaid: true
+  },
+  
   i18n: {
     defaultLocale: 'zh',
     locales: ['en', 'zh']
@@ -116,6 +120,7 @@ export default {
         'aria-label': 'GitHub repository'
       }]
     },
+    
     footer: {
       // links: [{
       //   title: 'Docs',
@@ -166,10 +171,6 @@ export default {
       config: {
         // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
       }
-    },
-    
-    markdown: {
-      mermaid: true
     },
     
     onBrokenLinks: 'throw',
