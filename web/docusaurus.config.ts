@@ -16,7 +16,7 @@ export default {
   title: 'kcuf-ui',
   tagline: 'A very easy to use React UI library',
   favicon: 'favicon.ico',
-  url: 'https://your-docusaurus-site.example.com', // Set the production url of your site here
+  url: 'https://kcuf-ui.com', // Set the production url of your site here
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -29,7 +29,9 @@ export default {
   plugins: [
     'docusaurus-plugin-sass',
     'docusaurus-plugin-image-zoom',
-    'docusaurus-lunr-search'
+    ['docusaurus-lunr-search', {
+      languages: ['en', 'zh']
+    }]
   ],
   
   themes: [
@@ -160,6 +162,16 @@ export default {
     
     liveCodeBlock: {
       playgroundPosition: 'top' // or 'bottom'
+    },
+    
+    mermaid: {
+      theme: {
+        light: 'neutral',
+        dark: 'dark'
+      },
+      options: {
+        // themeVariables // https://mermaid.js.org/config/theming.html#available-themes
+      }
     },
     
     zoom: {

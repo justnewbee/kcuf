@@ -14,13 +14,8 @@ import {
 } from 'react-docgen-typescript';
 
 interface ICommandArgs {
-  pkg: string;
+  dir: string;
 }
-
-const NO_AUTO_DEFAULT_NAMES = [
-  'value',
-  'checked'
-];
 
 const parser = withCustomConfig('./tsconfig.json', {
   propFilter: (prop: PropItem) => prop.parent ? !prop.parent.fileName.includes('node_modules') : true
@@ -37,14 +32,11 @@ function safeCellContent(content?: string): string {
 function printPropName(prop: PropItem): string {
   const parts: string[] = [codify(prop.name)];
   
-  // JSDoc 中添加 `@default`，默认对类型为 `boolean` 的使用 `false` 做默认值
   if (prop.required) {
     parts.push('<TagRequired />');
   } else {
-    if (prop.defaultValue) {
+    if (prop.defaultValue && prop.defaultValue.value !== false) { // JSDoc 中添加 `@default`，默认对类型为 `boolean` 的使用 `false` 做默认值
       parts.push(`<TagDefault>${prop.defaultValue.value}</TagDefault>`);
-    } else if (prop.type.name === 'boolean' && !NO_AUTO_DEFAULT_NAMES.includes(prop.name)) {
-      parts.push('<TagDefault>false</TagDefault>');
     }
   }
   
@@ -87,8 +79,8 @@ function generateOnFilePath(filePath: string): void {
 }
 
 function readAndGenerate(options: ICommandArgs): void {
-  const entryFilePathTs = path.join(process.cwd(), '..', options.pkg, 'src/index.ts');
-  const entryFilePathTsx = path.join(process.cwd(), '..', options.pkg, 'src/index.tsx');
+  const entryFilePathTs = path.join(process.cwd(), '..', options.dir, 'index.ts');
+  const entryFilePathTsx = path.join(process.cwd(), '..', options.dir, 'index.tsx');
   
   if (existsSync(entryFilePathTs)) {
     generateOnFilePath(entryFilePathTs);
@@ -106,10 +98,10 @@ function readAndGenerate(options: ICommandArgs): void {
 }
 
 /**
- * How to use (where `pkg` is the package directory):
+ * How to use:
  *
- * > ts-node-dev ./script/generate-md-api-pref.ts -p <pkg>
+ * > ts-node-dev ./script/generate-md-api-pref.ts -d <dir>
  */
-program.requiredOption('-p, --pkg <pkg>').parse();
+program.requiredOption('-d, --dir <dir>').parse();
 
 readAndGenerate(program.opts<ICommandArgs>());
