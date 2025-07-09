@@ -70,6 +70,10 @@ export default [
           requireLast: true
         }
       }],
+      '@stylistic/jsx-self-closing-comp': ['error', {
+        component: true,
+        html: true
+      }],
       '@stylistic/jsx-closing-bracket-location': ['error', 'after-props'],
       '@stylistic/jsx-one-expression-per-line': ['error', {
         allow: 'single-line'
