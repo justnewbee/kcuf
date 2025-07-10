@@ -54,7 +54,7 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
     
     e.preventDefault();
     e.stopPropagation();
-    canvasMarking.zoom(e.deltaY > 0 ? EZoomHow.OUT : EZoomHow.IN, true, Math.ceil(Math.abs(e.deltaY / 4)));
+    canvasMarking.zoom(e.deltaY > 0 ? EZoomHow.OUT : EZoomHow.IN, true);
   }
   
   const unbindDocKeydown = bindEventToDocument('keydown', handleKeydown, true);

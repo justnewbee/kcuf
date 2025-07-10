@@ -191,10 +191,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   
   private get zoomOptions(): Required<IZoomOptions> {
     return {
-      step: 0.25,
-      stepWheel: 0.01,
-      min: 0.2,
-      max: 5,
+      step: 0.2,
+      min: 0.1,
+      max: 10,
       ...this.options.zoomOptions
     };
   }
@@ -1231,18 +1230,17 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.emit('selection-change', itemStats, statsList);
   }
   
-  private zoomBy(inOut: boolean, aroundMouse?: boolean, wheelDelta?: number): void {
+  private zoomStep(inOut: boolean, aroundMouse?: boolean): void {
     const {
       step,
-      stepWheel,
       min,
       max
     } = this.zoomOptions;
-    const delta = (inOut ? 1 : -1) * (wheelDelta ? stepWheel * wheelDelta : step);
     const {
       zoomLevel
     } = this;
-    let zoomLevelNext = zoomLevel + delta;
+    const base2LogValue = Math.log(zoomLevel) / Math.log(2) + (inOut ? step : -step);
+    let zoomLevelNext = Math.pow(2, base2LogValue);
     
     if (zoomLevelNext > max) {
       zoomLevelNext = max;
@@ -1252,7 +1250,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       zoomLevelNext = min;
     }
     
-    this.zoomTo(zoomLevelNext, delta > 0 ? EMarkingStatsChangeCause.ZOOM_IN : EMarkingStatsChangeCause.ZOOM_OUT, aroundMouse);
+    this.zoomTo(zoomLevelNext, inOut ? EMarkingStatsChangeCause.ZOOM_IN : EMarkingStatsChangeCause.ZOOM_OUT, aroundMouse);
   }
   
   private zoomTo(zoomLevelNext: number, cause: EMarkingStatsChangeCause, aroundMouse?: boolean): void {
@@ -1551,14 +1549,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.updateAndDraw(EMarkingStatsChangeCause.CLEAR);
   }
   
-  zoom(how: TZoomArg, aroundMouse?: boolean, wheelDelta?: number): void {
+  zoom(how: TZoomArg, aroundMouse?: boolean): void {
     switch (how) {
     case EZoomHow.IN:
-      this.zoomBy(true, aroundMouse, wheelDelta);
+      this.zoomStep(true, aroundMouse);
       
       break;
     case EZoomHow.OUT:
-      this.zoomBy(false, aroundMouse, wheelDelta);
+      this.zoomStep(false, aroundMouse);
       
       break;
     case EZoomHow.MIN:

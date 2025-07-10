@@ -111,7 +111,7 @@ export interface ICanvasMarkingClass<T = unknown> extends ICanvasMarkingClassPro
    */
   deleteItemsAll(): void;
   
-  zoom(how: TZoomArg, aroundMouse?: boolean, wheelDelta?: number): void;
+  zoom(how: TZoomArg, aroundMouse?: boolean): void;
   
   /**
    * 开启移动（当鼠标在 stage 内时按下空格，并保持按住状态）

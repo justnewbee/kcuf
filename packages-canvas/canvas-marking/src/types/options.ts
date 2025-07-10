@@ -16,8 +16,7 @@ import {
 } from './canvas-marking-item-class';
 
 export interface IZoomOptions {
-  step?: number; // 键盘或点击要快点
-  stepWheel?: number; // 滚轮可以顺滑一些
+  step?: number;
   min?: number;
   max?: number;
 }
