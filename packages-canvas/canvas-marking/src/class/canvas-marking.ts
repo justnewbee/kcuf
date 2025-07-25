@@ -258,6 +258,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     if (!this.movingInfo.started) {
+      if (!this.itemCreating) {
+        this.selectItem(this.itemUnderMouse);
+      }
+      
       this.itemEditing?.startDragging();
     }
     
@@ -754,10 +758,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       this.options.onClick?.(itemStatsUnderMouse, statsList);
       this.emit('click', itemStatsUnderMouse, statsList);
     }
-    
-    if (!this.itemCreating) {
-      this.selectItem(itemUnderMouse);
-    }
   }
   
   private actOnMouseClickDouble(): void {
@@ -771,16 +771,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       itemEditing
     } = this;
     
-    if (!itemEditing) {
-      return;
-    }
-    
-    switch (itemEditing.checkMouse()) {
-    case EMarkingMouseStatus.OUT:
-      this.selectItem(null);
-      
-      break;
-    case EMarkingMouseStatus.IN_POINT: {
+    if (itemEditing?.checkMouse() === EMarkingMouseStatus.IN_POINT) {
       const pointRemovedIndex = itemEditing.removePoint();
       
       if (pointRemovedIndex >= 0) {
@@ -789,15 +780,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         this.options.onPointDelete?.(itemEditing.stats, pointRemovedIndex, statsList);
         this.emit('point-delete', itemEditing.stats, pointRemovedIndex, statsList);
       }
-      
-      break;
-    }
-    case EMarkingMouseStatus.IN_POINT_INSERTION: // 点中点不做任何事情
-      return;
-    default:
-      this.selectItem(null);
-      
-      break;
     }
   }
   

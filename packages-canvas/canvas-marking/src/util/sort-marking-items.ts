@@ -10,7 +10,7 @@ import {
  * 2. `noClick`
  * 3. 面积大
  * 4. 面积小
- * 5. 编辑中
+ * 5. ~~编辑中~~ 不考虑
  * 6. 线
  * 7. 点
  * 数组尾，后画，顶层
@@ -48,13 +48,13 @@ export default function sortMarkingItems<T>(markingItems: IMarkingItemClass<T>[]
       return -1;
     }
     
-    if (v1.stats.editing) {
-      return 1;
-    }
-    
-    if (v2.stats.editing) {
-      return -1;
-    }
+    // if (v1.stats.editing) {
+    //   return 1;
+    // }
+    //
+    // if (v2.stats.editing) {
+    //   return -1;
+    // }
     
     return v2.stats.area - v1.stats.area;
   });

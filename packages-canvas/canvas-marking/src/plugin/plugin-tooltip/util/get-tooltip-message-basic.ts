@@ -49,7 +49,7 @@ export default function getTooltipMessageBasic<T = unknown>(stats: IMarkingStats
     } else {
       info = {
         ['拖拽']: itemStatsSelected.noEditDragWhole ? '' : '移动',
-        ['双击 / Enter']: itemStatsSelected.noEdit ? '' : '完成编辑'
+        ['Enter']: itemStatsSelected.noEdit ? '' : '完成编辑'
       };
     }
   

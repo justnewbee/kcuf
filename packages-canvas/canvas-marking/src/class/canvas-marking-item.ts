@@ -822,6 +822,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     
     this.editing = true;
     this.pathSnapshotEditing = _cloneDeep(this.path);
+    this.refreshStats();
   }
   
   finishCreating(onCreateCompletePre?: IMarkingEvents<T>['onCreateCompletePre']): false | Promise<boolean> {

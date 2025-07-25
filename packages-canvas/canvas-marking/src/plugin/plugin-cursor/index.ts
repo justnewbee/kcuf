@@ -4,6 +4,30 @@ import {
   IMarkingPlugin
 } from '../../types';
 
+function getCursorByStats(stats: IMarkingStats): string {
+  if (stats.movingInfo.started) {
+    return 'move';
+  }
+  
+  if (stats.editingDraggingPointIndex >= 0 || stats.editingDraggingInsertionPointIndex >= 0) {
+    return stats.itemStatsSelected?.path.length === 1 ? 'grabbing' : 'crosshair';
+  }
+  
+  if (stats.hoveringPointIndex >= 0 || stats.hoveringInsertionPointIndex >= 0) {
+    return stats.itemStatsHovering?.path.length === 1 ? 'grab' : 'crosshair';
+  }
+  
+  if (stats.hovering) {
+    return 'grab';
+  }
+  
+  if (stats.editingDragging) {
+    return 'grabbing';
+  }
+  
+  return 'default';
+}
+
 /**
  * 根据状态调整光标形状
  *
@@ -11,29 +35,12 @@ import {
  */
 export default function pluginCursor<T>(canvasMarking: ICanvasMarkingClass<T>): IMarkingPlugin<T> {
   const {
-    options,
     canvas
   } = canvasMarking;
   
   return {
     run(stats: IMarkingStats<T>): void {
-      let cursor = 'default';
-      
-      if (stats.movingInfo.started) {
-        cursor = 'move';
-      } else if (stats.itemStatsHovering?.noClick) {
-        cursor = 'default';
-      } else if (stats.editingDragging) {
-        cursor = 'grabbing';
-      } else if (stats.editingHoveringPointIndex >= 0 || stats.editingHoveringInsertionPointIndex >= 0 || stats.editingDraggingPointIndex >= 0 || stats.editingDraggingInsertionPointIndex >= 0) {
-        cursor = stats.editingPathLength === 1 ? 'grab' : 'crosshair';
-      } else if (stats.editingHovering && !options.noEditDragWhole) {
-        cursor = 'grab';
-      } else if (stats.hovering && stats.hoveringPointIndex < 0) {
-        cursor = 'pointer';
-      }
-      
-      canvas.style.cursor = cursor;
+      canvas.style.cursor = getCursorByStats(stats);
     }
   };
 }
