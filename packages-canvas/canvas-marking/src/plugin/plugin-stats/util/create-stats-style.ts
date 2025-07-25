@@ -8,7 +8,7 @@ export default function createStatsStyle(stage: HTMLDivElement): string {
   position: absolute;
   top: 0;
   right: 0;
-  min-width: 186px;
+  min-width: 200px;
   background-color: hsl(0 0% 0% / 80%);
   color: hsl(0 0% 100%);
   font-family: Arial, sans-serif;

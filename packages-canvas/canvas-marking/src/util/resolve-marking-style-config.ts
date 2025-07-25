@@ -15,7 +15,8 @@ export default function resolveMarkingStyleConfig(styleConfig?: IMarkingStyleCon
   const borderHover = initDrawStyleBorder({
     shadowColor: 'hsl(0 0% 0% / 67%)',
     shadowBlur: 4,
-    shadowOffsetY: 2,
+    shadowOffsetX: 1,
+    shadowOffsetY: 1,
     ...styleConfig?.borderHover
   }, border);
   const borderHighlight = initDrawStyleBorder(styleConfig?.borderHighlight, borderHover);

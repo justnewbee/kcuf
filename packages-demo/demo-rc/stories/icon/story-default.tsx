@@ -30,8 +30,8 @@ const ScIconListItem = styled.li`
   flex-direction: column;
   justify-content: space-between;
   padding: 10px;
-  height: 50px;
   min-width: 50px;
+  height: 50px;
   color: hsl(0 0% 73%);
   text-align: center;
   
@@ -41,7 +41,7 @@ const ScIconListItem = styled.li`
   }
   
   &:hover {
-    background-color: hsla(0 0% 0% / 10%);
+    background-color: hsl(0 0% 0% / 10%);
   }
 `;
 

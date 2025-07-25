@@ -14,7 +14,7 @@ const ScSpace = styled.div`
 `;
 const ScBlock = styled.div`
   height: ${SPACE[4]};
-  background: hsla(0 0% 0% / 5%);
+  background: hsl(0 0% 0% / 5%);
 `;
 const ScInfo = styled.div`
   margin-left: ${SPACE[3]};

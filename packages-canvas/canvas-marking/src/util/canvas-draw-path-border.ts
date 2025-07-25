@@ -44,9 +44,9 @@ export default function canvasDrawPathBorder(canvasContext: CanvasRenderingConte
   
   if (options.shadowColor) {
     canvasContext.shadowColor = options.shadowColor;
-    canvasContext.shadowBlur = (options.shadowBlur ?? 0) * options.scale;
-    canvasContext.shadowOffsetX = (options.shadowOffsetX ?? 0) * options.scale;
-    canvasContext.shadowOffsetY = (options.shadowOffsetY ?? 0) * options.scale;
+    canvasContext.shadowBlur = options.shadowBlur ?? 4;
+    canvasContext.shadowOffsetX = options.shadowOffsetX ?? 1;
+    canvasContext.shadowOffsetY = options.shadowOffsetY ?? 1;
   }
   
   canvasPathThroughPoints(canvasContext, path, options.close);

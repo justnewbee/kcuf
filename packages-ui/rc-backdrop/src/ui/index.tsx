@@ -13,7 +13,7 @@ import {
 const ScBackdrop = styled.div`
   position: fixed;
   inset: 0;
-  background-color: hsla(0 0% 0% / 17%);
+  background-color: hsl(0 0% 0% / 17%);
   transition: all 300ms ease-in-out;
   
   &[data-transition='entering'] {
