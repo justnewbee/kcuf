@@ -47,13 +47,13 @@
     "@types/react-dom": "^18.3.7",
     "commander": "^14.0.0",
     "docusaurus-plugin-sass": "^0.2.6",
-    "inquirer": "^12.7.0",
+    "inquirer": "^12.8.2",
     "react-docgen": "^8.0.0",
     "react-docgen-typescript": "^2.4.0",
     "sass": "^1.89.2",
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.28.7",
-    "typedoc-plugin-markdown": "^4.7.0",
+    "typedoc-plugin-markdown": "^4.7.1",
     "typescript": "^5.8.3"
   },
   "dependencies": {
