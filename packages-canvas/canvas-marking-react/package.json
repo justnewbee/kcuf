@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/canvas-marking-react",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "The React wrapping of @kcuf/canvas-marking.",
   "keywords": [
     "canvas",
