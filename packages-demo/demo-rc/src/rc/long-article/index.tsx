@@ -128,5 +128,5 @@ export default function LongArticle(): ReactElement {
       <p />
       <p>~~ SOLO ~~</p>
     </ScLyrics>
-    </ScLongArticle>;
+  </ScLongArticle>;
 }

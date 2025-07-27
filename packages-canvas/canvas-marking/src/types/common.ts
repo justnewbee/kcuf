@@ -22,7 +22,7 @@ export type TCreatingWillFinish = boolean | 'close';
  * - `string` 根据 `id` 查找
  * - `(id: string, data?: T) => boolean` 更细节的查找
  */
-export type TMarkingItemFinder<T = unknown> = null | 'first' | 'last' | string | number | ((id: string, data?: T) => boolean);
+export type TMarkingItemFinder<T = unknown> = null | string | number | ((id: string, data?: T) => boolean);
 
 export type TZoomArg = EZoomHow | `${EZoomHow}`;
 

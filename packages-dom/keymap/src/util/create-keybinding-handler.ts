@@ -14,7 +14,7 @@ export default function createKeybindingHandler(keybindings: IKeybinding[], call
   
   return (e: KeyboardEvent) => {
     const prevKeybinding = possibleMatches.get(keybindings);
-    const remainingKeybindings = prevKeybinding || keybindings;
+    const remainingKeybindings = prevKeybinding ?? keybindings;
     const currentKeybinding = remainingKeybindings[0];
     const matched = currentKeybinding ? matchKeybinding(e, currentKeybinding) : false;
     

@@ -67,5 +67,5 @@ export default function StoryCaseSensitive(): ReactElement {
         caseSensitive: stateCaseSensitive
       }} />
     </GridContainer>
-    </>;
+  </>;
 }

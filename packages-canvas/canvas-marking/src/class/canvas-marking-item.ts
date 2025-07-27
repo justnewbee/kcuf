@@ -88,7 +88,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}, initialPath?: Path) {
     this.canvasMarking = markingStage;
     this.options = options;
-    this.id = options.id || uuid();
+    this.id = options.id ?? uuid();
     this.style = resolveMarkingStyleConfig(options.styleConfig);
     this.data = options.data;
     
@@ -106,43 +106,43 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   }
   
   private get noHover(): boolean {
-    return this.canvasMarking.options.noHover || (this.options.noHover ?? false);
+    return this.canvasMarking.options.noHover ?? this.options.noHover ?? false;
   }
   
   private get noClick(): boolean {
-    return this.noHover || this.canvasMarking.options.noClick || (this.options.noClick ?? false);
+    return this.noHover || (this.canvasMarking.options.noClick ?? this.options.noClick ?? false);
   }
   
   private get noSelect(): boolean {
-    return this.noClick || this.canvasMarking.options.noSelect || (this.options.noSelect ?? false);
+    return this.noClick || (this.canvasMarking.options.noSelect ?? this.options.noSelect ?? false);
   }
   
   private get noEdit(): boolean {
-    return this.noSelect || this.canvasMarking.options.noEdit || (this.options.noEdit ?? false);
+    return this.noSelect || (this.canvasMarking.options.noEdit ?? this.options.noEdit ?? false);
   }
   
   private get noEditDragPoint(): boolean {
-    return this.noEdit || this.canvasMarking.options.noEditDragPoint || (this.options.noEditDragPoint ?? false);
+    return this.noEdit || (this.canvasMarking.options.noEditDragPoint ?? this.options.noEditDragPoint ?? false);
   }
   
   private get noEditDragInsertion(): boolean {
-    return this.noEditDragPoint || this.canvasMarking.options.noEditDragInsertion || (this.options.noEditDragInsertion ?? false);
+    return this.noEditDragPoint || (this.canvasMarking.options.noEditDragInsertion ?? this.options.noEditDragInsertion ?? false);
   }
   
   private get noEditDragWhole(): boolean {
-    return this.noEdit || this.canvasMarking.options.noEditDragWhole || this.options.noEditDragWhole || false;
+    return this.noEdit || (this.canvasMarking.options.noEditDragWhole ?? this.options.noEditDragWhole ?? false);
   }
   
   private get noEditRemovePoint(): boolean {
-    return this.noEdit || this.canvasMarking.options.noEditRemovePoint || (this.options.noEditRemovePoint ?? false);
+    return this.noEdit || (this.canvasMarking.options.noEditRemovePoint ?? this.options.noEditRemovePoint ?? false);
   }
   
   private get noDelete(): boolean {
-    return this.noSelect || this.canvasMarking.options.noDelete || (this.options.noDelete ?? false);
+    return this.noSelect || (this.canvasMarking.options.noDelete ?? this.options.noDelete ?? false);
   }
   
   private get noCrossingDetection(): boolean {
-    return this.canvasMarking.options.noCrossingDetection || (this.options.noCrossingDetection ?? false);
+    return this.canvasMarking.options.noCrossingDetection ?? this.options.noCrossingDetection ?? false;
   }
   
   /**
@@ -434,7 +434,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
       id: this.id,
       data: this.data,
       path: _cloneDeep(path), // 得到一个干净的，从而避免引用干扰（尤其是 immer 这种会锁对象的）
-      styleConfig: options.styleConfig || null,
+      styleConfig: options.styleConfig ?? null,
       perimeter: pathPerimeter(pathForDraw),
       area,
       areaPercentage: area * 100 / (imageInfo.size[0] * imageInfo.size[1]),
@@ -495,7 +495,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     const pathForDraw = this.getPathForDraw();
     const borderStyle = this.getDrawStyleBorder();
     const close = !this.creating || creatingWillFinish === 'close' || type === 'rect' || type === 'rect2';
-    const diffAll = highlightingBorderIndex !== null && highlightingBorderIndex < 0 ? borderDiff?.hover || borderDiff?.all : borderDiff?.all;
+    const diffAll = highlightingBorderIndex !== null && highlightingBorderIndex < 0 ? borderDiff?.hover ?? borderDiff?.all : borderDiff?.all;
     
     this.drawPerpendicularMarks(borderStyle);
     
@@ -833,7 +833,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     return this.beforeCreateComplete(onCreateCompletePre);
   }
   
-  finishEditing(cancel?: boolean): boolean {
+  finishEditing(cancel = false): boolean {
     const {
       editing,
       pathSnapshotEditing,
@@ -1014,11 +1014,11 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
         
         this.refreshStats();
       } else if (result) {
-        if (result?.path) {
+        if (result.path) {
           this.path = result.path;
         }
         
-        if (result?.data) {
+        if (result.data) {
           this.data = result.data;
         }
         

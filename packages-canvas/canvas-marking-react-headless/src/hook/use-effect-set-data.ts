@@ -13,6 +13,6 @@ export default function useEffectSetData(): void {
   const markingInstance = useMarkingInstance();
   
   useEffect(() => {
-    markingInstance?.setData(image || '', markings ?? []);
+    markingInstance?.setData(image ?? '', markings ?? []);
   }, [markingInstance, image, markings]);
 }

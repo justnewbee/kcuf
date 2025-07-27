@@ -21,5 +21,5 @@ const IMAGE_LIST = [
 ];
 
 export default function getGirlImageUrl(): string {
-  return IMAGE_LIST[Math.floor(Math.random() * IMAGE_LIST.length)] || 'https://img.alicdn.com/bao/uploaded/i3/128940143/O1CN01g1yQbY1CvXZYGCd6T_!!128940143.jpg';
+  return IMAGE_LIST[Math.floor(Math.random() * IMAGE_LIST.length)] ?? 'https://img.alicdn.com/bao/uploaded/i3/128940143/O1CN01g1yQbY1CvXZYGCd6T_!!128940143.jpg';
 }

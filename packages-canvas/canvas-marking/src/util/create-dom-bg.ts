@@ -10,7 +10,7 @@ export default function createDomBg(imageBgc?: string): HTMLDivElement {
   const divImageBg = createDomDiv(CLASS);
   
   divImageBg.style.cssText = CSS;
-  divImageBg.style.backgroundColor = imageBgc || 'transparent';
+  divImageBg.style.backgroundColor = imageBgc ?? 'transparent';
   
   return divImageBg;
 }

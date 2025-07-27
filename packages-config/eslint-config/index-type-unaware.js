@@ -2,23 +2,14 @@ import globals from 'globals';
 
 // 相对引用必须 .js 否则 ERR_MODULE_NOT_FOUND
 import configEs from './config-es.js';
-import configTs from './config-ts-type-aware.js';
+import configTs from './config-ts-type-unaware.js'; // ← 仅此区别
 import configReact from './config-react.js';
 import configImport from './config-import.js';
 import configStylistic from './config-stylistic.js';
 import configStorybook from './config-storybook.js';
 
 /**
- * 为何分两个 `index`？这个跟 typescript-eslint 有关，见 https://typescript-eslint.io/getting-started/typed-linting#shared-configurations
- *
- * ```diff
- * - configs.strict,
- * - configs.stylistic,
- * + configs.strictTypeChecked,
- * + configs.stylisticTypeChecked,
- * ```
- *
- * 启用 Typed Checking 有可能因此报错，可以看 https://typescript-eslint.io/troubleshooting/typed-linting，当报错时，可用 index-type-unaware
+ * 如果 index 使用有问题（有类型相关的规则），可以用这个
  *
  * @type {import('eslint').Linter.Config[]}
  */

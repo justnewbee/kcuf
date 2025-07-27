@@ -18,5 +18,5 @@ export default function getTooltipMessage<T = unknown>(stats: IMarkingStats<T>, 
     return `<div class="extra-info">${messageExtra}</div>${messageBasic}`;
   }
   
-  return messageExtra || messageBasic;
+  return messageBasic || (messageExtra ?? '');
 }

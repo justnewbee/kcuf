@@ -37,5 +37,5 @@ export default function matchKeybindingKey(e: KeyboardEvent, keybinding: IKeybin
     return false;
   }
   
-  return (CODE_TO_KEYS[e.code] || [] as string[]).includes(key);
+  return (CODE_TO_KEYS[e.code] ?? [] as string[]).includes(key);
 }

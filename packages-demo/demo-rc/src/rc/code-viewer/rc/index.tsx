@@ -18,6 +18,6 @@ export default function CodeViewer(props: ICodeViewerProps): ReactElement {
   return <Codemirror {...{
     readOnly,
     ...restProps,
-    value: props.content || props.children
+    value: props.content ?? props.children
   }} />;
 }

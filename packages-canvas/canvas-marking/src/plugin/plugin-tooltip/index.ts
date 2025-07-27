@@ -37,9 +37,7 @@ export default function pluginTooltip<T = unknown>(canvasMarking: ICanvasMarking
       return;
     }
     
-    if (!tooltipElement) {
-      tooltipElement = createTooltipElement(stage);
-    }
+    tooltipElement ??= createTooltipElement(stage);
     
     tooltipElement.innerHTML = message;
     

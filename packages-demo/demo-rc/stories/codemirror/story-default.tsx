@@ -72,5 +72,5 @@ export default function StoryDefault(): ReactElement {
         onChange: setStateCode
       }} />
     </Flex>
-    </>;
+  </>;
 }

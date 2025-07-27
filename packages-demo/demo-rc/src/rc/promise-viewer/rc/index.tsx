@@ -73,7 +73,7 @@ export default function PromiseViewer({
       loading: ELoading.RESOLVED,
       result,
       duration: Date.now() - start
-    })).catch(err => setStateResult({
+    })).catch((err: unknown) => setStateResult({
       loading: ELoading.REJECTED,
       result: err,
       duration: Date.now() - start

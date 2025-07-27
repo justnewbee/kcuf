@@ -32,7 +32,7 @@ export default function getTooltipMessageBasic<T = unknown>(stats: IMarkingStats
     });
   }
   
-  if (itemStatsSelected && itemStatsSelected.hovering) {
+  if (itemStatsSelected?.hovering) {
     let info: Record<string, string>;
     
     if (itemStatsSelected.hoveringPointIndex >= 0) {

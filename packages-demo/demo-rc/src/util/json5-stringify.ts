@@ -1,7 +1,9 @@
 import {
   isValidElement
 } from 'react';
-import json5 from 'json5';
+import {
+  stringify
+} from 'json5';
 
 function replacer(_k: string, val: unknown): unknown {
   if (typeof val === 'function') {
@@ -28,8 +30,8 @@ export default function json5Stringify(o: unknown): string {
   }
   
   try {
-    // json5 stringify 在有 space 的时候一定加 comma dangle 但没有去掉的参数 and i really hate comma dangle..
-    return json5.stringify(o, replacer, 2).replace(/,(\n\s*[}\]])/g, '$1');
+    // json5 stringify 在有 space 的时候一定加 comma dangle 但没有去掉的参数
+    return stringify(o, replacer, 2).replace(/,(\n\s*[}\]])/g, '$1');
   } catch (err) {
     return `[ERROR] ${(err as Error).message}`;
   }

@@ -37,7 +37,7 @@ export default function ChoiceGroupCheckbox<T extends TDatasourceValue = string>
   }, [controllableValue, setControllableValue]);
   
   return <ScChoiceGroup>
-    {datasourceParsed.map((v, i) => <InputCheckbox key={`${v.value}-${i}`} {...{
+    {datasourceParsed.map((v, i) => <InputCheckbox key={`${v.value as string}-${i}`} {...{
       label: v.label,
       value: v.value,
       checked: controllableValue.includes(v.value),

@@ -23,7 +23,7 @@ export default function getDataImage(type: EDataType): string {
   case EDataType.ARIAL:
     return 'https://static.liangceai.net/demo/aerial-rooftop.jpeg';
   case EDataType.RANDOM:
-    return RANDOM_LIST[Math.floor(Math.random() * RANDOM_LIST.length)] || 'https://img.alicdn.com/bao/uploaded/i3/128940143/O1CN01g1yQbY1CvXZYGCd6T_!!128940143.jpg';
+    return RANDOM_LIST[Math.floor(Math.random() * RANDOM_LIST.length)] ?? 'https://img.alicdn.com/bao/uploaded/i3/128940143/O1CN01g1yQbY1CvXZYGCd6T_!!128940143.jpg';
   case EDataType.NO_IMAGE:
     return '';
   default:

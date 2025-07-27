@@ -10,7 +10,7 @@ import {
  * - `false` → 调用 `e.stopPropagation()` + `e.preventDefault()`
  * - 其他 → 什么都不做
  */
-export type TKeymapCallback = () => void | boolean | 'stop' | 'prevent';
+export type TKeymapCallback = () => undefined | boolean | 'stop' | 'prevent';
 
 export interface IKeymapOptions {
   /**

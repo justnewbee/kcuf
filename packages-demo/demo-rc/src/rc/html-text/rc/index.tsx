@@ -21,7 +21,7 @@ export default function HtmlText({
   text,
   ...restProps
 }: IHtmlTextProps): ReactElement {
-  return /</.test(text) ? <ScSpan{...restProps} dangerouslySetInnerHTML={{
+  return text.includes('<') ? <ScSpan{...restProps} dangerouslySetInnerHTML={{
     __html: text
   }} /> : <span {...restProps}>{text}</span>;
 }

@@ -10,7 +10,7 @@ export default function loadImage(src: string): Promise<HTMLImageElement> {
     };
     
     img.onerror = e => {
-      reject(e);
+      reject(new Error(typeof e === 'string' ? e : `failed to load image with src ${src}`));
     };
     
     img.src = src;

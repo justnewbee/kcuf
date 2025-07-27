@@ -48,7 +48,7 @@ export default function Button({
 }: IButtonProps): ReactElement {
   const resolvedHref = disabled ? undefined : href;
   const resolvedOnClick = loading ? undefined : onClick;
-  const theLabel = label || children;
+  const theLabel = label ?? children;
   
   return resolvedHref ? <ScButtonA {...{
     ...restProps,

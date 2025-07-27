@@ -57,9 +57,9 @@ export default kcufEslintConfig;
 
 ### 配置 TypeScript + Vue 项目
 
-TODO
+## FAQ
 
-## 关于 Alias
+### Alias 报错怎么办？
 
 你可能会碰到报错 `import/no-unresolved`，因为应用使用了类似 `@/`、`~/`、`:/` 等 Alias。
 
@@ -91,3 +91,19 @@ export default [
   }
 ];
 ```
+
+### 报错「ESLint was configured to run...」怎么办？
+
+参考 [文档](https://typescript-eslint.io/troubleshooting/typed-linting#i-get-errors-telling-me-eslint-was-configured-to-run--however-that-tsconfig-does-not--none-of-those-tsconfigs-include-this-file)。
+
+若还是不行，则使用 `import kcufEslintConfig from '@kcuf/eslint-config/index-type-unaware.js';` 替换 `import kcufEslintConfig from '@kcuf/eslint-config';`。
+
+### 报错「This rule requires the `strictNullChecks` compiler option to be turned on...」怎么办？
+
+我们默认开启了 `@typescript-eslint/prefer-nullish-coalescing`，你需要配置你的 TSConfig 为 `strict: true`，或至少 `strictNullChecks: true`。
+
+你可以：
+
+1. 使用 `index-type-unaware`，但那会丢掉所有的类型有关的规则
+2. 单独禁用，`'@typescript-eslint/prefer-nullish-coalescing': off`
+3. 修改 TSConfig，设置 `compilerOptions.strict` 为 `true` ← 推荐

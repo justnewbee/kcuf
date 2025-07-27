@@ -8,10 +8,10 @@ import {
 
 import useMarkingInstance from './use-marking-instance';
 
-export default function useHandleHighlight(): (finder: MarkingItemFinder<unknown>, borderIndex?: number) => void {
+export default function useHandleHighlight(): (finder: MarkingItemFinder, borderIndex?: number) => void {
   const markingInstance = useMarkingInstance();
   
-  return useCallback((finder: MarkingItemFinder<unknown>, borderIndex?: number): void => {
+  return useCallback((finder: MarkingItemFinder, borderIndex?: number): void => {
     markingInstance?.highlight(finder, borderIndex);
   }, [markingInstance]);
 }

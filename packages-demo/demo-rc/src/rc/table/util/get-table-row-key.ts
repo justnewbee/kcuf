@@ -3,7 +3,7 @@ interface IObjectWithIdOrKey {
   key?: string;
 }
 
-function getRowKeyFallback<T>(o: T, valueIndex: number): string | number {
+function getRowKeyFallback(o: unknown, valueIndex: number): string | number {
   const o2 = o as IObjectWithIdOrKey;
   
   return o2.id ?? o2.key ?? valueIndex;

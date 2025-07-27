@@ -28,5 +28,5 @@ export default function StoryDefault(): ReactElement {
       <ScRed>Red</ScRed>
       <ScBlue>Blue</ScBlue>
     </Flex>
-    </>;
+  </>;
 }

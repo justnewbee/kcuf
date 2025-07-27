@@ -26,7 +26,9 @@ export default function throwConfetti(): void {
     const timeLeft = animationEnd - Date.now();
     
     if (timeLeft <= 0) {
-      return clearInterval(interval);
+      clearInterval(interval);
+      
+      return;
     }
     
     const particleCount = 50 * (timeLeft / DURATION);

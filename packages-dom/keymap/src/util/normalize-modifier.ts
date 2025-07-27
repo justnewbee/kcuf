@@ -6,5 +6,5 @@ import {
 } from '../const';
 
 export default function normalizeModifier(modifier: string): EModifierKey | null {
-  return MODIFIER_ALIAS[modifier.toUpperCase()] || null;
+  return MODIFIER_ALIAS[modifier.toUpperCase()] ?? null;
 }

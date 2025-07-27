@@ -14,7 +14,7 @@ import getExtensionTheme from './get-extension-theme';
 export default function getExtensions(props: ICodemirrorProps): Extension[] {
   const extensions = getExtensionsBasic();
   
-  function push(ex: Extension | null) {
+  function push(ex: Extension | null): void {
     if (ex) {
       extensions.push(ex);
     }

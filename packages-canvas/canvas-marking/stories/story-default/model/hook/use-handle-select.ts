@@ -8,10 +8,10 @@ import {
 
 import useMarkingInstance from './use-marking-instance';
 
-export default function useHandleSelect(): (finder: MarkingItemFinder<unknown>) => void {
+export default function useHandleSelect(): (finder: MarkingItemFinder) => void {
   const markingInstance = useMarkingInstance();
   
-  return useCallback((finder: MarkingItemFinder<unknown>): void => {
+  return useCallback((finder: MarkingItemFinder): void => {
     markingInstance?.select(finder);
   }, [markingInstance]);
 }

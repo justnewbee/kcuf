@@ -16,5 +16,5 @@ export default function getPathCreatingRect2(path: Path, mouseCoords: Point, lim
     return [p1, p2];
   }
   
-  return pathRectBySegmentAndPoint([p1, p2], mouseCoords, limit) || [p1, p2];
+  return pathRectBySegmentAndPoint([p1, p2], mouseCoords, limit) ?? [p1, p2];
 }

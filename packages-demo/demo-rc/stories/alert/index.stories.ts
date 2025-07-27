@@ -10,9 +10,6 @@ import {
 const meta = {
   title: 'Feedback/Alert',
   component: Alert,
-  parameters: {
-    // layout: 'fullscreen'
-  },
   tags: ['autodocs']
 } satisfies TMeta;
 

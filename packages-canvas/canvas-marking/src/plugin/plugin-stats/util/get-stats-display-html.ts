@@ -19,7 +19,7 @@ export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>
   } = stats;
   
   return `<ul>${[
-    ['Cause', cause || ''],
+    ['Cause', cause ?? ''],
     ['TimeStamp', Date.now()],
     ['Zoom', displayPercentage(stats.zoom)],
     ['StageCoords', displayCoords(stats.stageRect.coords)],
@@ -63,6 +63,6 @@ export default function getStatsDisplayHtml<T = unknown>(stats: IMarkingStats<T>
     ['Highlighting', displayBoolean(stats.highlighting)],
     ['MarkingItems', stats.itemStatsList.length]
   ].map(v => {
-    return `<li><span class="label">${v[0]}</span><span>${v[1]}</span></li>`;
+    return `<li><span class="label">${v[0] as string}</span><span>${v[1] as string}</span></li>`;
   }).join('')}</ul>`;
 }

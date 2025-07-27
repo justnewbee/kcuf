@@ -2,7 +2,7 @@ export interface IClickHijacker<T = boolean> {
   /**
    * 判定条件，返回「真」即表示劫持成功，返回值将作为 `callback` 的参数
    */
-  condition(el: HTMLElement, e: MouseEvent): T | void;
+  condition(el: HTMLElement, e: MouseEvent): T | undefined;
   /**
    * 对 `condition` 的补充，命中则忽略，优先于 `condition` 调用
    */

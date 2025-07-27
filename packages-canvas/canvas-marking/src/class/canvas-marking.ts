@@ -168,20 +168,20 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   private get itemHovering(): IMarkingItemClass<T> | null {
-    return this.markingItems.find(v => v.stats.hovering) || null;
+    return this.markingItems.find(v => v.stats.hovering) ?? null;
   }
   
   private get itemHighlighting(): IMarkingItemClass<T> | null {
-    return this.markingItems.find(v => v.stats.highlighting) || null;
+    return this.markingItems.find(v => v.stats.highlighting) ?? null;
   }
   
   private get itemEditing(): IMarkingItemClass<T> | null {
-    return this.markingItems.find(v => v.stats.editing) || null;
+    return this.markingItems.find(v => v.stats.editing) ?? null;
   }
   
   private get itemUnderMouse(): IMarkingItemClass<T> | null {
     // findLast 还比较新，不用
-    return this.itemCreating ? null : sortMarkingItems(this.markingItems, true).find(v => v.isUnderMouse()) || null;
+    return this.itemCreating ? null : sortMarkingItems(this.markingItems, true).find(v => v.isUnderMouse()) ?? null;
   }
   
   /**
@@ -466,8 +466,8 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     this.zoomLevel = zoomLevel;
     imageInfo.scale = imageScale;
     
-    const width = Math.round((imageInfo.loader?.naturalWidth || rectStage.width) * imageScale);
-    const height = Math.round((imageInfo.loader?.naturalHeight || rectStage.height) * imageScale);
+    const width = Math.round((imageInfo.loader?.naturalWidth ?? rectStage.width) * imageScale);
+    const height = Math.round((imageInfo.loader?.naturalHeight ?? rectStage.height) * imageScale);
     const x = Math.round((rectStage.width - width) / 2);
     const y = Math.round((rectStage.height - height) / 2);
     
@@ -869,14 +869,14 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       justifiedResult = justifyMagnetAlongPath(mouseInfo.coordsInImage, itemStatsCreating.path, magnetRadius);
     }
     
-    if (!justifiedResult && itemStatsEditing && itemStatsEditing?.draggingPointIndex >= 0) { // 编辑内部磁吸
+    if (!justifiedResult && itemStatsEditing && itemStatsEditing.draggingPointIndex >= 0) { // 编辑内部磁吸
       justifiedResult = justifyMagnetAlongPath(mouseInfo.coordsInImage, itemStatsEditing.path.filter((_v, i) => {
         return i !== itemStatsEditing.draggingPointIndex;
       }), magnetRadius);
     }
     
     // 新建或编辑，外部磁吸
-    justifiedResult ||= justifyMagnetAlongPaths(mouseInfo.coordsInImage, this.getAllPaths(true), magnetRadius);
+    justifiedResult ??= justifyMagnetAlongPaths(mouseInfo.coordsInImage, this.getAllPaths(true), magnetRadius);
     
     if (justifiedResult) {
       mouseInfo.coordsInImage = this.clampCoordsInImage(justifiedResult.point);
@@ -1069,7 +1069,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const {
       justifiedRightAngle
     } = this;
-    const activeItem = this.itemEditing || this.itemCreating;
+    const activeItem = this.itemEditing ?? this.itemCreating;
     
     if (!justifiedRightAngle || !activeItem) {
       return;
@@ -1109,7 +1109,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     if (itemCreating) {
       activePath = [mouseInfo.coordsInImage];
-    } else if (itemEditing && itemEditing.stats.draggingMoved) {
+    } else if (itemEditing?.stats.draggingMoved) {
       activePath = itemEditing.stats.path;
     }
     
@@ -1166,15 +1166,15 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     }
     
     if (finder === 'first') {
-      return markingItems[0] || null;
+      return markingItems[0] ?? null;
     }
     
     if (finder === 'last') {
-      return markingItems[markingItems.length - 1] || null;
+      return markingItems[markingItems.length - 1] ?? null;
     }
     
     if (typeof finder === 'string') {
-      return markingItems.find(v => v.stats.id === finder) || null;
+      return markingItems.find(v => v.stats.id === finder) ?? null;
     }
     
     if (typeof finder === 'number') {
@@ -1187,10 +1187,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
         nextIndex = markingItems.length - 1;
       }
       
-      return markingItems[nextIndex] || null;
+      return markingItems[nextIndex] ?? null;
     }
     
-    return markingItems.find(v => finder(v.stats.id, v.stats.data)) || null;
+    return markingItems.find(v => finder(v.stats.id, v.stats.data)) ?? null;
   }
   
   private selectItem(item: IMarkingItemClass<T> | null): void {
@@ -1676,7 +1676,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const markingItem = finder === null ? null : this.findItem(finder, this.itemEditing);
     
     this.itemHighlighting?.toggleHighlighting(false);
-    this.selectItem(markingItem || null);
+    this.selectItem(markingItem);
     
     if (markingItem && highlightToo) {
       markingItem.toggleHighlighting();
@@ -1686,7 +1686,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   }
   
   highlight(finder: TMarkingItemFinder<T>, borderIndex: number | null = null): void {
-    const markingItem = finder === null ? null : this.findItem(finder, this.itemHighlighting || this.itemEditing);
+    const markingItem = finder === null ? null : this.findItem(finder, this.itemHighlighting ?? this.itemEditing);
     
     this.markingItems.forEach(v => v.toggleHighlighting(v === markingItem, borderIndex));
     this.updateAndDraw(EMarkingStatsChangeCause.HIGHLIGHT);
@@ -1737,10 +1737,10 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       rectStage,
       rectCanvas
     } = this;
-    const itemStatsCreating = this.itemCreating?.stats || null;
-    const itemStatsHovering = this.itemHovering?.stats || null;
-    const itemStatsHighlighting = this.itemHighlighting?.stats || null;
-    const itemStatsSelected = this.itemEditing?.stats || null;
+    const itemStatsCreating = this.itemCreating?.stats ?? null;
+    const itemStatsHovering = this.itemHovering?.stats ?? null;
+    const itemStatsHighlighting = this.itemHighlighting?.stats ?? null;
+    const itemStatsSelected = this.itemEditing?.stats ?? null;
     
     return {
       zoom: this.zoomLevel,
@@ -1767,7 +1767,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       creatingCrossing: !!itemStatsCreating?.crossing,
       creatingWillFinish: itemStatsCreating ? itemStatsCreating.creatingWillFinish : false,
       hovering: !!itemStatsHovering,
-      hoveringPoint: itemStatsHovering?.path[itemStatsHovering.hoveringPointIndex] || null,
+      hoveringPoint: itemStatsHovering?.path[itemStatsHovering.hoveringPointIndex] ?? null,
       hoveringPointIndex: itemStatsHovering?.hoveringPointIndex ?? -1,
       hoveringInsertionPointIndex: itemStatsHovering?.hoveringInsertionPointIndex ?? -1,
       hoveringBorderIndex: itemStatsHovering?.hoveringBorderIndex ?? -1,
