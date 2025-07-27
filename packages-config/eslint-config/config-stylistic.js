@@ -34,17 +34,25 @@ export default [
         prev: ['const', 'let', 'var', 'block', 'block-like'],
         next: '*'
       }, {
-        blankLine: 'always',
-        prev: '*',
-        next: ['return', 'throw', 'break', 'continue', 'block', 'block-like', 'export']
-      }, {
         blankLine: 'any',
         prev: ['const', 'let', 'var'],
         next: ['const', 'let', 'var']
-      }, {
+      }, { // import 后必须有空行
+        blankLine: 'always',
+        prev: 'import',
+        next: '*'
+      }, { // 但 import 和 import 之间可以不用
         blankLine: 'any',
-        prev: ['export'],
-        next: ['export']
+        prev: 'import',
+        next: 'import'
+      }, {
+        blankLine: 'always',
+        prev: '*',
+        next: ['return', 'throw', 'break', 'continue', 'block', 'block-like', 'export']
+      }, { // export 和 export 之间可以不用必须
+        blankLine: 'any',
+        prev: 'export',
+        next: 'export'
       }, {
         blankLine: 'never',
         prev: '*',
