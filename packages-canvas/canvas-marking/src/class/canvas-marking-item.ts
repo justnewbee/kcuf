@@ -271,8 +271,8 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
     this.draggingStartCoords = null;
     this.draggingPointIndex = -1;
     this.draggingInsertionPointIndex = -1;
-    this.pathSnapshotDragging = [];
     this.draggingMoved = false;
+    this.pathSnapshotDragging = [];
   }
   
   private clearEditing(): void {

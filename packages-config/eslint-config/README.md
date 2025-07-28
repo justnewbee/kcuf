@@ -107,3 +107,21 @@ export default [
 1. 使用 `index-type-unaware`，但那会丢掉所有的类型有关的规则
 2. 单独禁用，`'@typescript-eslint/prefer-nullish-coalescing': off`
 3. 修改 TSConfig，设置 `compilerOptions.strict` 为 `true` ← 推荐
+
+### `@typescript-eslint/no-unnecessary-condition` 误报怎么办？
+
+比如以下代码，有误报：
+
+```ts
+function handleChange(selected: Something[]): void {
+  const [record] = selected;
+  
+  if (record) { // ← 此处误报
+    updateData({
+      selected: record
+    });
+  }
+}
+```
+
+需确保 TSConfig 中设置了 `noUncheckedIndexedAccess: true`，参考 [Possibly-undefined indexed access](https://typescript-eslint.io/rules/no-unnecessary-condition#possibly-undefined-indexed-access)。

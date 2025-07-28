@@ -1,3 +1,5 @@
+import _throttle from 'lodash/throttle';
+
 import {
   bindEventToDocument
 } from '@kcuf/mere-dom';
@@ -58,7 +60,7 @@ export default function pluginZoom<T = unknown>(canvasMarking: ICanvasMarkingCla
   }
   
   const unbindDocKeydown = bindEventToDocument('keydown', handleKeydown, true);
-  const unbindDocWheel = bindEventToDocument('wheel', handleWheel, {
+  const unbindDocWheel = bindEventToDocument('wheel', _throttle(handleWheel, 64), {
     capture: true,
     passive: false // 否则 Chrome 会 console.error 出一堆恶心的提示「[Intervention] Unable to preventDefault inside passive event listener due to target being treated as passive.」
   });
