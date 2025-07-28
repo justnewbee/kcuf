@@ -9,7 +9,7 @@ export default {
     selector: 'function',
     format: ['strictCamelCase', 'StrictPascalCase'],
     leadingUnderscore: 'allow',
-    filter: { // 允许方法名中有 ZIndex，比如 getZIndex 等
+    filter: {
       regex: 'ZIndex',
       match: false
     }
@@ -17,7 +17,7 @@ export default {
     selector: 'variable',
     format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
     filter: {
-      regex: '[A-Z\\d\\$]__[\\$A-Z\\d]',
+      regex: '[A-Z\\d\\$]__[\\$A-Z\\d]|ZIndex',
       match: false
     }
   }, {
