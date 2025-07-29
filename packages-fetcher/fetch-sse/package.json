@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetch-sse",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Fetch SSE.",
   "keywords": [
     "sse"

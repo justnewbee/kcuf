@@ -29,6 +29,7 @@ export default function fetchSse(url: string, options: IFetchSseOptions = {}): I
   let reader: ReadableStreamDefaultReader<Uint8Array> | undefined;
   
   const {
+    credentials = 'include',
     headers,
     onOpen,
     onChunk,
@@ -38,8 +39,9 @@ export default function fetchSse(url: string, options: IFetchSseOptions = {}): I
   } = options;
   
   const promise = fetch(url, {
+    credentials,
     headers: {
-      ...headers,
+      ...headers, // eslint-disable-line @typescript-eslint/no-misused-spread
       Accept: 'text/event-stream'
     },
     ...restOptions,
@@ -49,7 +51,7 @@ export default function fetchSse(url: string, options: IFetchSseOptions = {}): I
       throw createFetchSseErrorResponseStatus(response);
     }
     
-    const contentType = response.headers.get('Content-Type') || '';
+    const contentType = response.headers.get('Content-Type') ?? '';
     
     if (!isContentTypeEventStream(contentType)) {
       throw createFetchSseErrorResponseContentType(contentType);
@@ -72,8 +74,8 @@ export default function fetchSse(url: string, options: IFetchSseOptions = {}): I
             onChunk?.(result.value);
             readNextChunk();
           }
-        }).catch((err: Error) => {
-          reject(err);
+        }).catch((err: unknown) => {
+          reject(err as Error);
         });
       }
       
@@ -81,7 +83,7 @@ export default function fetchSse(url: string, options: IFetchSseOptions = {}): I
     });
   }).then(() => {
     onComplete?.();
-  }, err => {
+  }, (err: unknown) => {
     onComplete?.(err as Error);
     
     throw err;

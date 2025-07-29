@@ -24,7 +24,7 @@ export default function interceptRequestFinal(config: IFetcherConfig): Partial<I
     return configMix;
   }
   
-  configMix.credentials = config.credentials || (isCors(config) ? 'include' : 'same-origin'); // MUST
+  configMix.credentials = config.credentials ?? (isCors(config) ? 'include' : 'same-origin'); // MUST
   
   return configMix;
 }

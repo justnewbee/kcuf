@@ -49,18 +49,21 @@ export default function FooterButton({
       return;
     }
     
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     let finalResult = result;
     
     if (typeof result === 'function') {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call
       finalResult = result(dialog.data);
       
-      if ((finalResult as Promise<unknown>).then) { // 弱判
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if ((finalResult as Promise<unknown>)?.then) { // 弱判
         dispatchLock(true);
         
         (finalResult as Promise<unknown>).then(resultResult => {
           dispatchUnlock();
           dispatchCloseWithValue(resultResult);
-        }, err => {
+        }, (err: unknown) => {
           dispatchUnlock();
           dispatchCloseWithValue(err, true);
         });
