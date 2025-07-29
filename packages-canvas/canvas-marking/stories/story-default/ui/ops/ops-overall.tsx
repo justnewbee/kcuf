@@ -21,7 +21,7 @@ export default function OpsOverall(): ReactElement {
   const markingInstance = useMarkingInstance();
   const markingStats = useMarkingStats();
   const fullscreen = useFullscreen();
-  const handleToggleFullscreen = useHandleToggleFullscreen() as () => Promise<void>;
+  const handleToggleFullscreen = useHandleToggleFullscreen();
   const handleDestroy = useHandleDestroy();
   const handleDebugStats = useHandleDebugStats();
   
