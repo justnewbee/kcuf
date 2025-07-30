@@ -15,6 +15,7 @@ export default function buildOptionsForXhr(config: IFetcherConfig): XhrOptions {
     method: config.method,
     timeout: config.timeout,
     signal: config.signal,
+    withCredentials: config.credentials !== 'omit',
     headers,
     body,
     onProgress: config.onProgress
