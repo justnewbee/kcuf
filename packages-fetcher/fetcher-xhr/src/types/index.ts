@@ -2,13 +2,14 @@ export interface IXhrOptions {
   method?: string;
   timeout?: number;
   signal?: AbortSignal | null;
+  withCredentials?: boolean; // default true
   headers?: HeadersInit | Record<string, string | number | boolean>;
   body?: XMLHttpRequestBodyInit | null;
   onProgress?(progress: number): void; // progress 范围 [0, 1]
 }
 
 /**
- * 模仿 Response 对象，fetch 的 Response 对象还包含以下额外属性
+ * 模仿 `Response` 对象，注意 `fetch` 的 `Response` 对象还包含以下额外属性（这里不加）
  *
  * - body: ReadableStream;
  * - bodyUsed: boolean;

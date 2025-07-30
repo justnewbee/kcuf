@@ -13,6 +13,7 @@ export default function fetcherXhr<T = unknown>(url: string, options: IXhrOption
     method = 'GET',
     timeout = 0,
     signal,
+    withCredentials = true,
     headers,
     body,
     onProgress = null
@@ -21,6 +22,7 @@ export default function fetcherXhr<T = unknown>(url: string, options: IXhrOption
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     
+    xhr.withCredentials = withCredentials;
     xhr.open(method, url, true);
     
     if (timeout > 0) {
