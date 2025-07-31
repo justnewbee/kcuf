@@ -49,8 +49,6 @@
     "styled-components": "^6.x"
   },
   "dependencies": {
-    "@kcuf-hook/use-controllable": "workspace:^",
-    "@kcuf-ui/rc-icon": "workspace:^",
     "@kcuf-ui/rc-input-switch-headless": "workspace:^",
     "@kcuf/fork-console-base-theme": "workspace:^",
     "@kcuf/styled-mixin": "workspace:^"

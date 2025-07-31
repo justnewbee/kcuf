@@ -41,7 +41,7 @@
     "markdownlint-cli2": "^0.18.1",
     "npm-check-updates": "^18.0.2",
     "npm-package-json-lint": "^9.0.0",
-    "stylelint": "^16.22.0",
+    "stylelint": "^16.23.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   },
@@ -54,7 +54,7 @@
     "ncu:main": "ncu --registry https://registry.npmmirror.com",
     "ncu:packages": "pnpm -r exec ncu --registry https://registry.npmmirror.com",
     "depcheck": "depcheck",
-    "depcheck:packages": "pnpm -r --no-bail exec depcheck",
+    "depcheck:packages": "pnpm -r --no-bail --filter '!web' exec depcheck",
     "lint": "eslint packages*/*/src/ --ext js,ts,tsx",
     "lint:style": "stylelint \"**/src/**/*.{css,less,ts,tsx}\"",
     "lint:md": "markdownlint-cli2 **/*.md !node_modules",

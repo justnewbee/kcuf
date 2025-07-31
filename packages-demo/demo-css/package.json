@@ -32,7 +32,6 @@
     "@storybook/addon-docs": "^9.0.18",
     "@storybook/addon-links": "^9.0.18",
     "@storybook/react-vite": "^9.0.18",
-    "@types/lodash": "^4.17.20",
     "@types/react": "^18.3.23",
     "babel-plugin-styled-components": "^2.1.4",
     "less": "^4.4.0",

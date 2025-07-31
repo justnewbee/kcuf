@@ -35,7 +35,6 @@
     "@storybook/addon-links": "^9.0.18",
     "@storybook/react-vite": "^9.0.18",
     "@types/react": "^18.3.23",
-    "polished": "^4.3.1",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
     "storybook": "^9.0.18",
@@ -44,9 +43,6 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"
-  },
-  "dependencies": {
-    "@kcuf/ts-missing-helpers": "workspace:^"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

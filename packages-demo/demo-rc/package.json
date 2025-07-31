@@ -72,7 +72,7 @@
     "@kcuf-ui/rc-form-headless": "workspace:^",
     "@kcuf-ui/rc-icon-base": "workspace:^",
     "@kcuf-ui/rc-input-switch-headless": "workspace:^",
-    "@uiw/codemirror-theme-material": "^4.24.1",
+    "@uiw/codemirror-theme-material": "^4.24.2",
     "codemirror-json5": "^1.0.3",
     "json5": "^2.2.3",
     "lodash": "^4.17.21"
