@@ -17,5 +17,5 @@ export default function pathPointSiblingsByIndex(path: TPath, index: number): []
     return [index === 1 ? first : last];
   }
   
-  return [path[index - 1] || last, path[index + 1] || first];
+  return [path[index - 1] ?? last, path[index + 1] ?? first];
 }

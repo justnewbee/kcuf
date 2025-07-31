@@ -17,7 +17,7 @@ export default function justifyPerpendicular123(
     thresholdDegrees: number
 ): IJustifyPerpendicularResult | null {
   const justified1 = justifyPerpendicular1(point, siblingSegment1, thresholdRadius, thresholdDegrees);
-  const movingPoint = justified1?.point || point;
+  const movingPoint = justified1?.point ?? point;
   const justified2 = justifyPerpendicular2(movingPoint, siblingSegment1[0], siblingSegment2[0], thresholdRadius, thresholdDegrees);
   const justified3 = justifyPerpendicular3(movingPoint, siblingSegment1[0], siblingSegment2, thresholdRadius, thresholdDegrees);
   

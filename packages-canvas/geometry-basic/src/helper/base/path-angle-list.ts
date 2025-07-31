@@ -17,7 +17,7 @@ export default function pathAngleList(path: TPath): TAngle[] {
   let prev = last;
   
   return path.reduce((result: TAngle[], v, i) => {
-    result.push([prev, v, path[i + 1] || first]);
+    result.push([prev, v, path[i + 1] ?? first]);
     
     prev = v;
     

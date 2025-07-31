@@ -12,8 +12,7 @@ import {
 describe('isEqualPoints(p1: Point, p2: Point): boolean', () => {
   const P1: Point = [1, 2];
   const P2: Point = [4, 7];
-   
-  const P3: Point = [36 / 8.999999999999999, 0.28 / 4 * 100]; // 4.000000000000001, 7.000000000000001
+  const P3: Point = [36 / 8.99999999999, 0.28 / 4 * 100]; // [4.0000000000044444, 7.000000000000001]
   
   test(() => {
     expect(isEqualPoints(P1, P1)).toBe(true);
