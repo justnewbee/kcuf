@@ -24,8 +24,11 @@ export { default as parallelLineThroughPointToLine } from './parallel-line-throu
 export { default as parallelLineThroughPointToSegment } from './parallel-line-through-point-to-segment';
 
 export { default as isPointInSegmentProjection } from './is-point-in-segment-projection';
+export { default as isPointInSegment } from './is-point-in-segment';
 export { default as isPointOnSegment } from './is-point-on-segment';
 export { default as isPointOnPath } from './is-point-on-path';
 export { default as isPointWithinPath } from './is-point-within-path';
 
 export { default as isSegmentCollinearWithLine } from './is-segment-collinear-with-line';
+
+export { default as isOverlappingSegments } from './is-overlapping-segments';

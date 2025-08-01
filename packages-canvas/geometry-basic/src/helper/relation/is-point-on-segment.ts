@@ -10,7 +10,7 @@ import {
 import isPointInSegmentProjection from './is-point-in-segment-projection';
 
 /**
- * 判断点是否在线段上，条件：
+ * 判断点是否在线段上（包括两个端点），条件：
  *
  * 1. 点在线段投影内
  * 2. 点与线段两个端点连线的斜率相同

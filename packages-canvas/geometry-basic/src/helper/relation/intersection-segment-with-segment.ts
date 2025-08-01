@@ -10,7 +10,7 @@ import intersectionLineWithLine from './intersection-line-with-line';
 import isPointInSegmentProjection from './is-point-in-segment-projection';
 
 /**
- * 线段交点
+ * 线段与线段相交点，重叠的时候无交点
  */
 export default function intersectionSegmentWithSegment(segment1: TSegment, segment2: TSegment): TPoint | null {
   const p = intersectionLineWithLine(segmentLine(segment1), segmentLine(segment2)); // 这是直线相交点，并不表示线段相交

@@ -40,7 +40,7 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
       });
       
       test('along path', () => {
-        expect(segmentInnerSliceByPath([[0, 1], [3, 3]], TEST_PATH_5_CONVEX.path)).toEqual([[[-0, 1], [3.0000000000000004, 3.0000000000000004]]]);
+        expect(segmentInnerSliceByPath([[0, 1], [3, 3]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, 1], [3, 3]]]);
         expect(segmentInnerSliceTotalLengthByPath([[0, 1], [3, 3]], TEST_PATH_5_CONVEX.path)).toBeCloseTo(Math.hypot(3, 2));
       });
     });
@@ -64,7 +64,7 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
     
     describe('one point along path', () => {
       test('the other inside', () => {
-        expect(segmentInnerSliceByPath([[0, 1], [2, 2]], TEST_PATH_5_CONVEX.path)).toEqual([[[-0, 1], [2, 2]]]);
+        expect(segmentInnerSliceByPath([[0, 1], [2, 2]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, 1], [2, 2]]]);
         expect(segmentInnerSliceTotalLengthByPath([[0, 1], [2, 2]], TEST_PATH_5_CONVEX.path)).toEqual(Math.hypot(2, 1));
       });
       
@@ -79,7 +79,7 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
       });
       
       test('the other inside', () => {
-        expect(segmentInnerSliceByPath([[0, 1], [3, 2]], TEST_PATH_5_CONVEX.path)).toEqual([[[-0, 1], [3, 2]]]);
+        expect(segmentInnerSliceByPath([[0, 1], [3, 2]], TEST_PATH_5_CONVEX.path)).toEqual([[[0, 1], [3, 2]]]);
         expect(segmentInnerSliceTotalLengthByPath([[0, 1], [3, 2]], TEST_PATH_5_CONVEX.path)).toEqual(Math.hypot(3, 1));
       });
     });
@@ -99,7 +99,7 @@ describe('segmentInnerSliceByPath(segment1: Segment, path: Path): Point[]', () =
       
       test('outside crossing', () => {
         expect(segmentInnerSliceByPath([[-1, -1], [5, 5]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, 0], [4, 4]]]);
-        expect(segmentInnerSliceByPath([[-1, 0], [4, 5]], TEST_PATH_6_CONCAVE.path)).toEqual([[[-0, 1], [1, 2]], [[2, 3], [3, 4]]]);
+        expect(segmentInnerSliceByPath([[-1, 0], [4, 5]], TEST_PATH_6_CONCAVE.path)).toEqual([[[0, 1], [1, 2]], [[2, 3], [3, 4]]]);
         expect(segmentInnerSliceByPath([[1, 4], [5, 0]], TEST_PATH_6_CONCAVE.path)).toEqual([[[2, 3], [4, 1]]]);
       });
       

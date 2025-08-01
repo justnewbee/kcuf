@@ -88,22 +88,22 @@ describe('pathSliceByLine(path: Path, line: Line): Point[]', () => {
   
   test('y = 1', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_0X_N1Y_1)).toEqual([
-      [[0, 0], [4, 0], [4, 1], [-0, 1]],
-      [[4, 1], [4, 4], [0, 4], [-0, 1]]
+      [[0, 0], [4, 0], [4, 1], [0, 1]],
+      [[4, 1], [4, 4], [0, 4], [0, 1]]
     ]);
   });
   
   test('y = 2', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_0X_N1Y_2)).toEqual([
-      [[0, 0], [4, 0], [4, 2], [-0, 2]],
-      [[4, 2], [4, 4], [0, 4], [-0, 2]]
+      [[0, 0], [4, 0], [4, 2], [0, 2]],
+      [[4, 2], [4, 4], [0, 4], [0, 2]]
     ]);
   });
   
   test('y = 3', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_0X_N1Y_3)).toEqual([
-      [[0, 0], [4, 0], [4, 3], [-0, 3]],
-      [[4, 3], [4, 4], [0, 4], [-0, 3]]
+      [[0, 0], [4, 0], [4, 3], [0, 3]],
+      [[4, 3], [4, 4], [0, 4], [0, 3]]
     ]);
   });
   
@@ -131,22 +131,22 @@ describe('pathSliceByLine(path: Path, line: Line): Point[]', () => {
   
   test('y = x + 1', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_1X_N1Y_1)).toEqual([
-      [[3, 4], [0, 4], [-0, 1]],
-      [[0, 0], [4, 0], [4, 4], [3, 4], [-0, 1]]
+      [[3, 4], [0, 4], [0, 1]],
+      [[0, 0], [4, 0], [4, 4], [3, 4], [0, 1]]
     ]);
   });
   
   test('y = x + 2', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_1X_N1Y_2)).toEqual([
-      [[2, 4], [0, 4], [-0, 2]],
-      [[0, 0], [4, 0], [4, 4], [2, 4], [-0, 2]]
+      [[2, 4], [0, 4], [0, 2]],
+      [[0, 0], [4, 0], [4, 4], [2, 4], [0, 2]]
     ]);
   });
   
   test('y = x + 3', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_1X_N1Y_3)).toEqual([
-      [[1, 4], [0, 4], [-0, 3]],
-      [[0, 0], [4, 0], [4, 4], [1, 4], [-0, 3]]
+      [[1, 4], [0, 4], [0, 3]],
+      [[0, 0], [4, 0], [4, 4], [1, 4], [0, 3]]
     ]);
   });
   
@@ -168,29 +168,29 @@ describe('pathSliceByLine(path: Path, line: Line): Point[]', () => {
   
   test('y = -x + 1', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_N1X_N1Y_1)).toEqual([
-      [[0, 0], [1, 0], [-0, 1]],
-      [[1, 0], [4, 0], [4, 4], [0, 4], [-0, 1]]
+      [[0, 0], [1, 0], [0, 1]],
+      [[1, 0], [4, 0], [4, 4], [0, 4], [0, 1]]
     ]);
   });
   
   test('y = -x + 2', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_N1X_N1Y_2)).toEqual([
-      [[0, 0], [2, 0], [-0, 2]],
-      [[2, 0], [4, 0], [4, 4], [0, 4], [-0, 2]]
+      [[0, 0], [2, 0], [0, 2]],
+      [[2, 0], [4, 0], [4, 4], [0, 4], [0, 2]]
     ]);
   });
   
   test('y = -x + 3', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_N1X_N1Y_3)).toEqual([
-      [[0, 0], [3, 0], [-0, 3]],
-      [[3, 0], [4, 0], [4, 4], [0, 4], [-0, 3]]
+      [[0, 0], [3, 0], [0, 3]],
+      [[3, 0], [4, 0], [4, 4], [0, 4], [0, 3]]
     ]);
   });
   
   test('y = -x + 4', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, LINE_N1X_N1Y_4)).toEqual([
-      [[0, 0], [4, 0], [-0, 4]],
-      [[4, 0], [4, 4], [-0, 4]]
+      [[0, 0], [4, 0], [0, 4]],
+      [[4, 0], [4, 4], [0, 4]]
     ]);
   });
   
@@ -224,8 +224,8 @@ describe('pathSliceByLine(path: Path, line: Line): Point[]', () => {
   
   test('y = -2x + 4 仅经过 #3 个点', () => {
     expect(slicePathWithLine(TEST_PATH_4_SQUARE.path, [-2, -1, 4])).toEqual([
-      [[0, 0], [2, 0], [-0, 4]],
-      [[2, 0], [4, 0], [4, 4], [-0, 4]]
+      [[0, 0], [2, 0], [0, 4]],
+      [[2, 0], [4, 0], [4, 4], [0, 4]]
     ]);
   });
   

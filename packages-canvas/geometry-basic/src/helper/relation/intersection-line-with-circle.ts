@@ -8,7 +8,7 @@ import {
 } from '../../util';
 
 /**
- * 直线圆的交点
+ * 直线与圆的交点
  */
 export default function intersectionLineWithCircle(line: TLine, circle: TCircle): TPoint[] {
   const [A, B, C] = line;

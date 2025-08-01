@@ -1,0 +1,19 @@
+import {
+  TSegment,
+  TLineNormalized
+} from '../../types';
+import {
+  normalizeLine
+} from '../../util';
+
+import segmentLine from './segment-line';
+
+/**
+ * 线段转标准直线
+ *
+ * 理论上 `x - y + 0 = 0` 与 `4x - 4y + 0 = 0` 等价，为了方便后续计算，我们统一 B 为 -1（方便直接转成 `y = x * 斜率 + 截距` 的情况）
+ * 又考虑到 B 可能是 0，即 Y 轴或其平行线的情况，B 在我们这里只能为 0 或 -1，当 B 为 0 时，限定 A 为 1
+ */
+export default function segmentLineNormalized(segment: TSegment): TLineNormalized {
+  return normalizeLine(segmentLine(segment));
+}

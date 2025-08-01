@@ -1,6 +1,7 @@
 export { default as pointDistance } from './point-distance';
 
 export { default as segmentLine } from './segment-line';
+export { default as segmentLineNormalized } from './segment-line-normalized';
 export { default as segmentLength } from './segment-length';
 export { default as segmentMidpoint } from './segment-midpoint';
 export { default as segmentVector } from './segment-vector';

@@ -3,7 +3,6 @@ import {
   Segment,
   Path,
   Bbox,
-  LineNormalized,
   PathEdgeCenterPoints
 } from '../../src';
 
@@ -17,9 +16,4 @@ export interface ITestPath {
   centroid: Point | null; // pathCentroid
   bbox: Bbox; // pathBbox
   ecp: PathEdgeCenterPoints | null;
-  intersectionWithLine?: {
-    title: string;
-    input: LineNormalized;
-    output: Point[];
-  }[];
 }

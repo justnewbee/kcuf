@@ -35,16 +35,16 @@ describe('intersectionSegmentWithPath(segment: Segment, path: Path, options?): P
   });
   
   test('intersection >2', () => {
-    expect(intersectionSegmentWithPath([[-1, 0], [2, 3]], path)).toEqual([[-0, 1], [1, 2], [2, 3]]);
-    expect(intersectionSegmentWithPath([[2, 3], [-1, 0]], path)).toEqual([[2, 3], [1, 2], [-0, 1]]);
-    expect(intersectionSegmentWithPath([[-1, 0], [4, 5]], path)).toEqual([[-0, 1], [1, 2], [2, 3], [3, 4]]);
-    expect(intersectionSegmentWithPath([[4, 5], [-1, 0]], path)).toEqual([[3, 4], [2, 3], [1, 2], [-0, 1]]);
+    expect(intersectionSegmentWithPath([[-1, 0], [2, 3]], path)).toEqual([[0, 1], [1, 2], [2, 3]]);
+    expect(intersectionSegmentWithPath([[2, 3], [-1, 0]], path)).toEqual([[2, 3], [1, 2], [0, 1]]);
+    expect(intersectionSegmentWithPath([[-1, 0], [4, 5]], path)).toEqual([[0, 1], [1, 2], [2, 3], [3, 4]]);
+    expect(intersectionSegmentWithPath([[4, 5], [-1, 0]], path)).toEqual([[3, 4], [2, 3], [1, 2], [0, 1]]);
   });
   
   test('extended', () => {
-    expect(intersectionSegmentWithPath([[-1, 0], [2, 3]], path, true)).toEqual([[-0, 1], [1, 2], [2, 3], [3, 4]]);
-    expect(intersectionSegmentWithPath([[2, 3], [-1, 0]], path, true)).toEqual([[3, 4], [2, 3], [1, 2], [-0, 1]]);
-    expect(intersectionSegmentWithPath([[-1, 0], [4, 5]], path, true)).toEqual([[-0, 1], [1, 2], [2, 3], [3, 4]]);
-    expect(intersectionSegmentWithPath([[4, 5], [-1, 0]], path, true)).toEqual([[3, 4], [2, 3], [1, 2], [-0, 1]]);
+    expect(intersectionSegmentWithPath([[-1, 0], [2, 3]], path, true)).toEqual([[0, 1], [1, 2], [2, 3], [3, 4]]);
+    expect(intersectionSegmentWithPath([[2, 3], [-1, 0]], path, true)).toEqual([[3, 4], [2, 3], [1, 2], [0, 1]]);
+    expect(intersectionSegmentWithPath([[-1, 0], [4, 5]], path, true)).toEqual([[0, 1], [1, 2], [2, 3], [3, 4]]);
+    expect(intersectionSegmentWithPath([[4, 5], [-1, 0]], path, true)).toEqual([[3, 4], [2, 3], [1, 2], [0, 1]]);
   });
 });

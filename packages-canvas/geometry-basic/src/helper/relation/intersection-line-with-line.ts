@@ -4,7 +4,7 @@ import {
 } from '../../types';
 
 /**
- * 直线交点
+ * 直线与直线相交点，若不相交，则两则平行或重叠
  */
 export default function intersectionLineWithLine(line1: TLine, line2: TLine): TPoint | null {
   const [A1, B1, C1] = line1;
