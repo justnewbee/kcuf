@@ -5,15 +5,20 @@ import {
   segmentLine
 } from '../base';
 import {
+  isEqualSegments,
   isEqualLines
 } from '../comparison';
 
 import isPointInSegment from './is-point-in-segment';
 
 /**
- * 检查两线段是否重叠
+ * 检查两线段是否有重叠
  */
 export default function isOverlappingSegments(segment1: TSegment, segment2: TSegment): boolean {
+  if (isEqualSegments(segment1, segment2)) {
+    return true;
+  }
+  
   const line1 = segmentLine(segment1);
   const line2 = segmentLine(segment2);
   
