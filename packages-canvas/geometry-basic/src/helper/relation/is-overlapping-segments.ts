@@ -26,7 +26,8 @@ export default function isOverlappingSegments(segment1: TSegment, segment2: TSeg
     return false;
   }
   
-  const [p1, p2] = segment1;
+  const [p1Start, p1End] = segment1;
+  const [p2Start, p2End] = segment2;
   
-  return isPointInSegment(p1, segment2) || isPointInSegment(p2, segment2);
+  return (isPointInSegment(p1Start, segment2) || isPointInSegment(p1End, segment2)) || (isPointInSegment(p2Start, segment1) || isPointInSegment(p2End, segment1));
 }
