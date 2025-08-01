@@ -30,7 +30,7 @@
     "@kcuf/ts-config": "workspace:^",
     "@types/lodash": "^4.17.20",
     "rimraf": "^6.0.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"

@@ -29,7 +29,7 @@
     "@babel/preset-typescript": "^7.27.1",
     "@kcuf/ts-config": "workspace:^",
     "rimraf": "^6.0.1",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"
