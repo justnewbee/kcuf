@@ -52,7 +52,7 @@
     "react-docgen-typescript": "^2.4.0",
     "sass": "^1.89.2",
     "ts-node-dev": "^2.0.0",
-    "typedoc": "^0.28.8",
+    "typedoc": "^0.28.9",
     "typedoc-plugin-markdown": "^4.8.0",
     "typescript": "^5.9.2"
   },
