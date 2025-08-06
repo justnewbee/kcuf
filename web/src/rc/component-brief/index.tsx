@@ -22,7 +22,6 @@ const ScKeyValue = styled.div`
   margin: 0.5rem 0 1.5rem;
   font-size: 0.9em;
 `;
-
 const ScKeyValueK = styled.span`
   display: inline-block;
   min-width: 6.25rem;

@@ -21,10 +21,15 @@ export default {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
   
+  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
+  future: {
+    v4: true // Improve compatibility with the upcoming Docusaurus v4
+  },
+  
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'justnewbee', // Usually your GitHub org / username.
-  projectName: 'kcuf', // Usually your repo name.
+  organizationName: 'justnewbee', // Usually your GitHub org/username
+  projectName: 'kcuf', // Usually your repo name
   
   plugins: [
     'docusaurus-plugin-sass',
@@ -43,6 +48,9 @@ export default {
     mermaid: true
   },
   
+  // Even if you don't use internationalization, you can use this field to set
+  // useful metadata like html lang. For example, if your site is Chinese, you
+  // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh',
     locales: ['en', 'zh']
@@ -52,6 +60,8 @@ export default {
     ['classic', {
       docs: {
         sidebarPath: './sidebars.ts',
+        // sidebarCollapsible: false,
+        sidebarCollapsed: false,
         // Please change this to your repo.
         // Remove this to remove the "edit this page" links.
         // editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
@@ -88,8 +98,7 @@ export default {
   ],
   
   themeConfig: {
-    // Replace with your project's social card
-    // image: 'img/docusaurus-social-card.jpg',
+    // image: 'img/social-card.jpg', // Project's social card
     navbar: {
       title: 'kcuf-ui',
       logo: {
@@ -97,24 +106,24 @@ export default {
         src: 'img/logo.png'
       },
       items: [{
-        type: 'docSidebar',
-        sidebarId: 'guide',
+        label: 'Guide',
         position: 'left',
-        label: 'Guide'
-      }, {
         type: 'docSidebar',
-        sidebarId: 'component',
-        position: 'left',
-        label: 'Component'
+        sidebarId: 'guide'
       }, {
+        label: 'Component',
+        position: 'left',
         type: 'docSidebar',
-        sidebarId: 'tutor',
-        position: 'left',
-        label: 'Tutorial'
+        sidebarId: 'component'
       }, {
-        to: '/blog',
         label: 'Blog',
-        position: 'left'
+        position: 'left',
+        to: '/blog'
+      }, {
+        label: 'Tutorial',
+        position: 'right',
+        type: 'docSidebar',
+        sidebarId: 'tutor'
       }, {
         href: 'https://github.com/justnewbee/kcuf',
         position: 'right',
@@ -128,7 +137,7 @@ export default {
       //   title: 'Docs',
       //   items: [{
       //     label: 'Tutorial',
-      //     to: '/docs/tutor/intro'
+      //     to: '/docs/tutor'
       //   }]
       // }, {
       //   title: 'Community',
@@ -157,6 +166,7 @@ export default {
     
     prism: {
       theme: prismThemes.nightOwl,
+      darkTheme: prismThemes.dracula,
       additionalLanguages: ['bash']
     },
     
@@ -169,9 +179,8 @@ export default {
         light: 'neutral',
         dark: 'dark'
       },
-      options: {
-        // themeVariables // https://mermaid.js.org/config/theming.html#available-themes
-      }
+      // https://mermaid.js.org/config/theming.html#available-themes
+      options: {}
     },
     
     zoom: {
@@ -180,9 +189,8 @@ export default {
         light: 'hsl(0 0% 100% / 75%)',
         dark: 'hsl(0 0% 20% / 75%)'
       },
-      config: {
-        // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
-      }
+      // options you can specify via https://github.com/francoischalifour/medium-zoom#usage
+      config: {}
     },
     
     onBrokenLinks: 'throw',

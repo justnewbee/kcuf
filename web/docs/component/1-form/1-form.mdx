@@ -1,0 +1,122 @@
+---
+title: Form 表单
+---
+
+<ComponentBrief name="Form">
+  表单组件。
+</ComponentBrief>
+
+## Live Demo
+
+```tsx live
+<Form {...{
+  items: [{
+    label: 'Hello',
+    content: <InputText />
+  }]
+}} />
+```
+
+## 何时使用
+
+[//]: # (参考 https://ant.design https://fusion.design)
+
+## Anatomy / 组件构成
+
+[//]: # (参考 https://zagjs.com)
+
+## Examples / 代码演示
+
+[//]: # (参考 https://www.chakra-ui.com)
+
+### Example1
+
+### Example2
+
+## API Reference
+
+[//]: # (https://www.radix-ui.com https://www.heroui.com info icon for description and enum 等)
+
+### import
+
+```tsx
+import {
+  Form,
+  FormRef,
+  FormProps,
+  FormType
+} from 'kcuf-ui';
+
+// 也可单包引入
+import Form, {
+  FormRef,
+  FormProps,
+  FormType
+} from '@kcuf-ui/rc-form';
+```
+
+### Props
+
+继承
+
+| 属性 | 类型 | 说明 |
+| --- | --- | --- |
+| `target` <TagRequired/> | `HTMLAttributeAnchorTarget` | |
+| `disabled` <TagDefault>false</TagDefault> | `boolean` | 是否为禁用状态 |
+
+### Events
+
+继承
+
+| 事件 | 类型 | 说明 |
+| --- | --- | --- |
+| `onForm` | `HTMLAttributeAnchorTarget` | - |
+
+### Hooks
+
+| Hook | 说明 |
+| --- | --- |
+| `useForm` | ... |
+
+### Data Attributes
+
+[//]: # (参考 https://www.melt-ui.com https://zagjs.com)
+
+| 属性 | 说明 |
+| --- | --- |
+| `[data-form]` <TagReadonly /> | ... |
+
+## Accessibility
+
+[//]: # (参考 https://docs.pearl-ui.dev https://zagjs.com https://dotui.org https://fusion.design https://www.melt-ui.com https://primereact.org https://www.heroui.com https://reka-ui.com)
+
+遵循  [Dialog WAI-ARIA design pattern](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal)。
+
+### ARIA
+
+### 键盘
+
+### 鼠标
+
+## FAQ
+
+[//]: # (参考 https://ant.design)
+
+## 参考
+
+| Lib | 推荐 | 名称 | 归类 | 备注 |
+| --- | --- | --- | --- | --- |
+| [antd](https://ant.design/components/form) | ★★★☆ | `Data Entry` | - | |
+| [atlassian](https://atlassian.design/components/form/examples) | ★★☆ | `Form` | - | |
+| [element+](https://element-plus.org/en-US/component/form.html) | ★★★ | `Form` | - | |
+| [franken](https://franken-ui.dev/docs/form) | ★ | `Form` | - | |
+| [fusion](https://fusion.design/pc/component/form) | ★★★ | `Form` | `DataEntry` | |
+| [hero](https://www.heroui.com/docs/components/form) | ★☆ | `Form` | - | |
+| [hyper](https://www.hyperui.dev/components/marketing/forms) | ★☆ | `Form` | - | |
+| [justd](https://getjustd.com/docs/2.x/components/forms/form) | ★☆ | `Form` | - | |
+| [mantine](https://mantine.dev/form/use-form) | ★★ | `Form` | - | 没有主组件，但有一堆子组件和 Hooks |
+| [pluralsight](https://design-system.pluralsight.com/components/form) | ★★ | `Form` | `Inputs` | |
+| [reakit](https://reakit.io/docs/form) | ★★★ | `Form` | - | |
+| [semantic](https://semantic-ui.com/collections/form.html) | ★★☆ | `Form` | `Collections` | |
+| [shadcn](https://ui.shadcn.com/docs/components/form) | ★★☆ | `Form` | - | |
+| [theme](https://theme-ui.com/components/forms) | ☆ | `Form` | - | |

@@ -1,45 +1,43 @@
 ---
-sidebar_position: 2
+title: Translate Your Site
 ---
 
-# Translate your site
+Let's translate `docs/tutor/index.md` to French.
 
-Let's translate `docs/intro.md` to French.
+## Configure I18N
 
-## Configure i18n
+Modify `docusaurus.config.ts` to add support for the `fr` locale:
 
-Modify `docusaurus.config.js` to add support for the `fr` locale:
-
-```js title="docusaurus.config.js"
+```ts title="docusaurus.config.ts"
 export default {
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'fr'],
-  },
+    locales: ['en', 'fr']
+  }
 };
 ```
 
-## Translate a doc
+## Translate a Doc
 
-Copy the `docs/intro.md` file to the `i18n/fr` folder:
+Copy the `docs/tutor/index.md` file to the `i18n/fr` folder:
 
 ```bash
 mkdir -p i18n/fr/docusaurus-plugin-content-docs/current/
 
-cp docs/intro.md i18n/fr/docusaurus-plugin-content-docs/current/intro.md
+cp docs/tutor/index.md i18n/fr/docusaurus-plugin-content-docs/current/intro.md
 ```
 
 Translate `i18n/fr/docusaurus-plugin-content-docs/current/intro.md` in French.
 
-## Start your localized site
+## Start Your Localized Site
 
 Start your site on the French locale:
 
 ```bash
-npm run start -- --locale fr
+pnpm start -- --locale fr
 ```
 
-Your localized site is accessible at [http://localhost:3000/fr/](http://localhost:3000/fr/) and the `Getting Started` page is translated.
+Your localized site is accessible at `http://127.0.0.1:3000/fr/` and the `Getting Started` page is translated.
 
 :::caution
 
@@ -51,38 +49,38 @@ In development, you can only use one locale at a time.
 
 To navigate seamlessly across languages, add a locale dropdown.
 
-Modify the `docusaurus.config.js` file:
+Modify the `docusaurus.config.ts` file:
 
-```js title="docusaurus.config.js"
+```ts title="docusaurus.config.ts"
 export default {
   themeConfig: {
     navbar: {
       items: [
         // highlight-start
         {
-          type: 'localeDropdown',
-        },
+          type: 'localeDropdown'
+        }
         // highlight-end
-      ],
-    },
-  },
+      ]
+    }
+  }
 };
 ```
 
 The locale dropdown now appears in your navbar:
 
-![Locale Dropdown](./img/localeDropdown.png)
+![Locale Dropdown](./img/dropdown-locale.png)
 
-## Build your localized site
+## Build Your Localized Site
 
 Build your site for a specific locale:
 
 ```bash
-npm run build -- --locale fr
+pnpm build -- --locale fr
 ```
 
 Or build your site to include all the locales at once:
 
 ```bash
-npm run build
+pnpm build
 ```
