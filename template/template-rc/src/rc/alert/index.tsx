@@ -25,11 +25,11 @@ const ScAlert = styled.div`
     position: absolute;
     top: 12px;
     left: 12px;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: 16px 16px;
     width: 16px;
     height: 16px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 16px 16px;
   }
   
   &.alert-help {
