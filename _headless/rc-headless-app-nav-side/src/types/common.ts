@@ -1,6 +1,6 @@
 import {
   ButtonProps
-} from '@kcuf-ui/rc-button';
+} from '@kcuf-ui/button';
 
 export type TNavItemMark = 'external' | 'new' | 'beta-public' | 'beta' | 'alpha';
 

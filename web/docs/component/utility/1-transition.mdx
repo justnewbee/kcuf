@@ -24,7 +24,7 @@ It's NOT designed to be a drop-in replacement of `react-transition-group`, howev
 ### Using Render Props
 
 ```tsx
-import Transition from '@kcuf-ui/rc-transition';
+import Transition from '@kcuf-ui/transition';
 
 const transitionStyles = {
   entering: {
@@ -51,7 +51,7 @@ const transitionStyles = {
 ```tsx
 import styled from 'styled-components';
 
-import Transition from '@kcuf-ui/rc-transition';
+import Transition from '@kcuf-ui/transition';
 
 const ScChild = styled.div`
   &[data-transition='entering'] {
@@ -87,7 +87,7 @@ import styled from 'styled-components';
 
 import Transition, {
   useTransitionStatus
-} from '@kcuf-ui/rc-transition';
+} from '@kcuf-ui/transition';
 
 function Child(): ReactElement {
   const transitionStatus = useTransitionStatus(); // however you would like to use it

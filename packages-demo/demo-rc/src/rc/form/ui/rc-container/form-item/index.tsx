@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {
   FormItemProps,
   useProps
-} from '@kcuf-ui/rc-form-headless';
+} from '@kcuf-ui/form-headless';
 
 import {
   HEIGHT_FORM_CONTROL

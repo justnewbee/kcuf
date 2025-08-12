@@ -4,7 +4,7 @@ import {
 
 import {
   useFormDomProps
-} from '@kcuf-ui/rc-form-headless';
+} from '@kcuf-ui/form-headless';
 
 import {
   FormItems

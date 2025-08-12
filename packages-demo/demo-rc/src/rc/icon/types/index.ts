@@ -1,6 +1,6 @@
 import {
   IconPropsGeneric
-} from '@kcuf-ui/rc-icon-base';
+} from '@kcuf-ui/icon-base';
 
 import {
   ICON_TYPE_MAPPING

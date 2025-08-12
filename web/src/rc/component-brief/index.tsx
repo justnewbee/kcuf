@@ -46,7 +46,7 @@ export default function ComponentBrief(props: IComponentBriefProps): ReactElemen
     name
   } = props;
   const gitPath = `packages-ui/rc-${_kebabCase(name)}`;
-  const npmName = `@kcuf-ui/rc-${_kebabCase(name)}`;
+  const npmName = `@kcuf-ui/${_kebabCase(name)}`;
   
   return <>
     <blockquote>{props.children}</blockquote>

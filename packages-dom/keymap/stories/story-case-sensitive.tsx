@@ -11,7 +11,7 @@ import {
 import Keyboard, {
   KeyboardCode,
   KeyboardModifiers
-} from '@kcuf-ui/rc-keyboard-mac';
+} from '@kcuf-ui/keyboard-mac';
 
 import {
   GridContainer,

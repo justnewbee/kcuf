@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import {
   useProps,
   useHandleToggleSwitch
-} from '@kcuf-ui/rc-input-switch-headless';
+} from '@kcuf-ui/input-switch-headless';
 
 import {
   HEIGHT_INPUT_SWITCH,

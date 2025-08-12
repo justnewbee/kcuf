@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-ui/transition",
-  "version": "0.0.3",
+  "version": "0.0.0",
   "description": "A transition manager for react component.",
   "keywords": [
     "react-transition-group"
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-ui/rc-transition",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-ui/transition",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",

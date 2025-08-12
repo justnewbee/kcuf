@@ -4,7 +4,7 @@ import {
 
 import Model, {
   FormProps
-} from '@kcuf-ui/rc-form-headless';
+} from '@kcuf-ui/form-headless';
 
 import Ui from '../ui';
 

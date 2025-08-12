@@ -4,7 +4,7 @@ import {
 
 import InputSwitchHeadless, {
   InputSwitchProps
-} from '@kcuf-ui/rc-input-switch-headless';
+} from '@kcuf-ui/input-switch-headless';
 
 import Ui from '../ui';
 
