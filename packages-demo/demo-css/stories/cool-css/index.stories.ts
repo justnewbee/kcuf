@@ -23,6 +23,7 @@ export { default as LongPress } from './story-long-press';
 export { default as GradientBorder } from './story-gradient-border';
 export { default as SunBeam } from './story-sun-beam';
 export { default as GlowingBorderAni } from './story-glowing-border-ani';
+export { default as Beacon } from './story-beacon';
 
 export { default as TextShadowStripe } from './story-text-shadow-stripe';
 
