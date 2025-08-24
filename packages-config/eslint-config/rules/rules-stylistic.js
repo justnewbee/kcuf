@@ -74,6 +74,9 @@ export default {
   '@stylistic/arrow-parens': ['error', 'as-needed'],
   '@stylistic/multiline-ternary': ['error', 'never'],
   '@stylistic/quote-props': ['error', 'as-needed'],
+  '@stylistic/quotes': ['error', 'single', {
+    allowTemplateLiterals: 'never' // 默认 always
+  }],
   '@stylistic/member-delimiter-style': ['error', {
     multiline: {
       delimiter: 'semi',
