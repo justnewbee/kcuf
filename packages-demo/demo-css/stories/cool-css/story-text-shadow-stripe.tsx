@@ -9,15 +9,15 @@ const ScStoryTextShadowStripe = styled.div`
   font-family: 'Times New Roman', serif;
   font-size: 30vmin;
   text-align: center;
-  text-shadow: 4px 4px 1px #333;
-  line-height: 40vmin;
+  text-shadow: 4px 4px 1px hsl(0 0% 20%);
+  line-height: 32vmin;
   
   &::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: 1;
-    background-image: linear-gradient(-45deg, #fff 0%, #fff 25%, transparent 25%, transparent 50%, #fff 50%, #fff 75%, transparent 75%, transparent 100%);
+    background-image: linear-gradient(-45deg, hsl(0 0% 100%) 0%, hsl(0 0% 100%) 25%, transparent 25%, transparent 50%, hsl(0 0% 100%) 50%, hsl(0 0% 100%) 75%, transparent 75%, transparent 100%);
     background-size: 6px 6px;
   }
   
@@ -27,7 +27,7 @@ const ScStoryTextShadowStripe = styled.div`
     inset: -4px 6px 6px -2px;
     z-index: 2;
     color: #333;
-    text-shadow: 3px 3px #fff;
+    text-shadow: 3px 3px hsl(0 0% 100%);
   }
 `;
 

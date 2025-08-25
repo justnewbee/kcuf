@@ -26,6 +26,7 @@ export { default as GlowingBorderAni } from './story-glowing-border-ani';
 export { default as Beacon } from './story-beacon';
 
 export { default as TextShadowStripe } from './story-text-shadow-stripe';
+export { default as TextShadowStripe2 } from './story-text-shadow-stripe2';
 
 export default {
   title: 'Cool CSS'

@@ -127,23 +127,25 @@ You can add __strong__ or *em* or _**strong and em**_ in your content.
 
 3 backticks - code block:
 
-\`\`\`js
-import React from 'react';
-import ReactDOM from 'react-dom';
+\`\`\`tsx
+import {
+  createRoot
+} from 'react-dom/client';
 
 import Markdown from '@kcuf-ui/markdown-base';
 
-ReactDOM.render(<Markdown source="# Your markdown here" />, document.getElementById('content'));
+createRoot(document.getElementById('content')).render(<Markdown source="# Your markdown here" />);
 \`\`\`
 
 Or indent 4 spaces to make a code block:
 
-    import React from 'react';
-    import ReactDOM from 'react-dom';
+    import {
+      createRoot
+    } from 'react-dom/client';
     
     import Markdown from '@kcuf-ui/markdown-base';
     
-    ReactDOM.render(<Markdown source="# Your markdown here" />, document.getElementById('content'));
+    createRoot(document.getElementById('content')).render(<Markdown source="# Your markdown here" />);
 
 # Image
 

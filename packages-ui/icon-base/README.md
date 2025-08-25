@@ -130,8 +130,6 @@ export default function MengziKongzi(): ReactElement {
 ### 使用 WebFont 组件
 
 ```tsx
-import React from 'react';
-
 import MengziKongzi from 'path/to/mengzi-kongzi'; // 一般在引用内部，没有意义发布成包
 
 // 任何需要此组件的地方

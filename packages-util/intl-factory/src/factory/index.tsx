@@ -1,5 +1,3 @@
-import React from 'react';
-
 import intlFactoryBasic, {
   IntlMessagesMap
 } from '@kcuf/intl-factory-basic';

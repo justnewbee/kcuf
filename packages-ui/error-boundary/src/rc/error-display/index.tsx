@@ -9,7 +9,7 @@ import {
 } from '../../util';
 
 const ScErrorDisplay = styled.div`
-  padding: 24px;
+  padding: 1.6em;
 `;
 
 const ScErrorHeader = styled.h1`
@@ -20,33 +20,34 @@ const ScErrorHeader = styled.h1`
 `;
 
 const ScDetails = styled.details`
-  margin-top: 16px;
+  margin-top: 1.5em;
   
   summary {
+    font-size: 1.1em;
     cursor: pointer;
   }
 `;
 
 const ScStackItem = styled.div`
-  margin: 12px 0 0 16px;
-  font-weight: 200;
-  word-wrap: break-word;
+  margin: 0.5em 0 1em 1.5em;
+  overflow-wrap: break-word;
   white-space: pre-wrap;
   
   h3 {
-    margin: 0 0 2px;
-    font-size: 1.2em;
-    font-weight: 200;
+    margin: 0;
+    font-size: 1em;
+    font-weight: 400;
   }
   
   a {
-    opacity: 0.4;
-    color: currentcolor;
+    opacity: 0.5;
+    color: currentcolor !important;
+    font-weight: 200;
     text-decoration: none;
     transition: all ease-in-out 300ms;
     
     &:hover {
-      opacity: 0.75;
+      opacity: 0.8;
     }
   }
 `;

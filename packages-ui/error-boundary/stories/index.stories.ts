@@ -1,12 +1,9 @@
-import Dialog from '../src';
-
 import {
   TMeta
 } from './types';
 
 export default {
-  title: 'Dialog',
-  component: Dialog,
+  title: 'ErrorBoundary',
   parameters: {
     layout: 'fullscreen'
   },
