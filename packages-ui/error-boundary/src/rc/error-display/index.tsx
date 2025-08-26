@@ -68,7 +68,7 @@ export default function ErrorDisplay(props: IProps): ReactElement {
     <ScErrorHeader>💥 {error.toString()}</ScErrorHeader>
     <ScDetails open>
       <summary>Details</summary>
-      {errorStack.length ? errorStack.map(v => <ScStackItem key={`${v.name}@${v.url}`}>
+      {errorStack.length ? errorStack.map((v, i) => <ScStackItem key={`${v.name}-${i}`}>
         <h3>{v.name || '<Anonymous>'}</h3>
         <a href={v.url} target="_blank" rel="noreferrer">{v.url.replace(/^https?:\/\/[^/]+/, '')}</a>
       </ScStackItem>) : <ScStackItem>Mystic Error...</ScStackItem>}
