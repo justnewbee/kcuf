@@ -62,7 +62,7 @@ export default function ErrorDisplay(props: IProps): ReactElement {
     error,
     errorInfo
   } = props;
-  const errorStack = parseErrorStack(error);
+  const errorStack = parseErrorStack(error.stack || errorInfo?.componentStack || '');
   
   return <ScErrorDisplay>
     <ScErrorHeader>💥 {error.toString()}</ScErrorHeader>
@@ -70,8 +70,8 @@ export default function ErrorDisplay(props: IProps): ReactElement {
       <summary>Details</summary>
       {errorStack.length ? errorStack.map(v => <ScStackItem key={`${v.name}@${v.url}`}>
         <h3>{v.name || '<Anonymous>'}</h3>
-        <a href={v.url} target="_blank" rel="noreferrer">{v.url}</a>
-      </ScStackItem>) : <ScStackItem>{error.stack ?? errorInfo?.componentStack ?? 'Mystic Error...'}</ScStackItem>}
+        <a href={v.url} target="_blank" rel="noreferrer">{v.url.replace(/^https?:\/\/[^/]+/, '')}</a>
+      </ScStackItem>) : <ScStackItem>Mystic Error...</ScStackItem>}
     </ScDetails>
   </ScErrorDisplay>;
 }

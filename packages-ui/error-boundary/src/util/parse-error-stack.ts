@@ -5,10 +5,11 @@ import {
 const REG_TEST_CHROME_IE = /^\s*at ([^(]+) \([^)]+\)/m;
 const REG_EXTRACTOR_CHROME_IE = /^at ([^(]+) \(([^)]+)\)$/; // full-match + name + url
 
-export default function parseErrorStack(error: Error): IErrorStackItem[] {
-  const {
-    stack = ''
-  } = error;
+export default function parseErrorStack(stack: string): IErrorStackItem[] {
+  if (!stack) {
+    return [];
+  }
+  
   const chromeOrIeStack = REG_TEST_CHROME_IE.test(stack);
   
   return stack.split('\n').reduce((result: IErrorStackItem[], v) => {
@@ -17,7 +18,7 @@ export default function parseErrorStack(error: Error): IErrorStackItem[] {
     let url = '';
     
     if (chromeOrIeStack) {
-      const arr = line.match(REG_EXTRACTOR_CHROME_IE) as [string, string, string] | null;
+      const arr = REG_EXTRACTOR_CHROME_IE.exec(line) as [string, string, string] | null;
       
       if (arr) {
         [, name, url] = arr;
