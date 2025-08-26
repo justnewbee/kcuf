@@ -2455,6 +2455,67 @@ importers:
         specifier: ^5.9.2
         version: 5.9.2
 
+  packages-hook/use-route-query:
+    dependencies:
+      '@babel/runtime':
+        specifier: ^7.x
+        version: 7.26.9
+      '@kcuf/base64':
+        specifier: workspace:^
+        version: link:../../packages-util/base64
+      json5:
+        specifier: ^2.2.3
+        version: 2.2.3
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+    devDependencies:
+      '@babel/cli':
+        specifier: ^7.28.3
+        version: 7.28.3(@babel/core@7.28.3)
+      '@babel/core':
+        specifier: ^7.28.3
+        version: 7.28.3
+      '@babel/plugin-transform-runtime':
+        specifier: ^7.28.3
+        version: 7.28.3(@babel/core@7.28.3)
+      '@babel/preset-env':
+        specifier: ^7.28.3
+        version: 7.28.3(@babel/core@7.28.3)
+      '@babel/preset-react':
+        specifier: ^7.27.1
+        version: 7.27.1(@babel/core@7.28.3)
+      '@babel/preset-typescript':
+        specifier: ^7.27.1
+        version: 7.27.1(@babel/core@7.28.3)
+      '@kcuf/ts-config':
+        specifier: workspace:^
+        version: link:../../packages-config/ts-config
+      '@types/lodash':
+        specifier: ^4.17.20
+        version: 4.17.20
+      '@types/react':
+        specifier: ^18.3.24
+        version: 18.3.24
+      '@vitest/coverage-v8':
+        specifier: ^3.2.4
+        version: 3.2.4(vitest@3.2.4(@types/debug@4.1.12)(@types/node@24.3.0)(jiti@2.4.2)(jsdom@26.1.0)(less@4.4.1)(sass@1.91.0)(terser@5.39.0)(yaml@2.8.1))
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
+      react-router:
+        specifier: ^7.8.2
+        version: 7.8.2(react-dom@19.1.0(react@18.3.1))(react@18.3.1)
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.3.0)(jiti@2.4.2)(jsdom@26.1.0)(less@4.4.1)(sass@1.91.0)(terser@5.39.0)(yaml@2.8.1)
+
   packages-hook/use-with-class:
     dependencies:
       '@babel/runtime':
