@@ -15,6 +15,12 @@ export default {
   '@typescript-eslint/no-confusing-void-expression': ['error', {
     ignoreArrowShorthand: true
   }],
+  '@typescript-eslint/prefer-nullish-coalescing': ['error', {
+    ignoreTernaryTests: true,
+    ignoreIfStatements: true,
+    ignoreMixedLogicalExpressions: true,
+    ignorePrimitives: true
+  }],
   '@typescript-eslint/restrict-template-expressions': ['error', {
     allowAny: false,
     allowBoolean: false,
