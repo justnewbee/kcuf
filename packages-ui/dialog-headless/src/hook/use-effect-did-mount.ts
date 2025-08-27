@@ -3,13 +3,10 @@ import {
   useEffect
 } from 'react';
 
-import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
-
 import useDispatchSetActive from './use-dispatch-set-active';
 
 // TODO use transition-group
 export default function useEffectDidMount(): void {
-  const isUnmounted = useIsUnmounted();
   const dispatchToggleActive = useDispatchSetActive();
   const [stateDidMount, setStateDidMount] = useState<boolean>(false);
   
@@ -18,12 +15,8 @@ export default function useEffectDidMount(): void {
       setStateDidMount(true);
       
       window.setTimeout(() => { // 触发 CSS 动画
-        if (isUnmounted()) {
-          return;
-        }
-        
         dispatchToggleActive(true);
       }, 10);
     }
-  }, [stateDidMount, isUnmounted, dispatchToggleActive]);
+  }, [stateDidMount, dispatchToggleActive]);
 }

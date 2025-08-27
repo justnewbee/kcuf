@@ -1,5 +1,6 @@
 import {
   ReactElement,
+  useRef,
   useReducer
 } from 'react';
 
@@ -27,10 +28,12 @@ export default function Provider({
   onChange,
   ...props
 }: IModelProviderProps): ReactElement {
+  const refUnmounted = useRef(false);
   const [controllableValue, controllableOnChange] = useControllableSoftTrim<[TChangeReason]>(trim, value, defaultValue, onChange);
   const [state, dispatch] = useReducer<TModelReducer, string>(reducer, controllableValue, createInitialState);
   
   return <Context.Provider value={{
+    refUnmounted,
     props: {
       ...props,
       fluid

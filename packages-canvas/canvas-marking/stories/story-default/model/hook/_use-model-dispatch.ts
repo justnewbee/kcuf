@@ -2,8 +2,6 @@ import {
   useCallback
 } from 'react';
 
-import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
-
 import {
   TModelAction,
   TModelDispatch
@@ -12,16 +10,16 @@ import {
 import useModelContext from './_use-model-context';
 
 export default function useModelDispatch(): TModelDispatch {
-  const isUnmounted = useIsUnmounted();
   const {
+    refUnmounted,
     dispatch
   } = useModelContext();
   
   return useCallback((action: TModelAction) => { // 不必再担心异步回调 dispatch 可能发生的错误
-    if (isUnmounted()) {
+    if (refUnmounted.current) {
       return;
     }
     
     dispatch(action);
-  }, [isUnmounted, dispatch]);
+  }, [refUnmounted, dispatch]);
 }

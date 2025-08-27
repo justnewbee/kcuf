@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/canvas-marking",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "A canvas marking library.",
   "keywords": [],
   "license": "MIT",
@@ -30,7 +30,6 @@
     "@babel/preset-react": "^7.27.1",
     "@babel/preset-typescript": "^7.27.1",
     "@chromatic-com/storybook": "^4.1.1",
-    "@kcuf-hook/use-is-unmounted": "workspace:^",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-docs": "^9.1.3",

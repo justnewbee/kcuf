@@ -1,5 +1,6 @@
 import {
   ReactElement,
+  useRef,
   useReducer
 } from 'react';
 
@@ -21,6 +22,7 @@ export default function Provider({
   detailsInSpace = true,
   ...restProps
 }: IModelProviderProps): ReactElement {
+  const refUnmounted = useRef(false);
   const props = {
     listen,
     detailsInSpace,
@@ -29,6 +31,7 @@ export default function Provider({
   const [state, dispatch] = useReducer<TModelReducer, IModelProps>(reducer, props, createInitialState);
   
   return <Context.Provider value={{
+    refUnmounted,
     props,
     state,
     dispatch

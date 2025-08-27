@@ -2,6 +2,7 @@ import {
   ReactElement,
   Children,
   cloneElement,
+  useRef,
   useReducer
 } from 'react';
 
@@ -21,6 +22,7 @@ export default function Provider({
   children,
   ...props
 }: IModelProviderProps): ReactElement {
+  const refUnmounted = useRef(false);
   const [state, dispatch] = useReducer<TModelReducer, IModelProps>(reducer, props, createInitialState);
   
   let resolvedChildren: ReactElement | null = null;
@@ -36,6 +38,7 @@ export default function Provider({
   }
   
   return <Context.Provider value={{
+    refUnmounted,
     props,
     state,
     dispatch
