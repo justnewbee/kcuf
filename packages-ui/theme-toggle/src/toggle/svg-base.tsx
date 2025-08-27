@@ -2,7 +2,9 @@ import {
   ReactElement,
   forwardRef
 } from 'react';
-import styled from 'styled-components';
+import styled, {
+  css
+} from 'styled-components';
 
 import {
   IThemeToggleProps,
@@ -11,7 +13,6 @@ import {
 
 interface IScProps {
   $duration: number;
-  $withClick: boolean;
 }
 
 const ScSvg = styled.svg<IScProps>`
@@ -19,8 +20,10 @@ const ScSvg = styled.svg<IScProps>`
   
   width: 1em;
   height: 1em;
-  cursor: ${props => props.$withClick ? 'pointer' : 'default'};
   fill: currentcolor;
+  ${props => props.onClick ? css`
+    cursor: pointer;
+  ` : null}
   
   @media (prefers-reduced-motion: reduce) {
     &[data-reversed] {
@@ -50,7 +53,6 @@ export default forwardRef(function SvgBase({
     viewBox: '0 0 32 32',
     ...props,
     $duration: duration,
-    $withClick: !!props.onClick, // SVG 不允许 aria-role
     'data-toggled': toggled ? '' : undefined,
     'data-reversed': reversed ? '' : undefined,
     'data-force-motion': forceMotion ? '' : undefined

@@ -5,12 +5,12 @@ import styled from 'styled-components';
 
 import {
   ThemeToggleClassic,
-  ThemeToggleInnerMoon,
-  ThemeToggleExpand,
-  ThemeToggleWithin,
   ThemeToggleAround,
+  ThemeToggleExpand,
   ThemeToggleDarkSide,
   ThemeToggleDarkInner,
+  ThemeToggleInnerMoon,
+  ThemeToggleWithin,
   ThemeToggleHalfSun,
   ThemeToggleHorizon,
   ThemeToggleEclipse,
@@ -34,24 +34,14 @@ export default function StoryDefault(): ReactElement {
       description: 'The toggle that started it all'
     }} />
     <DemoItem {...{
-      ThemeToggleComponent: ThemeToggleInnerMoon,
-      title: 'Inner Moon',
-      description: 'Inspired by Google fonts toggle'
+      ThemeToggleComponent: ThemeToggleAround,
+      title: 'Around',
+      description: 'The sun rays appear/disappear in a sequence'
     }} />
     <DemoItem {...{
       ThemeToggleComponent: ThemeToggleExpand,
       title: 'Expand',
       description: 'Expands into a moon'
-    }} />
-    <DemoItem {...{
-      ThemeToggleComponent: ThemeToggleWithin,
-      title: 'Within',
-      description: 'The sun collapses and a moon appears within'
-    }} />
-    <DemoItem {...{
-      ThemeToggleComponent: ThemeToggleAround,
-      title: 'Around',
-      description: 'The sun rays appear/disappear in a sequence'
     }} />
     <DemoItem {...{
       ThemeToggleComponent: ThemeToggleDarkSide,
@@ -62,6 +52,16 @@ export default function StoryDefault(): ReactElement {
       ThemeToggleComponent: ThemeToggleDarkInner,
       title: 'DarkInner',
       description: 'A more complicated dark side animation'
+    }} />
+    <DemoItem {...{
+      ThemeToggleComponent: ThemeToggleInnerMoon,
+      title: 'Inner Moon',
+      description: 'Inspired by Google fonts toggle'
+    }} />
+    <DemoItem {...{
+      ThemeToggleComponent: ThemeToggleWithin,
+      title: 'Within',
+      description: 'The sun collapses and a moon appears within'
     }} />
     <DemoItem {...{
       ThemeToggleComponent: ThemeToggleHalfSun,
