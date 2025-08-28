@@ -52,6 +52,7 @@
     "react": "^18.x"
   },
   "dependencies": {
+    "@kcuf-hook/use-is-unmounted": "workspace:^",
     "@kcuf/mere-dom": "workspace:^",
     "immer": "^10.1.1"
   },

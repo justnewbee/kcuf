@@ -1,8 +1,4 @@
 import {
-  MutableRefObject
-} from 'react';
-
-import {
   TChangeReason
 } from './common';
 import {
@@ -19,7 +15,6 @@ import {
 export type TModelReducer = (state: IModelState, action: TModelAction) => IModelState;
 
 export interface IModelContext {
-  refUnmounted: MutableRefObject<boolean>;
   props: Omit<IModelProps, 'trim' | 'value' | 'defaultValue' | 'onChange'>;
   state: IModelState;
   dispatch: TModelDispatch;

@@ -1,9 +1,10 @@
 import {
   ReactElement,
-  useRef,
-  useReducer
+  useReducer,
+  useCallback
 } from 'react';
 
+import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
 import {
   useControllableSoftTrim
 } from '@kcuf-hook/use-controllable';
@@ -11,6 +12,7 @@ import {
 import {
   IModelProviderProps,
   TChangeReason,
+  TModelAction,
   TModelReducer
 } from '../types';
 import {
@@ -28,18 +30,23 @@ export default function Provider({
   onChange,
   ...props
 }: IModelProviderProps): ReactElement {
-  const refUnmounted = useRef(false);
+  const isUnmounted = useIsUnmounted();
   const [controllableValue, controllableOnChange] = useControllableSoftTrim<[TChangeReason]>(trim, value, defaultValue, onChange);
   const [state, dispatch] = useReducer<TModelReducer, string>(reducer, controllableValue, createInitialState);
   
+  const safeDispatch = useCallback((action: TModelAction): void => {
+    if (!isUnmounted()) {
+      dispatch(action);
+    }
+  }, [isUnmounted, dispatch]);
+  
   return <Context.Provider value={{
-    refUnmounted,
     props: {
       ...props,
       fluid
     },
     state,
-    dispatch,
+    dispatch: safeDispatch,
     controllableValue,
     controllableOnChange
   }}>

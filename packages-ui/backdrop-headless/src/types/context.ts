@@ -1,5 +1,4 @@
 import {
-  MutableRefObject,
   ReactNode
 } from 'react';
 
@@ -10,14 +9,13 @@ import {
   IModelState
 } from './state';
 import {
-  IModelAction,
+  TModelAction,
   TModelDispatch
 } from './action';
 
-export type TModelReducer = (state: IModelState, action: IModelAction) => IModelState;
+export type TModelReducer = (state: IModelState, action: TModelAction) => IModelState;
 
 export interface IModelContext {
-  refUnmounted: MutableRefObject<boolean>;
   props: IModelProps;
   state: IModelState;
   dispatch: TModelDispatch;
