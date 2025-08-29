@@ -1,5 +1,15 @@
-# @kcuf/helper-data
+# @kcuf/helper-loading
 
-将千奇百怪、随心所欲、虚头巴脑的后端数据中的字段、类型进行标准化的帮助类型及方法。
+将数据、错误及加载状态标准化成一个对象的形式
 
-不具业务向，只做通用的逻辑，业务代码可以扩展这个包。
+## Helper
+
+* `function createWithLoading<T>(data?: T | null, loading = ELoadingStatus.IDLE, error?: Error | null): IWithLoading<T>`
+
+## Enum
+
+* `LoadingStatus`
+
+## Type
+
+* `WithLoading<T>`
