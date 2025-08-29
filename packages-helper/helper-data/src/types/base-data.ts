@@ -29,6 +29,13 @@ export interface IBaseDataContent {
 }
 
 /**
+ * 「描述」标准化
+ */
+export interface IBaseDataDescription {
+  description: string;
+}
+
+/**
  * id + name
  */
 export interface IBaseDataIdName extends IBaseDataId, IBaseDataName {}
@@ -43,25 +50,25 @@ export interface IBaseDataTimeCreated {
 /**
  * 「更新时间」标准化
  */
-export interface IBaseDataTimeModified {
-  timeModified: Date;
+export interface IBaseDataTimeUpdated {
+  timeUpdated: Date;
 }
 
 /**
- * timeCreated + timeModified
+ * timeCreated + timeUpdated
  */
-export interface IBaseDataTimes extends IBaseDataTimeCreated, IBaseDataTimeModified {}
+export interface IBaseDataTimes extends IBaseDataTimeCreated, IBaseDataTimeUpdated {}
 
 /**
- * 「谁创建」标准化
+ * 「创建人」标准化
  */
-export interface IBaseDataWhoCreated {
-  whoCreated: IBaseDataIdName;
+export interface IBaseDataCreator {
+  creator: IBaseDataIdName;
 }
 
 /**
- * 「谁更新」标准化
+ * 「更新人」标准化
  */
-export interface IBaseDataWhoModified {
-  whoModified: IBaseDataIdName;
+export interface IBaseDataUpdater {
+  updater: IBaseDataIdName;
 }

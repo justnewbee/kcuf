@@ -1,7 +1,3 @@
-import {
-  ELoadingStatus
-} from '../enum';
-
 /**
  * 分页数据标准化
  */
@@ -17,10 +13,4 @@ export interface IPagedList<T> {
  */
 export interface IPagedListUncertain<T> extends Omit<IPagedList<T>, 'total'> {
   hasMore: boolean;
-}
-
-export interface IDataWithLoading<T> {
-  loading: ELoadingStatus;
-  data: T | null | undefined;
-  error: Error | null | undefined;
 }

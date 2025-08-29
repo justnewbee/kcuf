@@ -1,9 +1,5 @@
 export * from './helper';
 
-export {
-  ELoadingStatus as LoadingStatus
-} from './enum';
-
 export type {
   IBaseParamsPage as BaseParamsPage,
   IBaseParamsPageWithQ as BaseParamsPageWithQ,
@@ -12,15 +8,14 @@ export type {
   IBaseDataName as BaseDataName,
   IBaseDataIdName as BaseDataIdName,
   IBaseDataTitle as BaseDataTitle,
+  IBaseDataDescription as BaseDataDescription,
   IBaseDataContent as BaseDataContent,
   IBaseDataTimeCreated as BaseDataTimeCreated,
-  IBaseDataTimeModified as BaseDataTimeModified,
+  IBaseDataTimeUpdated as BaseDataTimeModified,
   IBaseDataTimes as BaseDataTimes,
-  IBaseDataWhoCreated as BaseDataWhoCreated,
-  IBaseDataWhoModified as BaseDataWhoModified,
+  IBaseDataCreator as BaseDataCreator,
+  IBaseDataUpdater as BaseDataUpdater,
   
   IPagedList as PagedList,
-  IPagedListUncertain as PagedListUncertain,
-  
-  IDataWithLoading as DataWithLoading
+  IPagedListUncertain as PagedListUncertain
 } from './types';
