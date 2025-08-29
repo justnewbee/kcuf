@@ -58,6 +58,6 @@
     "build:sb": "storybook build",
     "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
     "watch": "pnpm build:esm -w",
-    "prepublishOnly": "pnpm build:clean && pnpm build"
+    "#prepublishOnly": "pnpm build:clean && pnpm build"
   }
 }

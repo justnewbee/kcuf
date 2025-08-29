@@ -5,7 +5,7 @@ import {
   DATA_ROUTE_NOT
 } from '../const';
 
-export default function condition(el: HTMLElement, e: MouseEvent): IHijackResult | void {
+export default function condition(el: HTMLElement, e: MouseEvent): IHijackResult | undefined {
   // 忽略非连接、下载、有 target 的和带特定属性的
   if (e.metaKey || el.tagName !== 'A' || el.getAttribute('download') || el.getAttribute('target') || el.hasAttribute(DATA_ROUTE_NOT)) {
     return;
