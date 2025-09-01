@@ -9,5 +9,6 @@ import {
 export default function normalizeLine(line: TLine): TLineNormalized {
   const [A, B, C] = line;
   
-  return B === 0 ? [1, 0, C / A] : [A / -B, -1, C / -B];
+  // 垂直线有误差，这里不能直接判断 B === 0
+  return Math.abs(B) <= 2e-12 ? [1, 0, C / A] : [A / -B, -1, C / -B];
 }
