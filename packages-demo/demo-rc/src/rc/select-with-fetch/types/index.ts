@@ -9,10 +9,11 @@ import {
 
 export type TSelectWithFetchRef = SelectRef;
 
-export interface ISelectWithFetchProps<T extends object> extends Omit<SelectProps, 'datasource'> {
+export interface ISelectWithFetchProps<T extends object> extends Omit<SelectProps, 'datasource' | 'onItemChange'> {
   fetchList(): Promise<T[]>;
   optionLabel: keyof T | ((o: T) => string | ReactElement);
   optionValue: keyof T | ((o: T) => string);
   onFetchSuccess?(list: T[]): void;
   onFetchError?(err: Error): void;
+  onChangeData?(o: T | undefined): void;
 }

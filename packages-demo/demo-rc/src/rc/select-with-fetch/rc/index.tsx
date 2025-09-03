@@ -2,6 +2,7 @@ import {
   ReactElement,
   useState,
   useMemo,
+  useCallback,
   useEffect
 } from 'react';
 
@@ -19,6 +20,8 @@ export default function SelectWithFetch<T extends object>({
   optionValue,
   onFetchSuccess,
   onFetchError,
+  onChange,
+  onChangeData,
   ...props
 }: ISelectWithFetchProps<T>): ReactElement {
   const [stateList, setStateList] = useState<T[]>([]);
@@ -26,6 +29,15 @@ export default function SelectWithFetch<T extends object>({
     label: typeof optionLabel === 'function' ? optionLabel(v) : v[optionLabel] as string,
     value: typeof optionValue === 'function' ? optionValue(v) : v[optionValue] as string
   })), [stateList, optionLabel, optionValue]);
+  const handleChange = useCallback((value: string) => {
+    onChange?.(value);
+    
+    onChangeData?.(stateList.find(v => {
+      const itemValue = typeof optionValue === 'function' ? optionValue(v) : v[optionValue] as string;
+      
+      return itemValue === value;
+    }));
+  }, [stateList, optionValue, onChange, onChangeData]);
   
   useEffect(() => {
     fetchList().then(list => {
@@ -34,5 +46,5 @@ export default function SelectWithFetch<T extends object>({
     }).catch(onFetchError);
   }, [fetchList, onFetchSuccess, onFetchError]);
   
-  return <Select {...props} datasource={datasource} />;
+  return <Select {...props} onChange={handleChange} datasource={datasource} />;
 }
