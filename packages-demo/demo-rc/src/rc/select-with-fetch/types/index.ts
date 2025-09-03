@@ -1,7 +1,7 @@
 import {
-  TDatasourceValue,
-  IDatasourceItem
-} from '../../../types';
+  ReactElement
+} from 'react';
+
 import {
   SelectRef,
   SelectProps
@@ -9,8 +9,10 @@ import {
 
 export type TSelectWithFetchRef = SelectRef;
 
-export interface ISelectWithFetchProps<T extends TDatasourceValue = string> extends Omit<SelectProps<T>, 'datasource'> {
-  fetchDatasource(): Promise<IDatasourceItem<T>[]>;
-  onFetchSuccess?(datasource: IDatasourceItem<T>[]): void;
+export interface ISelectWithFetchProps<T extends object> extends Omit<SelectProps, 'datasource'> {
+  fetchList(): Promise<T[]>;
+  optionLabel: keyof T | ((o: T) => string | ReactElement);
+  optionValue: keyof T | ((o: T) => string);
+  onFetchSuccess?(list: T[]): void;
   onFetchError?(err: Error): void;
 }
