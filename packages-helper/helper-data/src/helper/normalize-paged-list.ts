@@ -7,9 +7,9 @@ import {
  */
 export default function normalizePagedList<T0, T = T0>(list0: T0[], total: number, page: number, pageSize: number, convert?: (o: T0) => T): IPagedList<T> {
   return {
-    list: convert ? list0.map(convert) : list0 as unknown as T[],
     total,
     page,
-    pageSize
+    pageSize,
+    list: convert ? list0.map(convert) : list0 as unknown as T[]
   };
 }
