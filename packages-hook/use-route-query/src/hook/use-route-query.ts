@@ -1,4 +1,6 @@
+import _isEqual from 'lodash/isEqual';
 import {
+  useRef,
   useMemo,
   useCallback
 } from 'react';
@@ -15,11 +17,17 @@ import {
 } from '../util';
 
 export default function useRouteQuery<T extends object>(defaults: Required<T>, key = '_'): TUseRouteQueryResult<T> {
+  const refDefaults = useRef<Required<T>>(defaults);
   const [searchParams, setSearchParams] = useSearchParams();
+  
+  if (!_isEqual(refDefaults.current, defaults)) {
+    refDefaults.current = defaults;
+  }
   
   const paramsStr = searchParams.get(key) ?? '';
   
-  const params = useMemo(() => decodeParams<T>(paramsStr, defaults), [paramsStr, defaults]);
+  // 使用 refDefaults 避免避免不必要的重渲染
+  const params = useMemo(() => decodeParams<T>(paramsStr, refDefaults.current), [paramsStr]);
   
   const handleUpdate = useCallback((paramsUpdate: Partial<T>) => {
     const paramsStrNew = encodeParams({

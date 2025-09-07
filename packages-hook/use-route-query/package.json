@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-hook/use-route-query",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React hook - useRouteQuery.",
   "keywords": [
     "react",
@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.3",
+    "@babel/core": "^7.28.4",
     "@babel/plugin-transform-runtime": "^7.28.3",
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-react": "^7.27.1",
