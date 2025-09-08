@@ -30,6 +30,7 @@ export default function TestApi({
   type,
   formItems = [],
   auto,
+  disabled,
   test
 }: ITestApiProps): ReactElement {
   const [statePromise, setStatePromise] = useState<Promise<unknown> | null>(null);
@@ -49,7 +50,7 @@ export default function TestApi({
       dense: true,
       items: [...formItems, {
         content: <>
-          <Button onClick={handleTest}>{name}</Button>
+          <Button disabled={disabled} onClick={handleTest}>{name}</Button>
           &nbsp;→&nbsp;
           <Code>Promise&lt;{type}&gt;</Code>
         </>
