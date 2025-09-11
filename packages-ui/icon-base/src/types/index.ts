@@ -1,6 +1,6 @@
 import {
   HTMLAttributes,
-  Ref
+  ForwardedRef
 } from 'react';
 
 export interface IInjectIconFontOptions {
@@ -18,7 +18,7 @@ export interface IInjectIconFontOptions {
   base64Data?: string;
 }
 
-export type TIconBaseRef = Ref<HTMLSpanElement>;
+export type TIconBaseRef = ForwardedRef<HTMLSpanElement>;
 
 /**
  * 用于 Icon 组件的范类型
