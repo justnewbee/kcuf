@@ -2,6 +2,8 @@ import {
   EModifierKey
 } from '../enum';
 
+export const SYSTEM_IS_MAC = /Mac OS X/i.test(navigator.userAgent);
+
 /**
  * Combo 序列间隔超时时间，超过即取消 Combo。
  */
@@ -20,7 +22,7 @@ export const MODIFIER_ALIAS: Record<string, EModifierKey> = {
   COMMAND: EModifierKey.META,
   CMD: EModifierKey.META,
   '⌘': EModifierKey.META,
-  $MOD: /Mac OS X/i.test(navigator.userAgent) ? EModifierKey.META : EModifierKey.CONTROL
+  $MOD: SYSTEM_IS_MAC ? EModifierKey.META : EModifierKey.CONTROL
 };
 
 /**
