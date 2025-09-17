@@ -34,9 +34,6 @@ export type TModelAction = {
     | EAction.SET_OPTION_NO_EDIT_DRAG_WHOLE
     | EAction.SET_OPTION_NO_CROSSING_DETECTION;
   payload: boolean;
-} | {
-  type: EAction.TOGGLE_FULLSCREEN;
-  payload?: boolean;
 };
 
 export type TModelDispatch = Dispatch<TModelAction>;

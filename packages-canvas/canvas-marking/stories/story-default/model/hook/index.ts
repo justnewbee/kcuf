@@ -16,12 +16,10 @@ export { default as useOptionNoEditDragWhole } from './use-option-no-edit-drag-w
 export { default as useOptionNoEditRemovePoint } from './use-option-no-edit-remove-point';
 export { default as useOptionNoDelete } from './use-option-no-delete';
 export { default as useOptionNoCrossingDetection } from './use-option-no-crossing-detection';
-export { default as useFullscreen } from './use-fullscreen';
 
 // handlers - 对 useDispatch、props.onXx 的封装，不要直接 export useDispatchXx
 export { default as useInit } from './use-init';
 export { default as useHandleDestroy } from './use-handle-destroy';
-export { default as useHandleToggleFullscreen } from './use-handle-toggle-fullscreen';
 export { default as useHandleToggleMove } from './use-handle-toggle-move';
 export { default as useHandleDebugStats } from './use-handle-debug-stats';
 export { default as useHandleSetDataAerial } from './use-handle-set-data-aerial';

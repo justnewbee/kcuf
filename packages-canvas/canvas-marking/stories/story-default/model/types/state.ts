@@ -20,5 +20,4 @@ export interface IModelState {
   optionNoCrossingDetection: boolean;
   markingInstance: CanvasMarkingClassType | null;
   markingStats: MarkingStats | null;
-  fullscreen: boolean; // TODO use useFullscreen hook
 }

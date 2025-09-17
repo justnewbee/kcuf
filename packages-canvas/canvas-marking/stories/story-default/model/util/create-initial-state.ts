@@ -19,7 +19,6 @@ export default function createInitialState(): IModelState {
     optionNoEditDragWhole: false,
     optionNoCrossingDetection: false,
     markingStats: null,
-    markingInstance: null,
-    fullscreen: false
+    markingInstance: null
   };
 }

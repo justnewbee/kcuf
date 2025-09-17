@@ -22,7 +22,6 @@ import reduceSetOptionNoEditDragWhole from './reduce-set-option-no-edit-drag-who
 import reduceSetOptionNoEditRemovePoint from './reduce-set-option-no-edit-remove-point';
 import reduceSetOptionNoDelete from './reduce-set-option-no-delete';
 import reduceSetOptionNoCrossingDetection from './reduce-set-option-no-crossing-detection';
-import reduceToggleFullscreen from './reduce-toggle-fullscreen';
 
 export default function reducer(state: IModelState, action: TModelAction): IModelState {
   switch (action.type) {
@@ -54,8 +53,6 @@ export default function reducer(state: IModelState, action: TModelAction): IMode
     return reduceSetOptionNoEditDragPoint(state, action.payload);
   case EAction.SET_OPTION_NO_EDIT_DRAG_WHOLE:
     return reduceSetOptionNoEditDragWhole(state, action.payload);
-  case EAction.TOGGLE_FULLSCREEN:
-    return reduceToggleFullscreen(state, action.payload);
   case EAction.SET_OPTION_NO_DELETE:
     return reduceSetOptionNoDelete(state, action.payload);
   case EAction.SET_OPTION_NO_CROSSING_DETECTION:
