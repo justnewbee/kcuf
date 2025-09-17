@@ -1,69 +1,47 @@
 import {
+  useState,
+  useMemo,
   useCallback,
-  useEffect,
-  useRef,
-  useState
+  useEffect
 } from 'react';
 
 import {
-  fullscreenElement,
-  fullscreenEnter,
-  fullscreenExit,
-  fullscreenListen
-} from '../util';
+  IUseFullscreenResult
+} from '../types';
 
-export default function useFullscreen<T extends HTMLElement = any>() {
-  const [stateFullscreen, setStateFullscreen] = useState<boolean>(false);
-  
-  const _ref = useRef<T>();
-  
-  const handleFullscreenChange = useCallback((event: Event) => {
-    setStateFullscreen(event.target === fullscreenElement());
-  }, [setStateFullscreen]);
-  
-  const handleFullscreenError = useCallback(() => {
-    setStateFullscreen(false);
-  }, [setStateFullscreen]);
+export default function useFullscreen(target: HTMLElement | null = document.documentElement): IUseFullscreenResult {
+  const [stateFullscreen, setStateFullscreen] = useState<boolean>(document.fullscreenElement === target);
   
   const toggle = useCallback(async () => {
-    if (!fullscreenElement()) {
-      await fullscreenEnter(_ref.current!);
-    } else {
-      await fullscreenExit();
+    if (!target) {
+      return;
     }
-  }, []);
-  
-  const ref = useCallback((element: T | null) => {
-    if (element === null) {
-      _ref.current = window.document.documentElement as T;
+    
+    if (document.fullscreenElement === target) {
+      await document.exitFullscreen();
     } else {
-      _ref.current = element;
+      await target.requestFullscreen();
     }
-  }, []);
+  }, [target]);
   
   useEffect(() => {
-    if (!_ref.current && window.document) {
-      _ref.current = window.document.documentElement as T;
-      
-      return fullscreenListen(_ref.current, {
-        onFullscreen: handleFullscreenChange,
-        onError: handleFullscreenError
-      });
+    if (!target) {
+      return;
     }
     
-    if (_ref.current) {
-      return fullscreenListen(_ref.current, {
-        onFullscreen: handleFullscreenChange,
-        onError: handleFullscreenError
-      });
-    }
+    const handleFullscreenChange = (e: Event): void => {
+      setStateFullscreen(e.target === document.fullscreenElement);
+    };
     
-    return undefined;
-  }, [handleFullscreenChange, handleFullscreenError]);
+    target.addEventListener('fullscreenchange', handleFullscreenChange);
+    
+    return () => target.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, [target, setStateFullscreen]);
   
-  return {
-    ref,
-    toggle,
-    fullscreen: stateFullscreen
-  } as const;
+  return useMemo(() => ({
+    target,
+    enabled: document.fullscreenEnabled,
+    fullscreen: stateFullscreen,
+    toggle
+  }), [target, stateFullscreen, toggle]);
 }

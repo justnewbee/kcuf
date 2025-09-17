@@ -36,8 +36,8 @@ describe('CSSTransitionGroup', () => {
     vitest.resetModuleRegistry();
     vitest.useFakeTimers();
     
-    React = require('react');
-    ReactDOM = require('react-dom');
+    // React = require('react');
+    // ReactDOM = require('react-dom');
     const testUtils = require('./utils');
     act = testUtils.act;
     const baseRender = testUtils.render;
