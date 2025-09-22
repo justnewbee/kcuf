@@ -10,10 +10,10 @@ import {
 } from '@uiw/codemirror-theme-material';
 
 import {
-  ICodemirrorProps
+  IModelProps
 } from '../types';
 
-export default function getExtensionTheme(theme: ICodemirrorProps['theme'] = 'material-dark'): Extension | null {
+export default function getExtensionTheme(theme: IModelProps['theme'] = 'material-dark'): Extension | null {
   switch (theme) {
   case 'material-dark':
     return material;

@@ -1,57 +1,57 @@
 import {
-  json5
+  json5 as cmJson5
 } from 'codemirror-json5';
 
 import {
   Extension
 } from '@codemirror/state';
 import {
-  tsxLanguage
+  json as cmJson
+} from '@codemirror/lang-json';
+import {
+  tsxLanguage as cmTsx
 } from '@codemirror/lang-javascript';
 import {
-  css
+  css as cmCss
 } from '@codemirror/lang-css';
 import {
-  less
+  less as cmLess
 } from '@codemirror/lang-less';
 import {
-  sass
+  sass as cmSass
 } from '@codemirror/lang-sass';
 import {
-  html
+  html as cmHtml
 } from '@codemirror/lang-html';
 import {
-  markdown
+  markdown as cmMarkdown
 } from '@codemirror/lang-markdown';
-import {
-  json
-} from '@codemirror/lang-json';
 
 export default function getExtensionLanguage(language?: string): Extension | null {
   switch (language?.toLowerCase()) {
+  case 'json':
+    return cmJson();
+  case 'json5':
+    return cmJson5();
   case 'javascript':
   case 'typescript':
   case 'js':
   case 'jsx':
   case 'ts':
   case 'tsx':
-    return tsxLanguage;
-  case 'json':
-    return json();
-  case 'json5':
-    return json5();
+    return cmTsx;
   case 'css':
-    return css();
+    return cmCss();
   case 'less':
-    return less();
+    return cmLess();
   case 'sass':
-    return sass();
+    return cmSass();
   case 'htm':
   case 'html':
-    return html();
+    return cmHtml();
   case 'md':
   case 'markdown':
-    return markdown();
+    return cmMarkdown();
   default:
     return null;
   }
