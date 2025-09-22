@@ -10,7 +10,7 @@ import {
 } from '../types';
 
 export default function useFullscreen(target: HTMLElement | null = document.documentElement): IUseFullscreenResult {
-  const [stateFullscreen, setStateFullscreen] = useState<boolean>(document.fullscreenElement === target);
+  const [stateFullscreen, setStateFullscreen] = useState<boolean>(target ? document.fullscreenElement === target : false);
   
   const toggle = useCallback(async () => {
     if (!target) {
