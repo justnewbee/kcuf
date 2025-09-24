@@ -50,7 +50,7 @@
     "inquirer": "^12.9.6",
     "react-docgen": "^8.0.1",
     "react-docgen-typescript": "^2.4.0",
-    "sass": "^1.93.0",
+    "sass": "^1.93.2",
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.28.13",
     "typedoc-plugin-markdown": "^4.9.0",

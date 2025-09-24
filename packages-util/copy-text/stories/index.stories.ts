@@ -2,17 +2,12 @@ import {
   Meta
 } from '@storybook/react-vite';
 
-import Dialog from '../src';
-
-type TMeta = Meta<typeof Dialog>;
-
 export default {
-  title: 'Dialog',
-  component: Dialog,
+  title: 'copy-text',
   parameters: {
     layout: 'fullscreen'
   },
   tags: ['autodocs']
-} satisfies TMeta;
+} satisfies Meta;
 
 export { default as Default } from './story-default';
