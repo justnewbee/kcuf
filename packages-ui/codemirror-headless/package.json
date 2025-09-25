@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-ui/codemirror-headless",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React headless & controllable Codemirror component.",
   "keywords": [],
   "license": "MIT",
@@ -47,6 +47,7 @@
     "@codemirror/lang-json": "^6.0.2",
     "@codemirror/lang-less": "^6.0.2",
     "@codemirror/lang-markdown": "^6.3.4",
+    "@codemirror/lang-python": "^6.2.1",
     "@codemirror/lang-sass": "^6.0.2",
     "@codemirror/language": "^6.11.3",
     "@codemirror/lint": "^6.8.5",

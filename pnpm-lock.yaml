@@ -2508,8 +2508,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       react-router:
-        specifier: ^7.9.1
-        version: 7.9.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^7.9.2
+        version: 7.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -3355,6 +3355,9 @@ importers:
       '@codemirror/lang-markdown':
         specifier: ^6.3.4
         version: 6.3.4
+      '@codemirror/lang-python':
+        specifier: ^6.2.1
+        version: 6.2.1
       '@codemirror/lang-sass':
         specifier: ^6.0.2
         version: 6.0.2
@@ -4964,8 +4967,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       react-router:
-        specifier: ^7.9.1
-        version: 7.9.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^7.9.2
+        version: 7.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
@@ -5820,6 +5823,9 @@ packages:
 
   '@codemirror/lang-markdown@6.3.4':
     resolution: {integrity: sha512-fBm0BO03azXnTAsxhONDYHi/qWSI+uSEIpzKM7h/bkIc9fHnFp9y7KTMXKON0teNT97pFhc1a9DQTtWBYEZ7ug==}
+
+  '@codemirror/lang-python@6.2.1':
+    resolution: {integrity: sha512-IRjC8RUBhn9mGR9ywecNhB51yePWCGgvHfY1lWN/Mrp3cKuHr0isDKia+9HnvhiWNnMpbGhWrkhuWOc09exRyw==}
 
   '@codemirror/lang-sass@6.0.2':
     resolution: {integrity: sha512-l/bdzIABvnTo1nzdY6U+kPAC51czYQcOErfzQ9zSm9D8GmNPD0WTW8st/CJwBTPLO8jlrbyvlSEcN20dc4iL0Q==}
@@ -6898,6 +6904,9 @@ packages:
 
   '@lezer/markdown@1.4.3':
     resolution: {integrity: sha512-kfw+2uMrQ/wy/+ONfrH83OkdFNM0ye5Xq96cLlaCy7h5UT9FO54DU4oRoIc0CSBh5NWmWuiIJA7NGLMJbQ+Oxg==}
+
+  '@lezer/python@1.1.18':
+    resolution: {integrity: sha512-31FiUrU7z9+d/ElGQLJFXl+dKOdx0jALlP3KEOsGTex8mvj+SoE1FgItcHWK/axkxCHGUSpqIHt6JAWfWu9Rhg==}
 
   '@lezer/sass@1.1.0':
     resolution: {integrity: sha512-3mMGdCTUZ/84ArHOuXWQr37pnf7f+Nw9ycPUeKX+wu19b7pSMcZGLbaXwvD2APMBDOGxPmpK/O6S1v1EvLoqgQ==}
@@ -13535,8 +13544,8 @@ packages:
     peerDependencies:
       react: '>=15'
 
-  react-router@7.9.1:
-    resolution: {integrity: sha512-pfAByjcTpX55mqSDGwGnY9vDCpxqBLASg0BMNAuMmpSGESo/TaOUG6BllhAtAkCGx8Rnohik/XtaqiYUJtgW2g==}
+  react-router@7.9.2:
+    resolution: {integrity: sha512-i2TPp4dgaqrOqiRGLZmqh2WXmbdFknUyiCRmSKs0hf6fWXkTKg5h56b+9F22NbGRAMxjYfqQnpi63egzD2SuZA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
       react: '>=18'
@@ -16406,6 +16415,14 @@ snapshots:
       '@lezer/common': 1.2.3
       '@lezer/markdown': 1.4.3
 
+  '@codemirror/lang-python@6.2.1':
+    dependencies:
+      '@codemirror/autocomplete': 6.18.7
+      '@codemirror/language': 6.11.3
+      '@codemirror/state': 6.5.2
+      '@lezer/common': 1.2.3
+      '@lezer/python': 1.1.18
+
   '@codemirror/lang-sass@6.0.2':
     dependencies:
       '@codemirror/lang-css': 6.3.1
@@ -18202,6 +18219,12 @@ snapshots:
     dependencies:
       '@lezer/common': 1.2.3
       '@lezer/highlight': 1.2.1
+
+  '@lezer/python@1.1.18':
+    dependencies:
+      '@lezer/common': 1.2.3
+      '@lezer/highlight': 1.2.1
+      '@lezer/lr': 1.4.2
 
   '@lezer/sass@1.1.0':
     dependencies:
@@ -26054,7 +26077,7 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
-  react-router@7.9.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-router@7.9.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       cookie: 1.0.2
       react: 18.3.1

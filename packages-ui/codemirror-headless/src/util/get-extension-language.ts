@@ -26,6 +26,9 @@ import {
 import {
   markdown as cmMarkdown
 } from '@codemirror/lang-markdown';
+import {
+  python as cmPython
+} from '@codemirror/lang-python';
 
 export default function getExtensionLanguage(language?: string): Extension | null {
   switch (language?.toLowerCase()) {
@@ -52,6 +55,9 @@ export default function getExtensionLanguage(language?: string): Extension | nul
   case 'md':
   case 'markdown':
     return cmMarkdown();
+  case 'py':
+  case 'python':
+    return cmPython();
   default:
     return null;
   }
