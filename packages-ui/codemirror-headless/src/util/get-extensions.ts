@@ -3,7 +3,7 @@ import {
 } from '@codemirror/state';
 
 import {
-  IModelProps
+  ICodemirrorProps
 } from '../types';
 
 import getExtensionsBasic from './get-extensions-basic';
@@ -11,7 +11,7 @@ import getExtensionLanguage from './get-extension-language';
 import getExtensionHeight from './get-extension-height';
 import getExtensionTheme from './get-extension-theme';
 
-export default function getExtensions(props: IModelProps): Extension[] {
+export default function getExtensions(props: ICodemirrorProps): Extension[] {
   const extensions = getExtensionsBasic();
   
   function push(ex: Extension | null): void {

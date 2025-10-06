@@ -12,7 +12,7 @@ export default function createKeybindingHandler(keybindings: IKeybinding[], call
   const possibleMatches = new Map<IKeybinding[], IKeybinding[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
   
-  return (e: KeyboardEvent) => {
+  return (e: KeyboardEvent): void => {
     const prevKeybinding = possibleMatches.get(keybindings);
     const remainingKeybindings = prevKeybinding ?? keybindings;
     const currentKeybinding = remainingKeybindings[0];

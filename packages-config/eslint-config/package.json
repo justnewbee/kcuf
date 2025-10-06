@@ -23,21 +23,21 @@
     "access": "public"
   },
   "devDependencies": {
-    "eslint": "^9.36.0"
+    "eslint": "^9.37.0"
   },
   "peerDependencies": {
     "eslint": ">=9"
   },
   "dependencies": {
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^9.37.0",
     "@stylistic/eslint-plugin": "^5.4.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-storybook": "^9.1.8",
+    "eslint-plugin-react-hooks": "^6.1.1",
+    "eslint-plugin-storybook": "^9.1.10",
     "globals": "^16.4.0",
-    "typescript-eslint": "^8.44.1"
+    "typescript-eslint": "^8.45.0"
   }
 }

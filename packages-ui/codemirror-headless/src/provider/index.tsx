@@ -16,10 +16,10 @@ import {
   createInitialState
 } from '../util';
 import reducer from '../reducer';
-import Context from '../context';
+import CodemirrorContext from '../context';
 import Lifecycle from '../lifecycle';
 
-export default function Provider({
+export default function CodemirrorProvider({
   children,
   ...props
 }: IModelProviderProps): ReactElement {
@@ -38,7 +38,7 @@ export default function Provider({
     }
   }, [isUnmounted, dispatch]);
   
-  return <Context.Provider value={{
+  return <CodemirrorContext.Provider value={{
     props,
     state,
     controllableValue,
@@ -47,5 +47,5 @@ export default function Provider({
   }}>
     <Lifecycle />
     {children}
-  </Context.Provider>;
+  </CodemirrorContext.Provider>;
 }

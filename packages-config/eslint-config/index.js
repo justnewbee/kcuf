@@ -4,6 +4,7 @@ import globals from 'globals';
 import configEs from './config-es.js';
 import configTs from './config-ts-type-aware.js';
 import configReact from './config-react.js';
+import configReactHooks from './config-react-hooks.js';
 import configImport from './config-import.js';
 import configStylistic from './config-stylistic.js';
 import configStorybook from './config-storybook.js';
@@ -32,6 +33,7 @@ export default [
   ...configTs,
   ...configImport,
   ...configReact,
+  ...configReactHooks,
   ...configStylistic,
   ...configStorybook
 ];

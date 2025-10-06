@@ -14,15 +14,15 @@ export type TKeymapCallback = () => void | boolean | 'stop' | 'prevent';
 
 export interface IKeymapOptions {
   /**
-   * 事件绑在哪个 DOM 上，默认 `window`，也可以指定为 `document`（和 `window` 等价）或特定 DOM。
+   * 事件绑在哪个 DOM 上，默认 `window`，也可以指定为 `document`（和 `window` 等价）或特定 DOM
    */
   target?: Window | Document | HTMLElement;
   /**
-   * 是否使用 `keyup` 事件，默认用 `keydown` 事件，不会用到其他事件，`keypress` 已经被标注弃用，因此也不会再支持。
+   * 是否使用 `keyup` 事件，默认用 `keydown` 事件，不会用到其他事件，`keypress` 已经被标注弃用，因此也不会再支持
    */
   keyup?: boolean;
   /**
-   * 是否时间捕获，默认 true
+   * 是否为事件捕获阶段，默认 true
    */
   capture?: boolean;
   /**

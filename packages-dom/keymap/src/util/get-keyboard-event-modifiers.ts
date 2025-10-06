@@ -10,7 +10,7 @@ export const MODIFIERS: EModifierKey[] = [
 ];
 
 export default function getKeyboardEventModifiers(e: KeyboardEvent): EModifierKey[] {
-  return MODIFIERS.reduce((result: EModifierKey[], v) => {
+  return MODIFIERS.reduce((result: EModifierKey[], v): EModifierKey[] => {
     if (e.getModifierState(v)) {
       result.push(v);
     }

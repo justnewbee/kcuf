@@ -51,7 +51,7 @@ export const KEY_ALIAS: Record<string, string> = {
 };
 
 /**
- * 按住 Alt+Shift 的时候，需要通过 `code` 还原真实的 `key`，这里没有字母（字母可以通过 `code` 转换）。
+ * 按住 Alt+Shift 的时候，需要通过 `code` 还原真实的 `key`，这里没有字母（字母可以通过 `code` 转换）
  */
 export const CODE_TO_KEYS: Record<string, [string, string]> = {
   Digit1: ['1', '!'],

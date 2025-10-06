@@ -1,6 +1,6 @@
-import {
-  configs
-} from 'eslint-plugin-react-hooks';
+// import {
+//   configs
+// } from 'eslint-plugin-react-hooks';
 
 /**
  * https://react.dev/reference/rules/rules-of-hooks
@@ -8,6 +8,6 @@ import {
  * @type {import('eslint').Linter.RulesRecord}
  */
 export default {
-  ...configs.recommended.rules,
+  // ...configs.recommended.rules,
   'react-hooks/exhaustive-deps': 'error'
 };
