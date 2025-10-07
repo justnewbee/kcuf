@@ -38,6 +38,6 @@
     "eslint-plugin-react-hooks": "^6.1.1",
     "eslint-plugin-storybook": "^9.1.10",
     "globals": "^16.4.0",
-    "typescript-eslint": "^8.45.0"
+    "typescript-eslint": "^8.46.0"
   }
 }
