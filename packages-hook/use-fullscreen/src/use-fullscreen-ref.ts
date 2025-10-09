@@ -5,8 +5,7 @@ import {
 
 import {
   TUseFullscreenRefResult
-} from '../types';
-
+} from './types';
 import useFullscreen from './use-fullscreen';
 
 export default function useFullscreenRef(): TUseFullscreenRefResult {

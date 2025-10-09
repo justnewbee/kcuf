@@ -1,7 +1,6 @@
 import {
   TBaseCallback
-} from '../types';
-
+} from './types';
 import useDebouncedCallback from './use-debounced-callback';
 
 export default function useThrottledCallback<F extends TBaseCallback>(fn: F, delay = 400): F {

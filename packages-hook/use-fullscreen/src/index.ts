@@ -1,5 +1,5 @@
-export { default } from './hook/use-fullscreen';
-export { default as useFullscreenRef } from './hook/use-fullscreen-ref';
+export { default } from './use-fullscreen';
+export { default as useFullscreenRef } from './use-fullscreen-ref';
 
 export type {
   IUseFullscreenResult as UseFullscreenResult,

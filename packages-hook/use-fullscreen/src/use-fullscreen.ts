@@ -7,7 +7,7 @@ import {
 
 import {
   IUseFullscreenResult
-} from '../types';
+} from './types';
 
 export default function useFullscreen(target: HTMLElement | null = document.documentElement): IUseFullscreenResult {
   const [stateFullscreen, setStateFullscreen] = useState<boolean>(target ? document.fullscreenElement === target : false);

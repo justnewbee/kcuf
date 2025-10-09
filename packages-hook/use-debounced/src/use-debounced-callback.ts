@@ -9,10 +9,10 @@ import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
 import {
   TBaseCallback,
   IDebouncedOptions
-} from '../types';
+} from './types';
 import {
   resolveOptions
-} from '../util';
+} from './util';
 
 export default function useDebouncedCallback<F extends TBaseCallback>(fn: F, options?: number | IDebouncedOptions): F {
   const refFn = useRef<F>(fn);
@@ -65,14 +65,14 @@ export default function useDebouncedCallback<F extends TBaseCallback>(fn: F, opt
         return;
       }
       
-      if (Date.now() - refTimeCalled.current >= delay) {
+      if (Date.now() - refTimeCalled.current >= delay) { // eslint-disable-line react-hooks/purity
         refTimerId.current = null;
         invokeFn();
         
         return;
       }
       
-      const time = Date.now();
+      const time = Date.now(); // eslint-disable-line react-hooks/purity
       const timeSinceLastCall = time - refTimeCalled.current;
       const timeSinceLastInvoke = time - refTimeInvoked.current;
       const timeWaiting = delay - timeSinceLastCall;

@@ -1,1 +1,1 @@
-export { default } from './hook/use-click-away';
+export { default } from './use-click-away';

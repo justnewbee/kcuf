@@ -5,8 +5,7 @@ import {
 
 import {
   IDebouncedOptions
-} from '../types';
-
+} from './types';
 import useDebouncedCallback from './use-debounced-callback';
 
 export default function useDebouncedValue<T>(value: T, options?: number | IDebouncedOptions): T {

@@ -8,11 +8,11 @@ import {
 import useControllable from '@kcuf-hook/use-controllable';
 
 import {
-  IUseAddableReturn,
+  TUseAddableReturn,
   TFinder
 } from './types';
 
-export default function useAddable<T extends object>(generate: () => T, finder: TFinder<T>, items?: T[], onChange?: (items: T[]) => void): IUseAddableReturn<T> {
+export default function useAddable<T extends object>(generate: () => T, finder: TFinder<T>, items?: T[], onChange?: (items: T[]) => void): TUseAddableReturn<T> {
   const [controlledValue, controlledOnChange] = useControllable<T[]>([], items, [], onChange);
   
   const handleAdd = useCallback(() => {
@@ -36,11 +36,17 @@ export default function useAddable<T extends object>(generate: () => T, finder: 
       }
     }));
   }, [finder, controlledValue, controlledOnChange]);
+  const handleSwitchPosition = useCallback((indexOld: number, indexNew: number) => {
+    controlledOnChange(produce(controlledValue, draft => {
+      (draft as T[])[indexNew] = controlledValue[indexOld]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+      (draft as T[])[indexOld] = controlledValue[indexNew]!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    }));
+  }, [controlledValue, controlledOnChange]);
   
-  return {
-    items: controlledValue,
+  return [controlledValue, {
     add: handleAdd,
     update: handleUpdate,
-    remove: handleRemove
-  };
+    remove: handleRemove,
+    switchPosition: handleSwitchPosition
+  }];
 }

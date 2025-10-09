@@ -1,5 +1,5 @@
 export { default } from './use-addable';
 
 export type {
-  IUseAddableReturn as UseAddableReturn
+  TUseAddableReturn as UseAddableReturn
 } from './types';

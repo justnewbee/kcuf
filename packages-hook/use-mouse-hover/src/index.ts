@@ -1,1 +1,1 @@
-export { default } from './hook/use-mouse-hover';
+export { default } from './use-mouse-hover';
