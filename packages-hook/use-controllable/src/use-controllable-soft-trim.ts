@@ -7,12 +7,11 @@ import {
 import {
   TOnChange,
   THookReturn
-} from '../types';
+} from './types';
 import {
   isEqualAfterTrim,
   safeTrim
-} from '../util';
-
+} from './util';
 import useControllable from './use-controllable';
 
 /**
@@ -32,6 +31,7 @@ export default function useControllableSoftTrim<A extends unknown[] = []>(softTr
   
   useEffect(() => {
     if (!isEqualAfterTrim(controllableValue, stateValue)) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStateValue(controllableValue);
     }
   }, [stateValue, controllableValue, setStateValue]);

@@ -1,4 +1,4 @@
-export { default as useAddable } from './use-addable';
+export { default } from './use-addable';
 
 export type {
   IUseAddableReturn as UseAddableReturn

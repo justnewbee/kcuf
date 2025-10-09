@@ -6,7 +6,7 @@ import {
 import {
   TOnChange,
   THookReturn
-} from '../types';
+} from './types';
 
 /**
  * 类型明确的情况下（非泛型场景），可以使用此带最终默认值的受控 hook

@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-hook/use-controllable",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "React hook - useControllable.",
   "keywords": [
     "react",
