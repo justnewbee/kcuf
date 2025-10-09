@@ -69,10 +69,17 @@ export default function Keystroke({
     }
   }, [returnFalse, onFire, setStateFired]);
   
-  useEffect(() => keymap(keystroke, handleFire, {
-    target,
-    caseSensitive
-  }), [keystroke, target, caseSensitive, handleFire]);
+  useEffect(() => {
+    if (target) {
+      return keymap(target, keystroke, handleFire, {
+        caseSensitive
+      });
+    }
+    
+    return keymap(keystroke, handleFire, {
+      caseSensitive
+    });
+  }, [keystroke, target, caseSensitive, handleFire]);
   
   useEffect(() => {
     return () => {

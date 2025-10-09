@@ -6,7 +6,7 @@ import normalizeModifiers from './normalize-modifiers';
 import normalizeKey from './normalize-key';
 
 /**
- * 将 keystroke 字符串解析成 Keymap 对象
+ * 将 keystroke 字符串解析成 Keybinding 对象
  *
  * ```
  * keystroke    = `<sequence>`
@@ -24,11 +24,11 @@ import normalizeKey from './normalize-key';
  * 单独使用的时候，可以直接用 `+` 或 ` `
  */
 export default function parseKeybindings(keystroke: string, caseSensitive?: boolean): IKeybinding[] {
-  const result: IKeybinding[] = [];
+  const keybindings: IKeybinding[] = [];
   
   function push(key?: string, modifiers?: string[]): void {
     if (key) {
-      result.push({
+      keybindings.push({
         key: normalizeKey(key),
         modifiers: modifiers?.length ? normalizeModifiers(modifiers) : undefined,
         caseSensitive
@@ -39,7 +39,7 @@ export default function parseKeybindings(keystroke: string, caseSensitive?: bool
   if (keystroke === '+' || keystroke === ' ' || !/[ +]/.test(keystroke)) {
     push(keystroke);
     
-    return result;
+    return keybindings;
   }
   
   keystroke.trim().split(/\s+/).forEach(v => {
@@ -53,5 +53,5 @@ export default function parseKeybindings(keystroke: string, caseSensitive?: bool
     }
   });
   
-  return result;
+  return keybindings;
 }

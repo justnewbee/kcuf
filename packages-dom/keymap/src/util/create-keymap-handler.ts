@@ -2,13 +2,13 @@ import {
   IKeybinding,
   TKeymapCallback
 } from '../types';
-import {
-  DEFAULT_TIMEOUT
-} from '../const';
 
 import matchKeybinding from './match-keybinding';
+import parseKeybindings from './parse-keybindings';
 
-export default function createKeybindingHandler(keybindings: IKeybinding[], callback: TKeymapCallback, timeout = DEFAULT_TIMEOUT): (e: KeyboardEvent) => void {
+export default function createKeymapHandler(keystroke: string, callback: TKeymapCallback, caseSensitive: boolean, timeout: number): (e: KeyboardEvent) => void {
+  const keybindings = parseKeybindings(keystroke, caseSensitive);
+  
   const possibleMatches = new Map<IKeybinding[], IKeybinding[]>();
   let timer: ReturnType<typeof setTimeout> | null = null;
   

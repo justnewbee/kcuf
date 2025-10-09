@@ -1,2 +1,1 @@
-export { default as createKeybindingsHandler } from './create-keybinding-handler';
-export { default as parseKeybindings } from './parse-keybindings';
+export { default as createKeymapHandler } from './create-keymap-handler';

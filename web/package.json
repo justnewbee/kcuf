@@ -48,7 +48,7 @@
     "commander": "^14.0.1",
     "docusaurus-plugin-sass": "^0.2.6",
     "inquirer": "^12.9.6",
-    "react-docgen": "^8.0.1",
+    "react-docgen": "^8.0.2",
     "react-docgen-typescript": "^2.4.0",
     "sass": "^1.93.2",
     "ts-node-dev": "^2.0.0",
