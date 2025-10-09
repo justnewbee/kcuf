@@ -17,13 +17,13 @@
 
 | - | [tinykeys] | [hotkeys-js] | [keymaster] | [mousetrap] | [shortcutjs] | `@kcuf/keymap` |
 | --- | --- | --- | --- | --- | --- | --- |
-| 批量绑定 | ✅ 对象 | ✅ 逗号 | ✅ 逗号 | ✅ 数组 | ✅ 对象数组 | ❌ |
+| 批量绑定 | ✅ 对象 | ✅ 逗号 | ✅ 逗号 | ✅ 数组 | ✅ 对象数组 | ✅ 对象 |
 | 支持序列（Combo） | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
 | 安全解绑 | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 | 暂停（pause/resume） | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
 | preventDefault | ❌ | `return false` | `return false` | `return false` | `options.preventDefault` | `return 'prevent'` |
 | stopPropagation | ❌ | `return false` | `return false` | `return false` | ❌ | `return 'stop'` |
-| 触发条件（某些场景下不触发） | ❌ | ❌ | ❌ | ❌ | ❌ | |
+| 触发条件（某些场景下不触发） | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ `options.ignore(e: KeyboardEvent)` |
 | 便捷绑定（`? *` 等） | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ |
 | 代码触发（trigger） | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ |
 | 符号 Modifiers（⇧⌥⌃⌘） | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ |

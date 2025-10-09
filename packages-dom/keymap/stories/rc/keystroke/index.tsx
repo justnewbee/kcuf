@@ -17,6 +17,7 @@ interface IProps {
   target?: HTMLElement;
   returnFalse?: boolean;
   caseSensitive?: boolean;
+  ignore?(e: KeyboardEvent): void;
   onFire?(): void;
 }
 
@@ -42,6 +43,7 @@ export default function Keystroke({
   target,
   returnFalse,
   caseSensitive,
+  ignore,
   onFire
 }: IProps): ReactElement {
   const [stateFired, setStateFired] = useState(0);
@@ -72,14 +74,16 @@ export default function Keystroke({
   useEffect(() => {
     if (target) {
       return keymap(target, keystroke, handleFire, {
-        caseSensitive
+        caseSensitive,
+        ignore
       });
     }
     
     return keymap(keystroke, handleFire, {
-      caseSensitive
+      caseSensitive,
+      ignore
     });
-  }, [keystroke, target, caseSensitive, handleFire]);
+  }, [keystroke, target, caseSensitive, ignore, handleFire]);
   
   useEffect(() => {
     return () => {

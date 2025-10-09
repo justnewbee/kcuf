@@ -14,3 +14,4 @@ export { default as KeysExtra } from './story-keys-extra';
 export { default as CaseSensitive } from './story-case-sensitive';
 export { default as ReturnFalse } from './story-return-false';
 export { default as Target } from './story-target';
+export { default as Ignore } from './story-ignore';

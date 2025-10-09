@@ -2,6 +2,12 @@ import {
   EModifierKey
 } from '../enum';
 
+export interface IKeybinding {
+  key: string;
+  modifiers?: EModifierKey[];
+  caseSensitive?: boolean;
+}
+
 /**
  * 事件绑在哪个 DOM 上，默认 `window`，也可以指定为 `document`（和 `window` 等价）或特定 DOM
  */
@@ -41,10 +47,11 @@ export interface IKeymapOptions {
    * **Note:** 不建议太小，比如 300 就可能对大多数用户来说太快了
    */
   timeout?: number;
+  /**
+   * 适时忽略，用以动态判断不需要触发的场景，比如绑定了全局 ⌘Z 的时候，需要在输入组件（input、textarea、contenteditable）内忽略，
+   * 用 `e.target` 进行实时判断，有时甚至可能需要向上查找到特定的容器组件
+   */
+  ignore?(e: KeyboardEvent): boolean | void;
 }
 
-export interface IKeybinding {
-  key: string;
-  modifiers?: EModifierKey[];
-  caseSensitive?: boolean;
-}
+export type TKeymapBatch = Record<string, TKeymapCallback | [TKeymapCallback, IKeymapOptions?]>;

@@ -5,16 +5,16 @@ import {
   IKeymapOptions
 } from './types';
 import {
-  DEFAULT_TIMEOUT
-} from './const';
-import {
-  createKeymapHandler
+  keymapOnTarget
 } from './util';
 
 /**
- * 绑定 keystroke，返回无参的解绑方法
+ * 绑定 `keystroke` 到 `window`
  */
 function keymap(keystroke: string, callback: TKeymapCallback, options?: IKeymapOptions): TKeymapUnbind;
+/**
+ * 绑定 `keystroke` 到 `target`
+ */
 function keymap(target: TKeymapTarget, keystroke: string, callback: TKeymapCallback, options?: IKeymapOptions): TKeymapUnbind;
 
 function keymap(...args: [string, TKeymapCallback, IKeymapOptions?] | [TKeymapTarget, string, TKeymapCallback, IKeymapOptions?]): TKeymapUnbind {
@@ -35,18 +35,10 @@ function keymap(...args: [string, TKeymapCallback, IKeymapOptions?] | [TKeymapTa
     options = args[3];
   }
   
-  const {
-    keyup,
-    capture = true,
-    caseSensitive = false,
-    timeout = DEFAULT_TIMEOUT
-  } = options ?? {};
-  const eventType = keyup ? 'keyup' : 'keydown';
-  const eventHandler = createKeymapHandler(keystroke, callback, caseSensitive, timeout) as (e: Event) => void;
-  
-  target.addEventListener(eventType, eventHandler, capture);
-  
-  return (): void => target.removeEventListener(eventType, eventHandler, capture);
+  return keymapOnTarget(target, keystroke, callback, options);
 }
 
+/**
+ * 绑定 `keystroke` 到 `window` 或指定的 `target`，返回无参的解绑方法
+ */
 export default keymap;
