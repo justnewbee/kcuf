@@ -39,10 +39,10 @@ export default function TestApi({
   }, [test, setStatePromise]);
   
   useEffect(() => {
-    if (auto) {
-      handleTest();
+    if (auto && !disabled) {
+      handleTest(); // eslint-disable-line react-hooks/set-state-in-effect
     }
-  }, [auto, handleTest]);
+  }, [auto, disabled, handleTest]);
   
   return <>
     <H1>{title}</H1>
