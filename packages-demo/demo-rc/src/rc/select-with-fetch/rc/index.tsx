@@ -15,6 +15,7 @@ import {
 } from '../types';
 
 export default function SelectWithFetch<T extends object>({
+  withEmpty,
   fetchList,
   optionLabel,
   optionValue,
@@ -24,11 +25,42 @@ export default function SelectWithFetch<T extends object>({
   onChangeData,
   ...props
 }: ISelectWithFetchProps<T>): ReactElement {
+  const [stateLoading, setStateLoading] = useState<boolean | 'error'>(false);
   const [stateList, setStateList] = useState<T[]>([]);
-  const datasource = useMemo((): IDatasourceItem[] => stateList.map(v => ({
-    label: typeof optionLabel === 'function' ? optionLabel(v) : v[optionLabel] as string,
-    value: typeof optionValue === 'function' ? optionValue(v) : v[optionValue] as string
-  })), [stateList, optionLabel, optionValue]);
+  const datasource = useMemo((): IDatasourceItem[] => {
+    switch (stateLoading) {
+    case true:
+      return [{
+        label: 'Loading...',
+        value: ''
+      }];
+    case 'error':
+      return [{
+        label: 'Error',
+        value: ''
+      }];
+    default:
+      return stateList.map(v => ({
+        label: typeof optionLabel === 'function' ? optionLabel(v) : v[optionLabel],
+        value: typeof optionValue === 'function' ? optionValue(v) : v[optionValue]
+      } as IDatasourceItem));
+    }
+  }, [stateLoading, stateList, optionLabel, optionValue]);
+  
+  const useHandleFetch = useCallback(async () => {
+    setStateLoading(true);
+    
+    try {
+      const list = await fetchList();
+      
+      setStateLoading(false);
+      setStateList(list);
+      onFetchSuccess?.(list);
+    } catch (err) {
+      setStateLoading('error');
+      onFetchError?.(err as Error);
+    }
+  }, [fetchList, onFetchError, onFetchSuccess]);
   const handleChange = useCallback((value: string) => {
     onChange?.(value);
     
@@ -40,11 +72,14 @@ export default function SelectWithFetch<T extends object>({
   }, [stateList, optionValue, onChange, onChangeData]);
   
   useEffect(() => {
-    fetchList().then(list => {
-      setStateList(list);
-      onFetchSuccess?.(list);
-    }).catch(onFetchError);
-  }, [fetchList, onFetchSuccess, onFetchError]);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useHandleFetch();
+  }, [useHandleFetch]);
   
-  return <Select {...props} onChange={handleChange} datasource={datasource} />;
+  return <Select {...{
+    ...props,
+    withEmpty: stateLoading === false ? withEmpty : false,
+    datasource,
+    onChange: handleChange
+  }} />;
 }
