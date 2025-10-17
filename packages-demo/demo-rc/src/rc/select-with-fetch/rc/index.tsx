@@ -15,6 +15,7 @@ import {
 } from '../types';
 
 export default function SelectWithFetch<T extends object>({
+  disabled,
   withEmpty,
   fetchList,
   optionLabel,
@@ -78,6 +79,7 @@ export default function SelectWithFetch<T extends object>({
   
   return <Select {...{
     ...props,
+    disabled: stateLoading === true ? true : disabled,
     withEmpty: stateLoading === false ? withEmpty : false,
     datasource,
     onChange: handleChange
