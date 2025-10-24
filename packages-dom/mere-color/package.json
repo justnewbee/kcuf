@@ -33,10 +33,10 @@
   "devDependencies": {
     "@ant-design/fast-color": "^3.0.0",
     "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.4",
-    "@babel/plugin-transform-runtime": "^7.28.3",
-    "@babel/preset-env": "^7.28.3",
-    "@babel/preset-typescript": "^7.27.1",
+    "@babel/core": "^7.28.5",
+    "@babel/plugin-transform-runtime": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@chromatic-com/storybook": "^4.1.1",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
@@ -49,7 +49,7 @@
     "@types/lodash": "^4.17.20",
     "@types/react": "^18.3.24",
     "@types/tinycolor2": "^1.4.6",
-    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/coverage-v8": "^4.0.2",
     "chroma-js": "^3.1.2",
     "color": "^5.0.2",
     "color2k": "^2.0.3",
@@ -63,7 +63,7 @@
     "styled-components": "^6.1.19",
     "tinycolor2": "^1.6.0",
     "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.2"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x",

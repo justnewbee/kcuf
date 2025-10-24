@@ -23,10 +23,10 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.4",
-    "@babel/plugin-transform-runtime": "^7.28.3",
-    "@babel/preset-env": "^7.28.3",
-    "@babel/preset-typescript": "^7.27.1",
+    "@babel/core": "^7.28.5",
+    "@babel/plugin-transform-runtime": "^7.28.5",
+    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@chromatic-com/storybook": "^4.1.1",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
@@ -35,16 +35,16 @@
     "@storybook/react-vite": "^9.1.13",
     "@types/lodash": "^4.17.20",
     "@types/react": "^18.3.24",
-    "@vitest/coverage-v8": "^3.2.4",
-    "fetch-mock": "^12.5.4",
-    "jsdom": "^27.0.0",
+    "@vitest/coverage-v8": "^4.0.2",
+    "fetch-mock": "^12.5.5",
+    "jsdom": "^27.0.1",
     "lodash": "^4.17.21",
     "react": "^18.3.1",
     "rimraf": "^6.0.1",
     "storybook": "^9.1.13",
     "styled-components": "^6.1.19",
     "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.2"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"
