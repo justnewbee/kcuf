@@ -6,6 +6,7 @@ export type {
   IBaseParamsPageWithQ as BaseParamsPageWithQ,
   IBaseParamsCursorPage as BaseParamsCursorPage,
   IBaseParamsCursorPageWithQ as BaseParamsCursorPageWithQ,
+  
   // 数据标准化
   IBaseDataId as BaseDataId,
   IBaseDataName as BaseDataName,
@@ -18,6 +19,7 @@ export type {
   IBaseDataTimes as BaseDataTimes,
   IBaseDataCreator as BaseDataCreator,
   IBaseDataUpdater as BaseDataUpdater,
+  
   // 数据标准化（泛型）
   IPagedList as PagedList,
   IPagedCursorList as PagedCursorList,

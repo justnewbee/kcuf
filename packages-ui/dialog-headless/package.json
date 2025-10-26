@@ -45,7 +45,7 @@
     "@kcuf/fork-console-base-theme": "workspace:^",
     "@kcuf/mere-dom": "workspace:^",
     "@kcuf/ts-missing-helpers": "workspace:^",
-    "immer": "^10.1.3",
+    "immer": "^10.2.0",
     "lodash": "^4.17.21"
   },
   "scripts": {

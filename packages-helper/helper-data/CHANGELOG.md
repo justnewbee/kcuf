@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.3 2024/11/05 @驳是
+
+* FEAT 新增 `isEmptyPagedList`
+
 ## 0.2.0 2024/11/05 @驳是
 
 * BREAK Removed Loading stuff

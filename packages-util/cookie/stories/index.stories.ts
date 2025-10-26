@@ -3,7 +3,7 @@ import {
 } from '@storybook/react-vite';
 
 export default {
-  title: 'copy-text',
+  title: 'cookie',
   parameters: {
     layout: 'fullscreen'
   },
