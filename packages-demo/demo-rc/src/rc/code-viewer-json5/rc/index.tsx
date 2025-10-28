@@ -14,7 +14,8 @@ import {
  * 展示简化的 JSON
  */
 export default function CodeViewerJson5({
-  o
+  o,
+  ...props
 }: ICodeViewerJson5Props): ReactElement {
-  return <CodeViewer language="json5">{json5Stringify(o)}</CodeViewer>;
+  return <CodeViewer {...props} language="json5">{json5Stringify(o)}</CodeViewer>;
 }
