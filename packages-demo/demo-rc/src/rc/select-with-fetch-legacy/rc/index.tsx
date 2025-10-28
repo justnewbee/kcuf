@@ -5,7 +5,8 @@ import {
 } from 'react';
 
 import {
-  IDatasourceItem, TDatasourceValue
+  IDatasourceItem,
+  TDatasourceValue
 } from '../../../types';
 import Select from '../../select';
 import {

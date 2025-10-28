@@ -1,6 +1,7 @@
 import {
-  ReactElement, useCallback,
-  useReducer
+  ReactElement,
+  useReducer,
+  useCallback
 } from 'react';
 
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';

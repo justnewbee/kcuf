@@ -2,7 +2,8 @@ import {
   ECheckFilterResult
 } from '../enum';
 import {
-  IParsedItem, TNavItem,
+  IParsedItem,
+  TNavItem,
   TParsedItemOrDivider,
   TUnfoldMode
 } from '../types';
@@ -80,15 +81,15 @@ export default function parseItem(o: TNavItem, options: IParseOptions): TParsedI
       switch (defaultUnfolded) {
       case true:
         itemParsed.defaultUnfolded = itemParsed.defaultUnfolded ?? true;
-          
+        
         break;
       case false:
         itemParsed.defaultUnfolded = itemParsed.defaultUnfolded ?? false;
-          
+        
         break;
       case 'first-level':
         itemParsed.defaultUnfolded = itemParsed.defaultUnfolded ?? indent < 1;
-          
+        
         break;
       default:
         break;

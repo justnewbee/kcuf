@@ -4,7 +4,8 @@ import {
 } from '@kcuf/geometry-basic';
 
 import {
-  EImageStatus, EMouseJustifyStatus,
+  EImageStatus,
+  EMouseJustifyStatus,
   EZoomHow
 } from '../enum';
 
