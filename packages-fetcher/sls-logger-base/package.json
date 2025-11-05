@@ -29,12 +29,12 @@
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
     "@types/lodash": "^4.17.20",
-    "@vitest/coverage-v8": "^4.0.3",
-    "fetch-mock": "^12.5.5",
-    "jsdom": "^27.0.1",
-    "rimraf": "^6.0.1",
+    "@vitest/coverage-v8": "^4.0.7",
+    "fetch-mock": "^12.6.0",
+    "jsdom": "^27.1.0",
+    "rimraf": "^6.1.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.3"
+    "vitest": "^4.0.7"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"

@@ -31,7 +31,7 @@
     "@babel/preset-typescript": "^7.28.5",
     "@types/react": "^18.3.24",
     "react": "^18.3.1",
-    "rimraf": "^6.0.1",
+    "rimraf": "^6.1.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
@@ -50,7 +50,7 @@
     "@codemirror/lang-python": "^6.2.1",
     "@codemirror/lang-sass": "^6.0.2",
     "@codemirror/language": "^6.11.3",
-    "@codemirror/lint": "^6.9.1",
+    "@codemirror/lint": "^6.9.2",
     "@codemirror/search": "^6.5.11",
     "@codemirror/state": "^6.5.2",
     "@codemirror/theme-one-dark": "^6.1.3",
