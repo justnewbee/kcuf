@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/storage-factory",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A type safe storage factory utility.",
   "keywords": [],
   "license": "MIT",
