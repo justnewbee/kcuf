@@ -2,57 +2,53 @@ import {
   IStorageFn
 } from './types';
 
-export default function storageFactory<T extends object>(wholeDataKey: string, defaultValue: T, session?: boolean): IStorageFn<T> {
+export default function storageFactory<T extends object>(oneKey: string, defaultValue: Required<T>, session?: boolean): IStorageFn<T> {
   const storage = session ? sessionStorage : localStorage;
   
-  const storageWhole: IStorageFn<T> = (): T => {
+  const storageWhole: IStorageFn<T> = (): Required<T> => {
     try { // getItem 和 JSON.parse 都可能出错
-      const str = storage.getItem(wholeDataKey);
+      const str = storage.getItem(oneKey);
       
       if (str) {
         return {
-          ...defaultValue,
-          ...JSON.parse(str) as Partial<T>
+          ...structuredClone(defaultValue),
+          ...JSON.parse(str) as Partial<T> // 这里会把 T 之外的所有信息都记录下来
         };
       }
     } catch (_err) {
       // ignore
     }
     
-    return {
-      ...defaultValue
-    };
+    return structuredClone(defaultValue);
   };
   
-  function save(wholeData: T): T {
+  function savePartial(updates: Partial<T>): Required<T> {
+    const mergedData: Required<T> = {
+      ...storageWhole(),
+      ...updates
+    };
+    
     try {
-      storage.setItem(wholeDataKey, JSON.stringify(wholeData));
+      storage.setItem(oneKey, JSON.stringify(mergedData));
     } catch (_err) {
       // ignore
     }
     
-    return wholeData;
+    return mergedData;
   }
   
-  function update<K extends keyof T>(...args: [Partial<T>] | [K, T[K]]): T {
-    const data = storageWhole();
-    let dataToSave: T;
-    
+  function save(data: Required<T>): Required<T> {
+    return savePartial(data);
+  }
+  
+  function update<K extends keyof T>(...args: [Partial<T>] | [K, T[K]]): Required<T> {
     if (typeof args[0] === 'object') {
-      dataToSave = {
-        ...data,
-        ...args[0]
-      };
-    } else {
-      dataToSave = {
-        ...data,
-        [args[0]]: args[1]
-      };
+      return savePartial(args[0]);
     }
     
-    save(dataToSave);
-    
-    return dataToSave;
+    return savePartial({
+      [args[0]]: args[1]
+    } as Partial<T>);
   }
   
   storageWhole.save = save;
