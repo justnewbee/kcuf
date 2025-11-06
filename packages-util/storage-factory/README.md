@@ -50,3 +50,5 @@ storage.update({
   loggedTIME: Date.now() // 💥 key 错误
 });
 ```
+
+你甚至可以对相同的 KEY 生成针对不同类型的方法，在保证类型不重叠的情况下，两者不会相互干扰。

@@ -1,6 +1,6 @@
 import {
   IStorageFn
-} from '../types';
+} from './types';
 
 export default function storageFactory<T extends object>(wholeDataKey: string, defaultValue: T, session?: boolean): IStorageFn<T> {
   const storage = session ? sessionStorage : localStorage;
@@ -12,7 +12,7 @@ export default function storageFactory<T extends object>(wholeDataKey: string, d
       if (str) {
         return {
           ...defaultValue,
-          ...JSON.parse(str)
+          ...JSON.parse(str) as Partial<T>
         };
       }
     } catch (_err) {

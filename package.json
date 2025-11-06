@@ -32,7 +32,7 @@
     "@kcuf/ts-config": "workspace:^",
     "@tsconfig/node22": "^22.0.2",
     "@types/node": "^24.10.0",
-    "@types/react": "^18.3.24",
+    "@types/react": "^18.3.26",
     "@types/react-dom": "^18.3.7",
     "commander": "^14.0.2",
     "depcheck": "^1.4.7",
