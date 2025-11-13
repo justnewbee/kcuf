@@ -4,21 +4,29 @@ import {
 } from '@storybook/react-vite';
 
 import {
-  InputNumber
+  InputDate
 } from '../../src';
 
-type TMeta = Meta<typeof InputNumber>;
+type TMeta = Meta<typeof InputDate>;
 type TStory = StoryObj<TMeta>;
 
-const meta = {
+export default {
   title: 'Form/InputDate',
-  component: InputNumber,
+  component: InputDate,
   parameters: {
     layout: 'centered'
   },
   tags: ['autodocs']
 } satisfies TMeta;
 
-export default meta;
-
 export const Default: TStory = {};
+export const Time: TStory = {
+  args: {
+    type: 'time'
+  }
+};
+export const DateTime: TStory = {
+  args: {
+    type: 'datetime'
+  }
+};

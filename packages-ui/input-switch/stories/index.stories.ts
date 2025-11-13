@@ -5,7 +5,7 @@ import {
   TStory
 } from './types';
 
-const meta = {
+export default {
   title: 'InputSwitch',
   component: InputSwitch,
   parameters: {
@@ -13,8 +13,6 @@ const meta = {
   },
   tags: ['autodocs']
 } satisfies TMeta;
-
-export default meta;
 
 export const Primary: TStory = {};
 

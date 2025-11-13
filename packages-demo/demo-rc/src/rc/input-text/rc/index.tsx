@@ -4,38 +4,20 @@ import {
   forwardRef,
   useCallback
 } from 'react';
-import styled, {
-  css
-} from 'styled-components';
 
 import {
   useControllableSoftTrim
 } from '@kcuf-hook/use-controllable';
 
 import {
-  CSS_FORM_CONTROL_INPUT_BASE
-} from '../../../const';
+  ScInput
+} from '../../_sc-base';
 import {
   TInputTextRef,
   IInputTextProps
 } from '../types';
 
-interface IScInput {
-  $block?: boolean;
-}
-
-const ScInputText = styled.input<IScInput>`
-  min-width: 120px;
-  max-width: 100%;
-  ${CSS_FORM_CONTROL_INPUT_BASE}
-  ${props => props.$block ? css`
-    display: block;
-    margin: 1px 0;
-    width: 100%;
-  ` : null}
-`;
-
-function InputText({
+export default forwardRef(function InputText({
   block,
   value,
   defaultValue,
@@ -47,7 +29,7 @@ function InputText({
     controllableOnChange(e.target.value);
   }, [controllableOnChange]);
   
-  return <ScInputText {...{
+  return <ScInput {...{
     $block: block,
     ...props,
     value: controllableValue,
@@ -55,6 +37,4 @@ function InputText({
     ref,
     onChange: handleChange
   }} />;
-}
-
-export default forwardRef(InputText);
+});

@@ -24,6 +24,8 @@ export * from './input-textarea';
 export { default as InputTextarea } from './input-textarea';
 export * from './input-number';
 export { default as InputNumber } from './input-number';
+export * from './input-date';
+export { default as InputDate } from './input-date';
 export * from './input-range';
 export { default as InputRange } from './input-range';
 export * from './input-color';

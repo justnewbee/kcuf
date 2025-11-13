@@ -4,47 +4,33 @@ import {
   forwardRef,
   useCallback
 } from 'react';
-import styled from 'styled-components';
 
 import useControllable from '@kcuf-hook/use-controllable';
 
 import {
-  CSS_FORM_CONTROL_INPUT_BASE
-} from '../../../const';
-import {
-  fromNumberToString,
-  fromStringToNumber
-} from '../../../util';
+  ScInput
+} from '../../_sc-base';
 import {
   TInputDateRef,
   IInputDateProps
 } from '../types';
 
-const ScInputDate = styled.input`
-  width: 120px;
-  ${CSS_FORM_CONTROL_INPUT_BASE}
-`;
-
-function InputDate({
+export default forwardRef(function InputDate({
+  type = 'datetime',
   value,
   defaultValue,
   onChange,
   ...props
 }: IInputDateProps, ref: TInputDateRef): ReactElement {
-  const [controllableValue, controllableOnChange] = useControllable<number>(0, value, defaultValue, onChange);
+  const [controllableValue, controllableOnChange] = useControllable('', value, defaultValue, onChange);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    controllableOnChange(fromStringToNumber(e.target.value));
+    controllableOnChange(e.target.value);
   }, [controllableOnChange]);
   
-  return <ScInputDate {...{
+  return <ScInput {...{
     ...props,
-    value: fromNumberToString(controllableValue),
-    type: 'number',
+    value: controllableValue,
+    type: type === 'datetime' ? 'datetime-local' : type,
     onChange: handleChange
   }} ref={ref} />;
-}
-
-/**
- * 输入器：数字
- */
-export default forwardRef(InputDate);
+});

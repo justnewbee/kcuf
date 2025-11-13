@@ -7,7 +7,7 @@ import {
   TStory
 } from './types';
 
-const meta = {
+export default {
   title: 'Placeholder/LongArticle',
   component: LongArticle,
   parameters: {
@@ -15,7 +15,5 @@ const meta = {
   },
   tags: ['autodocs']
 } satisfies TMeta;
-
-export default meta;
 
 export const Default: TStory = {};

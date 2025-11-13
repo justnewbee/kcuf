@@ -7,7 +7,7 @@ import {
   TStory
 } from './types';
 
-const meta = {
+export default {
   title: 'Typo/RainbowText',
   component: RainbowText,
   parameters: {
@@ -15,8 +15,6 @@ const meta = {
   },
   tags: ['autodocs']
 } satisfies TMeta;
-
-export default meta;
 
 export const Default: TStory = {
   args: {

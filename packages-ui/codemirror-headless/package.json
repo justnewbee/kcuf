@@ -57,7 +57,7 @@
     "@codemirror/view": "^6.38.6",
     "@kcuf-hook/use-controllable": "workspace:^",
     "@kcuf-hook/use-is-unmounted": "workspace:^",
-    "@uiw/codemirror-theme-material": "^4.25.2",
+    "@uiw/codemirror-theme-material": "^4.25.3",
     "codemirror-json5": "^1.0.3",
     "immer": "^10.2.0"
   },

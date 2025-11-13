@@ -10,7 +10,7 @@ import {
 type TMeta = Meta<typeof Select>;
 type TStory = StoryObj<TMeta>;
 
-const meta = {
+export default {
   title: 'Form/Select',
   component: Select,
   parameters: {
@@ -18,8 +18,6 @@ const meta = {
   },
   tags: ['autodocs']
 } satisfies TMeta;
-
-export default meta;
 
 export const Default: TStory = {
   args: {

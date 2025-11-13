@@ -10,7 +10,7 @@ import {
 type TMeta = Meta<typeof InputNumber>;
 type TStory = StoryObj<TMeta>;
 
-const meta = {
+export default {
   title: 'Form/InputNumber',
   component: InputNumber,
   parameters: {
@@ -18,7 +18,5 @@ const meta = {
   },
   tags: ['autodocs']
 } satisfies TMeta;
-
-export default meta;
 
 export const Default: TStory = {};

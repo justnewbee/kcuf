@@ -67,7 +67,7 @@ function composeHexa(hex: string, alpha: number): string {
   return `${hex}${alpha >= 255 ? '' : alpha.toString(16).padStart(2, '0')}`;
 }
 
-function InputColor(props: IInputColorProps, ref: TInputColorRef): ReactElement {
+export default forwardRef(function InputColor(props: IInputColorProps, ref: TInputColorRef): ReactElement {
   const {
     withAlpha,
     value,
@@ -107,6 +107,4 @@ function InputColor(props: IInputColorProps, ref: TInputColorRef): ReactElement 
       onChange: handleAlphaChange
     }} /> : null}
   </ScInputColor>;
-}
-
-export default forwardRef(InputColor);
+});
