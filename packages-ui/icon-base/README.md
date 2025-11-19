@@ -48,10 +48,7 @@ function getIconColor(type: TIconType): string | null {
   ...
 }
 
-/**
- * ConsoleBase 项目自用的图标组件
- */
-function Icon({
+export default forwardRef(function Icon({
   type,
   ...props
 }: IIconProps, ref: IconRef): ReactElement {
@@ -64,9 +61,7 @@ function Icon({
     getIconCode,
     getIconColor
   }} />;
-}
-
-export default forwardRef(Icon);
+});
 
 export type {
   TIconType as IconType,

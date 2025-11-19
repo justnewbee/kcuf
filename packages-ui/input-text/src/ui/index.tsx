@@ -62,7 +62,7 @@ const ScUi = styled.div<IScInputProps>`
   }
 `;
 
-function Ui(_props: unknown, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
+export default forwardRef(function Ui(_props: unknown, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
   const {
     fluid,
     round,
@@ -99,6 +99,4 @@ function Ui(_props: unknown, ref: ForwardedRef<InputTextImperativeRef>): ReactEl
     <AddonSuffix />
     <AddonAfter />
   </ScUi>;
-}
-
-export default forwardRef(Ui);
+});

@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-fetcher/fetcher-interceptor-sls",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-fetcher/fetcher-interceptor-sls",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -28,12 +28,12 @@
     "@babel/preset-env": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
-    "@vitest/coverage-v8": "^4.0.8",
+    "@vitest/coverage-v8": "^4.0.10",
     "fetch-mock": "^12.6.0",
     "jsdom": "^27.2.0",
     "rimraf": "^6.1.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.8"
+    "vitest": "^4.0.10"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"

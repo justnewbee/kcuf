@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-hook/use-with-class",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-hook/use-with-class",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",

@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-helper/helper-data",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-helper/helper-data",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",

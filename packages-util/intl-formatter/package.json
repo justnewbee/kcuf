@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-util/intl-formatter",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-util/intl-formatter",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -34,10 +34,10 @@
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
     "@types/lodash": "^4.17.20",
-    "@vitest/coverage-v8": "^4.0.8",
+    "@vitest/coverage-v8": "^4.0.10",
     "rimraf": "^6.1.0",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.8"
+    "vitest": "^4.0.10"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"

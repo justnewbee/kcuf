@@ -1,5 +1,5 @@
 /**
- * https://github.com/jsx-eslint/eslint-plugin-react/tree/master/docs/rules
+ * https://github.com/jsx-eslint/eslint-plugin-react/tree/main/docs/rules
  *
  * @type {import('eslint').Linter.RulesRecord}
  */

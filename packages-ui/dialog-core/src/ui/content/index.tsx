@@ -23,7 +23,7 @@ const ScContent = styled.div`
   overflow: auto;
 `;
 
-function Content(props: IProps, ref: Ref<HTMLDivElement>): ReactElement {
+export default forwardRef(function Content(props: IProps, ref: Ref<HTMLDivElement>): ReactElement {
   const {
     contentClassName,
     content
@@ -40,6 +40,4 @@ function Content(props: IProps, ref: Ref<HTMLDivElement>): ReactElement {
   }}>
     {content}
   </ScContent>;
-}
-
-export default forwardRef(Content);
+});

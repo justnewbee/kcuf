@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-x/react-router-link-hijacker",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-x/react-router-link-hijacker",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -32,7 +32,7 @@
     "@kcuf/ts-config": "workspace:^",
     "@types/react": "^18.3.24",
     "react": "^18.3.1",
-    "react-router": "^7.9.5",
+    "react-router": "^7.9.6",
     "rimraf": "^6.1.0",
     "typescript": "^5.9.3"
   },

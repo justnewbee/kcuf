@@ -68,7 +68,7 @@ const ScButton = styled(ScBaseButton)<Partial<ButtonProps>>`
   }
 `;
 
-function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
+export default forwardRef(function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
   const {
     component,
     preset,
@@ -90,6 +90,4 @@ function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
     {label ? <ScInnerLabel>{label}</ScInnerLabel> : null}
     <ButtonIconEnd />
   </ScButton>;
-}
-
-export default forwardRef(Ui);
+});

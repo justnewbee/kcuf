@@ -10,10 +10,8 @@ import Model, {
 
 import Ui from '../ui';
 
-function WithProvider(props: ButtonProps, ref: Ref<HTMLDivElement>): ReactElement {
+export default forwardRef(function Button(props: ButtonProps, ref: Ref<HTMLDivElement>): ReactElement {
   return <Model props={props}>
     <Ui ref={ref} />
   </Model>;
-}
-
-export default forwardRef(WithProvider);
+});

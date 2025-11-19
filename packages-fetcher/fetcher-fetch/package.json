@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-fetcher/fetcher-fetch",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-fetcher/fetcher-fetch",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -27,22 +27,22 @@
     "@babel/plugin-transform-runtime": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
-    "@chromatic-com/storybook": "^4.1.2",
+    "@chromatic-com/storybook": "^4.1.3",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@storybook/addon-docs": "^10.0.7",
-    "@storybook/addon-links": "^10.0.7",
-    "@storybook/react-vite": "^10.0.7",
+    "@storybook/addon-docs": "^10.0.8",
+    "@storybook/addon-links": "^10.0.8",
+    "@storybook/react-vite": "^10.0.8",
     "@types/react": "^18.3.24",
-    "@vitest/coverage-v8": "^4.0.8",
+    "@vitest/coverage-v8": "^4.0.10",
     "fetch-mock": "^12.6.0",
     "jsdom": "^27.2.0",
     "react": "^18.3.1",
     "rimraf": "^6.1.0",
-    "storybook": "^10.0.7",
+    "storybook": "^10.0.8",
     "styled-components": "^6.1.19",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.8"
+    "vitest": "^4.0.10"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"

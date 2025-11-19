@@ -34,7 +34,7 @@ const ScLi = styled.li`
   margin: 4px 0;
 `;
 
-function List({
+export default forwardRef(function List({
   ordered,
   children,
   ...props
@@ -44,6 +44,4 @@ function List({
   return <ListComponent {...props} ref={ref}>
     {Children.map(children, (v, i): ReactElement | null => <ScLi key={i}>{v as ReactElement}</ScLi>)}
   </ListComponent>;
-}
-
-export default forwardRef(List);
+});

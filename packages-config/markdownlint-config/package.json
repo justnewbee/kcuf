@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-config/markdownlint-config",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-config/markdownlint-config",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -22,7 +22,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "markdownlint-cli2": "^0.18.1"
+    "markdownlint-cli2": "^0.19.0"
   },
   "peerDependencies": {
     "markdownlint-cli2": ">=0"

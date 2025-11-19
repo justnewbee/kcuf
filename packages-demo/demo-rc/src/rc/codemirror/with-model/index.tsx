@@ -8,7 +8,7 @@ import CodemirrorHeadless, {
 
 import Ui from '../ui';
 
-export default function WithModel(props: CodemirrorProps): ReactElement {
+export default function Codemirror(props: CodemirrorProps): ReactElement {
   return <CodemirrorHeadless {...props}>
     <Ui />
   </CodemirrorHeadless>;

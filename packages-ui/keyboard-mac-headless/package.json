@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/master/packages-ui/keyboard-mac-headless",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-ui/keyboard-mac-headless",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",

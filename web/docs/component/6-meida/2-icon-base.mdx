@@ -58,7 +58,7 @@ function getIconColor(type: TIconType): string | null {
   ...
 }
 
-function Icon({
+export default forwardRef(function Icon({
   type,
   ...props
 }: IIconProps, ref: IconBaseRef): ReactElement {
@@ -71,9 +71,7 @@ function Icon({
     getIconCode,
     getIconColor
   }} />;
-}
-
-export default forwardRef(Icon);
+});
 
 export type {
   IconBaseRef as IconRef,

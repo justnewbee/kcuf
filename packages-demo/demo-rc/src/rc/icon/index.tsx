@@ -16,9 +16,6 @@ import {
   getIconColor
 } from './util';
 
-/**
- * ConsoleBase 项目自用的图标组件
- */
 export default function Icon({
   type,
   ...props

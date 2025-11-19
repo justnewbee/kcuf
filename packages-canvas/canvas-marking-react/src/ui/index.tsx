@@ -22,7 +22,7 @@ const ScMarkingContainer = styled.div<IScMarkingContainer>`
   min-height: 120px;
 `;
 
-function Ui(_props: unknown, ref: ForwardedRef<CanvasMarkingImperativeRef>): ReactElement {
+export default forwardRef(function Ui(_props: unknown, ref: ForwardedRef<CanvasMarkingImperativeRef>): ReactElement {
   const {
     className
   } = useProps();
@@ -32,6 +32,4 @@ function Ui(_props: unknown, ref: ForwardedRef<CanvasMarkingImperativeRef>): Rea
   useImperativeHandle(ref, () => imperativeRef, [imperativeRef]);
   
   return <ScMarkingContainer className={className} ref={refDomContainer} />;
-}
-
-export default forwardRef(Ui);
+});

@@ -22,7 +22,7 @@ const ScInputTextarea = styled.textarea`
   ${CSS_FORM_CONTROL_INPUT_TEXTAREA}
 `;
 
-function InputTextarea({
+export default forwardRef(function InputTextarea({
   value,
   defaultValue,
   onChange,
@@ -37,6 +37,4 @@ function InputTextarea({
     value: controllableValue,
     onChange: handleChange
   }} />;
-}
-
-export default forwardRef(InputTextarea);
+});

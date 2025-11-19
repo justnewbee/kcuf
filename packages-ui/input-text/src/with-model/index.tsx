@@ -11,10 +11,8 @@ import InputTextHeadless, {
 
 import Ui from '../ui';
 
-function WithProvider(props: InputTextProps, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
+export default forwardRef(function InputText(props: InputTextProps, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
   return <InputTextHeadless {...props}>
     <Ui ref={ref} />
   </InputTextHeadless>;
-}
-
-export default forwardRef(WithProvider);
+});

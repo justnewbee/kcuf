@@ -63,7 +63,7 @@ export default function ComponentBrief(props: IComponentBriefProps): ReactElemen
         <ScKeyValueK>Source</ScKeyValueK>
         <ScKeyValueV>
           <Icon type="github" colored />
-          <a href={`https://github.com/justnewbee/kcuf/tree/master/${gitPath}`} target="_blank" rel="noreferrer">{gitPath}</a>
+          <a href={`https://github.com/justnewbee/kcuf/tree/main/${gitPath}`} target="_blank" rel="noreferrer">{gitPath}</a>
         </ScKeyValueV>
       </div>
       <div>

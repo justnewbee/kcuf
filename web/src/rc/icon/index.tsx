@@ -20,10 +20,7 @@ import {
   getIconColorDark
 } from './util';
 
-/**
- * ConsoleBase 项目自用的图标组件
- */
-function Icon(props: IIconProps, ref: IconBaseRef): ReactElement {
+export default forwardRef(function Icon(props: IIconProps, ref: IconBaseRef): ReactElement {
   const {
     type,
     ...restProps
@@ -39,9 +36,7 @@ function Icon(props: IIconProps, ref: IconBaseRef): ReactElement {
     getIconColor,
     getIconColorDark
   }} />;
-}
-
-export default forwardRef(Icon);
+});
 
 export type {
   IconBaseRef as IconRef,

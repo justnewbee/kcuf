@@ -70,7 +70,7 @@ const ScInputRange = styled.input`
   }
 `;
 
-function InputRange({
+export default forwardRef(function InputRange({
   value,
   defaultValue,
   onChange,
@@ -88,6 +88,4 @@ function InputRange({
     type: 'range',
     onChange: handleChange
   }} ref={ref} />;
-}
-
-export default forwardRef(InputRange);
+});

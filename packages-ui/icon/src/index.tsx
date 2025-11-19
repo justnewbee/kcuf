@@ -22,10 +22,7 @@ import {
 
 export const ICON_TYPES = Object.keys(ICON_TYPE_MAPPING) as TIconType[]; // for demo purpose
 
-/**
- * ConsoleBase 项目自用的图标组件
- */
-function Icon(props: IIconProps, ref: IconBaseRef): ReactElement {
+export default forwardRef(function Icon(props: IIconProps, ref: IconBaseRef): ReactElement {
   const {
     type,
     ...restProps
@@ -40,9 +37,7 @@ function Icon(props: IIconProps, ref: IconBaseRef): ReactElement {
     getIconCode,
     getIconColor
   }} />;
-}
-
-export default forwardRef(Icon);
+});
 
 export type {
   IconBaseRef as IconRef,
