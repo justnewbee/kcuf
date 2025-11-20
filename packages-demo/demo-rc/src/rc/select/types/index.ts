@@ -4,12 +4,13 @@ import {
 } from 'react';
 
 import {
-  TDatasource
+  TDatasource,
+  TDatasourceValue
 } from '../../../types';
 
 export type TSelectRef = ForwardedRef<HTMLSelectElement>;
 
-export interface ISelectProps<T extends string | number | boolean = string> extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'children' | 'value' | 'defaultValue' | 'onChange'> {
+export interface ISelectProps<T extends TDatasourceValue = string> extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'children' | 'value' | 'defaultValue' | 'onChange'> {
   datasource?: TDatasource<T>;
   withEmpty?: boolean;
   value?: T;

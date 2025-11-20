@@ -8,7 +8,7 @@ export interface IControllableChecked {
   onChange?(checked: boolean): void;
 }
 
-export type TDatasourceValue = string | number | boolean;
+export type TDatasourceValue = string | number | boolean | undefined | null;
 
 export interface IDatasourceItem<T extends TDatasourceValue = string> {
   value: T;

@@ -13,7 +13,7 @@ export default function parseDatasource<T extends TDatasourceValue>(datasource: 
     let label: string | ReactElement | undefined;
     let value: T;
     
-    if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
+    if (!v || typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
       value = v;
       label = String(v);
     } else {
