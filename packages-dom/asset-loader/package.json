@@ -1,12 +1,12 @@
 {
-  "name": "@kcuf-hook/use-is-unmounted",
+  "name": "@kcuf/asset-loader",
   "version": "0.0.1",
-  "description": "React hook - useIsUnmounted.",
+  "description": "Load JS/CSS/Image with ease and type safe.",
   "keywords": [
-    "react",
-    "hook",
-    "useIsUnmounted",
-    "useSafeState"
+    "loadJs",
+    "loadCss",
+    "loadImage",
+    "loadAssets"
   ],
   "license": "MIT",
   "sideEffects": false,
@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-hook/use-is-unmounted",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-dom/asset-loader",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -31,21 +31,13 @@
     "@babel/core": "^7.28.5",
     "@babel/plugin-transform-runtime": "^7.28.5",
     "@babel/preset-env": "^7.28.5",
-    "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
-    "@testing-library/react": "^16.3.0",
-    "@types/react": "^18.3.24",
-    "@vitest/coverage-v8": "^4.0.12",
-    "jsdom": "^27.2.0",
-    "react": "^18.3.1",
     "rimraf": "^6.1.2",
-    "typescript": "^5.9.3",
-    "vitest": "^4.0.12"
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.x",
-    "react": "^18.x"
+    "@babel/runtime": "^7.x"
   },
   "scripts": {
     "build:clean": "rimraf dist",
@@ -54,8 +46,6 @@
     "build:types": "tsc -rootDir src --outDir dist/types --declaration --noEmit false --emitDeclarationOnly --isolatedModules false",
     "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
     "watch": "pnpm build:esm -w",
-    "test": "vitest",
-    "test:cov": "vitest --coverage --coverage.include=src",
     "prepublishOnly": "pnpm build:clean && pnpm build"
   }
 }

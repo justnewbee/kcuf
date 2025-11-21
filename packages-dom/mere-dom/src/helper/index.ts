@@ -42,9 +42,6 @@ export { default as htmlUnescape } from './html-unescape';
 // traverse
 export { default as traverseDfs } from './traverse-dfs';
 
-// load
-export { default as loadAssets } from './load-assets';
-
 // misc
 export { default as forceReflow } from './force-reflow';
 export { default as triggerFocus } from './trigger-focus';
