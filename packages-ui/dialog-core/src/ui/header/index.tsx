@@ -39,7 +39,7 @@ const ScHeader = styled.header<IScProps>`
   align-items: center;
   position: relative;
   box-sizing: border-box;
-  ${props => (props.$mode !== DialogMode.NORMAL ? cssSlide : cssNormal)}
+  ${props => props.$mode !== DialogMode.NORMAL ? cssSlide : cssNormal}
 `;
 const ScTitle = styled.h4<IScProps>`
   display: flex;
@@ -52,10 +52,10 @@ const ScTitle = styled.h4<IScProps>`
   ${mixinTextPrimary}
   ${mixinTypoEllipsis}
   
-  ${props => (props.$mode !== DialogMode.NORMAL ? css`
+  ${props => props.$mode !== DialogMode.NORMAL ? css`
     height: ${SIZE.HEIGHT_DIALOG_SLIDE_HEADER}px;
     line-height: ${SIZE.HEIGHT_DIALOG_SLIDE_HEADER}px;
-  ` : null)}
+  ` : null}
 `;
 const ScTitleExtra = styled.div`
   ${mixinTextSecondary}
