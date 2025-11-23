@@ -32,7 +32,7 @@
     "@storybook/addon-docs": "^10.0.8",
     "@storybook/addon-links": "^10.0.8",
     "@storybook/react-vite": "^10.0.8",
-    "@types/react": "^18.3.24",
+    "@types/react": "^19.2.6",
     "babel-plugin-styled-components": "^2.1.4",
     "less": "^4.4.2",
     "storybook": "^10.0.8",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@kcuf/demo-rc": "workspace:^",
-    "react": "^18.3.1",
+    "react": "^19.2.0",
     "styled-components": "^6.1.19"
   },
   "scripts": {
