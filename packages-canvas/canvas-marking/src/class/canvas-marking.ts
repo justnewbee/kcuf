@@ -23,6 +23,9 @@ import {
   getPixelRatio,
   listenPixelRatioChange
 } from '@kcuf/mere-dom';
+import {
+  loadImage
+} from '@kcuf/asset-loader';
 import Subscribable from '@kcuf/subscribable';
 
 import {
@@ -70,7 +73,6 @@ import {
   getMouseJustifyStatusMagnet,
   getRelativePositionOfArea,
   getRelativePositionOfPoint,
-  loadImage,
   myDebug,
   sortMarkingItems
 } from '../util';

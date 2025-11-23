@@ -43,6 +43,7 @@
     "@babel/runtime": "^7.x"
   },
   "dependencies": {
+    "@kcuf/asset-loader": "workspace:^",
     "@kcuf/canvas-helper": "workspace:^"
   },
   "scripts": {

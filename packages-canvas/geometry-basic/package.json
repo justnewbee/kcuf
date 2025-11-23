@@ -28,11 +28,11 @@
     "@babel/preset-env": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
-    "@types/lodash": "^4.17.20",
-    "@vitest/coverage-v8": "^4.0.12",
+    "@types/lodash": "^4.17.21",
+    "@vitest/coverage-v8": "^4.0.13",
     "rimraf": "^6.1.2",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.12"
+    "vitest": "^4.0.13"
   },
   "peerDependencies": {
     "@babel/runtime": "^7.x"

@@ -2,12 +2,13 @@ export { default as clamp } from './clamp';
 export { default as clampCoords } from './clamp-coords';
 export { default as clampOpacity } from './clamp-opacity';
 export { default as randomBetween } from './random-between';
-export { default as createColor, Color } from './create-color';
+export {
+  default as createColor,
+  Color
+} from './create-color';
 export { default as calculateDistance } from './calculate-distance';
 export { default as calculateDistances } from './calculate-distances';
 export { default as parseConfig } from './parse-config';
-
-export { default as loadImage } from './load-image';
 
 export { default as calculateImageAspectRatio } from './calculate-image-aspect-ratio';
 

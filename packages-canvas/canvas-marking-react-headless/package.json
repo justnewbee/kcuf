@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/canvas-marking-react-headless",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "The React headless wrapping of @kcuf/canvas-marking.",
   "keywords": [
     "canvas",
@@ -34,7 +34,7 @@
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
-    "@types/lodash": "^4.17.20",
+    "@types/lodash": "^4.17.21",
     "@types/react": "^18.3.24",
     "react": "^18.3.1",
     "rimraf": "^6.1.2",

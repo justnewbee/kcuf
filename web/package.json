@@ -42,7 +42,7 @@
     "@docusaurus/tsconfig": "^3.9.2",
     "@docusaurus/types": "^3.9.2",
     "@node-rs/jieba": "^2.0.1",
-    "@types/lodash": "^4.17.20",
+    "@types/lodash": "^4.17.21",
     "@types/react": "^18.3.24",
     "@types/react-dom": "^18.3.7",
     "commander": "^14.0.2",

@@ -1,4 +1,8 @@
 import {
+  loadImage
+} from '@kcuf/asset-loader';
+
+import {
   EParticleShape
 } from '../enum';
 import {
@@ -14,7 +18,6 @@ import {
 } from '../const';
 import {
   createColor,
-  loadImage,
   parseConfig,
   calculateDistance,
   calculateImageAspectRatio,
@@ -130,7 +133,7 @@ export default class Particles implements IParticlesClassType {
       }
     } = this;
     
-    return !!(animateRadius || animateOpacity || animateMove);
+    return !!(animateRadius ?? animateOpacity ?? animateMove);
   }
   
   /**
@@ -175,8 +178,8 @@ export default class Particles implements IParticlesClassType {
     return loadImage(config.image.src).then(image => {
       this.image = image;
       this.imageAspectRatio = config.image?.aspectRatio ?? calculateImageAspectRatio(image);
-    }).catch(err => {
-      console.error(err.message);
+    }).catch((err: unknown) => {
+      console.error((err as Error).message); // eslint-disable-line no-console
     });
   }
   

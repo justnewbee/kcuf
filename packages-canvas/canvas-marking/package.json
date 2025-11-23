@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/canvas-marking",
-  "version": "0.7.7",
+  "version": "0.7.8",
   "description": "A canvas marking library.",
   "keywords": [],
   "license": "MIT",
@@ -38,7 +38,7 @@
     "@storybook/addon-links": "^10.0.8",
     "@storybook/react-vite": "^10.0.8",
     "@types/debug": "^4.1.12",
-    "@types/lodash": "^4.17.20",
+    "@types/lodash": "^4.17.21",
     "@types/react": "^18.3.24",
     "immer": "^10.2.0",
     "react": "^18.3.1",
@@ -51,6 +51,7 @@
     "@babel/runtime": "^7.x"
   },
   "dependencies": {
+    "@kcuf/asset-loader": "workspace:^",
     "@kcuf/canvas-helper": "workspace:^",
     "@kcuf/geometry-basic": "workspace:^",
     "@kcuf/mere-color": "workspace:^",
