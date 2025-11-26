@@ -22,6 +22,9 @@ interface IResult {
   data: unknown;
 }
 
+const API_URL_NEED_LOGIN = '/api/error/need-login';
+const API_URL_NOT_BIZ = '/api/error/not-biz';
+const API_URL_NO_CODE = '/api/error/no-code';
 const CODE_NEED_LOGIN = 'NeedLogin';
 
 const fetcher = createFetcher();
@@ -29,7 +32,11 @@ let loggedIn = false;
 let willCancelLogin = false;
 
 fetcher.interceptResponse((result, config) => { // 模拟 intercept biz
-  if (config.url === '/api/error/not-biz') {
+  if (loggedIn) {
+    return (result as IResult).data;
+  }
+  
+  if (config.url === API_URL_NOT_BIZ) {
     const err: FetcherError = new Error('Please login');
     
     err.code = CODE_NEED_LOGIN; // useless for name not biz
@@ -37,16 +44,12 @@ fetcher.interceptResponse((result, config) => { // 模拟 intercept biz
     throw err;
   }
   
-  if (config.url === '/api/error/no-code') {
+  if (config.url === API_URL_NO_CODE) {
     const err: FetcherError = new Error('Please login');
     
     err.name = FetcherErrorName.BIZ;
     
     throw err;
-  }
-  
-  if (loggedIn) {
-    return (result as IResult).data;
   }
   
   const err: FetcherError = new Error('Please login');
@@ -62,15 +65,15 @@ const needLogin = vi.fn().mockImplementation((code: string): boolean => {
 });
 
 const doLogin = vi.fn().mockImplementation(() => {
-  return new Promise<void>((resolve, reject) => {
+  return new Promise<true>((resolve, reject) => {
     setTimeout(() => {
       if (willCancelLogin) {
-        reject();
+        reject(new Error('Cancelled'));
       } else {
         loggedIn = true;
-        resolve();
+        resolve(true);
       }
-    }, 100);
+    }, 200);
   });
 });
 
@@ -90,31 +93,31 @@ describe('fetcherInterceptorLogin', () => {
     needLogin.mockClear();
     doLogin.mockClear();
     
-    fetchMock.route('/api/error/need-login', {
+    fetchMock.route(API_URL_NEED_LOGIN, {
       data: 'logged'
     });
     
-    fetchMock.route('/api/error/not-biz', {
+    fetchMock.route(API_URL_NOT_BIZ, {
       data: 'logged'
     });
     
-    fetchMock.route('/api/error/no-code', {
+    fetchMock.route(API_URL_NO_CODE, {
       data: 'logged'
     });
   });
   
   test('will auto login', async () => {
-    expect(await fetcher.get('/api/error/need-login')).toBe('logged');
+    expect(await fetcher.get(API_URL_NEED_LOGIN)).toBe('logged');
     
     expect(needLogin).toBeCalledTimes(1);
     expect(doLogin).toBeCalledTimes(1);
   });
   
-  test('do login is singleton', async () => {
+  test('doLogin is singleton', async () => {
     expect(await Promise.all([
-      fetcher.get('/api/error/need-login'),
-      fetcher.get('/api/error/need-login'),
-      fetcher.get('/api/error/need-login')
+      fetcher.get(API_URL_NEED_LOGIN),
+      fetcher.get(API_URL_NEED_LOGIN),
+      fetcher.get(API_URL_NEED_LOGIN)
     ])).toEqual([
       'logged',
       'logged',
@@ -128,25 +131,25 @@ describe('fetcherInterceptorLogin', () => {
   test('login cancel will transform error', async () => {
     willCancelLogin = true;
 
-    expect(await fetcher.get('/api/error/need-login').catch(err => err.name)).toBe(FetcherErrorName.LOGIN_CANCELLED);
+    expect(await fetcher.get(API_URL_NEED_LOGIN).catch((err: unknown) => (err as FetcherError).name)).toBe(FetcherErrorName.LOGIN_CANCELLED);
 
     expect(needLogin).toBeCalledTimes(1);
     expect(doLogin).toBeCalledTimes(1);
   });
   
-  test('error not biz is ignored', async () => {
-    expect(await fetcher.get('/api/error/not-biz').catch(err => err.name)).toBe('Error');
-    expect(await fetcher.get('/api/error/not-biz').catch(err => err.code)).toBe(CODE_NEED_LOGIN);
+  test('error not biz will not doLogin', async () => {
+    expect(await fetcher.get(API_URL_NOT_BIZ).catch((err: unknown) => (err as FetcherError).name)).toBe('Error');
+    expect(await fetcher.get(API_URL_NOT_BIZ).catch((err: unknown) => (err as FetcherError).code)).toBe(CODE_NEED_LOGIN);
 
-    expect(needLogin).toBeCalledTimes(0);
+    expect(needLogin).toBeCalledTimes(2);
     expect(doLogin).toBeCalledTimes(0);
   });
   
-  test('error with no code ignored', async () => {
-    expect(await fetcher.get('/api/error/no-code').catch(err => err.name)).toBe(FetcherErrorName.BIZ);
-    expect(await fetcher.get('/api/error/no-code').catch(err => err.code)).toBeUndefined();
+  test('error with no code will not doLogin', async () => {
+    expect(await fetcher.get(API_URL_NO_CODE).catch((err: unknown) => (err as FetcherError).name)).toBe(FetcherErrorName.BIZ);
+    expect(await fetcher.get(API_URL_NO_CODE).catch((err: unknown) => (err as FetcherError).code)).toBeUndefined();
 
-    expect(needLogin).toBeCalledTimes(0);
+    expect(needLogin).toBeCalledTimes(2);
     expect(doLogin).toBeCalledTimes(0);
   });
 });

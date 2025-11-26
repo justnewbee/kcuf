@@ -21,7 +21,7 @@ export default function createInterceptorResponseRejected({
 }: ICreateInterceptorOptions): FetcherInterceptResponseRejected {
   const singletonLogin = singletonPromise(doLogin);
   
-  return async (error: FetcherError, fetcherConfig: FetcherConfig, _: FetcherResponse<unknown> | undefined, requestByInterceptor: FetcherCallRequest) => {
+  return async (error: FetcherError, fetcherConfig: FetcherConfig, _: FetcherResponse | undefined, requestByInterceptor: FetcherCallRequest) => {
     if (!needLogin(error.code ?? '', error)) {
       throw error;
     }

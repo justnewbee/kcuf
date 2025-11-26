@@ -4,6 +4,6 @@ import {
 
 export interface ICreateInterceptorOptions {
   needLogin(code: string, err: FetcherError): boolean;
-  doLogin(): Promise<void>;
+  doLogin(): Promise<unknown>;
   headerKeys?: string[];
 }
