@@ -87,6 +87,8 @@ export default {
       requireLast: true
     }
   }],
+  // '@stylistic/multiline-comment-style': ['error', 'starred-block'], // 不支持多种，会伤害到临时代码注释
+  '@stylistic/spaced-comment': ['error', 'always'],
   '@stylistic/jsx-self-closing-comp': ['error', {
     component: true,
     html: true
