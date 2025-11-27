@@ -36,8 +36,8 @@
   },
   "dependencies": {
     "@kcuf/geometry-basic": "workspace:^",
-    "@turf/helpers": "^7.3.0",
-    "@turf/intersect": "^7.3.0"
+    "@turf/helpers": "^7.3.1",
+    "@turf/intersect": "^7.3.1"
   },
   "scripts": {
     "build:clean": "rimraf dist",

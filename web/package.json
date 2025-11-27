@@ -43,7 +43,7 @@
     "@docusaurus/types": "^3.9.2",
     "@node-rs/jieba": "^2.0.1",
     "@types/lodash": "^4.17.21",
-    "@types/react": "^19.2.6",
+    "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "commander": "^14.0.2",
     "docusaurus-plugin-sass": "^0.2.6",
