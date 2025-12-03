@@ -1,6 +1,6 @@
 # @kcuf/eslint-config
 
-A shareable stylelint config For Eslint >=9.
+The Kcuf shareable config For Eslint >=9.
 
 [可共享的 Eslint config](https://eslint.org/docs/developer-guide/shareable-configs)
 

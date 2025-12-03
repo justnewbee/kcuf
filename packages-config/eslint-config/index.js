@@ -7,7 +7,6 @@ import configReact from './config-react.js';
 import configReactHooks from './config-react-hooks.js';
 import configImport from './config-import.js';
 import configStylistic from './config-stylistic.js';
-import configStorybook from './config-storybook.js';
 
 /**
  * 为何分两个 `index`？这个跟 typescript-eslint 有关，见 https://typescript-eslint.io/getting-started/typed-linting#shared-configurations
@@ -34,6 +33,5 @@ export default [
   ...configImport,
   ...configReact,
   ...configReactHooks,
-  ...configStylistic,
-  ...configStorybook
+  ...configStylistic
 ];
