@@ -40,7 +40,7 @@
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@babel/runtime": "^7.x"
+    "@babel/runtime": ">=7.0.0"
   },
   "dependencies": {
     "@kcuf/asset-loader": "workspace:^",

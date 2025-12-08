@@ -49,8 +49,8 @@ export default kcufEslintConfig;
 ```json
 {
   "scripts": {
-    "lint": "eslint src/ --ext js,ts,tsx",
-    "lint:packages": "eslint packages*/**/src/ --ext js,ts,tsx"
+    "lint": "eslint src/ --ext js,jsx,ts,tsx",
+    "lint:packages": "eslint packages*/**/src/ --ext js,jsx,ts,tsx"
   }
 }
 ```
