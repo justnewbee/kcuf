@@ -43,7 +43,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0",
-    "react": "^18.x"
+    "react": ">=18.0.0"
   },
   "scripts": {
     "build:clean": "rimraf dist",

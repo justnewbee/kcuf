@@ -25,7 +25,7 @@
     "markdownlint-cli2": "^0.19.1"
   },
   "peerDependencies": {
-    "markdownlint-cli2": ">=0"
+    "markdownlint-cli2": ">=0.0.1"
   },
   "gitHead": "4260da192db9f44221e3dfa40f520fb3e3cc950a"
 }

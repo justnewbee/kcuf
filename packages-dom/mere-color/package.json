@@ -66,11 +66,11 @@
     "vitest": "^4.0.14"
   },
   "peerDependencies": {
-    "@babel/runtime": ">=7.0.0",
-    "lodash": "^4.17.21"
+    "@babel/runtime": ">=7.0.0"
   },
   "dependencies": {
-    "@kcuf/ts-missing-helpers": "workspace:^"
+    "@kcuf/ts-missing-helpers": "workspace:^",
+    "lodash": "^4.17.21"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
