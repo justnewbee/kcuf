@@ -9,11 +9,8 @@ import {
   IModelState
 } from './state';
 import {
-  TModelAction,
   TModelDispatch
 } from './action';
-
-export type TModelReducer = (state: IModelState, action: TModelAction) => IModelState;
 
 export interface IModelContext<R = void, D extends object = Record<string, unknown>> {
   props: IDialogProps<R, D>;

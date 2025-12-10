@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export default styled.article`
-  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
@@ -107,7 +107,6 @@ export default styled.article`
   }
   
   /* stylelint-disable no-descending-specificity */
-  
   h1 {
     font-size: 1.75em;
     
@@ -247,10 +246,10 @@ export default styled.article`
   table {
     display: table;
     width: 100%;
+    overflow-wrap: break-word;
     border-spacing: 0;
     border-collapse: collapse;
     color: inherit;
-    word-wrap: break-word;
     
     &::-webkit-scrollbar {
       display: none;

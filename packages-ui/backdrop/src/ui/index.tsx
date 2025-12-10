@@ -36,7 +36,7 @@ const ScBackdrop = styled.div`
 export default function Ui(): ReactElement | null {
   const zIndex = useZIndex();
   const handleClick = useHandleClick();
-  const nodeRef = useRef<HTMLDivElement | null>(null);
+  const nodeRef = useRef<HTMLDivElement>(null);
   
   return <Transition {...{
     nodeRef,

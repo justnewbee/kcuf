@@ -1,5 +1,5 @@
 import {
-  ForwardedRef,
+  Ref,
   ReactElement,
   forwardRef
 } from 'react';
@@ -11,9 +11,9 @@ import Model, {
 
 import Ui from '../ui';
 
-function CanvasMarking<T = unknown>(props: CanvasMarkingProps<T>, ref?: ForwardedRef<CanvasMarkingImperativeRef<T>>): ReactElement {
+function CanvasMarking<T = unknown>(props: CanvasMarkingProps<T>, ref?: Ref<CanvasMarkingImperativeRef<T>>): ReactElement {
   return <Model {...props as CanvasMarkingProps}>
-    <Ui ref={ref as ForwardedRef<CanvasMarkingImperativeRef>} />
+    <Ui ref={ref as Ref<CanvasMarkingImperativeRef>} />
   </Model>;
 }
 

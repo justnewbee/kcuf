@@ -1,5 +1,5 @@
 import {
-  ForwardedRef,
+  Ref,
   ReactElement,
   forwardRef,
   useImperativeHandle
@@ -62,7 +62,7 @@ const ScUi = styled.div<IScInputProps>`
   }
 `;
 
-export default forwardRef(function Ui(_props: unknown, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
+export default forwardRef(function Ui(_props: unknown, ref: Ref<InputTextImperativeRef>): ReactElement {
   const {
     fluid,
     round,

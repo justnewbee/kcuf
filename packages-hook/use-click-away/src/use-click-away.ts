@@ -1,5 +1,5 @@
 import {
-  MutableRefObject,
+  RefObject,
   useRef,
   useLayoutEffect,
   useEffect
@@ -7,7 +7,7 @@ import {
 
 type TCallback = (e: MouseEvent) => void;
 
-export default function useClickAway<E extends Element>(callback: TCallback): MutableRefObject<E | null> {
+export default function useClickAway<E extends Element>(callback: TCallback): RefObject<E | null> {
   const refElement = useRef<E>(null);
   const refCallback = useRef<TCallback>(callback);
   

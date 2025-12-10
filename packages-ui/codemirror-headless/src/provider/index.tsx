@@ -9,8 +9,8 @@ import useControllable from '@kcuf-hook/use-controllable';
 
 import {
   IModelProviderProps,
-  TModelAction,
-  TModelReducer
+  IModelState,
+  TModelAction
 } from '../types';
 import {
   createInitialState
@@ -30,7 +30,7 @@ export default function CodemirrorProvider({
   } = props;
   const isUnmounted = useIsUnmounted();
   const [controllableValue, controllableOnChange] = useControllable('', value, defaultValue, onChange); // 不适合用 `trim`
-  const [state, dispatch] = useReducer<TModelReducer, string>(reducer, controllableValue, createInitialState);
+  const [state, dispatch] = useReducer<IModelState, null, [TModelAction]>(reducer, null, createInitialState);
   
   const safeDispatch = useCallback((action: TModelAction): void => {
     if (!isUnmounted()) {
@@ -38,7 +38,7 @@ export default function CodemirrorProvider({
     }
   }, [isUnmounted, dispatch]);
   
-  return <CodemirrorContext.Provider value={{
+  return <CodemirrorContext value={{
     props,
     state,
     controllableValue,
@@ -47,5 +47,5 @@ export default function CodemirrorProvider({
   }}>
     <Lifecycle />
     {children}
-  </CodemirrorContext.Provider>;
+  </CodemirrorContext>;
 }

@@ -24,16 +24,6 @@ const ScSvg = styled.svg<IScProps>`
   ${props => props.onClick ? css`
     cursor: pointer;
   ` : null}
-  
-  @media (prefers-reduced-motion: reduce) {
-    &[data-reversed] {
-      transform: scaleX(-1);
-    }
-    
-    &:not([data-force-motion]) * {
-      transition: none !important;
-    }
-  }
 `;
 
 export default forwardRef(function SvgBase({

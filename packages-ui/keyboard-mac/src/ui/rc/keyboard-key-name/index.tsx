@@ -14,8 +14,8 @@ import {
 } from '../../util';
 
 const ScKeyDetails = styled.div`
-  font-size: 11px;
   color: hsl(200 100% 50%);
+  font-size: 11px;
   text-align: center;
   
   span {

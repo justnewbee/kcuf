@@ -17,12 +17,15 @@ const ScKeyboard = styled.div`
   position: relative;
   margin: 0 auto;
   padding: ${KEYBOARD_PADDING}px;
-  box-sizing: border-box;
   width: ${KEYBOARD_WIDTH}px;
   height: ${KEYBOARD_HEIGHT}px;
   background: hsl(0 0% 95%);
   border-radius: 10px;
-  box-shadow: 2px 0 2px hsl(0 0% 89%) inset, -2px 2px 3px hsl(0 0% 89%) inset, 1px -0 0 hsl(0 0% 76%) inset, 0 -2px 3px hsl(0 0% 76%) inset;
+  box-shadow: 2px 0 2px hsl(0 0% 89%) inset,
+    -2px 2px 3px hsl(0 0% 89%) inset,
+    1px -0 0 hsl(0 0% 76%) inset,
+    0 -2px 3px hsl(0 0% 76%) inset;
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   user-select: none;
 `;

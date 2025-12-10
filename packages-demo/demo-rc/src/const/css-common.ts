@@ -11,7 +11,6 @@ export const CSS_HEADING = css`
   margin: 1.5em 0 1em;
   border-bottom: 1px solid hsl(0 0% 95%);
   font-weight: 400;
-  line-height: 2.4;
   ${CSS_FONT_FAMILY}
   
   &::before {
@@ -20,8 +19,8 @@ export const CSS_HEADING = css`
     top: 1px;
     margin-right: 8px;
     width: 36px;
-    font-weight: 400;
     color: hsl(0 0% 100%);
+    font-weight: 400;
     text-align: center;
   }
   
@@ -35,8 +34,8 @@ export const CSS_HEADING = css`
 `;
 
 export const CSS_EM = css`
-  font-style: normal;
   color: hsl(24 100% 50%);
+  font-style: normal;
 `;
 
 export const CSS_STRONG = css`
@@ -58,8 +57,8 @@ export const CSS_KBD = css`
   border: 1px solid hsl(212 19% 81%);
   border-radius: 3px;
   box-shadow: 0 1px 0 hsl(0 8% 5% / 20%), 0 0 0 2px hsl(0 0% 100%) inset;
-  font: 600 11px/1.4 Arial, 'Helvetica Neue', Helvetica, sans-serif;
   color: hsl(0 0% 20%);
+  font: 600 11px/1.4 Arial, 'Helvetica Neue', Helvetica, sans-serif;
   white-space: pre-wrap;
 `;
 

@@ -27,9 +27,9 @@ export default createGlobalStyle`
     &:hover {
       text-decoration: underline;
     }
-  }
-  
-  a:visited {
-    color: hsl(284 93% 28%);
+    
+    a:visited {
+      color: hsl(284 93% 28%);
+    }
   }
 `;

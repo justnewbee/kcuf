@@ -119,7 +119,7 @@ function Child(): ReactElement {
 | --- | --- | --- |
 | `children` <TagRequired /> | `ReactElement \| TRenderChildren` | A `function` child can be used instead of a React element. This function is<br />called with the current transition status (`'entering'`, `'entered'`,<br />`'exiting'`, `'exited'`), which can be used to apply context<br />specific props to a component. |
 | `in` <TagDefault>false</TagDefault> | `boolean` | Show or hide the children, triggers status change |
-| `nodeRef` | `MutableRefObject<HTMLElement>` | A React reference to the DOM element that needs to transition. It is only used for do a force reflow.<br /><br />When `mountOnEnter \|\| unmountOnExit`, it will be needed to make transition on enter to take effect. |
+| `nodeRef` | `RefObject<HTMLElement>` | A React reference to the DOM element that needs to transition. It is only used for do a force reflow.<br /><br />When `mountOnEnter \|\| unmountOnExit`, it will be needed to make transition on enter to take effect. |
 | `durationEnter` | `number` | How long will status `entering` retain before `entered`, default 400ms. |
 | `durationExit` | `number` | How long will status `exiting` retain before `exited`, default 400ms. |
 | `mountOnEnter` <TagDefault>false</TagDefault> | `boolean` | By default, the child component is mounted immediately along with the parent `Transition` component.<br />If you want to 'lazy mount' the component on the first `in={true}` you can set `mountOnEnter`.<br />After the first enter transition the component will stay mounted, even on 'exited', unless you also specify `unmountOnExit`. |

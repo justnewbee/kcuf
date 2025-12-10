@@ -10,7 +10,8 @@ import {
 
 import {
   IModelProviderProps,
-  TModelReducer
+  IModelState,
+  TModelAction
 } from '../types';
 import reducer from '../reducer';
 import Context from '../context';
@@ -18,19 +19,17 @@ import {
   createInitialState
 } from '../util';
 
-const DEFAULT_STATE = createInitialState();
-
 export default function Provider({
   children
 }: IModelProviderProps): ReactElement {
-  const refImperative = useRef<CanvasMarkingImperativeRef | null>(null);
-  const [state, dispatch] = useReducer<TModelReducer>(reducer, DEFAULT_STATE);
+  const refImperative = useRef<CanvasMarkingImperativeRef>(null);
+  const [state, dispatch] = useReducer<IModelState, null, [TModelAction]>(reducer, null, createInitialState);
   
-  return <Context.Provider value={{
+  return <Context value={{
     refImperative,
     state,
     dispatch
   }}>
     {children}
-  </Context.Provider>;
+  </Context>;
 }

@@ -1,7 +1,6 @@
 import {
   ReactElement,
   ChangeEvent,
-  forwardRef,
   useCallback
 } from 'react';
 
@@ -15,16 +14,15 @@ import {
   ScInput
 } from '../../_sc-base';
 import {
-  TInputNumberRef,
   IInputNumberProps
 } from '../types';
 
-export default forwardRef(function InputNumber({
+export default function InputNumber({
   value,
   defaultValue,
   onChange,
   ...props
-}: IInputNumberProps, ref: TInputNumberRef): ReactElement {
+}: IInputNumberProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllable<number>(0, value, defaultValue, onChange);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     controllableOnChange(fromStringToNumber(e.target.value));
@@ -35,5 +33,5 @@ export default forwardRef(function InputNumber({
     value: fromNumberToString(controllableValue),
     type: 'number',
     onChange: handleChange
-  }} ref={ref} />;
-});
+  }} />;
+}

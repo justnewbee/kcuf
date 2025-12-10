@@ -1,5 +1,5 @@
 import {
-  MutableRefObject
+  RefObject
 } from 'react';
 
 export interface IModelProps {
@@ -36,7 +36,7 @@ export interface IModelProps {
    *
    * When `mountOnEnter || unmountOnExit`, it will be needed to make transition on enter to take effect.
    */
-  nodeRef?: MutableRefObject<HTMLElement | null>;
+  nodeRef?: RefObject<HTMLElement | null>;
   
   /**
    * How long will status `entering` retain before `entered`, default 400ms.

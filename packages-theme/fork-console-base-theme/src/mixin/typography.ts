@@ -98,7 +98,7 @@ export const mixinTypoBlockquote = css`
 `;
 
 export const mixinTypoLineWrap = css`
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: normal;
 `;
 

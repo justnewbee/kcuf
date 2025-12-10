@@ -14,7 +14,7 @@ import SvgBase from './svg-base';
 const ScSvg = styled(SvgBase)`
   path {
     transform-origin: center;
-    transition-timing-function: cubic-bezier(0, 0, .15, 1.25);
+    transition-timing-function: cubic-bezier(0, 0, 0.15, 1.25);
     transition-duration: calc(var(--theme-toggle-duration, 500ms) * 0.8);
   }
   
@@ -30,7 +30,7 @@ const ScSvg = styled(SvgBase)`
   &[data-toggled] {
     g path {
       opacity: 0;
-      transform: scale(.5) rotate(45deg);
+      transform: scale(0.5) rotate(45deg);
       transition-delay: 0s;
     }
     

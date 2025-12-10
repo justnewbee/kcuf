@@ -19,7 +19,7 @@ const ScSvg = styled(SvgBase)`
   }
   
   :first-child path {
-    transition-timing-function: cubic-bezier(0, 0, .5, 1);
+    transition-timing-function: cubic-bezier(0, 0, 0.5, 1);
     transition-duration: calc(var(--theme-toggle-duration, 500ms) * 0.6);
     transition-property: transform, d;
   }
@@ -31,7 +31,7 @@ const ScSvg = styled(SvgBase)`
     }
     
     g path {
-      transform: scale(.75);
+      transform: scale(0.75);
       transition-delay: 0s;
     }
     

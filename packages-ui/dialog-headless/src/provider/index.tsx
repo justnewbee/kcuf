@@ -8,11 +8,12 @@ import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
 
 import {
   IModelProviderProps,
-  TModelAction,
-  TModelReducer
+  IDialogProps,
+  IModelState,
+  TModelAction
 } from '../types';
 import {
-  getDefaultContextState
+  createInitialState
 } from '../util';
 import reducer from '../reducer';
 import Context from '../context';
@@ -23,7 +24,7 @@ export default function Provider({
   children
 }: IModelProviderProps): ReactElement {
   const isUnmounted = useIsUnmounted();
-  const [state, dispatch] = useReducer<TModelReducer>(reducer, getDefaultContextState(props.data));
+  const [state, dispatch] = useReducer<IModelState, IDialogProps, [TModelAction]>(reducer, props, createInitialState);
   
   const safeDispatch = useCallback((action: TModelAction): void => {
     if (!isUnmounted()) {
@@ -31,12 +32,12 @@ export default function Provider({
     }
   }, [isUnmounted, dispatch]);
   
-  return <Context.Provider value={{
+  return <Context value={{
     props,
     state,
     dispatch: safeDispatch
   }}>
     <Lifecycle />
     {children}
-  </Context.Provider>;
+  </Context>;
 }

@@ -35,8 +35,12 @@ const kfEyeCatching = keyframes`
 export const ScIcon = styled.i<IScIconBaseProps>`
   font-family: ${props => props.$fontFamily} !important;
   line-height: 1.1;
-  ${props => props.$color ? css`color: ${props.$color} !important;` : null}
-  ${props => props.onClick ? css`cursor: pointer;` : null}
+  ${props => props.$color ? css`
+    color: ${props.$color} !important;
+  ` : null}
+  ${props => props.onClick ? css`
+    cursor: pointer;
+  ` : null}
   ${props => props.$darkThemePrefix && props.$colorDark ? css`
     ${props.$darkThemePrefix} & {
       color: ${props.$colorDark} !important;

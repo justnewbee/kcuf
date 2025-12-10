@@ -1,7 +1,6 @@
 import {
   ReactElement,
   ChangeEvent,
-  forwardRef,
   useCallback
 } from 'react';
 
@@ -11,17 +10,16 @@ import {
   ScInput
 } from '../../_sc-base';
 import {
-  TInputDateRef,
   IInputDateProps
 } from '../types';
 
-export default forwardRef(function InputDate({
+export default function InputDate({
   type = 'datetime',
   value,
   defaultValue,
   onChange,
   ...props
-}: IInputDateProps, ref: TInputDateRef): ReactElement {
+}: IInputDateProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllable('', value, defaultValue, onChange);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     controllableOnChange(e.target.value);
@@ -32,5 +30,5 @@ export default forwardRef(function InputDate({
     value: controllableValue,
     type: type === 'datetime' ? 'datetime-local' : type,
     onChange: handleChange
-  }} ref={ref} />;
-});
+  }} />;
+}

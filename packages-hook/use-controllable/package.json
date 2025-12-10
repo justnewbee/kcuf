@@ -36,15 +36,15 @@
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
     "@types/react": "^19.2.7",
-    "@vitest/coverage-v8": "^4.0.14",
-    "react": "^19.2.0",
+    "@vitest/coverage-v8": "^4.0.15",
+    "react": "^19.2.1",
     "rimraf": "^6.1.2",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.14"
+    "vitest": "^4.0.15"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0",
-    "react": ">=18.0.0"
+    "react": ">=19.0.0"
   },
   "scripts": {
     "build:clean": "rimraf dist",

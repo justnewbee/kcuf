@@ -11,9 +11,9 @@ export default function Provider({
   children,
   props
 }: IModelProviderProps): ReactElement {
-  return <Context.Provider value={{
+  return <Context value={{
     props
   }}>
     {children}
-  </Context.Provider>;
+  </Context>;
 }

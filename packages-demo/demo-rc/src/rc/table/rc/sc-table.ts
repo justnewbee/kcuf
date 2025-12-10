@@ -8,10 +8,10 @@ import {
 export default styled.table`
   display: table;
   width: 100%;
+  overflow-wrap: break-word;
   border-spacing: 0;
   border-collapse: collapse;
   color: inherit;
-  word-wrap: break-word;
   
   &::-webkit-scrollbar {
     display: none;
@@ -34,6 +34,7 @@ export default styled.table`
   }
   
   thead {
+    /* stylelint-disable-next-line */
     tr {
       background-color: ${COLOR_TABLE.BGC_TH};
       
@@ -47,15 +48,15 @@ export default styled.table`
   td {
     padding: 8px 12px;
     border-bottom: 1px solid ${COLOR_TABLE.BDC};
-    font-size: 0.95em;
     color: inherit;
+    font-size: 0.95em;
     text-align: left;
     
-    &[align="right"] {
+    &[align='right'] {
       text-align: right;
     }
     
-    &[align="center"] {
+    &[align='center'] {
       text-align: center;
     }
     

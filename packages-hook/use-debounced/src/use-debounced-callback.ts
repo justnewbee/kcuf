@@ -16,10 +16,10 @@ import {
 
 export default function useDebouncedCallback<F extends TBaseCallback>(fn: F, options?: number | IDebouncedOptions): F {
   const refFn = useRef<F>(fn);
-  const refArgs = useRef<Parameters<F> | null>(null); // 上次调用 `fn` 的参数列表，执行后会被清空
+  const refArgs = useRef<Parameters<F>>(null); // 上次调用 `fn` 的参数列表，执行后会被清空
   const refTimeCalled = useRef(0); // 上次调用 `fn` 的时间（但不一定执行）
   const refTimeInvoked = useRef(0); // 上次真正执行 `fn` 的时间
-  const refTimerId = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const refTimerId = useRef<ReturnType<typeof setTimeout>>(null);
   const isUnmounted = useIsUnmounted();
   
   const {

@@ -1,16 +1,18 @@
 # @kcuf/stylelint-config
 
-A shareable stylelint config.
+> The Kcuf shareable stylelint config.
 
 * <https://stylelint.io/awesome-stylelint>
 
-## Install & Setup
+## 安装
 
 ```bash
 pnpm add -D stylelint @kcuf/stylelint-config
 ```
 
-In your `.stylelintrc`:
+## React 项目配置
+
+`.stylelintrc` 内容:
 
 ```json
 {
@@ -18,17 +20,37 @@ In your `.stylelintrc`:
 }
 ```
 
-According to your project type, you can choose to extend:
+此配置适用于使用了 styled-components 或 emotion 的 React 项目（JS 或 TS）。
 
-* `@kcuf/stylelint-config` - React projects using css, less & styled-components (no scss)
-* `@kcuf/stylelint-config/config-css` - projects using only css
-* `@kcuf/stylelint-config/config-less` - projects using css & less
-* `@kcuf/stylelint-config/config-scss` - projects using css & scss
-* `@kcuf/stylelint-config/config-vue` - Vue projects using css, less & scss
+注意，如果项目还用了 Less/Sass，可以这么这样：
 
-## Usage
+```json
+{
+  "extends": [
+    "@kcuf/stylelint-config",
+    "@kcuf/stylelint-config/config-less",
+    "@kcuf/stylelint-config/config-scss"
+  ]
+}
+```
+
+之所以不在 `@kcuf/stylelint-config` 默认加上 Less/Sass，是希望项目的样式解决方案更纯粹一些。
+
+## Vue 项目配置
+
+`.stylelintrc` 内容（`index-vue` 默认带了 `config-scss`）:
+
+```json
+{
+  "extends": "@kcuf/stylelint-config/index-vue"
+}
+```
+
+## 使用
 
 ### Terminal
+
+在 Terminal 下进行测试，查看效果：
 
 ```bash
 npx stylelint ./path/to/some-css.css
@@ -37,13 +59,15 @@ npx stylelint ./path/to/some-less.less
 
 ### npm-scripts
 
+添加 NPM Script：
+
 ```bash
 npm pkg set scripts.lint:style="stylelint \"**/src/**/*.{css,less}\""
 ```
 
-## With `lint-staged`
+## 集成 `lint-staged`
 
-`.lintstagedrc`
+在 `.lintstagedrc` 中添加，可视情况增减文件后缀：
 
 ```json
 {

@@ -1,7 +1,6 @@
 import {
   ReactElement,
   ChangeEvent,
-  forwardRef,
   useCallback
 } from 'react';
 
@@ -13,17 +12,16 @@ import {
   ScInput
 } from '../../_sc-base';
 import {
-  TInputTextRef,
   IInputTextProps
 } from '../types';
 
-export default forwardRef(function InputText({
+export default function InputText({
   block,
   value,
   defaultValue,
   onChange,
   ...props
-}: IInputTextProps, ref: TInputTextRef): ReactElement {
+}: IInputTextProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllableSoftTrim(true, value, defaultValue, onChange);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     controllableOnChange(e.target.value);
@@ -34,7 +32,6 @@ export default forwardRef(function InputText({
     ...props,
     value: controllableValue,
     type: 'text',
-    ref,
     onChange: handleChange
   }} />;
-});
+}

@@ -5,7 +5,7 @@ import {
 } from '../../const';
 
 export default styled.h1`
-  ${CSS_HEADING};
+  ${CSS_HEADING}
   font-size: 18px;
   line-height: 2;
   

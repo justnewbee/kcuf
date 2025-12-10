@@ -1,7 +1,6 @@
 import {
   ReactElement,
   ChangeEvent,
-  forwardRef,
   useCallback
 } from 'react';
 import styled from 'styled-components';
@@ -14,7 +13,6 @@ import {
 } from '../../../const';
 import InputRange from '../../input-range';
 import {
-  TInputColorRef,
   IInputColorProps
 } from '../types';
 
@@ -31,7 +29,7 @@ const ScInputColorWrap = styled.div`
   height: ${HEIGHT_FORM_CONTROL}px;
   ${CSS_FORM_CONTROL_BASE}
   
-  input[type="color"] {
+  input[type='color'] {
     display: block;
     position: absolute;
     top: 0;
@@ -67,7 +65,7 @@ function composeHexa(hex: string, alpha: number): string {
   return `${hex}${alpha >= 255 ? '' : alpha.toString(16).padStart(2, '0')}`;
 }
 
-export default forwardRef(function InputColor(props: IInputColorProps, ref: TInputColorRef): ReactElement {
+export default function InputColor(props: IInputColorProps): ReactElement {
   const {
     withAlpha,
     value,
@@ -94,11 +92,11 @@ export default forwardRef(function InputColor(props: IInputColorProps, ref: TInp
         }
       }} />
       <input {...{
-        ...restProps,
+        ...restProps, // including ref
         value: hex,
         type: 'color',
         onChange: handleHexChange
-      }} ref={ref} />
+      }} />
     </ScInputColorWrap>
     {withAlpha ? <InputRange {...{
       min: 0,
@@ -107,4 +105,4 @@ export default forwardRef(function InputColor(props: IInputColorProps, ref: TInp
       onChange: handleAlphaChange
     }} /> : null}
   </ScInputColor>;
-});
+}

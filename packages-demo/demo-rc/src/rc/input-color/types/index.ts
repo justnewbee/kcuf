@@ -1,11 +1,10 @@
 import {
-  ForwardedRef,
+  Ref,
   InputHTMLAttributes
 } from 'react';
 
-export type TInputColorRef = ForwardedRef<HTMLInputElement>;
-
 export interface IInputColorProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children' | 'type' | 'value' | 'defaultValue' | 'onChange'> {
+  ref?: Ref<HTMLInputElement>;
   value?: string;
   defaultValue?: string;
   withAlpha?: boolean;

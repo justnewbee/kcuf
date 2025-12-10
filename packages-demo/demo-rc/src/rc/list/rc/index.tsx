@@ -1,8 +1,6 @@
 import {
   ReactElement,
-  Ref,
-  Children,
-  forwardRef
+  Children
 } from 'react';
 import styled, {
   css
@@ -34,14 +32,14 @@ const ScLi = styled.li`
   margin: 4px 0;
 `;
 
-export default forwardRef(function List({
+export default function List({
   ordered,
   children,
   ...props
-}: IListProps, ref: Ref<HTMLOListElement & HTMLUListElement>): ReactElement {
+}: IListProps): ReactElement {
   const ListComponent = ordered ? ScOl : ScUl;
   
-  return <ListComponent {...props} ref={ref}>
+  return <ListComponent {...props}>
     {Children.map(children, (v, i): ReactElement | null => <ScLi key={i}>{v as ReactElement}</ScLi>)}
   </ListComponent>;
-});
+}

@@ -19,7 +19,7 @@ const ScSvg = styled(SvgBase)`
   
   &[data-toggled] {
     g path {
-      transform: scale(.65);
+      transform: scale(0.65);
     }
     
     .within-circle {

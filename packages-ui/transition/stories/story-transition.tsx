@@ -75,9 +75,9 @@ export default function StoryTransitionClone(): ReactElement {
   const [stateUnmountOnExit, setStateUnmountOnExit] = useState(true);
   const [stateUseNodeRef, setStateUseNodeRef] = useState(true);
   
-  const nodeRef1 = useRef<HTMLDivElement | null>(null);
-  const nodeRef2 = useRef<HTMLDivElement | null>(null);
-  const nodeRef3 = useRef<HTMLDivElement | null>(null);
+  const nodeRef1 = useRef<HTMLDivElement>(null);
+  const nodeRef2 = useRef<HTMLDivElement>(null);
+  const nodeRef3 = useRef<HTMLDivElement>(null);
   
   return <>
     <InputSwitch {...{

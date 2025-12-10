@@ -18,7 +18,7 @@ export default function Provider({
 }: IModelProviderProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllable(false, value, defaultValue, onChange);
   
-  return <Context.Provider value={{
+  return <Context value={{
     props: {
       ...props,
       value: controllableValue,
@@ -26,5 +26,5 @@ export default function Provider({
     }
   }}>
     {children}
-  </Context.Provider>;
+  </Context>;
 }

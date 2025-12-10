@@ -1,5 +1,5 @@
 import {
-  ForwardedRef,
+  Ref,
   ReactElement,
   forwardRef,
   useImperativeHandle
@@ -22,7 +22,7 @@ const ScMarkingContainer = styled.div<IScMarkingContainer>`
   min-height: 120px;
 `;
 
-export default forwardRef(function Ui(_props: unknown, ref?: ForwardedRef<CanvasMarkingImperativeRef>): ReactElement {
+export default forwardRef(function Ui(_props: unknown, ref?: Ref<CanvasMarkingImperativeRef>): ReactElement {
   const {
     className
   } = useProps();

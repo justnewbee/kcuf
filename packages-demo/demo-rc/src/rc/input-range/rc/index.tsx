@@ -1,7 +1,6 @@
 import {
   ReactElement,
   ChangeEvent,
-  forwardRef,
   useCallback
 } from 'react';
 import styled from 'styled-components';
@@ -13,7 +12,6 @@ import {
   fromStringToNumber
 } from '../../../util';
 import {
-  TInputRangeRef,
   IInputRangeProps
 } from '../types';
 
@@ -70,12 +68,12 @@ const ScInputRange = styled.input`
   }
 `;
 
-export default forwardRef(function InputRange({
+export default function InputRange({
   value,
   defaultValue,
   onChange,
   ...props
-}: IInputRangeProps, ref: TInputRangeRef): ReactElement {
+}: IInputRangeProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllable<number>(0, value, defaultValue, onChange);
   const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     controllableOnChange(fromStringToNumber(e.target.value));
@@ -87,5 +85,5 @@ export default forwardRef(function InputRange({
     value: fromNumberToString(controllableValue),
     type: 'range',
     onChange: handleChange
-  }} ref={ref} />;
-});
+  }} />;
+}

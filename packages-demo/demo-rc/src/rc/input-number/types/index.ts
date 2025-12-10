@@ -1,11 +1,10 @@
 import {
-  ForwardedRef,
+  Ref,
   InputHTMLAttributes
 } from 'react';
 
-export type TInputNumberRef = ForwardedRef<HTMLInputElement>;
-
 export interface IInputNumberProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'children' | 'type' | 'value' | 'defaultValue' | 'onChange'> {
+  ref?: Ref<HTMLInputElement>;
   value?: number;
   defaultValue?: number;
   onChange?(value: number): void;

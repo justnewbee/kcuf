@@ -10,10 +10,10 @@ import {
 } from '@kcuf-hook/use-controllable';
 
 import {
-  IModelProviderProps,
   TChangeReason,
-  TModelAction,
-  TModelReducer
+  IModelProviderProps,
+  IModelState,
+  TModelAction
 } from '../types';
 import {
   createInitialState
@@ -32,7 +32,7 @@ export default function Provider({
 }: IModelProviderProps): ReactElement {
   const isUnmounted = useIsUnmounted();
   const [controllableValue, controllableOnChange] = useControllableSoftTrim<[TChangeReason]>(trim, value, defaultValue, onChange);
-  const [state, dispatch] = useReducer<TModelReducer, string>(reducer, controllableValue, createInitialState);
+  const [state, dispatch] = useReducer<IModelState, string, [TModelAction]>(reducer, controllableValue, createInitialState);
   
   const safeDispatch = useCallback((action: TModelAction): void => {
     if (!isUnmounted()) {
@@ -40,7 +40,7 @@ export default function Provider({
     }
   }, [isUnmounted, dispatch]);
   
-  return <Context.Provider value={{
+  return <Context value={{
     props: {
       ...props,
       fluid
@@ -51,5 +51,5 @@ export default function Provider({
     controllableOnChange
   }}>
     {children}
-  </Context.Provider>;
+  </Context>;
 }

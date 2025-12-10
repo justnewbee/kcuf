@@ -5,8 +5,9 @@ import {
 } from '../../const';
 
 export default styled.h3`
-  ${CSS_HEADING};
   font-size: 14px;
+  line-height: 2.4;
+  ${CSS_HEADING}
   
   &::before {
     content: 'H3';

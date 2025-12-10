@@ -3,6 +3,6 @@ import {
 } from 'styled-components';
 
 export default css`
-  word-break: break-word;
+  overflow-wrap: break-word;
   white-space: pre-wrap;
 `;

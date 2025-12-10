@@ -1,5 +1,5 @@
 import {
-  ForwardedRef,
+  Ref,
   ReactElement,
   forwardRef
 } from 'react';
@@ -11,7 +11,7 @@ import InputTextHeadless, {
 
 import Ui from '../ui';
 
-export default forwardRef(function InputText(props: InputTextProps, ref: ForwardedRef<InputTextImperativeRef>): ReactElement {
+export default forwardRef(function InputText(props: InputTextProps, ref: Ref<InputTextImperativeRef>): ReactElement {
   return <InputTextHeadless {...props}>
     <Ui ref={ref} />
   </InputTextHeadless>;

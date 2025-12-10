@@ -9,10 +9,10 @@ import {
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
 
 import {
-  IModelProps,
   IModelProviderProps,
-  TModelAction,
-  TModelReducer
+  IModelProps,
+  IModelState,
+  TModelAction
 } from '../types';
 import {
   createInitialState
@@ -26,7 +26,7 @@ export default function Provider({
   ...props
 }: IModelProviderProps): ReactElement {
   const isUnmounted = useIsUnmounted();
-  const [state, dispatch] = useReducer<TModelReducer, IModelProps>(reducer, props, createInitialState);
+  const [state, dispatch] = useReducer<IModelState, IModelProps, [TModelAction]>(reducer, props, createInitialState);
   
   let resolvedChildren: ReactElement | null = null;
   
@@ -35,6 +35,8 @@ export default function Provider({
       resolvedChildren = children(state.status);
     } else {
       resolvedChildren = cloneElement(Children.only(children), {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         'data-transition': state.status
       });
     }
@@ -46,12 +48,12 @@ export default function Provider({
     }
   }, [isUnmounted, dispatch]);
   
-  return <Context.Provider value={{
+  return <Context value={{
     props,
     state,
     dispatch: safeDispatch
   }}>
     <Lifecycle />
     {resolvedChildren}
-  </Context.Provider>;
+  </Context>;
 }

@@ -1,1 +1,3 @@
-https://fietkau.software/qr
+# README
+
+* [qr](https://fietkau.software/qr)

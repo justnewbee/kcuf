@@ -7,10 +7,9 @@ import {
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
 
 import {
-  IModelProps,
   IModelProviderProps,
-  TModelAction,
-  TModelReducer
+  IModelState,
+  TModelAction
 } from '../types';
 import {
   createInitialState
@@ -31,7 +30,7 @@ export default function Provider({
     detailsInSpace,
     ...restProps
   };
-  const [state, dispatch] = useReducer<TModelReducer, IModelProps>(reducer, props, createInitialState);
+  const [state, dispatch] = useReducer<IModelState, null, [TModelAction]>(reducer, null, createInitialState);
   
   const safeDispatch = useCallback((action: TModelAction): void => {
     if (!isUnmounted()) {
@@ -39,12 +38,12 @@ export default function Provider({
     }
   }, [isUnmounted, dispatch]);
   
-  return <Context.Provider value={{
+  return <Context value={{
     props,
     state,
     dispatch: safeDispatch
   }}>
     <Lifecycle />
     {children}
-  </Context.Provider>;
+  </Context>;
 }

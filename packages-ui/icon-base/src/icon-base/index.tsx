@@ -1,11 +1,9 @@
 import {
-  ReactElement,
-  forwardRef
+  ReactElement
 } from 'react';
 
 import {
-  IIconBaseProps,
-  TIconBaseRef
+  IIconBaseProps
 } from '../types';
 
 import {
@@ -15,34 +13,32 @@ import {
 /**
  * IconFont 图标基础组件，不是具体的图标组件，封装了写一个 Icon 组件需要的大部分逻辑
  */
-function IconBase<T extends string>(props: IIconBaseProps<T>, ref?: TIconBaseRef): ReactElement {
-  const {
-    fontFamily,
-    darkThemePrefix,
-    type,
-    size,
-    sizeRelative,
-    spacing,
-    disabled,
-    colored,
-    rotating,
-    rotate,
-    scale,
-    eyeCatching,
-    getIconCode,
-    getIconColor,
-    getIconColorDark,
-    role,
-    tabIndex,
-    onClick,
-    ...restProps
-  } = props;
+export default function IconBase<T extends string>({
+  fontFamily,
+  darkThemePrefix,
+  type,
+  size,
+  sizeRelative,
+  spacing,
+  disabled,
+  colored,
+  rotating,
+  rotate,
+  scale,
+  eyeCatching,
+  getIconCode,
+  getIconColor,
+  getIconColorDark,
+  role,
+  tabIndex,
+  onClick,
+  ...props
+}: IIconBaseProps<T>): ReactElement {
   const $code = getIconCode(type);
   const $color = colored && getIconColor ? getIconColor(type) : null;
   const $colorDark = colored && getIconColorDark ? getIconColorDark(type) : null;
   
   return <ScIcon {...{
-    ref,
     $fontFamily: fontFamily,
     $code,
     $darkThemePrefix: darkThemePrefix,
@@ -51,7 +47,7 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref?: TIconBaseRef
     $rotating: rotating,
     $rotate: rotate,
     $scale: scale,
-    ...restProps,
+    ...props,
     'data-size': size ? `${size}${sizeRelative ? '-relative' : ''}` : undefined,
     'data-spacing': spacing,
     'data-eye-catching': eyeCatching ? '' : undefined,
@@ -61,5 +57,3 @@ function IconBase<T extends string>(props: IIconBaseProps<T>, ref?: TIconBaseRef
     onClick: disabled ? undefined : onClick
   }} />;
 }
-
-export default forwardRef(IconBase) as typeof IconBase;

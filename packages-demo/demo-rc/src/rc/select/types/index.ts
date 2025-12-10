@@ -1,5 +1,5 @@
 import {
-  ForwardedRef,
+  Ref,
   SelectHTMLAttributes
 } from 'react';
 
@@ -8,7 +8,7 @@ import {
   TDatasourceValue
 } from '../../../types';
 
-export type TSelectRef = ForwardedRef<HTMLSelectElement>;
+export type TSelectRef = Ref<HTMLSelectElement>;
 
 export interface ISelectProps<T extends TDatasourceValue = string> extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'children' | 'value' | 'defaultValue' | 'onChange'> {
   datasource?: TDatasource<T>;

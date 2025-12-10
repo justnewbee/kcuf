@@ -14,7 +14,7 @@ import SvgBase from './svg-base';
 const ScSvg = styled(SvgBase)`
   path {
     transform-origin: center;
-    transition: transform var(--theme-toggle--duration, 500ms) ease;
+    transition: transform var(--theme-toggle-duration, 500ms) ease;
   }
   
   &[data-toggled] {

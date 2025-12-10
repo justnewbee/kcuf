@@ -1,6 +1,6 @@
 import {
   HTMLAttributes,
-  ForwardedRef
+  Ref
 } from 'react';
 
 export interface IInjectIconFontOptions {
@@ -18,12 +18,13 @@ export interface IInjectIconFontOptions {
   base64Data?: string;
 }
 
-export type TIconBaseRef = ForwardedRef<HTMLSpanElement>;
+export type TIconBaseRef = Ref<HTMLSpanElement>;
 
 /**
  * 用于 Icon 组件的范类型
  */
 export interface IIconPropsGeneric<T extends string = string> extends HTMLAttributes<HTMLElement> {
+  ref?: Ref<HTMLSpanElement>;
   /**
    * 类型，决定图标长什么样。
    *

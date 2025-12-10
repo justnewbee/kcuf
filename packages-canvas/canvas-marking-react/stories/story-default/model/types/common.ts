@@ -1,5 +1,5 @@
 import {
-  MutableRefObject
+  RefObject
 } from 'react';
 
 import {
@@ -7,7 +7,7 @@ import {
   CanvasMarkingImperativeRef
 } from '@kcuf/canvas-marking-react-headless';
 
-export type TMutableRefImperative = MutableRefObject<CanvasMarkingImperativeRef | null>;
+export type TMutableRefImperative = RefObject<CanvasMarkingImperativeRef | null>;
 
 export type TTogglePluginPayload = keyof CanvasMarkingPropsPlugins;
 
