@@ -1,12 +1,10 @@
 import {
-  ReactElement,
-  forwardRef
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
 import {
-  IThemeToggleProps,
-  TThemeToggleRef
+  IThemeToggleProps
 } from '../types';
 
 import SvgBase from './svg-base';
@@ -21,8 +19,8 @@ const ScSvg = styled(SvgBase)`
   }
 ` as typeof SvgBase;
 
-export default forwardRef(function Horizon(props: IThemeToggleProps, ref: TThemeToggleRef): ReactElement {
-  return <ScSvg ref={ref as never} {...props}>
+export default function ThemeToggleHorizon(props: IThemeToggleProps): ReactElement {
+  return <ScSvg {...props}>
     <clipPath id="theme-toggle-clip-path-horizon">
       <path d="M0 0h32v29h-32z" />
     </clipPath>
@@ -31,4 +29,4 @@ export default forwardRef(function Horizon(props: IThemeToggleProps, ref: TTheme
       <path d="M16 8.8c-3.4 0-6.1 2.8-6.1 6.1s2.7 6.3 6.1 6.3 6.1-2.8 6.1-6.1-2.7-6.3-6.1-6.3zm13.3 11L26 15l3.3-4.8c.3-.5.1-1.1-.5-1.2l-5.7-1-1-5.7c-.1-.6-.8-.8-1.2-.5L16 5.1l-4.8-3.3c-.5-.4-1.2-.1-1.3.4L8.9 8 3.2 9c-.6.1-.8.8-.5 1.2L6 15l-3.3 4.8c-.3.5-.1 1.1.5 1.2l5.7 1 1 5.7c.1.6.8.8 1.2.5L16 25l4.8 3.3c.5.3 1.1.1 1.2-.5l1-5.7 5.7-1c.7-.1.9-.8.6-1.3zM16 22.5A7.6 7.6 0 0 1 8.3 15c0-4.2 3.5-7.5 7.7-7.5s7.7 3.4 7.7 7.5c0 4.2-3.4 7.5-7.7 7.5z" />
     </g>
   </ScSvg>;
-});
+}

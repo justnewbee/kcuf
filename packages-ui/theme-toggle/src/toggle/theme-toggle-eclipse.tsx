@@ -1,12 +1,10 @@
 import {
-  ReactElement,
-  forwardRef
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
 import {
-  IThemeToggleProps,
-  TThemeToggleRef
+  IThemeToggleProps
 } from '../types';
 
 import SvgBase from './svg-base';
@@ -29,8 +27,8 @@ const ScSvg = styled(SvgBase)`
   }
 ` as typeof SvgBase;
 
-export default forwardRef(function Eclipse(props: IThemeToggleProps, ref: TThemeToggleRef): ReactElement {
-  return <ScSvg ref={ref as never} {...props}>
+export default function ThemeToggleEclipse(props: IThemeToggleProps): ReactElement {
+  return <ScSvg {...props}>
     <clipPath id="theme-toggle-clip-path-eclipse">
       <path d="M0 0h64v32h-64zm36 16a1 1 0 0024 1 1 1 0 00-24-1" />
     </clipPath>
@@ -38,4 +36,4 @@ export default forwardRef(function Eclipse(props: IThemeToggleProps, ref: TTheme
       <circle cx="16" cy="16" r="16" />
     </g>
   </ScSvg>;
-});
+}

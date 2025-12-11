@@ -1,12 +1,10 @@
 import {
-  ReactElement,
-  forwardRef
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
 import {
-  IThemeToggleProps,
-  TThemeToggleRef
+  IThemeToggleProps
 } from '../types';
 
 import SvgBase from './svg-base';
@@ -82,8 +80,8 @@ const ScSvg = styled(SvgBase)`
   }
 ` as typeof SvgBase;
 
-export default forwardRef(function Around(props: IThemeToggleProps, ref: TThemeToggleRef): ReactElement {
-  return <ScSvg ref={ref as never} {...props}>
+export default function ThemeToggleAround(props: IThemeToggleProps): ReactElement {
+  return <ScSvg {...props}>
     <clipPath id="theme-toggle-clip-path-around">
       <path d="M0 0h42v30a1 1 0 00-16 13H0Z" />
     </clipPath>
@@ -99,4 +97,4 @@ export default forwardRef(function Around(props: IThemeToggleProps, ref: TThemeT
       </g>
     </g>
   </ScSvg>;
-});
+}

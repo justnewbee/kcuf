@@ -1,12 +1,10 @@
 import {
-  ReactElement,
-  forwardRef
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
 import {
-  IThemeToggleProps,
-  TThemeToggleRef
+  IThemeToggleProps
 } from '../types';
 
 import SvgBase from './svg-base';
@@ -32,8 +30,8 @@ const ScSvg = styled(SvgBase)`
   }
 ` as typeof SvgBase;
 
-export default forwardRef(function Within(props: IThemeToggleProps, ref: TThemeToggleRef): ReactElement {
-  return <ScSvg ref={ref as never} {...props}>
+export default function ThemeToggleWithin(props: IThemeToggleProps): ReactElement {
+  return <ScSvg {...props}>
     <clipPath id="theme-toggle-clip-path-within">
       <path d="M0 0h32v32h-32ZM6 16A1 1 0 0026 16 1 1 0 006 16" />
     </clipPath>
@@ -43,4 +41,4 @@ export default forwardRef(function Within(props: IThemeToggleProps, ref: TThemeT
     <path className="within-circle" d="M16 7.7c-4.6 0-8.2 3.7-8.2 8.2s3.6 8.4 8.2 8.4 8.2-3.7 8.2-8.2-3.6-8.4-8.2-8.4zm0 14.4c-3.4 0-6.1-2.9-6.1-6.2s2.7-6.1 6.1-6.1c3.4 0 6.1 2.9 6.1 6.2s-2.7 6.1-6.1 6.1z" />
     <path className="within-inner" d="M16 9.5c-3.6 0-6.4 2.9-6.4 6.4s2.8 6.5 6.4 6.5 6.4-2.9 6.4-6.4-2.8-6.5-6.4-6.5z" />
   </ScSvg>;
-});
+}

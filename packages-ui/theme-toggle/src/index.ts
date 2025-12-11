@@ -1,6 +1,5 @@
 export * from './toggle';
 
 export type {
-  IThemeToggleProps as ThemeToggleProps,
-  TThemeToggleRef as ThemeToggleRef
+  IThemeToggleProps as ThemeToggleProps
 } from './types';

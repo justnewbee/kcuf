@@ -1,14 +1,12 @@
 import {
-  ReactElement,
-  forwardRef
+  ReactElement
 } from 'react';
 import styled, {
   css
 } from 'styled-components';
 
 import {
-  IThemeToggleProps,
-  TThemeToggleRef
+  IThemeToggleProps
 } from '../types';
 
 interface IScProps {
@@ -26,15 +24,15 @@ const ScSvg = styled.svg<IScProps>`
   ` : null}
 `;
 
-export default forwardRef(function SvgBase({
+export default function SvgBase({
   duration = 500,
   toggled,
   reversed,
   forceMotion,
   children,
   ...props
-}: IThemeToggleProps, ref: TThemeToggleRef): ReactElement {
-  return <ScSvg ref={ref} {...{
+}: IThemeToggleProps): ReactElement {
+  return <ScSvg {...{
     xmlns: 'http://www.w3.org/2000/svg',
     width: '1em',
     height: '1em',
@@ -47,4 +45,4 @@ export default forwardRef(function SvgBase({
     'data-reversed': reversed ? '' : undefined,
     'data-force-motion': forceMotion ? '' : undefined
   }}>{children}</ScSvg>;
-});
+}
