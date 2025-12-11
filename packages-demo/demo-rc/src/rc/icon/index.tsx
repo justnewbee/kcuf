@@ -16,14 +16,10 @@ import {
   getIconColor
 } from './util';
 
-export default function Icon({
-  type,
-  ...props
-}: IIconProps): ReactElement {
+export default function Icon(props: IIconProps): ReactElement {
   return <IconBase<TIconType> {...{
+    rotating: props.type === 'loading',
     ...props,
-    type,
-    rotating: type === 'loading',
     fontFamily: ICON_FONT,
     getIconCode,
     getIconColor

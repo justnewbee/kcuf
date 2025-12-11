@@ -1,11 +1,8 @@
 import {
-  ReactElement,
-  forwardRef
+  ReactElement
 } from 'react';
 
-import IconBase, {
-  IconBaseRef
-} from '@kcuf-ui/icon-base';
+import IconBase from '@kcuf-ui/icon-base';
 
 import {
   TIconType,
@@ -22,25 +19,17 @@ import {
 
 export const ICON_TYPES = Object.keys(ICON_TYPE_MAPPING) as TIconType[]; // for demo purpose
 
-export default forwardRef(function Icon(props: IIconProps, ref: IconBaseRef): ReactElement {
-  const {
-    type,
-    ...restProps
-  } = props;
-  
+export default function Icon(props: IIconProps): ReactElement {
   return <IconBase<TIconType> {...{
-    ...restProps,
-    ref,
-    type,
-    rotating: type === 'loading',
+    rotating: props.type === 'loading',
+    ...props,
     fontFamily: ICON_FONT,
     getIconCode,
     getIconColor
   }} />;
-});
+}
 
 export type {
-  IconBaseRef as IconRef,
   IIconProps as IconProps,
   TIconType as IconType
 };

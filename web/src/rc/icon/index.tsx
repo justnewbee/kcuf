@@ -1,10 +1,8 @@
 import {
-  ReactElement,
-  forwardRef
+  ReactElement
 } from 'react';
 import {
-  IconBase,
-  IconBaseRef
+  IconBase
 } from 'kcuf-ui';
 
 import {
@@ -20,26 +18,18 @@ import {
   getIconColorDark
 } from './util';
 
-export default forwardRef(function Icon(props: IIconProps, ref: IconBaseRef): ReactElement {
-  const {
-    type,
-    ...restProps
-  } = props;
-  
+export default function Icon(props: IIconProps): ReactElement {
   return <IconBase<TIconType> {...{
-    ...restProps,
-    ref,
-    type,
+    ...props,
     fontFamily: ICON_FONT,
     darkThemePrefix: 'html[data-theme="dark"]',
     getIconCode,
     getIconColor,
     getIconColorDark
   }} />;
-});
+}
 
 export type {
-  IconBaseRef as IconRef,
   IIconProps as IconProps,
   TIconType as IconType
 };

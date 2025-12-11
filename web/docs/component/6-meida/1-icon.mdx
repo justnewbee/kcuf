@@ -125,14 +125,12 @@ function DemoRotate(): ReactElement {
 ```tsx
 import {
   Icon,
-  IconRef,
   IconProps,
   IconType
 } from 'kcuf-ui';
 
 // 也可单包引入
 import Icon, {
-  IconRef,
   IconProps,
   IconType
 } from '@kcuf-ui/icon';
@@ -141,7 +139,6 @@ import Icon, {
 | Export | 类型 | 说明 |
 | --- | :-: | --- |
 | `Icon` | 组件 | |
-| `IconRef` | 类型 | `Ref` 类型，指向底层的 `<i>` 元素，二次封装时传递给 `forwardRef` 的类型 |
 | `IconProps` | 类型 | 组件 `props` 类型，一般用于二次封装 |
 | `IconType` | 类型 | 组件 `type` 的类型<br />`"search" \| "loading" \| "arrowhead" \| "arrow" \| "arrow-to-top" \| "triangle" \| "info" \| "info-fill" \| "help" \| "help-fill" \| "warn" \| "warn-fill" \| "success" \| "success-fill" \| ... 16 more ... \| "external"` |
 

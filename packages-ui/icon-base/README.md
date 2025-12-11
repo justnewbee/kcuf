@@ -14,13 +14,11 @@
 
 ```tsx
 import {
-  ReactElement,
-  forwardRef
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
 import IconBase, {
-  IconRef,
   IconProps,
   injectIconFont
 } from '@kcuf-ui/icon-base';
@@ -48,20 +46,15 @@ function getIconColor(type: TIconType): string | null {
   ...
 }
 
-export default forwardRef(function Icon({
-  type,
-  ...props
-}: IIconProps, ref: IconRef): ReactElement {
+export default function Icon(props: IIconProps): ReactElement {
   return <IconBase<TIconType> {...{
-    ref,
-    type,
-    rotating: type === 'loading',
+    rotating: props.type === 'loading',
     ...props,
     fontFamily,
     getIconCode,
     getIconColor
   }} />;
-});
+}
 
 export type {
   TIconType as IconType,

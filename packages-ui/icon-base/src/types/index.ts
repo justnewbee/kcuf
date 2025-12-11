@@ -18,8 +18,6 @@ export interface IInjectIconFontOptions {
   base64Data?: string;
 }
 
-export type TIconBaseRef = Ref<HTMLSpanElement>;
-
 /**
  * 用于 Icon 组件的范类型
  */
