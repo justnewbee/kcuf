@@ -1,4 +1,5 @@
 import {
+  useRef,
   useEffect
 } from 'react';
 
@@ -15,27 +16,26 @@ import {
 } from '../util';
 
 import useModelContext from './_use-model-context';
-import useDispatchInit from './use-dispatch-init';
+import useDispatchSetCodemirrorInfo from './use-dispatch-set-codemirror-info';
 
 export default function useEffectInit(): void {
+  const refInitialized = useRef(false);
   const {
     refDom,
     props,
-    state: {
-      codemirror
-    },
     controllableOnChange
   } = useModelContext();
-  const dispatchInit = useDispatchInit();
+  const dispatchSetCodemirrorInfo = useDispatchSetCodemirrorInfo();
   
   useEffect(() => {
-    if (!refDom.current || codemirror) {
+    if (!refDom.current || refInitialized.current) {
       return;
     }
     
+    refInitialized.current = true;
+    
     const compartmentReadOnly = new Compartment();
     const compartmentEditable = new Compartment();
-    
     const extensions = [
       ...getExtensions(props),
       // new Compartment().of(EditorState.tabSize.of(2)),
@@ -47,22 +47,20 @@ export default function useEffectInit(): void {
         }
       })
     ];
-    
     const editorState = EditorState.create({
       doc: props.value,
       extensions
     });
-    
     const editorView = new EditorView({
       parent: refDom.current,
       state: editorState
     });
     
-    dispatchInit({
+    dispatchSetCodemirrorInfo({
       editorState,
       editorView,
       compartmentReadOnly,
       compartmentEditable
     });
-  }, [props, refDom, controllableOnChange, codemirror, dispatchInit]);
+  }, [props, refDom, controllableOnChange, dispatchSetCodemirrorInfo]);
 }

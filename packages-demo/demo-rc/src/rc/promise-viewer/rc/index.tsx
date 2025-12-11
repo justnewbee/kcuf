@@ -81,30 +81,34 @@ export default function PromiseViewer({
     }));
   }, [promise]);
   
+  let jsxStatus;
+  let jsxView;
+  
+  switch (stateResult.loading) {
+  case ELoading.LOADING:
+    jsxStatus = <ScInfoLoading>Loading...</ScInfoLoading>;
+    jsxView = <CodeViewer>Loading...</CodeViewer>;
+    
+    break;
+  case ELoading.RESOLVED:
+    jsxStatus = <ScInfoResolved>Success ({stateResult.duration}ms)</ScInfoResolved>;
+    jsxView = <CodeViewerJson5 o={stateResult.result} />;
+    
+    break;
+  case ELoading.REJECTED:
+    jsxStatus = <ScInfoRejected>Failed ({stateResult.duration}ms)</ScInfoRejected>;
+    jsxView = <CodeViewerJson5 o={normalizeError(stateResult.result as Error)} />;
+    
+    break;
+  default:
+    jsxStatus = <ScInfoIdle>Idle</ScInfoIdle>;
+    jsxView = <CodeViewer />;
+    
+    break;
+  }
+  
   return <ScPromiseViewer>
-    {((): ReactElement => {
-      switch (stateResult.loading) {
-      case ELoading.LOADING:
-        return <>
-          <ScInfoLoading>Loading...</ScInfoLoading>
-          <CodeViewer>Loading...</CodeViewer>
-        </>;
-      case ELoading.RESOLVED:
-        return <>
-          <ScInfoResolved>Success ({stateResult.duration}ms)</ScInfoResolved>
-          <CodeViewerJson5 o={stateResult.result} />
-        </>;
-      case ELoading.REJECTED:
-        return <>
-          <ScInfoRejected>Failed ({stateResult.duration}ms)</ScInfoRejected>
-          <CodeViewerJson5 o={normalizeError(stateResult.result as Error)} />
-        </>;
-      default:
-        return <>
-          <ScInfoIdle>Idle</ScInfoIdle>
-          <CodeViewer />
-        </>;
-      }
-    })()}
+    {jsxStatus}
+    {jsxView}
   </ScPromiseViewer>;
 }

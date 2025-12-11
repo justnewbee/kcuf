@@ -4,6 +4,6 @@ import {
 
 export default function createInitialState(): IModelState {
   return {
-    codemirror: null
+    codemirrorInfo: null
   };
 }

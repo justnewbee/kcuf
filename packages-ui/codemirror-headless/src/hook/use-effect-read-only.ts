@@ -17,17 +17,17 @@ export default function useEffectReadOnly(): void {
     readOnly
   } = useModelProps();
   const {
-    codemirror
+    codemirrorInfo
   } = useModelState();
   
   useEffect(() => {
-    if (codemirror) {
-      codemirror.editorView.dispatch({
+    if (codemirrorInfo) {
+      codemirrorInfo.editorView.dispatch({
         effects: [
-          codemirror.compartmentReadOnly.reconfigure(EditorState.readOnly.of(!!readOnly)),
-          codemirror.compartmentEditable.reconfigure(EditorView.editable.of(!readOnly))
+          codemirrorInfo.compartmentReadOnly.reconfigure(EditorState.readOnly.of(!!readOnly)),
+          codemirrorInfo.compartmentEditable.reconfigure(EditorView.editable.of(!readOnly))
         ]
       });
     }
-  }, [codemirror, readOnly]);
+  }, [codemirrorInfo, readOnly]);
 }

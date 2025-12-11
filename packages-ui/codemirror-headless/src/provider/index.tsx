@@ -17,7 +17,7 @@ import {
   createInitialState
 } from '../util';
 import reducer from '../reducer';
-import CodemirrorContext from '../context';
+import Context from '../context';
 import Lifecycle from '../lifecycle';
 
 export default function CodemirrorProvider({
@@ -40,7 +40,7 @@ export default function CodemirrorProvider({
     }
   }, [isUnmounted, dispatch]);
   
-  return <CodemirrorContext value={{
+  return <Context value={{
     refDom,
     props,
     state,
@@ -50,5 +50,5 @@ export default function CodemirrorProvider({
   }}>
     <Lifecycle />
     {children}
-  </CodemirrorContext>;
+  </Context>;
 }

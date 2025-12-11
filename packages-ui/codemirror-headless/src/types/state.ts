@@ -3,5 +3,5 @@ import {
 } from './common';
 
 export interface IModelState {
-  codemirror: ICodemirrorInfo | null;
+  codemirrorInfo: ICodemirrorInfo | null;
 }

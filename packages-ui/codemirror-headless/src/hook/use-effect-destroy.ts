@@ -6,10 +6,10 @@ import useModelState from './_use-model-state';
 
 export default function useEffectDestroy(): void {
   const {
-    codemirror
+    codemirrorInfo
   } = useModelState();
   
   useEffect(() => {
-    return () => codemirror?.editorView.destroy();
-  }, [codemirror]);
+    return () => codemirrorInfo?.editorView.destroy();
+  }, [codemirrorInfo]);
 }

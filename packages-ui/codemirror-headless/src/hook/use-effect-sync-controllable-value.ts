@@ -12,19 +12,19 @@ export default function useEffectSyncControllableValue(): void {
     }
   } = useModelContext();
   const {
-    codemirror
+    codemirrorInfo
   } = useModelState();
   
   // 监听 props.value 变化
   useEffect(() => {
-    if (!codemirror?.editorView) {
+    if (!codemirrorInfo?.editorView) {
       return;
     }
     
-    const viewValue = codemirror.editorView.state.doc.toString();
+    const viewValue = codemirrorInfo.editorView.state.doc.toString();
     
     if (value !== viewValue) {
-      codemirror.editorView.dispatch({
+      codemirrorInfo.editorView.dispatch({
         changes: {
           from: 0,
           to: viewValue.length,
@@ -33,5 +33,5 @@ export default function useEffectSyncControllableValue(): void {
         // annotations: [External.of(true)],
       });
     }
-  }, [value, codemirror]);
+  }, [value, codemirrorInfo]);
 }

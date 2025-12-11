@@ -1,4 +1,3 @@
 export enum EAction {
-  SET_DOM,
-  INIT
+  SET_CODEMIRROR_INFO
 }

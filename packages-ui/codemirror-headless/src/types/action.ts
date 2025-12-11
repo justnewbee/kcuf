@@ -11,7 +11,7 @@ import {
 } from './common';
 
 export type TModelAction = {
-  type: EAction.INIT;
+  type: EAction.SET_CODEMIRROR_INFO;
   payload: ICodemirrorInfo;
 };
 
