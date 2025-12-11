@@ -1,4 +1,5 @@
 import {
+  RefObject,
   ReactElement
 } from 'react';
 
@@ -13,11 +14,12 @@ import {
 } from './action';
 
 export interface IModelContext {
+  refDom: RefObject<HTMLDivElement | null>;
   props: ICodemirrorProps;
   state: IModelState;
+  dispatch: TModelDispatch;
   controllableValue: string;
   controllableOnChange(value: string): void;
-  dispatch: TModelDispatch;
 }
 
 export interface IModelProviderProps extends ICodemirrorProps {

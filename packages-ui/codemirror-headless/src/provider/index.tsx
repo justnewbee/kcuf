@@ -1,5 +1,6 @@
 import {
   ReactElement,
+  useRef,
   useReducer,
   useCallback
 } from 'react';
@@ -28,6 +29,7 @@ export default function CodemirrorProvider({
     defaultValue = '',
     onChange
   } = props;
+  const refDom = useRef<HTMLDivElement>(null);
   const isUnmounted = useIsUnmounted();
   const [controllableValue, controllableOnChange] = useControllable('', value, defaultValue, onChange); // 不适合用 `trim`
   const [state, dispatch] = useReducer<IModelState, null, [TModelAction]>(reducer, null, createInitialState);
@@ -39,6 +41,7 @@ export default function CodemirrorProvider({
   }, [isUnmounted, dispatch]);
   
   return <CodemirrorContext value={{
+    refDom,
     props,
     state,
     controllableValue,

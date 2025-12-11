@@ -19,9 +19,9 @@ import useDispatchInit from './use-dispatch-init';
 
 export default function useEffectInit(): void {
   const {
+    refDom,
     props,
     state: {
-      dom,
       codemirror
     },
     controllableOnChange
@@ -29,7 +29,7 @@ export default function useEffectInit(): void {
   const dispatchInit = useDispatchInit();
   
   useEffect(() => {
-    if (!dom || codemirror) {
+    if (!refDom.current || codemirror) {
       return;
     }
     
@@ -54,7 +54,7 @@ export default function useEffectInit(): void {
     });
     
     const editorView = new EditorView({
-      parent: dom,
+      parent: refDom.current,
       state: editorState
     });
     
@@ -64,5 +64,5 @@ export default function useEffectInit(): void {
       compartmentReadOnly,
       compartmentEditable
     });
-  }, [props, dom, controllableOnChange, codemirror, dispatchInit]);
+  }, [props, refDom, controllableOnChange, codemirror, dispatchInit]);
 }

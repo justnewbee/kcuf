@@ -57,6 +57,7 @@ export default function PromiseViewer({
   
   useEffect(() => {
     if (!promise) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStateResult(DEFAULT_RESULT);
       
       return;
