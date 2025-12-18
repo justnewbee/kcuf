@@ -36,7 +36,7 @@
     "@kcuf/ts-config": "workspace:^",
     "@types/lodash": "^4.17.21",
     "@types/react": "^19.2.7",
-    "react": "^19.2.1",
+    "react": "^19.2.3",
     "rimraf": "^6.1.2",
     "typescript": "^5.9.3"
   },

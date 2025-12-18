@@ -8,6 +8,13 @@ export interface IBaseDataId {
 }
 
 /**
+ * 「父 ID」标准化
+ */
+export interface IBaseDataParentId {
+  parentId: string;
+}
+
+/**
  * 「名称」标准化
  */
 export interface IBaseDataName {

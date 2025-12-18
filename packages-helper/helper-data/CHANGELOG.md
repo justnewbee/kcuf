@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## 0.2.3 2024/11/05 @驳是
+## 0.3.0 2025/12/18 @驳是
+
+* FEAT 新增 `normalizeTreeList`
+
+## 0.2.3 2025/10/26 @驳是
 
 * FEAT 新增 `isEmptyPagedList`
 

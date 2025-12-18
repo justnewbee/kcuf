@@ -2,6 +2,8 @@
 title: 参考
 ---
 
+[OpenUI](https://open-ui.org) 对现有的 UI 库进行了相关的分析，对名字、属性等都有相关的统计，非常具有参考价值。
+
 ## 组件库
 
 | UI Library | Vendor | Tech | 单引 CSS | 说明 |

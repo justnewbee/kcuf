@@ -47,10 +47,10 @@
     "@types/react-dom": "^19.2.3",
     "commander": "^14.0.2",
     "docusaurus-plugin-sass": "^0.2.6",
-    "inquirer": "^13.0.2",
+    "inquirer": "^13.1.0",
     "react-docgen": "^8.0.2",
     "react-docgen-typescript": "^2.4.0",
-    "sass": "^1.96.0",
+    "sass": "^1.97.0",
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.28.15",
     "typedoc-plugin-markdown": "^4.9.0",
@@ -69,8 +69,8 @@
     "lunr": "^2.3.9",
     "lunr-languages": "^1.14.0",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
     "styled-components": "^6.1.19"
   },
   "scripts": {

@@ -9,6 +9,7 @@ export type {
   
   // 数据标准化
   IBaseDataId as BaseDataId,
+  IBaseDataParentId as BaseDataParentId,
   IBaseDataName as BaseDataName,
   IBaseDataIdName as BaseDataIdName,
   IBaseDataTitle as BaseDataTitle,
