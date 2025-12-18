@@ -12,9 +12,9 @@ type TTreeItem<T extends IBaseItem> = T & {
 /**
  * 将平铺的数据转成树节点列表
  */
-export default function normalizeTreeList<T extends IBaseItem>(list: T[]): TTreeItem<T>[] {
+export default function normalizeTreeList<T extends IBaseItem>(list: T[], filter?: (o: T) => boolean): TTreeItem<T>[] {
   const nodeMap = new Map<string, TTreeItem<T>>();
-  const treeList: TTreeItem<T>[] = list.map((v: T) => {
+  const listClone: TTreeItem<T>[] = list.map((v: T) => {
     const treeItem: TTreeItem<T> = { // shallow clone
       ...v
     };
@@ -25,10 +25,6 @@ export default function normalizeTreeList<T extends IBaseItem>(list: T[]): TTree
   });
   
   function putToParent(o: TTreeItem<T>): void {
-    if (!o.parentId) {
-      return;
-    }
-    
     const parentNode = nodeMap.get(o.parentId);
     
     if (parentNode) {
@@ -40,7 +36,19 @@ export default function normalizeTreeList<T extends IBaseItem>(list: T[]): TTree
     }
   }
   
-  treeList.forEach(v => putToParent(v));
+  listClone.forEach(v => {
+    if (v.parentId && (!filter || filter(v))) {
+      putToParent(v);
+    }
+  });
   
-  return treeList.filter(v => !v.parentId); // all top-level nodes
+  const treeItems: TTreeItem<T>[] = listClone.filter(v => !v.parentId); // all top-level nodes
+  
+  return filter ? treeItems.filter(v => { // filter top-level nodes again
+    if (v.children?.length) {
+      return true;
+    }
+    
+    return filter(v);
+  }) : treeItems;
 }

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.1 2025/12/18 @驳是
+
+* FEAT `normalizeTreeList` 带过滤功能
+
 ## 0.3.0 2025/12/18 @驳是
 
 * FEAT 新增 `normalizeTreeList`
