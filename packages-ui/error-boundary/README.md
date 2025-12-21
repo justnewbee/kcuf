@@ -1,12 +1,19 @@
 # @kcuf-ui/error-boundary
 
-An ErrorBoundary component to display detailed error info for developers.
+An `ErrorBoundary` component to display detailed error info for developers.
+
+## Props
+
+* `children: ReactNode;`
+* `fallback?: ReactNode | ((error: unknown, errorInfo?: ErrorInfo) => ReactNode);`
+* `resetSignal?: unknown;`
+* `onErrorCaught?(error: unknown, errorInfo: ErrorInfo): void;`
 
 ## FAQ
 
 ### When wrapping react-router component, the route won't refresh after one has failed, even after route has changed?
 
-Use the route path as key, see the example below:
+Use the route path as `resetSignal` prop, see the example below:
 
 ```tsx
 import {
@@ -25,7 +32,7 @@ export default function Main(): ReactElement {
   } = useLocation();
   
   return <main>
-    <ErrorBoundary key={pathname}>
+    <ErrorBoundary resetSignal={pathname}>
       <Outlet />
     </ErrorBoundary>
   </main>;

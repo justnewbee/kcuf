@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-ui/error-boundary",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "The kcuf-ui ErrorBoundary component.",
   "keywords": [],
   "license": "MIT",

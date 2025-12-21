@@ -12,35 +12,59 @@ import ErrorDisplay from '../error-display';
 
 export default class ErrorBoundary extends Component<IErrorBoundaryProps, IErrorBoundaryState> {
   state: IErrorBoundaryState = {
-    error: null
+    caught: null
   };
   
-  static getDerivedStateFromError(error: Error): IErrorBoundaryState {
+  static getDerivedStateFromError(error: unknown): IErrorBoundaryState {
     return {
-      error
+      caught: {
+        error
+      }
     };
   }
   
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     this.setState({
-      error,
-      errorInfo
+      caught: {
+        error,
+        errorInfo
+      }
     });
     
     this.props.onErrorCaught?.(error, errorInfo);
   }
   
+  componentDidUpdate(prevProps: IErrorBoundaryProps): void {
+    if (this.props.resetSignal !== prevProps.resetSignal && this.state.caught) {
+      this.setState({
+        caught: null
+      });
+    }
+  }
+  
   render(): ReactNode {
     const {
       props: {
-        children
+        children,
+        fallback
       },
       state: {
-        error,
-        errorInfo
+        caught
       }
     } = this;
     
-    return error ? <ErrorDisplay error={error} errorInfo={errorInfo} /> : children;
+    if (!caught) {
+      return children;
+    }
+    
+    if (!fallback) {
+      return <ErrorDisplay error={caught.error} errorInfo={caught.errorInfo} />;
+    }
+    
+    if (typeof fallback === 'function') {
+      return fallback(caught.error, caught.errorInfo);
+    }
+    
+    return fallback;
   }
 }
