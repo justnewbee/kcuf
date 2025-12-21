@@ -6,18 +6,20 @@
 export default {
   '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
   '@typescript-eslint/naming-convention': ['error', {
+    selector: 'variable',
+    format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
+    leadingUnderscore: 'allow',
+    trailingUnderscore: 'allow',
+    filter: {
+      regex: '[A-Z\\d\\$]__[\\$A-Z\\d]|ZIndex',
+      match: false
+    }
+  }, {
     selector: 'function',
     format: ['strictCamelCase', 'StrictPascalCase'],
     leadingUnderscore: 'allow',
     filter: {
       regex: 'ZIndex',
-      match: false
-    }
-  }, {
-    selector: 'variable',
-    format: ['strictCamelCase', 'StrictPascalCase', 'UPPER_CASE'],
-    filter: {
-      regex: '[A-Z\\d\\$]__[\\$A-Z\\d]|ZIndex',
       match: false
     }
   }, {

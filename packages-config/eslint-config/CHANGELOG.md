@@ -1,12 +1,16 @@
 # CHANGELOG
 
+## 0.5.1 2025/12/21 @驳是
+
+* FIX allow `trailingUnderscore` for variables
+
 ## 0.5.0 2025/12/03 @驳是
 
-* 去掉 `eslint-plugin-storybook`，因它 peer storybook，会导致云端安装失败
+* FEAT 去掉 `eslint-plugin-storybook`，因它 peer storybook，会导致云端安装失败
 
 ## 0.4.2 2025/11/27 @驳是
 
-* 启用 `@stylistic/spaced-comment`
+* FEAT 启用 `@stylistic/spaced-comment`
 
 ## 0.4.0 2025/10/09 @驳是
 
