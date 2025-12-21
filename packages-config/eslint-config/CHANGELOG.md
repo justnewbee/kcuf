@@ -1,8 +1,8 @@
 # CHANGELOG
 
-## 0.5.1 2025/12/21 @驳是
+## 0.5.2 2025/12/21 @驳是
 
-* FIX allow `trailingUnderscore` for variables
+* FIX allow `trailingUnderscore` for variables and enum members
 
 ## 0.5.0 2025/12/03 @驳是
 

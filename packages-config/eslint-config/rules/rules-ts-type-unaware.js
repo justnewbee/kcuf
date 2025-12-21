@@ -45,11 +45,13 @@ export default {
     selector: 'memberLike',
     modifiers: ['private'],
     format: ['strictCamelCase'],
-    leadingUnderscore: 'allow'
+    leadingUnderscore: 'allow',
+    trailingUnderscore: 'allow'
   }, {
     selector: 'enumMember',
     format: ['StrictPascalCase', 'UPPER_CASE'],
     leadingUnderscore: 'allow',
+    trailingUnderscore: 'allow',
     filter: {
       regex: '[A-Z\\d\\$]__[\\$A-Z\\d]',
       match: false
