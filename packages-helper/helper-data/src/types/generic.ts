@@ -1,3 +1,8 @@
+import {
+  IBaseDataId,
+  IBaseDataParentId
+} from './base-data';
+
 /**
  * 分页数据标准化
  */
@@ -22,3 +27,9 @@ export interface IPagedCursorList<T> {
 export interface IPagedListUncertain<T> extends Omit<IPagedList<T>, 'total'> {
   hasMore: boolean;
 }
+
+export interface ITreeItemBase extends IBaseDataId, IBaseDataParentId {}
+
+export type TTreeItem<T extends ITreeItemBase> = T & {
+  children?: TTreeItem<T>[];
+};

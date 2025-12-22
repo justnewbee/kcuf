@@ -24,5 +24,6 @@ export type {
   // 数据标准化（泛型）
   IPagedList as PagedList,
   IPagedCursorList as PagedCursorList,
-  IPagedListUncertain as PagedListUncertain
+  IPagedListUncertain as PagedListUncertain,
+  TTreeItem as TreeItem
 } from './types';

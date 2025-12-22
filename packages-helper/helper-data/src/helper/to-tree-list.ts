@@ -1,18 +1,12 @@
 import {
-  IBaseDataId,
-  IBaseDataParentId
+  ITreeItemBase,
+  TTreeItem
 } from '../types';
 
-interface IBaseItem extends IBaseDataId, IBaseDataParentId {}
-
-type TTreeItem<T extends IBaseItem> = T & {
-  children?: TTreeItem<T>[];
-};
-
 /**
- * 将平铺的数据转成树节点列表
+ * 将平铺的（已标准化 `id` 和 `parentId`）数据转成树节点列表
  */
-export default function normalizeTreeList<T extends IBaseItem>(list: T[], filter?: (o: T) => boolean): TTreeItem<T>[] {
+export default function toTreeList<T extends ITreeItemBase>(list: T[], filter?: (o: T) => boolean): TTreeItem<T>[] {
   const nodeMap = new Map<string, TTreeItem<T>>();
   const listClone: TTreeItem<T>[] = list.map((v: T) => {
     const treeItem: TTreeItem<T> = { // shallow clone
