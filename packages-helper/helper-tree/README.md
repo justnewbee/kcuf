@@ -1,5 +1,8 @@
-# @kcuf/helper-data
+# @kcuf/helper-tree
 
-将千奇百怪、随心所欲、虚头巴脑的后端数据中的字段、类型进行标准化的帮助类型及方法。
+树形数据工具箱：
 
-不具业务向，只做通用的逻辑，业务代码可以扩展这个包。
+* `treeBuild`
+* `treeFlatten`
+* `treeTraverse`
+* `treeFilter`
