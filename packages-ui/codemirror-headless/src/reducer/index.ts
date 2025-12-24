@@ -13,7 +13,7 @@ export default function reducer(state: IModelState, action: TModelAction): IMode
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   case EAction.SET_CODEMIRROR_INFO:
     return reduceSetCodemirrorInfo(state, action.payload);
-  default: // 如果 default 里 action 的类型没有 narrow 到 never，则说明 type 没有 cover 全
+  default: // 如果 default 里 action 的类型没有 narrow 到 never，则 type 未 cover 全
     return state;
   }
 }

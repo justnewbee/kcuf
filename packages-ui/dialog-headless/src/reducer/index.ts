@@ -39,7 +39,7 @@ export default function reducer(state: IModelState, action: TModelAction): IMode
     return reduceForceUpdate(state);
   case EAction.UPDATE_WINDOW_HEIGHT:
     return reduceUpdateWindowHeight(state);
-  default: // 如果 default 里 action 的类型没有 narrow 到 never，则说明 type 没有 cover 全
+  default: // 如果 default 里 action 的类型没有 narrow 到 never，则 type 未 cover 全
     return state;
   }
 }
