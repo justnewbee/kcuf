@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.0 2025/12/24 @驳是
+
+* FEAT 移除 `toTreeList`，请用 `@kcuf/helper-tree`
+
 ## 0.4.0 2025/12/22 @驳是
 
 * FEAT 新增 `toTreeList`

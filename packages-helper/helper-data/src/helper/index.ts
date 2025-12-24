@@ -6,6 +6,4 @@ export { default as normalizeTime } from './normalize-time';
 export { default as normalizePagedList } from './normalize-paged-list';
 export { default as normalizePagedListUncertain } from './normalize-paged-list-uncertain';
 
-export { default as toTreeList } from './to-tree-list';
-
 export { default as isEmptyPagedList } from './is-empty-paged-list';
