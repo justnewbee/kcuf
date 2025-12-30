@@ -40,7 +40,7 @@ import {
  * }
  * ```
  */
-export default function muteListAfterChange<T>(list: T[], payload: T, reason: TListChangeReason, predicate?: TFindPredicate<T>): void {
+export default function afterListChange<T>(list: T[], payload: T, reason: TListChangeReason, predicate?: TFindPredicate<T>): void {
   switch (reason) {
   case 'c':
     list.push(payload);
