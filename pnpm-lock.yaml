@@ -2182,7 +2182,7 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages-helper/helper-react-model:
+  packages-helper/helper-rc-model:
     dependencies:
       '@babel/runtime':
         specifier: '>=7.0.0'

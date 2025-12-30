@@ -1,5 +1,5 @@
 {
-  "name": "@kcuf/helper-react-model",
+  "name": "@kcuf/helper-rc-model",
   "version": "0.0.1",
   "description": "React model helpers.",
   "keywords": [],
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-helper/helper-react-model",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-helper/helper-rc-model",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
