@@ -16,7 +16,7 @@ export type {
   IBaseDataDescription as BaseDataDescription,
   IBaseDataContent as BaseDataContent,
   IBaseDataTimeCreated as BaseDataTimeCreated,
-  IBaseDataTimeUpdated as BaseDataTimeModified,
+  IBaseDataTimeUpdated as BaseDataTimeUpdated,
   IBaseDataTimes as BaseDataTimes,
   IBaseDataCreator as BaseDataCreator,
   IBaseDataUpdater as BaseDataUpdater,

@@ -50,7 +50,7 @@
     "inquirer": "^13.1.0",
     "react-docgen": "^8.0.2",
     "react-docgen-typescript": "^2.4.0",
-    "sass": "^1.97.1",
+    "sass": "^1.97.2",
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.28.15",
     "typedoc-plugin-markdown": "^4.9.0",
@@ -71,7 +71,7 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "styled-components": "^6.1.19"
+    "styled-components": "^6.2.0"
   },
   "scripts": {
     "start": "docusaurus start --host 0.0.0.0",

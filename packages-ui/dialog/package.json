@@ -43,7 +43,7 @@
     "react-dom": "^19.2.3",
     "rimraf": "^6.1.2",
     "storybook": "^10.1.11",
-    "styled-components": "^6.1.19",
+    "styled-components": "^6.2.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
