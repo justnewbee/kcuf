@@ -32,7 +32,7 @@
     "@kcuf/ts-config": "workspace:^",
     "@types/react": "^19.2.7",
     "react": "^19.2.3",
-    "react-router": "^7.11.0",
+    "react-router": "^7.12.0",
     "rimraf": "^6.1.2",
     "typescript": "^5.9.3"
   },
