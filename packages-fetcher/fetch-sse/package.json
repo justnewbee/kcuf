@@ -24,17 +24,17 @@
     "access": "public"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.5",
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.28.6",
     "@babel/plugin-transform-runtime": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-env": "^7.28.6",
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@types/react": "^19.2.7",
+    "@types/react": "^19.2.8",
     "react": "^19.2.3",
     "rimraf": "^6.1.2",
-    "styled-components": "^6.2.0",
+    "styled-components": "^6.3.5",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## 0.5.3 2026/01/13 @驳是
+
+* FEAT Add `@typescript-eslint/strict-void-return: error`
+
 ## 0.5.2 2025/12/21 @驳是
 
-* FIX allow `trailingUnderscore` for variables and enum members
+* FIX Allow `trailingUnderscore` for variables and enum members
 
 ## 0.5.0 2025/12/03 @驳是
 
@@ -10,8 +14,8 @@
 
 ## 0.4.2 2025/11/27 @驳是
 
-* FEAT 启用 `@stylistic/spaced-comment`
+* FEAT Add `@stylistic/spaced-comment`
 
 ## 0.4.0 2025/10/09 @驳是
 
-* CHORE upgrade eslint-plugin-react-hooks 6 → 7
+* CHORE Upgrade eslint-plugin-react-hooks 6 → 7

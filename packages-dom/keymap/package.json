@@ -30,10 +30,10 @@
     "access": "public"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.5",
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.28.6",
     "@babel/plugin-transform-runtime": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-env": "^7.28.6",
     "@babel/preset-typescript": "^7.28.5",
     "@chromatic-com/storybook": "^4.1.3",
     "@kcuf-ui/keyboard-mac": "workspace:^",
@@ -45,17 +45,17 @@
     "@testing-library/dom": "^10.4.1",
     "@types/canvas-confetti": "^1.9.0",
     "@types/jsdom": "^27.0.0",
-    "@types/lodash": "^4.17.21",
-    "@types/react": "^19.2.7",
-    "@vitest/coverage-v8": "^4.0.16",
+    "@types/lodash": "^4.17.23",
+    "@types/react": "^19.2.8",
+    "@vitest/coverage-v8": "^4.0.17",
     "canvas-confetti": "^1.9.4",
     "jsdom": "^27.4.0",
     "react": "^19.2.3",
     "rimraf": "^6.1.2",
     "storybook": "^10.1.11",
-    "styled-components": "^6.2.0",
+    "styled-components": "^6.3.5",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.17"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0"

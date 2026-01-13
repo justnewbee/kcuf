@@ -26,11 +26,11 @@
     "access": "public"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.5",
-    "@babel/plugin-transform-react-jsx": "^7.27.1",
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.28.6",
+    "@babel/plugin-transform-react-jsx": "^7.28.6",
     "@babel/plugin-transform-runtime": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
+    "@babel/preset-env": "^7.28.6",
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@chromatic-com/storybook": "^4.1.3",
@@ -39,13 +39,13 @@
     "@storybook/addon-docs": "^10.1.11",
     "@storybook/addon-links": "^10.1.11",
     "@storybook/react-vite": "^10.1.11",
-    "@types/react": "^19.2.7",
+    "@types/react": "^19.2.8",
     "babel-plugin-styled-components": "^2.1.4",
     "immer": "^10.2.0",
     "react": "^19.2.3",
     "rimraf": "^6.1.2",
     "storybook": "^10.1.11",
-    "styled-components": "^6.2.0",
+    "styled-components": "^6.3.5",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

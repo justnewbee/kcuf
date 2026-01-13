@@ -67,6 +67,7 @@ export default {
     allowIIFEs: true
   }],
   '@typescript-eslint/method-signature-style': ['error', 'method'],
+  '@typescript-eslint/strict-void-return': 'error',
   '@typescript-eslint/no-empty-object-type': ['error', {
     allowInterfaces: 'with-single-extends'
   }],
