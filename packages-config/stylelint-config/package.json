@@ -31,7 +31,7 @@
   "dependencies": {
     "@stylistic/stylelint-config": "^3.0.1",
     "postcss": "^8.5.6",
-    "postcss-html": "^1.8.0",
+    "postcss-html": "^1.8.1",
     "postcss-less": "^6.0.0",
     "postcss-sass": "^0.5.0",
     "postcss-styled-syntax": "^0.7.1",
