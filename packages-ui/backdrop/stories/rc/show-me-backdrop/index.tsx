@@ -13,11 +13,11 @@ import {
 import Backdrop from '../../../src';
 
 const ScShowMeBackdrop = styled.div`
+  position: relative;
+  z-index: 1234;
   margin: 2px;
   padding: 8px;
-  position: relative;
   background-color: rgb(255 255 255 / 7%);
-  z-index: 1234;
 `;
 
 export default function ShowMeBackdrop(): ReactElement {

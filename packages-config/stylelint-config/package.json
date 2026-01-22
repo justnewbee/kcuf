@@ -23,22 +23,22 @@
     "access": "public"
   },
   "devDependencies": {
-    "stylelint": "^16.26.1"
+    "stylelint": "^17.0.0"
   },
   "peerDependencies": {
     "stylelint": ">=16.0.0"
   },
   "dependencies": {
-    "@stylistic/stylelint-config": "^3.0.1",
+    "@stylistic/stylelint-config": "^4.0.0",
     "postcss": "^8.5.6",
     "postcss-html": "^1.8.1",
     "postcss-less": "^6.0.0",
     "postcss-sass": "^0.5.0",
     "postcss-styled-syntax": "^0.7.1",
     "stylelint-config-html": "^1.1.0",
-    "stylelint-config-standard": "^39.0.1",
+    "stylelint-config-standard": "^40.0.0",
     "stylelint-config-standard-less": "^4.0.1",
-    "stylelint-config-standard-scss": "^16.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-config-standard-vue": "^1.0.0",
     "stylelint-order": "^7.0.1"
   }

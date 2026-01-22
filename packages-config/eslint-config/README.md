@@ -22,23 +22,27 @@ The Kcuf shareable config For Eslint >=9.
 * `eslint-plugin-react` 支持 React
   - `eslint-plugin-react-hooks` React Hooks 插件
   - `eslint-plugin-jsx-a11y` React JSX A11Y 插件
+* `eslint-plugin-n` 支持 Node
 
-## How to Use
-
-### Install
+## 安装
 
 ```shell
 pnpm add -D eslint @kcuf/eslint-config
 ```
 
-### 配置 TypeScript + React 项目
+## 项目配置
+
+* `index` React Web 项目
+* `index-type-unaware` React Web 项目（类型检测出错的情况用它）
+* `index-vue` Vue 项目专用
+* `index-node` Node 项目专用
 
 > 纯 JS 或没有 React 亦可，用如下配置。
 
 配置 `eslint.config.js` 即可：
 
 ```js
-import kcufEslintConfig from '@kcuf/eslint-config';
+import kcufEslintConfig from '@kcuf/eslint-config'; // 这里可以用不同的 index-x
 
 /** @type {import('eslint').Linter.Config[]} */
 export default kcufEslintConfig;
@@ -54,8 +58,6 @@ export default kcufEslintConfig;
   }
 }
 ```
-
-### 配置 TypeScript + Vue 项目
 
 ## FAQ
 

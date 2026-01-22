@@ -1,10 +1,8 @@
 import pluginImport from 'eslint-plugin-import';
 
-import rules from './rules/rules-import.js';
+import rulesImport from '../rules/rules-import.js';
 
-/**
- * @type {import('eslint').Linter.Config[]}
- */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
   {
     settings: {
@@ -24,6 +22,6 @@ export default [
   pluginImport.flatConfigs.typescript,
   pluginImport.flatConfigs.react,
   {
-    rules
+    rules: rulesImport
   }
 ];

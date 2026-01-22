@@ -5,14 +5,14 @@ import {
   createPortal
 } from 'react-dom';
 
-import BackdropModel, {
+import BackdropHeadless, {
   BackdropProps
 } from '@kcuf-ui/backdrop-headless';
 
 import Ui from '../ui';
 
 export default function WithProvider(props: BackdropProps): ReactPortal {
-  return createPortal(<BackdropModel {...props}>
+  return createPortal(<BackdropHeadless {...props}>
     <Ui />
-  </BackdropModel>, document.body);
+  </BackdropHeadless>, document.body);
 }

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.6.0 2026/01/22 @驳是
+
+* FEAT Add support for Node projects with `eslint-plugin-n`
+* FEAT Add support for Vue projects with `eslint-plugin-vue`
+
 ## 0.5.3 2026/01/13 @驳是
 
 * FEAT Add `@typescript-eslint/strict-void-return: error`

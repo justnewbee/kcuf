@@ -1,10 +1,8 @@
 import eslintTs from 'typescript-eslint';
 
-import rules from './rules/rules-ts-type-aware.js';
+import rulesTsTypeAware from '../rules/rules-ts-type-aware.js';
 
-/**
- * @type {import('eslint').Linter.Config[]}
- */
+/** @type {import('eslint').Linter.Config[]} */
 export default eslintTs.config(
     ...eslintTs.configs.stylisticTypeChecked, // eslint-disable-line import/no-named-as-default-member
     ...eslintTs.configs.strictTypeChecked, // eslint-disable-line import/no-named-as-default-member
@@ -15,7 +13,7 @@ export default eslintTs.config(
           tsconfigRootDir: import.meta.dirname
         }
       },
-      rules
+      rules: rulesTsTypeAware
     },
     {
       files: ['**/*.js'],

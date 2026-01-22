@@ -1,3 +1,3 @@
 # @kcuf-ui/backdrop-headless
 
-A headless singleton backdrop component.
+A headless backdrop component which is **singleton**.

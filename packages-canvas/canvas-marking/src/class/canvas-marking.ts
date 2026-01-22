@@ -8,10 +8,10 @@ import {
   Point,
   Path,
   Angle,
-  justifyMagnetAlongPath,
-  justifyMagnetAlongPaths,
   JustifyMagnetResult,
   JustifyMagnetType,
+  justifyMagnetAlongPath,
+  justifyMagnetAlongPaths,
   justifyPerpendicularExternal,
   justifyPerpendicularInternal,
   justifySnapAroundPivots,
@@ -444,7 +444,9 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
   private async setupImageAndMarkings(imageUrl = '', markings: IMarkingConfigItem<T>[] = [], init?: boolean): Promise<void> {
     this.markingItems.length = 0;
     
-    markings.forEach(v => this.markingItems.push(this.createMarkingItem(v)));
+    markings.forEach(v => {
+      this.markingItems.push(this.createMarkingItem(v));
+    });
     
     await this.setupImage(imageUrl); // 保证图片加载完成再渲染 MarkingItem
     

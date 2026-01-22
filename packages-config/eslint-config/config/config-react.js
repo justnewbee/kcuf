@@ -1,11 +1,9 @@
 import pluginReact from 'eslint-plugin-react';
 import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 
-import rulesReact from './rules/rules-react.js';
+import rulesReact from '../rules/rules-react.js';
 
-/**
- * @type {import('eslint').Linter.Config[]}
- */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
   {
     settings: {

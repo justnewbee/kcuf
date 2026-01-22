@@ -2,25 +2,25 @@ import globals from 'globals';
 
 // 相对引用必须 .js 否则 ERR_MODULE_NOT_FOUND
 import configEs from './config/config-es.js';
-import configTs from './config/config-ts-type-unaware.js'; // ← 仅此区别
-import configReact from './config/config-react.js';
+import configTs from './config/config-ts-type-aware.js';
 import configImport from './config/config-import.js';
 import configStylistic from './config/config-stylistic.js';
+import configNode from './config/config-node.js';
 
 /**
- * Web 端 React 项目可用，若 index 使用有问题（有类型相关的规则），可以用这个
+ * Node 项目专用
  *
  * @type {import('eslint').Linter.Config[]}
  */
 export default [
   {
     languageOptions: {
-      globals: globals.browser
+      globals: globals.node
     }
   },
   ...configEs,
   ...configTs,
   ...configImport,
-  ...configReact,
-  ...configStylistic
+  ...configStylistic,
+  ...configNode
 ];

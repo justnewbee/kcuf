@@ -30,13 +30,13 @@
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
-    "@types/react": "^19.2.8",
+    "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-styled-components": "^2.1.4",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "rimraf": "^6.1.2",
-    "styled-components": "^6.3.6",
+    "styled-components": "^6.3.8",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {

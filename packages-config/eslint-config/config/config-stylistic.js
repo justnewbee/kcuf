@@ -1,10 +1,8 @@
 import stylistic from '@stylistic/eslint-plugin';
 
-import rules from './rules/rules-stylistic.js';
+import rulesStylistic from '../rules/rules-stylistic.js';
 
-/**
- * @type {import('eslint').Linter.Config[]}
- */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
   stylistic.configs.customize({
     // indent: 2, // default 2
@@ -15,6 +13,6 @@ export default [
     // https://eslint.style/rules/default/brace-style
     braceStyle: '1tbs' // 文档骗人说默认 1tbs，其实是 stroustrup
   }), {
-    rules
+    rules: rulesStylistic
   }
 ];

@@ -32,18 +32,18 @@
     "@chromatic-com/storybook": "^5.0.0",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@storybook/addon-docs": "^10.1.11",
-    "@storybook/addon-links": "^10.1.11",
-    "@storybook/react-vite": "^10.1.11",
+    "@storybook/addon-docs": "^10.2.0",
+    "@storybook/addon-links": "^10.2.0",
+    "@storybook/react-vite": "^10.2.0",
     "@types/lodash": "^4.17.23",
-    "@types/react": "^19.2.8",
+    "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
     "babel-plugin-styled-components": "^2.1.4",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "rimraf": "^6.1.2",
-    "storybook": "^10.1.11",
-    "styled-components": "^6.3.6",
+    "storybook": "^10.2.0",
+    "styled-components": "^6.3.8",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
@@ -56,7 +56,7 @@
     "@kcuf-ui/dialog-core": "workspace:^",
     "@kcuf-ui/icon": "workspace:^",
     "@kcuf/fork-console-base-theme": "workspace:^",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.23"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
