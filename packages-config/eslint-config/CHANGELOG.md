@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.1 2026/01/22 @驳是
+
+* FIX Disable import rules on Node, for the import plugin handles the task better
+
 ## 0.6.0 2026/01/22 @驳是
 
 * FEAT Add support for Node projects with `eslint-plugin-n`
