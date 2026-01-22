@@ -2,6 +2,11 @@ import {
   cloneResponseData
 } from '@kcuf/fetcher';
 
+import {
+  MESSAGE_TYPE_LOGIN_SUCCESS,
+  MESSAGE_TYPE_LOGIN_ERROR
+} from '../const';
+
 interface IPromiseQueueItem<T = void, E extends Error = Error> {
   resolve(data: T): void;
   reject(err: E): void;
@@ -18,6 +23,11 @@ export default function singletonPromise<T>(fn: () => Promise<T>): () => Promise
       
       queue = null;
     }
+    
+    window.postMessage({
+      type: MESSAGE_TYPE_LOGIN_SUCCESS,
+      payload: data
+    }, location.origin);
   }
   
   function rejectQueue(err: Error): void {
@@ -28,6 +38,11 @@ export default function singletonPromise<T>(fn: () => Promise<T>): () => Promise
       
       queue = null;
     }
+    
+    window.postMessage({
+      type: MESSAGE_TYPE_LOGIN_ERROR,
+      payload: err
+    }, location.origin);
   }
   
   return (): Promise<T> => {
@@ -43,7 +58,7 @@ export default function singletonPromise<T>(fn: () => Promise<T>): () => Promise
     });
     
     if (queue.length === 1) {
-      fn().then(data => resolveQueue(data), err => rejectQueue(err));
+      fn().then(data => resolveQueue(data), (err: unknown) => rejectQueue(err as Error));
     }
     
     return promise;

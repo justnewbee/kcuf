@@ -6,7 +6,7 @@
 
 ## 前提
 
-拦截器内部会判断 `error.name` 和 `error.code`，只有业务错误才会继续处理登录逻辑，因此需要 `@kcuf/fetcher-interceptor-biz`。
+拦截器内部使用 `error.code` 判断是否需要拦截。
 
 ## 使用
 

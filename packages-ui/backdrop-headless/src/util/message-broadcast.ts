@@ -9,12 +9,12 @@ import {
   MESSAGE_SOURCE
 } from '../const';
 
-export default function messageBroadcast<P>(type: EMessageType, payload: P): void {
+export default function messageBroadcast(type: EMessageType, payload: unknown): void {
   const win = getWindow();
   
   win.postMessage({
     source: MESSAGE_SOURCE,
     type,
     payload
-  });
+  }, location.origin);
 }

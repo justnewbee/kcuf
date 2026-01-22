@@ -16,14 +16,15 @@ import {
   createFetcher
 } from '@kcuf/fetcher';
 
-import interceptLogin from '../src';
+import interceptLogin, {
+  messageListenInterceptorLogin
+} from '../src';
 
 interface IResult {
   data: unknown;
 }
 
 const API_URL_NEED_LOGIN = '/api/error/need-login';
-const API_URL_NOT_BIZ = '/api/error/not-biz';
 const API_URL_NO_CODE = '/api/error/no-code';
 const CODE_NEED_LOGIN = 'NeedLogin';
 
@@ -34,14 +35,6 @@ let willCancelLogin = false;
 fetcher.interceptResponse((result, config) => { // 模拟 intercept biz
   if (loggedIn) {
     return (result as IResult).data;
-  }
-  
-  if (config.url === API_URL_NOT_BIZ) {
-    const err: FetcherError = new Error('Please login');
-    
-    err.code = CODE_NEED_LOGIN; // useless for name not biz
-    
-    throw err;
   }
   
   if (config.url === API_URL_NO_CODE) {
@@ -64,7 +57,15 @@ const needLogin = vi.fn().mockImplementation((code: string): boolean => {
   return code === CODE_NEED_LOGIN;
 });
 
+const listenInterceptorLoginCallback = vi.fn().mockImplementation((_logged: boolean, _info: unknown): void => {
+  // do nothing
+});
+
 const doLogin = vi.fn().mockImplementation(() => {
+  const release = messageListenInterceptorLogin((logged, info) => {
+    listenInterceptorLoginCallback(logged, info);
+  });
+  
   return new Promise<true>((resolve, reject) => {
     setTimeout(() => {
       if (willCancelLogin) {
@@ -73,6 +74,8 @@ const doLogin = vi.fn().mockImplementation(() => {
         loggedIn = true;
         resolve(true);
       }
+      
+      release();
     }, 200);
   });
 });
@@ -91,13 +94,10 @@ describe('fetcherInterceptorLogin', () => {
     loggedIn = false;
     willCancelLogin = false;
     needLogin.mockClear();
+    listenInterceptorLoginCallback.mockClear();
     doLogin.mockClear();
     
     fetchMock.route(API_URL_NEED_LOGIN, {
-      data: 'logged'
-    });
-    
-    fetchMock.route(API_URL_NOT_BIZ, {
       data: 'logged'
     });
     
@@ -125,6 +125,7 @@ describe('fetcherInterceptorLogin', () => {
     ]);
     
     expect(needLogin).toBeCalledTimes(3);
+    expect(listenInterceptorLoginCallback).toBeCalledTimes(1); // message 会被触发
     expect(doLogin).toBeCalledTimes(1);
   });
   
@@ -135,14 +136,6 @@ describe('fetcherInterceptorLogin', () => {
 
     expect(needLogin).toBeCalledTimes(1);
     expect(doLogin).toBeCalledTimes(1);
-  });
-  
-  test('error not biz will not doLogin', async () => {
-    expect(await fetcher.get(API_URL_NOT_BIZ).catch((err: unknown) => (err as FetcherError).name)).toBe('Error');
-    expect(await fetcher.get(API_URL_NOT_BIZ).catch((err: unknown) => (err as FetcherError).code)).toBe(CODE_NEED_LOGIN);
-
-    expect(needLogin).toBeCalledTimes(2);
-    expect(doLogin).toBeCalledTimes(0);
   });
   
   test('error with no code will not doLogin', async () => {
