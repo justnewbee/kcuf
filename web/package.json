@@ -69,8 +69,8 @@
     "lunr": "^2.3.9",
     "lunr-languages": "^1.14.0",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "styled-components": "^6.3.8"
   },
   "scripts": {

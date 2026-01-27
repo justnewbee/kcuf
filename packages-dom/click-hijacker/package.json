@@ -33,11 +33,11 @@
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
     "@types/jsdom": "^27.0.0",
-    "@vitest/coverage-v8": "^4.0.17",
+    "@vitest/coverage-v8": "^4.0.18",
     "jsdom": "^27.4.0",
     "rimraf": "^6.1.2",
     "typescript": "^5.9.3",
-    "vitest": "^4.0.17"
+    "vitest": "^4.0.18"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0"

@@ -41,10 +41,10 @@
     "lerna": "^9.0.3",
     "lint-staged": "^16.2.7",
     "markdownlint-cli2": "^0.20.0",
-    "npm-check-updates": "^19.3.1",
+    "npm-check-updates": "^19.3.2",
     "npm-package-json-lint": "^9.1.0",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "stylelint": "^17.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"

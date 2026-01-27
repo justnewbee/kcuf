@@ -7,6 +7,7 @@ export default {
   '@stylistic/indent': ['error', 2, {
     ArrayExpression: 1,
     MemberExpression: 1,
+    SwitchCase: 0,
     CallExpression: {
       arguments: 2
     },

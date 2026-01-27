@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@kcuf/demo-rc": "workspace:^",
-    "react": "^19.2.3",
+    "react": "^19.2.4",
     "styled-components": "^6.3.8"
   },
   "scripts": {
