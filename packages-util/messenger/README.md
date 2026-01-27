@@ -72,3 +72,11 @@ function useEffectOnMessengerXx(): void {
   }), []);
 }
 ```
+
+### 必须 `@kcuf/messenger#emit` 联合 `@kcuf/messenger#on` 使用吗？
+
+并不是。
+
+你还是可以用原生的 `addEventListener('messenger', ...)` 来监听，唯一的区别就是你要自己去判断 `e.data.type` 等。
+
+同样的，`@kcuf/messenger#on` 也可以接收裸写的 `postMessage({ type, data })`。只不过，你裸写 `postMessage` 很可能漏掉 `targetOrigin`。
