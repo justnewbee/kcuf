@@ -2,13 +2,14 @@ import {
   useEffect
 } from 'react';
 
+import messenger from '@kcuf/messenger';
+
 import {
   EMessageType
 } from '../enum';
 import {
   singletonPush,
-  singletonPull,
-  messageListen
+  singletonPull
 } from '../util';
 
 import useModelContext from './_use-model-context';
@@ -24,7 +25,7 @@ export default function useEffectSingleton(): void {
   
   useEffect(() => {
     const n = singletonPush(zIndex);
-    const removeListener = messageListen<number>(EMessageType.REFRESH, payload => {
+    const messengerOff = messenger.on<number>(EMessageType.REFRESH, payload => {
       if (payload !== n) {
         dispatchRefreshVisible(n);
       }
@@ -34,7 +35,7 @@ export default function useEffectSingleton(): void {
     
     return () => {
       singletonPull(n);
-      removeListener();
+      messengerOff();
     };
   }, [zIndex, dispatchRefreshVisible]);
 }

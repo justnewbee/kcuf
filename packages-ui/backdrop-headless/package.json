@@ -42,6 +42,7 @@
   "dependencies": {
     "@kcuf-hook/use-is-unmounted": "workspace:^",
     "@kcuf/mere-dom": "workspace:^",
+    "@kcuf/messenger": "workspace:^",
     "@kcuf/sandbox-escape": "workspace:^",
     "immer": "^10.2.0"
   },

@@ -6,7 +6,7 @@ import {
 } from '../const';
 
 import singletonGlobal from './singleton-global';
-import messageBroadcastRefresh from './message-broadcast-refresh';
+import messageEmitRefresh from './message-emit-refresh';
 import toggleScrollbar from './toggle-scrollbar';
 
 export default function singletonPush(zIndex = DEFAULT_Z_INDEX): number {
@@ -34,7 +34,7 @@ export default function singletonPush(zIndex = DEFAULT_Z_INDEX): number {
   }
   
   items.push(item);
-  messageBroadcastRefresh(n);
+  messageEmitRefresh(n);
   
   return n;
 }

@@ -3,5 +3,5 @@ export enum EAction {
 }
 
 export enum EMessageType {
-  REFRESH = 'refresh'
+  REFRESH = 'kcuf-ui-backdrop:refresh'
 }

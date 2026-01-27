@@ -1,6 +1,7 @@
 import {
   cloneResponseData
 } from '@kcuf/fetcher';
+import messenger from '@kcuf/messenger';
 
 import {
   MESSAGE_TYPE_LOGIN_SUCCESS,
@@ -15,19 +16,16 @@ interface IPromiseQueueItem<T = void, E extends Error = Error> {
 export default function singletonPromise<T>(fn: () => Promise<T>): () => Promise<T> {
   let queue: IPromiseQueueItem<T>[] | null = null;
   
-  function resolveQueue(data: T): void {
+  function resolveQueue(responseData: T): void {
     if (queue) {
       queue.forEach(v => {
-        v.resolve(cloneResponseData(data));
+        v.resolve(cloneResponseData(responseData));
       });
       
       queue = null;
     }
     
-    window.postMessage({
-      type: MESSAGE_TYPE_LOGIN_SUCCESS,
-      payload: data
-    }, location.origin);
+    messenger.emit(MESSAGE_TYPE_LOGIN_SUCCESS, responseData);
   }
   
   function rejectQueue(err: Error): void {
@@ -39,10 +37,7 @@ export default function singletonPromise<T>(fn: () => Promise<T>): () => Promise
       queue = null;
     }
     
-    window.postMessage({
-      type: MESSAGE_TYPE_LOGIN_ERROR,
-      payload: err
-    }, location.origin);
+    messenger.emit(MESSAGE_TYPE_LOGIN_ERROR, err);
   }
   
   return (): Promise<T> => {

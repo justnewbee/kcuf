@@ -1,8 +1,9 @@
 # @kcuf/messenger
 
-封装 `postMessage`，有可以将 `postMessage` 转化成 `Promise` 的方法。
-
-注意：需要使用者自己保证 `Promise`。
+* 🧱 优雅且类型安全的 `postMessage`
+* 😎 可以传递 `Error` 对象
+* 🎯 可以转成 `Promise`
+* 🪁 可以跨 Window 发送事件
 
 ## 兼容性
 
@@ -80,3 +81,7 @@ function useEffectOnMessengerXx(): void {
 你还是可以用原生的 `addEventListener('messenger', ...)` 来监听，唯一的区别就是你要自己去判断 `e.data.type` 等。
 
 同样的，`@kcuf/messenger#on` 也可以接收裸写的 `postMessage({ type, data })`。只不过，你裸写 `postMessage` 很可能漏掉 `targetOrigin`。
+
+### `type` 可否为空字符串？
+
+不可。

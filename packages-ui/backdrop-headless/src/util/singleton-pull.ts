@@ -1,5 +1,5 @@
 import singletonGlobal from './singleton-global';
-import messageBroadcastRefresh from './message-broadcast-refresh';
+import messageEmitRefresh from './message-emit-refresh';
 import toggleScrollbar from './toggle-scrollbar';
 
 export default function singletonPull(n: number): void {
@@ -23,6 +23,6 @@ export default function singletonPull(n: number): void {
       toggleScrollbar(true);
     }
     
-    messageBroadcastRefresh(n);
+    messageEmitRefresh(n);
   }
 }

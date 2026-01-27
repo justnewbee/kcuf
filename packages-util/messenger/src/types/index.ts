@@ -10,7 +10,7 @@ export interface IMessengerEmitOptions {
   targetOrigin?: string;
 }
 
-export type TMessengerCallback<P = unknown> = (payload: P) => void;
+export type TMessengerCallback<P = unknown> = (payload?: P) => void;
 
 export interface IMessengerReceiver<P = never> {
   fn: TMessengerCallback<P>;
@@ -39,4 +39,4 @@ export interface IMessengerPayloadPromiseBack<T> {
   error?: Record<string, unknown>; // 可能是 string、对象或 Error
 }
 
-export type TFnOff = () => void;
+export type TMessengerOff = () => void;

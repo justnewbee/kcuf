@@ -1,5 +1,5 @@
 import {
-  TFnOff,
+  TMessengerOff,
   IMessageData,
   TMessengerCallback,
   TMessengerReceiverMap,
@@ -24,13 +24,15 @@ export default class Messenger {
   constructor() {
     const thisWindow = getTargetWindow();
     
-    thisWindow.addEventListener('message', (e: MessageEvent<IMessageData>): void => {
+    thisWindow.addEventListener('message', (e: MessageEvent<IMessageData | undefined>): void => {
+      if (!e.data?.type) {
+        return;
+      }
+      
       const {
-        data: {
-          type,
-          payload
-        }
-      } = e;
+        type,
+        payload
+      } = e.data;
       const [receivers, receiversOnce] = this.getReceivers(type);
       
       receivers.forEach(v => v.fn(payload));
@@ -96,27 +98,21 @@ export default class Messenger {
   /**
    * 注册回调，返回用于注销的方法
    */
-  on(type: string, fn: () => void): TFnOff;
-  on<P = unknown>(type: string, fn: (payload: P) => void): TFnOff; // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
-  on(type: string, fn: (payload: unknown) => void): TFnOff {
+  on<P = unknown>(type: string, fn: (payload?: P) => void): TMessengerOff { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
     return this.addReceiver(type, fn);
   }
   
   /**
    * 注册单次回调，运行一次后将自动注销
    */
-  once(type: string, fn: () => void): TFnOff;
-  once<P = unknown>(type: string, fn: (payload: P) => void): TFnOff; // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
-  once<P = unknown>(type: string, fn: (payload: P) => void): TFnOff {
+  once<P = unknown>(type: string, fn: (payload?: P) => void): TMessengerOff { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
     return this.addReceiver(type, fn, true);
   }
   
   /**
    * 对 emitPromise 对应的 type 进行响应，这里关心的 payload 还是 emitPromise 所传入的 payload
    */
-  onPromise<T = void>(type: string, fn: () => T | Promise<T>): TFnOff;
-  onPromise<T, P = unknown>(type: string, fn: (payload: P) => T | Promise<T>): TFnOff; // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
-  onPromise<T, P = unknown>(type: string, fn: (payload: P) => T | Promise<T>): TFnOff {
+  onPromise<T, P = unknown>(type: string, fn: (payload?: P) => T | Promise<T>): TMessengerOff { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
     return this.on(type, (payload?: IMessengerPayloadPromise<P>) => {
       if (!payload?._dismiss_) { // 得到的 payload 下有 _dismiss_ 参数才响应，否则 pass
         return;
@@ -150,7 +146,11 @@ export default class Messenger {
     }, receiversTuple) ?? receiversTuple;
   }
   
-  private addReceiver<P>(type: string, fn: TMessengerCallback<P>, once?: boolean): TFnOff {
+  private addReceiver(type: string, fn: unknown, once?: boolean): TMessengerOff {
+    if (typeof fn !== 'function') {
+      throw new Error('Messenger:addReceiver: fn is not a function');
+    }
+    
     let receivers = this.messageReceiverMap[type];
     
     if (!receivers) {
@@ -159,7 +159,7 @@ export default class Messenger {
     }
     
     const receiver: IMessengerReceiver = {
-      fn,
+      fn: fn as TMessengerCallback,
       once
     };
     
