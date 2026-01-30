@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/react-router-link-hijacker",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A much easier way to navigate around in react-router app.",
   "keywords": [],
   "license": "MIT",
@@ -30,7 +30,7 @@
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
-    "@types/react": "^19.2.9",
+    "@types/react": "^19.2.10",
     "react": "^19.2.4",
     "react-router": "^7.13.0",
     "rimraf": "^6.1.2",

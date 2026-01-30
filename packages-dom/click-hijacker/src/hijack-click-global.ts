@@ -15,8 +15,8 @@ let registered = false;
  * 注册一个全局劫持点击的事件，返回解除劫持的无参方法
  */
 export default function hijackClickGlobal<T>(hijacker: IClickHijacker<T>): () => void {
-  if (!registered) { // 全局劫持就靠这句代码，使用捕获阶段
-    window.addEventListener('click', createClickHandler(handleClickGlobal, document.body), true);
+  if (!registered) { // 全局劫持就靠这句代码，使用冒泡阶段（捕获阶段过于霸道，会对使用者造成困扰）
+    window.addEventListener('click', createClickHandler(handleClickGlobal, document.body), false);
     
     registered = true;
   }

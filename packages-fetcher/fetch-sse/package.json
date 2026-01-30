@@ -31,7 +31,7 @@
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@types/react": "^19.2.9",
+    "@types/react": "^19.2.10",
     "react": "^19.2.4",
     "rimraf": "^6.1.2",
     "styled-components": "^6.3.8",
