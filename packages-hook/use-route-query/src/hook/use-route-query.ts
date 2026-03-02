@@ -20,14 +20,14 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
   const refDefaults = useRef<Required<T>>(defaults);
   const [searchParams, setSearchParams] = useSearchParams();
   
-  if (!_isEqual(refDefaults.current, defaults)) {
-    refDefaults.current = defaults;
+  if (!_isEqual(refDefaults.current, defaults)) { // eslint-disable-line react-hooks/refs
+    refDefaults.current = defaults; // eslint-disable-line react-hooks/refs
   }
   
   const paramsStr = searchParams.get(key) ?? '';
   
   // 使用 refDefaults 避免避免不必要的重渲染
-  const params = useMemo(() => decodeParams<T>(paramsStr, refDefaults.current), [paramsStr]);
+  const params = useMemo(() => decodeParams<T>(paramsStr, refDefaults.current), [paramsStr]); // eslint-disable-line react-hooks/refs
   
   const handleUpdate = useCallback((paramsUpdate: Partial<T>) => {
     const paramsStrNew = encodeParams({
