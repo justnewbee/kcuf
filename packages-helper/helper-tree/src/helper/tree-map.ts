@@ -6,7 +6,7 @@ import {
 /**
  * 转换树节点
  */
-export default function treeMap<T0 extends ITreeItemBase, T extends ITreeItemBase>(tree: TTreeItem<T0>[], mapper: (node: T0) => T): TTreeItem<T>[] {
+export default function treeMap<T extends ITreeItemBase, T0 extends ITreeItemBase = ITreeItemBase>(tree: TTreeItem<T0>[], mapper: (node: T0) => T): TTreeItem<T>[] {
   function mapNode(node: TTreeItem<T0>): TTreeItem<T> {
     const newNode = mapper(node) as TTreeItem<T>;
     

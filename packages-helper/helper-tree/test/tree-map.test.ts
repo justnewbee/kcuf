@@ -20,7 +20,7 @@ interface ITargetItem extends TreeItemBase {
 
 describe('treeMap(tree, mapper)', () => {
   test('should handle empty tree', () => {
-    expect(treeMap<ISourceItem, ITargetItem>([], node => ({
+    expect(treeMap<ITargetItem, ISourceItem>([], node => ({
       ...node,
       name: node.label
     }))).toEqual([]);
@@ -32,7 +32,7 @@ describe('treeMap(tree, mapper)', () => {
       parentId: '',
       label: 'Root'
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -52,7 +52,7 @@ describe('treeMap(tree, mapper)', () => {
       parentId: '',
       label: 'Root'
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -72,7 +72,7 @@ describe('treeMap(tree, mapper)', () => {
         label: 'Child'
       }]
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -99,7 +99,7 @@ describe('treeMap(tree, mapper)', () => {
         }]
       }]
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -123,7 +123,7 @@ describe('treeMap(tree, mapper)', () => {
         disabled: false
       }]
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -139,7 +139,7 @@ describe('treeMap(tree, mapper)', () => {
       parentId: '',
       label: 'Root'
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -154,7 +154,7 @@ describe('treeMap(tree, mapper)', () => {
       parentId: '',
       label: 'Root'
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -170,7 +170,7 @@ describe('treeMap(tree, mapper)', () => {
       label: 'Root',
       children: []
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -189,7 +189,7 @@ describe('treeMap(tree, mapper)', () => {
       parentId: '',
       label: 'Root2'
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -213,7 +213,7 @@ describe('treeMap(tree, mapper)', () => {
       children: [child]
     }];
     
-    treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label
@@ -234,7 +234,7 @@ describe('treeMap(tree, mapper)', () => {
         label: 'world'
       }]
     }];
-    const result = treeMap<ISourceItem, ITargetItem>(tree, node => ({
+    const result = treeMap<ITargetItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label.toUpperCase()
@@ -274,7 +274,7 @@ describe('treeMap(tree, mapper)', () => {
       parentId: '',
       label: 'root'
     }];
-    const result = treeMap<ISourceItem, IRichItem>(tree, node => ({
+    const result = treeMap<IRichItem, ISourceItem>(tree, node => ({
       id: node.id,
       parentId: node.parentId,
       name: node.label,
