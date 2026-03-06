@@ -1,6 +1,7 @@
 import _isEqual from 'lodash/isEqual';
 import {
   useRef,
+  useMemo,
   useCallback
 } from 'react';
 import {
@@ -27,10 +28,13 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
     refDefaults.current = defaults;
   }
   
+  // 参数中如果有数组，可能导致每次得到的 memoParams 不同，故此需要 useMemo
+  const memoParams = useMemo(() => decodeParams<T>(searchParams.get(key) ?? '', refDefaults.current), [searchParams, key]);
+  
   const handleUpdateQuery = useCallback((paramsUpdate: Partial<T>, pathname = location.pathname) => {
     const paramsStr = searchParams.get(key) ?? '';
     const paramsStrNew = encodeParams({
-      ...decodeParams<T>(paramsStr, refDefaults.current),
+      ...memoParams,
       ...paramsUpdate
     }, refDefaults.current);
     
@@ -54,8 +58,9 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
   }, [
     key,
     location, searchParams,
-    navigate, setSearchParams
+    navigate, setSearchParams,
+    memoParams
   ]);
   
-  return [decodeParams<T>(searchParams.get(key) ?? '', defaults), handleUpdateQuery];
+  return [memoParams, handleUpdateQuery];
 }
