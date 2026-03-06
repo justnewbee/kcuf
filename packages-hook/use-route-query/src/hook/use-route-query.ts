@@ -22,13 +22,13 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const paramsStr = searchParams.get(key) ?? '';
   
   if (!_isEqual(refDefaults.current, defaults)) {
     refDefaults.current = defaults;
   }
   
   const handleUpdateQuery = useCallback((paramsUpdate: Partial<T>, pathname = location.pathname) => {
+    const paramsStr = searchParams.get(key) ?? '';
     const paramsStrNew = encodeParams({
       ...decodeParams<T>(paramsStr, refDefaults.current),
       ...paramsUpdate
@@ -54,9 +54,8 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
   }, [
     key,
     location, searchParams,
-    navigate, setSearchParams,
-    paramsStr
+    navigate, setSearchParams
   ]);
   
-  return [decodeParams<T>(paramsStr, defaults), handleUpdateQuery];
+  return [decodeParams<T>(searchParams.get(key) ?? '', defaults), handleUpdateQuery];
 }
