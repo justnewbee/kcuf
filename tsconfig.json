@@ -1,6 +1,7 @@
 {
   "extends": "@kcuf/ts-config/index.json",
   "include": [
+    "taze.config.ts",
     "packages-*/**/src",
     "packages-*/**/.storybook",
     "packages-*/**/stories",

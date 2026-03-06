@@ -1,3 +1,7 @@
+export interface IWithChildren<T> {
+  children?: IWithChildren<T>[];
+}
+
 export interface ITreeItemBase {
   id: string;
   parentId: string;
