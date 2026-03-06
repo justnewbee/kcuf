@@ -1,11 +1,10 @@
-import _isEqual from 'lodash/isEqual';
 import {
-  useRef,
-  useMemo,
   useCallback
 } from 'react';
 import {
-  useSearchParams
+  useLocation,
+  useSearchParams,
+  useNavigate
 } from 'react-router';
 
 import {
@@ -17,23 +16,22 @@ import {
 } from '../util';
 
 export default function useRouteQuery<T extends object>(defaults: Required<T>, key = '_'): TUseRouteQueryResult<T> {
-  const refDefaults = useRef<Required<T>>(defaults);
+  const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  
-  if (!_isEqual(refDefaults.current, defaults)) { // eslint-disable-line react-hooks/refs
-    refDefaults.current = defaults; // eslint-disable-line react-hooks/refs
-  }
-  
+  const navigate = useNavigate();
   const paramsStr = searchParams.get(key) ?? '';
   
-  // 使用 refDefaults 避免避免不必要的重渲染
-  const params = useMemo(() => decodeParams<T>(paramsStr, refDefaults.current), [paramsStr]); // eslint-disable-line react-hooks/refs
-  
-  const handleUpdate = useCallback((paramsUpdate: Partial<T>) => {
+  const handleUpdateQuery = useCallback((paramsUpdate: Partial<T>, pathname = location.pathname) => {
     const paramsStrNew = encodeParams({
-      ...params,
+      ...decodeParams<T>(paramsStr, defaults),
       ...paramsUpdate
     }, defaults);
+    
+    if (pathname !== location.pathname) {
+      navigate(`${pathname}${pathname.includes('?') ? '?' : '&'}${key}=${encodeURIComponent(paramsStrNew)}`);
+      
+      return;
+    }
     
     if (paramsStrNew === paramsStr) {
       return;
@@ -46,7 +44,12 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
     }
     
     setSearchParams(searchParams);
-  }, [defaults, key, paramsStr, params, searchParams, setSearchParams]);
+  }, [
+    defaults, key,
+    location, searchParams,
+    navigate, setSearchParams,
+    paramsStr
+  ]);
   
-  return [params, handleUpdate];
+  return [decodeParams<T>(paramsStr, defaults), handleUpdateQuery];
 }
