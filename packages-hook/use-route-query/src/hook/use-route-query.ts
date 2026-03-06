@@ -39,7 +39,7 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
     }, refDefaults.current);
     
     if (pathname !== location.pathname) {
-      navigate(`${pathname}${pathname.includes('?') ? '&' : '?'}${key}=${encodeURIComponent(paramsStrNew)}`);
+      navigate(paramsStrNew ? `${pathname}?${key}=${paramsStrNew}` : pathname);
       
       return;
     }
