@@ -1,4 +1,6 @@
+import _isEqual from 'lodash/isEqual';
 import {
+  useRef,
   useCallback
 } from 'react';
 import {
@@ -16,16 +18,21 @@ import {
 } from '../util';
 
 export default function useRouteQuery<T extends object>(defaults: Required<T>, key = '_'): TUseRouteQueryResult<T> {
+  const refDefaults = useRef<Required<T>>(defaults);
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const paramsStr = searchParams.get(key) ?? '';
   
+  if (!_isEqual(refDefaults.current, defaults)) {
+    refDefaults.current = defaults;
+  }
+  
   const handleUpdateQuery = useCallback((paramsUpdate: Partial<T>, pathname = location.pathname) => {
     const paramsStrNew = encodeParams({
-      ...decodeParams<T>(paramsStr, defaults),
+      ...decodeParams<T>(paramsStr, refDefaults.current),
       ...paramsUpdate
-    }, defaults);
+    }, refDefaults.current);
     
     if (pathname !== location.pathname) {
       navigate(`${pathname}${pathname.includes('?') ? '?' : '&'}${key}=${encodeURIComponent(paramsStrNew)}`);
@@ -45,7 +52,7 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
     
     setSearchParams(searchParams);
   }, [
-    defaults, key,
+    key,
     location, searchParams,
     navigate, setSearchParams,
     paramsStr

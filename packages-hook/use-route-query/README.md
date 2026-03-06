@@ -24,7 +24,7 @@ interface IQuery {
   q: string;
 }
 
-const DEFAULTS: IQuery = { // 重要，请单独在外部定义，而不是在 `useRouteQuery` 的时候临时写
+const DEFAULTS: IQuery = {
   p: 1,
   ps: 10,
   q: ''
