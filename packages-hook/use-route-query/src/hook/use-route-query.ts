@@ -31,7 +31,7 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
   // 参数中如果有数组，可能导致每次得到的 memoParams 不同，故此需要 useMemo
   const memoParams = useMemo(() => decodeParams<T>(searchParams.get(key) ?? '', refDefaults.current), [searchParams, key]);
   
-  const handleUpdateQuery = useCallback((paramsUpdate: Partial<T>, pathname = location.pathname) => {
+  const handleUpdate = useCallback((paramsUpdate: Partial<T>, pathname = location.pathname) => {
     const paramsStr = searchParams.get(key) ?? '';
     const paramsStrNew = encodeParams({
       ...memoParams,
@@ -61,6 +61,7 @@ export default function useRouteQuery<T extends object>(defaults: Required<T>, k
     navigate, setSearchParams,
     memoParams
   ]);
+  const handleRest = useCallback(() => handleUpdate(refDefaults.current), [handleUpdate]);
   
-  return [memoParams, handleUpdateQuery];
+  return [memoParams, handleUpdate, handleRest];
 }
