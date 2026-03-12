@@ -35,11 +35,9 @@ export default function OpsOverall(): ReactElement {
       label: markingInstance ? 'destroy' : 'init',
       onClick: markingInstance ? handleDestroy : init
     }} />
-    {markingInstance ? <>
-      <Button {...{
-        label: `stats (${markingStats?.itemStatsList.length ?? 0})`,
-        onClick: handleDebugStats
-      }} />
-    </> : null}
+    {markingInstance ? <Button {...{
+      label: `stats (${markingStats?.itemStatsList.length ?? 0})`,
+      onClick: handleDebugStats
+    }} /> : null}
   </>;
 }

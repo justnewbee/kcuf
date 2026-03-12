@@ -41,7 +41,7 @@ export default function parseConfigLinkBase(link?: TConfigLink, hover?: boolean)
   }
   
   const {
-    distance = defaultDistance,
+    distance,
     width = defaultWidth,
     color = defaultColor,
     opacity = defaultOpacity

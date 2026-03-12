@@ -10,7 +10,7 @@ export default function encodeParams<T extends object>(params: Required<T>, defa
   const o: Record<string, unknown> = {};
   
   _forEach(params, (v, k) => {
-    if (defaults[k as keyof T] !== params[k as keyof T]) {
+    if (params[k as keyof T] !== undefined && defaults[k as keyof T] !== params[k as keyof T]) {
       o[k] = v;
     }
   });

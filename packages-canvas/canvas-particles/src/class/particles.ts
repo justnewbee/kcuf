@@ -51,7 +51,7 @@ export default class Particles implements IParticlesClassType {
     
     this.setupCanvas();
     this.setupEvents();
-    this.start();
+    void this.start();
   }
   
   private draw = (): void => {

@@ -39,7 +39,7 @@ function fromTurfPolygonPath(path: number[][] | undefined): Path {
     }
     
     return result;
-  }, []) || [];
+  }, []) ?? [];
 }
 
 /**

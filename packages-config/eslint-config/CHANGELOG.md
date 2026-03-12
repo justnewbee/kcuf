@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.3 2026/01/22 @驳是
+
+* FIX Removed `@typescript-eslint/strict-void-return` and enabled `@typescript-eslint/no-floating-promises`
+
 ## 0.6.1 2026/01/22 @驳是
 
 * FIX Disable import rules on Node, for the import plugin handles the task better

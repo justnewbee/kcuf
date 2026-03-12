@@ -85,7 +85,7 @@ export default class Particle implements IParticleClassType {
     
     const radius = this.init(config);
     
-    this.coords = clampCoords(coords || [Math.random() * canvasWidth, Math.random() * canvasHeight], radius, canvasWidth, canvasHeight);
+    this.coords = clampCoords(coords ?? [Math.random() * canvasWidth, Math.random() * canvasHeight], radius, canvasWidth, canvasHeight);
   }
   
   /**

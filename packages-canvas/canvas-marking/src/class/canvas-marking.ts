@@ -416,7 +416,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.setupEvents();
     this.setupScaleSizing();
-    this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, true);
+    void this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, true);
   }
   
   private setupEvents(): void {
@@ -1332,7 +1332,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     const lastSelectedId = this.itemEditing?.stats.id;
     
     this.justifyClear();
-    this.setupImageAndMarkings(image, markings).then(() => {
+    void this.setupImageAndMarkings(image, markings).then(() => {
       if (lastSelectedId) {
         this.select(id => id === lastSelectedId);
       }
@@ -1454,7 +1454,7 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
     
     this.updateAndDraw(EMarkingStatsChangeCause.FINISH_CREATING_WAIT);
     
-    completeResult.then(finalResult => {
+    void completeResult.then(finalResult => {
       this.justifyClear();
       this.itemCreating = null;
       

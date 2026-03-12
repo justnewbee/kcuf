@@ -69,6 +69,7 @@ export default function StoryPath(): ReactElement {
       rotate: stateRotate ? stateRotateValue : undefined
     });
     
+    // eslint-disable-next-line react-hooks/immutability
     stateCanvasContext.lineWidth = stateStrokeSize;
     stateCanvasContext.lineCap = 'round';
     stateCanvasContext.strokeStyle = stateStrokeColor;

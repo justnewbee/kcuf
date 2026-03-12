@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/eslint-config",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "type": "module",
   "description": "The Kcuf shareable eslint config.",
   "keywords": [
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
-    "@stylistic/eslint-plugin": "^5.9.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
@@ -42,6 +42,6 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-vue": "^10.8.0",
     "globals": "^17.4.0",
-    "typescript-eslint": "^8.56.1"
+    "typescript-eslint": "^8.57.0"
   }
 }
