@@ -18,7 +18,7 @@ import {
  * dispatch({
  *  type: EnumAction.AFTER_XX_CHANGE,
  *  payload, // T
- *  reason: 'c' | 'u' | 'd' // 新建 / 更新 / 删除，建议将 `reason` 和 `payload` 分开
+ *  reason: 'c' | 'C' | 'u' | 'd'
  * });
  * ```
  *
@@ -33,9 +33,9 @@ import {
  *   return produce(state, draft => {
  *     const list = draft.xx... // 保证 list 存在
  *
- *     muteListAfterItemChange(list, payload, reason); // 简单比较，适用于原始类型，不建议对象使用
- *     muteListAfterItemChange(list, payload, reason, 'id'); // 使用属性查找（90% 场景适用）
- *     muteListAfterItemChange(list, payload, reason, v => v.id === payload.id || v.xxId === payload.xxId); // 或方法判断
+ *     afterListChange(list, payload, reason); // 简单比较，适用于原始类型，不建议对象使用
+ *     afterListChange(list, payload, reason, 'id'); // 使用属性查找（90% 场景适用）
+ *     afterListChange(list, payload, reason, v => v.id === payload.id || v.xxId === payload.xxId); // 或方法判断
  *   });
  * }
  * ```
@@ -44,6 +44,10 @@ export default function afterListChange<T>(list: T[], payload: T, reason: TListC
   switch (reason) {
   case 'c':
     list.push(payload);
+    
+    break;
+  case 'C':
+    list.unshift(payload);
     
     break;
   case 'u':
