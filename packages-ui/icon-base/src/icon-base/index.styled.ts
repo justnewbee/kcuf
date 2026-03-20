@@ -33,6 +33,7 @@ const kfPulsing = keyframes`
 `;
 
 const ScIconStatic = styled.i`
+  display: inline-block;
   line-height: 1.1;
   
   &::before {
