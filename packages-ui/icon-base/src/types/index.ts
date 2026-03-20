@@ -47,6 +47,16 @@ export interface IIconPropsGeneric<T extends string = string> extends HTMLAttrib
    */
   spacing?: 'start' | 'end' | 'start-end';
   /**
+   * 图标 i 的 display 为默认的 inline，其内部的 `:before` 元素为 `inline-block`，这在大多数情况下会很好的展示，
+   * 若碰到有一点点的不能居中的问题时，可以试试设置 `block: true`
+   *
+   * 曾经这么干过：
+   *
+   * 1. 仅设置 `:before` 为 `display: block`，导致跟文字放一起的时候换行
+   * 2. 在 1 的基础上设置 i 为 `display: inline-block`，导致跟文字放一起的时候略微不能居中对齐
+   */
+  block?: boolean;
+  /**
    * 是否为禁用状态
    */
   disabled?: boolean;

@@ -33,11 +33,10 @@ const kfPulsing = keyframes`
 `;
 
 const ScIconStatic = styled.i`
-  display: inline-block;
   line-height: 1.1;
   
   &::before {
-    display: block;
+    display: inline-block;
     font-size: inherit;
     font-weight: 200;
     font-style: normal;
