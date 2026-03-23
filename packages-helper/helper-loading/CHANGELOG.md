@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.5.0 2026/03/23 @驳是
+
+* FEAT Add `takePromiseWithLoadingMap`
+
 ## 0.4.0 2026/03/17 @驳是
 
 * FEAT `takePromiseWithLoading` shall now set error to `null` when success
