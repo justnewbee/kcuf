@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/ts-config",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Shareable tsconfig.",
   "keywords": [],
   "license": "MIT",
@@ -19,7 +19,7 @@
     "access": "public"
   },
   "peerDependencies": {
-    "typescript": ">=5.0.0"
+    "typescript": ">=6.0.0"
   },
   "gitHead": "4260da192db9f44221e3dfa40f520fb3e3cc950a"
 }
