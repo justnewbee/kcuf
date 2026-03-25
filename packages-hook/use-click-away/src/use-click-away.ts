@@ -9,7 +9,7 @@ type TCallback = (e: MouseEvent) => void;
 
 export default function useClickAway<E extends Element>(callback: TCallback): RefObject<E | null> {
   const refElement = useRef<E>(null);
-  const refCallback = useRef<TCallback>(callback);
+  const refCallback = useRef(callback);
   
   useLayoutEffect(() => {
     refCallback.current = callback;

@@ -67,6 +67,10 @@ export { default as CodeViewerJson5 } from './code-viewer-json5';
 export * from './promise-viewer';
 export { default as PromiseViewer } from './promise-viewer';
 
+// layout
+export { default as FullPage } from './layout/full-page';
+export * from './layout/full-page';
+
 // placeholder
 export { default as LongArticle } from './long-article';
 

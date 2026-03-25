@@ -2,7 +2,7 @@
 
 A ~~fork~~ rewritten of `https://www.npmjs.com/package/react-transition-group` using TS and hooks.
 
-It's NOT designed to be a drop-in replacement of `react-transition-group`, however some APIs are learned from it.
+It's NOT designed to be a drop-in replacement of `react-transition-group`, however some APIs are "borrowed" from it.
 
 ## Why
 
