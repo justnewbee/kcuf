@@ -7,7 +7,7 @@ import {
 
 type TCallback = (e: MouseEvent) => void;
 
-export default function useClickAway<E extends Element>(callback: TCallback): RefObject<E | null> {
+export default function useClickAway<E extends Element = HTMLDivElement>(callback: TCallback): RefObject<E | null> {
   const refElement = useRef<E>(null);
   const refCallback = useRef(callback);
   
