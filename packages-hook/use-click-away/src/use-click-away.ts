@@ -24,9 +24,9 @@ export default function useClickAway<E extends Element = HTMLDivElement>(callbac
       }
     }
     
-    document.addEventListener('mousedown', handler);
+    document.addEventListener('click', handler);
     
-    return () => document.removeEventListener('mousedown', handler);
+    return () => document.removeEventListener('click', handler);
   }, []);
   
   return refElement;
