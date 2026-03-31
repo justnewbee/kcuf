@@ -94,7 +94,7 @@ export interface IFetcherConfig extends IFetcherConfigDefault {
    */
   downloadName?: string;
   /**
-   * 上传文件的情况，底层只能用 xhr
+   * 上传文件的情况，底层只能用 xhr 来获取进度
    */
   onProgress?(progress: number): void; // progress 范围 [0, 1]
 }
