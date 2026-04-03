@@ -7,3 +7,4 @@ export { default as normalizePagedList } from './normalize-paged-list';
 export { default as normalizePagedListUncertain } from './normalize-paged-list-uncertain';
 
 export { default as isEmptyPagedList } from './is-empty-paged-list';
+export { default as localSearchCompare } from './local-search-compare';

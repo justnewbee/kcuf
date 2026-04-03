@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.0 2026/04/03 @驳是
+
+* FEAT 新增 `localSearchCompare`
+
 ## 0.5.0 2025/12/24 @驳是
 
 * FEAT 移除 `toTreeList`，请用 `@kcuf/helper-tree`
