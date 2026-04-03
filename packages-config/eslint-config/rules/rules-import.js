@@ -4,6 +4,7 @@
  * @type {import('eslint').Linter.RulesRecord}
  */
 export default {
+  'import/first': 'error',
   'import/order': ['error', {
     groups: [
       'builtin',
