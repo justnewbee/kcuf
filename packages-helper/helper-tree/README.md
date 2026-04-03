@@ -6,3 +6,6 @@
 * `treeFlatten`
 * `treeTraverse`
 * `treeFilter`
+* `treeTrim`
+* `treeMap`
+* `treeDisable`

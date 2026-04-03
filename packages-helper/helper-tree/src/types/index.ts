@@ -1,7 +1,3 @@
-export interface IWithChildren<T> {
-  children?: IWithChildren<T>[];
-}
-
 export interface ITreeItemBase {
   id: string;
   parentId: string;
@@ -9,7 +5,7 @@ export interface ITreeItemBase {
 
 export type TTreeItem<T extends ITreeItemBase> = T & {
   disabled?: boolean;
-  children?: TTreeItem<T>[];
+  children?: TTreeItem<T>[] | null;
 };
 
 /**

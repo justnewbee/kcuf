@@ -46,7 +46,7 @@
     "@kcuf/mere-dom": "workspace:^",
     "@kcuf/ts-missing-helpers": "workspace:^",
     "immer": "^10.2.0",
-    "lodash": "^4.17.23"
+    "lodash": "^4.18.1"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
