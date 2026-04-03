@@ -9,7 +9,7 @@ import treeTrim from './tree-trim';
 /**
  * 将平铺的（已标准化 `id` 和 `parentId`）数据转成树节点列表
  */
-export default function treeBuild<T extends ITreeItemBase>(list: T[], depth = 0): TTreeItem<T>[] {
+export default function treeBuild<T extends ITreeItemBase>(list: T[], maxLevel = 0): TTreeItem<T>[] {
   const nodeMap = new Map<string, TTreeItem<T>>();
   const listClone: TTreeItem<T>[] = list.map((v: T) => {
     const treeItem: TTreeItem<T> = { // shallow clone
@@ -51,5 +51,5 @@ export default function treeBuild<T extends ITreeItemBase>(list: T[], depth = 0)
     });
   }
   
-  return depth > 0 ? treeTrim(tree, depth) : tree;
+  return maxLevel > 0 ? treeTrim(tree, maxLevel) : tree;
 }

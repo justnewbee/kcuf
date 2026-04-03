@@ -3,8 +3,8 @@ import {
   TTreeItem
 } from '../types';
 
-function treeTrimRecursive<T extends ITreeItemBase>(tree: TTreeItem<T>[], maxDepth: number, currentDepth: number): void {
-  if (currentDepth >= maxDepth) {
+function treeTrimRecursive<T extends ITreeItemBase>(tree: TTreeItem<T>[], maxLevel: number, currentLevel: number): void {
+  if (currentLevel >= maxLevel) {
     tree.forEach(node => {
       node.children = null;
       delete node.children;
@@ -15,20 +15,20 @@ function treeTrimRecursive<T extends ITreeItemBase>(tree: TTreeItem<T>[], maxDep
   
   tree.forEach(node => {
     if (node.children?.length) {
-      treeTrimRecursive(node.children, maxDepth, currentDepth + 1);
+      treeTrimRecursive(node.children, maxLevel, currentLevel + 1);
     }
   });
 }
 
 /**
- * 修建树到最大深度（注意，此方法会直接修改原树）
+ * 修建树（注意，此方法会直接修改原树）
  */
-export default function treeTrim<T extends ITreeItemBase>(tree: TTreeItem<T>[], maxDepth: number): TTreeItem<T>[] {
-  if (maxDepth < 1) {
+export default function treeTrim<T extends ITreeItemBase>(tree: TTreeItem<T>[], maxLevel: number): TTreeItem<T>[] {
+  if (maxLevel < 1) {
     return tree;
   }
   
-  treeTrimRecursive(tree, maxDepth, 0);
+  treeTrimRecursive(tree, maxLevel, 1);
   
   return tree;
 }
