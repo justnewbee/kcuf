@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.4 2026/04/03 @驳是
+
+* FIX Disable `@typescript-eslint/no-unnecessary-type-parameters`
+
 ## 0.6.3 2026/01/22 @驳是
 
 * FIX Removed `@typescript-eslint/strict-void-return` and enabled `@typescript-eslint/no-floating-promises`

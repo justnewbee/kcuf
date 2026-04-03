@@ -16,6 +16,12 @@ export default {
    * 若开启，会在析构出来的方法处抛错（需要定义对应的方法 `this: void`）
    */
   '@typescript-eslint/unbound-method': 'off',
+  /**
+   * https://typescript-eslint.io/rules/no-unnecessary-type-parameters
+   *
+   * 若开启，对想限定方法参数不够友好，比如数据接口请求，期望限定参数 `fetcher<返回, 参数>` 会不让写「参数」，容易导致不安全
+   */
+  '@typescript-eslint/no-unnecessary-type-parameters': 'off',
   // '@typescript-eslint/strict-void-return': 'error',
   '@typescript-eslint/no-misused-promises': ['error', {
     checksVoidReturn: false
