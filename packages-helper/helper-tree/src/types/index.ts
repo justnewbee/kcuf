@@ -5,7 +5,7 @@ export interface ITreeItemBase {
 
 export type TTreeItem<T extends ITreeItemBase> = T & {
   disabled?: boolean;
-  children?: TTreeItem<T>[] | null;
+  children?: TTreeItem<T>[];
 };
 
 /**

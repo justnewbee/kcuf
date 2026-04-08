@@ -6,7 +6,7 @@ import {
 function treeTrimRecursive<T extends ITreeItemBase>(tree: TTreeItem<T>[], maxLevel: number, currentLevel: number): void {
   if (currentLevel >= maxLevel) {
     tree.forEach(node => {
-      node.children = null;
+      node.children = undefined;
       delete node.children;
     });
     
