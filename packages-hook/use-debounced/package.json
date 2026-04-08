@@ -40,17 +40,17 @@
     "@chromatic-com/storybook": "^5.1.1",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@storybook/addon-docs": "^10.3.4",
-    "@storybook/addon-links": "^10.3.4",
-    "@storybook/react-vite": "^10.3.4",
+    "@storybook/addon-docs": "^10.3.5",
+    "@storybook/addon-links": "^10.3.5",
+    "@storybook/react-vite": "^10.3.5",
     "@testing-library/react": "^16.3.2",
     "@types/react": "^19.2.14",
-    "@vitest/coverage-v8": "^4.1.2",
+    "@vitest/coverage-v8": "^4.1.3",
     "react": "^19.2.4",
     "rimraf": "^6.1.3",
-    "storybook": "^10.3.4",
+    "storybook": "^10.3.5",
     "typescript": "^6.0.2",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.3"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0",
