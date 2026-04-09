@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.0 2026/03/23 @驳是
+
+* FEAT Add `takePromiseWithLoadingArray`
+
 ## 0.5.0 2026/03/23 @驳是
 
 * FEAT Add `takePromiseWithLoadingMap`
