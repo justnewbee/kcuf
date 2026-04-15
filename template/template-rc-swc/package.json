@@ -22,18 +22,18 @@
     "access": "public"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^5.1.1",
+    "@chromatic-com/storybook": "^5.1.2",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-docs": "^10.3.5",
     "@storybook/addon-links": "^10.3.5",
     "@storybook/react-vite": "^10.3.5",
     "@swc/cli": "^0.8.1",
-    "@swc/core": "^1.15.24",
+    "@swc/core": "^1.15.26",
     "@types/react": "^19.2.14",
     "react": "^19.2.5",
     "rimraf": "^6.1.3",
     "storybook": "^10.3.5",
-    "styled-components": "^6.3.12",
+    "styled-components": "^6.4.0",
     "typescript": "^6.0.2"
   },
   "peerDependencies": {

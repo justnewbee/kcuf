@@ -36,11 +36,11 @@
     "@babel/preset-typescript": "^7.28.5",
     "@kcuf/ts-config": "workspace:^",
     "@types/react": "^19.2.14",
-    "@vitest/coverage-v8": "^4.1.3",
+    "@vitest/coverage-v8": "^4.1.4",
     "react": "^19.2.5",
     "rimraf": "^6.1.3",
     "typescript": "^6.0.2",
-    "vitest": "^4.1.3"
+    "vitest": "^4.1.4"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0",

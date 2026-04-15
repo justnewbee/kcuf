@@ -53,6 +53,12 @@ const ScIconStatic = styled.i`
     cursor: not-allowed;
   }
   
+  &[data-icon-block] {
+    &::before {
+      display: block;
+    }
+  }
+  
   &[data-icon-size='xs'] {
     font-size: 12px !important;
   }

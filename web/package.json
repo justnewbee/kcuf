@@ -52,7 +52,7 @@
     "react-docgen-typescript": "^2.4.0",
     "sass": "^1.99.0",
     "ts-node-dev": "^2.0.0",
-    "typedoc": "^0.28.18",
+    "typedoc": "^0.28.19",
     "typedoc-plugin-markdown": "^4.11.0",
     "typescript": "^6.0.2"
   },
@@ -71,7 +71,7 @@
     "prism-react-renderer": "^2.4.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "styled-components": "^6.3.12"
+    "styled-components": "^6.4.0"
   },
   "scripts": {
     "start": "docusaurus start --host 0.0.0.0",
