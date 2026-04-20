@@ -10,6 +10,6 @@ export default defineConfig({
   exclude: [ // ignore packages from bumping
     'unfetch', // 5.0 输出的是 `.mjs` 对构建有要求...
     'immer', // TODO up 11
-    'eslint' // TODO up 10
+    'eslint' // TODO up 10 - https://github.com/jsx-eslint/eslint-plugin-react/issues/3977
   ]
 });
