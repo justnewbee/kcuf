@@ -40,11 +40,11 @@
     "husky": "^9.1.7",
     "lerna": "^9.0.7",
     "lint-staged": "^16.4.0",
-    "markdownlint-cli2": "^0.22.0",
+    "markdownlint-cli2": "^0.22.1",
     "npm-package-json-lint": "^10.2.1",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "stylelint": "^17.8.0",
+    "stylelint": "^17.9.0",
     "taze": "^19.11.0",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"

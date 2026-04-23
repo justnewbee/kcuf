@@ -44,7 +44,7 @@
     "@kcuf/mere-dom": "workspace:^",
     "@kcuf/messenger": "workspace:^",
     "@kcuf/sandbox-escape": "workspace:^",
-    "immer": "^10.2.0"
+    "immer": "^11.1.4"
   },
   "scripts": {
     "build:clean": "rimraf dist",
