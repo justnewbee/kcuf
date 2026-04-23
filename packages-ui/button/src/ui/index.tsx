@@ -1,6 +1,6 @@
 import {
-  ReactElement,
   Ref,
+  ReactElement,
   forwardRef
 } from 'react';
 import styled from 'styled-components';
@@ -68,7 +68,7 @@ const ScButton = styled(ScBaseButton)<Partial<ButtonProps>>`
   }
 `;
 
-export default forwardRef(function Ui(_props: unknown, ref: Ref<HTMLDivElement>): ReactElement {
+export default forwardRef(function Ui(_props: unknown, ref: Ref<HTMLButtonElement>): ReactElement {
   const {
     component,
     preset,

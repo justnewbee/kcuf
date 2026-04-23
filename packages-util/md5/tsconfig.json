@@ -1,4 +1,7 @@
 {
   "extends": "@kcuf/ts-config/index.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
   "include": ["src"]
 }

@@ -1,17 +1,17 @@
 import {
-  FormEvent,
+  SubmitEvent,
   useCallback
 } from 'react';
 
 import useModelProps from './_use-model-props';
 
-export default function useHandleSubmit(): (e: FormEvent<HTMLFormElement>) => void {
+export default function useHandleSubmit(): (e: SubmitEvent<HTMLFormElement>) => void {
   const {
     preventDefault = true,
     onSubmit
   } = useModelProps();
   
-  return useCallback((e: FormEvent<HTMLFormElement>) => {
+  return useCallback((e: SubmitEvent<HTMLFormElement>) => {
     if (preventDefault) {
       e.preventDefault();
     }
