@@ -43,7 +43,7 @@
     "@kcuf-hook/use-is-unmounted": "workspace:^",
     "@kcuf/mere-dom": "workspace:^",
     "@kcuf/ts-missing-helpers": "workspace:^",
-    "immer": "^11.1.7"
+    "immer": "^11.1.8"
   },
   "scripts": {
     "build:clean": "rimraf dist",

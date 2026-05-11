@@ -6,7 +6,7 @@ export default function normalizeId(id0: unknown): string {
     return id0;
   }
   
-  if (typeof id0 === 'number' && id0 > 0) {
+  if (typeof id0 === 'number' && id0 !== 0) {
     return id0.toString();
   }
   
