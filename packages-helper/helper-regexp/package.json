@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/helper-regexp",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Helpers for dealing with RegExp.",
   "keywords": [],
   "license": "MIT",
