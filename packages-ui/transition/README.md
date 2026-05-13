@@ -6,10 +6,10 @@ It's NOT designed to be a drop-in replacement of `react-transition-group`, howev
 
 ## Why
 
-1. `react-transition-group` has not been updated for over 2 years (version 4.4.5 till 2025/01/03)
+1. `react-transition-group` has NOT been updated for years (latest version 4.4.5 was published on 2022/08/01)
 2. `react-transition-group` is written in JS
 3. `react-transition-group` depends on `prop-types` which TS react coders might hate
-4. `react-transition-group` is in class component format
+4. `react-transition-group` is written as class component
 5. `react-transition-group` uses deprecated [findDOMNode](https://legacy.reactjs.org/docs/react-dom.html) which can only be used in class component
 6. `react-transition-group` cannot start its own dev environment now, a bunch of errors
 

@@ -44,10 +44,10 @@
     "@storybook/react-vite": "^10.3.6",
     "@testing-library/dom": "^10.4.1",
     "@types/canvas-confetti": "^1.9.0",
-    "@types/jsdom": "^28.0.1",
+    "@types/jsdom": "^28.0.2",
     "@types/lodash": "^4.17.24",
     "@types/react": "^19.2.14",
-    "@vitest/coverage-v8": "^4.1.5",
+    "@vitest/coverage-v8": "^4.1.6",
     "canvas-confetti": "^1.9.4",
     "jsdom": "^29.1.1",
     "react": "^19.2.6",
@@ -55,7 +55,7 @@
     "storybook": "^10.3.6",
     "styled-components": "^6.4.1",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.6"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0"

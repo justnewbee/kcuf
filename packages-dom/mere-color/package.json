@@ -49,7 +49,7 @@
     "@types/lodash": "^4.17.24",
     "@types/react": "^19.2.14",
     "@types/tinycolor2": "^1.4.6",
-    "@vitest/coverage-v8": "^4.1.5",
+    "@vitest/coverage-v8": "^4.1.6",
     "chroma-js": "^3.2.0",
     "color": "^5.0.3",
     "color2k": "^2.0.3",
@@ -63,7 +63,7 @@
     "styled-components": "^6.4.1",
     "tinycolor2": "^1.6.0",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.5"
+    "vitest": "^4.1.6"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0"

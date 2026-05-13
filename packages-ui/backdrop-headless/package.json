@@ -1,6 +1,6 @@
 {
   "name": "@kcuf-ui/backdrop-headless",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A headless backdrop component which enables singleton power of backdrop.",
   "keywords": [],
   "license": "MIT",
