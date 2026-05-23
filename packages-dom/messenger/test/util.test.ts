@@ -62,7 +62,7 @@ describe('errorToPlain', () => {
     const obj = {
       key: 'value'
     };
-    const plain = errorToPlain(obj as unknown);
+    const plain = errorToPlain(obj);
     
     expect(plain).toEqual(obj);
   });

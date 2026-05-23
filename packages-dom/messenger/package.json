@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/messenger",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A simple and type safe post-message enhancement.",
   "keywords": [
     "postMessage",
@@ -19,7 +19,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-util/messenger",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-dom/messenger",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
