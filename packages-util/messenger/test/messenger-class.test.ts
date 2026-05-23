@@ -247,7 +247,7 @@ describe('Messenger', () => {
       messenger.onPromise<number, {
         value: number;
       }>('calculate', payload => {
-        return payload.value * 2;
+        return payload ? payload.value * 2 : -1;
       });
       
       const result = await messenger.emitPromise<number>('calculate', {

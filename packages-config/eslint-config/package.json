@@ -42,6 +42,6 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-vue": "^10.9.1",
     "globals": "^17.6.0",
-    "typescript-eslint": "^8.59.2"
+    "typescript-eslint": "^8.59.4"
   }
 }
