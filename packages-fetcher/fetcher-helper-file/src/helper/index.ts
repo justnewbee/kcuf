@@ -8,6 +8,7 @@ export { default as base64ToBlob } from './base64-to-blob';
 export { default as base64ToFile } from './base64-to-file';
 export { default as blobToFile } from './blob-to-file';
 export { default as makeSureFile } from './make-sure-file';
+export { default as prepareFormData } from './prepare-form-data';
 
 export { default as downloadBlob } from './download-blob';
 export { default as downloadArrayBuffer } from './download-array-buffer';
