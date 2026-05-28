@@ -1,3 +1,5 @@
+export { default as uuid } from './uuid';
+
 export { default as normalizeId } from './normalize-id';
 export { default as normalizeBoolean } from './normalize-boolean';
 export { default as normalizeNumber } from './normalize-number';
