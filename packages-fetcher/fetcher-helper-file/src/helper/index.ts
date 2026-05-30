@@ -3,7 +3,7 @@ export { default as getBlobFileName } from './get-blob-filename';
 
 export { default as mimeFromFilename } from './mime-from-filename';
 export { default as mimeToExt } from './mime-to-ext';
-export { default as validateFileType } from './validate-file-type';
+export { default as checkFileType } from './check-file-type';
 
 export { default as base64ToBlob } from './base64-to-blob';
 export { default as base64ToFile } from './base64-to-file';

@@ -13,7 +13,7 @@ import mimeFromFilename from './mime-from-filename';
  *
  * https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file#accept
  */
-export default function validateFileType(file: File, accept: string): boolean {
+export default function checkFileType(file: File, accept: string): boolean {
   const acceptList = accept.split(',').map(v => v.trim().toLowerCase()).filter(Boolean);
   
   if (!acceptList.length || acceptList.includes('*')) {

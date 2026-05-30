@@ -1,12 +1,8 @@
 {
-  "name": "@kcuf-hook/use-route-query",
-  "version": "0.2.0",
-  "description": "React hook - useRouteQuery.",
-  "keywords": [
-    "react",
-    "hook",
-    "useRouteQuery"
-  ],
+  "name": "@kcuf-ui/file-picker",
+  "version": "0.0.1",
+  "description": "The kcuf file-picker component.",
+  "keywords": [],
   "license": "MIT",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
@@ -16,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/justnewbee/kcuf.git"
   },
-  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-hook/use-route-query",
+  "homepage": "https://github.com/justnewbee/kcuf/tree/main/packages-ui/file-picker",
   "bugs": "https://github.com/justnewbee/kcuf/issues",
   "author": {
     "name": "Jianchun Wang",
@@ -28,39 +24,47 @@
   "devDependencies": {
     "@babel/cli": "^7.29.7",
     "@babel/core": "^7.29.7",
+    "@babel/plugin-transform-react-jsx": "^7.29.7",
     "@babel/plugin-transform-runtime": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-react": "^7.29.7",
     "@babel/preset-typescript": "^7.29.7",
+    "@chromatic-com/storybook": "^5.2.1",
+    "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
+    "@storybook/addon-docs": "^10.4.1",
+    "@storybook/addon-links": "^10.4.1",
+    "@storybook/react-vite": "^10.4.1",
     "@types/lodash": "^4.17.24",
     "@types/react": "^19.2.15",
-    "@vitest/coverage-v8": "^4.1.7",
+    "@types/react-dom": "^19.2.3",
+    "babel-plugin-styled-components": "^2.3.0",
     "react": "^19.2.6",
-    "react-router": "^7.16.0",
+    "react-dom": "^19.2.6",
     "rimraf": "^6.1.3",
-    "typescript": "^6.0.3",
-    "vitest": "^4.1.7"
+    "storybook": "^10.4.1",
+    "styled-components": "^6.4.2",
+    "typescript": "^6.0.3"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0",
     "react": ">=19.0.0",
-    "react-router": ">=7.0.0"
+    "react-dom": ">=19.0.0",
+    "styled-components": ">=6.0.0"
   },
   "dependencies": {
-    "@kcuf/base64": "workspace:^",
-    "json5": "^2.2.3",
-    "lodash": "^4.18.1"
+    "@kcuf/fetcher-helper-file": "workspace:^",
+    "@kcuf/helper-data": "workspace:^"
   },
   "scripts": {
+    "start": "storybook dev -p 6006",
     "build:clean": "rimraf dist",
     "build:esm": "ESM=1 babel src -d dist/esm --extensions .ts,.tsx --source-maps",
     "build:cjs": "ESM=0 babel src -d dist/cjs --extensions .ts,.tsx",
     "build:types": "tsc -rootDir src --outDir dist/types --declaration --noEmit false --emitDeclarationOnly --isolatedModules false",
+    "build:sb": "storybook build",
     "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
     "watch": "pnpm build:esm -w",
-    "test": "vitest",
-    "test:cov": "vitest --coverage --coverage.include=src",
     "prepublishOnly": "pnpm build:clean && pnpm build"
   }
 }

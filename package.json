@@ -23,8 +23,8 @@
     "email": "justnewbee@gmail.com"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.0.1",
-    "@commitlint/config-conventional": "^21.0.1",
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
     "@kcuf/eslint-config": "workspace:^",
     "@kcuf/markdownlint-config": "workspace:^",
     "@kcuf/npm-package-json-lint-config": "workspace:^",
@@ -34,7 +34,7 @@
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
-    "commander": "^14.0.3",
+    "commander": "^15.0.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.39.3",
     "husky": "^9.1.7",
@@ -45,7 +45,7 @@
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "stylelint": "^17.12.0",
-    "taze": "^19.13.0",
+    "taze": "^19.14.1",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
   },

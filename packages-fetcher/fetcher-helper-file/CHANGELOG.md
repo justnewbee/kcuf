@@ -2,7 +2,7 @@
 
 ## 0.3.0 2026/05/29 @驳是
 
-* FEAT Add `validateFileType`
+* FEAT Add `checkFileType`
 
 ## 0.2.0 2025/05/27 @驳是
 
