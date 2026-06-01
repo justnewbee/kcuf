@@ -14,12 +14,12 @@ import {
 } from '@kcuf/fetcher-helper-file';
 
 import {
-  EFilePickerError
-} from './enum';
+  EFileItemError
+} from '../enum';
 import {
   IFilePickerProps,
-  IFilePickerItem
-} from './types';
+  IFileItem
+} from '../types';
 
 const DEFAULT_MAX_SIZE = 100 * 1024 * 1024; // 100M
 
@@ -42,26 +42,26 @@ export default function FilePicker({
 }: IFilePickerProps): ReactElement {
   const refInputFile = useRef<HTMLInputElement>(null);
   const multiple = limit !== 1;
-
+  
   const handleInputFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
-
+    
     e.target.value = ''; // 关键：重置 value，否则重复选同一个文件不触发
-
+    
     if (!fileList?.length) {
       return;
     }
     
     let count = 0;
-    const items: IFilePickerItem[] = Array.from(fileList).map((file: File): IFilePickerItem => {
-      let error: EFilePickerError | undefined;
+    const items: IFileItem[] = Array.from(fileList).map((file: File): IFileItem => {
+      let error: EFileItemError | undefined;
       
       if (limit >= 1 && count >= limit) {
-        error = EFilePickerError.EXCEED_LIMIT;
+        error = EFileItemError.EXCEED_LIMIT;
       } else if (!checkFileType(file, accept)) {
-        error = EFilePickerError.ACCEPT_MISMATCH;
+        error = EFileItemError.ACCEPT_MISMATCH;
       } else if (maxSize > 0 && file.size > maxSize) {
-        error = EFilePickerError.EXCEED_MAX_SIZE;
+        error = EFileItemError.EXCEED_MAX_SIZE;
       }
       
       if (!error) {
@@ -77,7 +77,7 @@ export default function FilePicker({
     
     onPickFiles?.(items);
   }, [accept, limit, maxSize, onPickFiles]);
-
+  
   return <ScFilePicker onClick={() => refInputFile.current?.click()}>
     <ScInput ref={refInputFile} {...{
       type: 'file',

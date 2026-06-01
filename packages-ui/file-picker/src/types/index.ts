@@ -3,13 +3,13 @@ import {
 } from 'react';
 
 import {
-  EFilePickerError
+  EFileItemError
 } from '../enum';
 
 /**
- * onFilesSelected 回调收到的单个文件包裹对象
+ * onPickFiles 回调收到的单个文件包裹对象
  */
-export interface IFilePickerItem {
+export interface IFileItem {
   id: string; // 唯一标识，可贯穿后续上传流程
   /**
    * 原始 File
@@ -18,7 +18,7 @@ export interface IFilePickerItem {
   /**
    * 校验未通过的错误，存在即代表非法
    */
-  error?: EFilePickerError;
+  error?: EFileItemError;
 }
 
 export interface IFilePickerProps {
@@ -46,5 +46,5 @@ export interface IFilePickerProps {
    *
    * 调用方按 `item.error` 自行处理错误
    */
-  onPickFiles?(items: IFilePickerItem[]): void;
+  onPickFiles?(items: IFileItem[]): void;
 }
