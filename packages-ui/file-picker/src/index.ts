@@ -8,3 +8,7 @@ export type {
 export {
   EFileItemError as FileItemError
 } from './enum';
+
+export {
+  normalizeFileItems // export for drag or paste
+} from './util';

@@ -6,19 +6,10 @@ import {
   EFileItemError
 } from '../enum';
 
-/**
- * onPickFiles 回调收到的单个文件包裹对象
- */
 export interface IFileItem {
   id: string; // 唯一标识，可贯穿后续上传流程
-  /**
-   * 原始 File
-   */
-  file: File;
-  /**
-   * 校验未通过的错误，存在即代表非法
-   */
-  error?: EFileItemError;
+  file: File; // 原始 File
+  error?: EFileItemError; // 校验未通过的错误
 }
 
 export interface IFilePickerProps {
@@ -46,5 +37,5 @@ export interface IFilePickerProps {
    *
    * 调用方按 `item.error` 自行处理错误
    */
-  onPickFiles?(items: IFileItem[]): void;
+  onChange?(items: IFileItem[]): void;
 }
