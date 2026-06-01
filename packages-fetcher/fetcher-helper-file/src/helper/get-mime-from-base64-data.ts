@@ -8,8 +8,8 @@ const HEADER_MIME_MAP: Record<string, string> = {
 /**
  * 不带 data 头的纯 Base64，可以从数据头中提取
  */
-export default function getMimeTypeFromBase64Data(uInt8Array: Uint8Array): string {
-  const headerString = Array.from(uInt8Array.slice(0, 8)).map(v => v.toString(16).padStart(2, '0').toUpperCase()).join('');
+export default function getMimeFromBase64Data(uint8Array: Uint8Array): string {
+  const headerString = Array.from(uint8Array.slice(0, 8)).map(v => v.toString(16).padStart(2, '0').toUpperCase()).join('');
   
   return HEADER_MIME_MAP[headerString] || '';
 }

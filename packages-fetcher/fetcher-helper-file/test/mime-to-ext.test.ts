@@ -4,29 +4,31 @@ import {
   test
 } from 'vitest';
 
-import mimeToExt from '../src/helper/mime-to-ext';
+import {
+  getExtFromMime
+} from '../src';
 
-describe('mimeToExt', () => {
+describe('getExtFromMime', () => {
   test('maps known MIME types to extensions', () => {
-    expect(mimeToExt('image/png')).toBe('png');
-    expect(mimeToExt('image/jpeg')).toBe('jpg');
-    expect(mimeToExt('image/gif')).toBe('gif');
-    expect(mimeToExt('text/plain')).toBe('txt');
-    expect(mimeToExt('application/json')).toBe('json');
-    expect(mimeToExt('application/pdf')).toBe('pdf');
-    expect(mimeToExt('application/msword')).toBe('doc');
-    expect(mimeToExt('application/vnd.openxmlformats-officedocument.wordprocessingml.document')).toBe('docx');
-    expect(mimeToExt('application/vnd.ms-excel')).toBe('xls');
-    expect(mimeToExt('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')).toBe('xlsx');
+    expect(getExtFromMime('image/png')).toBe('png');
+    expect(getExtFromMime('image/jpeg')).toBe('jpg');
+    expect(getExtFromMime('image/gif')).toBe('gif');
+    expect(getExtFromMime('text/plain')).toBe('txt');
+    expect(getExtFromMime('application/json')).toBe('json');
+    expect(getExtFromMime('application/pdf')).toBe('pdf');
+    expect(getExtFromMime('application/msword')).toBe('doc');
+    expect(getExtFromMime('application/vnd.openxmlformats-officedocument.wordprocessingml.document')).toBe('docx');
+    expect(getExtFromMime('application/vnd.ms-excel')).toBe('xls');
+    expect(getExtFromMime('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')).toBe('xlsx');
   });
   
   test('returns empty string for unknown MIME', () => {
-    expect(mimeToExt('application/octet-stream')).toBe('');
-    expect(mimeToExt('image/webp')).toBe('');
-    expect(mimeToExt('')).toBe('');
+    expect(getExtFromMime('application/octet-stream')).toBe('');
+    expect(getExtFromMime('image/webp')).toBe('');
+    expect(getExtFromMime('')).toBe('');
   });
   
   test('is case-sensitive on the input', () => {
-    expect(mimeToExt('IMAGE/PNG')).toBe('');
+    expect(getExtFromMime('IMAGE/PNG')).toBe('');
   });
 });

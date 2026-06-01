@@ -7,7 +7,9 @@ import {
   test
 } from 'vitest';
 
-import base64ToBlob from '../src/helper/base64-to-blob';
+import {
+  createBlobFromBase64
+} from '../src';
 
 // `Hello, World!` encoded as base64.
 const HELLO_BASE64 = 'SGVsbG8sIFdvcmxkIQ==';
@@ -23,9 +25,9 @@ function bytesToString(bytes: Uint8Array): string {
   return Array.from(bytes).map(v => String.fromCharCode(v)).join('');
 }
 
-describe('base64ToBlob', () => {
+describe('createBlobFromBase64', () => {
   test('uses the mime type from the data url', async () => {
-    const blob = base64ToBlob(`data:text/plain;base64,${HELLO_BASE64}`);
+    const blob = createBlobFromBase64(`data:text/plain;base64,${HELLO_BASE64}`);
 
     expect(blob).toBeInstanceOf(Blob);
     expect(blob.type).toBe('text/plain');
@@ -33,7 +35,7 @@ describe('base64ToBlob', () => {
   });
 
   test('falls back to magic-byte sniffing when mime is missing (PNG)', async () => {
-    const blob = base64ToBlob(PNG_BASE64);
+    const blob = createBlobFromBase64(PNG_BASE64);
 
     expect(blob.type).toBe('image/png');
 
@@ -46,14 +48,14 @@ describe('base64ToBlob', () => {
   });
 
   test('returns a typeless blob when both data url mime and magic-byte sniffing fail', async () => {
-    const blob = base64ToBlob(HELLO_BASE64);
+    const blob = createBlobFromBase64(HELLO_BASE64);
 
     expect(blob.type).toBe('');
     expect(bytesToString(await blobBytes(blob))).toBe('Hello, World!');
   });
 
   test('preserves arbitrary mime types from the data url', () => {
-    const blob = base64ToBlob(`data:application/x-custom;base64,${HELLO_BASE64}`);
+    const blob = createBlobFromBase64(`data:application/x-custom;base64,${HELLO_BASE64}`);
 
     expect(blob.type).toBe('application/x-custom');
   });

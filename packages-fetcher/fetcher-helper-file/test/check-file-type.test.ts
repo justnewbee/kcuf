@@ -7,7 +7,9 @@ import {
   test
 } from 'vitest';
 
-import checkFileType from '../src/helper/check-file-type';
+import {
+  checkFileType
+} from '../src';
 
 function makeFile(name: string): File {
   return new File([''], name);

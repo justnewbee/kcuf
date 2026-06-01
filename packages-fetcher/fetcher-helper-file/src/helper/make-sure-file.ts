@@ -7,12 +7,12 @@ import {
   TFileType
 } from '../types';
 
-import base64ToFile from './base64-to-file';
-import blobToFile from './blob-to-file';
+import createFileFromBase64 from './create-file-from-base64';
+import createFileFromBlob from './create-file-from-blob';
 
 export default async function makeSureFile(file: TFileType): Promise<File> {
   if (typeof file === 'string') {
-    return base64ToFile(file, md5String(file));
+    return createFileFromBase64(file, md5String(file));
   }
   
   if (file instanceof File) {
@@ -20,7 +20,7 @@ export default async function makeSureFile(file: TFileType): Promise<File> {
   }
   
   if (file instanceof Blob) {
-    return blobToFile(file, await md5Blob(file));
+    return createFileFromBlob(file, await md5Blob(file));
   }
   
   return file;

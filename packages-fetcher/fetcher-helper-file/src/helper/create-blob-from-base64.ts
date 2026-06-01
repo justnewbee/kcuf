@@ -1,10 +1,10 @@
-import getMimeTypeFromBase64Data from './get-mime-type-from-base64-data';
+import getMimeFromBase64Data from './get-mime-from-base64-data';
 
 /**
  * 将 `data:image/jpeg;base64,/...` 转成 Blob
  */
-export default function base64ToBlob(dataUrl: string): Blob {
-  const match = dataUrl.match(/^data:(.+?);base64,(.*)/) as [string, string, string] | null;
+export default function createBlobFromBase64(dataUrl: string): Blob {
+  const match = /^data:(.+?);base64,(.*)/.exec(dataUrl) as [string, string, string] | null;
   let mime = '';
   let data = dataUrl;
   
@@ -22,6 +22,6 @@ export default function base64ToBlob(dataUrl: string): Blob {
   }
   
   return new Blob([uint8Array], {
-    type: mime || getMimeTypeFromBase64Data(uint8Array)
+    type: mime || getMimeFromBase64Data(uint8Array)
   });
 }

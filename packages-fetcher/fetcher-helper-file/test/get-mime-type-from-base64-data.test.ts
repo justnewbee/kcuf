@@ -4,7 +4,7 @@ import {
   test
 } from 'vitest';
 
-import getMimeTypeFromBase64Data from '../src/helper/get-mime-type-from-base64-data';
+import getMimeFromBase64Data from '../src/helper/get-mime-from-base64-data';
 
 // Magic-byte fixtures for the formats the helper recognises.
 const PNG_HEADER = new Uint8Array([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
@@ -14,7 +14,7 @@ const PDF_HEADER = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2D, 0x31, 0x2E, 0x3
 
 describe('getMimeTypeFromBase64Data', () => {
   test('detects PNG (full 8-byte magic)', () => {
-    expect(getMimeTypeFromBase64Data(PNG_HEADER)).toBe('image/png');
+    expect(getMimeFromBase64Data(PNG_HEADER)).toBe('image/png');
   });
   
   // GIF / JPEG / PDF magic bytes are shorter than 8 bytes. The current
@@ -23,26 +23,26 @@ describe('getMimeTypeFromBase64Data', () => {
   // is reliably detected. The remaining headers are kept here to lock in the
   // present behaviour and surface the limitation if the implementation changes.
   test('does not currently detect GIF from raw bytes', () => {
-    expect(getMimeTypeFromBase64Data(GIF_HEADER)).toBe('');
+    expect(getMimeFromBase64Data(GIF_HEADER)).toBe('');
   });
   
   test('does not currently detect JPEG from raw bytes', () => {
-    expect(getMimeTypeFromBase64Data(JPEG_HEADER)).toBe('');
+    expect(getMimeFromBase64Data(JPEG_HEADER)).toBe('');
   });
   
   test('does not currently detect PDF from raw bytes', () => {
-    expect(getMimeTypeFromBase64Data(PDF_HEADER)).toBe('');
+    expect(getMimeFromBase64Data(PDF_HEADER)).toBe('');
   });
   
   test('returns empty string for unknown headers', () => {
-    expect(getMimeTypeFromBase64Data(new Uint8Array([0x00, 0x01, 0x02, 0x03]))).toBe('');
-    expect(getMimeTypeFromBase64Data(new Uint8Array(0))).toBe('');
+    expect(getMimeFromBase64Data(new Uint8Array([0x00, 0x01, 0x02, 0x03]))).toBe('');
+    expect(getMimeFromBase64Data(new Uint8Array(0))).toBe('');
   });
   
   test('only inspects the first 8 bytes', () => {
     const padded = new Uint8Array(16);
     
     padded.set(PNG_HEADER, 0);
-    expect(getMimeTypeFromBase64Data(padded)).toBe('image/png');
+    expect(getMimeFromBase64Data(padded)).toBe('image/png');
   });
 });

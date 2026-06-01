@@ -1,17 +1,13 @@
-import mimeFromFilename from './mime-from-filename';
+import getMime from './get-mime';
 
 /**
- * 检测文件类型是否符合 accept
+ * 检测文件类型是否符合 accept https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file#accept
  *
  * accept 是以逗号分隔的列表，每一项可以是
  *
  * - 以 `.` 开头的扩展名，如 `.jpg`、`.png`
  * - 具体的 MIME 类型，如 `image/png`、`application/pdf`
  * - 通配 MIME 类型，如 `image/*`、`audio/*`、`video/*`
- *
- * 空 accept（或仅含空白）表示不限制，返回 true。
- *
- * https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file#accept
  */
 export default function checkFileType(file: File, accept: string): boolean {
   const acceptList = accept.split(',').map(v => v.trim().toLowerCase()).filter(Boolean);
@@ -21,7 +17,7 @@ export default function checkFileType(file: File, accept: string): boolean {
   }
   
   const filename = file.name.toLowerCase();
-  const mime = file.type || mimeFromFilename(filename);
+  const mime = getMime(file);
   
   return acceptList.some(v => {
     if (v.startsWith('.')) {

@@ -7,15 +7,17 @@ import {
   test
 } from 'vitest';
 
-import blobToFile from '../src/helper/blob-to-file';
+import {
+  createFileFromBlob
+} from '../src';
 
-describe('blobToFile', () => {
+describe('createFileFromBlob', () => {
   test('produces a File with the requested name and inherited type', () => {
     const blob = new Blob(['hello'], {
       type: 'text/plain'
     });
     const before = Date.now();
-    const file = blobToFile(blob, 'greeting.txt');
+    const file = createFileFromBlob(blob, 'greeting.txt');
     
     expect(file).toBeInstanceOf(File);
     expect(file.name).toBe('greeting.txt');
@@ -30,7 +32,7 @@ describe('blobToFile', () => {
       type: 'image/png'
     });
     
-    expect(blobToFile(blob, 'photo').name).toBe('photo.png');
+    expect(createFileFromBlob(blob, 'photo').name).toBe('photo.png');
   });
   
   test('keeps the supplied name when it already has an extension', () => {
@@ -38,7 +40,7 @@ describe('blobToFile', () => {
       type: 'image/png'
     });
     
-    expect(blobToFile(blob, 'photo.bin').name).toBe('photo.bin');
+    expect(createFileFromBlob(blob, 'photo.bin').name).toBe('photo.bin');
   });
   
   test('uses the default filename when none provided', () => {
@@ -46,6 +48,6 @@ describe('blobToFile', () => {
       type: 'image/png'
     });
     
-    expect(blobToFile(blob).name).toBe('blob-to-file.png');
+    expect(createFileFromBlob(blob).name).toBe('blob-to-file.png');
   });
 });
