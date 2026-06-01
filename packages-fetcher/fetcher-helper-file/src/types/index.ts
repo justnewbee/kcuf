@@ -1,1 +1,1 @@
-export type TFileType = File | Blob | string;
+export type TFileLike = File | Blob | string;

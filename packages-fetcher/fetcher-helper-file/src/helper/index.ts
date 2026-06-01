@@ -1,10 +1,12 @@
-export { default as getMime } from './get-mime';
-export { default as getMimeFromFilename } from './get-mime-from-filename';
-export { default as getMimeFromBase64Data } from './get-mime-from-base64-data';
+export { default as getFileMime } from './get-file-mime';
+export { default as getFileMimeFromFilename } from './get-file-mime-from-filename';
+export { default as getFileMimeFromBase64Data } from './get-file-mime-from-base64-data';
 
-export { default as getExt } from './get-ext-from-mime';
-export { default as getExtFromFilename } from './get-ext-from-filename';
-export { default as getExtFromMime } from './get-ext-from-mime';
+export { default as getFileExt } from './get-file-ext';
+export { default as getFileExtFromFilename } from './get-file-ext-from-filename';
+export { default as getFileExtFromMime } from './get-file-ext-from-mime';
+
+export { default as getFileMd5 } from './get-file-md5';
 
 export { default as checkFileType } from './check-file-type';
 

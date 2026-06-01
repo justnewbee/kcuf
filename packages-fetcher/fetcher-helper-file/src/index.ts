@@ -1,5 +1,5 @@
 export * from './helper';
 
 export type {
-  TFileType as FileType
+  TFileLike as FileLike
 } from './types';

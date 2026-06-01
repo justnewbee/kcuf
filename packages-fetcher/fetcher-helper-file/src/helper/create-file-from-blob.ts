@@ -1,11 +1,11 @@
-import getExtFromMime from './get-ext-from-mime';
+import getFileExtFromMime from './get-file-ext-from-mime';
 
 function getBlobFilename(blob: Blob, name: string): string {
   if (/\.\w+$/.test(name)) {
     return name;
   }
   
-  const ext = getExtFromMime(blob.type);
+  const ext = getFileExtFromMime(blob.type);
   
   return ext ? `${name}.${ext}` : name;
 }

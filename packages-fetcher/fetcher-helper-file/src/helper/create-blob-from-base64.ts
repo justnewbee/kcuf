@@ -1,4 +1,4 @@
-import getMimeFromBase64Data from './get-mime-from-base64-data';
+import getFileMimeFromBase64Data from './get-file-mime-from-base64-data';
 
 /**
  * 将 `data:image/jpeg;base64,/...` 转成 Blob
@@ -22,6 +22,6 @@ export default function createBlobFromBase64(dataUrl: string): Blob {
   }
   
   return new Blob([uint8Array], {
-    type: mime || getMimeFromBase64Data(uint8Array)
+    type: mime || getFileMimeFromBase64Data(uint8Array)
   });
 }

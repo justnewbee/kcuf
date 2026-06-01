@@ -1,4 +1,4 @@
-export default function getExtFromFilename(filename: string): string {
+export default function getFileExtFromFilename(filename: string): string {
   const lastDot = filename.lastIndexOf('.');
   
   if (lastDot === -1) {

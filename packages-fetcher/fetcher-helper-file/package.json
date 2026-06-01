@@ -1,7 +1,7 @@
 {
   "name": "@kcuf/fetcher-helper-file",
-  "version": "0.3.2",
-  "description": "Common helpers for fetcher on upload and download.",
+  "version": "0.4.0",
+  "description": "Helpers of files for fetcher on upload and download, maybe more.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.4.0 2026/06/01 @驳是
+
+* REFACTOR Renames some, added some
+
 ## 0.3.2 2026/06/01 @驳是
 
 * FIX `checkFileType` was wrong

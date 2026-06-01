@@ -1,4 +1,4 @@
-import getMime from './get-mime';
+import getFileMime from './get-file-mime';
 
 /**
  * 检测文件类型是否符合 accept https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file#accept
@@ -17,7 +17,7 @@ export default function checkFileType(file: File, accept: string): boolean {
   }
   
   const filename = file.name.toLowerCase();
-  const mime = getMime(file);
+  const mime = getFileMime(file);
   
   return acceptList.some(v => {
     if (v.startsWith('.')) {
