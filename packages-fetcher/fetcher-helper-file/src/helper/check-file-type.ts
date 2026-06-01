@@ -21,7 +21,7 @@ export default function checkFileType(file: File, accept: string): boolean {
   }
   
   const filename = file.name.toLowerCase();
-  const mime = mimeFromFilename(filename);
+  const mime = file.type || mimeFromFilename(filename);
   
   return acceptList.some(v => {
     if (v.startsWith('.')) {

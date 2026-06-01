@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-helper-file",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Common helpers for fetcher on upload and download.",
   "keywords": [],
   "license": "MIT",
@@ -28,8 +28,11 @@
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-typescript": "^7.29.7",
     "@kcuf/ts-config": "workspace:^",
+    "@vitest/coverage-v8": "^4.1.7",
+    "jsdom": "^29.1.1",
     "rimraf": "^6.1.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0"
@@ -44,6 +47,8 @@
     "build:types": "tsc -rootDir src --outDir dist/types --declaration --noEmit false --emitDeclarationOnly --isolatedModules false",
     "build": "pnpm build:esm && pnpm build:cjs && pnpm build:types",
     "watch": "pnpm build:esm -w",
+    "test": "vitest",
+    "test:cov": "vitest --coverage --coverage.include=src",
     "prepublishOnly": "pnpm build:clean && pnpm build"
   }
 }

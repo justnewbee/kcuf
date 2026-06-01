@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.3.2 2026/06/01 @驳是
+
+* FIX `checkFileType` was wrong
+
 ## 0.3.0 2026/05/29 @驳是
 
 * FEAT Add `checkFileType`
