@@ -4,10 +4,10 @@ import {
 } from '@kcuf/md5';
 
 import {
-  TFileLike
+  TFileAlike
 } from '../types';
 
-export default function getFileMd5(file: TFileLike): string | Promise<string> {
+export default function getFileMd5(file: TFileAlike): string | Promise<string> {
   if (typeof file === 'string') {
     return md5String(file);
   }

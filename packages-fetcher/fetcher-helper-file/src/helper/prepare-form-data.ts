@@ -1,10 +1,10 @@
 import {
-  TFileLike
+  TFileAlike
 } from '../types';
 
 import makeSureFile from './make-sure-file';
 
-export default async function prepareFormData(file: TFileLike, formFieldName = 'file'): Promise<FormData> {
+export default async function prepareFormData(file: TFileAlike, formFieldName = 'file'): Promise<FormData> {
   const formData = new FormData();
   
   formData.append(formFieldName, await makeSureFile(file));

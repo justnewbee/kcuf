@@ -1,12 +1,12 @@
 import {
-  TFileLike
+  TFileAlike
 } from '../types';
 
 import createFileFromBase64 from './create-file-from-base64';
 import createFileFromBlob from './create-file-from-blob';
 import getFileMd5 from './get-file-md5';
 
-export default async function makeSureFile(file: TFileLike): Promise<File> {
+export default async function makeSureFile(file: TFileAlike): Promise<File> {
   if (typeof file === 'string') {
     return createFileFromBase64(file, await getFileMd5(file));
   }
