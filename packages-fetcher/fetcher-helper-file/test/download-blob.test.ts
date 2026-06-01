@@ -11,7 +11,9 @@ import {
   type MockInstance
 } from 'vitest';
 
-import downloadBlob from '../src/helper/download-blob';
+import {
+  downloadBlob
+} from '../src';
 
 const FAKE_URL = 'blob:fake-url';
 

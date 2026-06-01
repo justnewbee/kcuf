@@ -7,7 +7,9 @@ import {
   test
 } from 'vitest';
 
-import prepareFormData from '../src/helper/prepare-form-data';
+import {
+  prepareFormData
+} from '../src';
 
 describe('prepareFormData', () => {
   test('appends an existing File under the default `file` field', async () => {

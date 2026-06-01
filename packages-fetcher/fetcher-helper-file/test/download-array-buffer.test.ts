@@ -11,7 +11,9 @@ import {
   type MockInstance
 } from 'vitest';
 
-import downloadArrayBuffer from '../src/helper/download-array-buffer';
+import {
+  downloadArrayBuffer
+} from '../src';
 
 const FAKE_URL = 'blob:fake-url';
 

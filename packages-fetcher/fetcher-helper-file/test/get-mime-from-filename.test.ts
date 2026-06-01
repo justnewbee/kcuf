@@ -4,7 +4,9 @@ import {
   test
 } from 'vitest';
 
-import getMimeFromFilename from '../src/helper/get-mime-from-filename';
+import {
+  getMimeFromFilename
+} from '../src';
 
 describe('mimeFromFilename', () => {
   test('returns the MIME type for known extensions', () => {

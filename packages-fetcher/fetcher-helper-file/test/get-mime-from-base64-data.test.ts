@@ -4,7 +4,9 @@ import {
   test
 } from 'vitest';
 
-import getMimeFromBase64Data from '../src/helper/get-mime-from-base64-data';
+import {
+  getMimeFromBase64Data
+} from '../src';
 
 // Magic-byte fixtures for the formats the helper recognises.
 const PNG_HEADER = new Uint8Array([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
@@ -12,7 +14,7 @@ const GIF_HEADER = new Uint8Array([0x47, 0x49, 0x46, 0x38, 0x37, 0x61, 0x00, 0x0
 const JPEG_HEADER = new Uint8Array([0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46]);
 const PDF_HEADER = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2D, 0x31, 0x2E, 0x35]);
 
-describe('getMimeTypeFromBase64Data', () => {
+describe('getMimeFromBase64Data', () => {
   test('detects PNG (full 8-byte magic)', () => {
     expect(getMimeFromBase64Data(PNG_HEADER)).toBe('image/png');
   });

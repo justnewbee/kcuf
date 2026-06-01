@@ -12,7 +12,9 @@ import {
   md5Blob
 } from '@kcuf/md5';
 
-import makeSureFile from '../src/helper/make-sure-file';
+import {
+  makeSureFile
+} from '../src';
 
 const HELLO_BASE64 = 'SGVsbG8sIFdvcmxkIQ==';
 
