@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.6.6 2026/06/02 @驳是
+
+* FIX Disabled `@typescript-eslint/no-unnecessary-type-arguments`
+
 ## 0.6.4 2026/04/03 @驳是
 
 * FIX Disable `@typescript-eslint/no-unnecessary-type-parameters`

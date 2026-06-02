@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/eslint-config",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "type": "module",
   "description": "The Kcuf shareable eslint config.",
   "keywords": [
@@ -26,7 +26,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "eslint": "^9.39.3"
+    "eslint": "^9.39.4"
   },
   "peerDependencies": {
     "eslint": ">=9.0.0"

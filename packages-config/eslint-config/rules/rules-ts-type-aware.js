@@ -17,10 +17,14 @@ export default {
    */
   '@typescript-eslint/unbound-method': 'off',
   /**
+   * 这两个好像..
+   *
+   * https://typescript-eslint.io/rules/no-unnecessary-type-arguments
    * https://typescript-eslint.io/rules/no-unnecessary-type-parameters
    *
    * 若开启，对想限定方法参数不够友好，比如数据接口请求，期望限定参数 `fetcher<返回, 参数>` 会不让写「参数」，容易导致不安全
    */
+  '@typescript-eslint/no-unnecessary-type-arguments': 'off',
   '@typescript-eslint/no-unnecessary-type-parameters': 'off',
   // '@typescript-eslint/strict-void-return': 'error',
   '@typescript-eslint/no-misused-promises': ['error', {
