@@ -5,5 +5,5 @@ export default function getFileExtFromFilename(filename: string): string {
     return '';
   }
   
-  return filename.slice(lastDot).toLowerCase();
+  return filename.slice(lastDot + 1).toLowerCase();
 }
