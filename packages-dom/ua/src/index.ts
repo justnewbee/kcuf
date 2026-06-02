@@ -2,7 +2,7 @@ import {
   parseUa
 } from './util';
 
-export default parseUa(navigator.userAgent);
+export default parseUa(typeof navigator === 'undefined' ? '' : navigator.userAgent);
 
 export {
   parseUa

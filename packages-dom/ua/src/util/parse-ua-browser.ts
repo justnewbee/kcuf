@@ -31,6 +31,7 @@ export default function parseUaBrowser(ua: string): [EUaBrowser, string] {
     return [EUaBrowser.OPERA_MINI, execMatchArr[1] ?? ''];
   }
   
+  // Opera
   // e.g. Opera/9.80 (X11; Linux i686; Ubuntu/14.10) Presto/2.12.388 Version/12.16.2
   // e.g. Mozilla/5.0 (Windows NT 5.1; U; en; rv:1.8.1) Gecko/20061208 Firefox/2.0.0 Opera 9.50
   execMatchArr = /Opera[/ ]([^ /;()]+)/i.exec(ua);
@@ -49,18 +50,11 @@ export default function parseUaBrowser(ua: string): [EUaBrowser, string] {
   
   // Firefox
   // e.g. Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:85.0) Gecko/20100101 Firefox/85.0
-  execMatchArr = /Firefox\/([^ /;()]+)/i.exec(ua);
+  // e.g. Mozilla/5.0 (iPhone; CPU iPhone OS 16_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/111.0 Mobile/15E148 Safari/604.1 - iOS 使用 FxiOS
+  execMatchArr = /(?:Firefox|FxiOS)\/([^ /;()]+)/i.exec(ua);
   
   if (execMatchArr) {
     return [EUaBrowser.FIREFOX, execMatchArr[1] ?? ''];
-  }
-  
-  // Safari
-  // e.g. Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15
-  execMatchArr = /Version\/([\w.]+)\s+Safari\//i.exec(ua); // 不要拆开，因为太多浏览器里边有 Safari 了
-  
-  if (execMatchArr) {
-    return [EUaBrowser.SAFARI, execMatchArr[1] ?? ''];
   }
   
   // Yandex
@@ -87,7 +81,8 @@ export default function parseUaBrowser(ua: string): [EUaBrowser, string] {
   
   // QQ
   // e.g. Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0; .... QQBrowser/7.0.3698.400)
-  execMatchArr = /QQBrowser\/([^ /;()]+)/i.exec(ua);
+  // e.g. Mozilla/5.0 (Linux; U; Android 8.1.0; zh-CN; EML-AL00 Build/HUAWEIEML-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.108 UCBrowser/11.9.4.974 UWS/2.13.1.48 Mobile Safari/537.36 UCBS/2.13.1.48_190516105248 ChannelId(?) COVC/045 MQQBrowser/6.2 Mobile
+  execMatchArr = /M?QQBrowser\/([^ /;()]+)/i.exec(ua);
   
   if (execMatchArr) {
     return [EUaBrowser.QQ, execMatchArr[1] ?? ''];
@@ -111,7 +106,8 @@ export default function parseUaBrowser(ua: string): [EUaBrowser, string] {
   
   // UC
   // e.g. Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.122 UBrowser/4.0.3214.0 Safari/537.36
-  execMatchArr = /UBrowser\/([^ /;()]+)/i.exec(ua);
+  // e.g. Mozilla/5.0 (Linux; U; Android 9; en-US; Redmi Note 8 Build/PKQ1.190616.001) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 UCBrowser/13.0.0.1288 Mobile Safari/537.36
+  execMatchArr = /UC?Browser\/([^ /;()]+)/i.exec(ua);
   
   if (execMatchArr) {
     return [EUaBrowser.UC, execMatchArr[1] ?? ''];
@@ -128,7 +124,8 @@ export default function parseUaBrowser(ua: string): [EUaBrowser, string] {
   // Edge
   // e.g. Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18363
   // e.g. Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36 Edg/89.0.774.48
-  execMatchArr = /Edge?\/([^ /;()]+)/i.exec(ua);
+  // e.g. Mozilla/5.0 (Linux; Android 10; HD1913) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.5414.86 Mobile Safari/537.36 EdgA/109.0.1518.70
+  execMatchArr = /Edg(?:e|A|iOS)?\/([^ /;()]+)/i.exec(ua);
   
   if (execMatchArr) {
     return [EUaBrowser.EDGE, execMatchArr[1] ?? ''];
@@ -150,10 +147,19 @@ export default function parseUaBrowser(ua: string): [EUaBrowser, string] {
   // Chrome
   // 几乎所有基于它的都会被判成 Chrome...
   // e.g. Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36
-  execMatchArr = /\sChrome\/([^ /;()]+)/i.exec(ua);
+  // e.g. Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1
+  execMatchArr = /\s(?:Chrome|CriOS)\/([^ /;()]+)/i.exec(ua);
   
   if (execMatchArr) {
     return [EUaBrowser.CHROME, execMatchArr[1] ?? ''];
+  }
+  
+  // Safari
+  // e.g. Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15
+  execMatchArr = /Version\/([\w.]+)\s.*Safari\//i.exec(ua); // 不要拆开，因为太多浏览器里边有 Safari 了
+  
+  if (execMatchArr) {
+    return [EUaBrowser.SAFARI, execMatchArr[1] ?? ''];
   }
   
   return [EUaBrowser.OTHER, ''];
