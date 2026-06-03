@@ -38,13 +38,15 @@ export default function FilePicker({
   const handleInputFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
     
-    e.target.value = ''; // 重置 value，否则重复选同一个文件不触发
-    
     if (!fileList?.length) {
       return;
     }
     
     onChange?.(normalizeFileItems(fileList, accept, maxSize, limit));
+    
+    // 重置 value，否则重复选同一个文件不触发
+    // 👻 注意，不能在前边做，否则 Chrome 和 Safari 会连带清空之前得到的 fileList（Firefox 下不会）
+    e.target.value = '';
   }, [accept, limit, maxSize, onChange]);
   
   return <ScFilePicker onClick={() => refInputFile.current?.click()}>

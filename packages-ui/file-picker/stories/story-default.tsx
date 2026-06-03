@@ -1,5 +1,7 @@
 import {
-  ReactElement
+  ReactElement,
+  useState,
+  useCallback
 } from 'react';
 
 import {
@@ -7,17 +9,30 @@ import {
   Button
 } from '@kcuf/demo-rc';
 
-import FilePicker from '../src';
+import FilePicker, {
+  FileItem
+} from '../src';
 
 export default function StoryDefault(): ReactElement {
+  const [stateFileItems, setStateFileItems] = useState<FileItem[]>([]);
+  
+  const handleChange = useCallback((fileItems: FileItem[]) => {
+    setStateFileItems(prevState => [...prevState, ...fileItems]);
+  }, []);
+  
   return <>
     <H1>基础用法</H1>
-    <FilePicker />
-    <FilePicker>
+    <FilePicker onChange={handleChange} />
+    <FilePicker onChange={handleChange}>
       <Button>Test</Button>
     </FilePicker>
-    <FilePicker accept="image/*">
+    <FilePicker accept="image/*" onChange={handleChange}>
       <Button>图片</Button>
     </FilePicker>
+    <div>
+      {stateFileItems.map(v => <div key={v.id}>
+        {v.id} - {v.file.name} - {v.file.type} - {v.file.size}
+      </div>)}
+    </div>
   </>;
 }

@@ -29,13 +29,13 @@
     "@babel/preset-typescript": "^7.29.7",
     "@chromatic-com/storybook": "^5.2.1",
     "@kcuf/ts-config": "workspace:^",
-    "@storybook/addon-docs": "^10.4.1",
-    "@storybook/addon-links": "^10.4.1",
-    "@storybook/react-vite": "^10.4.1",
+    "@storybook/addon-docs": "^10.4.2",
+    "@storybook/addon-links": "^10.4.2",
+    "@storybook/react-vite": "^10.4.2",
     "@types/react": "^19.2.16",
     "babel-plugin-styled-components": "^2.3.0",
     "less": "^4.6.4",
-    "storybook": "^10.4.1",
+    "storybook": "^10.4.2",
     "typescript": "^6.0.3"
   },
   "dependencies": {
