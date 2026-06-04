@@ -30,10 +30,10 @@ export default function FilePicker({
   accept = '*',
   limit = 1, // 默认单选
   maxSize = DEFAULT_MAX_SIZE,
+  disabled,
   onChange
 }: IFilePickerProps): ReactElement {
   const refInputFile = useRef<HTMLInputElement>(null);
-  const multiple = limit !== 1;
   
   const handleInputFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const fileList = e.target.files;
@@ -45,14 +45,14 @@ export default function FilePicker({
     onChange?.(normalizeFileItems(fileList, accept, maxSize, limit));
     
     // 重置 value，否则重复选同一个文件不触发
-    // 👻 注意，不能在前边做，否则 Chrome 和 Safari 会连带清空之前得到的 fileList（Firefox 下不会）
+    // 👻 注意，不能放在对 fileList 读取完毕之前，否则 Chrome 和 Safari 会连带清空 fileList（Firefox 下不会）
     e.target.value = '';
   }, [accept, limit, maxSize, onChange]);
   
-  return <ScFilePicker onClick={() => refInputFile.current?.click()}>
+  return <ScFilePicker onClick={disabled ? undefined : () => refInputFile.current?.click()}>
     <ScInput ref={refInputFile} {...{
       type: 'file',
-      multiple,
+      multiple: limit !== 1,
       accept,
       onChange: handleInputFileChange
     }} />

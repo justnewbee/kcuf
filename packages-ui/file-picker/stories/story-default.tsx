@@ -29,6 +29,9 @@ export default function StoryDefault(): ReactElement {
     <FilePicker accept="image/*" onChange={handleChange}>
       <Button>图片</Button>
     </FilePicker>
+    <FilePicker accept="image/*" disabled onChange={handleChange}>
+      <Button disabled>disabled</Button>
+    </FilePicker>
     <div>
       {stateFileItems.map(v => <div key={v.id}>
         {v.id} - {v.file.name} - {v.file.type} - {v.file.size}

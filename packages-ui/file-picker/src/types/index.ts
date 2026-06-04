@@ -33,6 +33,10 @@ export interface IFilePickerProps {
    */
   maxSize?: number;
   /**
+   * 禁用
+   */
+  disabled?: boolean;
+  /**
    * 选择文件后的回调，返回带校验信息的包裹对象数组（即使 maxFiles 为 1 也是数组）
    *
    * 调用方按 `item.error` 自行处理错误
