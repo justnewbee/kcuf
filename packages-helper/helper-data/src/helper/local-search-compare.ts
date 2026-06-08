@@ -39,6 +39,10 @@ export default function localSearchCompare(keyword: string, candidateValues: str
   return candidateValues.some(v => {
     const candidate = normalizeStrForCompare(v, ignoreWhitespace);
     
+    if (!candidate) {
+      return false;
+    }
+    
     return candidate.includes(kw) || (bothWay ? kw.includes(candidate) : kw.includes(candidate));
   });
 }

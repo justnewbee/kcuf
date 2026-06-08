@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.7.1 2026/05/28 @驳是
+
+* FIX `localSearchCompare` shall return false when candidate is empty
+
 ## 0.7.0 2026/05/28 @驳是
 
 * FEAT Add `uuid`
