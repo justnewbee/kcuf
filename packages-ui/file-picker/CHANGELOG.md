@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.0 2026/06/12 @驳是
+
+* FEAT `error` → `invalid` so to avoid misunderstanding
+
 ## 0.1.2 2026/06/12 @驳是
 
 * FIX `display: none !important` to avoid stupid CSS from other UI libs

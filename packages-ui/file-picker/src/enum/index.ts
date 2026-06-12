@@ -1,8 +1,8 @@
 /**
- * 文件未通过校验的原因
+ * 文件未通过校验
  */
-export enum EFileItemError {
+export enum EFileItemInvalid {
+  MISMATCH_ACCEPT = 'mismatch-accept',
   EXCEED_LIMIT = 'exceed-limit',
-  EXCEED_MAX_SIZE = 'exceed-max-size',
-  ACCEPT_MISMATCH = 'accept-mismatch'
+  EXCEED_FILE_SIZE = 'exceed-file-size'
 }

@@ -3,13 +3,13 @@ import {
 } from 'react';
 
 import {
-  EFileItemError
+  EFileItemInvalid
 } from '../enum';
 
 export interface IFileItem {
   id: string; // 唯一标识，可贯穿后续上传流程
   file: File; // 原始 File
-  error?: EFileItemError; // 校验未通过的错误
+  invalid?: EFileItemInvalid; // 校验未通过
 }
 
 export interface IFilePickerProps {

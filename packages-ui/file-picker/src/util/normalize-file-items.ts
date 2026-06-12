@@ -6,7 +6,7 @@ import {
 } from '@kcuf/fetcher-helper-file';
 
 import {
-  EFileItemError
+  EFileItemInvalid
 } from '../enum';
 import {
   IFileItem
@@ -19,24 +19,24 @@ export default function normalizeFileItems(fileList: FileList | File[], accept: 
   let count = 0;
   
   return Array.from(fileList).map((file: File): IFileItem => {
-    let error: EFileItemError | undefined;
+    let invalid: EFileItemInvalid | undefined;
     
     if (!checkFileType(file, accept)) {
-      error = EFileItemError.ACCEPT_MISMATCH;
+      invalid = EFileItemInvalid.MISMATCH_ACCEPT;
     } else if (maxSize > 0 && file.size > maxSize) {
-      error = EFileItemError.EXCEED_MAX_SIZE;
+      invalid = EFileItemInvalid.EXCEED_FILE_SIZE;
     } else if (limit >= 1 && count >= limit) {
-      error = EFileItemError.EXCEED_LIMIT;
+      invalid = EFileItemInvalid.EXCEED_LIMIT;
     }
     
-    if (!error) {
+    if (!invalid) {
       count += 1;
     }
     
     return {
       id: uuid(),
       file,
-      error
+      invalid
     };
   });
 }

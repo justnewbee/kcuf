@@ -6,7 +6,7 @@ export type {
 } from './types';
 
 export {
-  EFileItemError as FileItemError
+  EFileItemInvalid as FileItemInvalid
 } from './enum';
 
 export {

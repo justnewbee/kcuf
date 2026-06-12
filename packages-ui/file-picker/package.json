@@ -1,7 +1,7 @@
 {
   "name": "@kcuf-ui/file-picker",
-  "version": "0.1.2",
-  "description": "The kcuf file-picker component.",
+  "version": "0.2.0",
+  "description": "The KcufUI file-picker component.",
   "keywords": [],
   "license": "MIT",
   "sideEffects": false,
