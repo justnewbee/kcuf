@@ -1,6 +1,6 @@
 # @kcuf-ui/file-picker
 
-A pure file selector.
+A very pure file selector, no upload logic coupling.
 
 ## How to Use
 
@@ -11,7 +11,7 @@ import {
 
 import FilePicker from '@kcuf-ui/file-picker';
 
-export default function App(): ReactElement {
+export default function FilePickerDemo(): ReactElement {
   return <>
     <FilePicker onChange={...} />
     <FilePicker accept="image/*" onChange={...}>

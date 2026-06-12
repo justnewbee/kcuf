@@ -28,11 +28,11 @@ import {
  * 所以最终选择了工厂模式
  */
 export default function convertError(err: unknown, config: IFetcherConfig): IFetcherError {
-  const error = (_isError(err) ? err : new Error(String(err || ''))) as IFetcherError;
+  const error = (_isError(err) ? err : new Error(typeof err === 'string' ? err : 'Unknown error.')) as IFetcherError;
   
   error.config = config;
   
-  switch (error.name) {
+  switch (error.name as FetchErrorName | JsonpErrorName | XhrErrorName) {
   case FetchErrorName.NETWORK:
   case JsonpErrorName.NETWORK:
   case XhrErrorName.NETWORK:

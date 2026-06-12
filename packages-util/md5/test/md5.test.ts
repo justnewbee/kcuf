@@ -3,8 +3,8 @@ import fs from 'node:fs';
 
 import {
   describe,
-  expect,
-  test
+  test,
+  expect
 } from 'vitest';
 
 import md5, {
@@ -68,10 +68,10 @@ describe('md5', () => {
   });
   
   test('input string multi lines', () => {
-    expect(md5(`丽丽一声操\r\n一是一口入\r\n也很少不禁\r\n侧翻床有啥`)).toBe('ac90f1dd3cf4af775d857f52233203ea');
-    expect(md5String(`丽丽一声操\r\n一是一口入\r\n也很少不禁\r\n侧翻床有啥`)).toBe('ac90f1dd3cf4af775d857f52233203ea');
-    expect(md5(`离离原上草\n一岁一枯荣\n野火烧不尽\n春风吹又生`)).toBe('34689eb69cfbe7c369ecfe2eff2d150d');
-    expect(md5String(`离离原上草\n一岁一枯荣\n野火烧不尽\n春风吹又生`)).toBe('34689eb69cfbe7c369ecfe2eff2d150d');
+    expect(md5('丽丽一声操\r\n一是一口入\r\n也很少不禁\r\n侧翻床有啥')).toBe('ac90f1dd3cf4af775d857f52233203ea');
+    expect(md5String('丽丽一声操\r\n一是一口入\r\n也很少不禁\r\n侧翻床有啥')).toBe('ac90f1dd3cf4af775d857f52233203ea');
+    expect(md5('离离原上草\n一岁一枯荣\n野火烧不尽\n春风吹又生')).toBe('34689eb69cfbe7c369ecfe2eff2d150d');
+    expect(md5String('离离原上草\n一岁一枯荣\n野火烧不尽\n春风吹又生')).toBe('34689eb69cfbe7c369ecfe2eff2d150d');
   });
   
   test('input Buffer', () => {
@@ -125,7 +125,7 @@ describe('md5', () => {
     }))).toBe(md5('unicode 💥🚨'));
   });
   
-  test('input Json', async () => {
+  test('input Json', () => {
     expect(md5Json(null)).toBe(md5String('null'));
     expect(md5Json({
       a: 12,

@@ -18,8 +18,15 @@ const DEFAULT_MAX_SIZE = 100 * 1024 * 1024; // 100M
 const ScFilePicker = styled.div`
   display: contents;
 `;
+/*
+ * 之所以 important 是因为某些愚蠢的组件库，会在其 Form 下增加这样的样式（神蠢思维）
+ *
+ * ```c
+ * :where(.css-dev-only-do-not-override-...).form-class-name input[type="file"] { display: block; }
+ * ```
+ */
 const ScInput = styled.input`
-  display: none;
+  display: none !important;
 `;
 
 /**

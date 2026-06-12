@@ -3,8 +3,8 @@
  */
 import {
   describe,
-  expect,
-  test
+  test,
+  expect
 } from 'vitest';
 
 import storageFactory from '../src';

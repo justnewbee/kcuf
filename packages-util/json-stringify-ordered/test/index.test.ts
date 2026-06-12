@@ -1,7 +1,7 @@
 import {
   describe,
-  expect,
-  test
+  test,
+  expect
 } from 'vitest';
 
 import jsonStringifyOrdered from '../src';
