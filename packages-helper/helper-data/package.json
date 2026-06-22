@@ -37,7 +37,7 @@
     "@babel/runtime": ">=7.0.0"
   },
   "dependencies": {
-    "uuid": "^14.0.0"
+    "uuid": "^14.0.1"
   },
   "scripts": {
     "build:clean": "rimraf dist",

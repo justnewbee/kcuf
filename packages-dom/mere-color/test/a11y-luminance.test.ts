@@ -30,15 +30,15 @@ describe('a11yLuminance', () => {
   });
   
   test('rgba color', () => {
-    expect(a11yLuminance('rgba(101 100 205 / 0.7)')).toEqual(0.163);
-    expect(a11yLuminance('rgba(101 100 205 / 70%)')).toEqual(0.163);
-    expect(a11yLuminance('rgba(101,100,205,0.7)')).toEqual(0.163);
+    expect(a11yLuminance('rgba(101 100 205 / 0.7)')).toEqual(0.1629);
+    expect(a11yLuminance('rgba(101 100 205 / 70%)')).toEqual(0.1629);
+    expect(a11yLuminance('rgba(101,100,205,0.7)')).toEqual(0.1629);
   });
   
   test('hlsa color', () => {
-    expect(a11yLuminance('hsla(250 100% 50% / 0.2)')).toEqual(0.077);
-    expect(a11yLuminance('hsla(250 100% 50% / 20%)')).toEqual(0.077);
-    expect(a11yLuminance('hsla(250, 100%, 50%, 0.2)')).toEqual(0.077);
+    expect(a11yLuminance('hsla(250 100% 50% / 0.2)')).toEqual(0.0771);
+    expect(a11yLuminance('hsla(250 100% 50% / 20%)')).toEqual(0.0771);
+    expect(a11yLuminance('hsla(250, 100%, 50%, 0.2)')).toEqual(0.0771);
   });
   
   test('transparent → 0', () => {

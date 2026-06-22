@@ -22,5 +22,5 @@ export default function rgbComputeLuminance(rgb: IRgb): number {
   const cg = linearizeRgbChannel(rgb.g);
   const cb = linearizeRgbChannel(rgb.b);
   
-  return _round(0.2126 * cr + 0.7152 * cg + 0.0722 * cb, 3);
+  return _round(0.2126 * cr + 0.7152 * cg + 0.0722 * cb, 4);
 }

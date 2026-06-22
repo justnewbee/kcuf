@@ -89,8 +89,8 @@ export const RED: IColor = {
     l: 50
   },
   brightness: 76.245,
-  luminance: 0.213,
-  contrast: 3.992
+  luminance: 0.2126,
+  contrast: 3.9985
 };
 export const ORANGE: IColor = {
   name: 'orange',
@@ -112,8 +112,8 @@ export const ORANGE: IColor = {
     l: 50
   },
   brightness: 173.1,
-  luminance: 0.482,
-  contrast: 1.974
+  luminance: 0.4817,
+  contrast: 1.9748
 };
 export const YELLOW: IColor = {
   name: 'yellow',
@@ -135,8 +135,8 @@ export const YELLOW: IColor = {
     l: 50
   },
   brightness: 225.93,
-  luminance: 0.928,
-  contrast: 1.074
+  luminance: 0.9278,
+  contrast: 1.0738
 };
 export const GREEN: IColor = {
   name: 'green',
@@ -158,8 +158,8 @@ export const GREEN: IColor = {
     l: 25.1
   },
   brightness: 75.136,
-  luminance: 0.154,
-  contrast: 5.147
+  luminance: 0.1544,
+  contrast: 5.137
 };
 export const CYAN: IColor = {
   name: 'cyan',
@@ -181,8 +181,8 @@ export const CYAN: IColor = {
     l: 50
   },
   brightness: 178.755,
-  luminance: 0.787,
-  contrast: 1.254
+  luminance: 0.7874,
+  contrast: 1.2539
 };
 export const BLUE: IColor = {
   name: 'blue',
@@ -204,8 +204,8 @@ export const BLUE: IColor = {
     l: 50
   },
   brightness: 29.07,
-  luminance: 0.072,
-  contrast: 8.607
+  luminance: 0.0722,
+  contrast: 8.5925
 };
 export const PURPLE: IColor = {
   name: 'purple',
@@ -227,8 +227,8 @@ export const PURPLE: IColor = {
     l: 25.1
   },
   brightness: 52.864,
-  luminance: 0.061,
-  contrast: 9.459
+  luminance: 0.0615,
+  contrast: 9.417
 };
 
 export const COLORS: IColor[] = [

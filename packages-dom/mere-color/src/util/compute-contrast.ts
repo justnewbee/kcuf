@@ -8,5 +8,5 @@ export default function computeContrast(fgcLuminance: number, bgcLuminance: numb
     return -1;
   }
   
-  return _round(fgcLuminance > bgcLuminance ? (fgcLuminance + 0.05) / (bgcLuminance + 0.05) : (bgcLuminance + 0.05) / (fgcLuminance + 0.05), 3);
+  return _round(fgcLuminance > bgcLuminance ? (fgcLuminance + 0.05) / (bgcLuminance + 0.05) : (bgcLuminance + 0.05) / (fgcLuminance + 0.05), 4);
 }

@@ -30,35 +30,35 @@ describe('a11yContrast', () => {
   });
   
   test('two hex colors', () => {
-    expect(a11yContrast('#444', '#fff')).toEqual(9.722);
+    expect(a11yContrast('#444', '#fff')).toEqual(9.7403);
   });
   
   test('two 8-digit hex colors', () => {
-    expect(a11yContrast('#6564CDB3', '#ffffff')).toEqual(4.93);
+    expect(a11yContrast('#6564CDB3', '#ffffff')).toEqual(4.9319);
   });
   
   test('two 4-digit hex colors', () => {
-    expect(a11yContrast('#0f08', '#000')).toEqual(15.3);
+    expect(a11yContrast('#0f08', '#000')).toEqual(15.304);
   });
   
   test('two rgba colors', () => {
-    expect(a11yContrast('rgba(101,100,205,0.7)', 'rgba(0,0,0,1)')).toEqual(4.26);
+    expect(a11yContrast('rgba(101,100,205,0.7)', 'rgba(0,0,0,1)')).toEqual(4.258);
   });
   
   test('two rgb colors', () => {
-    expect(a11yContrast('rgb(204,205,100)', 'rgb(0,0,0)')).toEqual(12.48);
+    expect(a11yContrast('rgb(204,205,100)', 'rgb(0,0,0)')).toEqual(12.484);
   });
   
   test('two hsla colors', () => {
-    expect(a11yContrast('hsla(250, 100%, 50%, 0.2)', 'hsla(0, 100%, 100%, 1)')).toEqual(8.268);
+    expect(a11yContrast('hsla(250, 100%, 50%, 0.2)', 'hsla(0, 100%, 100%, 1)')).toEqual(8.2612);
   });
   
   test('two hsl colors', () => {
-    expect(a11yContrast('hsl(0, 100%, 50%)', 'hsl(0, 100%, 100%)')).toEqual(3.992);
+    expect(a11yContrast('hsl(0, 100%, 50%)', 'hsl(0, 100%, 100%)')).toEqual(3.9985);
   });
   
   test('two named CSS colors', () => {
-    expect(a11yContrast('papayawhip', 'white')).toEqual(1.131);
+    expect(a11yContrast('papayawhip', 'white')).toEqual(1.1315);
   });
   
   test('1 when used with a transparent color', () => {
