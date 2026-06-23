@@ -48,7 +48,7 @@ export default function getComparisonMix(c: string, c2: string): TComparisonResu
     code: 'colord(c).mix(c2).toHex()'
   }, {
     key: 'color',
-    result: new Color(c).mix(new Color(c2)).hex(),
+    result: protect(() => new Color(c).mix(new Color(c2)).hex()),
     code: 'new Color(c).mix(new Color(c2)).hex()'
   }, {
     key: 'color2k',

@@ -50,7 +50,7 @@ export default function getComparisonA11yContrast(c: string, black?: boolean): T
     code: 'colord(c).contrast(bg?)'
   }, {
     key: 'color',
-    result: new Color(c).contrast(new Color(bgRequired)),
+    result: protect(() => new Color(c).contrast(new Color(bgRequired))),
     code: 'new Color(c).contrast(Color)'
   }, {
     key: 'color2k',

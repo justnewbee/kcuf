@@ -48,7 +48,7 @@ export default function getComparisonToRgb(c: string): TComparisonResult {
     code: 'colord(c).toRgbString()'
   }, {
     key: 'color',
-    result: new Color(c).toString(),
+    result: protect(() => new Color(c).toString()),
     code: 'new Color(c).toString()'
   }, {
     key: 'color2k',

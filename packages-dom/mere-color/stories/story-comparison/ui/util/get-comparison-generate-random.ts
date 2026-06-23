@@ -29,7 +29,7 @@ export default function getComparisonRandom(): TComparisonResult {
   return [{
     key: 'mere-color',
     result: random(),
-    code: 'random(c)'
+    code: 'random()'
   }, {
     key: 'polished',
     result: null,

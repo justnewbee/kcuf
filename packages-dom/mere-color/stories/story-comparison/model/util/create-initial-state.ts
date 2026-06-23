@@ -4,8 +4,8 @@ import {
 
 export default function createInitialState(): IModelState {
   return {
-    color: '#f00',
+    colorInput: '#f00',
     colorAlpha: 100,
-    colorType: 'hex'
+    colorNotation: 'hex'
   };
 }

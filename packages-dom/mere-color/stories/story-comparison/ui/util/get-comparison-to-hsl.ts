@@ -48,7 +48,7 @@ export default function getComparisonToHsl(c: string): TComparisonResult {
     code: 'colord(c).toHslString()'
   }, {
     key: 'color',
-    result: new Color(c).hsl().toString(),
+    result: protect(() => new Color(c).hsl().toString()),
     code: 'new Color(c).hsl().toString()'
   }, {
     key: 'color2k',

@@ -3,28 +3,27 @@ import {
 } from 'react';
 
 import {
-  fade,
   toStringRgb,
   toStringHsl
 } from '../../../../src';
 
 import useModelState from './_use-model-state';
+import useColorInputWithAlpha from './use-color-input-with-alpha';
 
 export default function useColor(): string {
   const {
-    color,
-    colorAlpha,
-    colorType
+    colorNotation
   } = useModelState();
+  const colorInputWithAlpha = useColorInputWithAlpha();
   
   return useMemo(() => {
-    switch (colorType) {
+    switch (colorNotation) {
     case 'rgb':
-      return fade(toStringRgb(color), colorAlpha);
+      return toStringRgb(colorInputWithAlpha);
     case 'hsl':
-      return fade(toStringHsl(color), colorAlpha);
+      return toStringHsl(colorInputWithAlpha);
     default:
-      return fade(color, colorAlpha);
+      return colorInputWithAlpha;
     }
-  }, [color, colorAlpha, colorType]);
+  }, [colorInputWithAlpha, colorNotation]);
 }

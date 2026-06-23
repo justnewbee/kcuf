@@ -14,9 +14,10 @@ import {
   toStringHsl
 } from '../../../../../src';
 import {
-  useControlledColor,
+  useControlledColorInput,
   useControlledColorAlpha,
-  useControlledColorType
+  useControlledColorNotation,
+  useColorInputWithAlpha
 } from '../../../model';
 
 const ScColorInput = styled.div`
@@ -25,14 +26,15 @@ const ScColorInput = styled.div`
 `;
 
 export default function ColorInput(): ReactElement {
-  const [color, setColor] = useControlledColor();
+  const [colorInput, setColorInput] = useControlledColorInput();
   const [alpha, setAlpha] = useControlledColorAlpha();
-  const [colorType, setColorType] = useControlledColorType();
+  const [colorNotation, setColorNotation] = useControlledColorNotation();
+  const colorInputWithAlpha = useColorInputWithAlpha();
   
   return <ScColorInput>
     <InputColor {...{
-      value: color,
-      onChange: setColor
+      value: colorInput,
+      onChange: setColorInput
     }} />
     <InputRange {...{
       min: 0,
@@ -42,17 +44,17 @@ export default function ColorInput(): ReactElement {
     }} />
     <ChoiceGroupRadio {...{
       datasource: [{
-        label: color,
+        label: colorInputWithAlpha,
         value: 'hex'
       }, {
-        label: toStringRgb(color),
+        label: toStringRgb(colorInputWithAlpha),
         value: 'rgb'
       }, {
-        label: toStringHsl(color),
+        label: toStringHsl(colorInputWithAlpha),
         value: 'hsl'
       }],
-      value: colorType,
-      onChange: setColorType
+      value: colorNotation,
+      onChange: setColorNotation
     }} />
   </ScColorInput>;
 }

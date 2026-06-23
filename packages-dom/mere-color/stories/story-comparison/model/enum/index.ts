@@ -1,5 +1,5 @@
 export enum EAction {
-  SET_COLOR,
+  SET_COLOR_INPUT,
   SET_COLOR_ALPHA,
-  SET_COLOR_TYPE
+  SET_COLOR_NOTATION
 }

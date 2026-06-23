@@ -48,7 +48,7 @@ export default function getComparisonRotate(c: string, delta: number): TComparis
     code: 'colord(c).rotate(delta).toHex()'
   }, {
     key: 'color',
-    result: new Color(c).rotate(delta).hex(),
+    result: protect(() => new Color(c).rotate(delta).hex()),
     code: 'new Color(c).rotate().hex()'
   }, {
     key: 'color2k',

@@ -19,6 +19,7 @@ import {
 import {
   TComparisonResult
 } from '../types';
+import protect from './protect';
 
 export default function getComparisonIsLight(c: string): TComparisonResult<boolean> {
   return [{
@@ -39,7 +40,7 @@ export default function getComparisonIsLight(c: string): TComparisonResult<boole
     code: 'colord(c).isLight()'
   }, {
     key: 'color',
-    result: new Color(c).isLight(),
+    result: protect(() => new Color(c).isLight()),
     code: 'new Color(c).isLight()'
   }, {
     key: 'color2k',

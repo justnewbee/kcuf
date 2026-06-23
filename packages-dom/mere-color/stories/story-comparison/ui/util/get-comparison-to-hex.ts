@@ -48,7 +48,7 @@ export default function getComparisonToHex(c: string): TComparisonResult {
     code: 'colord(c).toHex()'
   }, {
     key: 'color',
-    result: new Color(c).hex(),
+    result: protect(() => new Color(c).hex()),
     code: 'new Color(c).hex()'
   }, {
     key: 'color2k',

@@ -24,6 +24,7 @@ import {
 import {
   TComparisonResult
 } from '../types';
+import protect from './protect';
 
 export default function getComparisonInvert(c: string): TComparisonResult {
   return [{
@@ -44,7 +45,7 @@ export default function getComparisonInvert(c: string): TComparisonResult {
     code: 'colord(c).invert().toHex()'
   }, {
     key: 'color',
-    result: new Color(c).negate().hex(),
+    result: protect(() => new Color(c).negate().hex()),
     code: 'new Color(c).negate().hex()'
   }, {
     key: 'color2k',

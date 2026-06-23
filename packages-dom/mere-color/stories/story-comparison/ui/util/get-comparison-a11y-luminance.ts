@@ -47,7 +47,7 @@ export default function getComparisonA11yLuminance(c: string): TComparisonResult
     code: 'colord(c).luminance()'
   }, {
     key: 'color',
-    result: new Color(c).luminosity(),
+    result: protect(() => new Color(c).luminosity()),
     code: 'new Color(c).luminosity()'
   }, {
     key: 'color2k',

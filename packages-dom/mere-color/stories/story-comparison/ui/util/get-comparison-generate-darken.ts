@@ -48,7 +48,7 @@ export default function getComparisonDarken(c: string, delta: number): TComparis
     code: 'colord(c).darken(delta / 100).toHex()'
   }, {
     key: 'color',
-    result: new Color(c).darken(delta / 100).hex(),
+    result: protect(() => new Color(c).darken(delta / 100).hex()),
     code: 'new Color(c).darken(delta / 100).hex()'
   }, {
     key: 'color2k',

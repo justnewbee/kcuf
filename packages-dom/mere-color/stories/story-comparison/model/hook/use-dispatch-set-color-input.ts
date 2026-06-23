@@ -8,11 +8,11 @@ import {
 
 import useModelDispatch from './_use-model-dispatch';
 
-export default function useDispatchSetColorType(): (payload: string) => void {
+export default function useDispatchSetColorInput(): (payload: string) => void {
   const dispatch = useModelDispatch();
   
   return useCallback((payload: string) => dispatch({
-    type: EAction.SET_COLOR_TYPE,
+    type: EAction.SET_COLOR_INPUT,
     payload
   }), [dispatch]);
 }

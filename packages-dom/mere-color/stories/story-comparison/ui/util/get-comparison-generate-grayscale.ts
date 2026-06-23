@@ -25,6 +25,7 @@ import {
 import {
   TComparisonResult
 } from '../types';
+import protect from './protect';
 
 export default function getComparisonGrayscale(c: string): TComparisonResult {
   return [{
@@ -45,7 +46,7 @@ export default function getComparisonGrayscale(c: string): TComparisonResult {
     code: 'colord(c).grayscale().toHex()'
   }, {
     key: 'color',
-    result: new Color(c).grayscale().hex(),
+    result: protect(() => new Color(c).grayscale().hex()),
     code: 'new Color(c).grayscale().hex()'
   }, {
     key: 'color2k',

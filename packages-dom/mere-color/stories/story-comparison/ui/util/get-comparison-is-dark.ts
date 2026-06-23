@@ -19,6 +19,7 @@ import {
 import {
   TComparisonResult
 } from '../types';
+import protect from './protect';
 
 export default function getComparisonIsDark(c: string): TComparisonResult<boolean> {
   return [{
@@ -39,7 +40,7 @@ export default function getComparisonIsDark(c: string): TComparisonResult<boolea
     code: 'colord(c).isDark()'
   }, {
     key: 'color',
-    result: new Color(c).isDark(),
+    result: protect(() => new Color(c).isDark()),
     code: 'new Color(c).isDark()'
   }, {
     key: 'color2k',

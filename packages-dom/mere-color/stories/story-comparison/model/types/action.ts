@@ -7,13 +7,13 @@ import {
 } from '../enum';
 
 export type TModelAction = {
-  type: EAction.SET_COLOR;
+  type: EAction.SET_COLOR_INPUT;
   payload: string;
 } | {
   type: EAction.SET_COLOR_ALPHA;
   payload: number;
 } | {
-  type: EAction.SET_COLOR_TYPE;
+  type: EAction.SET_COLOR_NOTATION;
   payload: string;
 };
 

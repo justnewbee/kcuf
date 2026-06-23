@@ -48,7 +48,7 @@ export default function getComparisonLighten(c: string, delta: number): TCompari
     code: 'colord(c).lighten(delta / 100).toHex()'
   }, {
     key: 'color',
-    result: new Color(c).lighten(delta / 100).hex(),
+    result: protect(() => new Color(c).lighten(delta / 100).hex()),
     code: 'new Color(c).lighten(delta / 100).hex()'
   }, {
     key: 'color2k',

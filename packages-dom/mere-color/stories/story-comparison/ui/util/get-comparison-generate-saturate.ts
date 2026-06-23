@@ -48,7 +48,7 @@ export default function getComparisonSaturate(c: string, amount: number): TCompa
     code: 'colord(c).saturate(amount / 100).toHex()'
   }, {
     key: 'color',
-    result: new Color(c).saturate(amount / 100).hex(),
+    result: protect(() => new Color(c).saturate(amount / 100).hex()),
     code: 'new Color(c).saturate(amount / 100).hex()'
   }, {
     key: 'color2k',

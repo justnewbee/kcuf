@@ -48,7 +48,7 @@ export default function getComparisonDesaturate(c: string, delta: number): TComp
     code: 'colord(c).desaturate(delta / 100).toHex()'
   }, {
     key: 'color',
-    result: new Color(c).desaturate(delta / 100).hex(),
+    result: protect(() => new Color(c).desaturate(delta / 100).hex()),
     code: 'new Color(c).desaturate(delta / 100).hex()'
   }, {
     key: 'color2k',

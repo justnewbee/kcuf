@@ -1,5 +1,5 @@
 export interface IModelState {
-  color: string;
+  colorInput: string;
   colorAlpha: number;
-  colorType: string;
+  colorNotation: string;
 }
