@@ -5,6 +5,7 @@ import {
 export default function createInitialState(): IModelState {
   return {
     color: '#f00',
+    colorAlpha: 100,
     colorType: 'hex'
   };
 }

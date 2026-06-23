@@ -9,14 +9,14 @@ import {
 
 const ScColorBlock = styled.div`
   padding: 4px 8px;
+  max-width: 180px;
+  overflow-wrap: break-word;
   border-radius: 3px;
 `;
-
-const ScPre = styled.pre`
-  margin: 4px 0 0;
-  padding: 0;
+const ScPre = styled.code`
+  display: block;
+  margin-block-start: 4px;
   font-size: 0.8em;
-  white-space: break-spaces;
 `;
 
 interface IProps {

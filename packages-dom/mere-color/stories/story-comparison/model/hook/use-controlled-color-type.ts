@@ -1,7 +1,7 @@
 import useModelState from './_use-model-state';
 import useDispatchSetColorType from './use-dispatch-set-color-type';
 
-export default function useStateColorType(): [string, (value: string) => void] {
+export default function useControlledColorType(): [string, (value: string) => void] {
   const {
     colorType
   } = useModelState();

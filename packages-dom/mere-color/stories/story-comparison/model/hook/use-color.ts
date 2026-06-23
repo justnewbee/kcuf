@@ -1,4 +1,9 @@
 import {
+  useMemo
+} from 'react';
+
+import {
+  fade,
   toStringRgb,
   toStringHsl
 } from '../../../../src';
@@ -8,15 +13,18 @@ import useModelState from './_use-model-state';
 export default function useColor(): string {
   const {
     color,
+    colorAlpha,
     colorType
   } = useModelState();
   
-  switch (colorType) {
-  case 'rgb':
-    return toStringRgb(color);
-  case 'hsl':
-    return toStringHsl(color);
-  default:
-    return color;
-  }
+  return useMemo(() => {
+    switch (colorType) {
+    case 'rgb':
+      return fade(toStringRgb(color), colorAlpha);
+    case 'hsl':
+      return fade(toStringHsl(color), colorAlpha);
+    default:
+      return fade(color, colorAlpha);
+    }
+  }, [color, colorAlpha, colorType]);
 }

@@ -64,5 +64,5 @@ export default function Ui(): ReactElement {
       <CompareIsDark />
       <CompareIsLight />
     </ScGrid>
-    </>;
+  </>;
 }

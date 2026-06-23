@@ -7,9 +7,9 @@ import {
  *
  * https://lesscss.org/functions/#color-operations-fade
  */
-export default function fade(color: string, toAlpha: number): string {
+export default function fade(color: string, alpha: number): string {
   return manipulateRgb(color, rgb => ({
     ...rgb,
-    a: toAlpha
+    a: alpha
   }));
 }

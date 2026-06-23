@@ -10,6 +10,9 @@ export type TModelAction = {
   type: EAction.SET_COLOR;
   payload: string;
 } | {
+  type: EAction.SET_COLOR_ALPHA;
+  payload: number;
+} | {
   type: EAction.SET_COLOR_TYPE;
   payload: string;
 };
