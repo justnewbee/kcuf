@@ -1,10 +1,10 @@
-import normalizeFile from './normalize-file';
+import normalizePayloadFile from './normalize-payload-file';
 
-export default function normalizeFormData(formData: FormData): Record<string, unknown> {
+export default function normalizePayloadFormData(formData: FormData): Record<string, unknown> {
   const normalized: Record<string, unknown> = {};
   
   formData.forEach((v, k) => {
-    const value = v instanceof File ? normalizeFile(v) : v;
+    const value = v instanceof File ? normalizePayloadFile(v) : v;
     const exist = normalized[k];
     
     if (Array.isArray(exist)) {

@@ -40,7 +40,7 @@ export default function flattenObject(o: object, options: string | IFlattenOptio
       const scopedPathKey = scope ? `${scope}.${pathKey}` : pathKey;
       
       // 可以忽略不重要的信息，不记录方法，不记录 `_` 打头的数据
-      if (/^_/.test(k) || typeof v === 'function' || (omit && flattenTestPath(pathKey, omit))) {
+      if (k.startsWith('_') || typeof v === 'function' || (omit && flattenTestPath(pathKey, omit))) {
         return;
       }
       

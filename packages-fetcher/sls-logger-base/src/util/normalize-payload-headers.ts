@@ -1,4 +1,4 @@
-export default function normalizeHeaders(headers: Headers): Record<string, unknown> {
+export default function normalizePayloadHeaders(headers: Headers): Record<string, unknown> {
   const normalized: Record<string, unknown> = {};
   
   headers.forEach((v, k) => {

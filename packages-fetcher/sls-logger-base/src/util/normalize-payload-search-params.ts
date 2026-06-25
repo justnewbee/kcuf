@@ -1,4 +1,4 @@
-export default function normalizeSearchParams(searchParams: URLSearchParams): Record<string, unknown> {
+export default function normalizePayloadSearchParams(searchParams: URLSearchParams): Record<string, unknown> {
   const normalized: Record<string, unknown> = {};
   
   searchParams.forEach((v, k) => {

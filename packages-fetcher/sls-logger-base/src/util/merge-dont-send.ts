@@ -4,7 +4,7 @@ import {
 
 export default function mergeDontSend(factoryDontSend?: TDontSend, dontSend?: TDontSend): TDontSend | undefined {
   if (!factoryDontSend || !dontSend) {
-    return dontSend || factoryDontSend;
+    return dontSend ?? factoryDontSend;
   }
   
   return (): boolean | undefined => factoryDontSend() || dontSend();

@@ -7,7 +7,7 @@ interface IPlainFile {
 /**
  * 文件不可能直接记录
  */
-export default function normalizeFile(file: File): IPlainFile {
+export default function normalizePayloadFile(file: File): IPlainFile {
   return {
     name: file.name,
     size: file.size,

@@ -43,7 +43,7 @@
     "react": "^19.2.7",
     "rimraf": "^6.1.3",
     "storybook": "^10.4.6",
-    "styled-components": "^6.4.2",
+    "styled-components": "^6.4.3",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"
   },
@@ -58,7 +58,7 @@
     "@kcuf/json-stringify-ordered": "workspace:^",
     "@kcuf/md5": "workspace:^",
     "lodash": "^4.18.1",
-    "qs": "^6.15.2"
+    "qs": "^6.15.3"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
