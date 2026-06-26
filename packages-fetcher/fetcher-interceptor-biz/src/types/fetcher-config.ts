@@ -3,15 +3,15 @@ import {
 } from '@kcuf/fetcher-core';
 
 import {
-  TGetData,
+  TIsSuccess,
   TGetString,
-  TIsSuccess
+  TGetData
 } from './common';
 
 /**
  * 可以在调用 fetcher 请求时，覆盖默认的设置以适应某些特殊的场景，从而避免必须多生 Fetcher 实例的尴尬
  */
-export interface IFetcherConfigAugmentBiz {
+export interface IFetcherConfigBiz {
   /**
    * 判断请求是否成功
    *
@@ -49,9 +49,4 @@ export interface IFetcherConfigAugmentBiz {
   getMessage?: TGetString;
 }
 
-export interface IFetcherConfigX extends FetcherConfig, IFetcherConfigAugmentBiz {}
-
-/**
- * 可以在引入此拦截器的时候给定默认的判断和取数据的方法
- */
-export interface IFetcherInterceptBizOptions extends IFetcherConfigAugmentBiz {}
+export interface IFetcherConfigAugmentedBiz extends FetcherConfig, IFetcherConfigBiz {}

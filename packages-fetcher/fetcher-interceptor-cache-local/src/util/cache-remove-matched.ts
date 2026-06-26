@@ -6,7 +6,7 @@ export default function cacheRemoveMatched(keyPart: string): void {
   Object.keys(store).forEach(v => {
     if (v.includes(keyPart)) {
       store[v] = null;
-      delete store[v];
+      delete store[v]; // eslint-disable-line @typescript-eslint/no-dynamic-delete
     }
   });
 }

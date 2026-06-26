@@ -10,7 +10,7 @@ import {
 export default function cacheGlobal(): TCacheLocalGlobal {
   const win = getWindow<ICacheLocalWindow>();
   
-  win.__fetcher_cache_local__ ||= {};
+  win.__fetcher_cache_local__ ??= {};
   
   return win.__fetcher_cache_local__;
 }

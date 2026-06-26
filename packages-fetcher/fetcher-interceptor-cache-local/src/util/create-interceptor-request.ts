@@ -1,17 +1,20 @@
 import {
-  FetcherConfig,
   FetcherInterceptRequest,
   FetcherInterceptRequestReturn,
   createFetcherErrorSkipNetwork,
   cloneResponseData
-} from '@kcuf/fetcher';
+} from '@kcuf/fetcher-core';
+
+import {
+  IFetcherConfigAugmentedBiz
+} from '../types';
 
 import parseCacheLocalOptions from './parse-cache-local-options';
 import cacheGet from './cache-get';
 import cacheAdd from './cache-add';
 
 export default function createInterceptorRequest(): FetcherInterceptRequest {
-  return (config: FetcherConfig): FetcherInterceptRequestReturn => {
+  return (config: IFetcherConfigAugmentedBiz): FetcherInterceptRequestReturn => {
     const cacheLocal = parseCacheLocalOptions(config);
     
     // 不需要 cacheLocal，直接跳过，将继续请求

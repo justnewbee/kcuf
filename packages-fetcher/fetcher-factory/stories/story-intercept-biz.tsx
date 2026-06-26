@@ -11,16 +11,15 @@ import {
 import {
   createFetcher
 } from '@kcuf/fetcher';
-
-import intercept from '../src';
+import interceptBiz from '@kcuf/fetcher-interceptor-biz';
 
 const fetcher = createFetcher();
 
-intercept(fetcher, {
+interceptBiz(fetcher, {
   isSuccess: o => o.code === 0
 });
 
-export default function StoryMethods(): ReactElement {
+export default function StoryInterceptBiz(): ReactElement {
   const [statePromise, setStatePromise] = useState<Promise<unknown> | null>(null);
   
   const handleJsonp = useCallback(() => {

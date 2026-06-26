@@ -11,5 +11,5 @@ export default function cacheRemove(key: string): void {
   const store = cacheGlobal();
   
   store[key] = null;
-  delete store[key];
+  delete store[key]; // eslint-disable-line @typescript-eslint/no-dynamic-delete
 }

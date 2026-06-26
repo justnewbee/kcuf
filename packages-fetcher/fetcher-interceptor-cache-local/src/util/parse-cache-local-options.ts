@@ -1,12 +1,9 @@
 import {
-  FetcherConfig
-} from '@kcuf/fetcher';
-
-import {
-  ICacheLocalOptionsParsed
+  ICacheLocalParsed,
+  IFetcherConfigAugmentedBiz
 } from '../types';
 
-export default function parseCacheLocalOptions(config: FetcherConfig): ICacheLocalOptionsParsed | null {
+export default function parseCacheLocalOptions(config: IFetcherConfigAugmentedBiz): ICacheLocalParsed | null {
   if (!config.cacheLocal) {
     return null;
   }

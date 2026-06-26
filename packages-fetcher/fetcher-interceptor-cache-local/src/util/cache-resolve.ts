@@ -1,6 +1,6 @@
 import {
   cloneResponseData
-} from '@kcuf/fetcher';
+} from '@kcuf/fetcher-core';
 
 import cacheGet from './cache-get';
 
@@ -16,7 +16,7 @@ export default function cacheResolve(key: string, data: unknown, ttl: number): v
   } = cache;
   
   cache.time = Date.now();
-  cache.queue = null; // 标识已经完成
+  cache.queue = null; // 标识已完成
   cache.ttl = ttl;
   cache.data = cloneResponseData(data);
   

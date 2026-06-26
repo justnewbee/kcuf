@@ -13,14 +13,14 @@ import {
   createFetcher
 } from '@kcuf/fetcher';
 
-import intercept from '../src';
+import interceptCacheLocal from '@kcuf/fetcher-interceptor-cache-local';
 
 const fetcher = createFetcher();
 
-intercept(fetcher);
+interceptCacheLocal(fetcher);
 
-export default function StoryMethods(): ReactElement {
-  const [stateCacheLocal, setStateCacheLocal] = useState<boolean>(false);
+export default function StoryCacheLocal(): ReactElement {
+  const [stateCacheLocal, setStateCacheLocal] = useState<boolean>(true);
   const [statePromise, setStatePromise] = useState<Promise<unknown> | null>(null);
   
   const handleJsonp = useCallback(() => {

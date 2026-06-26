@@ -1,4 +1,7 @@
 {
   "extends": "@kcuf/ts-config/index.json",
-  "include": ["src"]
+  "include": ["src"],
+  "references": [{
+    "path": "./tsconfig.node.json"
+  }]
 }

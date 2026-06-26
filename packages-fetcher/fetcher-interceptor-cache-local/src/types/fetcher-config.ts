@@ -1,12 +1,16 @@
 import {
-  ICacheLocalOptions
-} from './options';
+  FetcherConfig
+} from '@kcuf/fetcher-core';
 
-export interface IFetcherConfigAugment {
+import {
+  ICacheLocal
+} from './common';
+
+export interface IFetcherConfigCacheLocal {
   /**
    * 是否做本地缓存，必须手动指定
    */
-  cacheLocal?: null | boolean | ICacheLocalOptions;
+  cacheLocal?: null | boolean | ICacheLocal;
   /**
    * 通常执行了某数据的「写」操作后（增、删、改）需要对其已有的本地缓存进行清理，可以在这些写操作中使用此参数，会
    * 在接口执行成功后，将缓存中 key 值带有 cacheLocalRemove 指定串的进行移除
@@ -15,3 +19,5 @@ export interface IFetcherConfigAugment {
    */
   cacheLocalRemove?: string;
 }
+
+export interface IFetcherConfigAugmentedBiz extends FetcherConfig, IFetcherConfigCacheLocal {}
