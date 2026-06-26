@@ -1,4 +1,8 @@
-export interface IFetcherConfigAugment {
+import {
+  FetcherConfig
+} from '@kcuf/fetcher-core';
+
+export interface IFetcherConfigMerging {
   /**
    * 默认，请求在 `_hash`（见 @kcuf/fetcher）相同的情况下，如果同一时间内，有相同 `_hash` 的请求会合并请求
    *
@@ -6,3 +10,5 @@ export interface IFetcherConfigAugment {
    */
   merging?: boolean;
 }
+
+export interface IFetcherConfigAugmentedMerging extends FetcherConfig, IFetcherConfigMerging {}

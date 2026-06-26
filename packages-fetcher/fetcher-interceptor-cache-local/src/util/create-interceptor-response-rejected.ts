@@ -4,14 +4,14 @@ import {
 } from '@kcuf/fetcher-core';
 
 import {
-  IFetcherConfigAugmentedBiz
+  IFetcherConfigAugmentedCacheLocal
 } from '../types';
 
 import parseCacheLocalOptions from './parse-cache-local-options';
 import cacheReject from './cache-reject';
 
 export default function createInterceptorResponseRejected(): FetcherInterceptResponseRejected {
-  return (err: FetcherError, config: IFetcherConfigAugmentedBiz): void => {
+  return (err: FetcherError, config: IFetcherConfigAugmentedCacheLocal): void => {
     const cacheLocal = parseCacheLocalOptions(config);
     
     if (cacheLocal) {

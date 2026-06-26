@@ -16,10 +16,6 @@ export interface ICache<T = unknown> {
 
 export type TCacheLocalGlobal = Record<string, ICache | null>;
 
-export interface ICacheLocalWindow {
-  __fetcher_cache_local__?: TCacheLocalGlobal;
-}
-
 export interface ICacheLocal {
   /**
    * 默认用 `FetcherConfig._hash`，也可以自己指定（不推荐自己指定）

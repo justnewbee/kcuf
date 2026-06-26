@@ -1,9 +1,6 @@
 import {
-  FetcherConfig
-} from '@kcuf/fetcher';
-
-import {
-  IMergingOptionsParsed
+  IFetcherConfigAugmentedMerging,
+  IMergingParsed
 } from '../types';
 
 /**
@@ -13,7 +10,7 @@ import {
  * 2. 传入 AbortController 的 signal
  * 3. 由拦截器发起的请求（否则像登录后重新发起的请求也进入了 merging，就会一直 pending）
  */
-export default function parseMergingOptions(config: FetcherConfig): IMergingOptionsParsed | null {
+export default function parseMergingOptions(config: IFetcherConfigAugmentedMerging): IMergingParsed | null {
   const {
     merging = true
   } = config;

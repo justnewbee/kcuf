@@ -20,4 +20,4 @@ export interface IFetcherConfigCacheLocal {
   cacheLocalRemove?: string;
 }
 
-export interface IFetcherConfigAugmentedBiz extends FetcherConfig, IFetcherConfigCacheLocal {}
+export interface IFetcherConfigAugmentedCacheLocal extends FetcherConfig, IFetcherConfigCacheLocal {}

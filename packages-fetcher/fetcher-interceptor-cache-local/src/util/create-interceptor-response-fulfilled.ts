@@ -4,7 +4,7 @@ import {
 } from '@kcuf/fetcher-core';
 
 import {
-  IFetcherConfigAugmentedBiz
+  IFetcherConfigAugmentedCacheLocal
 } from '../types';
 
 import parseCacheLocalOptions from './parse-cache-local-options';
@@ -12,7 +12,7 @@ import cacheRemoveMatched from './cache-remove-matched';
 import cacheResolve from './cache-resolve';
 
 export default function createInterceptorResponseFulfilled(): FetcherInterceptResponseFulfilled {
-  return (data: unknown, config: IFetcherConfigAugmentedBiz): unknown => {
+  return (data: unknown, config: IFetcherConfigAugmentedCacheLocal): unknown => {
     if (config.cacheLocalRemove) {
       cacheRemoveMatched(config.cacheLocalRemove);
     }

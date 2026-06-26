@@ -1,6 +1,6 @@
 import {
   cloneResponseData
-} from '@kcuf/fetcher';
+} from '@kcuf/fetcher-core';
 
 import mergingGet from './merging-get';
 import mergingRemove from './merging-remove';

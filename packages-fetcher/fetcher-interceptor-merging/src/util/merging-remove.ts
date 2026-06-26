@@ -10,6 +10,5 @@ export default function mergingRemove(key: string): void {
   
   const o = mergingGlobal();
   
-  o[key] = null as any;
-  delete o[key];
+  delete o[key]; // eslint-disable-line @typescript-eslint/no-dynamic-delete
 }

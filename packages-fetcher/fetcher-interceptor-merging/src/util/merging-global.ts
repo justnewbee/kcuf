@@ -1,16 +1,19 @@
 import {
-  getWindow
-} from '@kcuf/sandbox-escape';
-
-import {
-  TMergingGlobal,
-  IMergingWindow
+  TMergingGlobal
 } from '../types';
 
+interface IGlobalThis {
+  __fetcher_merging__?: TMergingGlobal;
+}
+
 export default function mergingGlobal(): TMergingGlobal {
-  const win = getWindow<IMergingWindow>();
+  let merging = (globalThis as IGlobalThis).__fetcher_merging__;
   
-  win.__fetcher_merging__ ||= {};
+  if (!merging) {
+    merging = {};
+    
+    (globalThis as IGlobalThis).__fetcher_merging__ = merging;
+  }
   
-  return win.__fetcher_merging__;
+  return merging;
 }

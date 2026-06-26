@@ -1,9 +1,9 @@
 import {
   ICacheLocalParsed,
-  IFetcherConfigAugmentedBiz
+  IFetcherConfigAugmentedCacheLocal
 } from '../types';
 
-export default function parseCacheLocalOptions(config: IFetcherConfigAugmentedBiz): ICacheLocalParsed | null {
+export default function parseCacheLocalOptions(config: IFetcherConfigAugmentedCacheLocal): ICacheLocalParsed | null {
   if (!config.cacheLocal) {
     return null;
   }

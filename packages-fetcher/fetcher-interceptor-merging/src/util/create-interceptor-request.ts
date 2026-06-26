@@ -1,16 +1,19 @@
 import {
-  FetcherConfig,
   FetcherInterceptRequest,
   FetcherInterceptRequestReturn,
   createFetcherErrorSkipNetwork
-} from '@kcuf/fetcher';
+} from '@kcuf/fetcher-core';
+
+import {
+  IFetcherConfigAugmentedMerging
+} from '../types';
 
 import parseMergingOptions from './parse-merging-options';
 import mergingGet from './merging-get';
 import mergingAdd from './merging-add';
 
 export default function createInterceptorRequest(): FetcherInterceptRequest {
-  return (config: FetcherConfig): FetcherInterceptRequestReturn => {
+  return (config: IFetcherConfigAugmentedMerging): FetcherInterceptRequestReturn => {
     const merging = parseMergingOptions(config);
     
     // 不需要，直接跳过，将继续请求
@@ -25,10 +28,12 @@ export default function createInterceptorRequest(): FetcherInterceptRequest {
     
     // 第 0 个请求还在请求中，则附之
     if (queue) {
-      const promise = new Promise((resolve, reject) => queue.push({
-        resolve,
-        reject
-      }));
+      const promise = new Promise((resolve, reject) => {
+        queue.push({
+          resolve,
+          reject
+        });
+      });
       
       throw createFetcherErrorSkipNetwork(promise, config);
     } else {

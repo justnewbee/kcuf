@@ -1,16 +1,19 @@
 import {
-  getWindow
-} from '@kcuf/sandbox-escape';
-
-import {
-  TCacheLocalGlobal,
-  ICacheLocalWindow
+  TCacheLocalGlobal
 } from '../types';
 
+interface IGlobalThis {
+  __fetcher_cache_local__?: TCacheLocalGlobal;
+}
+
 export default function cacheGlobal(): TCacheLocalGlobal {
-  const win = getWindow<ICacheLocalWindow>();
+  let theCache = (globalThis as IGlobalThis).__fetcher_cache_local__;
   
-  win.__fetcher_cache_local__ ??= {};
+  if (!theCache) {
+    theCache = {};
+    
+    (globalThis as IGlobalThis).__fetcher_cache_local__ = theCache;
+  }
   
-  return win.__fetcher_cache_local__;
+  return theCache;
 }

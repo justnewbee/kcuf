@@ -42,8 +42,7 @@
     "@babel/runtime": ">=7.0.0"
   },
   "dependencies": {
-    "@kcuf/fetcher-core": "workspace:^",
-    "@kcuf/sandbox-escape": "workspace:^"
+    "@kcuf/fetcher-core": "workspace:^"
   },
   "scripts": {
     "build:clean": "rimraf dist",

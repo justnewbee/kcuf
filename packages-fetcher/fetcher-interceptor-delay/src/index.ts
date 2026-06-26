@@ -2,7 +2,7 @@ import {
   Fetcher
 } from '@kcuf/fetcher-core';
 
-interface IGlobal {
+interface IGlobalThis {
   __FETCHER_DELAY?: number;
 }
 
@@ -11,7 +11,7 @@ interface IGlobal {
  */
 export default function interceptDelay(fetcher: Fetcher): () => void {
   return fetcher.interceptRequest(() => {
-    const delay = (globalThis as IGlobal).__FETCHER_DELAY;
+    const delay = (globalThis as IGlobalThis).__FETCHER_DELAY;
     
     if (delay && delay > 0) {
       return new Promise(resolve => {

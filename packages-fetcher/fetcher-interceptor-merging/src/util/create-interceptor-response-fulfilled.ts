@@ -1,14 +1,17 @@
 import {
-  FetcherConfig,
   FetcherInterceptResponseFulfilled,
   cloneResponseData
-} from '@kcuf/fetcher';
+} from '@kcuf/fetcher-core';
+
+import {
+  IFetcherConfigAugmentedMerging
+} from '../types';
 
 import parseMergingOptions from './parse-merging-options';
 import mergingResolve from './merging-resolve';
 
 export default function createInterceptorResponseFulfilled(): FetcherInterceptResponseFulfilled {
-  return (data: unknown, config: FetcherConfig): unknown => {
+  return (data: unknown, config: IFetcherConfigAugmentedMerging): unknown => {
     const merging = parseMergingOptions(config);
     
     if (merging) {
