@@ -1,6 +1,6 @@
 import {
   Fetcher
-} from '@kcuf/fetcher';
+} from '@kcuf/fetcher-core';
 
 import {
   IFetcherInterceptBizOptions

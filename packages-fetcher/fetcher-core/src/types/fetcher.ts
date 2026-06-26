@@ -1,22 +1,31 @@
 import {
-  IFetcherResponse,
-  TInterceptorEject
-} from './common';
-import {
   IFetcherConfig
 } from './config';
+import {
+  TFetcherHeadersNormalized
+} from './config-headers';
+import {
+  TFetcherBodyNormalized
+} from './config-body';
+import {
+  IFetcherResponse
+} from './fetcher-response';
+import {
+  TInterceptorEject,
+  TFetcherInterceptRequest,
+  TFetcherInterceptResponseFulfilled,
+  TFetcherInterceptResponseRejected
+} from './fetcher-interceptor';
 import {
   IFetcherCallGetAlike,
   IFetcherCallJsonp,
   IFetcherCallPostAlike
-} from './fn';
-import {
-  TFetcherInterceptRequest,
-  TFetcherInterceptResponseFulfilled,
-  TFetcherInterceptResponseRejected
-} from './interceptor';
+} from './fetcher-fn';
 
-export type TFetcherAdapter = <T>(config: IFetcherConfig) => Promise<IFetcherResponse<T>>;
+/**
+ * 真正调用 adapter 执行网络请求前，Fetcher 会处理好完整的请求地址、标准的 Headers 和标准的 body（有的话），adapter 只需要安心使用即可
+ */
+export type TFetcherAdapter = <T>(url: string, headers: TFetcherHeadersNormalized, body: TFetcherBodyNormalized, config: IFetcherConfig) => Promise<IFetcherResponse<T>>;
 
 export interface IFetcherClass {
   /**

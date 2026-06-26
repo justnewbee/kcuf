@@ -29,6 +29,7 @@
     "@babel/preset-typescript": "^7.29.7",
     "@chromatic-com/storybook": "^5.2.1",
     "@kcuf/demo-rc": "workspace:^",
+    "@kcuf/fetcher": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-docs": "^10.4.6",
     "@storybook/addon-links": "^10.4.6",
@@ -49,7 +50,7 @@
     "@babel/runtime": ">=7.0.0"
   },
   "dependencies": {
-    "@kcuf/fetcher": "workspace:^",
+    "@kcuf/fetcher-core": "workspace:^",
     "lodash": "^4.18.1"
   },
   "scripts": {

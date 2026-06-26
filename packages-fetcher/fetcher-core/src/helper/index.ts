@@ -1,18 +1,20 @@
 /**
  * 仅供外部是要用，不在此包中使用的帮助方法
  */
-export { default as preventEscCancelling } from './prevent-esc-cancelling';
-export { default as createFetcherErrorSkipNetwork } from './create-fetcher-error-skip-network';
 export { default as deleteConfigHeaders } from './delete-config-headers';
 export { default as cloneResponseData } from './clone-response-data';
-export { // 这些也当 helper
-  // url
-  isCors,
-  canHaveBody,
-  extractProtocolHost,
-  buildUrl,
-  // error
-  createFetcherError,
-  // config
-  mergeConfig
+export { default as createFetcherErrorSkipNetwork } from './create-fetcher-error-skip-network';
+
+// 可能需要用到的 util
+export {
+  isInstanceofBlob,
+  isInstanceofArrayBuffer,
+  isInstanceofFormData,
+  isInstanceofHeaders,
+  isInstanceofUrlSearchParams,
+  isConfigJsonp,
+  cloneTypeFormData,
+  cloneTypeHeaders,
+  cloneTypeUrlSearchParams,
+  createFetcherError
 } from '../util';

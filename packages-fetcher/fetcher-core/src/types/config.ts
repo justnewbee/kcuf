@@ -1,14 +1,18 @@
 import {
-  EResponseType
+  EFetcherResponseType
 } from '../enum';
 
 import {
-  ISerializeParamsOptions,
-  ISerializeBodyOptions,
-  TFetcherHeaders,
+  TFetcherHeaders
+} from './config-headers';
+import {
   TFetcherParams,
-  TFetcherBody
-} from './common';
+  IFetcherParamsSerializeOptions
+} from './config-params';
+import {
+  TFetcherBody,
+  IFetcherBodySerializeOptions
+} from './config-body';
 
 /**
  * interceptor 的 config 参数，也是 Fetcher.prototype.request 的参数
@@ -29,13 +33,9 @@ export interface IFetcherConfig {
    */
   _byInterceptor?: boolean;
   /**
-   * - 支持除了标准 HTTP 请求的 GET/POST/DELETE/PUT/PATCH + JSONP
-   * - 大小写无关，但内部一开始就会转成大写，建议统一用大写
-   * - 不要手动调用 HEAD/OPTIONS
-   *
-   * https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+   * 超时时间
    */
-  method?: string;
+  timeout?: number;
   /**
    * 接口 URL，若非绝对地址，将与 urlBase 结合使用
    */
@@ -51,31 +51,43 @@ export interface IFetcherConfig {
    */
   urlCacheBusting?: boolean;
   /**
-   * 约束 FetchOptions.headers
+   * - 支持除了标准 HTTP 请求的 GET/POST/DELETE/PUT/PATCH + JSONP
+   * - 大小写无关，但内部一开始就会转成大写，建议统一用大写
+   * - 不要手动调用 HEAD/OPTIONS
+   *
+   * https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
    */
-  headers?: TFetcherHeaders;
+  method?: string;
   /**
-   * URL search 参数，纯的 `fetch/jsonp` 的 url 要求是已经拼接好参数的 url。
+   * URL search 参数，纯的 `fetch/jsonp` 的 url 要求是已经拼接好参数的 url
    *
    * `{ url: '/url', params: { a: 1, b: 2} }` 等价于 `{ url: '/url', params: 'a=1&b=2' }` 等价于 `{ url: '/url?a=1&b=2' }`
    */
   params?: TFetcherParams;
   /**
-   * POST/PUT 等请求体
+   * POST/PUT/DELETE 等请求体
    */
   body?: TFetcherBody;
   /**
+   * 请求头
+   */
+  headers?: TFetcherHeaders;
+  /**
    * 如果传入的 `params` 是对象，用 `qs` 来序列化它的参数
    */
-  serializeParams?: ISerializeParamsOptions;
+  serializeParams?: IFetcherParamsSerializeOptions;
   /**
    * 自定义 `body` 的 serialize
    */
-  serializeBody?: ISerializeBodyOptions;
+  serializeBody?: IFetcherBodySerializeOptions;
+  /**
+   * 同 fetch 的 credentials
+   */
+  credentials?: RequestCredentials;
   /**
    * 对返回数据的处理，默认 `'json'`
    */
-  responseType?: EResponseType | `${EResponseType}`;
+  responseType?: EFetcherResponseType | `${EFetcherResponseType}`;
   /**
    * 当 responseType 为 `blob-download`、`array-buffer-download` 时，可用它指定下载的文件名（无后缀）
    */
@@ -93,15 +105,15 @@ export interface IFetcherConfig {
 /**
  * `new Fetcher` 时的 config，用于定义默认值，在执行请求时，将被传入的 config 混合
  */
-export interface IFetcherConfigDefault extends Pick<IFetcherConfig, 'urlBase' | 'headers' | 'serializeParams' | 'serializeBody' | 'responseType'> {}
+export interface IFetcherConfigDefault extends Pick<IFetcherConfig, 'timeout' | 'urlBase' | 'headers' | 'serializeParams' | 'serializeBody' | 'responseType'> {}
 
 /**
  * 便捷 JSONP 方法，如果第一个参数为对象，则为 config
  */
-export interface IFetcherConfigQuickJsonp extends Omit<IFetcherConfig, 'url' | 'method'> {}
+export interface IFetcherConfigQuickJsonp extends Omit<IFetcherConfig, 'url' | 'method' | '_hash' | '_timeStarted' | '_byInterceptor'> {}
 
 /**
  * 其他便捷方法，如果第一个参数为对象，则为 config
  */
 /*  | 'charset' | 'jsonpCallback' | 'jsonpCallbackFunction' */
-export interface IFetcherConfigQuick extends Omit<IFetcherConfig, 'url' | 'method'> {}
+export interface IFetcherConfigQuick extends Omit<IFetcherConfig, 'url' | 'method' | '_hash' | '_timeStarted' | '_byInterceptor'> {}

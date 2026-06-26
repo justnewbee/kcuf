@@ -3,9 +3,7 @@ import {
   TFetcherParams
 } from '../types';
 
-import {
-  deserializeParams
-} from './serialize-params';
+import deserializeParams from './deserialize-params';
 import mergeParams from './merge-params';
 
 export default function mergeConfigParams(config: IFetcherConfig, params?: TFetcherParams): void {

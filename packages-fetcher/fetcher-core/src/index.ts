@@ -1,34 +1,31 @@
-import createFetcher from './factory';
-
-const fetcher = createFetcher();
-
-fetcher.sealInterceptors();
-
-export default fetcher;
-
-export {
-  EFetcherErrorName as FetcherErrorName
-} from './enum';
+export { default } from './factory';
 export * from './helper';
 
 export {
-  createFetcher
-};
+  EFetcherErrorName as FetcherErrorName,
+  EFetcherResponseType as FetcherResponseType
+} from './enum';
 
 export type {
   IFetcher as Fetcher,
+  // config
   IFetcherConfig as FetcherConfig,
-  IFetcherResponse as FetcherResponse,
-  IFetcherError as FetcherError,
+  IFetcherConfigDefault as FetcherConfigDefault,
+  IFetcherConfigQuickJsonp as FetcherConfigQuickJsonp,
+  IFetcherConfigQuick as FetcherConfigQuick,
+  TFetcherHeadersNormalized as FetcherHeadersNormalized,
+  TFetcherBodyNormalized as FetcherBodyNormalized,
+  // method
   TFetcherCallRequest as FetcherCallRequest,
   IFetcherCallJsonp as FetcherCallJsonp,
   IFetcherCallGetAlike as FetcherCallGet,
   IFetcherCallPostAlike as FetcherCallPost,
-  IFetcherConfigQuickJsonp as FetcherConfigQuickJsonp,
-  IFetcherConfigQuick as FetcherConfigQuick,
+  // interceptor
   TFetcherInterceptRequest as FetcherInterceptRequest,
   TFetcherInterceptRequestReturn as FetcherInterceptRequestReturn,
   TFetcherInterceptResponseFulfilled as FetcherInterceptResponseFulfilled,
   TFetcherInterceptResponseRejected as FetcherInterceptResponseRejected,
-  IBuildUrlOptions as FetcherBuildUrlOptions
+  // response & error
+  IFetcherResponse as FetcherResponse,
+  IFetcherError as FetcherError
 } from './types';

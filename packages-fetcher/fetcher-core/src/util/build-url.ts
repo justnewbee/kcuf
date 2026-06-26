@@ -2,8 +2,8 @@ import {
   IFetcherConfig
 } from '../types';
 
-import mergeUrlWithParams from './merge-url-with-params';
-import mergeUrlWithUrlBase from './merge-url-with-url-base';
+import getUrlOrigin from './get-url-origin';
+import buildUrlWithParams from './build-url-with-params';
 
 /**
  * GET 类参数需要放到 URL 的 search 部分，这里参数 **可能** 由以下组成：
@@ -18,8 +18,9 @@ export default function buildUrl(config: IFetcherConfig): string {
     url = '',
     urlBase,
     params,
-    serializeParams: serializeParamsOptions
+    serializeParams
   } = config;
+  const urlWithParams = buildUrlWithParams(url, params, serializeParams);
   
-  return mergeUrlWithUrlBase(mergeUrlWithParams(url, params, serializeParamsOptions), urlBase);
+  return !urlBase || getUrlOrigin(url) ? urlWithParams : `${urlBase}${urlWithParams}`;
 }

@@ -4,19 +4,15 @@ import {
 import {
   XhrResponse
 } from '@kcuf/fetcher-xhr';
-
 import {
-  EFetcherErrorName,
-  EResponseType
-} from '../enum';
-import {
-  IFetcherConfig,
-  IFetcherResponse
-} from '../types';
+  FetcherErrorName,
+  FetcherResponseType,
+  FetcherConfig,
+  FetcherResponse,
+  createFetcherError
+} from '@kcuf/fetcher-core';
 
-import createFetcherError from './create-fetcher-error';
-
-export default async function buildResponseX<T>(response: JsonpResponse<T> | XhrResponse<T> | Response, config: IFetcherConfig): Promise<IFetcherResponse<T>> {
+export default async function buildResponseX<T>(response: JsonpResponse<T> | XhrResponse<T> | Response, config: FetcherConfig): Promise<FetcherResponse<T>> {
   if (!response.ok) { // 如 400 500 系列错误，此时也可能有 response.json()
     let responseData: unknown;
     
@@ -26,7 +22,9 @@ export default async function buildResponseX<T>(response: JsonpResponse<T> | Xhr
       // ignore
     }
     
-    throw createFetcherError(config, EFetcherErrorName.RESPONSE_STATUS, `Response status ${response.status}.`, {
+    throw createFetcherError(config, {
+      name: FetcherErrorName.RESPONSE_STATUS,
+      message: `Response status ${response.status}.`,
       code: `${response.status}`,
       responseData
     });
@@ -38,13 +36,13 @@ export default async function buildResponseX<T>(response: JsonpResponse<T> | Xhr
     }
     
     switch (config.responseType) {
-    case EResponseType.ARRAY_BUFFER:
-    case EResponseType.ARRAY_BUFFER_DOWNLOAD:
+    case FetcherResponseType.ARRAY_BUFFER:
+    case FetcherResponseType.ARRAY_BUFFER_DOWNLOAD:
       return response.arrayBuffer();
-    case EResponseType.BLOB:
-    case EResponseType.BLOB_DOWNLOAD:
+    case FetcherResponseType.BLOB:
+    case FetcherResponseType.BLOB_DOWNLOAD:
       return response.blob();
-    case EResponseType.TEXT:
+    case FetcherResponseType.TEXT:
       return response.text();
     default:
       return response.json();
@@ -58,6 +56,9 @@ export default async function buildResponseX<T>(response: JsonpResponse<T> | Xhr
       data: await getData() as T
     };
   } catch (err) {
-    throw createFetcherError(config, EFetcherErrorName.RESPONSE_PARSE, (err as Error | undefined)?.message);
+    throw createFetcherError(config, {
+      originalError: err,
+      name: FetcherErrorName.RESPONSE_PARSE
+    });
   }
 }

@@ -1,6 +1,8 @@
-export * from './common';
-export * from './config';
-export * from './error';
-export * from './fn';
-export * from './interceptor';
-export * from './fetcher';
+import {
+  JsonpOptions
+} from '@kcuf/fetcher-jsonp';
+import {
+  FetcherConfig
+} from '@kcuf/fetcher-core';
+
+export interface IFetcherConfig extends FetcherConfig, JsonpOptions {}

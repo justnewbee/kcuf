@@ -34,8 +34,6 @@
     "@storybook/addon-links": "^10.4.6",
     "@storybook/react-vite": "^10.4.6",
     "@types/jsdom": "^28.0.3",
-    "@types/lodash": "^4.17.24",
-    "@types/qs": "^6.15.1",
     "@types/react": "^19.2.17",
     "@vitest/coverage-v8": "^4.1.9",
     "fetch-mock": "^12.6.0",
@@ -51,14 +49,10 @@
     "@babel/runtime": ">=7.0.0"
   },
   "dependencies": {
+    "@kcuf/fetcher-core": "workspace:^",
     "@kcuf/fetcher-fetch": "workspace:^",
-    "@kcuf/fetcher-helper-file": "workspace:^",
     "@kcuf/fetcher-jsonp": "workspace:^",
-    "@kcuf/fetcher-xhr": "workspace:^",
-    "@kcuf/json-stringify-ordered": "workspace:^",
-    "@kcuf/md5": "workspace:^",
-    "lodash": "^4.18.1",
-    "qs": "^6.15.3"
+    "@kcuf/fetcher-xhr": "workspace:^"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

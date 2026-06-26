@@ -2,14 +2,14 @@ import _isPlainObject from 'lodash/isPlainObject';
 
 import {
   FetcherErrorName,
-  FetcherConfig,
   FetcherInterceptResponseFulfilled,
   createFetcherError
-} from '@kcuf/fetcher';
+} from '@kcuf/fetcher-core';
 
 import {
   TResponseResult,
-  IFetcherInterceptBizOptions
+  IFetcherInterceptBizOptions,
+  IFetcherConfigX
 } from '../types';
 
 import isResponseSuccess from './is-response-success';
@@ -23,7 +23,7 @@ import getErrorMessage from './get-error-message';
  * 这里会判断业务是否成功，如果成功则返回从原屎返回中得出的真正的数据，如果失败在抛出 FetchErrorBiz。
  */
 export default function createInterceptorResponseFulfilled(options?: IFetcherInterceptBizOptions): FetcherInterceptResponseFulfilled {
-  return (o: unknown, config: FetcherConfig): unknown => {
+  return (o: unknown, config: IFetcherConfigX): unknown => {
     if (!_isPlainObject(o)) { // 绕过非对象，比如 Blob、ArrayBuffer 等
       return o;
     }
@@ -35,7 +35,9 @@ export default function createInterceptorResponseFulfilled(options?: IFetcherInt
       return getDataFromResponse(result, config.getData ?? options?.getData);
     }
     
-    throw createFetcherError(config, FetcherErrorName.BIZ, getErrorMessage(result, config.getMessage ?? options?.getMessage) || '', {
+    throw createFetcherError(config, {
+      name: FetcherErrorName.BIZ,
+      message: getErrorMessage(result, config.getMessage ?? options?.getMessage),
       code: getErrorCode(result, config.getCode ?? options?.getCode) || '__UNKNOWN__',
       title: getErrorTitle(result, config.getTitle ?? options?.getTitle)
     });

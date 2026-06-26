@@ -5,9 +5,7 @@ import {
 
 import isInstanceofBlob from './is-instanceof-blob';
 import mergeBody from './merge-body';
-import {
-  deserializeBody
-} from './serialize-body';
+import deserializeBody from './deserialize-body';
 
 export default function mergeConfigBody(config: IFetcherConfig, body?: TFetcherBody): void {
   if (!body) {

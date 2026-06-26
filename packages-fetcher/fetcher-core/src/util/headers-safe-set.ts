@@ -1,0 +1,13 @@
+import {
+  TFetcherHeadersNormalized
+} from '../types';
+
+import isInstanceofHeaders from './is-instanceof-headers';
+
+export default function headersSafeSet(headers: TFetcherHeadersNormalized, key: string, value: string): void {
+  if (isInstanceofHeaders(headers)) {
+    headers.set(key, value);
+  } else {
+    headers[key] = value;
+  }
+}

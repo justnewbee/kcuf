@@ -3,9 +3,8 @@ import _forEach from 'lodash/forEach';
 import {
   TFetcherHeaders
 } from '../types';
-import {
-  isInstanceofHeaders
-} from '../util';
+
+import isInstanceofHeaders from './is-instanceof-headers';
 
 export default function cloneTypeHeaders(o: TFetcherHeaders): Headers {
   const headers = new Headers();
