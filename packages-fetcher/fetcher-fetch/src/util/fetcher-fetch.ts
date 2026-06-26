@@ -59,7 +59,7 @@ export default function fetcherFetch(url: string, options: IFetchOptions = {}): 
   });
   
   return timeout > 0 ? new Promise<Response>((resolve, reject) => {
-    const theTimer = window.setTimeout(() => {
+    const theTimer = setTimeout(() => {
       reject(createError(EFetchErrorName.TIMEOUT, `fetcherFetch(${url}) timeout after ${timeout}ms`));
     }, timeout);
     

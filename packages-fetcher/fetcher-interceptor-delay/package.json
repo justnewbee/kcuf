@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-delay",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Fetcher interceptor that delays the request for testing purpose.",
   "keywords": [],
   "license": "MIT",
@@ -35,7 +35,7 @@
     "@babel/runtime": ">=7.0.0"
   },
   "dependencies": {
-    "@kcuf/fetcher": "workspace:^"
+    "@kcuf/fetcher-core": "workspace:^"
   },
   "scripts": {
     "build:clean": "rimraf dist",
