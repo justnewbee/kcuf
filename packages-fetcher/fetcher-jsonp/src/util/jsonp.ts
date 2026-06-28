@@ -27,7 +27,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
   let timeoutId: number | undefined;
   
   scriptElement.id = `jsonp-script-${jsonpCallbackFunction}`;
-  scriptElement.src = `${url}${url.indexOf('?') < 0 ? '?' : '&'}${jsonpCallback}=${jsonpCallbackFunction}`;
+  scriptElement.src = `${url}${!url.includes('?') ? '?' : '&'}${jsonpCallback}=${jsonpCallbackFunction}`;
   
   if (charset) {
     scriptElement.setAttribute('charset', charset);
@@ -46,7 +46,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
     
     // 清除 timeout
     if (timeoutId) {
-      window.clearTimeout(timeoutId);
+      clearTimeout(timeoutId);
       timeoutId = undefined;
     }
   }
@@ -78,7 +78,7 @@ export default function jsonp<T = void>(url = '', options: IJsonpOptions = {}): 
     
     // 异步事件 2：超时
     if (timeout > 0) {
-      timeoutId = window.setTimeout(() => {
+      timeoutId = setTimeout(() => {
         if (returned) {
           return;
         }

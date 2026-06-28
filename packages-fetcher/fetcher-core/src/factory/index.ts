@@ -1,18 +1,15 @@
 import {
-  TErrorNameNormalizer,
   IFetcher,
   IFetcherConfigDefault,
-  TFetcherJsonpArgs,
-  TFetcherGetArgs,
-  TFetcherPostArgs,
-  TFetcherParams,
-  TFetcherBody,
-  TFetcherAdapter
+  TFetcherAdapter,
+  TErrorNameNormalizer
 } from '../types';
 
 import FetcherCore from './fetcher-core';
-import requestWithNoBody from './request-with-no-body';
-import requestWithBody from './request-with-body';
+import createFnGet from './create-fn-get';
+import createFnGetWithAbort from './create-fn-get-with-abort';
+import createFnPost from './create-fn-post';
+import createFnPostWithAbort from './create-fn-post-with-abort';
 
 /**
  * Fetcher 工厂
@@ -25,30 +22,25 @@ export default function factory(fetcherAdapter: TFetcherAdapter, normalizeErrorN
   return (defaultConfig?: IFetcherConfigDefault): IFetcher => {
     const fetcher = new FetcherCore(fetcherAdapter, normalizeErrorName, defaultConfig);
     
-    const interceptRequest = fetcher.interceptRequest.bind(fetcher);
-    const interceptResponse = fetcher.interceptResponse.bind(fetcher);
-    const sealInterceptors = fetcher.sealInterceptors.bind(fetcher);
-    const request = fetcher.request.bind(fetcher);
-    
-    // 便捷方法
-    const jsonp = <T, P extends TFetcherParams>(...args: TFetcherJsonpArgs<P>): Promise<T> => requestWithNoBody<T, P>(fetcher, 'JSONP', args);
-    const get = <T, P extends TFetcherParams>(...args: TFetcherGetArgs<P>): Promise<T> => requestWithNoBody<T, P>(fetcher, 'GET', args);
-    const deleteFn = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TFetcherPostArgs<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'DELETE', args);
-    const post = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TFetcherPostArgs<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'POST', args);
-    const put = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TFetcherPostArgs<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'PUT', args);
-    const patch = <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TFetcherPostArgs<B, P>): Promise<T> => requestWithBody<T, B, P>(fetcher, 'PATCH', args);
-    
     return {
-      interceptRequest,
-      interceptResponse,
-      sealInterceptors,
-      request,
-      jsonp,
-      get,
-      delete: deleteFn,
-      post,
-      put,
-      patch
+      interceptRequest: fetcher.interceptRequest.bind(fetcher),
+      interceptResponse: fetcher.interceptResponse.bind(fetcher),
+      sealInterceptors: fetcher.sealInterceptors.bind(fetcher),
+      request: fetcher.request.bind(fetcher),
+      jsonp: createFnGet(fetcher, 'JSONP'),
+      get: createFnGet(fetcher, 'GET'),
+      post: createFnPost(fetcher, 'POST'),
+      put: createFnPost(fetcher, 'PUT'),
+      patch: createFnPost(fetcher, 'PATCH'),
+      delete: createFnPost(fetcher, 'DELETE'),
+      withAbort: {
+        jsonp: createFnGetWithAbort(fetcher, 'JSONP'),
+        get: createFnGetWithAbort(fetcher, 'GET'),
+        post: createFnPostWithAbort(fetcher, 'POST'),
+        put: createFnPostWithAbort(fetcher, 'PUT'),
+        patch: createFnPostWithAbort(fetcher, 'PATCH'),
+        delete: createFnPostWithAbort(fetcher, 'DELETE')
+      }
     };
   };
 }

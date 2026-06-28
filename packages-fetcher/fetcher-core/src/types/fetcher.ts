@@ -17,9 +17,12 @@ import {
   TFetcherInterceptResponseRejected
 } from './fetcher-interceptor';
 import {
-  IFetcherCallGetAlike,
-  IFetcherCallJsonp,
-  IFetcherCallPostAlike
+  IFetcherFnJsonp,
+  IFetcherFnJsonpWithAbort,
+  IFetcherFnGet,
+  IFetcherFnGetWithAbort,
+  IFetcherFnPost,
+  IFetcherFnPostWithAbort
 } from './fetcher-fn';
 
 /**
@@ -50,10 +53,18 @@ export interface IFetcherClass {
 }
 
 export interface IFetcher extends Pick<IFetcherClass, 'interceptRequest' | 'interceptResponse' | 'sealInterceptors' | 'request'> {
-  jsonp: IFetcherCallJsonp;
-  get: IFetcherCallGetAlike;
-  post: IFetcherCallPostAlike;
-  put: IFetcherCallPostAlike;
-  patch: IFetcherCallPostAlike;
-  delete: IFetcherCallPostAlike;
+  jsonp: IFetcherFnJsonp;
+  get: IFetcherFnGet;
+  post: IFetcherFnPost;
+  put: IFetcherFnPost;
+  patch: IFetcherFnPost;
+  delete: IFetcherFnPost;
+  withAbort: {
+    jsonp: IFetcherFnJsonpWithAbort;
+    get: IFetcherFnGetWithAbort;
+    post: IFetcherFnPostWithAbort;
+    put: IFetcherFnPostWithAbort;
+    patch: IFetcherFnPostWithAbort;
+    delete: IFetcherFnPostWithAbort;
+  };
 }

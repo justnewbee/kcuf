@@ -113,7 +113,7 @@ describe('fetcherFetch', () => {
   test('timeout', () => {
     expect(fetcherFetch('/api/timeout', {
       timeout: 100
-    })).rejects.toThrowError('fetcherFetch(/api/timeout) timeout after 100ms');
+    })).rejects.toThrowError('fetcher-fetch timeout, url = /api/timeout, timeout = 100ms');
     expect(fetcherFetch('/api/timeout', {
       timeout: 100
     })).rejects.toHaveProperty('name', FetchErrorName.TIMEOUT);

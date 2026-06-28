@@ -115,5 +115,4 @@ export interface IFetcherConfigQuickJsonp extends Omit<IFetcherConfig, 'url' | '
 /**
  * 其他便捷方法，如果第一个参数为对象，则为 config
  */
-/*  | 'charset' | 'jsonpCallback' | 'jsonpCallbackFunction' */
 export interface IFetcherConfigQuick extends Omit<IFetcherConfig, 'url' | 'method' | '_hash' | '_timeStarted' | '_byInterceptor'> {}

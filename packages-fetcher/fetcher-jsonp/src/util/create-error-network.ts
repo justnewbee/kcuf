@@ -5,5 +5,5 @@ import {
 import createError from './create-error';
 
 export default function createErrorNetwork(url: string): Error {
-  return createError(EJsonpErrorName.NETWORK, `Jsonp network failure, url = ${url}`);
+  return createError(EJsonpErrorName.NETWORK, `fetcher-jsonp network failure, url = ${url}`);
 }

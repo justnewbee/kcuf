@@ -1,3 +1,3 @@
 # @kcuf/fetcher-factory
 
-> 上传下载通用帮助方法
+Web 端 Fetcher 工厂方法

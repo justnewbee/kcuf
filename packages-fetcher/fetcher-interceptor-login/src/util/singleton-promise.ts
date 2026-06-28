@@ -1,6 +1,6 @@
 import {
   cloneResponseData
-} from '@kcuf/fetcher';
+} from '@kcuf/fetcher-core';
 import messenger from '@kcuf/messenger';
 
 import {

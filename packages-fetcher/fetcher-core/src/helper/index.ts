@@ -16,5 +16,6 @@ export {
   cloneTypeFormData,
   cloneTypeHeaders,
   cloneTypeUrlSearchParams,
-  createFetcherError
+  createFetcherError,
+  buildUrl
 } from '../util';

@@ -1,9 +1,3 @@
-import unfetch from 'unfetch';
-
-import {
-  getWindow
-} from '@kcuf/sandbox-escape';
-
 import {
   EFetchErrorName
 } from '../enum';
@@ -11,7 +5,9 @@ import {
   IFetchOptions
 } from '../types';
 
-import createError from './create-error';
+import getFetch from './get-fetch';
+import createErrorTimeout from './create-error-timeout';
+import createErrorNetwork from './create-error-network';
 
 /**
  * 「几乎」纯生的 fetch，增加 timeout
@@ -44,31 +40,32 @@ export default function fetcherFetch(url: string, options: IFetchOptions = {}): 
     ...fetchOptions
   } = options;
   
-  // 使用 iframe about:blank 做 sandbox 的时候会有这种情况，需要用顶层 fetch，否则 referrer 会是空
-  const fetch = getWindow().fetch || unfetch as unknown as WindowOrWorkerGlobalScope['fetch'];
-  const promise = fetch(url, fetchOptions as RequestInit).catch(err => {
+  const fetch = getFetch();
+  const promise = fetch(url, fetchOptions as RequestInit).catch((err: unknown) => {
+    const error = err as Error;
+    
     // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
     // https://javascript.info/fetch-abort
-    if (err.name === 'AbortError' || err.name === EFetchErrorName.TIMEOUT) {
-      throw err;
+    if (error.name === 'AbortError' || error.name === EFetchErrorName.TIMEOUT as string) {
+      throw error;
     }
     
     // URL 不存在或者请求过程被中断（例如刷新页面）会发生此类错误
     // TypeError: NetworkError when attempting to fetch resource.
-    throw createError(EFetchErrorName.NETWORK, err.message);
+    throw createErrorNetwork(url, error.message);
   });
   
   return timeout > 0 ? new Promise<Response>((resolve, reject) => {
     const theTimer = setTimeout(() => {
-      reject(createError(EFetchErrorName.TIMEOUT, `fetcherFetch(${url}) timeout after ${timeout}ms`));
+      reject(createErrorTimeout(url, timeout));
     }, timeout);
     
     promise.then((response: Response) => {
       clearTimeout(theTimer);
       resolve(response);
-    }, err => {
+    }, (err: unknown) => {
       clearTimeout(theTimer);
-      reject(err);
+      reject(err as Error); // eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
     });
   }) : promise;
 }

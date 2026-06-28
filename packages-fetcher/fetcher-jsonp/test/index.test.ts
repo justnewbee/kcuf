@@ -56,7 +56,7 @@ describe('fetcherJsonp', () => {
   test('404 will always timeout', () => {
     expect(fetcherJsonp('/api/404', {
       timeout: 100
-    })).rejects.toThrowError('Jsonp timeout, url = /api/404, timeout = 100ms');
+    })).rejects.toThrowError('fetcher-jsonp timeout, url = /api/404, timeout = 100ms');
     expect(fetcherJsonp('/api/404', {
       timeout: 100
     })).rejects.toHaveProperty('name', 'JsonpError.Timeout');
@@ -112,7 +112,7 @@ describe('fetcherJsonp', () => {
       signal: abortController.signal
     });
     
-    expect(promise).rejects.toThrowError('Jsonp aborted, url = /api/abort');
+    expect(promise).rejects.toThrowError('fetcher-jsonp abort, url = /api/abort');
     expect(promise).rejects.toHaveProperty('name', 'AbortError');
     
     abortController.abort();

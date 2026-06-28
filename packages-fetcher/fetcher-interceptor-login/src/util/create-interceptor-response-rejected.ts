@@ -6,10 +6,10 @@ import {
   FetcherCallRequest,
   FetcherInterceptResponseRejected,
   deleteConfigHeaders
-} from '@kcuf/fetcher';
+} from '@kcuf/fetcher-core';
 
 import {
-  ICreateInterceptorOptions
+  IInterceptLoginOptions
 } from '../types';
 
 import singletonPromise from './singleton-promise';
@@ -18,7 +18,7 @@ export default function createInterceptorResponseRejected({
   needLogin,
   doLogin,
   headerKeys
-}: ICreateInterceptorOptions): FetcherInterceptResponseRejected {
+}: IInterceptLoginOptions): FetcherInterceptResponseRejected {
   const singletonLogin = singletonPromise(doLogin);
   
   return (error: FetcherError, fetcherConfig: FetcherConfig, _: FetcherResponse | undefined, requestByInterceptor: FetcherCallRequest) => {

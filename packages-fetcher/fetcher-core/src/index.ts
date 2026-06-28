@@ -16,10 +16,10 @@ export type {
   TFetcherHeadersNormalized as FetcherHeadersNormalized,
   TFetcherBodyNormalized as FetcherBodyNormalized,
   // method
-  TFetcherCallRequest as FetcherCallRequest,
-  IFetcherCallJsonp as FetcherCallJsonp,
-  IFetcherCallGetAlike as FetcherCallGet,
-  IFetcherCallPostAlike as FetcherCallPost,
+  TFetcherFnRequest as FetcherCallRequest,
+  IFetcherFnJsonp as FetcherCallJsonp,
+  IFetcherFnGet as FetcherCallGet,
+  IFetcherFnPost as FetcherCallPost,
   // interceptor
   TFetcherInterceptRequest as FetcherInterceptRequest,
   TFetcherInterceptRequestReturn as FetcherInterceptRequestReturn,

@@ -16,6 +16,9 @@ export { default as cloneTypeFormData } from './clone-type-form-data';
 export { default as cloneTypeHeaders } from './clone-type-headers';
 export { default as cloneTypeUrlSearchParams } from './clone-type-url-search-params';
 
+export { default as parseArgsGet } from './parse-args-get';
+export { default as parseArgsPost } from './parse-args-post';
+
 export { default as buildUrl } from './build-url';
 export { default as mergeConfig } from './merge-config';
 export { default as createFetcherError } from './create-fetcher-error';
