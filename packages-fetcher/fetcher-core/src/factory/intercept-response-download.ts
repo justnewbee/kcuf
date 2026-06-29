@@ -11,6 +11,8 @@ import {
   IFetcherResponse
 } from '../types';
 import {
+  isInstanceofBlob,
+  isInstanceofArrayBuffer,
   getDownloadFilename
 } from '../util';
 
@@ -19,11 +21,11 @@ export default function interceptResponseDownload(o: unknown, config: IFetcherCo
     return o;
   }
   
-  if (o instanceof Blob && config.responseType === EFetcherResponseType.BLOB_DOWNLOAD) {
+  if (isInstanceofBlob(o) && config.responseType === EFetcherResponseType.BLOB_DOWNLOAD) {
     downloadBlob(o, getDownloadFilename(config, fetcherResponse));
   }
   
-  if (o instanceof ArrayBuffer && config.responseType === EFetcherResponseType.ARRAY_BUFFER_DOWNLOAD) {
+  if (isInstanceofArrayBuffer(o) && config.responseType === EFetcherResponseType.ARRAY_BUFFER_DOWNLOAD) {
     downloadArrayBuffer(o, getDownloadFilename(config, fetcherResponse));
   }
   
