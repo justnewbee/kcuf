@@ -1,5 +1,7 @@
 # @kcuf/fetcher
 
+The Fetcher with web transport.
+
 ## Base
 
 * `@kcuf/fetcher-fetch`
