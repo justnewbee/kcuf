@@ -6,14 +6,18 @@ export { default as isInstanceofUrlSearchParams } from './is-instanceof-url-sear
 
 export { default as isConfigCors } from './is-config-cors';
 export { default as isConfigJsonp } from './is-config-jsonp';
-export { default as isConfigAllowBody } from './is-config-allow-body';
 
-export { default as getFilenameFromResponseHeaders } from './get-filename-from-response-headers';
 export { default as getHeadersAndBodyFromConfig } from './get-headers-and-body-from-config';
 export { default as getHashFromConfig } from './get-hash-from-config';
+export { default as getDownloadFilename } from './get-download-filename';
 
-export { default as cloneTypeFormData } from './clone-type-form-data';
+export { default as normalizeHeaders } from './headers-normalize';
+export { default as headersSafeDelete } from './headers-safe-delete';
+export { default as headersSafeGet } from './headers-safe-get';
+export { default as headersSafeSet } from './headers-safe-set';
+
 export { default as cloneTypeHeaders } from './clone-type-headers';
+export { default as cloneTypeFormData } from './clone-type-form-data';
 export { default as cloneTypeUrlSearchParams } from './clone-type-url-search-params';
 
 export { default as parseArgsGet } from './parse-args-get';

@@ -11,7 +11,7 @@ import {
   IFetcherResponse
 } from '../types';
 import {
-  getFilenameFromResponseHeaders
+  getDownloadFilename
 } from '../util';
 
 export default function interceptResponseDownload(o: unknown, config: IFetcherConfig, fetcherResponse?: IFetcherResponse): unknown {
@@ -20,11 +20,11 @@ export default function interceptResponseDownload(o: unknown, config: IFetcherCo
   }
   
   if (o instanceof Blob && config.responseType === EFetcherResponseType.BLOB_DOWNLOAD) {
-    downloadBlob(o, config.downloadName || getFilenameFromResponseHeaders(fetcherResponse));
+    downloadBlob(o, getDownloadFilename(config, fetcherResponse));
   }
   
   if (o instanceof ArrayBuffer && config.responseType === EFetcherResponseType.ARRAY_BUFFER_DOWNLOAD) {
-    downloadArrayBuffer(o, config.downloadName || getFilenameFromResponseHeaders(fetcherResponse));
+    downloadArrayBuffer(o, getDownloadFilename(config, fetcherResponse));
   }
   
   return o;

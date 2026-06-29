@@ -11,7 +11,7 @@ import isInstanceofUrlSearchParams from './is-instanceof-url-search-params';
 import isConfigAllowBody from './is-config-allow-body';
 import serializeBody from './serialize-body';
 import cloneTypeHeaders from './clone-type-headers';
-import normalizeHeaders from './normalize-headers';
+import headersNormalize from './headers-normalize';
 import headersSafeGet from './headers-safe-get';
 import headersSafeSet from './headers-safe-set';
 import headersSafeDelete from './headers-safe-delete';
@@ -69,7 +69,7 @@ import headersSafeDelete from './headers-safe-delete';
  * ```
  */
 export default function getHeadersAndBodyFromConfig(config: IFetcherConfig): [TFetcherHeadersNormalized, TFetcherBodyNormalized] {
-  const headers = isInstanceofHeaders(config.headers) ? cloneTypeHeaders(config.headers) : normalizeHeaders(config.headers);
+  const headers = isInstanceofHeaders(config.headers) ? cloneTypeHeaders(config.headers) : headersNormalize(config.headers);
   const body = config.body;
   
   if (!isConfigAllowBody(config)) {

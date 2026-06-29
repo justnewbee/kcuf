@@ -13,6 +13,7 @@ export {
   isInstanceofHeaders,
   isInstanceofUrlSearchParams,
   isConfigJsonp,
+  normalizeHeaders,
   cloneTypeFormData,
   cloneTypeHeaders,
   cloneTypeUrlSearchParams,
