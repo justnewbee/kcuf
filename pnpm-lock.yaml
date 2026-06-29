@@ -1445,24 +1445,12 @@ importers:
       '@babel/preset-typescript':
         specifier: ^7.29.7
         version: 7.29.7(@babel/core@7.29.7)
-      '@kcuf/demo-rc':
-        specifier: workspace:^
-        version: link:../../packages-demo/demo-rc
       '@kcuf/ts-config':
         specifier: workspace:^
         version: link:../../packages-config/ts-config
-      '@types/react':
-        specifier: ^19.2.17
-        version: 19.2.17
-      react:
-        specifier: ^19.2.7
-        version: 19.2.7
       rimraf:
         specifier: ^6.1.3
         version: 6.1.3
-      styled-components:
-        specifier: ^6.4.3
-        version: 6.4.3(css-to-react-native@3.2.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
@@ -1618,15 +1606,9 @@ importers:
       '@kcuf/fetcher-interceptor-cache-local':
         specifier: workspace:^
         version: link:../fetcher-interceptor-cache-local
-      '@kcuf/fetcher-interceptor-delay':
-        specifier: workspace:^
-        version: link:../fetcher-interceptor-delay
       '@kcuf/fetcher-interceptor-login':
         specifier: workspace:^
         version: link:../fetcher-interceptor-login
-      '@kcuf/fetcher-interceptor-merging':
-        specifier: workspace:^
-        version: link:../fetcher-interceptor-merging
       '@kcuf/fetcher-interceptor-sls':
         specifier: workspace:^
         version: link:../fetcher-interceptor-sls
@@ -1664,9 +1646,6 @@ importers:
       '@storybook/react-vite':
         specifier: ^10.4.6
         version: 10.4.6(@types/react-dom@19.2.3(@types/react@19.2.17))(@types/react@19.2.17)(esbuild@0.27.2)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(rollup@4.57.0)(storybook@10.4.6(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(@testing-library/dom@10.4.1)(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(typescript@6.0.3)(vite@7.3.1(@types/node@26.0.1)(jiti@2.6.1)(less@4.6.7)(sass@1.101.0)(terser@5.46.0)(yaml@2.9.0))(webpack@5.104.1(esbuild@0.27.2))
-      '@types/lodash':
-        specifier: ^4.17.24
-        version: 4.17.24
       '@types/react':
         specifier: ^19.2.17
         version: 19.2.17
@@ -2009,9 +1988,6 @@ importers:
       '@kcuf/fetcher-core':
         specifier: workspace:^
         version: link:../fetcher-core
-      '@kcuf/sandbox-escape':
-        specifier: workspace:^
-        version: link:../../packages-dom/sandbox-escape
     devDependencies:
       '@babel/cli':
         specifier: ^7.29.7

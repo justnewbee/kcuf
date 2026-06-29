@@ -12,14 +12,13 @@ import {
 import {
   createFetcher
 } from '@kcuf/fetcher';
-
 import interceptCacheLocal from '@kcuf/fetcher-interceptor-cache-local';
 
 const fetcher = createFetcher();
 
 interceptCacheLocal(fetcher);
 
-export default function StoryCacheLocal(): ReactElement {
+export default function StoryInterceptorCacheLocal(): ReactElement {
   const [stateCacheLocal, setStateCacheLocal] = useState<boolean>(true);
   const [statePromise, setStatePromise] = useState<Promise<unknown> | null>(null);
   

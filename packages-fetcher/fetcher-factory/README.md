@@ -7,7 +7,6 @@
 * `@kcuf/fetcher-interceptor-biz`
 * `@kcuf/fetcher-interceptor-cache-local`
 * `@kcuf/fetcher-interceptor-merging` 💥 与 Login 冲突，暂不开启
-* `@kcuf/fetcher-interceptor-delay`
 * `@kcuf/fetcher-interceptor-login`
 * `@kcuf/fetcher-interceptor-sls`
 

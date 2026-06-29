@@ -19,7 +19,7 @@ interceptBiz(fetcher, {
   isSuccess: o => o.code === 0
 });
 
-export default function StoryInterceptBiz(): ReactElement {
+export default function StoryInterceptorBiz(): ReactElement {
   const [statePromise, setStatePromise] = useState<Promise<unknown> | null>(null);
   
   const handleJsonp = useCallback(() => {
