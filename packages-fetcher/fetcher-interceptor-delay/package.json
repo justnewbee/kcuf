@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-delay",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Fetcher interceptor that delays the request for testing purpose.",
   "keywords": [],
   "license": "MIT",

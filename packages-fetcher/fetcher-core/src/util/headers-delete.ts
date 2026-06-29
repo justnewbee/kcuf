@@ -4,7 +4,7 @@ import {
 
 import isInstanceofHeaders from './is-instanceof-headers';
 
-export default function headersSafeDelete(headers: TFetcherHeadersNormalized, key: string): void {
+export default function headersDelete(headers: TFetcherHeadersNormalized, key: string): void {
   if (isInstanceofHeaders(headers)) {
     headers.delete(key);
   } else {

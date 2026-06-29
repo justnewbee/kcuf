@@ -12,9 +12,9 @@ import isConfigAllowBody from './is-config-allow-body';
 import serializeBody from './serialize-body';
 import cloneTypeHeaders from './clone-type-headers';
 import headersNormalize from './headers-normalize';
-import headersSafeGet from './headers-safe-get';
-import headersSafeSet from './headers-safe-set';
-import headersSafeDelete from './headers-safe-delete';
+import headersGet from './headers-get';
+import headersSet from './headers-set';
+import headersDelete from './headers-delete';
 
 /**
  * 处理 headers 和 body
@@ -78,8 +78,8 @@ export default function getHeadersAndBodyFromConfig(config: IFetcherConfig): [TF
   
   if (body) {
     if (typeof body === 'string') {
-      if (!headersSafeGet(headers, 'Content-Type')) {
-        headersSafeSet(headers, 'Content-Type', 'application/x-www-form-urlencoded');
+      if (!headersGet(headers, 'Content-Type')) {
+        headersSet(headers, 'Content-Type', 'application/x-www-form-urlencoded');
       }
       
       return [headers, body];
@@ -87,20 +87,20 @@ export default function getHeadersAndBodyFromConfig(config: IFetcherConfig): [TF
     
     // URLSearchParams FormData Blob 需要删除 Content-Type
     if (isInstanceofUrlSearchParams(body) || isInstanceofFormData(body) || isInstanceofBlob(body)) {
-      headersSafeDelete(headers, 'Content-Type');
+      headersDelete(headers, 'Content-Type');
       
       return [headers, body];
     }
     
-    if (headersSafeGet(headers, 'Content-Type') === 'application/json') {
+    if (headersGet(headers, 'Content-Type') === 'application/json') {
       return [headers, JSON.stringify(body)];
     }
     
-    headersSafeSet(headers, 'Content-Type', 'application/x-www-form-urlencoded');
+    headersSet(headers, 'Content-Type', 'application/x-www-form-urlencoded');
     
     return [headers, serializeBody(body, config.serializeBody)];
   }
   
   // JSON 的时候不传 body 可能导致后端抛错
-  return [headers, headersSafeGet(headers, 'Content-Type') === 'application/json' ? '{}' : null];
+  return [headers, headersGet(headers, 'Content-Type') === 'application/json' ? '{}' : null];
 }

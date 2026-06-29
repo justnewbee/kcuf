@@ -11,10 +11,10 @@ export { default as getHeadersAndBodyFromConfig } from './get-headers-and-body-f
 export { default as getHashFromConfig } from './get-hash-from-config';
 export { default as getDownloadFilename } from './get-download-filename';
 
-export { default as normalizeHeaders } from './headers-normalize';
-export { default as headersSafeDelete } from './headers-safe-delete';
-export { default as headersSafeGet } from './headers-safe-get';
-export { default as headersSafeSet } from './headers-safe-set';
+export { default as headersNormalize } from './headers-normalize';
+export { default as headersGet } from './headers-get';
+export { default as headersSet } from './headers-set';
+export { default as headersDelete } from './headers-delete';
 
 export { default as cloneTypeHeaders } from './clone-type-headers';
 export { default as cloneTypeFormData } from './clone-type-form-data';

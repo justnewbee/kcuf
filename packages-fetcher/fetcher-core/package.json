@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-core",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Fetcher core without real network transport.",
   "keywords": [],
   "license": "MIT",
