@@ -3,7 +3,7 @@ import {
 } from '@kcuf/fetcher-core';
 
 import {
-  IInterceptLoginOptions
+  IFetcherInterceptorLoginOptions
 } from './types';
 import {
   createInterceptorResponseRejected
@@ -17,12 +17,12 @@ import {
  * 1. 多个请求时，只有第一个可以（要求优先级比 merging 高）
  * 2. 出错后，登录，成功，然无法成功（要求优先级比 merging 低）
  */
-export default function interceptLogin(fetcher: Fetcher, options: IInterceptLoginOptions, priority = 40): () => void {
+export default function interceptLogin(fetcher: Fetcher, options: IFetcherInterceptorLoginOptions, priority = 40): () => void {
   return fetcher.interceptResponse(undefined, createInterceptorResponseRejected(options), priority);
 }
 
 export * from './helper';
 
 export type {
-  IInterceptLoginOptions as InterceptLoginOptions
+  IFetcherInterceptorLoginOptions as FetcherInterceptorLoginOptions
 } from './types';

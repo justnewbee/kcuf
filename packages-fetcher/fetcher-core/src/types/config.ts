@@ -103,6 +103,11 @@ export interface IFetcherConfig {
 }
 
 /**
+ * 允许拦截器对 FetcherConfig 进行扩展，在便捷方法和拦截器上可以安全使用扩展后的属性
+ */
+export type TFetcherConfigX<X = object> = IFetcherConfig & X;
+
+/**
  * `new Fetcher` 时的 config，用于定义默认值，在执行请求时，将被传入的 config 混合
  */
 export interface IFetcherConfigDefault extends Pick<IFetcherConfig, 'timeout' | 'urlBase' | 'headers' | 'serializeParams' | 'serializeBody' | 'responseType'> {}
@@ -110,9 +115,9 @@ export interface IFetcherConfigDefault extends Pick<IFetcherConfig, 'timeout' | 
 /**
  * 便捷 JSONP 方法，如果第一个参数为对象，则为 config
  */
-export interface IFetcherConfigQuickJsonp extends Omit<IFetcherConfig, 'url' | 'method' | '_hash' | '_timeStarted' | '_byInterceptor'> {}
+export type TFetcherConfigQuickJsonp<X = object> = Omit<IFetcherConfig, 'url' | 'method' | '_hash' | '_timeStarted' | '_byInterceptor'> & X;
 
 /**
  * 其他便捷方法，如果第一个参数为对象，则为 config
  */
-export interface IFetcherConfigQuick extends Omit<IFetcherConfig, 'url' | 'method' | '_hash' | '_timeStarted' | '_byInterceptor'> {}
+export type TFetcherConfigQuick<X = object> = Omit<IFetcherConfig, 'url' | 'method' | '_hash' | '_timeStarted' | '_byInterceptor'> & X;

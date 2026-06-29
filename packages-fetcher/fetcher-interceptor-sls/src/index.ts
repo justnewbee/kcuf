@@ -7,7 +7,7 @@ import {
 import createLogger from '@kcuf/sls-logger-web';
 
 import {
-  IInterceptSlsOptions
+  IFetcherInterceptorSlsOptions
 } from './types';
 
 const FLATTEN_DIRECT = ['request.headers', 'request.body', 'response.headers', 'response.data'];
@@ -16,7 +16,7 @@ function getDuration(config: FetcherConfig): number {
   return config._timeStarted ? Date.now() - config._timeStarted : -1;
 }
 
-export default function interceptSls(fetcher: Fetcher, options: IInterceptSlsOptions, priority = 50): () => void {
+export default function interceptSls(fetcher: Fetcher, options: IFetcherInterceptorSlsOptions, priority = 50): () => void {
   const {
     topicSuccess = 'fetcher_success',
     topicError = 'fetcher_error',
@@ -58,5 +58,5 @@ export default function interceptSls(fetcher: Fetcher, options: IInterceptSlsOpt
 }
 
 export type {
-  IInterceptSlsOptions as FetcherInterceptorSlsOptions
+  IFetcherInterceptorSlsOptions as FetcherInterceptorSlsOptions
 } from './types';

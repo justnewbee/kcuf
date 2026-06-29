@@ -10,7 +10,7 @@ import {
   parseArgsGet
 } from '../util';
 
-export default function createFnGetWithAbort(fetcher: IFetcherClass, method: 'GET' | 'JSONP'): IFetcherFnGetWithAbort {
+export default function createFnGetWithAbort<X = object>(fetcher: IFetcherClass, method: 'GET' | 'JSONP'): IFetcherFnGetWithAbort<X> {
   return <T, P extends TFetcherParams>(...args: TFetcherArgsJsonp<P>): IPromiseWithAbort<T> => {
     const [config, url, params] = parseArgsGet(args);
     const abortController = new AbortController();

@@ -8,13 +8,14 @@ export {
 
 export type {
   IFetcher as Fetcher,
+  // common
+  TFetcherHeadersNormalized as FetcherHeadersNormalized,
+  TFetcherBodyNormalized as FetcherBodyNormalized,
   // config
   IFetcherConfig as FetcherConfig,
   IFetcherConfigDefault as FetcherConfigDefault,
-  IFetcherConfigQuickJsonp as FetcherConfigQuickJsonp,
-  IFetcherConfigQuick as FetcherConfigQuick,
-  TFetcherHeadersNormalized as FetcherHeadersNormalized,
-  TFetcherBodyNormalized as FetcherBodyNormalized,
+  TFetcherConfigQuickJsonp as FetcherConfigQuickJsonp,
+  TFetcherConfigQuick as FetcherConfigQuick,
   // method
   TFetcherFnRequest as FetcherCallRequest,
   IFetcherFnJsonp as FetcherCallJsonp,

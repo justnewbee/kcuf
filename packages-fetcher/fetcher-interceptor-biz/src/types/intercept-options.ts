@@ -2,4 +2,4 @@ import {
   IFetcherConfigBiz
 } from './fetcher-config';
 
-export interface IInterceptBizOptions extends IFetcherConfigBiz {}
+export interface IFetcherInterceptorBizOptions extends IFetcherConfigBiz {}

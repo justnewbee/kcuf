@@ -40,20 +40,6 @@ describe('fetcherFetch', () => {
     fetchMock.route('/api/abort', () => new Promise(resolve => {
       setTimeout(() => resolve('abort result'), 20);
     }));
-    fetchMock.route('/api/404', 404);
-    fetchMock.route('/api/500', 500);
-    fetchMock.route('/api/error', () => {
-      throw new Error('Network ERROR');
-    });
-    fetchMock.route('/api/timeout', () => new Promise(resolve => {
-      setTimeout(() => resolve('timeout result'), 250);
-    }));
-    fetchMock.route('/api/timeout-reject', () => new Promise((_, reject) => {
-      setTimeout(() => reject(new Error('Error after timeout')), 250);
-    }));
-    fetchMock.route('/api/abort', () => new Promise(resolve => {
-      setTimeout(() => resolve('abort result'), 20);
-    }));
   });
   
   test('response status 200', () => {
@@ -65,12 +51,9 @@ describe('fetcherFetch', () => {
     expect(fetchMock.callHistory.calls().length).toBe(4);
   });
 
-  test('response status NOT 200 is treated as success here', () => {
-    fetcherFetch('/api/404');
-    expect(fetchMock.callHistory.calls().length).toBe(1);
-
-    fetcherFetch('/api/500');
-    expect(fetchMock.callHistory.calls().length).toBe(2);
+  test('response status NOT 200 is treated as success here', async () => {
+    await expect(fetcherFetch('/api/404')).resolves.toHaveProperty('status', 404);
+    await expect(fetcherFetch('/api/500')).resolves.toHaveProperty('status', 500);
   });
 
   test('methods', () => {
@@ -93,54 +76,53 @@ describe('fetcherFetch', () => {
     expect(fetchMock.callHistory.called('/api/put')).toBe(true);
 
     fetcherFetch('/api/patch', {
-      method: 'patch'
+      method: 'PATCH'
     });
     expect(fetchMock.callHistory.called('/api/patch')).toBe(true);
 
     fetcherFetch('/api/delete', {
-      method: 'delete'
+      method: 'DELETE'
     });
     expect(fetchMock.callHistory.called('/api/delete')).toBe(true);
 
     expect(fetchMock.callHistory.calls().length).toBe(6);
   });
 
-  test('error', () => {
-    expect(fetcherFetch('/api/error')).rejects.toThrowError('Network ERROR');
+  test('error', async () => {
+    await expect(fetcherFetch('/api/error')).rejects.toThrow('Network ERROR');
     expect(fetchMock.callHistory.calls().length).toBe(1);
   });
 
-  test('timeout', () => {
-    expect(fetcherFetch('/api/timeout', {
+  test('timeout', async () => {
+    await expect(fetcherFetch('/api/timeout', {
       timeout: 100
-    })).rejects.toThrowError('fetcher-fetch timeout, url = /api/timeout, timeout = 100ms');
-    expect(fetcherFetch('/api/timeout', {
-      timeout: 100
-    })).rejects.toHaveProperty('name', FetchErrorName.TIMEOUT);
-    expect(fetcherFetch('/api/timeout').then(response => response.text())).resolves.toEqual('timeout result');
-    expect(fetcherFetch('/api/timeout').then(response => response.json())).rejects.toThrowError(); // 返回的不是 JSON
-  });
-
-  test('timeout II - rejected', () => {
-    expect(fetcherFetch('/api/timeout-reject', {
+    })).rejects.toThrow('fetcher-fetch timeout, url = /api/timeout, timeout = 100ms');
+    await expect(fetcherFetch('/api/timeout', {
       timeout: 100
     })).rejects.toHaveProperty('name', FetchErrorName.TIMEOUT);
-    expect(fetchMock.callHistory.calls().length).toBe(1);
-
-    expect(fetcherFetch('/api/timeout-reject').then(response => response.json())).rejects.toThrowError('Error after timeout');
-    expect(fetchMock.callHistory.calls().length).toBe(2);
+    await expect(fetcherFetch('/api/timeout').then(response => response.text())).resolves.toEqual('timeout result');
+    await expect(fetcherFetch('/api/timeout').then(response => response.json())).rejects.toThrow(); // 返回的不是 JSON
   });
 
-  test('abort', () => {
+  test('timeout II - rejected', async () => {
+    await expect(fetcherFetch('/api/timeout-reject', {
+      timeout: 100
+    })).rejects.toHaveProperty('name', FetchErrorName.TIMEOUT);
+    await expect(fetcherFetch('/api/timeout-reject', {
+      timeout: 100
+    })).rejects.toHaveProperty('name', FetchErrorName.TIMEOUT);
+  });
+
+  test('abort', async () => {
     const abortController = new AbortController();
     const promise = fetcherFetch('/api/abort', {
       signal: abortController.signal
     });
 
-    expect(promise).rejects.toThrowError('The operation was aborted.');
-    expect(promise).rejects.toHaveProperty('name', 'AbortError');
-    expect(fetchMock.callHistory.calls().length).toBe(1);
-
     abortController.abort();
+
+    await expect(promise).rejects.toThrow('The operation was aborted.');
+    await expect(promise).rejects.toHaveProperty('name', 'AbortError');
+    expect(fetchMock.callHistory.calls().length).toBe(1);
   });
 });

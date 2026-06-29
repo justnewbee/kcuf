@@ -9,7 +9,7 @@ import {
   parseArgsGet
 } from '../util';
 
-export default function createFnGet(fetcher: IFetcherClass, method: 'GET' | 'JSONP'): IFetcherFnGet {
+export default function createFnGet<X = object>(fetcher: IFetcherClass, method: 'GET' | 'JSONP'): IFetcherFnGet<X> {
   return <T, P extends TFetcherParams>(...args: TFetcherArgsJsonp<P>): Promise<T> => {
     const [config, url, params] = parseArgsGet(args);
     

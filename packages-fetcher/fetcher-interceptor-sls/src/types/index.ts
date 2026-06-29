@@ -2,7 +2,7 @@ import {
   CreateLoggerOptions
 } from '@kcuf/sls-logger-web';
 
-export interface IInterceptSlsOptions extends CreateLoggerOptions {
+export interface IFetcherInterceptorSlsOptions extends CreateLoggerOptions {
   topicSuccess?: string;
   topicError?: string;
 }

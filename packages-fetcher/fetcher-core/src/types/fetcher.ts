@@ -1,5 +1,5 @@
 import {
-  IFetcherConfig
+  TFetcherConfigX
 } from './config';
 import {
   TFetcherHeadersNormalized
@@ -28,13 +28,13 @@ import {
 /**
  * 真正调用 adapter 执行网络请求前，Fetcher 会处理好完整的请求地址、标准的 Headers 和标准的 body（有的话），adapter 只需要安心使用即可
  */
-export type TFetcherAdapter = <T>(url: string, headers: TFetcherHeadersNormalized, body: TFetcherBodyNormalized, config: IFetcherConfig) => Promise<IFetcherResponse<T>>;
+export type TFetcherAdapter = <T>(url: string, headers: TFetcherHeadersNormalized, body: TFetcherBodyNormalized, config: TFetcherConfigX) => Promise<IFetcherResponse<T>>;
 
-export interface IFetcherClass {
+export interface IFetcherClass<X = object> {
   /**
    * 发送请求：前置请求拦截器 → 网络请求 → 后置响应拦截器
    */
-  request<T = unknown>(config: IFetcherConfig): Promise<T>;
+  request<T = unknown>(config: TFetcherConfigX<X>): Promise<T>;
   
   /**
    * 添加「预设」请求拦截器，返回解除拦截的无参方法
@@ -52,19 +52,19 @@ export interface IFetcherClass {
   sealInterceptors(requestSealed?: boolean, responseSealed?: boolean): void;
 }
 
-export interface IFetcher extends Pick<IFetcherClass, 'interceptRequest' | 'interceptResponse' | 'sealInterceptors' | 'request'> {
-  jsonp: IFetcherFnJsonp;
-  get: IFetcherFnGet;
-  post: IFetcherFnPost;
-  put: IFetcherFnPost;
-  patch: IFetcherFnPost;
-  delete: IFetcherFnPost;
+export interface IFetcher<X = object> extends Pick<IFetcherClass<X>, 'interceptRequest' | 'interceptResponse' | 'sealInterceptors' | 'request'> {
+  jsonp: IFetcherFnJsonp<X>;
+  get: IFetcherFnGet<X>;
+  post: IFetcherFnPost<X>;
+  put: IFetcherFnPost<X>;
+  patch: IFetcherFnPost<X>;
+  delete: IFetcherFnPost<X>;
   withAbort: {
-    jsonp: IFetcherFnJsonpWithAbort;
-    get: IFetcherFnGetWithAbort;
-    post: IFetcherFnPostWithAbort;
-    put: IFetcherFnPostWithAbort;
-    patch: IFetcherFnPostWithAbort;
-    delete: IFetcherFnPostWithAbort;
+    jsonp: IFetcherFnJsonpWithAbort<X>;
+    get: IFetcherFnGetWithAbort<X>;
+    post: IFetcherFnPostWithAbort<X>;
+    put: IFetcherFnPostWithAbort<X>;
+    patch: IFetcherFnPostWithAbort<X>;
+    delete: IFetcherFnPostWithAbort<X>;
   };
 }

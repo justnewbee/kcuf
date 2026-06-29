@@ -51,7 +51,6 @@
     "@kcuf/fetcher-interceptor-cache-local": "workspace:^",
     "@kcuf/fetcher-interceptor-delay": "workspace:^",
     "@kcuf/fetcher-interceptor-login": "workspace:^",
-    "@kcuf/fetcher-interceptor-merging": "workspace:^",
     "@kcuf/fetcher-interceptor-sls": "workspace:^"
   },
   "scripts": {

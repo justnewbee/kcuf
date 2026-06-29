@@ -1,5 +1,6 @@
 import {
-  IFetcherConfig
+  IFetcherConfig,
+  TFetcherConfigX
 } from './config';
 import {
   IFetcherResponse
@@ -13,12 +14,12 @@ import {
 
 export type TInterceptorEject = () => void;
 
-export type TFetcherInterceptRequestReturn = undefined | IFetcherConfig | Promise<undefined | IFetcherConfig>;
+export type TFetcherInterceptRequestReturn<X = object> = undefined | TFetcherConfigX<X> | Promise<undefined | TFetcherConfigX<X>>;
 
 /**
  * Request interceptor 方法类型
  */
-export type TFetcherInterceptRequest = (config: IFetcherConfig, callRequest: TFetcherFnRequest) => TFetcherInterceptRequestReturn;
+export type TFetcherInterceptRequest<X = object> = (config: TFetcherConfigX<X>, callRequest: TFetcherFnRequest<X>) => TFetcherInterceptRequestReturn<X>;
 
 /**
  * Response success interceptor 方法类型
@@ -36,8 +37,8 @@ export interface IInterceptorQueueItemBase {
   priority?: number;
 }
 
-export interface IInterceptorQueueItemRequest extends IInterceptorQueueItemBase {
-  onFulfilled?: TFetcherInterceptRequest;
+export interface IInterceptorQueueItemRequest<X = object> extends IInterceptorQueueItemBase {
+  onFulfilled?: TFetcherInterceptRequest<X>;
 }
 
 export interface IInterceptorQueueItemResponse extends IInterceptorQueueItemBase {

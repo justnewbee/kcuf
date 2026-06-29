@@ -1,12 +1,12 @@
 import {
-  IFetcherConfigQuick,
+  TFetcherConfigQuick,
   TFetcherArgsPost,
   TFetcherBody,
   TFetcherParams
 } from '../types';
 
-export default function parseArgsPost<B extends TFetcherBody, P extends TFetcherParams>(args: TFetcherArgsPost<B, P>): [IFetcherConfigQuick | undefined, string, B, P] {
-  let config: IFetcherConfigQuick | undefined;
+export default function parseArgsPost<B extends TFetcherBody, P extends TFetcherParams>(args: TFetcherArgsPost<B, P>): [TFetcherConfigQuick | undefined, string, B, P] {
+  let config: TFetcherConfigQuick | undefined;
   let url: string;
   let body: B | undefined;
   let params: P | undefined;
@@ -14,7 +14,7 @@ export default function parseArgsPost<B extends TFetcherBody, P extends TFetcher
   if (typeof args[0] === 'string') {
     [url, body, params] = args as [string, B, P];
   } else {
-    [config, url, body, params] = args as [IFetcherConfigQuick, string, B, P];
+    [config, url, body, params] = args as [TFetcherConfigQuick, string, B, P];
   }
   
   return [config, url, body, params];

@@ -9,7 +9,7 @@ import {
   mergeConfig, parseArgsPost
 } from '../util';
 
-export default function createFnPost(fetcher: IFetcherClass, method: 'POST' | 'PUT' | 'PATCH' | 'DELETE'): IFetcherFnPost {
+export default function createFnPost<X = object>(fetcher: IFetcherClass, method: 'POST' | 'PUT' | 'PATCH' | 'DELETE'): IFetcherFnPost<X> {
   return <T, B extends TFetcherBody, P extends TFetcherParams>(...args: TFetcherArgsPost<B, P>): Promise<T> => {
     const [config, url, body, params] = parseArgsPost(args);
     

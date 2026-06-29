@@ -5,24 +5,22 @@ import {
 import interceptBiz from '@kcuf/fetcher-interceptor-biz';
 import interceptCacheLocal from '@kcuf/fetcher-interceptor-cache-local';
 // import interceptMerging from '@kcuf/fetcher-interceptor-merging';
+import interceptLogin from '@kcuf/fetcher-interceptor-login';
 import interceptSls from '@kcuf/fetcher-interceptor-sls';
 
 import {
+  IFetcherConfigX,
   IFetcherFactoryOptions
 } from './types';
-import {
-  defaultBizGetMessage,
-  defaultBizIsSuccess
-} from './util';
 
 export default function fetcherFactory({
   urlBase,
   getHeaders,
-  isSuccess = defaultBizIsSuccess,
-  getMessage = defaultBizGetMessage,
-  slsOptions
-}: IFetcherFactoryOptions = {}): Fetcher {
-  const fetcher = createFetcher({
+  interceptorBizOptions,
+  interceptorSlsOptions,
+  interceptorLoginOptions
+}: IFetcherFactoryOptions = {}): Fetcher<IFetcherConfigX> {
+  const fetcher = createFetcher<IFetcherConfigX>({
     urlBase: typeof urlBase === 'function' ? urlBase() : urlBase,
     headers: {
       'Content-Type': 'application/json'
@@ -41,15 +39,16 @@ export default function fetcherFactory({
     }));
   }
   
-  interceptBiz(fetcher, {
-    isSuccess,
-    getMessage
-  });
+  interceptBiz(fetcher, interceptorBizOptions);
   interceptCacheLocal(fetcher);
   // interceptMerging(fetcher); // FIXME 暂时不能用，会跟 interceptor-login 冲突
   
-  if (slsOptions) {
-    interceptSls(fetcher, slsOptions);
+  if (interceptorSlsOptions) {
+    interceptSls(fetcher, interceptorSlsOptions);
+  }
+  
+  if (interceptorLoginOptions) {
+    interceptLogin(fetcher, interceptorLoginOptions);
   }
   
   return fetcher;

@@ -3,17 +3,17 @@ import {
 } from '@kcuf/fetcher-core';
 
 import {
-  IInterceptBizOptions
+  IFetcherInterceptorBizOptions
 } from './types';
 import {
   createInterceptorResponseFulfilled
 } from './util';
 
-export default function interceptBiz(fetcher: Fetcher, options?: IInterceptBizOptions, priority?: number): () => void {
+export default function interceptBiz(fetcher: Fetcher, options?: IFetcherInterceptorBizOptions, priority?: number): () => void {
   return fetcher.interceptResponse(createInterceptorResponseFulfilled(options), undefined, priority);
 }
 
 export type {
   IFetcherConfigBiz as FetcherConfigBiz,
-  IInterceptBizOptions as FetcherInterceptBizOptions
+  IFetcherInterceptorBizOptions as FetcherInterceptorBizOptions
 } from './types';
