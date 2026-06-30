@@ -9,6 +9,9 @@ export {
 export type {
   IFetcher as Fetcher,
   // common
+  TFetcherParams as FetcherParams,
+  TFetcherBody as FetcherBody,
+  TFetcherHeaders as FetcherHeaders,
   TFetcherHeadersNormalized as FetcherHeadersNormalized,
   TFetcherBodyNormalized as FetcherBodyNormalized,
   // config

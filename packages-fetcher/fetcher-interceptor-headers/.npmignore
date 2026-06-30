@@ -1,0 +1,14 @@
+# hidden
+
+.*
+
+# non-production
+
+src/
+test/
+stories/
+coverage/
+
+# config
+
+tsconfig*.json

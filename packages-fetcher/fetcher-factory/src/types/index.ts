@@ -1,4 +1,9 @@
 import {
+  Fetcher,
+  FetcherHeaders,
+  FetcherConfig
+} from '@kcuf/fetcher';
+import {
   FetcherInterceptorBizOptions,
   FetcherConfigBiz
 } from '@kcuf/fetcher-interceptor-biz';
@@ -14,16 +19,12 @@ import {
 import {
   FetcherInterceptorLoginOptions
 } from '@kcuf/fetcher-interceptor-login';
-import {
-  Fetcher,
-  FetcherConfig
-} from '@kcuf/fetcher';
 
 export type TUrlBase = string | (() => string); // 给 urlBase 提供一定的动态能力
 
 export interface IFetcherFactoryOptions {
   urlBase?: TUrlBase;
-  getHeaders?(): Record<string, string>;
+  getHeaders?(): FetcherHeaders;
   interceptorBizOptions?: FetcherInterceptorBizOptions;
   interceptorSlsOptions?: FetcherInterceptorSlsOptions;
   interceptorLoginOptions?: FetcherInterceptorLoginOptions;

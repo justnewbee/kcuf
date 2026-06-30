@@ -2,6 +2,7 @@ import {
   Fetcher,
   createFetcher
 } from '@kcuf/fetcher';
+import interceptHeaders from '@kcuf/fetcher-interceptor-headers';
 import interceptBiz from '@kcuf/fetcher-interceptor-biz';
 import interceptCacheLocal from '@kcuf/fetcher-interceptor-cache-local';
 // import interceptMerging from '@kcuf/fetcher-interceptor-merging';
@@ -34,9 +35,7 @@ export default function fetcherFactory({
   }
   
   if (getHeaders) {
-    fetcher.interceptRequest(() => ({
-      headers: getHeaders()
-    }));
+    interceptHeaders(fetcher, getHeaders);
   }
   
   interceptBiz(fetcher, interceptorBizOptions);
