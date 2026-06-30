@@ -5,7 +5,11 @@
 ```ts
 import interceptHeaders from '@kcuf/fetcher-interceptor-headers';
 
-interceptHeaders(fetcher);
+interceptHeaders(fetcher, {
+  // some headers
+});
+// or if the headers need to be dynaimc
+interceptHeaders(fetcher, () => ({
+  // some headers
+}));
 ```
-
-Then, when you test some page for loading effect, open the developer tool console, and execute `__FETCHER_DELAY = 1000`, this will headers every fetcher call for 1000ms.
