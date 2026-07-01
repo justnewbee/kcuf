@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-factory",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Fetcher factory to create custom fetcher with ease.",
   "keywords": [],
   "license": "MIT",
