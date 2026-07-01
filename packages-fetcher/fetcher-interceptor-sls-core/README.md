@@ -2,12 +2,14 @@
 
 SLS logger interceptor for `@kcuf/fetcher`, which can log success and error, plus duration.
 
+Platform independent. For web use `@kcuf/fetcher-interceptor-sls`。
+
 ## How to Use
 
 ```ts
-import interceptSls from '@kcuf/fetcher-interceptor-sls-core';
+import interceptSlsCore from '@kcuf/fetcher-interceptor-sls-core';
 
-interceptSls(fetcher, { // suppose you have the fetcher by createFetcher
+interceptSlsCore(fetcher, transport, { // suppose you have the fetcher by createFetcher
   project: 'my-sls-project',
   endpoint: '<region>.log.aliyuncs.com',
   logstore: 'my-logstore',
