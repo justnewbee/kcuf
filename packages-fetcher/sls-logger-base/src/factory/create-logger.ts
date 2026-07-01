@@ -1,7 +1,7 @@
 import {
   ICreateLoggerOptions,
   ISlsLogger,
-  TLogSender
+  TSlsLoggerTransport
 } from '../types';
 import {
   SlsLogger
@@ -13,8 +13,8 @@ import {
 /**
  * 创建 Logger 方法
  */
-export default function createLogger(sender: TLogSender, options: ICreateLoggerOptions): ISlsLogger {
-  const logger = new SlsLogger(sender, options);
+export default function createLogger(transport: TSlsLoggerTransport, options: ICreateLoggerOptions): ISlsLogger {
+  const logger = new SlsLogger(transport, options);
   const sls = logger.log as ISlsLogger;
   
   sls.debug = createSlsLogQuick(sls, 'DEBUG');

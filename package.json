@@ -23,8 +23,8 @@
     "email": "justnewbee@gmail.com"
   },
   "devDependencies": {
-    "@commitlint/cli": "^21.1.0",
-    "@commitlint/config-conventional": "^21.1.0",
+    "@commitlint/cli": "^21.2.0",
+    "@commitlint/config-conventional": "^21.2.0",
     "@kcuf/eslint-config": "workspace:^",
     "@kcuf/markdownlint-config": "workspace:^",
     "@kcuf/npm-package-json-lint-config": "workspace:^",

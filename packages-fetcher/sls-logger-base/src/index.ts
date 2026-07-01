@@ -6,6 +6,7 @@ export type {
   ICreateLoggerOptions as CreateLoggerOptions,
   IGenerateCreateLoggerOptions as GenerateCreateLoggerOptions,
   ISlsLogger as SlsLogger,
+  TSlsLoggerTransport as SlsLoggerTransport,
   ISlsLogOptions as SlsLogOptions,
   ISlsLogOptionsQuick as SlsLogOptionsQuick,
   ISlsPostBody as SlsPostBody

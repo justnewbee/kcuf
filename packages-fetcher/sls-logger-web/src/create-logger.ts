@@ -3,10 +3,8 @@ import createLoggerBase, {
   CreateLoggerOptions
 } from '@kcuf/sls-logger-base';
 
-import {
-  sender
-} from '../util';
+import transport from './transport';
 
 export default function createLogger(options: CreateLoggerOptions): SlsLogger {
-  return createLoggerBase(sender, options);
+  return createLoggerBase(transport, options);
 }

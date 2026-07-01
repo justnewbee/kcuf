@@ -12,8 +12,8 @@
 
 ## APIs
 
-* `createLogger(sender: LogSender, options: CreateLoggerOptions): SlsLogger` 生成 sls 方法的工厂方法，该方法挂载 6 个快速方法
-* `generateCreateLogger(sender: LogSender, options: GenerateCreateLoggerOptions): CreateLogger` 生成上边的方法的工厂方法
+* `createLogger(sender: LogTransport, options: CreateLoggerOptions): SlsLogger` 生成 sls 方法的工厂方法，该方法挂载 6 个快速方法
+* `generateCreateLogger(sender: LogTransport, options: GenerateCreateLoggerOptions): CreateLogger` 生成上边的方法的工厂方法
 
 ## 如何使用
 
