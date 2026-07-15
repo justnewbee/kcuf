@@ -57,9 +57,9 @@ module.exports = {
       'funding',
       'publishConfig',
       // env
-      'engines',
       'os',
       'cpu',
+      'engines',
       // dep
       'packageManager',
       'devDependencies',
@@ -77,8 +77,8 @@ module.exports = {
       'npmpackagejsonlint',
       'babel',
       'browserify',
-      // npm run
       'config',
+      // npm run
       'scripts'
     ]]
   }

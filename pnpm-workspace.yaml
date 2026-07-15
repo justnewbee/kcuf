@@ -1,3 +1,10 @@
 packages:
   - "packages-*/*"
   - "web"
+allowBuilds:
+  '@parcel/watcher': false
+  core-js: false
+  esbuild: false
+  nx: false
+  unrs-resolver: false
+minimumReleaseAge: 10

@@ -1,10 +1,10 @@
-import _isError from 'lodash/isError';
-
 import {
   IErrorExtendedInfo,
   IFetcherConfig,
   IFetcherError
 } from '../types';
+
+import ensureFetcherError from './ensure-fetcher-error';
 
 interface IOptions extends IErrorExtendedInfo {
   originalError?: unknown;
@@ -12,24 +12,8 @@ interface IOptions extends IErrorExtendedInfo {
   message?: string;
 }
 
-function assureError(originalError: unknown): Error {
-  if (!originalError) {
-    return new Error();
-  }
-  
-  if (_isError(originalError)) {
-    return originalError;
-  }
-  
-  if (typeof originalError === 'string') {
-    return new Error(originalError);
-  }
-  
-  return new Error(originalError.toString()); // eslint-disable-line @typescript-eslint/no-base-to-string
-}
-
 export default function createFetcherError(config: IFetcherConfig, options: IOptions = {}): IFetcherError {
-  const error = assureError(options.originalError) as IFetcherError;
+  const error = ensureFetcherError(options.originalError);
   
   error.config = config;
   

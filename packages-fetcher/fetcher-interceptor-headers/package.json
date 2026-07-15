@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-headers",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Fetcher interceptor that adds headers.",
   "keywords": [],
   "license": "MIT",
