@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## 0.8.0 2026/07/29 @驳是
+
+## FEAT Add `normalizeZhEn`，中英文书写标准
+
 ## 0.7.1 2026/05/28 @驳是
 
-* FIX `localSearchCompare` shall return false when candidate is empty
+* FIX `localSearchCompare` shall return `false` when candidate is empty
 
 ## 0.7.0 2026/05/28 @驳是
 
