@@ -5,7 +5,7 @@ import {
 } from '../types';
 
 export default function ensureFetcherError(originalError: unknown): IFetcherError {
-  // 某些错误，比如 DOMException，在严格模式下，对其 name 进行负责将抛错「TypeError: setting getter-only property "name"」
+  // 某些错误，比如 DOMException，在严格模式下，对其 name 进行赋值将抛错「TypeError: setting getter-only property "name"」
   // 而非严格模式下，错误会被忽略
   if (_isError(originalError)) {
     try {

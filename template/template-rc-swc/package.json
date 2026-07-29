@@ -24,16 +24,16 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
     "@kcuf/ts-config": "workspace:^",
-    "@storybook/addon-docs": "^10.5.0",
-    "@storybook/addon-links": "^10.5.0",
-    "@storybook/react-vite": "^10.5.0",
+    "@storybook/addon-docs": "^10.5.5",
+    "@storybook/addon-links": "^10.5.5",
+    "@storybook/react-vite": "^10.5.5",
     "@swc/cli": "^0.8.1",
-    "@swc/core": "^1.15.43",
+    "@swc/core": "^1.15.46",
     "@types/react": "^19.2.17",
-    "react": "^19.2.7",
+    "react": "^19.2.8",
     "rimraf": "^6.1.3",
-    "storybook": "^10.5.0",
-    "styled-components": "^6.4.3",
+    "storybook": "^10.5.5",
+    "styled-components": "^6.4.4",
     "typescript": "^6.0.3"
   },
   "peerDependencies": {

@@ -1,6 +1,7 @@
 packages:
   - "packages-*/*"
   - "web"
+trustLockfile: true
 allowBuilds:
   '@parcel/watcher': false
   core-js: false

@@ -54,7 +54,7 @@ export default class Messenger {
    */
   emit(type: string): void;
   emit(type: string, payload: undefined, options: IMessengerEmitOptions): void;
-  emit<P = unknown>(type: string, payload: P, options?: IMessengerEmitOptions): void; // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
+  emit<P = unknown>(type: string, payload: P, options?: IMessengerEmitOptions): void;
   emit(type: string, payload?: unknown, options: IMessengerEmitOptions = {}): void {
     const theWindow = getTargetWindow(options.targetWindow);
 
@@ -73,7 +73,7 @@ export default class Messenger {
    */
   emitPromise<T = void>(type: string): Promise<T>;
   emitPromise<T = void>(type: string, payload: undefined, options: IMessengerEmitOptions): Promise<T>;
-  emitPromise<T = void, P = unknown>(type: string, payload: P, options?: IMessengerEmitOptions): Promise<T>; // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
+  emitPromise<T = void, P = unknown>(type: string, payload: P, options?: IMessengerEmitOptions): Promise<T>;
   emitPromise<T = void, P = unknown>(type: string, payload?: P, options?: IMessengerEmitOptions): Promise<T> {
     const payloadForPromise = buildPayloadForPromise<P | undefined>(type, payload);
     
@@ -107,21 +107,21 @@ export default class Messenger {
   /**
    * 注册回调，返回用于注销的方法
    */
-  on<P = unknown>(type: string, fn: (payload?: P) => void): TMessengerOff { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
+  on<P = unknown>(type: string, fn: (payload?: P) => void): TMessengerOff {
     return this.addReceiver(type, fn);
   }
   
   /**
    * 注册单次回调，运行一次后将自动注销
    */
-  once<P = unknown>(type: string, fn: (payload?: P) => void): TMessengerOff { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
+  once<P = unknown>(type: string, fn: (payload?: P) => void): TMessengerOff {
     return this.addReceiver(type, fn, true);
   }
   
   /**
    * 对 emitPromise 对应的 type 进行响应，这里关心的 payload 还是 emitPromise 所传入的 payload
    */
-  onPromise<T, P = unknown>(type: string, fn: (payload?: P) => T | Promise<T>): TMessengerOff { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
+  onPromise<T, P = unknown>(type: string, fn: (payload?: P) => T | Promise<T>): TMessengerOff {
     return this.on(type, (payload?: IMessengerPayloadPromise<P>) => {
       if (!payload?._dismiss_) { // 得到的 payload 下有 _dismiss_ 参数才响应，否则 pass
         return;
