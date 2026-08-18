@@ -10,6 +10,7 @@ import {
 
 export interface IFormItemProps {
   key?: string;
+  // TODO 改成 ReactNode
   label?: string | ReactElement; // | IFormItemLabelProps;
   content: string | ReactElement;
   help?: string | ReactElement;

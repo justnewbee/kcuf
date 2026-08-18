@@ -1,6 +1,6 @@
 {
   "name": "@kcuf/fetcher-interceptor-biz",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Fetcher interceptor to extract biz data and throw error.",
   "keywords": [],
   "license": "MIT",
@@ -29,7 +29,7 @@
     "@babel/preset-typescript": "^7.29.7",
     "@kcuf/fetcher": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@types/lodash": "^4.17.24",
+    "@types/lodash": "^4.17.25",
     "@vitest/coverage-v8": "^4.1.10",
     "fetch-mock": "^12.6.0",
     "jsdom": "^30.0.1",

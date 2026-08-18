@@ -23,12 +23,12 @@ export default class Messenger {
   
   constructor() {
     const thisWindow = getTargetWindow();
-
+    
     // SSR / 非浏览器环境下没有 window，构造函数静默成为 no-op，待运行至浏览器侧（如 hydrate 后）再走真实分支
     if (!thisWindow) {
       return;
     }
-
+    
     thisWindow.addEventListener('message', (e: MessageEvent<IMessageData | undefined>): void => {
       if (!e.data?.type) {
         return;

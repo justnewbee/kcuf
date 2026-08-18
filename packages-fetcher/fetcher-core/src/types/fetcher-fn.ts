@@ -1,4 +1,7 @@
 import {
+  IPromiseWithAbort
+} from './common';
+import {
   TFetcherConfigX,
   TFetcherConfigQuick,
   TFetcherConfigQuickJsonp
@@ -7,10 +10,6 @@ import {
 export type TFetcherArgsJsonp<P = void> = [string, P?] | [TFetcherConfigQuickJsonp, string, P?];
 export type TFetcherArgsGet<P = void> = [string, P?] | [TFetcherConfigQuick, string, P?];
 export type TFetcherArgsPost<B = void, P = void> = [string, B?, P?] | [TFetcherConfigQuick, string, B?, P?];
-
-export interface IPromiseWithAbort<T> extends Promise<T> {
-  abort(): void;
-}
 
 /**
  * 执行请求的方法定义

@@ -17,7 +17,7 @@ const ScDefault = styled(TagBase)`
     content: 'default: ';
   }
   
-  html[data-theme="dark"] & {
+  html[data-theme='dark'] & {
     background: hsl(224 76% 48% / 17%);
     color: hsl(224 50% 61%);
   }

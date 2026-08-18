@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@kcuf-hook/use-controllable": "workspace:^",
-    "immer": "^11.1.15"
+    "immer": "^11.1.17"
   },
   "scripts": {
     "build:clean": "rimraf dist",

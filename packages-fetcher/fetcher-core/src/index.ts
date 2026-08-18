@@ -9,10 +9,13 @@ export {
 export type {
   IFetcher as Fetcher,
   // common
-  TFetcherParams as FetcherParams,
-  TFetcherBody as FetcherBody,
+  IPromiseWithAbort as PromiseWithAbort,
+  // header
   TFetcherHeaders as FetcherHeaders,
   TFetcherHeadersNormalized as FetcherHeadersNormalized,
+  // param
+  TFetcherParams as FetcherParams,
+  TFetcherBody as FetcherBody,
   TFetcherBodyNormalized as FetcherBodyNormalized,
   // config
   IFetcherConfig as FetcherConfig,
