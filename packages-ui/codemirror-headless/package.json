@@ -59,7 +59,7 @@
     "@kcuf-hook/use-is-unmounted": "workspace:^",
     "@uiw/codemirror-theme-material": "^4.25.11",
     "codemirror-json5": "^1.0.3",
-    "immer": "^11.1.17"
+    "immer": "^11.1.18"
   },
   "scripts": {
     "start": "storybook dev -p 6006",
