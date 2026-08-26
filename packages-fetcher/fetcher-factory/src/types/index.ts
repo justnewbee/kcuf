@@ -20,10 +20,8 @@ import {
   FetcherInterceptorLoginOptions
 } from '@kcuf/fetcher-interceptor-login';
 
-export type TUrlBase = string | (() => string); // 给 urlBase 提供一定的动态能力
-
 export interface IFetcherFactoryOptions {
-  urlBase?: TUrlBase;
+  urlBase?: string;
   getHeaders?(): FetcherHeaders;
   interceptorBizOptions?: FetcherInterceptorBizOptions;
   interceptorSlsOptions?: FetcherInterceptorSlsOptions;
@@ -31,7 +29,7 @@ export interface IFetcherFactoryOptions {
 }
 
 export interface IFetcherSseFactoryOptions {
-  urlBase?: TUrlBase;
+  urlBase?: string;
   getHeaders?(): Record<string, string>;
 }
 

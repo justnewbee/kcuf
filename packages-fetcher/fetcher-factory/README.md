@@ -26,3 +26,9 @@ export default fetcherFactory({
   interceptorLoginOptions // 若希望支持弹窗式登录，可配置
 });
 ```
+
+如果你的 Fetcher 需要支持多端，因而无法确定 Header、SLS、Login 等，可以不配，而在应用侧利用此包额外输出的以下拦截器进行配置：
+
+* `interceptHeaders`
+* `interceptSls`
+* `interceptLogin`

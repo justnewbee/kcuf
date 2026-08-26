@@ -17,7 +17,7 @@ export default function fetcherSseFactory({
   return function fetcherSse(url: string, params?: object | null, options?: FetchSseOptions): FetchSseResult {
     return fetchSse(buildUrl({
       url,
-      urlBase: typeof urlBase === 'function' ? urlBase() : urlBase,
+      urlBase,
       params: params as Record<string, unknown> | undefined
     }), getHeaders ? {
       headers: getHeaders(),

@@ -10,6 +10,7 @@ export interface IFetchSseErrorResponseStatus extends Error {
   statusText: string;
 }
 
+// TODO 改成 `PromiseWithAbort`
 export interface IFetchSseResult {
   promise: Promise<void>;
   cancel(): void;

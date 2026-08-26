@@ -5,5 +5,4 @@ import {
 export interface IFetcherInterceptorLoginOptions {
   needLogin(code: string, err: FetcherError): boolean;
   doLogin(): Promise<unknown>;
-  headerKeys?: string[];
 }

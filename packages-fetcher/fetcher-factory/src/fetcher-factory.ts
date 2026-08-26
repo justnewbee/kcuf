@@ -6,8 +6,8 @@ import interceptHeaders from '@kcuf/fetcher-interceptor-headers';
 import interceptBiz from '@kcuf/fetcher-interceptor-biz';
 import interceptCacheLocal from '@kcuf/fetcher-interceptor-cache-local';
 // import interceptMerging from '@kcuf/fetcher-interceptor-merging';
-import interceptLogin from '@kcuf/fetcher-interceptor-login';
 import interceptSls from '@kcuf/fetcher-interceptor-sls';
+import interceptLogin from '@kcuf/fetcher-interceptor-login';
 
 import {
   IFetcherConfigX,
@@ -22,17 +22,11 @@ export default function fetcherFactory({
   interceptorLoginOptions
 }: IFetcherFactoryOptions = {}): Fetcher<IFetcherConfigX> {
   const fetcher = createFetcher<IFetcherConfigX>({
-    urlBase: typeof urlBase === 'function' ? urlBase() : urlBase,
+    urlBase,
     headers: {
       'Content-Type': 'application/json'
     }
   });
-  
-  if (typeof urlBase === 'function') {
-    fetcher.interceptRequest(() => ({
-      urlBase: urlBase()
-    }));
-  }
   
   if (getHeaders) {
     interceptHeaders(fetcher, getHeaders);

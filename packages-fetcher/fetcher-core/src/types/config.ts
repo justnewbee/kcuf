@@ -14,12 +14,18 @@ import {
   IFetcherBodySerializeOptions
 } from './config-body';
 
+type TFetcherConfigInternalFields = '_config' | '_hash' | '_timeStarted' | '_byInterceptor';
+
 /**
  * interceptor 的 config 参数，也是 Fetcher.prototype.request 的参数
  *
  * `_` 打头的是 fetcher 自己填入的，不要在调用时传入
  */
 export interface IFetcherConfig {
+  /**
+   * 调用 `request` 时传入的原初 `config`，可在「重试」拦截中使用以避免污染
+   */
+  _config?: Omit<IFetcherConfig, TFetcherConfigInternalFields>;
   /**
    * 根据 `method`、`url`、`urlBase`、`params`、`body` 计算得到的 MD5，可以被拦截器使用，比如缓存、合并时需要
    */
@@ -29,7 +35,7 @@ export interface IFetcherConfig {
    */
   _timeStarted?: number;
   /**
-   * 在 Fetcher 内部由拦截器发起的请求
+   * 标注在 Fetcher 内部由拦截器发起的二次请求
    */
   _byInterceptor?: boolean;
   /**
@@ -115,9 +121,9 @@ export interface IFetcherConfigDefault extends Pick<IFetcherConfig, 'timeout' | 
 /**
  * 便捷 JSONP 方法，如果第一个参数为对象，则为 config
  */
-export type TFetcherConfigQuickJsonp<X = object> = Omit<IFetcherConfig, 'url' | 'method' | '_hash' | '_timeStarted' | '_byInterceptor'> & X;
+export type TFetcherConfigQuickJsonp<X = object> = Omit<IFetcherConfig, 'url' | 'method' | TFetcherConfigInternalFields> & X;
 
 /**
  * 其他便捷方法，如果第一个参数为对象，则为 config
  */
-export type TFetcherConfigQuick<X = object> = Omit<IFetcherConfig, 'url' | 'method' | '_hash' | '_timeStarted' | '_byInterceptor'> & X;
+export type TFetcherConfigQuick<X = object> = Omit<IFetcherConfig, 'url' | 'method' | TFetcherConfigInternalFields> & X;

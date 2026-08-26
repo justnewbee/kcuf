@@ -41,10 +41,16 @@ const ScSwitchButton = styled.button<IScProps>`
     width: ${SIZE_INPUT_SWITCH_KNOB}px;
     height: ${SIZE_INPUT_SWITCH_KNOB}px;
     background-color: hsl(0 0% 100%);
-    border-radius: 50%;
+    border-radius: ${SIZE_INPUT_SWITCH_KNOB}px;
     box-shadow: 0 1px 2px 0 hsl(0 0% 0% / 16%);
     transition: all linear 160ms;
     ${getStyledSwitchKnobPosition}
+  }
+  
+  &:active {
+    &::after {
+      width: ${SIZE_INPUT_SWITCH_KNOB * 1.33}px;
+    }
   }
 `;
 

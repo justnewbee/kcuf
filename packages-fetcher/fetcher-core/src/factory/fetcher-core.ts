@@ -35,7 +35,7 @@ import interceptResponseDownload from './intercept-response-download';
  * 3. `interceptRequest` 仅接受一个方法，而 `interceptResponse` 可以接受两个（跟 axios 类似）
  * 4. `interceptRequest` 的顺序和最终调用的顺序一致，而 axios 的顺序是倒着来的
  * 5. `interceptRequest` 如果抛错，不会触发真实的 API 请求（axios 一样），也不会触发任何 response interceptors（axios 会触发）
- * 6. `interceptRequest` 可以不必返回全的 `fetcherConfig`，会自动进行 merge，axios 要求返回全的
+ * 6. `interceptRequest` 可以不必返回全的 `FetcherConfig`，会自动进行 merge，axios 要求返回全的
  */
 export default class FetcherCore implements IFetcherClass {
   private readonly adapter: TFetcherAdapter;
@@ -53,9 +53,9 @@ export default class FetcherCore implements IFetcherClass {
   private interceptorResponseSealed = false;
   
   /**
-   * 传递给 interceptor，这样在 interceptor 内部有需要的话可以通过它加上 fetcherConfig 进行重新请求
+   * 传递给 Interceptor，在 Interceptor 内部有需要可以重新请求
    */
-  private requestForInterceptor = <T>(config: IFetcherConfig): Promise<T> => this.request<T>({
+  private requestByInterceptor = <T>(config: IFetcherConfig): Promise<T> => this.request<T>({
     ...config,
     _byInterceptor: true
   });
@@ -102,10 +102,10 @@ export default class FetcherCore implements IFetcherClass {
           return configLastMerged;
         }
         
-        // 利用前置 `Promise.resolve()`，不管 onFulfilled 返回是否 Promise 都可以在一个运行空间获取到 configLastMerged 和 configToMerge
+        // 利用前置 `Promise.resolve()`，不管 `onFulfilled` 返回是否 `Promise` 都可以在一个运行空间获取到 `configLastMerged` 和 `configToMerge`
         // configToMerge 是 onFulfilled 计算后得到的结果，可能为空；也可能是 Promise
         return Promise.resolve()
-          .then(() => onFulfilled(configLastMerged, this.requestForInterceptor))
+          .then(() => onFulfilled(configLastMerged, this.requestByInterceptor))
           .then(configToMerge => mergeConfig(configLastMerged, configToMerge));
       });
     });
@@ -128,7 +128,7 @@ export default class FetcherCore implements IFetcherClass {
     // 逐个调用响应拦截器，如果有 success 则其返回将作为结果传递给下一个拦截器
     this.getInterceptorResponseQueue().forEach(v => {
       promise = promise.then((result: T) => {
-        return v.onFulfilled ? v.onFulfilled(result, config, fetcherResponse, this.requestForInterceptor) as T : result;
+        return v.onFulfilled ? v.onFulfilled(result, config, fetcherResponse, this.requestByInterceptor) as T : result;
       }, (err: unknown) => {
         const error2 = createFetcherError(config, {
           originalError: err
@@ -139,7 +139,7 @@ export default class FetcherCore implements IFetcherClass {
          * 所以这里提供了「纠错」和「调整错误」两个功能
          */
         if (v.onRejected) {
-          return v.onRejected(error2, config, fetcherResponse, this.requestForInterceptor) as T;
+          return v.onRejected(error2, config, fetcherResponse, this.requestByInterceptor) as T;
         }
         
         throw error2;
@@ -191,8 +191,10 @@ export default class FetcherCore implements IFetcherClass {
   /**
    * 发送请求：前置请求拦截器 → 网络请求 → 后置响应拦截器
    */
-  async request<T = unknown>(fetcherConfig?: IFetcherConfig): Promise<T> {
-    let finalConfig: IFetcherConfig = mergeConfig(this.defaultConfig, fetcherConfig);
+  async request<T = unknown>(config: IFetcherConfig): Promise<T> {
+    let finalConfig: IFetcherConfig = mergeConfig(this.defaultConfig, config);
+    
+    finalConfig._config = config; // 保留原初 config 对象
     
     // 1. 前置请求拦截器
     try {
