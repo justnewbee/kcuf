@@ -1,6 +1,4 @@
-import {
-  createFetcher
-} from './util';
+import createFetcher from './create-fetcher';
 
 const fetcher = createFetcher();
 

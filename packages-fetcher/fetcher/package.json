@@ -50,9 +50,7 @@
   },
   "dependencies": {
     "@kcuf/fetcher-core": "workspace:^",
-    "@kcuf/fetcher-fetch": "workspace:^",
-    "@kcuf/fetcher-jsonp": "workspace:^",
-    "@kcuf/fetcher-xhr": "workspace:^"
+    "@kcuf/fetcher-transport-web": "workspace:^"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

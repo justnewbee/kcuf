@@ -1,3 +1,0 @@
-# @kcuf/template-lib
-
-xxx.

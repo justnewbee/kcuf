@@ -33,6 +33,10 @@ export default function createFetcherError(config: IFetcherConfig, options: IOpt
     error.code = options.code;
   }
   
+  if (options.responseHeaders) {
+    error.responseHeaders = options.responseHeaders;
+  }
+  
   if (options.responseData) {
     error.responseData = options.responseData;
   }

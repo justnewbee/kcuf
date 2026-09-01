@@ -1,0 +1,4 @@
+{
+  "extends": "@kcuf/ts-config/index.json",
+  "include": ["src"]
+}

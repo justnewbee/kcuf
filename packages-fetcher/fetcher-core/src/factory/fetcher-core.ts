@@ -146,6 +146,7 @@ export default class FetcherCore implements IFetcherClass {
       }).catch((err: unknown) => {
         throw createFetcherError(config, {
           originalError: err,
+          responseHeaders: fetcherResponse?.headers,
           responseData: fetcherResponse?.data
         });
       });

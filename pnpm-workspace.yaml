@@ -4,6 +4,7 @@ packages:
 trustLockfile: true
 allowBuilds:
   '@parcel/watcher': false
+  '@swc/core': false
   core-js: false
   esbuild: false
   nx: false
