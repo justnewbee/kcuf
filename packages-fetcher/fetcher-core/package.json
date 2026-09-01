@@ -40,7 +40,7 @@
     "@kcuf/fetcher-helper-file": "workspace:^",
     "@kcuf/md5": "workspace:^",
     "lodash": "^4.18.1",
-    "qs": "^6.15.3"
+    "qs": "^6.16.0"
   },
   "scripts": {
     "build:clean": "rimraf dist",

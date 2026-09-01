@@ -43,7 +43,7 @@
     "eslint": "^9.39.3",
     "husky": "^9.1.7",
     "lerna": "^10.0.1",
-    "lint-staged": "^17.3.0",
+    "lint-staged": "^17.4.1",
     "markdownlint-cli2": "^0.23.2",
     "npm-package-json-lint": "^11.0.0",
     "react": "^19.2.8",

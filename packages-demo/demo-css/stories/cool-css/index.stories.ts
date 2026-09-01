@@ -3,6 +3,7 @@ import {
 } from '@storybook/react-vite';
 
 // button
+export { default as Button } from './story-button';
 export { default as ButtonGlowOnHover } from './story-button-glow-on-hover';
 export { default as ButtonFlip } from './story-button-flip';
 export { default as ButtonAdd } from './story-button-add';
