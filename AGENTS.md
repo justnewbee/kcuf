@@ -2,7 +2,7 @@
 
 ## Repository
 
-`kcuf` is a personal pnpm + lerna monorepo of small, independently versioned libraries (`lerna.json` uses `version: independent`). Packages are grouped by domain into `packages-*/` directories — `canvas`, `config`, `demo`, `dom`, `fetcher`, `helper`, `hook`, `theme`, `ui`, `util`, `x` — plus `_headless/`, and a Docusaurus site at `web/`. The pnpm workspace globs (in `pnpm-workspace.yaml`) are only `packages-*/*` and `web`; `_headless/*` are intentionally **not** part of the workspace and must not be added without checking with the user.
+`kcuf` is a personal pnpm + lerna monorepo of small, independently versioned libraries (`lerna.json` uses `version: independent`). Packages are grouped by domain into `packages-*/` directories — `canvas`, `config`, `demo`, `dom`, `helper`, `hook`, `theme`, `ui`, `util`, `x` — plus `_headless/`, and a Docusaurus site at `web/`. The pnpm workspace globs (in `pnpm-workspace.yaml`) are only `packages-*/*` and `web`; `_headless/*` are intentionally **not** part of the workspace and must not be added without checking with the user.
 
 Published package names use three npm scopes: `@kcuf/*` (general), `@kcuf-ui/*` (UI primitives, both styled and headless), and `@kcuf-hook/*` (React hooks). The all-in-one barrel is `kcuf-ui` (no scope).
 
@@ -29,10 +29,10 @@ Every publishable package follows the same `scripts` shape (see `template/templa
 - `build:types` — `tsc --emitDeclarationOnly` into `dist/types`.
 - `build` — runs the three above sequentially.
 - `watch` — `pnpm build:esm -w`.
-- `test` / `test:cov` — `vitest` (only in packages that ship tests, e.g. `packages-fetcher/fetcher`).
+- `test` / `test:cov` — `vitest` (only in packages that ship tests).
 - `prepublishOnly` — `build:clean && build`. This is what `boot:packages` invokes.
 
-To work in a single package: `pnpm --filter @kcuf/<name> <script>` from the root, or `cd` into the package and run `pnpm <script>` directly. Run a single vitest file with `pnpm --filter @kcuf/fetcher exec vitest run path/to/file.test.ts`.
+To work in a single package: `pnpm --filter @kcuf/<name> <script>` from the root, or `cd` into the package and run `pnpm <script>` directly. Run a single vitest file with `pnpm --filter @kcuf/xx exec vitest run path/to/file.test.ts`.
 
 ## Build model
 

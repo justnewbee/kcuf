@@ -1,9 +1,9 @@
 import {
+  checkFileType
+} from '@fetchx/fetcher-helper-file';
+import {
   uuid
 } from '@kcuf/helper-data';
-import {
-  checkFileType
-} from '@kcuf/fetcher-helper-file';
 
 import {
   EFileItemInvalid

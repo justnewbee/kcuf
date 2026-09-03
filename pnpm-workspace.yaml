@@ -10,3 +10,5 @@ allowBuilds:
   nx: false
   unrs-resolver: false
 minimumReleaseAge: 10
+minimumReleaseAgeExclude:
+  - '@fetchx/*'
