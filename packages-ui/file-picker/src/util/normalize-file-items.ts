@@ -1,9 +1,6 @@
 import {
   checkFileType
 } from '@fetchx/fetcher-helper-file';
-import {
-  uuid
-} from '@kcuf/helper-data';
 
 import {
   EFileItemInvalid
@@ -11,6 +8,8 @@ import {
 import {
   IFileItem
 } from '../types';
+
+import uuid from './uuid';
 
 /**
  * 转换文件列表或数组为 FileItem 对象数组
