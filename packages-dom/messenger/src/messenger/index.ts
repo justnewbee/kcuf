@@ -57,11 +57,11 @@ export default class Messenger {
   emit<P = unknown>(type: string, payload: P, options?: IMessengerEmitOptions): void;
   emit(type: string, payload?: unknown, options: IMessengerEmitOptions = {}): void {
     const theWindow = getTargetWindow(options.targetWindow);
-
+    
     if (!theWindow) {
       return;
     }
-
+    
     theWindow.postMessage({
       type,
       payload
