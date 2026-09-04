@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "@fetchx/fetcher-helper-file": "^0.1.1",
-    "@kcuf/helper-data": "workspace:^"
+    "uuid": "^14.0.2"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

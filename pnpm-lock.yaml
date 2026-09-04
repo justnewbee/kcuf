@@ -3328,9 +3328,9 @@ importers:
       '@fetchx/fetcher-helper-file':
         specifier: ^0.1.1
         version: 0.1.1(@babel/runtime@7.29.7)
-      '@kcuf/helper-data':
-        specifier: workspace:^
-        version: link:../../packages-helper/helper-data
+      uuid:
+        specifier: ^14.0.2
+        version: 14.0.2
     devDependencies:
       '@babel/cli':
         specifier: ^7.29.7
@@ -15501,10 +15501,6 @@ packages:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
 
-  uuid@14.0.1:
-    resolution: {integrity: sha512-6ZxzVpzDXDa3bJWaHilVayA+BH/1zmxCJoVgvmqJnid/gPoKHxUrS/aC/T6LGQtNHT+XHG9fXPJB4d+IrU30Ew==}
-    hasBin: true
-
   uuid@14.0.2:
     resolution: {integrity: sha512-xZe/16rV4aa+HGSOCiY2YeLT1OybRLrrkL/Rqaq7p7GMVXjFh+6wN4oMYgjFmnSnhY8t6Xpdl2l9qmnHYuMHwQ==}
     hasBin: true
@@ -25354,7 +25350,7 @@ snapshots:
 
   jest-worker@27.5.1:
     dependencies:
-      '@types/node': 26.4.0
+      '@types/node': 26.4.1
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
@@ -26144,7 +26140,7 @@ snapshots:
       roughjs: 4.6.6
       stylis: 4.4.0
       ts-dedent: 2.3.0
-      uuid: 14.0.1
+      uuid: 14.0.2
 
   methods@1.1.2: {}
 
@@ -30095,8 +30091,6 @@ snapshots:
   utility-types@3.11.0: {}
 
   utils-merge@1.0.1: {}
-
-  uuid@14.0.1: {}
 
   uuid@14.0.2: {}
 
