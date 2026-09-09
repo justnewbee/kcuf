@@ -17,6 +17,8 @@ module.exports = {
     ['@babel/plugin-transform-runtime', {
       version: '^7.24.7'
     }],
-    'babel-plugin-styled-components'
+    ['babel-plugin-styled-components', {
+      displayName: false
+    }]
   ]
 };
