@@ -5,27 +5,33 @@ import {
   useEffect
 } from 'react';
 
+import {
+  DATA_KEY_CLICK_AWAY_IGNORE
+} from './const';
+
 /**
  * Registers a listener to the document to help you get notified when click away.
  *
  * @param callback - The callback function called on click-away
- * @param ignore - The optional selector which can be ignored when click away
+ * @param ignore - The optional value for `data-click-away-ignore`
  **/
-export default function useClickAway<E extends Element = HTMLDivElement>(callback: (e: MouseEvent) => void, ignore = '[data-click-away-ignore]'): RefObject<E | null> {
-  const refElement = useRef<E>(null);
-  const refCallback = useRef(callback);
+export default function useClickAway<E extends Element = HTMLDivElement>(callback: (e: MouseEvent) => void, ignore?: string): RefObject<E | null> {
+  const elRef = useRef<E>(null);
+  const callbackRef = useRef(callback);
   
   useLayoutEffect(() => {
-    refCallback.current = callback;
+    callbackRef.current = callback;
   }, [callback]);
   
   useEffect(() => {
+    const ignoreSelector = ignore ? `[${DATA_KEY_CLICK_AWAY_IGNORE}="${ignore}"]` : `[${DATA_KEY_CLICK_AWAY_IGNORE}]`;
+    
     function handler(e: MouseEvent): void {
-      const element = refElement.current;
+      const element = elRef.current;
       const target = e.target as Element;
       
-      if (element && !element.contains(target) && (ignore && !target.closest(ignore))) {
-        refCallback.current(e);
+      if (element && !element.contains(target) && !target.closest(ignoreSelector)) {
+        callbackRef.current(e);
       }
     }
     
@@ -34,5 +40,5 @@ export default function useClickAway<E extends Element = HTMLDivElement>(callbac
     return () => document.removeEventListener('mousedown', handler);
   }, [ignore]);
   
-  return refElement;
+  return elRef;
 }

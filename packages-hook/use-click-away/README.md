@@ -23,3 +23,13 @@ export default function SomeComponent(): ReactElement {
   return <div ref={refClickAway} />;
 }
 ```
+
+## FAQ
+
+### How to ignore?
+
+Use `data-click-away-ignore` in the element you want to ignore.
+
+### How to ignore in special?
+
+Use `data-click-away-ignore="special"` in the element you want to ignore, and `useClickAway(callback, 'special')`.

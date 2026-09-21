@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.4 2026/03/26 @驳是
+
+* FEAT Data attribute is always `data-click-away-ignore` now, and `ignore` became additional value to it.
+
 ## 0.0.3 2026/03/26 @驳是
 
 * FIX Cannot use `click` for it will hide right after open

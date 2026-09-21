@@ -15,7 +15,7 @@ export default function useFullscreenRef(): TUseFullscreenRefResult {
     setStateTarget(element ?? document.documentElement);
   }, [setStateTarget]);
   
-  const useFullscreenResult = useFullscreen(stateTarget);
+  const fullscreenResult = useFullscreen(stateTarget);
   
-  return [ref, useFullscreenResult];
+  return [ref, fullscreenResult];
 }

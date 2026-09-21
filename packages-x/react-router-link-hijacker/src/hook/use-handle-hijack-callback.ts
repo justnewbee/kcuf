@@ -22,7 +22,7 @@ export default function useHandleHijackCallback(): (result: IHijackResult, el: H
       return;
     }
     
-    navigate(result.href, el.hasAttribute(DATA_ROUTE_REPLACE) ? {
+    void navigate(result.href, el.hasAttribute(DATA_ROUTE_REPLACE) ? {
       replace: true
     } : undefined);
   }, [location, navigate]);
