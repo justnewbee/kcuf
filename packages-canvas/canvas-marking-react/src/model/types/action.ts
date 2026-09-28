@@ -10,10 +10,8 @@ import {
   EAction
 } from '../enum';
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export type TModelAction = {
-  type: EAction.SET_DOM_CONTAINER;
-  payload: HTMLDivElement | null;
-} | {
   type: EAction.SET_MARKING_INSTANCE;
   payload: CanvasMarkingClassType | null;
 };

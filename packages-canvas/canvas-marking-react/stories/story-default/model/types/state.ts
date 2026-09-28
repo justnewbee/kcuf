@@ -1,8 +1,7 @@
 import {
   MarkingStats,
   MarkingConfigItem
-} from '@kcuf/canvas-marking-react-headless';
-
+} from '../../../../src';
 import {
   EDataType
 } from '../enum';
@@ -16,7 +15,7 @@ export interface IModelState {
   debugEvents: boolean;
   dataType: EDataType;
   image: string;
-  markings: MarkingConfigItem[];
   plugins: TStatePlugins;
+  markings: MarkingConfigItem[];
   markingStats: MarkingStats | null;
 }

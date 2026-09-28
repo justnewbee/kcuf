@@ -16,7 +16,7 @@ export default function OpsDestroyed(): ReactElement {
   const handleToggleDestroyed = useHandleToggleDestroyed();
   
   return <InputSwitch {...{
-    label: '测试 init 和 destroy effects',
+    label: '测试 init 和 destroy effects（strict 模式下有问题）',
     value: destroyed,
     onChange: handleToggleDestroyed
   }} />;

@@ -1,7 +1,6 @@
 import {
   MarkingConfigItem
-} from '@kcuf/canvas-marking-react-headless';
-
+} from '../../../../src';
 import {
   EDataType
 } from '../enum';

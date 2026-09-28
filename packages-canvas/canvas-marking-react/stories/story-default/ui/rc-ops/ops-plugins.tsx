@@ -5,10 +5,10 @@ import {
 import {
   InputCheckbox
 } from '@kcuf/demo-rc';
+
 import {
   CanvasMarkingPropsPlugins
-} from '@kcuf/canvas-marking-react-headless';
-
+} from '../../../../src';
 import {
   useHandleTogglePlugin,
   usePlugins

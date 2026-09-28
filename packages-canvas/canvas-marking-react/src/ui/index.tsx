@@ -1,35 +1,23 @@
 import {
-  Ref,
-  ReactElement,
-  forwardRef,
-  useImperativeHandle
+  ReactElement
 } from 'react';
-import styled from 'styled-components';
 
 import {
-  CanvasMarkingImperativeRef,
   useProps,
-  useRefDomContainer,
-  useImperativeRef
-} from '@kcuf/canvas-marking-react-headless';
+  useDomRef
+} from '../model';
 
-interface IScMarkingContainer {
-  $resizable?: boolean;
-}
-
-const ScMarkingContainer = styled.div<IScMarkingContainer>`
-  height: 100%;
-  min-height: 120px;
-`;
-
-export default forwardRef(function Ui(_props: unknown, ref?: Ref<CanvasMarkingImperativeRef>): ReactElement {
+export default function Ui(): ReactElement {
   const {
     className
   } = useProps();
-  const refDomContainer = useRefDomContainer();
-  const imperativeRef = useImperativeRef();
+  const domRef = useDomRef();
   
-  useImperativeHandle(ref, () => imperativeRef, [imperativeRef]);
-  
-  return <ScMarkingContainer className={className} ref={refDomContainer} />;
-});
+  return <div ref={domRef} {...{
+    className,
+    style: {
+      height: '100%',
+      minHeight: 120
+    }
+  }} />;
+}

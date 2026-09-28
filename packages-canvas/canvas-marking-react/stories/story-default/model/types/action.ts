@@ -4,8 +4,7 @@ import {
 
 import {
   MarkingStats
-} from '@kcuf/canvas-marking-react-headless';
-
+} from '../../../../src';
 import {
   EAction,
   EDataType

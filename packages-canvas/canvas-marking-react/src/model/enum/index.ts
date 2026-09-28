@@ -1,4 +1,3 @@
 export enum EAction {
-  SET_DOM_CONTAINER,
   SET_MARKING_INSTANCE
 }

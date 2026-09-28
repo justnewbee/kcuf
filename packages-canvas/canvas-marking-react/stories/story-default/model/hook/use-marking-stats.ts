@@ -1,6 +1,6 @@
 import {
   MarkingStats
-} from '@kcuf/canvas-marking-react-headless';
+} from '../../../../src';
 
 import useModelState from './_use-model-state';
 

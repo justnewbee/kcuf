@@ -1,7 +1,7 @@
 import {
   MarkingConfigItem,
   MarkingStyleBorderDiff
-} from '@kcuf/canvas-marking-react-headless';
+} from '../../../../src';
 
 const DIFF_HOVER: MarkingStyleBorderDiff = {
   outerColor: 'hsl(177 100% 50%)',

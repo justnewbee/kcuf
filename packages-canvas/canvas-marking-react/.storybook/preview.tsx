@@ -1,8 +1,4 @@
 import {
-  StrictMode
-} from 'react';
-
-import {
   Preview
 } from '@storybook/react-vite';
 import {
@@ -19,9 +15,9 @@ export default {
     }
   },
   decorators: [
-    story => <StrictMode>
+    story => <>
       <MinimalNormalize />
       {story()}
-    </StrictMode>
+    </>
   ]
 } as Preview;

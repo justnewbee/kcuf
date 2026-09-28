@@ -7,6 +7,7 @@ import CanvasMarking from '@kcuf/canvas-marking';
 import useModelProps from './_use-model-props';
 import useModelState from './_use-model-state';
 import useDispatchSetMarkingInstance from './use-dispatch-set-marking-instance';
+import useDomRef from './use-dom-ref';
 
 export default function useEffectInit(): void {
   const {
@@ -14,21 +15,19 @@ export default function useEffectInit(): void {
     tooltipOptions
   } = useModelProps();
   const {
-    domContainer,
     markingInstance
   } = useModelState();
+  const domRef = useDomRef();
   const dispatchSetCanvasMarking = useDispatchSetMarkingInstance();
   
   useEffect(() => {
-    if (!domContainer || markingInstance) {
+    if (!domRef.current || markingInstance) {
       return;
     }
     
-    const instance = new CanvasMarking(domContainer, {
+    dispatchSetCanvasMarking(new CanvasMarking(domRef.current, {
       zoomOptions,
       tooltipOptions
-    });
-    
-    dispatchSetCanvasMarking(instance);
-  }, [domContainer, markingInstance, zoomOptions, tooltipOptions, dispatchSetCanvasMarking]);
+    }));
+  }, [domRef, markingInstance, zoomOptions, tooltipOptions, dispatchSetCanvasMarking]);
 }

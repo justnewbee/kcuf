@@ -1,6 +1,6 @@
 import _noop from 'lodash/noop';
 import {
-  useMemo
+  useImperativeHandle
 } from 'react';
 
 import {
@@ -8,15 +8,19 @@ import {
 } from '@kcuf/canvas-marking';
 
 import {
-  IImperativeRef
+  IModelImperative
 } from '../types';
 
 import useMarkingInstance from './use-marking-instance';
+import useModelContext from './_use-model-context';
 
-export default function useImperativeRef(): IImperativeRef {
+export default function useImperative(): void {
+  const {
+    ref
+  } = useModelContext();
   const markingInstance = useMarkingInstance();
   
-  return useMemo((): IImperativeRef => ({
+  useImperativeHandle(ref, (): IModelImperative => ({
     getStats(): MarkingStats | null {
       return markingInstance ? markingInstance.getStats() : null;
     },

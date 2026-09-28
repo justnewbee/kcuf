@@ -19,9 +19,6 @@ module.exports = {
     }],
     ['@babel/plugin-transform-react-jsx', {
       runtime: 'automatic'
-    }],
-    ['babel-plugin-styled-components', {
-      displayName: false
     }]
   ]
 };

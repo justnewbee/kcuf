@@ -1,9 +1,14 @@
 import {
+  Ref,
+  RefObject
+} from 'react';
+
+import {
   CanvasMarkingClassType,
   MarkingStats
 } from '@kcuf/canvas-marking';
 
-export interface IImperativeRef<T = unknown> {
+export interface IModelImperative<T = unknown> {
   getStats(): MarkingStats<T> | null;
   startCreating: CanvasMarkingClassType<T>['startCreating'];
   cancelCreating: CanvasMarkingClassType<T>['cancelCreating'];
@@ -15,14 +20,6 @@ export interface IImperativeRef<T = unknown> {
   on: CanvasMarkingClassType<T>['on'];
 }
 
-// 插件开关，除了说明的默认开
-export interface IPlugins {
-  cursor?: boolean;
-  tooltip?: boolean;
-  magnet?: boolean;
-  snapping?: boolean;
-  zoom?: boolean;
-  move?: boolean;
-  stats?: boolean; // 默认 false
-  fps?: boolean; // 默认 false
-}
+export type TImperativeRef<T = unknown> = Ref<IModelImperative<T>>;
+
+export type TDomRef = RefObject<HTMLDivElement | null>;

@@ -1,5 +1,7 @@
 import {
   ReactElement,
+  PropsWithChildren,
+  useRef,
   useReducer,
   useCallback
 } from 'react';
@@ -7,7 +9,7 @@ import {
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
 
 import {
-  IModelProviderProps,
+  IModelPropsWithRef,
   IModelState,
   TModelAction
 } from '../types';
@@ -19,9 +21,11 @@ import Context from '../context';
 import Lifecycle from '../lifecycle';
 
 export default function Provider({
+  ref,
   children,
   ...props
-}: IModelProviderProps): ReactElement {
+}: PropsWithChildren<IModelPropsWithRef>): ReactElement {
+  const domRef = useRef<HTMLDivElement>(null);
   const isUnmounted = useIsUnmounted();
   const [state, dispatch] = useReducer<IModelState, null, [TModelAction]>(reducer, null, createInitialState);
   
@@ -32,6 +36,8 @@ export default function Provider({
   }, [isUnmounted, dispatch]);
   
   return <Context value={{
+    ref,
+    domRef,
     props,
     state,
     dispatch: safeDispatch

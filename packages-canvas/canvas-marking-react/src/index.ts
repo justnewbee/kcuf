@@ -1,3 +1,5 @@
-export { default } from './with-model';
+export { default } from './canvas-marking';
 
-export * from '@kcuf/canvas-marking-react-headless';
+export * from './model';
+
+export * from '@kcuf/canvas-marking';

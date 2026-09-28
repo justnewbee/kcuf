@@ -5,7 +5,7 @@ import {
 import {
   CanvasMarkingPropsPlugins,
   CanvasMarkingImperativeRef
-} from '@kcuf/canvas-marking-react-headless';
+} from '../../../../src';
 
 export type TMutableRefImperative = RefObject<CanvasMarkingImperativeRef | null>;
 

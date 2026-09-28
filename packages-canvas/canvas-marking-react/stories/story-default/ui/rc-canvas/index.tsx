@@ -20,7 +20,5 @@ export default function TheCanvas(): ReactElement | null {
   const destroyed = useDestroyed();
   const canvasMarkingProps = useCanvasMarkingProps();
   
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   return destroyed ? null : <ScCanvasMarking ref={ref} {...canvasMarkingProps} />;
 }

@@ -5,10 +5,10 @@ import {
 import {
   Button
 } from '@kcuf/demo-rc';
+
 import {
   ZoomHow
-} from '@kcuf/canvas-marking-react-headless';
-
+} from '../../../../src';
 import {
   useMarkingStats,
   useRefImperative

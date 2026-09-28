@@ -6,8 +6,7 @@ import {
 
 import {
   CanvasMarkingImperativeRef
-} from '@kcuf/canvas-marking-react-headless';
-
+} from '../../../../src';
 import {
   IModelProviderProps,
   IModelState,

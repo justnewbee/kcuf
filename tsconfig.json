@@ -3,7 +3,7 @@
   "include": [
     "taze.config.ts",
     "packages-*/**/src",
-    "packages-*/**/.storybook",
+    "packages-*/**/.storybook/*",
     "packages-*/**/stories",
     "packages-*/**/test",
     "packages-*/**/*.config.ts",

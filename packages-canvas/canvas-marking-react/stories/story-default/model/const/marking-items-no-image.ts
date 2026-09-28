@@ -1,6 +1,6 @@
 import {
   MarkingConfigItem
-} from '@kcuf/canvas-marking-react-headless';
+} from '../../../../src';
 
 export default [{
   path: [
