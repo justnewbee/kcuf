@@ -1,6 +1,5 @@
 // refs - if any
-export { default as useRefDomContainer } from './use-dispatch-set-dom-container';
-export { default as useRefDomCanvasMarking } from './use-dispatch-set-dom-marking';
+export { default as useDomRef } from './use-dom-ref';
 
 // computed values
 export { default as useMarkingInstance } from './use-marking-instance';

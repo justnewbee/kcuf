@@ -4,8 +4,6 @@ import {
 } from '../../../../src';
 
 export interface IModelState {
-  domContainer: HTMLDivElement | null;
-  domMarking: HTMLDivElement | null;
   everInit: boolean;
   optionDebugEvents: boolean;
   optionNoHover: boolean;

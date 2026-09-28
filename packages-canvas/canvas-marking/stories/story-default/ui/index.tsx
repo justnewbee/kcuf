@@ -4,13 +4,12 @@ import {
 import styled from 'styled-components';
 
 import {
-  useRefDomContainer,
-  useRefDomCanvasMarking
+  useDomRef
 } from '../model';
 
 import Ops from './ops';
 
-const ScContainer = styled.div`
+const ScStoryContainer = styled.div`
   display: flex;
 `;
 const ScMarking = styled.div`
@@ -21,11 +20,10 @@ const ScMarking = styled.div`
 `;
 
 export default function StoryDefault(): ReactElement {
-  const refDomContainer = useRefDomContainer();
-  const refDomCanvasMarking = useRefDomCanvasMarking();
+  const refDomCanvasMarking = useDomRef();
   
-  return <ScContainer ref={refDomContainer}>
+  return <ScStoryContainer>
     <ScMarking ref={refDomCanvasMarking} />
     <Ops />
-  </ScContainer>;
+  </ScStoryContainer>;
 }

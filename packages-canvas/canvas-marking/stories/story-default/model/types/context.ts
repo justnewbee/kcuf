@@ -1,7 +1,6 @@
 import {
-  ReactNode
-} from 'react';
-
+  TDomRef
+} from './ref';
 import {
   IModelState
 } from './state';
@@ -10,10 +9,7 @@ import {
 } from './action';
 
 export interface IModelContext {
+  domRef: TDomRef;
   state: IModelState;
   dispatch: TModelDispatch;
-}
-
-export interface IModelProviderProps {
-  children: ReactNode;
 }

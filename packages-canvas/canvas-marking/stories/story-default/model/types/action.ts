@@ -13,9 +13,6 @@ import {
 export type TModelAction = {
   type: EAction.SET_EVER_INIT;
 } | {
-  type: EAction.SET_DOM_CONTAINER | EAction.SET_DOM_MARKING;
-  payload: HTMLDivElement | null;
-} | {
   type: EAction.SET_MARKING_INSTANCE;
   payload: CanvasMarkingClassType | null;
 } | {

@@ -4,8 +4,6 @@ import {
 
 export default function createInitialState(): IModelState {
   return {
-    domContainer: null,
-    domMarking: null,
     everInit: false,
     optionDebugEvents: localStorage.debug === 'canvas-marking',
     optionNoHover: false,
