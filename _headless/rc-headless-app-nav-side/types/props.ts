@@ -1,5 +1,5 @@
 import {
-  ReactNode,
+  ReactElement,
   MouseEvent
 } from 'react';
 
@@ -17,7 +17,7 @@ export interface IModelProps {
   title?: ReactElement | string;
   /**
    * 和 upperHref 一起使用，影响标题展示
-   * 
+   *
    * - 不设置 upperTitle：居中展示，仅箭头
    * - 设置 upperTitle：靠左展示，箭头 + 标题
    */
@@ -72,8 +72,4 @@ export interface IModelProps {
    * 过滤可见性变化，可用于记录日志
    */
   onFilterVisibleChange?(visible: boolean): void;
-}
-
-export interface IModelProviderProps extends IModelProps {
-  children: ReactNode;
 }

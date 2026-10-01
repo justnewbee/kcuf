@@ -1,8 +1,4 @@
 import {
-  ReactNode
-} from 'react';
-
-import {
   TMutableRefImperative
 } from './common';
 import {
@@ -16,8 +12,4 @@ export interface IModelContext {
   refImperative: TMutableRefImperative;
   state: IModelState;
   dispatch: TModelDispatch;
-}
-
-export interface IModelProviderProps {
-  children: ReactNode;
 }

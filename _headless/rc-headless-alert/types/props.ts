@@ -1,5 +1,4 @@
 import {
-  ReactNode,
   ReactElement,
   HTMLAttributes
 } from 'react';
@@ -29,7 +28,3 @@ export interface IPropsCustom {
 }
 
 export interface IModelProps extends IPropsCustom, IPropsDom {}
-
-export interface IModelProviderProps extends IModelProps {
-  children: ReactNode;
-}

@@ -1,5 +1,6 @@
 import {
   ReactElement,
+  PropsWithChildren,
   useRef,
   useReducer
 } from 'react';
@@ -8,7 +9,6 @@ import {
   CanvasMarkingImperativeRef
 } from '../../../../src';
 import {
-  IModelProviderProps,
   IModelState,
   TModelAction
 } from '../types';
@@ -20,7 +20,7 @@ import {
 
 export default function Provider({
   children
-}: IModelProviderProps): ReactElement {
+}: PropsWithChildren): ReactElement {
   const refImperative = useRef<CanvasMarkingImperativeRef>(null);
   const [state, dispatch] = useReducer<IModelState, null, [TModelAction]>(reducer, null, createInitialState);
   

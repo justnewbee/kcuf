@@ -1,4 +1,4 @@
-export interface ICodemirrorProps {
+export interface IModelPropsCodemirror {
   defaultValue?: string;
   value?: string;
   placeholder?: string;

@@ -1,8 +1,4 @@
 import {
-  ReactNode
-} from 'react';
-
-import {
   IModelState
 } from './state';
 import {
@@ -12,8 +8,4 @@ import {
 export interface IModelContext {
   state: IModelState;
   dispatch: TModelDispatch;
-}
-
-export interface IModelProviderProps {
-  children: ReactNode;
 }

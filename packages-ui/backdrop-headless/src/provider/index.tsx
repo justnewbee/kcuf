@@ -1,5 +1,6 @@
 import {
   ReactElement,
+  PropsWithChildren,
   useReducer,
   useCallback
 } from 'react';
@@ -7,7 +8,7 @@ import {
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
 
 import {
-  IModelProviderProps,
+  IModelProps,
   IModelState,
   TModelAction
 } from '../types';
@@ -21,7 +22,7 @@ import Lifecycle from '../lifecycle';
 export default function Provider({
   children,
   ...props
-}: IModelProviderProps): ReactElement {
+}: PropsWithChildren<IModelProps>): ReactElement {
   const isUnmounted = useIsUnmounted();
   const [state, dispatch] = useReducer<IModelState, null, [TModelAction]>(reducer, null, createInitialState);
   

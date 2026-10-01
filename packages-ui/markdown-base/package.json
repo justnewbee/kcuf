@@ -32,16 +32,16 @@
     "@chromatic-com/storybook": "^5.3.1",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
-    "@storybook/addon-docs": "^10.6.0",
-    "@storybook/addon-links": "^10.6.0",
-    "@storybook/react-vite": "^10.6.0",
+    "@storybook/addon-docs": "^10.6.1",
+    "@storybook/addon-links": "^10.6.1",
+    "@storybook/react-vite": "^10.6.1",
     "@types/react": "^19.3.0",
     "babel-plugin-styled-components": "^2.3.0",
     "micromark-extension-math": "^3.1.0",
     "micromark-util-symbol": "^2.0.1",
     "react": "^19.3.0",
     "rimraf": "^6.1.3",
-    "storybook": "^10.6.0",
+    "storybook": "^10.6.1",
     "styled-components": "^6.5.3",
     "typescript": "^6.0.3"
   },
@@ -51,10 +51,10 @@
     "styled-components": ">=6.0.0"
   },
   "dependencies": {
-    "micromark": "^4.0.2",
+    "micromark": "^4.0.3",
     "micromark-extension-directive": "^4.0.0",
     "micromark-extension-gfm": "^3.0.0",
-    "micromark-util-types": "^2.0.2"
+    "micromark-util-types": "^2.0.3"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

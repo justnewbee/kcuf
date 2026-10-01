@@ -21,14 +21,14 @@ import useDispatchSetCodemirrorInfo from './use-dispatch-set-codemirror-info';
 export default function useEffectInit(): void {
   const refInitialized = useRef(false);
   const {
-    refDom,
+    domRef,
     props,
     controllableOnChange
   } = useModelContext();
   const dispatchSetCodemirrorInfo = useDispatchSetCodemirrorInfo();
   
   useEffect(() => {
-    if (!refDom.current || refInitialized.current) {
+    if (!domRef.current || refInitialized.current) {
       return;
     }
     
@@ -52,7 +52,7 @@ export default function useEffectInit(): void {
       extensions
     });
     const editorView = new EditorView({
-      parent: refDom.current,
+      parent: domRef.current,
       state: editorState
     });
     
@@ -62,5 +62,5 @@ export default function useEffectInit(): void {
       compartmentReadOnly,
       compartmentEditable
     });
-  }, [props, refDom, controllableOnChange, dispatchSetCodemirrorInfo]);
+  }, [props, domRef, controllableOnChange, dispatchSetCodemirrorInfo]);
 }
