@@ -3,6 +3,6 @@ export { default } from './provider';
 export * from './hook';
 
 export type {
-  IModelProps as InputTextProps,
-  IImperativeRef as InputTextImperativeRef
+  IModelPropsWithRef as InputTextProps,
+  IModelImperative as InputTextRef
 } from './types';

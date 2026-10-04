@@ -1,7 +1,5 @@
 import {
-  ReactElement,
-  ChangeEvent,
-  useCallback
+  ReactElement
 } from 'react';
 
 import useControllable from '@kcuf-hook/use-controllable';
@@ -21,14 +19,11 @@ export default function InputDate({
   ...props
 }: IInputDateProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllable('', value, defaultValue, onChange);
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    controllableOnChange(e.target.value);
-  }, [controllableOnChange]);
   
   return <ScInput {...{
     ...props,
     value: controllableValue,
     type: type === 'datetime' ? 'datetime-local' : type,
-    onChange: handleChange
+    onChange: e => controllableOnChange(e.target.value)
   }} />;
 }

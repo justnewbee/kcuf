@@ -1,7 +1,6 @@
 import {
   MouseEvent,
-  ReactElement,
-  useCallback
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
@@ -38,7 +37,7 @@ export default function FooterButton({
   const dispatchUnlock = useDispatchUnlock();
   const dispatchCloseWithValue = useHandleCloseWithValue<unknown>();
   
-  const handleClick = useCallback((e: MouseEvent<HTMLElement>) => {
+  const handleClick = (e: MouseEvent<HTMLElement>): void => {
     let willClose: boolean | undefined;
     
     if (onClick) {
@@ -73,7 +72,7 @@ export default function FooterButton({
     }
     
     dispatchCloseWithValue(finalResult);
-  }, [onClick, result, dispatchCloseWithValue, dialog, dispatchLock, dispatchUnlock]);
+  };
   
   return <ScButton {...{
     ...buttonProps as ButtonProps,

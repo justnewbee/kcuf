@@ -1,7 +1,6 @@
 import {
   Dispatch,
   SetStateAction,
-  useCallback,
   useState
 } from 'react';
 
@@ -11,11 +10,11 @@ export default function useSafeState<S>(initialState: S | (() => S)): [S, Dispat
   const [state, setState] = useState<S>(initialState);
   const isUnmounted = useIsUnmounted();
   
-  const setSafeState = useCallback((v: SetStateAction<S>): void => {
+  const setSafeState = (v: SetStateAction<S>): void => {
     if (!isUnmounted()) {
       setState(v);
     }
-  }, [isUnmounted]);
+  };
   
   return [state, setSafeState];
 }

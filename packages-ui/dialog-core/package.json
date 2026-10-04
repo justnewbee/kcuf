@@ -32,6 +32,7 @@
     "@kcuf/ts-config": "workspace:^",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "babel-plugin-react-compiler": "^1.0.0",
     "babel-plugin-styled-components": "^2.3.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",

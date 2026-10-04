@@ -14,6 +14,7 @@ module.exports = {
     '@babel/preset-react'
   ],
   plugins: [
+    'babel-plugin-react-compiler',
     ['@babel/plugin-transform-runtime', {
       version: '^7.24.7'
     }]

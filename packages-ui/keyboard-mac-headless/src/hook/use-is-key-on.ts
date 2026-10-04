@@ -1,17 +1,13 @@
 import {
-  useCallback
-} from 'react';
-
-import {
   EKeyboardCode
 } from '../enum';
 
 import useActiveModifiers from './use-active-modifiers';
 
-export default function useIsKeyOn(): (code: string) => boolean {
+export default function useIsKeyOn(): (code: EKeyboardCode) => boolean {
   const activeModifiers = useActiveModifiers();
   
-  return useCallback((code: string): boolean => {
+  return (code: EKeyboardCode): boolean => {
     return activeModifiers.capsLock ? code === EKeyboardCode.CAPS_LOCK : false;
-  }, [activeModifiers]);
+  };
 }

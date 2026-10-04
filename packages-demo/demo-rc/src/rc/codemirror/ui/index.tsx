@@ -3,11 +3,11 @@ import {
 } from 'react';
 
 import {
-  useRefDom
+  useDomRef
 } from '@kcuf-ui/codemirror-headless';
 
 export default function Ui(): ReactElement {
-  const refDom = useRefDom();
+  const domRef = useDomRef();
   
-  return <div ref={refDom} />;
+  return <div ref={domRef} />;
 }

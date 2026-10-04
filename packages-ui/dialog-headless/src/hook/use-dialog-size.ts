@@ -1,8 +1,4 @@
 import {
-  useMemo
-} from 'react';
-
-import {
   EDialogSize
 } from '../enum';
 
@@ -17,5 +13,5 @@ export default function useDialogSize(): number | EDialogSize {
     data
   } = useModelState();
   
-  return useMemo((): number | EDialogSize => (typeof size === 'function' ? size(data) : size) as number | EDialogSize, [data, size]);
+  return (typeof size === 'function' ? size(data) : size) as unknown as number | EDialogSize;
 }

@@ -12,7 +12,7 @@ import {
   ScBaseInputText
 } from '@kcuf/styled-mixin';
 import {
-  useRefInput,
+  useDomInputRef,
   useInputDomProps
 } from '@kcuf-ui/input-text-headless';
 
@@ -37,8 +37,8 @@ const ScInputElement = styled(ScBaseInputText)`
 `;
 
 export default function InputElement(): ReactElement {
-  const refInput = useRefInput();
+  const domInputRef = useDomInputRef();
   const inputDomProps = useInputDomProps();
   
-  return <ScInputElement {...inputDomProps} ref={refInput} />;
+  return <ScInputElement {...inputDomProps} ref={domInputRef} />;
 }

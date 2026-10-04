@@ -1,7 +1,5 @@
 import {
-  ReactElement,
-  ChangeEvent,
-  useCallback
+  ReactElement
 } from 'react';
 
 import {
@@ -23,15 +21,12 @@ export default function InputText({
   ...props
 }: IInputTextProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllableSoftTrim(true, value, defaultValue, onChange);
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    controllableOnChange(e.target.value);
-  }, [controllableOnChange]);
   
   return <ScInput {...{
     $block: block,
     ...props,
     value: controllableValue,
     type: 'text',
-    onChange: handleChange
+    onChange: e => controllableOnChange(e.target.value)
   }} />;
 }

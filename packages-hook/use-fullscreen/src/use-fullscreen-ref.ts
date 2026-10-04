@@ -1,6 +1,5 @@
 import {
-  useState,
-  useCallback
+  useState
 } from 'react';
 
 import {
@@ -11,9 +10,9 @@ import useFullscreen from './use-fullscreen';
 export default function useFullscreenRef(): TUseFullscreenRefResult {
   const [stateTarget, setStateTarget] = useState<HTMLElement>(document.documentElement);
   
-  const ref = useCallback((element: HTMLElement | null) => {
+  const ref = (element: HTMLElement | null): void => {
     setStateTarget(element ?? document.documentElement);
-  }, [setStateTarget]);
+  };
   
   const fullscreenResult = useFullscreen(stateTarget);
   

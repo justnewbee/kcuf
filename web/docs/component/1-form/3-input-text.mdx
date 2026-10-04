@@ -105,10 +105,7 @@ tags:
 ```tsx live
 function DemoControllable(): ReactElement {
   const [stateValue, setStateValue] = useState('');
-  const handleNativeInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setStateValue(e.target.value);
-  }, [setStateValue]);
-  
+
   return <>
     <InputText {...{
       placeholder: '非受控 InputText',
@@ -128,7 +125,7 @@ function DemoControllable(): ReactElement {
     <input {...{
       placeholder: '原生受控 input',
       value: stateValue,
-      onChange: handleNativeInputChange
+      onChange: e => setStateValue(e.target.value)
     }} />
   </>;
 }
@@ -154,12 +151,12 @@ function DemoControllable(): ReactElement {
 function DemoTrim(): ReactElement {
   const [stateValue, setStateValue] = useState('');
   const [stateTime, setStateTime] = useState(0);
-  
+
   const handleChange = useCallback(value => {
     setStateValue(value);
     setStateTime(Date.now());
   }, []);
-  
+
   return <>
     <InputText {...{
       placeholder: '默认 trim',
@@ -189,7 +186,7 @@ function DemoControllable(): ReactElement {
   const handleNativeInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setStateValue(e.target.value);
   }, [setStateValue]);
-  
+
   return <>
     <InputText {...{
       placeholder: '受控，输入中文试试',
@@ -215,7 +212,7 @@ function DemoControllable(): ReactElement {
 ```tsx live
 function DemoFocusing(): ReactElement {
   const inputTextRef = useRef<InputTextRef>(null);
-  
+
   return <>
     <div>
       <Button {...{
@@ -303,8 +300,6 @@ import InputText, {
 | 事件 | 类型 | 说明 |
 | --- | --- | --- |
 | `onChange` <TagOverride /> | `(value: string, reason: 'input' \| 'composition-end' \| 'clear') => void` | `value` 变化时的回调 |
-| `onFocusedChange` | `(focused: boolean) => void` | 可代替 `onFocus/onBlur` |
-| `onHoveredChange` | `(hovered: boolean) => void` | 可代替 `onMouseEnter/onMouseLeave` |
 
 ### Data Attributes
 

@@ -1,7 +1,3 @@
-import {
-  useCallback
-} from 'react';
-
 import useModelProps from './_use-model-props';
 import useModelState from './_use-model-state';
 import useDispatchSetActive from './use-dispatch-set-active';
@@ -23,7 +19,7 @@ export default function useHandleCloseWithValue<T = void>(): (value?: T | Error,
   
   const dispatchToggleActive = useDispatchSetActive();
   
-  return useCallback((value?: T | Error, rejected?: boolean): void => {
+  return (value?: T | Error, rejected?: boolean): void => {
     if (locked || !active) {
       return;
     }
@@ -35,5 +31,5 @@ export default function useHandleCloseWithValue<T = void>(): (value?: T | Error,
         onClose(value, value === undefined && undefinedAsReject ? true : rejected);
       }
     }, 250);
-  }, [locked, active, undefinedAsReject, dispatchToggleActive, onClose]);
+  };
 }

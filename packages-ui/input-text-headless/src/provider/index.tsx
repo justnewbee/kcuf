@@ -1,7 +1,8 @@
 import {
   ReactElement,
-  useReducer,
-  useCallback
+  PropsWithChildren,
+  useRef,
+  useReducer
 } from 'react';
 
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
@@ -11,7 +12,7 @@ import {
 
 import {
   TChangeReason,
-  IModelProviderProps,
+  IModelPropsWithRef,
   IModelState,
   TModelAction
 } from '../types';
@@ -20,8 +21,10 @@ import {
 } from '../util';
 import reducer from '../reducer';
 import Context from '../context';
+import Lifecycle from '../lifecycle';
 
 export default function Provider({
+  ref,
   children,
   trim = true,
   fluid = true,
@@ -29,18 +32,21 @@ export default function Provider({
   defaultValue,
   onChange,
   ...props
-}: IModelProviderProps): ReactElement {
+}: PropsWithChildren<IModelPropsWithRef>): ReactElement {
+  const domInputRef = useRef<HTMLInputElement>(null);
   const isUnmounted = useIsUnmounted();
   const [controllableValue, controllableOnChange] = useControllableSoftTrim<[TChangeReason]>(trim, value, defaultValue, onChange);
   const [state, dispatch] = useReducer<IModelState, string, [TModelAction]>(reducer, controllableValue, createInitialState);
   
-  const safeDispatch = useCallback((action: TModelAction): void => {
+  const safeDispatch = (action: TModelAction): void => {
     if (!isUnmounted()) {
       dispatch(action);
     }
-  }, [isUnmounted, dispatch]);
+  };
   
   return <Context value={{
+    ref,
+    domInputRef,
     props: {
       ...props,
       fluid
@@ -50,6 +56,7 @@ export default function Provider({
     controllableValue,
     controllableOnChange
   }}>
+    <Lifecycle />
     {children}
   </Context>;
 }

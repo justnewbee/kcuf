@@ -1,7 +1,5 @@
 import {
-  ChangeEvent,
   ReactElement,
-  useCallback,
   useState
 } from 'react';
 
@@ -9,9 +7,6 @@ import InputText from '../src';
 
 export default function StoryControllable(): ReactElement {
   const [stateValue, setStateValue] = useState('');
-  const handleNativeInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setStateValue(e.target.value);
-  }, [setStateValue]);
   
   return <>
     <InputText {...{
@@ -24,7 +19,7 @@ export default function StoryControllable(): ReactElement {
     }} />
     <input {...{
       value: stateValue,
-      onChange: handleNativeInputChange
+      onChange: e => setStateValue(e.target.value)
     }} />
   </>;
 }

@@ -1,7 +1,5 @@
 import {
-  ReactElement,
-  useCallback,
-  useMemo
+  ReactElement
 } from 'react';
 
 import {
@@ -28,11 +26,12 @@ export default function ChoiceGroupRadio<T extends TDatasourceValue = string>({
   defaultValue,
   onChange
 }: IChoiceGroupRadioProps<T>): ReactElement {
-  const datasourceParsed = useMemo(() => parseDatasource(datasource), [datasource]);
+  const datasourceParsed = parseDatasource(datasource);
   const [controllableValue, setControllableValue] = useControllableUnprotected<T>(value, defaultValue, onChange);
-  const handleRadioChange = useCallback((_checked: boolean, itemValue: T) => {
+  
+  const handleRadioChange = (_checked: boolean, itemValue: T): void => {
     setControllableValue(itemValue);
-  }, [setControllableValue]);
+  };
   
   return <ScChoiceGroup>
     {datasourceParsed.map((v, i) => <InputRadio key={`${v.value as string}-${i}`} {...{

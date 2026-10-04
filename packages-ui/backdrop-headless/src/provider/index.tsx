@@ -1,8 +1,7 @@
 import {
   ReactElement,
   PropsWithChildren,
-  useReducer,
-  useCallback
+  useReducer
 } from 'react';
 
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
@@ -26,11 +25,11 @@ export default function Provider({
   const isUnmounted = useIsUnmounted();
   const [state, dispatch] = useReducer<IModelState, null, [TModelAction]>(reducer, null, createInitialState);
   
-  const safeDispatch = useCallback((action: TModelAction): void => {
+  const safeDispatch = (action: TModelAction): void => {
     if (!isUnmounted()) {
       dispatch(action);
     }
-  }, [isUnmounted, dispatch]);
+  };
   
   return <Context value={{
     props,

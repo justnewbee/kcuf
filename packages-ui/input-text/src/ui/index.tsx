@@ -1,8 +1,5 @@
 import {
-  Ref,
-  ReactElement,
-  forwardRef,
-  useImperativeHandle
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
@@ -14,16 +11,10 @@ import {
   mixinInputBorderDisabled,
   mixinInputBgFocus,
   mixinInputBorderFocus,
-  mixinShadowMDown
+  mixinShadowM
 } from '@kcuf/fork-console-base-theme';
 import {
-  InputTextImperativeRef,
-  useProps,
-  useHovered,
-  useFocused,
-  useHandleMouseEnter,
-  useHandleMouseLeave,
-  useImperativeRef
+  useProps
 } from '@kcuf-ui/input-text-headless';
 
 import {
@@ -53,7 +44,11 @@ const ScUi = styled.div<IScInputProps>`
   &:focus-within {
     ${mixinInputBgFocus}
     ${mixinInputBorderFocus}
-    ${mixinShadowMDown}
+    ${mixinShadowM}
+  }
+  
+  &:hover:not([data-disabled]) {
+    ${mixinShadowM}
   }
   
   &[data-disabled] {
@@ -62,7 +57,7 @@ const ScUi = styled.div<IScInputProps>`
   }
 `;
 
-export default forwardRef(function Ui(_props: unknown, ref: Ref<InputTextImperativeRef>): ReactElement {
+export default function Ui(): ReactElement {
   const {
     fluid,
     round,
@@ -70,14 +65,6 @@ export default forwardRef(function Ui(_props: unknown, ref: Ref<InputTextImperat
     className,
     style
   } = useProps();
-  const hovered = useHovered();
-  const focused = useFocused();
-  const handleMouseEnter = useHandleMouseEnter();
-  const handleMouseLeave = useHandleMouseLeave();
-  
-  const imperativeRef = useImperativeRef();
-  
-  useImperativeHandle(ref, () => imperativeRef, [imperativeRef]);
   
   return <ScUi {...{
     className,
@@ -85,12 +72,7 @@ export default forwardRef(function Ui(_props: unknown, ref: Ref<InputTextImperat
     disabled,
     $fluid: fluid,
     $round: round,
-    $hovered: hovered,
-    'data-hover': hovered ? '' : undefined,
-    'data-focus': focused ? '' : undefined,
-    'data-disabled': disabled ? '' : undefined,
-    onMouseEnter: handleMouseEnter,
-    onMouseLeave: handleMouseLeave
+    'data-disabled': disabled ? '' : undefined
   }}>
     <AddonBefore />
     <AddonPrefix />
@@ -99,4 +81,4 @@ export default forwardRef(function Ui(_props: unknown, ref: Ref<InputTextImperat
     <AddonSuffix />
     <AddonAfter />
   </ScUi>;
-});
+}

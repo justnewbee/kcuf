@@ -1,8 +1,4 @@
 import {
-  useCallback
-} from 'react';
-
-import {
   forceReflow
 } from '@kcuf/mere-dom';
 
@@ -15,7 +11,7 @@ export default function useHandleForceReflow(): () => void {
     unmountOnExit
   } = useModelProps();
   
-  return useCallback(() => {
+  return () => {
     if (unmountOnExit || mountOnEnter) {
       const node = nodeRef?.current;
       
@@ -23,5 +19,5 @@ export default function useHandleForceReflow(): () => void {
         forceReflow(node);
       }
     }
-  }, [nodeRef, unmountOnExit, mountOnEnter]);
+  };
 }

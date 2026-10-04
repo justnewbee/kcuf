@@ -1,8 +1,6 @@
 import {
   ReactElement,
-  ChangeEvent,
-  useRef,
-  useCallback
+  useRef
 } from 'react';
 import styled from 'styled-components';
 
@@ -42,26 +40,24 @@ export default function FilePicker({
 }: IFilePickerProps): ReactElement {
   const refInputFile = useRef<HTMLInputElement>(null);
   
-  const handleInputFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const fileList = e.target.files;
-    
-    if (!fileList?.length) {
-      return;
-    }
-    
-    onChange?.(normalizeFileItems(fileList, accept, maxSize, limit));
-    
-    // 重置 value，否则重复选同一个文件不触发
-    // 👻 注意，不能放在对 fileList 读取完毕之前，否则 Chrome 和 Safari 会连带清空 fileList（Firefox 下不会）
-    e.target.value = '';
-  }, [accept, limit, maxSize, onChange]);
-  
   return <ScFilePicker onClick={disabled ? undefined : () => refInputFile.current?.click()}>
     <ScInput ref={refInputFile} {...{
       type: 'file',
       multiple: limit !== 1,
       accept,
-      onChange: handleInputFileChange
+      onChange: e => {
+        const fileList = e.target.files;
+        
+        if (!fileList?.length) {
+          return;
+        }
+        
+        onChange?.(normalizeFileItems(fileList, accept, maxSize, limit));
+        
+        // 重置 value，否则重复选同一个文件不触发
+        // 👻 注意，不能放在对 fileList 读取完毕之前，否则 Chrome 和 Safari 会连带清空 fileList（Firefox 下不会）
+        e.target.value = '';
+      }
     }} />
     {children}
   </ScFilePicker>;

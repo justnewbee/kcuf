@@ -1,7 +1,5 @@
 import {
-  ReactElement,
-  ChangeEvent,
-  useCallback
+  ReactElement
 } from 'react';
 
 import useControllable from '@kcuf-hook/use-controllable';
@@ -24,14 +22,11 @@ export default function InputNumber({
   ...props
 }: IInputNumberProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllable<number>(0, value, defaultValue, onChange);
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    controllableOnChange(fromStringToNumber(e.target.value));
-  }, [controllableOnChange]);
   
   return <ScInput {...{
     ...props,
     value: fromNumberToString(controllableValue),
     type: 'number',
-    onChange: handleChange
+    onChange: e => controllableOnChange(fromStringToNumber(e.target.value))
   }} />;
 }

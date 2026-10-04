@@ -8,12 +8,10 @@ import {
 
 import {
   ScAddonSuffix
-} from '../sc';
+} from '../index.styled';
 
 export default function Count(): ReactElement | null {
   const countInfo = useCountInfo();
   
-  return countInfo ? <ScAddonSuffix>
-    {countInfo}
-  </ScAddonSuffix> : null;
+  return countInfo ? <ScAddonSuffix>{countInfo}</ScAddonSuffix> : null;
 }

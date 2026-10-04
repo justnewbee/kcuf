@@ -1,12 +1,14 @@
 import {
   InputHTMLAttributes,
-  ReactNode,
   ReactElement
 } from 'react';
 
 import {
   TChangeReason
 } from './common';
+import {
+  TImperativeRef
+} from './ref';
 
 export interface IButtonCustomProps {
   // -------- 内容 -------- //
@@ -62,16 +64,6 @@ export interface IButtonCustomProps {
   count?: boolean;
   // -------- 事件 -------- //
   onChange?(value: string, reason: TChangeReason): void;
-  // onMouseEnter?(e: MouseEvent): void;
-  // onMouseLeave?(e: MouseEvent): void;
-  /**
-   * 可代替 `onFocus/onBlur`
-   */
-  onFocusedChange?(focused: boolean): void;
-  /**
-   * 可代替 `onMouseEnter/onMouseLeave`
-   */
-  onHoveredChange?(hovered: boolean): void;
 }
 
 export interface IInputElementProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'defaultValue' | 'type'> {
@@ -79,8 +71,8 @@ export interface IInputElementProps extends Omit<InputHTMLAttributes<HTMLInputEl
   defaultValue?: string;
 }
 
-export interface IModelProps extends Omit<IInputElementProps, 'onChange'/*  | 'onMouseEnter' | 'onMouseLeave' */>, IButtonCustomProps {}
+export interface IModelProps extends Omit<IInputElementProps, 'onChange'>, IButtonCustomProps {}
 
-export interface IModelProviderProps extends IModelProps {
-  children?: ReactNode;
+export interface IModelPropsWithRef extends IModelProps {
+  ref?: TImperativeRef;
 }

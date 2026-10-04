@@ -1,7 +1,3 @@
-import {
-  useCallback
-} from 'react';
-
 import useModelProps from './_use-model-props';
 import useHandleClose from './use-handle-close';
 
@@ -15,9 +11,9 @@ export default function useHandleCloseOnExternal(): () => void {
   } = useModelProps();
   const handleClose = useHandleClose();
   
-  return useCallback(() => {
+  return () => {
     if (externalClose === -1 || (closable && externalClose)) {
       handleClose();
     }
-  }, [externalClose, closable, handleClose]);
+  };
 }

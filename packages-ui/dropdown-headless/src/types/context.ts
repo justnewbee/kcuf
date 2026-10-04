@@ -1,8 +1,4 @@
 import {
-  ReactNode
-} from 'react';
-
-import {
   IModelProps
 } from './props';
 import {
@@ -16,10 +12,6 @@ export interface IModelContext {
   props: IModelProps;
   state: IModelState;
   dispatch: TModelDispatch;
-}
-
-export interface IModelProviderProps extends IModelProps {
-  children?: ReactNode;
 }
 
 export interface IContextForContent {

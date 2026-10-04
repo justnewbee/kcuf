@@ -1,8 +1,4 @@
 import {
-  useMemo
-} from 'react';
-
-import {
   IDialogButtonProps,
   TDialogButton
 } from '../types';
@@ -26,5 +22,5 @@ export default function useDialogButtons<T = void, D extends object = Record<str
     buttons = buttons(data);
   }
   
-  return useMemo(() => processButtons(buttons as TDialogButton<T, D>[], locked), [buttons, locked]);
+  return processButtons(buttons as TDialogButton<T, D>[], locked);
 }

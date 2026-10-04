@@ -2,8 +2,7 @@ import {
   ReactElement,
   PropsWithChildren,
   useRef,
-  useReducer,
-  useCallback
+  useReducer
 } from 'react';
 
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
@@ -35,11 +34,11 @@ export default function CodemirrorProvider({
   const [controllableValue, controllableOnChange] = useControllable('', value, defaultValue, onChange); // 不适合用 `trim`
   const [state, dispatch] = useReducer<IModelState, null, [TModelAction]>(reducer, null, createInitialState);
   
-  const safeDispatch = useCallback((action: TModelAction): void => {
+  const safeDispatch = (action: TModelAction): void => {
     if (!isUnmounted()) {
       dispatch(action);
     }
-  }, [isUnmounted, dispatch]);
+  };
   
   return <Context value={{
     domRef,

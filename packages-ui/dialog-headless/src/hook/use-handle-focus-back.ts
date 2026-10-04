@@ -1,7 +1,3 @@
-import {
-  useCallback
-} from 'react';
-
 import useModelProps from './_use-model-props';
 
 export default function useHandleFocusBack(): () => void {
@@ -9,7 +5,7 @@ export default function useHandleFocusBack(): () => void {
     prevFocus
   } = useModelProps();
   
-  return useCallback((): void => {
+  return (): void => {
     if (prevFocus) {
       try {
         (prevFocus as HTMLElement).focus();
@@ -17,5 +13,5 @@ export default function useHandleFocusBack(): () => void {
         // ignore
       }
     }
-  }, [prevFocus]);
+  };
 }

@@ -1,6 +1,5 @@
 import {
-  useState,
-  useCallback
+  useState
 } from 'react';
 
 import {
@@ -15,10 +14,10 @@ export default function useControllableUnprotected<T = string, A extends unknown
   const [stateValue, setStateValue] = useState<T | undefined>(value ?? defaultValue);
   const finalValue = value !== undefined ? value : stateValue;
   
-  const handleChange = useCallback((valueNew: T, ...args: A) => {
+  const handleChange = (valueNew: T, ...args: A): void => {
     setStateValue(valueNew);
     onChange?.(valueNew, ...args);
-  }, [onChange]);
+  };
   
   return [finalValue, handleChange];
 }

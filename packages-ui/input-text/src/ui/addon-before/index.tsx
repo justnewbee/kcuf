@@ -8,7 +8,7 @@ import {
 
 import {
   ScAddonPrefix
-} from '../sc';
+} from '../index.styled';
 
 export default function AddonBefore(): ReactElement | null {
   const {

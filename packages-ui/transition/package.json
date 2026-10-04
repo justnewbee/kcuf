@@ -31,7 +31,7 @@
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-react": "^7.29.7",
     "@babel/preset-typescript": "^7.29.7",
-    "@chromatic-com/storybook": "^5.3.1",
+    "@chromatic-com/storybook": "^5.4.0",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",
     "@storybook/addon-docs": "^10.6.1",
@@ -40,6 +40,7 @@
     "@testing-library/react": "^16.3.3",
     "@types/react": "^19.3.0",
     "@vitest/coverage-v8": "^5.0.3",
+    "babel-plugin-react-compiler": "^1.0.0",
     "react": "^19.3.0",
     "rimraf": "^6.1.3",
     "storybook": "^10.6.1",
@@ -54,7 +55,7 @@
   "dependencies": {
     "@kcuf-hook/use-is-unmounted": "workspace:^",
     "@kcuf/mere-dom": "workspace:^",
-    "immer": "^11.1.18"
+    "immer": "^11.1.21"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

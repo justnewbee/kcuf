@@ -1,6 +1,5 @@
 import {
-  SubmitEvent,
-  useCallback
+  SubmitEvent
 } from 'react';
 
 import useModelProps from './_use-model-props';
@@ -11,11 +10,11 @@ export default function useHandleSubmit(): (e: SubmitEvent<HTMLFormElement>) => 
     onSubmit
   } = useModelProps();
   
-  return useCallback((e: SubmitEvent<HTMLFormElement>) => {
+  return (e: SubmitEvent<HTMLFormElement>) => {
     if (preventDefault) {
       e.preventDefault();
     }
     
     onSubmit?.(e);
-  }, [preventDefault, onSubmit]);
+  };
 }

@@ -1,9 +1,4 @@
 import {
-  useMemo,
-  useCallback
-} from 'react';
-
-import {
   IContextForContent
 } from '../types';
 
@@ -20,16 +15,17 @@ export default function useDropdown(): IContextForContent {
   } = useModelProps();
   const visible = useDropVisible();
   const dispatchToggleVisible = useDispatchSetVisible();
-  const handleToggleVisible = useCallback((payload: boolean) => {
+  
+  const handleToggleVisible = (payload: boolean): void => {
     dispatchToggleVisible(payload);
     onVisibleChange?.(payload);
-  }, [onVisibleChange, dispatchToggleVisible]);
-  const showDrop = useCallback(() => handleToggleVisible(true), [handleToggleVisible]);
-  const hideDrop = useCallback(() => handleToggleVisible(false), [handleToggleVisible]);
+  };
+  const showDrop = (): void => handleToggleVisible(true);
+  const hideDrop = (): void => handleToggleVisible(false);
   
-  return useMemo((): IContextForContent => ({
+  return {
     visible,
     showDrop,
     hideDrop
-  }), [visible, showDrop, hideDrop]);
+  };
 }

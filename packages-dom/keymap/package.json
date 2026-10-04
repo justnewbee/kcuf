@@ -35,7 +35,7 @@
     "@babel/plugin-transform-runtime": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
     "@babel/preset-typescript": "^7.29.7",
-    "@chromatic-com/storybook": "^5.3.1",
+    "@chromatic-com/storybook": "^5.4.0",
     "@kcuf-ui/keyboard-mac": "workspace:^",
     "@kcuf/demo-rc": "workspace:^",
     "@kcuf/ts-config": "workspace:^",

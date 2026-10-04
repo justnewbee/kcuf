@@ -1,6 +1,5 @@
 import {
   useState,
-  useCallback,
   useEffect
 } from 'react';
 
@@ -21,13 +20,13 @@ export default function useControllableSoftTrim<A extends unknown[] = []>(softTr
   const [controllableValue, setControllableValue] = useControllable('', value, defaultValue, onChange);
   const [stateValue, setStateValue] = useState(controllableValue);
   
-  const handleSoftTrimChange = useCallback((valueNew: string, ...args: A) => {
+  const handleSoftTrimChange = (valueNew: string, ...args: A): void => {
     setStateValue(valueNew);
     
     if (!isEqualAfterTrim(controllableValue, valueNew)) {
       setControllableValue(safeTrim(valueNew), ...args);
     }
-  }, [controllableValue, setControllableValue]);
+  };
   
   useEffect(() => {
     if (!isEqualAfterTrim(controllableValue, stateValue)) {

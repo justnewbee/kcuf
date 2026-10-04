@@ -1,8 +1,4 @@
 import {
-  useCallback
-} from 'react';
-
-import {
   EKeyboardCode
 } from '../enum';
 import {
@@ -32,7 +28,7 @@ export default function useHandleUpdateActiveModifiers(): (code: EKeyboardCode) 
   const activeModifiers = useActiveModifiers();
   const dispatchUpdateModifierState = useDispatchUpdateActiveModifiers();
   
-  return useCallback((code: EKeyboardCode) => {
+  return (code: EKeyboardCode) => {
     if (!activeModifiersInProps) {
       return;
     }
@@ -76,5 +72,5 @@ export default function useHandleUpdateActiveModifiers(): (code: EKeyboardCode) 
         ...updates
       });
     }
-  }, [dispatchUpdateModifierState, activeModifiers, activeModifiersInProps, onActiveModifiersChange]);
+  };
 }

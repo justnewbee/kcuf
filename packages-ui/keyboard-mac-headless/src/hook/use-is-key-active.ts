@@ -1,19 +1,15 @@
 import {
-  useCallback
-} from 'react';
-
-import {
   EKeyboardCode
 } from '../enum';
 
 import useActiveCodes from './use-active-codes';
 import useActiveModifiers from './use-active-modifiers';
 
-export default function useIsKeyActive(): (code: string) => boolean {
+export default function useIsKeyActive(): (code: EKeyboardCode) => boolean {
   const codes = useActiveCodes();
   const activeModifiers = useActiveModifiers();
   
-  return useCallback((code: string): boolean => {
+  return (code: EKeyboardCode): boolean => {
     if (codes.includes(code)) {
       return true;
     }
@@ -40,5 +36,5 @@ export default function useIsKeyActive(): (code: string) => boolean {
     default:
       return false;
     }
-  }, [codes, activeModifiers]);
+  };
 }

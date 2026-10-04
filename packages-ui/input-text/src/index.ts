@@ -1,6 +1,6 @@
-export { default } from './with-model';
+export { default } from './input-text';
 
 export type {
   InputTextProps,
-  InputTextImperativeRef as InputTextRef
+  InputTextRef
 } from '@kcuf-ui/input-text-headless';

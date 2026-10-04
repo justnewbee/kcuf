@@ -1,6 +1,5 @@
 import {
-  CSSProperties,
-  useMemo
+  CSSProperties
 } from 'react';
 
 import {
@@ -28,54 +27,52 @@ export default function useDropStyle(): CSSProperties {
   const domDrop = useDomDrop();
   
   const alignIsRight = align === 'right';
-  const [offsetX = 0, offsetY = 0] = offset;
+  const [offsetX, offsetY] = offset;
   
-  return useMemo(() => {
-    const style: CSSProperties = {
-      zIndex
-    };
+  const style: CSSProperties = {
+    zIndex
+  };
+  
+  if (width) {
+    style.width = width;
+  }
+  
+  if (minWidth) {
+    style.minWidth = minWidth;
+  }
+  
+  if (maxWidth) {
+    style.maxWidth = maxWidth;
+  }
+  
+  // compute position
+  if (dropContainer === 'body') {
+    const rect = domDropdown ? getRect(domDropdown, true) : null;
     
-    if (width) {
-      style.width = width;
-    }
-    
-    if (minWidth) {
-      style.minWidth = minWidth;
-    }
-    
-    if (maxWidth) {
-      style.maxWidth = maxWidth;
-    }
-    
-    // compute position
-    if (dropContainer === 'body') {
-      const rect = domDropdown ? getRect(domDropdown, true) : null;
-      
-      if (rect) {
-        style.top = rect.top + rect.height + offsetY;
-        
-        if (alignIsRight) {
-          if (domDrop) {
-            style.left = rect.left + rect.width - domDrop.getBoundingClientRect().width - offsetX;
-          }
-        } else {
-          style.left = rect.left + offsetX;
-        }
-      }
-    } else {
-      style.top = '100%';
+    if (rect) {
+      style.top = rect.top + rect.height + offsetY;
       
       if (alignIsRight) {
-        style.right = offsetX;
+        if (domDrop) {
+          style.left = rect.left + rect.width - domDrop.getBoundingClientRect().width - offsetX;
+        }
       } else {
-        style.left = offsetX;
-      }
-      
-      if (offsetY) {
-        style.marginTop = offsetY;
+        style.left = rect.left + offsetX;
       }
     }
+  } else {
+    style.top = '100%';
     
-    return style;
-  }, [alignIsRight, domDrop, domDropdown, dropContainer, maxWidth, minWidth, offsetX, offsetY, width, zIndex]);
+    if (alignIsRight) {
+      style.right = offsetX;
+    } else {
+      style.left = offsetX;
+    }
+    
+    if (offsetY) {
+      style.marginTop = offsetY;
+    }
+  }
+  
+  return style;
 }

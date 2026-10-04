@@ -1,7 +1,5 @@
 import {
   useState,
-  useMemo,
-  useCallback,
   useEffect
 } from 'react';
 
@@ -12,7 +10,7 @@ import {
 export default function useFullscreen(target: HTMLElement | null = document.documentElement): IUseFullscreenResult {
   const [stateFullscreen, setStateFullscreen] = useState<boolean>(target ? document.fullscreenElement === target : false);
   
-  const toggle = useCallback(async () => {
+  const toggle = async (): Promise<void> => {
     if (!target) {
       return;
     }
@@ -22,7 +20,7 @@ export default function useFullscreen(target: HTMLElement | null = document.docu
     } else {
       await target.requestFullscreen();
     }
-  }, [target]);
+  };
   
   useEffect(() => {
     if (!target) {
@@ -38,10 +36,10 @@ export default function useFullscreen(target: HTMLElement | null = document.docu
     return () => target.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, [target, setStateFullscreen]);
   
-  return useMemo(() => ({
+  return {
     target,
     enabled: document.fullscreenEnabled,
     fullscreen: stateFullscreen,
     toggle
-  }), [target, stateFullscreen, toggle]);
+  };
 }

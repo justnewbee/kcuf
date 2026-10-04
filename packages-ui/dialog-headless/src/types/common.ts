@@ -35,7 +35,7 @@ export type TDialogButton<T = void, D extends object = Record<string, unknown>> 
 /**
  * Dialog props 定义
  */
-export interface IDialogProps<T = void, D extends object = Record<string, unknown>> extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'content'> {
+export interface IModelPropsDialog<T = void, D extends object = Record<string, unknown>> extends Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'content'> {
   /* --- 内容 & 展示 --- */
   title?: TDynamicByData<string | ReactElement, D>;
   titleExtra?: TDynamicByData<string | ReactElement, D>;
@@ -66,7 +66,7 @@ export interface IDialogProps<T = void, D extends object = Record<string, unknow
 /**
  * 可以由内容组件控制并调整的 props，除了 content data 之外，几乎所有都可以修改
  */
-export interface IDialogPropsMutable<T = void, D extends object = Record<string, unknown>> extends Omit<IDialogProps<T, D>, 'content' | 'data'> {}
+export interface IDialogPropsMutable<T = void, D extends object = Record<string, unknown>> extends Omit<IModelPropsDialog<T, D>, 'content' | 'data'> {}
 
 // 给内容使用的 context
 export interface IContextForContent<T = void, D extends object = Record<string, unknown>> {

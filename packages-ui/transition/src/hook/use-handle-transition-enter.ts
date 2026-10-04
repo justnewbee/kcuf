@@ -1,7 +1,3 @@
-import {
-  useCallback
-} from 'react';
-
 import useDurationEnter from './use-duration-enter';
 import useDispatchSetTimer from './use-dispatch-set-timer';
 import useHandleSetStatusEntering from './use-handle-set-status-entering';
@@ -15,7 +11,7 @@ export default function useHandleTransitionEnter(): () => void {
   const handleSetStatusEntering = useHandleSetStatusEntering();
   const handleSetStatusEntered = useHandleSetStatusEntered();
   
-  return useCallback(() => {
+  return () => {
     handleForceReflow();
     
     if (durationEnter <= 0) {
@@ -27,5 +23,5 @@ export default function useHandleTransitionEnter(): () => void {
     handleSetStatusEntering();
     
     dispatchSetTimer(setTimeout(handleSetStatusEntered, durationEnter));
-  }, [durationEnter, dispatchSetTimer, handleForceReflow, handleSetStatusEntering, handleSetStatusEntered]);
+  };
 }

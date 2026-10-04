@@ -1,4 +1,4 @@
-export { default } from './with-model';
+export { default } from './codemirror';
 
 export type {
   CodemirrorProps

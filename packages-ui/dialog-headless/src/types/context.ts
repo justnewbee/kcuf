@@ -1,9 +1,5 @@
 import {
-  ReactNode
-} from 'react';
-
-import {
-  IDialogProps
+  IModelPropsDialog
 } from './common';
 import {
   IModelState
@@ -13,12 +9,7 @@ import {
 } from './action';
 
 export interface IModelContext<R = void, D extends object = Record<string, unknown>> {
-  props: IDialogProps<R, D>;
+  props: IModelPropsDialog<R, D>;
   state: IModelState<R, D>;
   dispatch: TModelDispatch;
-}
-
-export interface IModelProviderProps<R = void, D extends object = Record<string, unknown>> {
-  props: IDialogProps<R, D>;
-  children: ReactNode;
 }

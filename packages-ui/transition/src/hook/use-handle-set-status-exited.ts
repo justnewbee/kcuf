@@ -1,8 +1,4 @@
 import {
-  useCallback
-} from 'react';
-
-import {
   ETransitionStatus
 } from '../enum';
 
@@ -18,12 +14,12 @@ export default function useHandleSetStatusExited(): () => void {
   const dispatchSetMounted = useDispatchSetMounted();
   const dispatchSetStatus = useDispatchSetStatus();
   
-  return useCallback(() => {
+  return () => {
     dispatchSetStatus(ETransitionStatus.EXITED);
     onExited?.();
     
     if (unmountOnExit) {
       dispatchSetMounted(false);
     }
-  }, [unmountOnExit, onExited, dispatchSetMounted, dispatchSetStatus]);
+  };
 }

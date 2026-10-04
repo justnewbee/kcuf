@@ -8,7 +8,7 @@ import {
 
 import {
   ScAddonSuffix
-} from '../sc';
+} from '../index.styled';
 
 export default function AddonSuffix(): ReactElement | null {
   const {

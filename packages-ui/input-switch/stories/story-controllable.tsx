@@ -1,7 +1,5 @@
 import {
-  ChangeEvent,
   ReactElement,
-  useCallback,
   useState
 } from 'react';
 
@@ -9,9 +7,6 @@ import InputSwitch from '../src';
 
 export default function StoryControllable(): ReactElement {
   const [stateValue, setStateValue] = useState(false);
-  const handleNativeInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setStateValue(e.target.checked);
-  }, [setStateValue]);
   
   return <>
     <InputSwitch {...{
@@ -25,7 +20,7 @@ export default function StoryControllable(): ReactElement {
     <input {...{
       type: 'checkbox',
       checked: stateValue,
-      onChange: handleNativeInputChange
+      onChange: e => setStateValue(e.target.checked)
     }} />
   </>;
 }

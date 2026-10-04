@@ -1,7 +1,3 @@
-import {
-  useCallback
-} from 'react';
-
 import useModelProps from './_use-model-props';
 
 export default function useHandleToggleSwitch(): () => void {
@@ -11,11 +7,11 @@ export default function useHandleToggleSwitch(): () => void {
     onChange
   } = useModelProps();
   
-  return useCallback(() => {
+  return () => {
     if (disabled) {
       return;
     }
     
     onChange(!value);
-  }, [disabled, value, onChange]);
+  };
 }

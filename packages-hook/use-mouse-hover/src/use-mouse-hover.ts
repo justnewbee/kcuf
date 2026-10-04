@@ -1,6 +1,5 @@
 import {
-  useRef,
-  useCallback
+  useRef
 } from 'react';
 
 import useIsUnmounted from '@kcuf-hook/use-is-unmounted';
@@ -49,18 +48,18 @@ export default function useMouseHover({
     timestampActiveByHover: 0
   });
   
-  const handleClearTimer = useCallback(() => {
+  const handleClearTimer = (): void => {
     if (refValue.current.timer) {
       window.clearTimeout(refValue.current.timer);
       
       refValue.current.timer = null;
     }
-  }, [refValue]);
+  };
   
   /**
    * 鼠标移入，延时响应，避免误触发一些不必要的响应
    */
-  const handleMouseEnter = useCallback(() => {
+  const handleMouseEnter = (): void => {
     handleClearTimer();
     
     refValue.current.timer = window.setTimeout(() => {
@@ -78,11 +77,12 @@ export default function useMouseHover({
         setControllableActive(true);
       }
     }, timeDelayEnter);
-  }, [timeDelayEnter, onEnter, isUnmounted, controllableActive, setControllableActive, refValue, handleClearTimer]);
+  };
+  
   /**
    * 鼠标移出，延时响应，类似 Dropdown 的组件，需要这样的能力
    */
-  const handleMouseLeave = useCallback(() => {
+  const handleMouseLeave = (): void => {
     handleClearTimer();
     
     refValue.current.timer = window.setTimeout(() => {
@@ -94,8 +94,9 @@ export default function useMouseHover({
       
       onLeave?.();
     }, timeDelayLeave);
-  }, [timeDelayLeave, onLeave, isUnmounted, refValue, handleClearTimer]);
-  const handleActiveChange = useCallback(() => {
+  };
+  
+  const handleActiveChange = (): void => {
     handleClearTimer();
     
     const nextActive = !controllableActive;
@@ -108,7 +109,7 @@ export default function useMouseHover({
     
     handleClearTimer();
     setControllableActive(nextActive);
-  }, [timeCoolDownActive, setControllableActive, controllableActive, handleClearTimer]);
+  };
   
   return [handleMouseEnter, handleMouseLeave, handleActiveChange];
 }

@@ -1,7 +1,5 @@
 import {
-  ReactElement,
-  ChangeEvent,
-  useCallback
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
@@ -75,15 +73,12 @@ export default function InputRange({
   ...props
 }: IInputRangeProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllable<number>(0, value, defaultValue, onChange);
-  const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    controllableOnChange(fromStringToNumber(e.target.value));
-  }, [controllableOnChange]);
   
   return <ScInputRange {...{
     title: `${controllableValue}`,
     ...props,
     value: fromNumberToString(controllableValue),
     type: 'range',
-    onChange: handleChange
+    onChange: e => controllableOnChange(fromStringToNumber(e.target.value))
   }} />;
 }

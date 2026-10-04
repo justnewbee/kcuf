@@ -1,6 +1,5 @@
 import {
-  ChangeEvent,
-  useCallback
+  ChangeEvent
 } from 'react';
 
 import useModelState from './_use-model-state';
@@ -14,7 +13,7 @@ export default function useHandleInputChange(): (e: ChangeEvent<HTMLInputElement
   } = useModelState();
   const dispatchSetValue = useDispatchSetValue();
   
-  return useCallback((e: ChangeEvent<HTMLInputElement>): void => {
+  return (e: ChangeEvent<HTMLInputElement>): void => {
     const {
       value
     } = e.target;
@@ -24,5 +23,5 @@ export default function useHandleInputChange(): (e: ChangeEvent<HTMLInputElement
     if (!composing) { // 输入法正在输入，压下 onChange
       controllableOnChange(value, 'input');
     }
-  }, [controllableOnChange, composing, dispatchSetValue]);
+  };
 }

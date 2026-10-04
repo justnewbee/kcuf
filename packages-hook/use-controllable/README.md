@@ -39,8 +39,7 @@ Hook `useControllable` 可以把这些变数进行优雅整合，避免写可受
 import {
   InputHTMLAttributes,
   ChangeEvent,
-  ReactElement,
-  useCallback
+  ReactElement
 } from 'react';
 
 import useControllable from '@kcuf-hook/use-controllable';
@@ -58,15 +57,12 @@ function Input({
   ...props
 }: IInputProps): ReactElement {
   const [controllableValue, setControllableValue] = useControllable('FINAL_DEFAULT', value, defaultValue, onChange);
-  const handleOnChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setControllableValue(e.target.value, e);
-  }, [setControllableValue]);
   
   return <input {...{
     ...props,
     type: 'text',
     value: controllableValue,
-    onChange: handleOnChange
+    onChange: e => setControllableValue(e.target.value, e)
   }} />;
 }
 ```
@@ -77,8 +73,7 @@ function Input({
 import {
   InputHTMLAttributes,
   ChangeEvent,
-  ReactElement,
-  useCallback
+  ReactElement
 } from 'react';
 
 import {
@@ -100,15 +95,12 @@ function Input({
   ...props
 }: IInputProps): ReactElement {
   const [controllableValue, setControllableValue] = useControllableSoftTrim(trim, value, defaultValue, onChange);
-  const handleOnChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setControllableValue(e.target.value, e);
-  }, [setControllableValue]);
   
   return <input {...{
     ...props,
     type: 'text',
     value: controllableValue,
-    onChange: handleOnChange
+    onChange: e => setControllableValue(e.target.value, e)
   }} />;
 }
 ```

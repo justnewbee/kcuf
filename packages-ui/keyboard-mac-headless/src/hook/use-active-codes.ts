@@ -1,11 +1,11 @@
 import {
-  useMemo
-} from 'react';
+  EKeyboardCode
+} from '../enum';
 
 import useModelProps from './_use-model-props';
 import useModelState from './_use-model-state';
 
-export default function useActiveCodes(): string[] {
+export default function useActiveCodes(): EKeyboardCode[] {
   const {
     activeCodes: activeCodesInProps
   } = useModelProps();
@@ -13,5 +13,5 @@ export default function useActiveCodes(): string[] {
     activeCodes: activeCodesInState
   } = useModelState();
   
-  return useMemo(() => [...activeCodesInProps || [], ...activeCodesInState], [activeCodesInProps, activeCodesInState]);
+  return [...activeCodesInProps ?? [], ...activeCodesInState];
 }

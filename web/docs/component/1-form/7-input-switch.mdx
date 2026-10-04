@@ -49,7 +49,7 @@ function DemoControllable(): ReactElement {
   const handleNativeInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setStateValue(e.target.checked);
   }, [setStateValue]);
-  
+
   return <>
     <InputSwitch {...{
       label: '非受控',
@@ -124,10 +124,7 @@ import InputSwitch, {
 | 属性 | 说明 |
 | --- | --- |
 | `[data-active]` | Present when active or pressed |
-| `[data-focus]` | Present when focused |
-| `[data-focus-visible]` | Present when focused with keyboard |
 | `[data-readonly]` | Present when read-only |
-| `[data-hover]` | Present when hovered |
 | `[data-disabled]` | Present when disabled |
 | `[data-checked]` | |
 

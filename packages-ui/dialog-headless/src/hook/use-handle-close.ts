@@ -1,7 +1,3 @@
-import {
-  useCallback
-} from 'react';
-
 import useHandleCloseWithValue from './use-handle-close-with-value';
 
 /**
@@ -10,5 +6,5 @@ import useHandleCloseWithValue from './use-handle-close-with-value';
 export default function useHandleClose(): () => void {
   const handleCloseWithValue = useHandleCloseWithValue();
   
-  return useCallback((): void => handleCloseWithValue(), [handleCloseWithValue]);
+  return (): void => handleCloseWithValue();
 }

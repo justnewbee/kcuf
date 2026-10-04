@@ -1,8 +1,4 @@
 import {
-  useCallback
-} from 'react';
-
-import {
   stackPush
 } from '../util';
 
@@ -16,5 +12,5 @@ export default function useHandlePushStack(): () => void {
   const dialogId = useStateId();
   const dialogStackItem = useDialogStackItem();
   
-  return useCallback(() => stackPush(dialogId, dialogStackItem), [dialogId, dialogStackItem]);
+  return () => stackPush(dialogId, dialogStackItem);
 }

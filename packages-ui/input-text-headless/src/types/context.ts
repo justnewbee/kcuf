@@ -1,6 +1,13 @@
 import {
+  RefObject
+} from 'react';
+
+import {
   TChangeReason
 } from './common';
+import {
+  TImperativeRef
+} from './ref';
 import {
   IModelProps
 } from './props';
@@ -12,6 +19,8 @@ import {
 } from './action';
 
 export interface IModelContext {
+  ref?: TImperativeRef;
+  domInputRef: RefObject<HTMLInputElement | null>;
   props: Omit<IModelProps, 'trim' | 'value' | 'defaultValue' | 'onChange'>;
   state: IModelState;
   dispatch: TModelDispatch;

@@ -1,8 +1,9 @@
 import {
-  ReactElement,
-  useCallback
+  ReactElement
 } from 'react';
-import json5 from 'json5';
+import {
+  parse
+} from 'json5';
 
 import {
   json5Stringify
@@ -20,13 +21,9 @@ export default function CodeViewerJson5<T = unknown>({
   onChange,
   ...props
 }: ICodeViewerJson5Props<T>): ReactElement {
-  const handleChange = useCallback((value: string): void => {
-    onChange?.(json5.parse<T>(value)); // eslint-disable-line import/no-named-as-default-member
-  }, [onChange]);
-  
   return <CodeViewer {...{
     ...props,
     language: 'json5',
-    onChange: handleChange
+    onChange: value => onChange?.(parse<T>(value))
   }}>{json5Stringify(o)}</CodeViewer>;
 }

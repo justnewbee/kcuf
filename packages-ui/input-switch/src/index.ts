@@ -1,4 +1,4 @@
-export { default } from './with-model';
+export { default } from './input-switch';
 
 export type {
   InputSwitchProps

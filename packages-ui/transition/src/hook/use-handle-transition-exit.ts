@@ -1,7 +1,3 @@
-import {
-  useCallback
-} from 'react';
-
 import useDurationExit from './use-duration-exit';
 import useDispatchSetTimer from './use-dispatch-set-timer';
 import useHandleSetStatusExiting from './use-handle-set-status-exiting';
@@ -13,7 +9,7 @@ export default function useHandleTransitionExit(): () => void {
   const handleSetStatusExiting = useHandleSetStatusExiting();
   const handleSetStatusExited = useHandleSetStatusExited();
   
-  return useCallback(() => {
+  return () => {
     if (durationExit <= 0) {
       handleSetStatusExited();
       
@@ -23,5 +19,5 @@ export default function useHandleTransitionExit(): () => void {
     handleSetStatusExiting();
     
     dispatchSetTimer(setTimeout(handleSetStatusExited, durationExit));
-  }, [durationExit, dispatchSetTimer, handleSetStatusExiting, handleSetStatusExited]);
+  };
 }

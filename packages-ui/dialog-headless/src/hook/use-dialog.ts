@@ -1,8 +1,4 @@
 import {
-  useMemo
-} from 'react';
-
-import {
   IContextForContent
 } from '../types';
 
@@ -32,7 +28,7 @@ export default function useDialog<T = void, D extends object = Record<string, un
   const resetScrollTop = useHandleResetScrollTop();
   const close = useHandleCloseWithValue<T>();
   
-  return useMemo<IContextForContent<T, D>>((): IContextForContent<T, D> => ({
+  return {
     data,
     focus,
     resetScrollTop,
@@ -42,15 +38,5 @@ export default function useDialog<T = void, D extends object = Record<string, un
     updateData,
     forceUpdate,
     close
-  }), [
-    data,
-    focus,
-    resetScrollTop,
-    lock,
-    unlock,
-    update,
-    updateData,
-    forceUpdate,
-    close
-  ]);
+  };
 }

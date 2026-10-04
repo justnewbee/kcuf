@@ -1,6 +1,5 @@
 import {
   useState,
-  useMemo,
   useEffect
 } from 'react';
 
@@ -14,7 +13,7 @@ import {
 export default function useWithClass(target: HTMLElement, className: string): boolean {
   const [stateWithClass, setStateWithClass] = useState<boolean>(hasClass(target, className));
   
-  const mutationObserver = useMemo((): MutationObserver | null => {
+  const mutationObserver = ((): MutationObserver | null => {
     // https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
     if (typeof MutationObserver !== 'function') {
       return null;
@@ -27,7 +26,7 @@ export default function useWithClass(target: HTMLElement, className: string): bo
         }
       }
     });
-  }, [target, className, setStateWithClass]);
+  })();
   
   useEffect(() => {
     if (mutationObserver) {

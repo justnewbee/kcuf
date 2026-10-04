@@ -1,8 +1,4 @@
 import {
-  useCallback
-} from 'react';
-
-import {
   detectOtherOverlays
 } from '../util';
 
@@ -22,7 +18,7 @@ export default function useHandleCloseOnEsc(): () => boolean | undefined {
   
   const dispatchClose = useHandleClose();
   
-  return useCallback((): boolean | undefined => {
+  return (): boolean | undefined => {
     if (detectOtherOverlays()) {
       return false;
     }
@@ -31,5 +27,5 @@ export default function useHandleCloseOnEsc(): () => boolean | undefined {
     if (esc === -1 || (closable && esc)) {
       dispatchClose();
     }
-  }, [esc, closable, dispatchClose]);
+  };
 }

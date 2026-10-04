@@ -1,8 +1,4 @@
 import {
-  useCallback
-} from 'react';
-
-import {
   IKeyData,
   IKeyDetails
 } from '../types';
@@ -21,7 +17,7 @@ export default function useHandleKeyClick(): (data: IKeyData) => void {
   const dispatchSetKeyDetails = useDispatchSetKeyDetails();
   const handleUpdateModifiers = useHandleUpdateActiveModifiers();
   
-  return useCallback((data: IKeyData) => {
+  return (data: IKeyData) => {
     const details: IKeyDetails = {
       key: data.key ?? data.code,
       code: data.code,
@@ -51,5 +47,5 @@ export default function useHandleKeyClick(): (data: IKeyData) => void {
     }
     
     handleUpdateModifiers(data.code);
-  }, [detailsInSpace, dispatchSetKeyDetails, handleUpdateModifiers, activeModifiers, onKeyPress]);
+  };
 }

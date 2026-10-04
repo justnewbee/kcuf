@@ -1,7 +1,5 @@
 import {
-  ReactElement,
-  ChangeEvent,
-  useCallback
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
@@ -27,11 +25,10 @@ export default function InputTextarea({
   ...props
 }: IInputTextareaProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllableSoftTrim(true, value, defaultValue, onChange);
-  const handleChange = useCallback((e: ChangeEvent<HTMLTextAreaElement>) => controllableOnChange(e.target.value), [controllableOnChange]);
   
   return <ScInputTextarea {...{
     ...props,
     value: controllableValue,
-    onChange: handleChange
+    onChange: e => controllableOnChange(e.target.value)
   }} />;
 }

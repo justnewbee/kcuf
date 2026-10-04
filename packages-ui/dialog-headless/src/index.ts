@@ -13,7 +13,7 @@ export {
 } from './util';
 
 export type {
-  IDialogProps as ModelProps,
+  IModelPropsDialog as DialogProps,
   IDialogButtonProps as DialogButtonProps,
   IContextForContent as DialogContext
 } from './types';

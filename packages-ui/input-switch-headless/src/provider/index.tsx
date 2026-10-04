@@ -1,11 +1,12 @@
 import {
-  ReactElement
+  ReactElement,
+  PropsWithChildren
 } from 'react';
 
 import useControllable from '@kcuf-hook/use-controllable';
 
 import {
-  IModelProviderProps
+  IModelProps
 } from '../types';
 import Context from '../context';
 
@@ -15,7 +16,7 @@ export default function Provider({
   onChange,
   children,
   ...props
-}: IModelProviderProps): ReactElement {
+}: PropsWithChildren<IModelProps>): ReactElement {
   const [controllableValue, controllableOnChange] = useControllable(false, value, defaultValue, onChange);
   
   return <Context value={{

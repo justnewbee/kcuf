@@ -1,4 +1,4 @@
-export { default } from './with-model';
+export { default } from './dialog';
 
 export {
   DialogMode,
@@ -7,7 +7,7 @@ export {
 } from '@kcuf-ui/dialog-headless';
 
 export type {
-  ModelProps as DialogProps,
+  DialogProps,
   DialogButtonProps,
   DialogContext
 } from '@kcuf-ui/dialog-headless';

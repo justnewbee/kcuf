@@ -1,8 +1,6 @@
 import _without from 'lodash/without';
 import {
-  ReactElement,
-  useCallback,
-  useMemo
+  ReactElement
 } from 'react';
 
 import useControllable from '@kcuf-hook/use-controllable';
@@ -27,21 +25,19 @@ export default function ChoiceGroupCheckbox<T extends TDatasourceValue = string>
   defaultValue = [],
   onChange
 }: IChoiceGroupCheckboxProps<T>): ReactElement | null {
-  const datasourceParsed = useMemo(() => parseDatasource(datasource), [datasource]);
+  const datasourceParsed = parseDatasource(datasource);
   const [controllableValue, setControllableValue] = useControllable([], value, defaultValue, onChange);
-  
-  const handleCheckboxChange = useCallback((checked: boolean, itemValue: T) => {
-    const newValue = checked ? [...controllableValue, itemValue] : _without(controllableValue, itemValue);
-    
-    setControllableValue(newValue);
-  }, [controllableValue, setControllableValue]);
   
   return <ScChoiceGroup>
     {datasourceParsed.map((v, i) => <InputCheckbox key={`${v.value as string}-${i}`} {...{
       label: v.label,
       value: v.value,
       checked: controllableValue.includes(v.value),
-      onChange: checked => handleCheckboxChange(checked, v.value)
+      onChange: checked => {
+        const newValue = checked ? [...controllableValue, v.value] : _without(controllableValue, v.value);
+        
+        setControllableValue(newValue);
+      }
     }} />)}
   </ScChoiceGroup>;
 }

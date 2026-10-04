@@ -1,8 +1,5 @@
 import {
-  ChangeEvent,
-  ReactElement,
-  useCallback,
-  useMemo
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
@@ -38,16 +35,13 @@ export default function Select<T extends TDatasourceValue = string>({
   onChange,
   ...props
 }: ISelectProps<T>): ReactElement {
-  const datasourceParsed = useMemo(() => parseDatasource(datasource), [datasource]);
+  const datasourceParsed = parseDatasource(datasource);
   const [controllableValue, controllableOnChange] = useControllableUnprotected<T | undefined>(value, defaultValue, onChange);
-  const handleChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    controllableOnChange(datasourceParsed.find(v => String(v.value) === e.target.value)?.value);
-  }, [controllableOnChange, datasourceParsed]);
   
   return <ScSelect {...{
     ...props,
     value: String(controllableValue),
-    onChange: handleChange
+    onChange: e => controllableOnChange(datasourceParsed.find(v => String(v.value) === e.target.value)?.value)
   }}>
     {withEmpty ? <option value="<EMPTY>">&lt;EMPTY&gt;</option> : null}
     {datasourceParsed.map(v => <option key={String(v.value)} value={String(v.value)}>{v.label ?? v.value}</option>)}

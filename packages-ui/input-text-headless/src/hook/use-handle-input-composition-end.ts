@@ -1,6 +1,5 @@
 import {
-  CompositionEvent,
-  useCallback
+  CompositionEvent
 } from 'react';
 
 import useControllableOnChange from './use-controllable-on-change';
@@ -10,8 +9,8 @@ export default function useHandleInputCompositionEnd(): (e: CompositionEvent<HTM
   const dispatchSetComposing = useDispatchSetComposing();
   const controllableOnChange = useControllableOnChange();
   
-  return useCallback((e: CompositionEvent<HTMLInputElement>) => {
+  return (e: CompositionEvent<HTMLInputElement>) => {
     dispatchSetComposing(false);
     controllableOnChange(e.currentTarget.value, 'composition-end');
-  }, [dispatchSetComposing, controllableOnChange]);
+  };
 }

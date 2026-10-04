@@ -1,7 +1,3 @@
-import {
-  useCallback
-} from 'react';
-
 import useModelProps from './_use-model-props';
 
 export default function useHandleClick(): () => void {
@@ -10,9 +6,9 @@ export default function useHandleClick(): () => void {
     onClose
   } = useModelProps();
   
-  return useCallback((): void => {
+  return (): void => {
     if (closable) {
       onClose?.();
     }
-  }, [closable, onClose]);
+  };
 }

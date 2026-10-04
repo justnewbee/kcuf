@@ -1,28 +1,22 @@
-import {
-  useCallback
-} from 'react';
-
-import useModelState from './_use-model-state';
+import useModelContext from './_use-model-context';
 import useDispatchSetValue from './use-dispatch-set-value';
 import useControllableOnChange from './use-controllable-on-change';
 
 export default function useHandleClear(): () => void {
   const controllableOnChange = useControllableOnChange();
   const {
-    domInput
-  } = useModelState();
+    domInputRef
+  } = useModelContext();
   const dispatchSetValue = useDispatchSetValue();
   
-  return useCallback((): void => {
+  return (): void => {
     dispatchSetValue('');
     controllableOnChange('', 'clear');
     
-    if (domInput) {
-      try {
-        domInput.focus();
-      } catch (_err) {
-        // ignore
-      }
+    try {
+      domInputRef.current?.focus();
+    } catch (_err) {
+      // ignore
     }
-  }, [controllableOnChange, domInput, dispatchSetValue]);
+  };
 }

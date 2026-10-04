@@ -1,7 +1,5 @@
 import {
-  ReactElement,
-  ChangeEvent,
-  useCallback
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
@@ -77,13 +75,6 @@ export default function InputColor(props: IInputColorProps): ReactElement {
   const [controllableValue, controllableOnChange] = useControllable('#9900ff', value, defaultValue, onChange);
   const [hex, alpha] = parseColor(controllableValue);
   
-  const handleHexChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    controllableOnChange(composeHexa(e.target.value, alpha));
-  }, [alpha, controllableOnChange]);
-  const handleAlphaChange = useCallback((alphaValue: number) => {
-    controllableOnChange(composeHexa(hex, alphaValue));
-  }, [hex, controllableOnChange]);
-  
   return <ScInputColor>
     <ScInputColorWrap>
       <ScColorDisplay {...{
@@ -95,14 +86,14 @@ export default function InputColor(props: IInputColorProps): ReactElement {
         ...restProps, // including ref
         value: hex,
         type: 'color',
-        onChange: handleHexChange
+        onChange: e => controllableOnChange(composeHexa(e.target.value, alpha))
       }} />
     </ScInputColorWrap>
     {withAlpha ? <InputRange {...{
       min: 0,
       max: 255,
       value: alpha,
-      onChange: handleAlphaChange
+      onChange: alphaValue => controllableOnChange(composeHexa(hex, alphaValue))
     }} /> : null}
   </ScInputColor>;
 }

@@ -1,8 +1,4 @@
 import {
-  useCallback
-} from 'react';
-
-import {
   focusDialog
 } from '../util';
 
@@ -14,9 +10,9 @@ export default function useHandleFocus(): () => void {
     domDialogContent
   } = useModelState();
   
-  return useCallback((): void => {
+  return (): void => {
     if (domDialog && domDialogContent) {
       focusDialog(domDialog, domDialogContent);
     }
-  }, [domDialog, domDialogContent]);
+  };
 }

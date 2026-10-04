@@ -1,6 +1,5 @@
 import {
-  ReactElement,
-  useCallback
+  ReactElement
 } from 'react';
 import styled from 'styled-components';
 
@@ -197,7 +196,7 @@ export default function KeyboardKey({
   const isKeyActive = useIsKeyActive();
   const isKeyOn = useIsKeyOn();
   const handleKeyClick = useHandleKeyClick();
-  const handleClick = useCallback(() => handleKeyClick(data), [data, handleKeyClick]);
+  const handleClick = (): void => handleKeyClick(data);
   
   return <ScKeyboardKey {...{
     'data-code': data.code,
