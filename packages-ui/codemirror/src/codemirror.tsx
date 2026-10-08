@@ -13,7 +13,3 @@ export default function Codemirror(props: CodemirrorProps): ReactElement {
     <CodemirrorUi />
   </CodemirrorProvider>;
 }
-
-export type {
-  CodemirrorProps
-} from '@kcuf-ui/codemirror-headless';
