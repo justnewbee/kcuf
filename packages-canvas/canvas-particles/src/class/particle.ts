@@ -45,11 +45,9 @@ const DEFAULT_COLOR: Color = createColor('#000');
  * A single particle
  */
 export default class Particle implements IParticleClassType {
-  private readonly canvasContext: CanvasRenderingContext2D;
-  private readonly config: IParticlesParsedConfig;
-  private readonly shape: EParticleShape;
   private readonly image: HTMLImageElement | null;
   private readonly imageAspectRatio: number;
+  private readonly shape: EParticleShape;
   
   private color: Color = DEFAULT_COLOR;
   private stroke: [Color, number] | null = null;
@@ -68,7 +66,7 @@ export default class Particle implements IParticleClassType {
   
   coords: TCoords;
   
-  constructor(canvasContext: CanvasRenderingContext2D, config: IParticlesParsedConfig, info: ICreateInfo) {
+  constructor(private readonly canvasContext: CanvasRenderingContext2D, private readonly config: IParticlesParsedConfig, info: ICreateInfo) {
     const {
       image,
       imageAspectRatio,
@@ -77,11 +75,9 @@ export default class Particle implements IParticleClassType {
       coords
     } = info;
     
-    this.canvasContext = canvasContext;
-    this.config = config;
-    this.shape = getNewParticleShape(config.shape);
     this.image = image;
     this.imageAspectRatio = imageAspectRatio;
+    this.shape = getNewParticleShape(config.shape);
     
     const radius = this.init(config);
     

@@ -58,7 +58,6 @@ import {
 } from '../util';
 
 export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass<T> {
-  private readonly canvasMarking: ICanvasMarkingClassProtected<T>;
   private readonly style: IMarkingStyleConfigResolved;
   
   protected options: IMarkingItemOptions<T>;
@@ -85,8 +84,7 @@ export default class CanvasMarkingItem<T = unknown> implements IMarkingItemClass
   
   private statsSnapshot: IMarkingItemStats<T>;
   
-  constructor(markingStage: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}, initialPath?: Path) {
-    this.canvasMarking = markingStage;
+  constructor(private readonly canvasMarking: ICanvasMarkingClassProtected<T>, options: IMarkingItemOptions<T> = {}, initialPath?: Path) {
     this.options = options;
     this.id = options.id ?? uuid();
     this.style = resolveMarkingStyleConfig(options.styleConfig);

@@ -80,7 +80,6 @@ import {
 import CanvasMarkingItem from './canvas-marking-item';
 
 export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribableEvents<T>> implements ICanvasMarkingClass<T> {
-  private readonly container: HTMLElement;
   readonly options: ICanvasMarkingOptions<T>;
   readonly stage: HTMLDivElement;
   private bg: HTMLDivElement;
@@ -160,6 +159,45 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
    * 用于在销毁实例时清理副作用
    */
   private cleanups: (() => void)[] = [];
+  
+  constructor(private readonly container: HTMLElement, options?: ICanvasMarkingOptions<T>) {
+    super();
+    
+    const safeOptions = _merge({}, DEFAULT_MARKING_OPTIONS, options);
+    
+    /**
+     * 主要组成部分
+     *
+     * ┌- stage ---------------------------┐
+     * | ┌- bg --------------------------┐ |
+     * | |                               | |
+     * | |            canvas             | |
+     * | |                               | |
+     * | └-------------------------------┘ |
+     * └-----------------------------------┘
+     */
+    const stage = createDomStage();
+    const bg = createDomBg(safeOptions.imageBgc);
+    const canvas = createDomCanvas();
+    
+    stage.prepend(bg); // 作为其第一个元素，可以不需要设 z-index
+    stage.appendChild(canvas);
+    
+    container.style.position = 'relative';
+    container.style.overflow = 'hidden';
+    container.appendChild(stage);
+    
+    this.options = safeOptions;
+    this.stage = stage;
+    this.bg = bg;
+    this.canvas = canvas;
+    this.canvasContext = canvas.getContext('2d')!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+    this.statsSnapshot = this.getStats();
+    
+    this.setupEvents();
+    this.setupScaleSizing();
+    void this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, true);
+  }
   
   private get rectStage(): DOMRect {
     return this.stage.getBoundingClientRect();
@@ -378,46 +416,6 @@ export default class CanvasMarking<T = unknown> extends Subscribable<TSubscribab
       }
     }
   };
-  
-  constructor(container: HTMLElement, options?: ICanvasMarkingOptions<T>) {
-    super();
-    
-    const safeOptions = _merge({}, DEFAULT_MARKING_OPTIONS, options);
-    
-    /**
-     * 主要组成部分
-     *
-     * ┌- stage ---------------------------┐
-     * | ┌- bg --------------------------┐ |
-     * | |                               | |
-     * | |            canvas             | |
-     * | |                               | |
-     * | └-------------------------------┘ |
-     * └-----------------------------------┘
-     */
-    const stage = createDomStage();
-    const bg = createDomBg(safeOptions.imageBgc);
-    const canvas = createDomCanvas();
-    
-    stage.prepend(bg); // 作为其第一个元素，可以不需要设 z-index
-    stage.appendChild(canvas);
-    
-    container.style.position = 'relative';
-    container.style.overflow = 'hidden';
-    container.appendChild(stage);
-    
-    this.container = container;
-    this.options = safeOptions;
-    this.stage = stage;
-    this.bg = bg;
-    this.canvas = canvas;
-    this.canvasContext = canvas.getContext('2d')!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
-    this.statsSnapshot = this.getStats();
-    
-    this.setupEvents();
-    this.setupScaleSizing();
-    void this.setupImageAndMarkings(safeOptions.image, safeOptions.markings, true);
-  }
   
   private setupEvents(): void {
     const {

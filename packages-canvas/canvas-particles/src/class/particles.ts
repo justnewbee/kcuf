@@ -31,7 +31,6 @@ import Particle from './particle';
  */
 export default class Particles implements IParticlesClassType {
   private readonly config: IParticlesParsedConfig;
-  private readonly canvas: HTMLCanvasElement;
   private readonly canvasContext: CanvasRenderingContext2D;
   private canvasWidth = 400;
   private canvasHeight = 400;
@@ -44,9 +43,8 @@ export default class Particles implements IParticlesClassType {
   private coordsClick: TCoords | null = null;
   private timeClick = 0;
   
-  constructor(canvas: HTMLCanvasElement, props: IParticlesConfig = {}) {
+  constructor(private readonly canvas: HTMLCanvasElement, props: IParticlesConfig = {}) {
     this.config = parseConfig(props);
-    this.canvas = canvas;
     this.canvasContext = canvas.getContext('2d')!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
     
     this.setupCanvas();
