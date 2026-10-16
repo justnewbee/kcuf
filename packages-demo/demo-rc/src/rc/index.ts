@@ -40,8 +40,6 @@ export * from './select';
 export { default as Select } from './select';
 export * from './select-with-fetch';
 export { default as SelectWithFetch } from './select-with-fetch';
-export * from './select-with-fetch-legacy';
-export { default as SelectWithFetchLegacy } from './select-with-fetch-legacy';
 export * from './choice-group-radio';
 export { default as ChoiceGroupRadio } from './choice-group-radio';
 export * from './choice-group-checkbox';

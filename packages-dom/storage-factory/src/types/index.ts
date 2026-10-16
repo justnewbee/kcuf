@@ -16,5 +16,3 @@ export interface IStorageFn<T extends object> {
    */
   save(data: Required<T>): Required<T>;
 }
-
-export type TStorageFactoryWithKey = <T extends object>(defaultValue: Required<T>, session?: boolean) => IStorageFn<T>;

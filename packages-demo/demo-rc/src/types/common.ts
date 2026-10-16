@@ -8,11 +8,9 @@ export interface IControllableChecked {
   onChange?(checked: boolean): void;
 }
 
-export type TDatasourceValue = string | number | boolean | undefined | null;
-
-export interface IDatasourceItem<T extends TDatasourceValue = string> {
+export interface IDatasourceItem<T = string> {
   value: T;
   label?: string | ReactElement;
 }
 
-export type TDatasource<T extends TDatasourceValue = string> = (T | IDatasourceItem<T>)[];
+export type TDatasource<T = string> = T extends string | number | boolean | undefined | null ? (T | IDatasourceItem<T>)[] : IDatasourceItem<T>[];

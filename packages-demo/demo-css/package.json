@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@kcuf/demo-rc": "workspace:^",
-    "react": "^19.3.0",
+    "react": "^19.3.1",
     "styled-components": "^6.6.0"
   },
   "scripts": {

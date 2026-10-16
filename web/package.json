@@ -50,10 +50,10 @@
     "inquirer": "^14.2.3",
     "react-docgen": "^8.0.4",
     "react-docgen-typescript": "^2.4.0",
-    "sass": "^1.105.1",
+    "sass": "^1.105.2",
     "ts-node-dev": "^2.0.0",
     "typedoc": "^0.28.20",
-    "typedoc-plugin-markdown": "^4.13.1",
+    "typedoc-plugin-markdown": "^4.14.0",
     "typescript": "^6.0.3"
   },
   "dependencies": {
@@ -69,8 +69,8 @@
     "lunr": "^2.3.9",
     "lunr-languages": "^1.22.0",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.3.0",
-    "react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
     "styled-components": "^6.6.0"
   },
   "scripts": {

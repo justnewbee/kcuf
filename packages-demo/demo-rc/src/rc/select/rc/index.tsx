@@ -8,9 +8,6 @@ import {
 } from '@kcuf-hook/use-controllable';
 
 import {
-  TDatasourceValue
-} from '../../../types';
-import {
   CSS_FORM_CONTROL_INPUT_BASE,
   HEIGHT_FORM_CONTROL
 } from '../../../const';
@@ -27,7 +24,7 @@ const ScSelect = styled.select`
   ${CSS_FORM_CONTROL_INPUT_BASE}
 `;
 
-export default function Select<T extends TDatasourceValue = string>({
+export default function Select<T = string>({
   datasource,
   withEmpty = true,
   value,
@@ -35,8 +32,9 @@ export default function Select<T extends TDatasourceValue = string>({
   onChange,
   ...props
 }: ISelectProps<T>): ReactElement {
-  const datasourceParsed = parseDatasource(datasource);
   const [controllableValue, controllableOnChange] = useControllableUnprotected<T | undefined>(value, defaultValue, onChange);
+  
+  const datasourceParsed = parseDatasource(datasource);
   
   return <ScSelect {...{
     ...props,
@@ -44,6 +42,6 @@ export default function Select<T extends TDatasourceValue = string>({
     onChange: e => controllableOnChange(datasourceParsed.find(v => String(v.value) === e.target.value)?.value)
   }}>
     {withEmpty ? <option value="<EMPTY>">&lt;EMPTY&gt;</option> : null}
-    {datasourceParsed.map(v => <option key={String(v.value)} value={String(v.value)}>{v.label ?? v.value}</option>)}
+    {datasourceParsed.map(v => <option key={String(v.value)} value={String(v.value)}>{v.label ?? String(v.value)}</option>)}
   </ScSelect>;
 }

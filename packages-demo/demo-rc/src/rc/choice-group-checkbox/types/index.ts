@@ -1,9 +1,8 @@
 import {
-  TDatasource,
-  TDatasourceValue
+  TDatasource
 } from '../../../types';
 
-export interface IChoiceGroupCheckboxProps<T extends TDatasourceValue = string> {
+export interface IChoiceGroupCheckboxProps<T> {
   datasource: TDatasource<T>;
   value?: T[];
   defaultValue?: T[];

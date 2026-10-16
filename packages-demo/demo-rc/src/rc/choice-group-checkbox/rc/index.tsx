@@ -6,9 +6,6 @@ import {
 import useControllable from '@kcuf-hook/use-controllable';
 
 import {
-  TDatasourceValue
-} from '../../../types';
-import {
   parseDatasource
 } from '../../../util';
 import {
@@ -19,14 +16,14 @@ import {
   IChoiceGroupCheckboxProps
 } from '../types';
 
-export default function ChoiceGroupCheckbox<T extends TDatasourceValue = string>({
+export default function ChoiceGroupCheckbox<T>({
   datasource,
   value,
   defaultValue = [],
   onChange
 }: IChoiceGroupCheckboxProps<T>): ReactElement | null {
-  const datasourceParsed = parseDatasource(datasource);
   const [controllableValue, setControllableValue] = useControllable([], value, defaultValue, onChange);
+  const datasourceParsed = parseDatasource(datasource);
   
   return <ScChoiceGroup>
     {datasourceParsed.map((v, i) => <InputCheckbox key={`${v.value as string}-${i}`} {...{

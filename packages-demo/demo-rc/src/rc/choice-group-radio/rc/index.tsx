@@ -7,9 +7,6 @@ import {
 } from '@kcuf-hook/use-controllable';
 
 import {
-  TDatasourceValue
-} from '../../../types';
-import {
   parseDatasource
 } from '../../../util';
 import {
@@ -20,14 +17,14 @@ import {
   IChoiceGroupRadioProps
 } from '../types';
 
-export default function ChoiceGroupRadio<T extends TDatasourceValue = string>({
+export default function ChoiceGroupRadio<T>({
   datasource,
   value,
   defaultValue,
   onChange
 }: IChoiceGroupRadioProps<T>): ReactElement {
-  const datasourceParsed = parseDatasource(datasource);
   const [controllableValue, setControllableValue] = useControllableUnprotected<T>(value, defaultValue, onChange);
+  const datasourceParsed = parseDatasource(datasource);
   
   const handleRadioChange = (_checked: boolean, itemValue: T): void => {
     setControllableValue(itemValue);

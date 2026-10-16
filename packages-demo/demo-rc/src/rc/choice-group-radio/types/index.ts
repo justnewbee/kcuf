@@ -1,9 +1,8 @@
 import {
-  TDatasource,
-  TDatasourceValue
+  TDatasource
 } from '../../../types';
 
-export interface IChoiceGroupRadioProps<T extends TDatasourceValue = string> {
+export interface IChoiceGroupRadioProps<T = string> {
   datasource: TDatasource<T>;
   value?: T;
   defaultValue?: T;

@@ -1,29 +1,41 @@
 import {
-  ReactElement
-} from 'react';
-
-import {
   IDatasourceItem,
-  TDatasource,
-  TDatasourceValue
+  TDatasource
 } from '../types';
 
-export default function parseDatasource<T extends TDatasourceValue>(datasource: TDatasource<T> = []): IDatasourceItem<T>[] {
-  return datasource.map(v => {
-    let label: string | ReactElement | undefined;
-    let value: T;
+export default function parseDatasource<T>(datasource?: TDatasource<T>): IDatasourceItem<T>[] {
+  return datasource ? datasource.map(v => {
+    if (v === null) {
+      return {
+        value: v,
+        label: '<null>'
+      };
+    }
     
-    if (!v || typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
-      value = v;
-      label = String(v);
-    } else {
-      value = v.value;
-      label = v.label;
+    if (typeof v === 'undefined') {
+      return {
+        value: v,
+        label: '<undefined>'
+      };
+    }
+    
+    if (v === '') {
+      return {
+        value: v,
+        label: '<empty>'
+      };
+    }
+    
+    if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') {
+      return {
+        value: v,
+        label: String(v)
+      };
     }
     
     return {
-      value,
-      label
+      value: v.value,
+      label: v.label
     };
-  });
+  }) : [];
 }
