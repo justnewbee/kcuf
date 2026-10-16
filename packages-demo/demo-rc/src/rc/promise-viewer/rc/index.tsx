@@ -24,7 +24,6 @@ import {
 const ScPromiseViewer = styled.div`
   position: relative;
 `;
-
 const ScInfoIdle = styled.div`
   position: absolute;
   top: 0;
@@ -37,15 +36,12 @@ const ScInfoIdle = styled.div`
   font-size: 11px;
   pointer-events: none;
 `;
-
 const ScInfoLoading = styled(ScInfoIdle)`
   background-color: hsl(285 100% 40%);
 `;
-
 const ScInfoResolved = styled(ScInfoIdle)`
   background-color: hsl(120 100% 30%);
 `;
-
 const ScInfoRejected = styled(ScInfoIdle)`
   background-color: hsl(0 100% 40%);
 `;

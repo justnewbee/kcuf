@@ -15,7 +15,6 @@ const ScFormControlWithLabel = styled.label`
     margin-inline-end: 0;
   }
 `;
-
 const ScSwitchLabel = styled.span`
   margin-inline-start: 0.4em;
   color: #777;

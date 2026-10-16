@@ -12,7 +12,6 @@ const ScLongArticle = styled(Article)`
     width: 100%;
   }
 `;
-
 const ScLyrics = styled.div`
   margin-top: 1em;
   

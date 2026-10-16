@@ -17,17 +17,14 @@ const cssList = css`
   padding-left: 3em;
   ${CSS_BLOCK_LEVEL_ELEMENT}
 `;
-
 const ScUl = styled.ul`
   list-style: square;
   ${cssList}
 `;
-
 const ScOl = styled.ol`
   list-style: lower-roman;
   ${cssList}
 `;
-
 const ScLi = styled.li`
   margin: 4px 0;
 `;
