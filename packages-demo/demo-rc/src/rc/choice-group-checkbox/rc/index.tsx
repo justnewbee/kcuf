@@ -10,7 +10,7 @@ import {
 } from '../../../util';
 import {
   ScChoiceGroup
-} from '../../choice-group-base';
+} from '../../index.styled';
 import InputCheckbox from '../../input-checkbox';
 import {
   IChoiceGroupCheckboxProps
@@ -21,12 +21,11 @@ export default function ChoiceGroupCheckbox<T>({
   value,
   defaultValue = [],
   onChange
-}: IChoiceGroupCheckboxProps<T>): ReactElement | null {
+}: IChoiceGroupCheckboxProps<T>): ReactElement {
   const [controllableValue, setControllableValue] = useControllable([], value, defaultValue, onChange);
-  const datasourceParsed = parseDatasource(datasource);
   
   return <ScChoiceGroup>
-    {datasourceParsed.map((v, i) => <InputCheckbox key={`${v.value as string}-${i}`} {...{
+    {parseDatasource(datasource).map((v, i) => <InputCheckbox key={`${v.value as string}-${i}`} {...{
       label: v.label,
       value: v.value,
       checked: controllableValue.includes(v.value),

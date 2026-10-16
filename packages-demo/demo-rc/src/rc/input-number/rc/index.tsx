@@ -10,7 +10,7 @@ import {
 } from '../../../util';
 import {
   ScInput
-} from '../../_sc-base';
+} from '../../index.styled';
 import {
   IInputNumberProps
 } from '../types';

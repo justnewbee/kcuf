@@ -6,7 +6,7 @@ import useControllable from '@kcuf-hook/use-controllable';
 
 import {
   ScInput
-} from '../../_sc-base';
+} from '../../index.styled';
 import {
   IInputDateProps
 } from '../types';

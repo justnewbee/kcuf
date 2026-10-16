@@ -8,7 +8,7 @@ import {
 
 import {
   ScInput
-} from '../../_sc-base';
+} from '../../index.styled';
 import {
   IInputTextProps
 } from '../types';

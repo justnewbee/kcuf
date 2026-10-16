@@ -11,7 +11,7 @@ import {
 } from '../../../util';
 import {
   ScChoiceGroup
-} from '../../choice-group-base';
+} from '../../index.styled';
 import InputRadio from '../../input-radio';
 import {
   IChoiceGroupRadioProps
@@ -24,17 +24,12 @@ export default function ChoiceGroupRadio<T>({
   onChange
 }: IChoiceGroupRadioProps<T>): ReactElement {
   const [controllableValue, setControllableValue] = useControllableUnprotected<T>(value, defaultValue, onChange);
-  const datasourceParsed = parseDatasource(datasource);
-  
-  const handleRadioChange = (_checked: boolean, itemValue: T): void => {
-    setControllableValue(itemValue);
-  };
   
   return <ScChoiceGroup>
-    {datasourceParsed.map((v, i) => <InputRadio key={`${v.value as string}-${i}`} {...{
+    {parseDatasource(datasource).map((v, i) => <InputRadio key={`${v.value as string}-${i}`} {...{
       label: v.label,
       checked: controllableValue === v.value,
-      onChange: checked => handleRadioChange(checked, v.value)
+      onChange: () => setControllableValue(v.value)
     }} />)}
   </ScChoiceGroup>;
 }
