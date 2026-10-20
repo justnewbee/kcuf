@@ -513,7 +513,7 @@ export default {
     })), {
       severity: 'error',
       unspecified: 'ignore', // 让 styled-components 的 mixin 可以按需要放置
-      emptyLineBeforeUnspecified: 'always',
+      emptyLineBeforeUnspecified: 'never',
       emptyLineMinimumPropertyThreshold: 5
     }]
   }
