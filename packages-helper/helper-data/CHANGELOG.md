@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.8.1 2026/10/21 @驳是
+
+* FIX `normalizeZhEn` 不可误伤换行
+
 ## 0.8.0 2026/07/29 @驳是
 
 ## FEAT Add `normalizeZhEn`，中英文书写标准
