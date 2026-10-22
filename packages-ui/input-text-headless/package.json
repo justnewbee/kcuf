@@ -43,7 +43,7 @@
     "@kcuf-hook/use-controllable": "workspace:^",
     "@kcuf-hook/use-is-unmounted": "workspace:^",
     "@kcuf/mere-dom": "workspace:^",
-    "immer": "^11.1.21"
+    "immer": "^11.2.7"
   },
   "scripts": {
     "start": "storybook dev -p 6006",

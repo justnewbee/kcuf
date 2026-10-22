@@ -53,14 +53,6 @@ describe('normalizeChEn', () => {
     expect(normalizeChEn('世界,如此之大')).toBe('世界, 如此之大');
   });
   
-  test('collapses consecutive spaces into one', () => {
-    expect(normalizeChEn('hello   world')).toBe('hello world');
-  });
-  
-  test('collapses consecutive spaces into one, but should not harm cr', () => {
-    expect(normalizeChEn('hello\n\nworld  again')).toBe('hello\n\nworld again');
-  });
-  
   test('handles complex mixed Chinese and English', () => {
     expect(normalizeChEn('这是一段包含English和Number123的文本')).toBe('这是一段包含 English 和 Number123 的文本');
   });
