@@ -3,9 +3,13 @@ export default {
   extends: [
     'stylelint-config-standard-scss'
   ],
-  rules: {
-    // scss/comment-no-empty 会误报空的 // 注释，核心规则会跳过内联注释，故用核心规则替代
-    'comment-no-empty': true,
-    'scss/comment-no-empty': null
-  }
+  overrides: [{
+    files: ['*.scss'],
+    customSyntax: 'postcss-scss',
+    rules: {
+      // 关闭 scss 插件的空注释检查，改用核心 comment-no-empty
+      'scss/comment-no-empty': null,
+      'comment-no-empty': true
+    }
+  }]
 };

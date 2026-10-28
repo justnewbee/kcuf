@@ -47,7 +47,7 @@
     "@types/react-dom": "^19.3.0",
     "commander": "^15.0.0",
     "docusaurus-plugin-sass": "^0.2.7",
-    "inquirer": "^14.2.4",
+    "inquirer": "^14.2.5",
     "react-docgen": "^8.0.4",
     "react-docgen-typescript": "^2.4.0",
     "sass": "^1.106.1",

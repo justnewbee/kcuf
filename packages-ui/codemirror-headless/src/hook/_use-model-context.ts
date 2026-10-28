@@ -8,5 +8,11 @@ import {
 import Context from '../context';
 
 export default function useModelContext(): IModelContext {
-  return useContext(Context)!; // eslint-disable-line @typescript-eslint/no-non-null-assertion
+  const context = useContext(Context);
+  
+  if (!context) {
+    throw new Error('Hooks must be used within CodeMirror Provider');
+  }
+  
+  return context;
 }
