@@ -22,7 +22,7 @@ export default function Icon(props: IIconProps): ReactElement {
   return <IconBase<TIconType> {...{
     ...props,
     fontFamily: ICON_FONT,
-    darkThemePrefix: 'html[data-theme="dark"]',
+    darkThemePrefix: 'html[data-theme=\'dark\']',
     getIconCode,
     getIconColor,
     getIconColorDark

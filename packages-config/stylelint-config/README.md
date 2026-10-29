@@ -2,7 +2,11 @@
 
 > The Kcuf shareable stylelint config.
 
-* <https://stylelint.io/awesome-stylelint>
+一个配置搞定以下任意框架的项目：
+
+* [x] 普通使用 CSS/LESS/SCSS 的项目
+* [x] 在 JS/TS 中使用 `styled-components` 或 `emotion` 项目
+* [x] Vue 项目（SCSS 为主）
 
 ## 安装
 
@@ -10,39 +14,15 @@
 pnpm add -D stylelint @kcuf/stylelint-config
 ```
 
-## React 项目配置
+## 配置
+
+> 注意：切不要下探引用。
 
 `.stylelintrc` 内容:
 
 ```json
 {
   "extends": "@kcuf/stylelint-config"
-}
-```
-
-此配置适用于使用了 styled-components 或 emotion 的 React 项目（JS 或 TS）。
-
-注意，如果项目还用了 Less/Sass，可以这么这样：
-
-```json
-{
-  "extends": [
-    "@kcuf/stylelint-config",
-    "@kcuf/stylelint-config/config-less",
-    "@kcuf/stylelint-config/config-scss"
-  ]
-}
-```
-
-之所以不在 `@kcuf/stylelint-config` 默认加上 Less/Sass，是希望项目的样式解决方案更纯粹一些。
-
-## Vue 项目配置
-
-`.stylelintrc` 内容（`index-vue` 默认带了 `config-scss`）:
-
-```json
-{
-  "extends": "@kcuf/stylelint-config/index-vue"
 }
 ```
 
@@ -71,6 +51,21 @@ npm pkg set scripts.lint:style="stylelint \"**/src/**/*.{css,less}\""
 
 ```json
 {
-  "*.{css,less,ts,tsx}": "stylelint"
+  "*.{css,less,scss,ts,tsx}": "stylelint"
 }
 ```
+
+## Links
+
+* [Stylelint](https://stylelint.io/)
+* [Stylelint Rules](https://stylelint.io/user-guide/rules)
+* [Awesome Stylelint](https://stylelint.io/awesome-stylelint)
+* [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard)
+* [@stylistic/stylelint-config](https://github.com/stylelint-stylistic/stylelint-config)
+* [stylelint-config-standard-less](https://github.com/stylelint-less/stylelint-less)
+* [stylelint-config-standard-scss](https://github.com/stylelint-scss/stylelint-config-standard-scss)
+* [stylelint-config-html](https://github.com/ota-meshi/stylelint-config-html)
+* [stylelint-config-standard-vue](https://github.com/ota-meshi/stylelint-config-standard-vue)
+* [stylelint-config-recommended-vue](https://github.com/ota-meshi/stylelint-config-recommended-vue)
+* [stylelint-order](https://github.com/hudochenkov/stylelint-order)
+* [postcss-styled-syntax](https://github.com/hudochenkov/postcss-styled-syntax)

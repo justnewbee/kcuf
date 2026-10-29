@@ -4,7 +4,6 @@ export default {
     'stylelint-config-standard'
   ],
   rules: {
-    'hue-degree-notation': 'number',
     'import-notation': 'string'
   }
 };

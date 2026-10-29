@@ -10,7 +10,7 @@ export default styled(TagBase)`
     content: 'required';
   }
   
-  html[data-theme="dark"] & {
+  html[data-theme='dark'] & {
     background: hsl(325 74% 44% / 17%);
     color: hsl(326 80% 64%);
   }

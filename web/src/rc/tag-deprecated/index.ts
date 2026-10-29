@@ -11,7 +11,7 @@ export default styled(TagBase)`
     font-weight: 600;
   }
   
-  html[data-theme="dark"] & {
+  html[data-theme='dark'] & {
     background: hsl(5 100% 48% / 17%);
     color: hsl(5 92% 64%);
   }

@@ -1,7 +1,7 @@
 /** @type {import('stylelint').Config} */
 export default {
   overrides: [{
-    files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+    files: ['*.{ts,tsx,js,jsx,cjs,cts,mjs,mts}'],
     customSyntax: 'postcss-styled-syntax',
     rules: {
       'no-invalid-double-slash-comments': null,

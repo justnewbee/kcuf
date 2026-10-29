@@ -10,7 +10,7 @@ export default styled(TagBase)`
     content: 'override';
   }
   
-  html[data-theme="dark"] & {
+  html[data-theme='dark'] & {
     background: hsl(22 70% 28% / 50%);
     color: hsl(38 91% 72%);
   }
