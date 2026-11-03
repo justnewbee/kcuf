@@ -1,3 +1,7 @@
+import {
+  ETimeGroup
+} from '../enum';
+
 /**
  * 分页数据标准化
  */
@@ -21,4 +25,10 @@ export interface IPagedCursorList<T> {
  */
 export interface IPagedListUncertain<T> extends Omit<IPagedList<T>, 'total'> {
   hasMore: boolean;
+}
+
+export interface IGroupedListByTime<T> {
+  group: ETimeGroup;
+  title: string;
+  list: T[];
 }

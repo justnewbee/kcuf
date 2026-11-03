@@ -1,5 +1,9 @@
 export * from './helper';
 
+export {
+  ETimeGroup as TimeGroup
+} from './enum';
+
 export type {
   // 参数标准化
   IBaseParamsPage as BaseParamsPage,
@@ -24,5 +28,6 @@ export type {
   // 数据标准化（泛型）
   IPagedList as PagedList,
   IPagedCursorList as PagedCursorList,
-  IPagedListUncertain as PagedListUncertain
+  IPagedListUncertain as PagedListUncertain,
+  IGroupedListByTime as GroupedListByTime
 } from './types';

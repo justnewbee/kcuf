@@ -41,7 +41,7 @@
     "@storybook/addon-links": "^10.6.5",
     "@storybook/react-vite": "^10.6.5",
     "@types/react": "^19.3.0",
-    "@vitest/coverage-v8": "^5.0.5",
+    "@vitest/coverage-v8": "^5.1.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "react": "^19.3.1",
     "rimraf": "^6.1.3",

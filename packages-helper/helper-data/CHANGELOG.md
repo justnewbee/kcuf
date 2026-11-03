@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.9.0 2026/11/03 @驳是
+
+* FEAT 新增 `groupListByTime`
+
 ## 0.8.2 2026/10/22 @驳是
 
 * FIX `normalizeZhEn` 不再合并连续空白字符，否则会对代码片段文本的缩进等造成影响
