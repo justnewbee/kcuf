@@ -34,7 +34,7 @@
     "@storybook/react-vite": "^10.6.5",
     "@types/react": "^19.3.0",
     "babel-plugin-react-compiler": "^1.0.0",
-    "babel-plugin-styled-components": "^2.3.1",
+    "babel-plugin-styled-components": "^2.4.0",
     "less": "^4.9.1",
     "storybook": "^10.6.5",
     "typescript": "^6.0.3"
