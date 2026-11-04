@@ -1,14 +1,16 @@
 /** @type {import('stylelint').Config} */
 export default {
+  // Stylelint 18 的配置解析改成了原生 ESM 语义，相对路径 extends 必须带扩展名，否则
+  // 报错「ConfigurationError: Could not find "./config/xx"」
   extends: [
-    './config/lang-css',
-    './config/lang-less',
-    './config/lang-scss',
-    './config/lang-html',
-    './config/stylistic',
-    './config/order',
-    './config/vue',
-    './config/styled-syntax'
+    './config/lang-css.js',
+    './config/lang-less.js',
+    './config/lang-scss.js',
+    './config/lang-html.js',
+    './config/stylistic.js',
+    './config/order.js',
+    './config/vue.js',
+    './config/styled-syntax.js'
   ],
   rules: {
     'hue-degree-notation': 'number',
