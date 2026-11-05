@@ -1,41 +1,8 @@
-import {
-  TFluidParsedConfig
-} from '../types';
-
-export const FLUID_CONFIG_DEFAULT: TFluidParsedConfig = {
-  simulationResolution: 128,
-  dyeResolution: 1440,
-  densityDissipation: 3.5,
-  velocityDissipation: 2,
-  pressure: 0.1,
-  pressureIterations: 20,
-  curl: 3,
-  splatRadius: 0.2,
-  splatForce: 6000,
-  enableShading: true,
-  colorUpdateSpeed: 10
-};
-
 /**
  * The simulation never advances by more than one frame of a 60fps display, so a
  * long frame (tab switch,GC...) does not produce a huge jump.
  */
 export const MAX_DELTA_TIME = 0.016666;
-
-/**
- * The pointer listeners are bound to `window`, so the canvas has to be a fixed
- * full viewport layer that sits on top of the page without swallowing the
- * pointer events. The canvas size is read from `clientWidth` / `clientHeight`,
- * hence the `100vw` / `100vh` sizing.
- */
-export const CANVAS_STYLE = `position: fixed;
-top: 0;
-left: 0;
-z-index: 50;
-width: 100vw;
-height: 100vh;
-pointer-events: none;
-cursor: none;`;
 
 export const VERTEX_SHADER = `
   precision highp float;

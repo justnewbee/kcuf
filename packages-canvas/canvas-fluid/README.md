@@ -7,12 +7,12 @@
 ### Plain JavaScript
 
 ```ts
-import canvasFluid from '@kcuf/canvas-fluid';
+import CanvasFluid from '@kcuf/canvas-fluid';
 
 const canvas = document.querySelector('canvas-fluid');
 
 if (canvas) {
-  const fluid = canvasFluid(document.querySelector('canvas'));
+  const fluid = new CanvasFluid(canvas);
   
   // 你需要在适当的实际自己做 fluid.destroy();
 }
@@ -20,28 +20,4 @@ if (canvas) {
 
 ### React
 
-```tsx
-import {
-  ReactElement,
-  useRef,
-  useEffect
-} from 'react';
-
-import canvasFluid from '@kcuf/canvas-fluid';
-
-export default function StoryDefault(): ReactElement {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  useEffect(() => {
-    if (!canvasRef.current) {
-      return;
-    }
-    
-    const fluid = canvasFluid(canvasRef.current);
-    
-    return (): void => fluid.destroy();
-  }, []);
-  
-  return <canvas ref={canvasRef} />;
-}
-```
+你可以直接用 `@kcuf/canvas-fluid-react`。

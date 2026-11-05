@@ -1,16 +1,15 @@
 import {
   IFluidColor,
-  IFluidConfig,
+  ICanvasFluidConfig,
   IFluidPointer,
   TFluidParsedConfig,
   ITextureExtensions,
   IFramebuffer,
-  IDoubleFramebuffer
+  IDoubleFramebuffer,
+  ICanvasFluidClass
 } from '../types';
 import {
-  FLUID_CONFIG_DEFAULT,
   MAX_DELTA_TIME,
-  CANVAS_STYLE,
   VERTEX_SHADER,
   COPY_SHADER,
   CLEAR_SHADER,
@@ -49,7 +48,7 @@ import Material from './material';
  * The pointer listeners are bound to `window`, so the canvas is expected to cover
  * the viewport (the effect follows the cursor anywhere on the page).
  */
-export default class Fluid {
+export default class CanvasFluid implements ICanvasFluidClass {
   private readonly config: TFluidParsedConfig;
   private readonly gl: WebGL2RenderingContext;
   private readonly ext: ITextureExtensions;
@@ -78,29 +77,55 @@ export default class Fluid {
   private running = false;
   private destroyed = false;
   
-  constructor(private readonly canvas: HTMLCanvasElement, config: IFluidConfig = {}) {
-    canvas.style.cssText = CANVAS_STYLE;
-    
+  constructor(private readonly canvas: HTMLCanvasElement, config: ICanvasFluidConfig = {}) {
     const context = getWebglContext(canvas);
     
     if (!context) {
       throw new Error('Unable to initialize WebGL.');
     }
     
-    this.gl = context.gl;
-    this.ext = context.ext;
-    this.config = {
-      ...FLUID_CONFIG_DEFAULT,
+    const parsedConfig: TFluidParsedConfig = {
+      zIndex: 50,
+      simulationResolution: 128,
+      dyeResolution: 1440,
+      densityDissipation: 3.5,
+      velocityDissipation: 2,
+      pressure: 0.1,
+      pressureIterations: 20,
+      curl: 3,
+      splatRadius: 0.2,
+      splatForce: 6000,
+      enableShading: true,
+      colorUpdateSpeed: 10,
       ...config
     };
+    
+    /**
+     * The pointer listeners are bound to `window`, so the canvas has to be a fixed
+     * full viewport layer that sits on top of the page without swallowing the
+     * pointer events. The canvas size is read from `clientWidth` / `clientHeight`,
+     * hence the `100vw` / `100vh` sizing.
+     */
+    canvas.style.cssText = `position: fixed;
+top: 0;
+left: 0;
+z-index: ${parsedConfig.zIndex};
+width: 100vw;
+height: 100vh;
+pointer-events: none;
+cursor: none;`;
+    
+    this.config = parsedConfig;
+    this.gl = context.gl;
+    this.ext = context.ext;
     this.pointers = [createPointer()];
     
     // Linear filtering on half float textures is what the advection shader relies
     // on. Without it the dye has to stay small enough for manual bilinear filtering
     // to still look smooth.
     if (!this.ext.supportLinearFiltering) {
-      this.config.dyeResolution = 256;
-      this.config.enableShading = false;
+      parsedConfig.dyeResolution = 256;
+      parsedConfig.enableShading = false;
     }
     
     const gl = this.gl;
@@ -118,7 +143,7 @@ export default class Fluid {
     this.displayMaterial = new Material(gl, vertexShader, DISPLAY_SHADER);
     this.blit = this.createBlit();
     
-    this.displayMaterial.setKeywords(this.config.enableShading ? ['SHADING'] : []);
+    this.displayMaterial.setKeywords(parsedConfig.enableShading ? ['SHADING'] : []);
     
     this.initFramebuffers();
     this.setupEvents();

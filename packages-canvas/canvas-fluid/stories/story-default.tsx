@@ -4,7 +4,7 @@ import {
   useEffect
 } from 'react';
 
-import canvasFluid from '../src';
+import CanvasFluid from '../src';
 
 export default function StoryDefault(): ReactElement {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -14,9 +14,9 @@ export default function StoryDefault(): ReactElement {
       return;
     }
     
-    const fluid = canvasFluid(canvasRef.current);
+    const canvasFluid = new CanvasFluid(canvasRef.current);
     
-    return (): void => fluid.destroy();
+    return (): void => canvasFluid.destroy();
   }, []);
   
   return <canvas ref={canvasRef} />;

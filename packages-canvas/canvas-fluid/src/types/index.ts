@@ -7,7 +7,11 @@ export interface IFluidColor {
   b: number;
 }
 
-export interface IFluidConfig {
+export interface ICanvasFluidConfig {
+  /**
+   * Z index of the canvas, default 50.
+   */
+  zIndex?: number;
   /**
    * Resolution of the simulation grid (velocity, pressure, curl).
    */
@@ -54,7 +58,7 @@ export interface IFluidConfig {
   colorUpdateSpeed?: number;
 }
 
-export type TFluidParsedConfig = Required<IFluidConfig>;
+export type TFluidParsedConfig = Required<ICanvasFluidConfig>;
 
 export interface IFluidPointer {
   id: number;
@@ -113,4 +117,9 @@ export interface ICanvasContextOptions {
   stencil: boolean;
   antialias: boolean;
   preserveDrawingBuffer: boolean;
+}
+
+export interface ICanvasFluidClass {
+  start(): void;
+  destroy(): void;
 }
