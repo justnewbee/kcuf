@@ -38,7 +38,7 @@
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "commander": "^15.0.0",
+    "commander": "^15.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.39.3",
     "husky": "^9.1.7",
