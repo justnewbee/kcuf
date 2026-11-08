@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 0.7.0 2026/11/08 @驳是
+
+* FEAT 升级至 ESLint 10，`peerDependencies` 要求 `eslint >= 10.0.0`
+  - FEAT `eslint-plugin-import` 换成 `eslint-plugin-import-x`，规则前缀由 `import/` 变为 `import-x/`
+  - FEAT `eslint-plugin-react` 与 `eslint-plugin-react-hooks` 换成 `@eslint-react/eslint-plugin`，后者已内置 Rules of Hooks 与 Exhaustive Deps，仅需把等级统一为 error；同时去掉 `react/jsx-filename-extension`
+  - FEAT Resolver 改用 `import-x/resolver-next` 配合 `createTypeScriptImportResolver` 工厂，旧写法 `import-x/resolver` 不再生效
+  - FIX 暂时移除 `eslint-plugin-jsx-a11y`，因它尚未支持 ESLint 10，待其支持后再加回
+  - FIX `tsconfigRootDir` 改用使用者的 `process.cwd()`，此前指向本包目录，会让 TS 类型规则静默失效
+
 ## 0.6.6 2026/06/02 @驳是
 
 * FIX Disabled `@typescript-eslint/no-unnecessary-type-arguments`

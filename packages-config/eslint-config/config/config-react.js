@@ -1,21 +1,16 @@
-import pluginReact from 'eslint-plugin-react';
-import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
+import pluginEslintReact from '@eslint-react/eslint-plugin';
 
 import rulesReact from '../rules/rules-react.js';
 
-/** @type {import('eslint').Linter.Config[]} */
+/**
+ * `@eslint-react/eslint-plugin` 已内置 Rules of Hooks 与 Exhaustive Deps，不需要再装 `eslint-plugin-react-hooks`
+ *
+ * `eslint-plugin-jsx-a11y` 尚未支持 ESLint 10，待其支持后再加回
+ *
+ * @type {import('eslint').Linter.Config[]}
+ */
 export default [
-  {
-    settings: {
-      react: {
-        version: 'detect',
-        defaultVersion: '18'
-      }
-    }
-  },
-  pluginReact.configs.flat.recommended,
-  pluginReact.configs.flat['jsx-runtime'],
-  pluginJsxA11y.flatConfigs.recommended, // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/tree/main/docs/rules
+  pluginEslintReact.configs.recommended,
   {
     rules: rulesReact
   }

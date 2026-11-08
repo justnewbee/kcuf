@@ -1,4 +1,9 @@
-import pluginImport from 'eslint-plugin-import';
+import {
+  createTypeScriptImportResolver
+} from 'eslint-import-resolver-typescript';
+import {
+  flatConfigs as flatConfigsImportX
+} from 'eslint-plugin-import-x';
 
 import rulesImport from '../rules/rules-import.js';
 
@@ -7,20 +12,20 @@ export default [
   {
     settings: {
       // make aliases work, need `eslint-import-resolver-typescript`
-      'import/resolver': {
-        typescript: {
+      'import-x/resolver-next': [
+        createTypeScriptImportResolver({
           alwaysTryTypes: true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
           project: [
             'tsconfig.json',
             'packages*/*/tsconfig.json'
           ]
-        }
-      }
+        })
+      ]
     }
   },
-  pluginImport.flatConfigs.recommended,
-  pluginImport.flatConfigs.typescript,
-  pluginImport.flatConfigs.react,
+  flatConfigsImportX.recommended,
+  flatConfigsImportX.typescript,
+  flatConfigsImportX.react,
   {
     rules: rulesImport
   }

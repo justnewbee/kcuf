@@ -48,7 +48,7 @@ export default function SelectWithFetch<T extends object>({
     }
   }, [stateLoading, stateList, optionLabel, optionValue]);
   
-  const useHandleFetch = useCallback(async () => {
+  const handleFetch = useCallback(async () => {
     setStateLoading(true);
     
     try {
@@ -73,9 +73,8 @@ export default function SelectWithFetch<T extends object>({
   }, [stateList, optionValue, onChange, onChangeData]);
   
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useHandleFetch();
-  }, [useHandleFetch]);
+    void handleFetch();
+  }, [handleFetch]);
   
   return <Select {...{
     ...props,

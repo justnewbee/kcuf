@@ -1,6 +1,6 @@
 # @kcuf/eslint-config
 
-The Kcuf shareable config For Eslint >=9.
+The Kcuf shareable config For Eslint >=10.
 
 [可共享的 Eslint config](https://eslint.org/docs/developer-guide/shareable-configs)
 
@@ -17,11 +17,11 @@ The Kcuf shareable config For Eslint >=9.
 * `@eslint/js` JS 配置，这里使用 recommended，有一些额外的配置
 * `typescript-eslint` 支持 TS
 * `@stylistic/eslint-plugin` Eslint Core 把格式相关的规则差不多都移到了这里，且包含 TS、JSX 相关的配置
-* `eslint-plugin-import` import/export 规范插件
+* `eslint-plugin-import-x` import/export 规范插件
   - `eslint-import-resolver-typescript` import 支持 TS
-* `eslint-plugin-react` 支持 React
-  - `eslint-plugin-react-hooks` React Hooks 插件
-  - `eslint-plugin-jsx-a11y` React JSX A11Y 插件
+* `@eslint-react/eslint-plugin` 支持 React
+  - 已内置 Rules of Hooks、Exhaustive Deps，无需 `eslint-plugin-react` 与 `eslint-plugin-react-hooks`
+  - 不含 A11Y，`eslint-plugin-jsx-a11y` 暂未支持 ESLint 10，待其支持后再加回
 * `eslint-plugin-n` 支持 Node
 
 ## 安装
@@ -63,13 +63,15 @@ export default kcufEslintConfig;
 
 ### Alias 报错怎么办？
 
-你可能会碰到报错 `import/no-unresolved`，因为应用使用了类似 `@/`、`~/`、`:/` 等 Alias。
+你可能会碰到报错 `import-x/no-unresolved`，因为应用使用了类似 `@/`、`~/`、`:/` 等 Alias。
 
 由于 Alias 跟应用有关，因此不在此包范围处理，可以使用相关插件，比如 `eslint-import-resolver-custom-alias`，如下操作：
 
 ```shell
 pnpm add -D eslint-import-resolver-custom-alias
 ```
+
+> 本包使用 `import-x/resolver-next`，添加自己的 Resolver 请用工厂形式放进该数组，旧写法 `import-x/resolver` 不会生效。
 
 修改 `eslint.config.js`（不建议设置超过 1 个 Alias）：
 
@@ -81,7 +83,7 @@ export default [
   ...kcufEslintConfig,
   {
     settings: {
-      'import/resolver': {
+      'import-x/resolver-legacy': {
         'custom-alias': {
           alias: {
             '@': './src'
@@ -93,6 +95,8 @@ export default [
   }
 ];
 ```
+
+> `resolver-legacy` 只在未设置 `resolver-next` 时生效，而本包用的是 `resolver-next`。若需同时使用，请自己用 `createTypeScriptImportResolver` 与自定义 Resolver 组装 `resolver-next` 数组。
 
 ### 报错「ESLint was configured to run...」怎么办？
 
