@@ -27,6 +27,6 @@ export default function ImportFrom({
   pkg = 'kcuf-ui'
 }: IImportFromProps): ReactElement {
   return <ScImportFrom>
-    <ScKeyword>import</ScKeyword>{' { '}<ScWhat>{name}</ScWhat>{' } '}<ScKeyword>from</ScKeyword>{' '}<ScPkg>&apos;{pkg}&apos;</ScPkg>;
+    <ScKeyword>import</ScKeyword>{' { '}<ScWhat>{name}</ScWhat>{' } '}<ScKeyword>from</ScKeyword>{' '}<ScPkg>&apos;{pkg}&apos;</ScPkg><span>;</span>
   </ScImportFrom>;
 }

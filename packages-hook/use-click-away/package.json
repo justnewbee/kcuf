@@ -35,7 +35,7 @@
     "@babel/preset-typescript": "^7.29.7",
     "@kcuf/ts-config": "workspace:^",
     "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.8",
+    "@testing-library/user-event": "^14.6.9",
     "@types/react": "^19.3.0",
     "@vitest/coverage-v8": "^5.1.0",
     "babel-plugin-react-compiler": "^1.0.0",

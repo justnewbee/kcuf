@@ -42,10 +42,28 @@ pnpm add -D eslint @kcuf/eslint-config
 配置 `eslint.config.js` 即可：
 
 ```js
-import kcufEslintConfig from '@kcuf/eslint-config'; // 这里可以用不同的 index-x
+import {
+  fileURLToPath
+} from 'node:url';
 
-/** @type {import('eslint').Linter.Config[]} */
-export default kcufEslintConfig;
+import {
+  defineConfig,
+  globalIgnores,
+  includeIgnoreFile
+} from 'eslint/config';
+
+import kcufEslintConfig from '@kcuf/eslint-config';
+
+export default defineConfig([
+  includeIgnoreFile(fileURLToPath(new URL('.gitignore', import.meta.url)), {
+    gitignoreResolution: true
+  }),
+  globalIgnores([
+    '**/*/.babelrc.js'
+  ]),
+  ...kcufEslintConfig
+]);
+
 ```
 
 建议在 `package.json` 配置 `scripts`：
@@ -53,8 +71,8 @@ export default kcufEslintConfig;
 ```json
 {
   "scripts": {
-    "lint": "eslint src/ --ext js,jsx,ts,tsx",
-    "lint:packages": "eslint packages*/**/src/ --ext js,jsx,ts,tsx"
+    "lint": "eslint **/src/** --ext js,jsx,ts,tsx",
+    "lint:fix": "eslint **/src/** --ext js,jsx,ts,tsx --fix"
   }
 }
 ```

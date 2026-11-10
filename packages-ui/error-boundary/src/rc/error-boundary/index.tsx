@@ -1,7 +1,8 @@
 import {
   ReactNode,
   ErrorInfo,
-  Component
+  Component,
+  captureOwnerStack
 } from 'react';
 
 import {
@@ -24,19 +25,23 @@ export default class ErrorBoundary extends Component<IErrorBoundaryProps, IError
   }
   
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    const componentStack = errorInfo.componentStack;
+    const ownerStack = captureOwnerStack();
+    
     this.setState({
       caught: {
         error,
-        errorInfo
+        componentStack,
+        ownerStack
       }
     });
     
-    this.props.onErrorCaught?.(error, errorInfo);
+    this.props.onErrorCaught?.(error, componentStack, ownerStack);
   }
   
   componentDidUpdate(prevProps: IErrorBoundaryProps): void {
     if (this.props.resetSignal !== prevProps.resetSignal && this.state.caught) {
-      this.setState({
+      this.setState({ // eslint-disable-line @eslint-react/no-set-state-in-component-did-update
         caught: null
       });
     }
@@ -58,11 +63,11 @@ export default class ErrorBoundary extends Component<IErrorBoundaryProps, IError
     }
     
     if (!fallback) {
-      return <ErrorDisplay error={caught.error} errorInfo={caught.errorInfo} />;
+      return <ErrorDisplay {...caught} />;
     }
     
     if (typeof fallback === 'function') {
-      return fallback(caught.error, caught.errorInfo);
+      return fallback(caught.error, caught.componentStack, caught.ownerStack);
     }
     
     return fallback;

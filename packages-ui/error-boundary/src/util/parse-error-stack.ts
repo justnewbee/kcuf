@@ -1,18 +1,13 @@
 import {
-  IErrorCaught,
   IErrorStackItem
 } from '../types';
-
-import getErrorStack from './get-error-stack';
 
 const REG_TEST_CHROME_IE = /^\s*at ([^(]+) \([^)]+\)/m;
 const REG_EXTRACTOR_CHROME_IE = /^at ([^(]+) \(([^)]+)\)$/; // full-match + name + url
 
-export default function getErrorStackItems(caught: IErrorCaught): IErrorStackItem[] {
-  const stack = getErrorStack(caught);
-  
+export default function parseErrorStack(stack?: string | null): IErrorStackItem[] | null {
   if (!stack) {
-    return [];
+    return null;
   }
   
   const chromeOrIeStack = REG_TEST_CHROME_IE.test(stack);

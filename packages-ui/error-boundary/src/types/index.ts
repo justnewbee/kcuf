@@ -1,5 +1,4 @@
 import {
-  ErrorInfo,
   ReactNode
 } from 'react';
 
@@ -10,7 +9,8 @@ export interface IErrorStackItem {
 
 export interface IErrorCaught {
   error: unknown;
-  errorInfo?: ErrorInfo;
+  componentStack?: string | null;
+  ownerStack?: string | null;
 }
 
 export interface IErrorBoundaryProps {
@@ -18,7 +18,7 @@ export interface IErrorBoundaryProps {
   /**
    * 错误备用 UI：支持静态节点或函数（传递错误和重置方法）
    */
-  fallback?: ReactNode | ((error: unknown, errorInfo?: ErrorInfo) => ReactNode);
+  fallback?: ReactNode | ((error: unknown, componentStack?: string | null, ownerStack?: string | null) => ReactNode);
   /**
    * 重置触发信号，当该值变化时，会清空错误状态（适配路由切换等场景）
    */
@@ -26,7 +26,7 @@ export interface IErrorBoundaryProps {
   /**
    * 可用于做进行错误日志上报
    */
-  onErrorCaught?(error: unknown, errorInfo: ErrorInfo): void;
+  onErrorCaught?(error: unknown, componentStack?: string | null, ownerStack?: string | null): void;
 }
 
 export interface IErrorBoundaryState {

@@ -1,12 +1,4 @@
-import {
-  IErrorCaught
-} from '../types';
-
-export default function getErrorMessage(caught: IErrorCaught): string {
-  const {
-    error
-  } = caught;
-  
+export default function getErrorMessage(error: unknown): string {
   if (!error) {
     return 'EmptyError'; // 可能 throw null undefined '' 等
   }

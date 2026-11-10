@@ -19,6 +19,6 @@ export default function PkgImport({
   pkg
 }: IPkgImportProps): ReactElement {
   return <ScPkgImport>
-    <ScKeyword>import</ScKeyword>{named ? ' { ' : ' '}<ScWhat>{name}</ScWhat>{named ? ' } ' : ' '}<ScKeyword>from</ScKeyword>{' '}<ScPkg>&apos;{pkg}&apos;</ScPkg>;
+    <ScKeyword>import</ScKeyword>{named ? ' { ' : ' '}<ScWhat>{name}</ScWhat>{named ? ' } ' : ' '}<ScKeyword>from</ScKeyword>{' '}<ScPkg>&apos;{pkg}&apos;</ScPkg><span>;</span>
   </ScPkgImport>;
 }
