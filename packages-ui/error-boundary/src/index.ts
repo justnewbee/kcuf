@@ -1,4 +1,4 @@
-export { default } from './rc/error-boundary';
+export { default } from './error-boundary';
 
 export type {
   IErrorBoundaryProps as ErrorBoundaryProps

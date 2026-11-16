@@ -8,8 +8,8 @@ import {
 import {
   IErrorBoundaryProps,
   IErrorBoundaryState
-} from '../../types';
-import ErrorDisplay from '../error-display';
+} from './types';
+import ErrorDisplay from './rc/error-display';
 
 export default class ErrorBoundary extends Component<IErrorBoundaryProps, IErrorBoundaryState> {
   state: IErrorBoundaryState = {

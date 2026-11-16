@@ -49,7 +49,7 @@
     "@types/react": "^19.3.0",
     "@vitest/coverage-v8": "^5.1.0",
     "canvas-confetti": "^1.9.4",
-    "jsdom": "^31.0.0",
+    "jsdom": "^31.0.1",
     "react": "^19.3.1",
     "rimraf": "^6.1.4",
     "storybook": "^10.6.7",
