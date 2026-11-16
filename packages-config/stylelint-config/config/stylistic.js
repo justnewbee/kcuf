@@ -53,10 +53,27 @@ export default {
         ...STYLED_DISABLED_RULES
       }
     }),
+    // @stylistic/stylelint-config 自带的 scss/less override 用默认值（no-eol-whitespace
+    // 没有 ignore: ['empty-lines']），必须再覆盖一次让 CUSTOM_RULES 对 scss/less 命名空间
+    // 生效（如：空行允许保留与上下文一致的缩进空格）。本 override 排在 extends 之后，同名
+    // 规则以这里为准。
+    {
+      files: ['**/*.scss'],
+      rules: defineStylistic({
+        syntax: 'scss',
+        rules: CUSTOM_RULES
+      })
+    },
+    {
+      files: ['**/*.less'],
+      rules: defineStylistic({
+        syntax: 'less',
+        rules: CUSTOM_RULES
+      })
+    },
     {
       /**
-       * postcss-html 解析的文件里 <style lang="scss|less"> 会按对应语法解析，
-       * 需要补齐 scss/less 命名空间副本，否则同样报拒绝告警。
+       * postcss-html 解析的文件里 <style lang="scss|less"> 会按对应语法解析，补齐 scss/less 命名空间副本，否则同样报拒绝告警。
        * customSyntax 由 stylelint-config-html / stylelint-config-standard-vue 提供，这里不能覆盖。
        */
       files: EMBEDDED_FILES,
