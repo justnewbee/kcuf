@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.7.1 2026/11/16 @驳是
+
+* CHORE Up `@stylistic/eslint-plugin` 5 ↗ 6
+
 ## 0.7.0 2026/11/08 @驳是
 
 * FEAT 升级至 ESLint 10，`peerDependencies` 要求 `eslint >= 10.0.0`

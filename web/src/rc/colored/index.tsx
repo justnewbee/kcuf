@@ -11,5 +11,7 @@ export default function Colored({
   color,
   children
 }: IProps): ReactElement {
-  return <strong style={{ color }}>{children}</strong>;
+  return <strong style={{
+    color
+  }}>{children}</strong>;
 }

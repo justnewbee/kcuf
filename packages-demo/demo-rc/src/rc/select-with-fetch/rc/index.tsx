@@ -26,7 +26,7 @@ export default function SelectWithFetch<T extends object>({
   onChangeData,
   ...props
 }: ISelectWithFetchProps<T>): ReactElement {
-  const [stateLoading, setStateLoading] = useState<boolean | 'error'>(false);
+  const [stateLoading, setStateLoading] = useState<boolean | Error>(false); // string for error message
   const [stateList, setStateList] = useState<T[]>([]);
   const datasource = useMemo((): IDatasourceItem[] => {
     switch (stateLoading) {
@@ -35,16 +35,16 @@ export default function SelectWithFetch<T extends object>({
         label: 'Loading...',
         value: ''
       }];
-    case 'error':
-      return [{
-        label: 'Error',
-        value: ''
-      }];
-    default:
+    case false:
       return stateList.map(v => ({
         label: typeof optionLabel === 'function' ? optionLabel(v) : v[optionLabel],
         value: typeof optionValue === 'function' ? optionValue(v) : v[optionValue]
       } as IDatasourceItem));
+    default:
+      return [{
+        label: `❗${stateLoading}`,
+        value: ''
+      }];
     }
   }, [stateLoading, stateList, optionLabel, optionValue]);
   
@@ -58,8 +58,10 @@ export default function SelectWithFetch<T extends object>({
       setStateList(list);
       onFetchSuccess?.(list);
     } catch (err) {
-      setStateLoading('error');
-      onFetchError?.(err as Error);
+      const error = (typeof err === 'string' ? new Error(err) : err as Error | undefined) ?? new Error('Unknown error');
+      
+      setStateLoading(error);
+      onFetchError?.(error);
     }
   }, [fetchList, onFetchError, onFetchSuccess]);
   const handleChange = useCallback((value: string) => {

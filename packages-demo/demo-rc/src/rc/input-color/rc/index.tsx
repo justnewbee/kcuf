@@ -13,6 +13,10 @@ import InputRange from '../../input-range';
 import {
   IInputColorProps
 } from '../types';
+import {
+  parseColor,
+  composeHexa
+} from '../util';
 
 const ScInputColor = styled.div`
   display: inline-flex;
@@ -48,21 +52,6 @@ const ScColorDisplay = styled.div`
   inset: 4px;
 `;
 
-function parseColor(hexa: string): [string, number] {
-  if (hexa.length === 9) {
-    const hex = hexa.substring(0, 7);
-    const alpha = parseInt(hexa.substring(7), 16);
-    
-    return [hex, isNaN(alpha) ? 255 : alpha];
-  }
-  
-  return [hexa, 255];
-}
-
-function composeHexa(hex: string, alpha: number): string {
-  return `${hex}${alpha >= 255 ? '' : alpha.toString(16).padStart(2, '0')}`;
-}
-
 export default function InputColor(props: IInputColorProps): ReactElement {
   const {
     withAlpha,
@@ -71,7 +60,6 @@ export default function InputColor(props: IInputColorProps): ReactElement {
     onChange,
     ...restProps
   } = props;
-  
   const [controllableValue, controllableOnChange] = useControllable('#9900ff', value, defaultValue, onChange);
   const [hex, alpha] = parseColor(controllableValue);
   
