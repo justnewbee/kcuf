@@ -18,7 +18,8 @@ export default [
           project: [
             'tsconfig.json',
             'packages*/*/tsconfig.json'
-          ]
+          ],
+          noWarnOnMultipleProjects: true
         })
       ]
     }

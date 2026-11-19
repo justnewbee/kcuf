@@ -20,21 +20,53 @@ export default {
       parameters: 2
     }
   }],
-  '@stylistic/object-curly-newline': ['error', {
-    ObjectExpression: {
-      multiline: true,
-      minProperties: 1
+  '@stylistic/list-style': ['error', { // @stylistic/object-curly-newline is now deprecated
+    empty: 'ignore',
+    singleLine: {
+      spacing: 'never'
     },
-    ObjectPattern: 'always',
-    ImportDeclaration: 'always',
-    ExportDeclaration: {
-      multiline: true,
-      minProperties: 2,
-      consistent: true
+    multiLine: {
+      minItems: 0
+    },
+    overrides: {
+      '{}': {
+        singleLine: {
+          spacing: 'always'
+        }
+      },
+      ObjectExpression: {
+        singleLine: {
+          maxItems: 0
+        },
+        multiLine: {
+          minItems: 1
+        }
+      },
+      ObjectPattern: {
+        singleLine: {
+          maxItems: 0
+        },
+        multiLine: {
+          minItems: 1
+        }
+      },
+      ImportDeclaration: {
+        singleLine: {
+          maxItems: 0
+        },
+        multiLine: {
+          minItems: 1
+        }
+      },
+      ExportNamedDeclaration: {
+        singleLine: {
+          maxItems: 1
+        },
+        multiLine: {
+          minItems: 1
+        }
+      }
     }
-    // TSTypeLiteral
-    // TSInterfaceBody
-    // TSEnumBody
   }],
   '@stylistic/padding-line-between-statements': ['error', {
     blankLine: 'always',

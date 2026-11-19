@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.7.2 2026/11/19 @驳是
+
+* FIX `@stylistic/object-curly-newline` is deprecated in favor of `@stylistic/list-style`
+
 ## 0.7.1 2026/11/16 @驳是
 
 * CHORE Up `@stylistic/eslint-plugin` 5 ↗ 6
