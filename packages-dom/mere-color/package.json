@@ -49,11 +49,11 @@
     "@types/lodash": "^4.17.27",
     "@types/react": "^19.3.0",
     "@types/tinycolor2": "^1.4.6",
-    "@vitest/coverage-v8": "^5.1.0",
+    "@vitest/coverage-v8": "^5.1.1",
     "chroma-js": "^3.3.0",
     "color": "^5.0.3",
-    "color2k": "^2.0.4",
-    "colord": "^2.13.0",
+    "color2k": "^2.1.0",
+    "colord": "^2.14.0",
     "colormaster": "^1.2.1",
     "culori": "^4.0.2",
     "polished": "^4.3.1",
@@ -63,7 +63,7 @@
     "styled-components": "^6.6.0",
     "tinycolor2": "^1.6.0",
     "typescript": "^6.0.3",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   },
   "peerDependencies": {
     "@babel/runtime": ">=7.0.0"

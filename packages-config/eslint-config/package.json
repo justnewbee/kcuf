@@ -32,7 +32,7 @@
     "eslint": ">=10.0.0"
   },
   "dependencies": {
-    "@eslint-react/eslint-plugin": "^5.30.3",
+    "@eslint-react/eslint-plugin": "^5.30.5",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^6.0.1",
     "eslint-import-resolver-typescript": "^4.4.5",
@@ -40,6 +40,6 @@
     "eslint-plugin-n": "^18.5.0",
     "eslint-plugin-vue": "^10.12.1",
     "globals": "^17.14.0",
-    "typescript-eslint": "^8.72.2"
+    "typescript-eslint": "^8.73.0"
   }
 }
